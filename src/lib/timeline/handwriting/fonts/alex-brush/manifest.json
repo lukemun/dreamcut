@@ -1,0 +1,28 @@
+{
+  "schema_version": 2,
+  "font_id": "alex_brush",
+  "family": "Alex Brush",
+  "source": "https://github.com/google/fonts/blob/main/ofl/alexbrush/AlexBrush-Regular.ttf",
+  "source_sha256": "df702038d8e27797230c77959c139eeea38cac0caf53e19ea5b513d3b0d3362d",
+  "instance_sha256": "3d16022d24def80de6d76843fc61f0ad2ddbe9ba342b43d95486e8b36fdf4599",
+  "weight": 400,
+  "license": "OFL-1.1",
+  "units_per_em": 1000,
+  "coordinate_space": "Each glyph ink bounds normalized to 0\u2013100, y down",
+  "supported_characters": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?-:;'\"()[]/\\+&@#%=_*",
+  "review_receipt": "review.json",
+  "limitations": [
+    "Pen motion is reconstructed, not recovered from the font designer.",
+    "Contextual alternates and ligatures are not prepared; base glyphs and pair kerning are preserved.",
+    "Unprepared Unicode appears whole using the selected font."
+  ],
+  "nib_units": "physical font units; widths are diagnostic, temporal ownership is the active renderer",
+  "authorship": "OpenEdit-authored semantic waypoints, refined onto medial ink; outline order never used",
+  "stroke_regions": {
+    "method": "Nearest physical trajectory + arc-length ownership; exact font contours remain final mask",
+    "file": "sweeps.json",
+    "resolution": 128,
+    "bands": 64,
+    "generator": "scripts/prepare-handwriting-sweeps.py"
+  }
+}

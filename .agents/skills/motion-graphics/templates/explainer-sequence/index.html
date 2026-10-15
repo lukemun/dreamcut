@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="looks.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; overflow: hidden; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: var(--body); }
+      .scene { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; }
+      .kicker { font-family: var(--body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-shadow: var(--separation); }
+      .display { font-family: var(--display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.04; text-shadow: var(--separation); }
+      .body { font-family: var(--body); font-weight: var(--body-weight); line-height: 1.25; color: var(--muted); text-shadow: var(--separation); }
+      .mark { background-image: linear-gradient(var(--accent-soft), var(--accent-soft)); background-repeat: no-repeat; background-position: 0 88%; color: var(--accent); }
+      .figure { font-family: var(--figures); font-weight: var(--display-weight); color: var(--accent); line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; text-shadow: var(--separation); white-space: nowrap; }
+      .steps { position: relative; display: flex; }
+      .step { position: relative; display: flex; }
+      .badge { flex: none; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-family: var(--figures); font-weight: 700; }
+      .rail { position: absolute; background: var(--rule); transform-origin: 0 0; }
+      .closing-bar { background: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080">
+      <div id="title-scene" class="scene" data-actor="title">
+        <div id="kicker" class="kicker"></div>
+        <div id="title" class="display"></div>
+      </div>
+      <div id="point-scene" class="scene" data-actor="point">
+        <div id="point" class="display"></div>
+      </div>
+      <div id="number-scene" class="scene" data-actor="number">
+        <div id="figure" class="figure"></div>
+        <div id="figure-label" class="display"></div>
+      </div>
+      <div id="steps-scene" class="scene" data-actor="steps">
+        <div id="steps-heading" class="kicker"></div>
+        <div id="steps" class="steps"></div>
+      </div>
+      <div id="closing-scene" class="scene" data-actor="closing">
+        <div id="closing-bar" class="closing-bar"></div>
+        <div id="closing" class="display"></div>
+      </div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          look: "paper", shape: "wide", own_accent: false, accent: "#e4572e", backdrop: true,
+          kicker: "Q3 in one minute", title: "We made setup three times faster",
+          point: "Most new teams were stuck on the import step.", point_highlight: "the import step",
+          number: 68, number_decimals: "0", number_prefix: "", number_suffix: "%", number_label: "fewer setup tickets",
+          steps_heading: "What changed", step_1: "Import runs in the background", step_2: "Columns are matched for you", step_3: "Progress shows live",
+          closing: "Next: the same care for exports.",
+          entrance: 0.7, change: 0.45, title_hold: 2.6, point_hold: 3, number_hold: 3, count_time: 1.4,
+          steps_hold: 3.8, step_stagger: 0.4, closing_hold: 2.6,
+        },
+      };
+      const c = dc.controls;
+      const root = document.getElementById("root");
+      const M = window.DreamcutMotion;
+      const S = M.setup(c, root);
+      const { u, tall } = S;
+      const W = S.W, H = S.H;
+      const side = (tall ? 90 : 150) * u;
+      const textWidth = W - side * 2;
+      const $ = (id) => document.getElementById(id);
+      for (const scene of document.querySelectorAll(".scene")) {
+        scene.style.padding = `0 ${side}px`;
+        scene.style.alignItems = S.look.motion === "focus" && !tall ? "center" : "flex-start";
+        scene.style.textAlign = S.look.motion === "focus" && !tall ? "center" : "left";
+      }
+
+      // 1 · Title
+      $("kicker").textContent = c.kicker;
+      $("kicker").style.fontSize = 30 * u + "px";
+      $("kicker").style.marginBottom = 28 * u + "px";
+      $("title").textContent = c.title;
+      $("title").style.width = textWidth + "px";
+      M.fit($("title"), (tall ? 124 : 150) * u, 48 * u, { width: textWidth, height: H * (tall ? 0.5 : 0.56) });
+
+      // 2 · Key point, with its key words marked
+      const point = String(c.point);
+      const key = String(c.point_highlight || "").trim();
+      const at = key ? point.toLowerCase().indexOf(key.toLowerCase()) : -1;
+      const pointEl = $("point");
+      pointEl.style.width = textWidth + "px";
+      let mark = null;
+      if (at >= 0) {
+        pointEl.append(document.createTextNode(point.slice(0, at)));
+        mark = document.createElement("span");
+        mark.className = "mark";
+        mark.textContent = point.slice(at, at + key.length);
+        pointEl.append(mark, document.createTextNode(point.slice(at + key.length)));
+      } else {
+        pointEl.textContent = point;
+      }
+      M.fit(pointEl, (tall ? 96 : 100) * u, 40 * u, { width: textWidth, height: H * 0.6 });
+
+      // 3 · Big number
+      const format = (v) => M.formatNumber(v, c.number_decimals, c.number_prefix, c.number_suffix);
+      $("figure").textContent = format(c.number);
+      M.fit($("figure"), (tall ? 300 : 320) * u, 90 * u, { width: textWidth });
+      $("figure-label").textContent = c.number_label;
+      $("figure-label").style.width = textWidth + "px";
+      $("figure-label").style.marginTop = 18 * u + "px";
+      M.fit($("figure-label"), 64 * u, 30 * u, { width: textWidth, height: H * 0.25 });
+
+      // 4 · Three steps: a row on wide canvases, a column on tall ones
+      $("steps-heading").textContent = c.steps_heading;
+      $("steps-heading").style.fontSize = 30 * u + "px";
+      $("steps-heading").style.marginBottom = 44 * u + "px";
+      const stepsEl = $("steps");
+      stepsEl.style.flexDirection = tall ? "column" : "row";
+      stepsEl.style.gap = (tall ? 64 : 56) * u + "px";
+      stepsEl.style.width = textWidth + "px";
+      const badge = 76 * u;
+      const rail = document.createElement("div");
+      rail.className = "rail";
+      stepsEl.append(rail);
+      const stepEls = [c.step_1, c.step_2, c.step_3].map((text, index) => {
+        const step = document.createElement("div");
+        step.className = "step";
+        step.style.flexDirection = tall ? "row" : "column";
+        step.style.alignItems = tall ? "center" : "flex-start";
+        step.style.gap = 28 * u + "px";
+        step.style.width = tall ? textWidth + "px" : (textWidth - 2 * 56 * u) / 3 + "px";
+        const b = document.createElement("div");
+        b.className = "badge";
+        Object.assign(b.style, { width: badge + "px", height: badge + "px", fontSize: 36 * u + "px" });
+        b.textContent = String(index + 1);
+        const label = document.createElement("div");
+        label.className = "display";
+        label.textContent = text;
+        step.append(b, label);
+        stepsEl.append(step);
+        const width = tall ? textWidth - badge - 28 * u : (textWidth - 2 * 56 * u) / 3;
+        label.style.width = width + "px";
+        M.fit(label, (tall ? 60 : 54) * u, 26 * u, { width, height: 200 * u });
+        return step;
+      });
+      // One type size for all three steps: the smallest that fits every one.
+      const stepSize = Math.min(...stepEls.map((step) => parseFloat(step.lastChild.style.fontSize)));
+      for (const step of stepEls) step.lastChild.style.fontSize = stepSize + "px";
+      // The rail joins the first badge to the last, measured after layout.
+      const first = stepEls[0], last = stepEls[stepEls.length - 1];
+      if (tall) Object.assign(rail.style, { left: badge / 2 - 1.5 * u + "px", top: first.offsetTop + first.offsetHeight / 2 + "px", width: 3 * u + "px", height: last.offsetTop - first.offsetTop + "px" });
+      else Object.assign(rail.style, { left: first.offsetLeft + badge / 2 + "px", top: badge / 2 - 1.5 * u + "px", height: 3 * u + "px", width: last.offsetLeft - first.offsetLeft + "px" });
+
+      // 5 · Closing line
+      Object.assign($("closing-bar").style, { width: 120 * u + "px", height: 10 * u + "px", marginBottom: 40 * u + "px", borderRadius: S.look.radius ? 5 * u + "px" : "0" });
+      $("closing").textContent = c.closing;
+      $("closing").style.width = textWidth + "px";
+      M.fit($("closing"), (tall ? 100 : 104) * u, 40 * u, { width: textWidth, height: H * 0.5 });
+
+      // Timing: each scene holds for its own length; the change is its exit at the end of that hold.
+      const holds = [c.title_hold, c.point_hold, c.number_hold, c.steps_hold, c.closing_hold];
+      const starts = holds.map((_, index) => holds.slice(0, index).reduce((sum, hold) => sum + hold, 0));
+      const length = holds.reduce((sum, hold) => sum + hold, 0);
+      const scenes = ["title-scene", "point-scene", "number-scene", "steps-scene", "closing-scene"].map($);
+      const tl = gsap.timeline({ paused: true });
+      const e = c.entrance;
+      scenes.forEach((scene, index) => {
+        tl.set(scene, { opacity: 0 }, 0).set(scene, { opacity: 1 }, starts[index]);
+        if (index < scenes.length - 1) {
+          M.exit(tl, scene, starts[index] + holds[index] - c.change, c.change, S.look, u);
+        }
+      });
+      M.enter(tl, [$("kicker"), $("title")], 0, e, S.look, { stagger: 0.12, u });
+      M.enter(tl, pointEl, starts[1], e, S.look, { u });
+      if (mark) tl.fromTo(mark, { backgroundSize: "0% 0.34em" }, { backgroundSize: "100% 0.34em", duration: e * 0.9, ease: "power2.inOut", immediateRender: true }, starts[1] + e * 0.8);
+      M.enter(tl, $("figure"), starts[2], e, S.look, { u });
+      M.count(tl, $("figure"), c.number, starts[2] + e * 0.3, c.count_time, format);
+      M.enter(tl, $("figure-label"), starts[2] + e * 0.5, e, S.look, { u });
+      M.enter(tl, $("steps-heading"), starts[3], e, S.look, { u });
+      tl.fromTo(rail, tall ? { scaleY: 0 } : { scaleX: 0 }, { ...(tall ? { scaleY: 1 } : { scaleX: 1 }), duration: c.step_stagger * 2 + e, ease: "power2.inOut", immediateRender: true }, starts[3] + e * 0.4);
+      stepEls.forEach((step, index) => M.enter(tl, step, starts[3] + e * 0.4 + index * c.step_stagger, e, S.look, { u }));
+      tl.fromTo($("closing-bar"), { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: e, ease: "power3.out", immediateRender: true }, starts[4]);
+      M.enter(tl, $("closing"), starts[4] + e * 0.25, e, S.look, { u });
+      tl.set({}, {}, length);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/3010130. Effect reference: @willrvail breakdown of a video by @nvision.media (instagram.com/reel/Deb-VcJRpxp); no reference pixels are reused.",
+  "footage": [
+    {
+      "pexels_video_id": "3010130",
+      "url": "https://www.pexels.com/video/a-man-taking-selfie-on-seated-on-a-boulder-of-rock-3010130/",
+      "role": "Shot (man on a boulder)",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 30,
+  "frames": 150,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; the word springs on over 0.25 s at 0.8 s and holds 1.4 s.",
+  "receipt": {
+    "construction": "A DreamCut demo proposal: native create_text, DM Serif Display 170 px, #E8B547, spring_pop 0.25 s, centre right. Rendered from the proposal preview with the production browser GPU compositor at 1920x1080, scaled to 1280x720 H.264 (CRF 23, no audio). Poster frame 45; stages frames 20, 26 and 50; the styled-word input is a crop of frame 50."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/lyric-pop/inputs/shot.jpg",
+      "sha256": "5f532bb87aa2d469c1c1701ed06d8c2fdd61699be32fc7bcfbec6235dabe1f01"
+    },
+    {
+      "file": "/recipe-previews/lyric-pop/inputs/styled-word.jpg",
+      "sha256": "84e7d9ab09241610f2de80d381b5922345c79dc56fd21c8128c36b70dae4b8c6"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "0492f2a96836463eddae3bf122701e91a5998f7356a5e1ce72434c203772dc9f"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "64a19c11ec13411435531fea1b236f510399da8de794e008c1ef0bac16e9eda9"
+    },
+    {
+      "file": "before.jpg",
+      "sha256": "c6d3aac1601730644a96d995c4e4563a3bd1c381d28365f2e80ab67b38dfd518"
+    },
+    {
+      "file": "pop.jpg",
+      "sha256": "f30cd56a52a57578e18e24bf20d300cba783e8387242d099c8f9ab76487f2e55"
+    },
+    {
+      "file": "hold.jpg",
+      "sha256": "f335f49114222e7117886416a2af2fdf36ebc56c291bf3595cb5e62add3dbaa7"
+    }
+  ]
+}

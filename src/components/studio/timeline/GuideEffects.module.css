@@ -1,0 +1,12 @@
+.caption { color:var(--ink-muted); font-size:11px; line-height:1.4; margin:0; }
+.rhythm { display:flex; flex-direction:column; gap:5px; margin-top:16px; }
+.rhythm p { font-size:12px; margin:0; }
+.rhythm svg { display:block; width:100%; max-width:560px; height:126px; background:var(--chrome-panel); border-radius:6px; }
+.rhythm text { font:11px sans-serif; fill:var(--ink-muted); }
+.wave { stroke:var(--ink-muted); opacity:.45; }
+.hit { stroke:var(--chrome-focus-ring); fill:var(--chrome-focus-ring); stroke-width:2; }
+.playhead { stroke:var(--ink); stroke-width:1; }
+.rhythm audio { width:100%; max-width:560px; height:32px; }
+.useCases { margin-top:16px; }
+.useCases h3 { margin:0 0 8px; font-size:var(--ui-text-body); font-weight:600; }
+.useCases ul { margin:0; padding-left:18px; color:var(--ink-secondary); line-height:1.8; }

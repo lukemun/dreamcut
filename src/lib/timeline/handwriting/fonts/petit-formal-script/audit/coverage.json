@@ -1,0 +1,5183 @@
+{
+  "font_id": "romantic_script",
+  "method": "Chromium production component SVG; alpha-weighted source comparison at 120×160; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "cf652a103d5c0028e8cbb2fc99870790c8b4ae600878a568087665c3c0bab51d",
+    "strokes": "8b1bbccf03c570992408bee57c4c42ddddefc512ccbc0ade5e0de3d3d0ddc9ad",
+    "widths": "80ad6cb662afc4e5beb2f3e9573fc5e1c328eeadce2f5eb00a65824d21952177",
+    "sweeps": "5dbdb96f5c8c425e25593f65a29176a49a07b86cde021de636679db74eb53da1",
+    "metrics": "b7f2150229d5a9d0b8484ceea8dc2d5d331e429db66450080e6f66f55fb9ef10"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.48949141268486573",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "0",
+      "codepoint": 48,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.4821753005059552",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "1",
+      "codepoint": 49,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.4882867898440977",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "2",
+      "codepoint": 50,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.488721836179213",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "3",
+      "codepoint": 51,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.31918171348439794",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.8191817134843979",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "4",
+      "codepoint": 52,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.82,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.48757559756013363",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "5",
+      "codepoint": 53,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.49395363911540385",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "6",
+      "codepoint": 54,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.48399117306251205",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "7",
+      "codepoint": 55,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.94,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.4937891449926803",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "8",
+      "codepoint": 56,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.3347770681221878",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.8347770681221879",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "9",
+      "codepoint": 57,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.9,
+      "extra_ink_percent": 0.14,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.4453356519641938",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.9453356519641937",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "A",
+      "codepoint": 65,
+      "page": "page-2.png",
+      "gestures": 2,
+      "coverage_percent": 99.84,
+      "extra_ink_percent": 0.13,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.12705453874710446",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.6270545387471044",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "B",
+      "codepoint": 66,
+      "page": "page-2.png",
+      "gestures": 2,
+      "coverage_percent": 99.87,
+      "extra_ink_percent": 0.11,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.48971317560680916",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "C",
+      "codepoint": 67,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.49494905403761313",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "D",
+      "codepoint": 68,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.01,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.490738484256542",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "E",
+      "codepoint": 69,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.22158630380580382",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.6588077811411623",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.9306099272750661",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 852,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 972,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 1092,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "F",
+      "codepoint": 70,
+      "page": "page-2.png",
+      "gestures": 3,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.11,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.4963429902969109",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "G",
+      "codepoint": 71,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.97,
+      "extra_ink_percent": 0.01,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.49596974753394135",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "H",
+      "codepoint": 72,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.48964566710149854",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "I",
+      "codepoint": 73,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.01,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.493515051349275",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "J",
+      "codepoint": 74,
+      "page": "page-2.png",
+      "gestures": 1,
+      "coverage_percent": 99.94,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.18640855998270395",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.45803251170112447",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.7664679394454079",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 852,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 1092,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "K",
+      "codepoint": 75,
+      "page": "page-3.png",
+      "gestures": 3,
+      "coverage_percent": 99.97,
+      "extra_ink_percent": 0.13,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.49216777011013796",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "L",
+      "codepoint": 76,
+      "page": "page-3.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.10014114069807983",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.3478892388487025",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.7444528966940879",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 852,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 972,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 1092,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "M",
+      "codepoint": 77,
+      "page": "page-3.png",
+      "gestures": 3,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.15,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.15216315178461556",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.6521631517846156",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "N",
+      "codepoint": 78,
+      "page": "page-3.png",
+      "gestures": 2,
+      "coverage_percent": 99.84,
+      "extra_ink_percent": 0.07,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.4909459571210427",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "O",
+      "codepoint": 79,
+      "page": "page-3.png",
+      "gestures": 1,
+      "coverage_percent": 99.91,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.184724523343928",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.684724523343928",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "P",
+      "codepoint": 80,
+      "page": "page-3.png",
+      "gestures": 2,
+      "coverage_percent": 99.76,
+      "extra_ink_percent": 0.21,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.45883106508939725",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.9588310650893973",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "Q",
+      "codepoint": 81,
+      "page": "page-3.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.23441669871904583",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.7344166987190459",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "R",
+      "codepoint": 82,
+      "page": "page-3.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.08,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.4894812814394056",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "S",
+      "codepoint": 83,
+      "page": "page-3.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.49208594726882454",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "T",
+      "codepoint": 84,
+      "page": "page-3.png",
+      "gestures": 1,
+      "coverage_percent": 99.97,
+      "extra_ink_percent": 0.01,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.4945349979882561",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "U",
+      "codepoint": 85,
+      "page": "page-4.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.4910858496655965",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "V",
+      "codepoint": 86,
+      "page": "page-4.png",
+      "gestures": 1,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.4952660310335857",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "W",
+      "codepoint": 87,
+      "page": "page-4.png",
+      "gestures": 1,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.2857574656350536",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.7857574656350536",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "X",
+      "codepoint": 88,
+      "page": "page-4.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.07,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.4970962795247252",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "Y",
+      "codepoint": 89,
+      "page": "page-4.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.4185054643983775",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.9185054643983774",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "Z",
+      "codepoint": 90,
+      "page": "page-4.png",
+      "gestures": 2,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.09,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.32434874270728675",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.8243487427072868",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "a",
+      "codepoint": 97,
+      "page": "page-4.png",
+      "gestures": 2,
+      "coverage_percent": 99.87,
+      "extra_ink_percent": 0.11,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.1264238388957298",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.6264238388957298",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "b",
+      "codepoint": 98,
+      "page": "page-4.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.12,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.48549693054826115",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "c",
+      "codepoint": 99,
+      "page": "page-4.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.28710620368654594",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.7871062036865459",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "d",
+      "codepoint": 100,
+      "page": "page-4.png",
+      "gestures": 2,
+      "coverage_percent": 99.88,
+      "extra_ink_percent": 0.09,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.4893176697186318",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "e",
+      "codepoint": 101,
+      "page": "page-5.png",
+      "gestures": 1,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.3754051804877839",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.8754051804877838",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "f",
+      "codepoint": 102,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.82,
+      "extra_ink_percent": 0.07,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.15703136236139603",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.657031362361396",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "g",
+      "codepoint": 103,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.76,
+      "extra_ink_percent": 0.09,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.2088370535159079",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.7088370535159079",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "h",
+      "codepoint": 104,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.94,
+      "extra_ink_percent": 0.15,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.0010564192441665729",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5010564192441666",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "i",
+      "codepoint": 105,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.4783361698601987",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.9783361698601987",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "j",
+      "codepoint": 106,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.87,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.18596426352432574",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.6859642635243258",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "k",
+      "codepoint": 107,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.9,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.4909460155555823",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "l",
+      "codepoint": 108,
+      "page": "page-5.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.08916058342347132",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5891605834234713",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "m",
+      "codepoint": 109,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.07394098295424875",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5739409829542488",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "n",
+      "codepoint": 110,
+      "page": "page-5.png",
+      "gestures": 2,
+      "coverage_percent": 99.91,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.34070237580292273",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.8407023758029227",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "o",
+      "codepoint": 111,
+      "page": "page-6.png",
+      "gestures": 2,
+      "coverage_percent": 99.85,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.106451100062516",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.606451100062516",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "p",
+      "codepoint": 112,
+      "page": "page-6.png",
+      "gestures": 2,
+      "coverage_percent": 99.83,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.2610350520436436",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.7610350520436436",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "q",
+      "codepoint": 113,
+      "page": "page-6.png",
+      "gestures": 2,
+      "coverage_percent": 99.89,
+      "extra_ink_percent": 0.06,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.4888572131574665",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "r",
+      "codepoint": 114,
+      "page": "page-6.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.493939350618787",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "s",
+      "codepoint": 115,
+      "page": "page-6.png",
+      "gestures": 1,
+      "coverage_percent": 99.94,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.3500659073090138",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.8500659073090139",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "t",
+      "codepoint": 116,
+      "page": "page-6.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.4917508032471988",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "u",
+      "codepoint": 117,
+      "page": "page-6.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.4852897956420392",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "v",
+      "codepoint": 118,
+      "page": "page-6.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.4925444098461856",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "w",
+      "codepoint": 119,
+      "page": "page-6.png",
+      "gestures": 1,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.26693272852277",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.76693272852277",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "x",
+      "codepoint": 120,
+      "page": "page-6.png",
+      "gestures": 2,
+      "coverage_percent": 99.8,
+      "extra_ink_percent": 0.17,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.49733763296736294",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "y",
+      "codepoint": 121,
+      "page": "page-7.png",
+      "gestures": 1,
+      "coverage_percent": 99.94,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.49052312063336345",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "z",
+      "codepoint": 122,
+      "page": "page-7.png",
+      "gestures": 1,
+      "coverage_percent": 99.95,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.005343170065952799",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 527.171875
+        }
+      ],
+      "character": ".",
+      "codepoint": 46,
+      "page": "page-7.png",
+      "gestures": 1,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.11,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.3946463256843775",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 744.171875
+        }
+      ],
+      "character": ",",
+      "codepoint": 44,
+      "page": "page-7.png",
+      "gestures": 1,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.44240060708568213",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.9424006070856821",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "!",
+      "codepoint": 33,
+      "page": "page-7.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.46528662885441285",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.9652866288544129",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "?",
+      "codepoint": 63,
+      "page": "page-7.png",
+      "gestures": 2,
+      "coverage_percent": 99.94,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.44036955179586246",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "-",
+      "codepoint": 45,
+      "page": "page-7.png",
+      "gestures": 1,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.009223118342777782",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5092231183427778",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": ":",
+      "codepoint": 58,
+      "page": "page-7.png",
+      "gestures": 2,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.005786683772792824",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5057866837727928",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": ";",
+      "codepoint": 59,
+      "page": "page-7.png",
+      "gestures": 2,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.40764570204727063",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "'",
+      "codepoint": 39,
+      "page": "page-7.png",
+      "gestures": 1,
+      "coverage_percent": 99.91,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.2147427068723271",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.7147427068723271",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "\"",
+      "codepoint": 34,
+      "page": "page-8.png",
+      "gestures": 2,
+      "coverage_percent": 99.87,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.4815189071766944",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "(",
+      "codepoint": 40,
+      "page": "page-8.png",
+      "gestures": 1,
+      "coverage_percent": 99.86,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.4815934224091837",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 527.171875
+        }
+      ],
+      "character": ")",
+      "codepoint": 41,
+      "page": "page-8.png",
+      "gestures": 1,
+      "coverage_percent": 99.9,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.4847828261911805",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "[",
+      "codepoint": 91,
+      "page": "page-8.png",
+      "gestures": 1,
+      "coverage_percent": 99.89,
+      "extra_ink_percent": 0.04,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.48474273333817375",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "]",
+      "codepoint": 93,
+      "page": "page-8.png",
+      "gestures": 1,
+      "coverage_percent": 99.88,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1136.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.478499419407696",
+          "x": 252,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1178.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1178.171875
+        }
+      ],
+      "character": "/",
+      "codepoint": 47,
+      "page": "page-8.png",
+      "gestures": 1,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1353.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.478499419407696",
+          "x": 252,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 1395.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 1395.171875
+        }
+      ],
+      "character": "\\",
+      "codepoint": 92,
+      "page": "page-8.png",
+      "gestures": 1,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1570.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.2217093773438742",
+          "x": 132,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.7217093773438742",
+          "x": 492,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1612.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1612.171875
+        }
+      ],
+      "character": "+",
+      "codepoint": 43,
+      "page": "page-8.png",
+      "gestures": 2,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1787.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.2716048564620418",
+          "x": 252,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.7716048564620418",
+          "x": 612,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 1829.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 1829.171875
+        }
+      ],
+      "character": "&",
+      "codepoint": 38,
+      "page": "page-8.png",
+      "gestures": 2,
+      "coverage_percent": 99.91,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2004.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.4073444505972148",
+          "x": 252,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.9073444505972147",
+          "x": 612,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 2046.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 2046.171875
+        }
+      ],
+      "character": "@",
+      "codepoint": 64,
+      "page": "page-8.png",
+      "gestures": 2,
+      "coverage_percent": 99.9,
+      "extra_ink_percent": 0.09,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.13163861079700145",
+          "x": 132,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.42024055911630515",
+          "x": 372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.6778757012692626",
+          "x": 612,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 732,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.8892737529499589",
+          "x": 852,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 1092,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 1212,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "#",
+      "codepoint": 35,
+      "page": "page-9.png",
+      "gestures": 4,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 268.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.14172227901229692",
+          "x": 132,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.46532027755301664",
+          "x": 372,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 492,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.8182779439833712",
+          "x": 732,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 852,
+          "inkY": 310.171875
+        },
+        {
+          "progress": "1",
+          "x": 972,
+          "inkY": 310.171875
+        },
+        {
+          "progress": null,
+          "x": 1092,
+          "inkY": 310.171875
+        }
+      ],
+      "character": "%",
+      "codepoint": 37,
+      "page": "page-9.png",
+      "gestures": 3,
+      "coverage_percent": 99.7,
+      "extra_ink_percent": 0.1,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 485.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.22463399735180203",
+          "x": 132,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.724633997351802",
+          "x": 492,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 732,
+          "inkY": 527.171875
+        },
+        {
+          "progress": "1",
+          "x": 852,
+          "inkY": 527.171875
+        },
+        {
+          "progress": null,
+          "x": 972,
+          "inkY": 527.171875
+        }
+      ],
+      "character": "=",
+      "codepoint": 61,
+      "page": "page-9.png",
+      "gestures": 2,
+      "coverage_percent": 99.98,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 702.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 132,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.45542248037625843",
+          "x": 252,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 372,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 492,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 612,
+          "inkY": 744.171875
+        },
+        {
+          "progress": "1",
+          "x": 732,
+          "inkY": 744.171875
+        },
+        {
+          "progress": null,
+          "x": 852,
+          "inkY": 744.171875
+        }
+      ],
+      "character": "_",
+      "codepoint": 95,
+      "page": "page-9.png",
+      "gestures": 1,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 919.171875,
+        "width": 1176,
+        "height": 203
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.14980706250455797",
+          "x": 132,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 252,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.4834670173474408",
+          "x": 372,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 492,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 612,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.8149562947532387",
+          "x": 732,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 852,
+          "inkY": 961.171875
+        },
+        {
+          "progress": "1",
+          "x": 972,
+          "inkY": 961.171875
+        },
+        {
+          "progress": null,
+          "x": 1092,
+          "inkY": 961.171875
+        }
+      ],
+      "character": "*",
+      "codepoint": 42,
+      "page": "page-9.png",
+      "gestures": 3,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}

@@ -1,0 +1,1031 @@
+{
+  "version": 1,
+  "about": "Creator-facing features an agent must be able to find and express. Each case is checked by pnpm check:tools (catalog search, described field, valid example) and exercised against a model by pnpm eval:features. Add a case in the same change that adds an agent-editable feature.",
+  "cases": [
+    {
+      "id": "clip-reverse",
+      "feature": "Play a video clip backward, picture and sound",
+      "requests": [
+        "Reverse this clip",
+        "Make the clip play backward",
+        "Can you play it in reverse so the arms uncross?"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.playback_reverse",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "playback_reverse": true
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.playback_reverse",
+        "equals": true
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-speed",
+      "feature": "Change a clip's constant speed",
+      "requests": [
+        "Slow this clip down to half speed",
+        "Make the clip play at half speed"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].patch.playback_rate",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "patch": {
+            "playback_rate": 0.5,
+            "duration": 10
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].patch.playback_rate",
+        "equals": 0.5
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-crop",
+      "feature": "Crop the picture",
+      "requests": [
+        "Crop the left and right edges of this clip",
+        "Trim the top and bottom off the frame"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.mask_inset",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "mask_inset": [
+              0,
+              0.1,
+              0,
+              0.1
+            ]
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.mask_inset"
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-zoom",
+      "feature": "Zoom or punch in on the picture",
+      "requests": [
+        "Zoom in on this clip",
+        "Punch in a little on the shot",
+        "Crop in on the video"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.media_scale",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "media_scale": 1.3
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.media_scale",
+        "also": [
+          "proposal.options[].operations[].props.transition_keyframes.media_scale",
+          "proposal.options[].operations[].props.media_scale_keyframes"
+        ]
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-warmer",
+      "feature": "Warm the colour of a shot",
+      "requests": [
+        "Make this shot warmer",
+        "Warm up the colors of the clip"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.grade_temperature",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "grade_temperature": 0.3
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.grade_temperature"
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "audio-fade-out",
+      "feature": "Fade a clip's sound out at its end",
+      "requests": [
+        "Fade out the music at the end",
+        "Add a fade out to the music"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].patch.fade_out",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "patch": {
+            "fade_out": 2
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].patch.fade_out"
+      },
+      "eval_context": "The selected clip is a 30 second music clip with id 22222222-2222-4222-8222-222222222222 on lane music_1 at volume 1."
+    },
+    {
+      "id": "audio-quieter",
+      "feature": "Lower a clip's volume",
+      "requests": [
+        "Make the music quieter",
+        "Turn down the volume of the music"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].patch.volume",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "patch": {
+            "volume": 0.5
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].patch.volume"
+      },
+      "eval_context": "The selected clip is a 30 second music clip with id 22222222-2222-4222-8222-222222222222 on lane music_1 at volume 1."
+    },
+    {
+      "id": "clip-flip",
+      "feature": "Mirror the picture left to right",
+      "requests": [
+        "Flip this video horizontally",
+        "Mirror the clip"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.media_mirror",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "media_mirror": "horizontal"
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.media_mirror",
+        "equals": "horizontal"
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-green-screen",
+      "feature": "Remove a green-screen backdrop",
+      "requests": [
+        "Remove the green screen behind me",
+        "Key out the green background"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.chroma_key_color",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "chroma_key_color": "#00ff00",
+            "chroma_key_tolerance": 0.2
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.chroma_key_color"
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-trim-start",
+      "feature": "Trim the start of a clip",
+      "requests": [
+        "Trim the first second off this clip",
+        "Cut a second from the beginning of the clip"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].patch.trim_start",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "patch": {
+            "trim_start": 3,
+            "timeline_start": 11,
+            "duration": 4
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].patch.trim_start"
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1, starting at 10 seconds with trim_start 2 and trim_end 3 on a 10 second source at playback_rate 1. Nothing else is on its lane. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "clip-move",
+      "feature": "Move a clip in time",
+      "requests": [
+        "Move this clip two seconds later",
+        "Start this clip at 12 seconds instead"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].patch.timeline_start",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "patch": {
+            "timeline_start": 12
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].patch.timeline_start",
+        "equals": 12
+      },
+      "eval_context": "The selected clip is a 5 second video_clip with id 11111111-1111-4111-8111-111111111111 on lane visual_1, starting at 10 seconds with trim_start 2 and trim_end 3 on a 10 second source at playback_rate 1. Nothing else is on its lane. It has no speed steps and is not speech-bound."
+    },
+    {
+      "id": "storyboard-draft-beats",
+      "feature": "Break supplied footage into a storyboard of named beats and shots with notes, on-screen text and transitions",
+      "requests": [
+        "Storyboard my talking take into beats",
+        "Break this footage up into a shot list; the middle part gets the glitch animation",
+        "Plan the video: intro, product reveal, outro"
+      ],
+      "capability": "storyboard-drafting",
+      "tool": "storyboard_draft",
+      "field": "beats[].shots[].start",
+      "example": {
+        "arguments": {
+          "project_id": "demo",
+          "revision": 3,
+          "mode": "replace",
+          "beats": [
+            {
+              "name": "Intro",
+              "shots": [
+                {
+                  "source": "sources/talk.mp4",
+                  "start": 0,
+                  "end": 4.2,
+                  "label": "Hook",
+                  "note": "Says why they quit; straight to camera",
+                  "text": "I quit."
+                }
+              ]
+            },
+            {
+              "name": "Product reveal",
+              "shots": [
+                {
+                  "source": "sources/talk.mp4",
+                  "start": 4.2,
+                  "end": 9,
+                  "label": "The reveal",
+                  "note": "Holds the product up; glitch animation over the reveal",
+                  "transition_into": "mask glitch reveal"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "path": "beats[].shots[].start",
+        "equals": 4.2
+      },
+      "eval_context": "Project demo has storyboard revision 3 with no shots. sources/talk.mp4 is a ready 30 second talking-head video. In the transcript, the hook ends at 4.2s and the product reveal runs from 4.2s to 9s."
+    },
+    {
+      "id": "library-create",
+      "feature": "Create the creator's DreamCut Library where all projects live",
+      "requests": [
+        "Set up my DreamCut library",
+        "Where should DreamCut keep my projects? Use the default folder",
+        "Make a DreamCut Library in my Movies folder"
+      ],
+      "capability": "library-setup",
+      "tool": "library_setup",
+      "field": "action",
+      "example": {
+        "arguments": {
+          "action": "create"
+        }
+      },
+      "expect": {
+        "path": "action",
+        "equals": "create"
+      },
+      "eval_context": "library_status reports no Library chosen yet, no development override, suggested_dir \"/Users/creator/Movies/DreamCut Library\" and no older project folders."
+    },
+    {
+      "id": "editor-open-storyboard",
+      "feature": "Open a project's storyboard in the local DreamCut editor",
+      "requests": [
+        "Open this project's storyboard so I can see it",
+        "Show me the storyboard in DreamCut",
+        "Take me to the storyboard"
+      ],
+      "capability": "editor-access",
+      "tool": "editor_open",
+      "field": "page",
+      "example": {
+        "arguments": {
+          "project_id": "feature-case",
+          "page": "storyboard"
+        }
+      },
+      "expect": {
+        "path": "page",
+        "equals": "storyboard"
+      },
+      "eval_context": "This conversation is about project feature-case in the creator's DreamCut Library. The creator is talking to their coding agent and does not have the editor open; the editor is not running yet."
+    },
+    {
+      "id": "storyboard-visuals-over-talk",
+      "feature": "Show a screenshot, mockup or motion graphic over a talking shot while the speech keeps playing",
+      "requests": [
+        "I talk the whole time; put my pricing screenshot on screen while I explain pricing",
+        "Add B-roll over the talking part without cutting my audio",
+        "Each point gets a mockup on screen while I keep talking"
+      ],
+      "capability": "storyboard-drafting",
+      "tool": "storyboard_draft",
+      "field": "beats[].shots[].visuals[].at",
+      "example": {
+        "arguments": {
+          "project_id": "demo",
+          "revision": 3,
+          "mode": "replace",
+          "beats": [
+            {
+              "name": "Pricing",
+              "shots": [
+                {
+                  "source": "sources/talk.mp4",
+                  "start": 0,
+                  "end": 9,
+                  "label": "Why pricing matters",
+                  "note": "Explains the three plans",
+                  "visuals": [
+                    {
+                      "source": "sources/pricing.png",
+                      "at": 2,
+                      "duration": 4,
+                      "label": "Pricing page",
+                      "note": "zoom into the middle plan"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "path": "beats[].shots[].visuals[].at",
+        "equals": 2
+      },
+      "eval_context": "Project demo has storyboard revision 3 with no shots. sources/talk.mp4 is a ready 30 second talking-head video in which the creator talks continuously; from 0s to 9s he explains pricing and mentions the pricing page from 2s to 6s. sources/pricing.png is a ready photo (a pricing page screenshot)."
+    },
+    {
+      "id": "sound-follows-graphic",
+      "feature": "Sound effects that move with a motion graphic and follow its timing knobs",
+      "requests": [
+        "Link these sounds to the opener so they move with it",
+        "Make the whoosh follow the title when I change the hold"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].create_audio.follows_visual",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "create_audio": {
+            "type": "sound_effect",
+            "source_url": "/api/projects/demo/media/sounds/whoosh/whoosh.0123456789abcdef.wav",
+            "timeline_start": 3,
+            "source_duration_seconds": 0.6,
+            "source_start_seconds": 0,
+            "source_end_seconds": 0.6,
+            "lane_key": "sound_effect_0",
+            "lane_index": 0,
+            "follows_visual": {
+              "element_id": "11111111-1111-4111-8111-111111111111",
+              "cue": "out",
+              "offset_seconds": 0
+            }
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].create_audio.follows_visual.cue",
+        "equals": "out"
+      },
+      "eval_context": "The timeline has a motion graphic opener video_clip with id 11111111-1111-4111-8111-111111111111 whose controls file declares cues including \"out\" (collapse out). A synthesized whoosh render exists at /api/projects/demo/media/sounds/whoosh/whoosh.0123456789abcdef.wav, 0.6 s long."
+    },
+    {
+      "id": "clip-rename",
+      "feature": "Rename a clip on the timeline in plain words",
+      "requests": [
+        "Rename that sound to Chart swell",
+        "Call this clip Opener"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.title",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "title": "Chart swell"
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.title",
+        "equals": "Chart swell"
+      },
+      "eval_context": "The timeline has a sound effect with id 22222222-2222-4222-8222-222222222222 named \"Chart blips\"."
+    },
+    {
+      "id": "emphasis-text-fills-open-space",
+      "feature": "Size a pull quote or stat to fill the open space beside the speaker",
+      "requests": [
+        "Make the quote fill the empty space next to me",
+        "The text is too small, have it take up most of the open area"
+      ],
+      "capability": "spatial-rhythm",
+      "tool": "open_space_find",
+      "field": "fill_level",
+      "example": {
+        "arguments": {
+          "project_id": "demo",
+          "at_seconds": 22.8,
+          "text": "“The worst performer in the bunch.”\n— CNBC",
+          "font_preset": "display_serif",
+          "style_variant": "cinematic",
+          "fill_level": "large"
+        }
+      },
+      "expect": {
+        "path": "fill_level",
+        "equals": "large"
+      },
+      "eval_context": "A talking-head video; at 22.8 s the speaker is right of centre with an empty wall on the left. The creator wants a pull quote that fills that wall."
+    },
+    {
+      "id": "caption-hide-punctuation",
+      "feature": "Show speech captions without commas, full stops or other punctuation",
+      "requests": [
+        "Remove all the commas from the captions",
+        "No punctuation in the captions",
+        "Take the full stops out of the subtitles"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.hidePunctuation",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "hidePunctuation": true
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.hidePunctuation",
+        "equals": true
+      },
+      "eval_context": "The selected caption is a speech caption_text with id 22222222-2222-4222-8222-222222222222 on lane captions_0 whose text is \"fund, Pershing Capital,\" and whose props include caption_source_text."
+    },
+    {
+      "id": "color-map-thermal",
+      "feature": "Give a clip a thermal-camera color map (luminance onto a red-orange-yellow ramp)",
+      "requests": [
+        "Make this clip look like a thermal camera",
+        "Give it a heat map look"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.gradient_map_amount",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "gradient_map_amount": 1
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.gradient_map_amount",
+        "equals": 1
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "color-map-contrast",
+      "feature": "Push more of the thermal look into its darkest and brightest colours",
+      "requests": [
+        "Make the thermal look punchier",
+        "More contrast in the color map"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.gradient_map_contrast",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "gradient_map_amount": 1,
+            "gradient_map_contrast": 1.6
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.gradient_map_contrast"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "color-map-shadows",
+      "feature": "Change the colour the color map gives the darkest parts",
+      "requests": [
+        "Make the thermal shadows deep purple",
+        "Change the shadow color of the heat map to navy"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.gradient_map_shadows",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "gradient_map_amount": 1,
+            "gradient_map_shadows": "#2a0050"
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.gradient_map_shadows"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "color-map-midtones",
+      "feature": "Change the colour the color map gives middle brightness",
+      "requests": [
+        "Make the thermal midtones magenta",
+        "Change the midtone color of the color map"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.gradient_map_midtones",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "gradient_map_amount": 1,
+            "gradient_map_midtones": "#ff00aa"
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.gradient_map_midtones"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "color-map-highlights",
+      "feature": "Change the colour the color map gives the brightest parts",
+      "requests": [
+        "Make the thermal highlights white",
+        "Change the highlight color of the heat map to cyan"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.gradient_map_highlights",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "gradient_map_amount": 1,
+            "gradient_map_highlights": "#ffffff"
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.gradient_map_highlights"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-burst",
+      "feature": "Add a deterministic digital glitch (displaced bands, smears, RGB split) to a clip",
+      "requests": [
+        "Add a glitch effect to this clip",
+        "Datamosh this shot"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_amount",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_amount"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-block-size",
+      "feature": "Make glitch bands taller or thinner",
+      "requests": [
+        "Make the glitch blocks bigger",
+        "Use thin glitch bands"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_block_size",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7,
+            "glitch_block_size": 120
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_block_size"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-shift",
+      "feature": "Change how far glitched bands jump sideways",
+      "requests": [
+        "Make the glitch shift further sideways",
+        "Glitch displacement should be subtle"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_shift",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7,
+            "glitch_shift": 0.3
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_shift"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-rgb-split",
+      "feature": "Change the red/blue channel split of the glitch",
+      "requests": [
+        "More RGB split on the glitch",
+        "Add chromatic aberration to the glitch"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_rgb_split",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7,
+            "glitch_rgb_split": 30
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_rgb_split"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-smear",
+      "feature": "Change how many glitched bands smear like datamosh instead of shifting",
+      "requests": [
+        "More pixel smear in the glitch",
+        "Make the glitch smear like a datamosh"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_smear",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7,
+            "glitch_smear": 0.8
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_smear"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-rate",
+      "feature": "Change how often the glitch pattern changes",
+      "requests": [
+        "Make the glitch flicker faster",
+        "Slow down the glitch speed"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_rate",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7,
+            "glitch_rate": 24
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_rate"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "glitch-seed",
+      "feature": "Pick a different but repeatable glitch pattern",
+      "requests": [
+        "Give me a different glitch pattern",
+        "Reroll the glitch"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.glitch_seed",
+      "example": {
+        "operation": {
+          "element_id": "22222222-2222-4222-8222-222222222222",
+          "props": {
+            "glitch_amount": 0.7,
+            "glitch_seed": 17
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.glitch_seed"
+      },
+      "eval_context": "The selected clip is a video_clip with id 22222222-2222-4222-8222-222222222222 lasting 4 seconds on lane visual_0."
+    },
+    {
+      "id": "generation-results-in-chat",
+      "feature": "Wait for a generation request and show its results as images in chat",
+      "requests": [
+        "Is my image ready yet? Show me the results",
+        "Show me what the generation came back with"
+      ],
+      "capability": "media-intake-generation",
+      "tool": "asset_generation_status",
+      "field": "wait_seconds",
+      "example": {
+        "arguments": {
+          "project_id": "demo",
+          "job_id": "3b0c5c1e-8a4f-4d7e-9a51-2f0e6c9d1a22",
+          "wait_seconds": 60
+        }
+      },
+      "expect": {
+        "path": "wait_seconds"
+      },
+      "eval_context": "Project demo has generation request 3b0c5c1e-8a4f-4d7e-9a51-2f0e6c9d1a22, submitted after the creator approved it in chat; it is still running."
+    },
+    {
+      "id": "subject-window",
+      "feature": "Show a clip only inside another clip's moving subject (silhouette window)",
+      "requests": [
+        "Show this footage only inside the person's silhouette",
+        "Put this clip inside the silhouette so the sky stays",
+        "Make a subject window with this clip inside the man's shape"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_parent_id",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_parent_id": "22222222-2222-4222-8222-222222222222",
+            "subject_window_mask": {
+              "source_url": "/api/projects/feature-case/media/grid-mattes/f937cfcc-9649-400f-9d45-41d0a8cdb4cd",
+              "source_start_seconds": 0,
+              "fps": 50,
+              "frame_count": 314,
+              "width": 960,
+              "height": 540,
+              "source_sha256": "4036d42a80da28688194d36cb5df83ba230ffd75635e82a7fa27fe19a59d394e"
+            },
+            "subject_window_mode": "inside",
+            "subject_window_strength": 1
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_parent_id",
+        "equals": "22222222-2222-4222-8222-222222222222"
+      },
+      "eval_context": "The selected clip is a 0.6 second video_clip fill with id 11111111-1111-4111-8111-111111111111 on lane visual_2. Clip 22222222-2222-4222-8222-222222222222 on lane visual_1 is the silhouette video; cutout_status returned grid_matte_mask {\"source_url\": \"/api/projects/feature-case/media/grid-mattes/f937cfcc-9649-400f-9d45-41d0a8cdb4cd\", \"source_start_seconds\": 0, \"fps\": 50, \"frame_count\": 314, \"width\": 960, \"height\": 540, \"source_sha256\": \"4036d42a80da28688194d36cb5df83ba230ffd75635e82a7fa27fe19a59d394e\"} for its footage, covering its whole source window."
+    },
+    {
+      "id": "subject-window-mask",
+      "feature": "Give a subject window its prepared subject cutout",
+      "requests": [
+        "Use the silhouette cutout as the window for this clip",
+        "Window this footage with the prepared cutout of the man"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_mask",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_parent_id": "22222222-2222-4222-8222-222222222222",
+            "subject_window_mask": {
+              "source_url": "/api/projects/feature-case/media/grid-mattes/f937cfcc-9649-400f-9d45-41d0a8cdb4cd",
+              "source_start_seconds": 0,
+              "fps": 50,
+              "frame_count": 314,
+              "width": 960,
+              "height": 540,
+              "source_sha256": "4036d42a80da28688194d36cb5df83ba230ffd75635e82a7fa27fe19a59d394e"
+            }
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_mask.frame_count",
+        "equals": 314
+      },
+      "eval_context": "The selected clip is a 0.6 second video_clip fill with id 11111111-1111-4111-8111-111111111111 on lane visual_2. Clip 22222222-2222-4222-8222-222222222222 on lane visual_1 is the silhouette video; cutout_status returned grid_matte_mask {\"source_url\": \"/api/projects/feature-case/media/grid-mattes/f937cfcc-9649-400f-9d45-41d0a8cdb4cd\", \"source_start_seconds\": 0, \"fps\": 50, \"frame_count\": 314, \"width\": 960, \"height\": 540, \"source_sha256\": \"4036d42a80da28688194d36cb5df83ba230ffd75635e82a7fa27fe19a59d394e\"} for its footage, covering its whole source window."
+    },
+    {
+      "id": "subject-window-outside",
+      "feature": "Show a windowed clip everywhere except the subject",
+      "requests": [
+        "Show this clip outside the subject instead",
+        "Invert the subject window so the footage is around the person"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_mode",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_mode": "outside"
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_mode",
+        "equals": "outside"
+      },
+      "eval_context": "The selected clip 11111111-1111-4111-8111-111111111111 on lane visual_2 already shows only inside the moving cutout of subject clip 22222222-2222-4222-8222-222222222222 (a subject window)."
+    },
+    {
+      "id": "subject-window-feather",
+      "feature": "Soften the edge of a subject window",
+      "requests": [
+        "Soften the window edge a bit",
+        "Feather the silhouette edge by about 12 pixels"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_feather",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_feather": 12
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_feather",
+        "equals": 12
+      },
+      "eval_context": "The selected clip 11111111-1111-4111-8111-111111111111 on lane visual_2 already shows only inside the moving cutout of subject clip 22222222-2222-4222-8222-222222222222 (a subject window)."
+    },
+    {
+      "id": "subject-window-expand",
+      "feature": "Grow or shrink a subject window past the outline",
+      "requests": [
+        "Grow the window edge a little past his outline",
+        "Shrink the window edge so it sits inside the silhouette"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_expand",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_expand": 6
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_expand",
+        "equals": 6
+      },
+      "eval_context": "The selected clip 11111111-1111-4111-8111-111111111111 on lane visual_2 already shows only inside the moving cutout of subject clip 22222222-2222-4222-8222-222222222222 (a subject window)."
+    },
+    {
+      "id": "subject-window-strength",
+      "feature": "Let a subject window's hidden part show faintly",
+      "requests": [
+        "Lower the window strength so the footage shows faintly outside",
+        "Make the subject window half strength"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_strength",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_strength": 0.5
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_strength",
+        "equals": 0.5
+      },
+      "eval_context": "The selected clip 11111111-1111-4111-8111-111111111111 on lane visual_2 already shows only inside the moving cutout of subject clip 22222222-2222-4222-8222-222222222222 (a subject window)."
+    },
+    {
+      "id": "subject-window-enabled",
+      "feature": "Switch a subject window off without losing it",
+      "requests": [
+        "Switch the subject window off for now",
+        "Turn off the silhouette window but keep its settings"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.subject_window_enabled",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "subject_window_enabled": false
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.subject_window_enabled",
+        "equals": false
+      },
+      "eval_context": "The selected clip 11111111-1111-4111-8111-111111111111 on lane visual_2 already shows only inside the moving cutout of subject clip 22222222-2222-4222-8222-222222222222 (a subject window)."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "frames": 450,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Default content in the Paper look at normal speed: five scenes, the number counts up over 1.4 s.",
+  "receipt": {
+    "construction": "DreamCut project explainer-templates-demo: the explainer HyperFrames motion graphic (render explainer.32916cad2ffe0f56.webm, sha256 32916cad2ffe0f56591478e0ef4264a0c7c4a6be1cac7a505f4364b6e73b74f0), default control values. Encoded from that render to H.264 1280x720 (CRF 20, no audio). Poster is the frame at 7.6 s; stages are frames of the same render. inputs/looks.jpg shows the same graphic in all five looks at the poster moment, rendered from the template with only the look changed."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/motion-explainer/inputs/looks.jpg",
+      "sha256": "c39020f17e1f7f096872f0245ab9e44bb0a1f1405533e4f76f76cf884cf716ba"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "78ed6486118b1852c5638699f63c95b57e8ba412aeed81c1932b2d37583d808c"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "d8118060ce798a0263de911533d397b8c8e795fb9d7f14e30f1ee6a56ec37d7a"
+    },
+    {
+      "file": "title.jpg",
+      "sha256": "b8b713b89c5c0b5a6f67e36303b9990b5631e8fe445a68f1e9645e741c4c49a5"
+    },
+    {
+      "file": "point.jpg",
+      "sha256": "8e4776679ce78968c65a31f2033f5bc5234105d3df158a18bcc8a5a75c85358b"
+    },
+    {
+      "file": "number.jpg",
+      "sha256": "d8118060ce798a0263de911533d397b8c8e795fb9d7f14e30f1ee6a56ec37d7a"
+    },
+    {
+      "file": "steps.jpg",
+      "sha256": "b5f32ad2123f6b13dc4fefb10d07c5afc11853fa027f1ffcd31ad3983d88b8ba"
+    }
+  ]
+}

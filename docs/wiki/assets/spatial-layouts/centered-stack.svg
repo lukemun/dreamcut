@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="700" viewBox="0 0 390 700" role="img" aria-labelledby="title desc">
+  <title id="title">Centered stack group layout</title>
+  <desc id="desc">A statistic, explanatory line, and source label are arranged as one centered hierarchy.</desc>
+  <rect width="390" height="700" rx="32" fill="#090b10"/>
+  <rect x="30" y="56" width="330" height="588" rx="18" fill="#111621" stroke="#526077" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="195" y="31" fill="#f7f9fc" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">CENTERED STACK</text>
+  <g stroke="#2f3a4e" stroke-width="1" opacity=".8"><path d="M140 56V644M250 56V644"/><path d="M30 173.6H360M30 291.2H360M30 408.8H360M30 526.4H360"/></g>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <rect x="67" y="238" width="256" height="252" rx="22" fill="#171e2a" stroke="#69e6b3" stroke-width="2"/>
+    <text x="195" y="300" fill="#cdd6e5" font-size="22" font-weight="700">e.l.f. BEAUTY SPENT</text>
+    <text x="195" y="380" fill="#69e6b3" font-size="64" font-weight="800">$400M</text>
+    <text x="195" y="424" fill="#f7f9fc" font-size="22" font-weight="700">IN MARKETING</text>
+    <text x="195" y="459" fill="#92a2bd" font-size="14">LAST YEAR</text>
+    <path d="M102 325H288" stroke="#39465c" stroke-width="2"/>
+  </g>
+</svg>

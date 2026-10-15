@@ -1,0 +1,220 @@
+{
+  "skills": [
+    {
+      "name": "advice-review",
+      "description": "Browse saved creator advice, bring relevant lessons into script and pre-filming preparation, or audit whether a video applied them. Use when preparing to film, reviewing a script against saved advice, or checking application of prior research.",
+      "path": "../../.agents/skills/advice-review/SKILL.md"
+    },
+    {
+      "name": "audio-balance",
+      "description": "Diagnose and improve dialogue, music, ambience, fades, loudness, and voice clarity in a DreamCut timeline.",
+      "path": "../../.agents/skills/audio-balance/SKILL.md"
+    },
+    {
+      "name": "beat-aligned-cuts",
+      "description": "Align visual cuts, sprite poses, or graphic state changes to selected musical hits in DreamCut. Use for drum drops, melody runs, marked rhythm hits, or beat-synced edits; music selection and spoken-word timing use their own skills.",
+      "path": "../../.agents/skills/beat-aligned-cuts/SKILL.md"
+    },
+    {
+      "name": "caption-craft",
+      "description": "Create or refine accurate, readable, timed captions for a DreamCut video.",
+      "path": "../../.agents/skills/caption-craft/SKILL.md"
+    },
+    {
+      "name": "code-review",
+      "description": "Review repository changes for concrete defects using native Codex review and the shared DreamCut rubric. Use standalone or as the required review step within pr-review.",
+      "path": "../../.agents/skills/code-review/SKILL.md"
+    },
+    {
+      "name": "cut-pacing",
+      "description": "Refine pacing in a DreamCut edit by removing pauses, filler, false starts, repetition, or weak beats while preserving natural speech and continuity.",
+      "path": "../../.agents/skills/cut-pacing/SKILL.md"
+    },
+    {
+      "name": "editor-media-preprocessing",
+      "description": "Prepare proxies and reversible derived media such as stabilized video or enhanced voice for DreamCut editing.",
+      "path": "../../.agents/skills/editor-media-preprocessing/SKILL.md"
+    },
+    {
+      "name": "editorial-assembly",
+      "description": "Direct an end-to-end DreamCut assembly from script or transcript, talking-head source media, visual directions, and delivery target through one coherent previewable edit. Use for a new video project or major rebuild; use narrower editing skills for isolated changes to an existing cut.",
+      "path": "../../.agents/skills/editorial-assembly/SKILL.md"
+    },
+    {
+      "name": "editorial-intent-planning",
+      "description": "Decompose a multi-command or multi-mark DreamCut request into coherent editorial tasks and preserve the interpretation as a durable plan before a proposal or first assembly. Use when several requests or marks may be independent, related, or ambiguous; skip it for one obvious isolated edit.",
+      "path": "../../.agents/skills/editorial-intent-planning/SKILL.md"
+    },
+    {
+      "name": "layered-paper-cutout",
+      "description": "\"Build and verify an editable stack of concentric paper silhouettes around an existing transparent actor. Use for multicolor collage outlines, equal-distance expansion, separate paper layers, contour smoothing, overscan, or stacked cut-paper depth; use scratchpad-treatment for one white perimeter only.\"",
+      "path": "../../.agents/skills/layered-paper-cutout/SKILL.md"
+    },
+    {
+      "name": "mask-glitch",
+      "description": "Create an editable Mask Glitch transition or consecutive Mask Glitch sequence across ordered shots. Keep incoming subjects visible as white or original-colour masks until each scene handoff. Use for the renamed pop-in/glitch effect, compound mask sequences, and the explicit legacy batched pop-and-white-flash variant.",
+      "path": "../../.agents/skills/mask-glitch/SKILL.md"
+    },
+    {
+      "name": "media-annotation",
+      "description": "Build source-linked, searchable descriptions of a local photo or video collection before an edit exists. Use for shoot inventories and visual catalogs; use media-intake for importing into a DreamCut project.",
+      "path": "../../.agents/skills/media-annotation/SKILL.md"
+    },
+    {
+      "name": "media-intake",
+      "description": "Default router for adding supplied files or folders to DreamCut. Inventory mixed inputs, establish the destination, import unchanged sources, route preparation and annotations by media role, and report per-file readiness. Use for first-time imports and later additions; not for selecting edits or exporting.",
+      "path": "../../.agents/skills/media-intake/SKILL.md"
+    },
+    {
+      "name": "media-pull",
+      "description": "Find, import, register, and place supporting images, video, audio, or graphics in a DreamCut project.",
+      "path": "../../.agents/skills/media-pull/SKILL.md"
+    },
+    {
+      "name": "motion-graphics",
+      "description": "Route any motion graphics request to the right DreamCut workflow: timeline-native semantic motion, a Hyperframes animation overlay, or both. Use for animated titles, kinetic type, animated graphics, logo stings, or revisions to existing motion.",
+      "path": "../../.agents/skills/motion-graphics/SKILL.md"
+    },
+    {
+      "name": "music-audition",
+      "description": "Find cataloged music passages and prepare playable comparisons for a video, scene, mood, or narrative turn. Use when choosing music or auditioning alternative cues; catalog building without a current edit is a separate preparation step.",
+      "path": "../../.agents/skills/music-audition/SKILL.md"
+    },
+    {
+      "name": "music-catalog-ingestion",
+      "description": "Import, reconcile, annotate, and validate reusable music recordings and cue windows in the DreamCut catalog before an edit or from an assembled bundle. Use for catalog preparation or provenance audits; not for choosing music for a current edit.",
+      "path": "../../.agents/skills/music-catalog-ingestion/SKILL.md"
+    },
+    {
+      "name": "music-direction",
+      "description": "Plan a section-led music arc for a DreamCut edit, then coordinate cue auditions, continuity, and dialogue-first mixing.",
+      "path": "../../.agents/skills/music-direction/SKILL.md"
+    },
+    {
+      "name": "open-edit-proposals",
+      "description": "Safely inspect and edit an existing DreamCut video timeline through previewable proposals. Use for any conversational timeline edit, including edits described by a review mark, exact dictates, trims, cuts, captions, audio, media, layout, effects, or output format.",
+      "path": "../../.agents/skills/open-edit-proposals/SKILL.md"
+    },
+    {
+      "name": "open-edit-remotion",
+      "description": "Safely change DreamCut's Remotion preview and render integration while preserving timeline timing, media routing, and preview/export parity. Use for changes under src/lib/remotion, Remotion dependency upgrades, Player behavior, or encoded rendering.",
+      "path": "../../.agents/skills/open-edit-remotion/SKILL.md"
+    },
+    {
+      "name": "phone-edit-workshop",
+      "description": "Build or revise a phone-first vertical social edit in DreamCut using marks and conversational review.",
+      "path": "../../.agents/skills/phone-edit-workshop/SKILL.md"
+    },
+    {
+      "name": "planned-shot-craft",
+      "description": "Plan and place supporting shots, B-roll, stills, inserts, and cutaways in a DreamCut narrative edit.",
+      "path": "../../.agents/skills/planned-shot-craft/SKILL.md"
+    },
+    {
+      "name": "platform-video-delivery",
+      "description": "Prepare and quality-check a DreamCut video for a requested social or presentation delivery format.",
+      "path": "../../.agents/skills/platform-video-delivery/SKILL.md"
+    },
+    {
+      "name": "pop-in-white-flash",
+      "description": "Compatibility name for the former Pop-in white flash skill. Route to Mask Glitch and select its legacy batched pop-and-white-flash variant when this old name is explicitly requested.",
+      "path": "../../.agents/skills/pop-in-white-flash/SKILL.md"
+    },
+    {
+      "name": "pr-review",
+      "description": "Review a PR or pending repository changes, grade readiness from evidence, fix confirmed issues when authorized, and rerun relevant checks before publishing.",
+      "path": "../../.agents/skills/pr-review/SKILL.md"
+    },
+    {
+      "name": "product-walkthrough",
+      "description": "Edit a clear software or product walkthrough in DreamCut with readable screen action and explanatory pacing.",
+      "path": "../../.agents/skills/product-walkthrough/SKILL.md"
+    },
+    {
+      "name": "prompt-authoring",
+      "description": "Write or revise DreamCut agent instructions and image/video generation prompts. Use when authoring a reusable task prompt, skill instructions, or generation direction with explicit inputs, grounded references, and observable acceptance criteria.",
+      "path": "../../.agents/skills/prompt-authoring/SKILL.md"
+    },
+    {
+      "name": "recreate-effect",
+      "description": "Recreate an editing effect from a finished reference, tutorial, or target still as a reusable DreamCut workflow. Use to analyze its construction, assess existing capabilities, and implement missing editor functionality, user controls, and a reusable execution recipe.",
+      "path": "../../.agents/skills/recreate-effect/SKILL.md"
+    },
+    {
+      "name": "remotion-best-practices",
+      "description": "Best practices and domain knowledge for building videos programmatically with Remotion (videos in React/TypeScript, rendered to MP4). Use whenever writing or editing Remotion code \u2014 scaffolding a video project, animating with interpolate/spring over useCurrentFrame(), sequencing scenes and transitions, captions/subtitles, audio, GIFs/Lottie/3D, charts, visual effects, dynamic duration via calculateMetadata, or rendering. Consult before reaching for a Remotion API, since its components and props evolve (e.g. @remotion/media).",
+      "path": "../../.agents/skills/remotion-best-practices/SKILL.md"
+    },
+    {
+      "name": "research-deliverable",
+      "description": "Produce a research deliverable that is pure evidence \u2014 every factual claim inline-linked to a primary source, no synthesis, spin, or product/marketing interpretation. Use whenever asked to research a topic and record findings, write a research doc, gather and cite evidence, build a sourced findings or source-map doc, or \"find out what's true\" about something external (a market, competitor, craft, definition, prices, specs). Covers the three-layer model (raw verbatim captures, then a pure-evidence deliverable in docs/research/, then a separate opinionated application doc that cites it), the sourcing rules (cite every claim, primary over secondary, quote don't paraphrase, no unsourced claims), a reproducible method/caveats section, and keeping our interpretation OUT of the evidence layer. Complements the deep-research skill (deep-research gathers; this records). NOT for the opinionated application/wiki doc itself, ad copy, or customer/persona research (use client-niche-research).",
+      "path": "../../.agents/skills/research-deliverable/SKILL.md"
+    },
+    {
+      "name": "scratchpad-treatment",
+      "description": "\"Apply and audit the DreamCut Scratchpad appearance on cards, logos, cutouts, and other visual actors. Use when the user asks to Scratchpad an asset, add the white cut-paper edge, or repair an uneven, clipped, or incomplete Scratchpad perimeter.\"",
+      "path": "../../.agents/skills/scratchpad-treatment/SKILL.md"
+    },
+    {
+      "name": "skill-authoring",
+      "description": "Create or revise repository-owned DreamCut skills for contributors and editing agents. Use when turning a reusable workflow into a discoverable skill or correcting an existing skill's procedure and verification.",
+      "path": "../../.agents/skills/skill-authoring/SKILL.md"
+    },
+    {
+      "name": "sound-design",
+      "description": "Select, time, layer, and propose sound effects for a DreamCut edit. Use when entrances, transitions, reactions, interface actions, impacts, or visual payoffs need sonic emphasis, including requests for pops, whooshes, cash sounds, meme stings, or a complete SFX pass.",
+      "path": "../../.agents/skills/sound-design/SKILL.md"
+    },
+    {
+      "name": "spatial-composition",
+      "description": "Arrange and verify multiple visual actors, captions, cutouts, cards, and overlays on a DreamCut canvas. Use for layout, hierarchy, alignment, spacing, layer order, safe areas, overlap, occlusion, or any scene where independently placed assets must read as one composition.",
+      "path": "../../.agents/skills/spatial-composition/SKILL.md"
+    },
+    {
+      "name": "talking-head-cutout",
+      "description": "\"Create, refine, and audit source-synchronized moving cutouts of presenters or other people, especially Scratchpad-style talking heads. Use when removing a real-room background, preserving a full visible person, diagnosing hair or skin matte failures, or preparing a cutout for a DreamCut proposal. Do not use chroma key for ordinary rooms or use this skill for simple crops and trims.\"",
+      "path": "../../.agents/skills/talking-head-cutout/SKILL.md"
+    },
+    {
+      "name": "talking-video-editing",
+      "description": "Edit a presenter, interview, vlog, or direct-to-camera video in DreamCut, coordinating pacing, captions, supporting visuals, audio, and delivery.",
+      "path": "../../.agents/skills/talking-video-editing/SKILL.md"
+    },
+    {
+      "name": "timeline-auditions",
+      "description": "Cut and show multiple playable DreamCut versions for comparison without changing the working timeline. Use when the user asks to compare takes, audition options, try alternate openings, explore different cuts, or \"show me a few versions.\"",
+      "path": "../../.agents/skills/timeline-auditions/SKILL.md"
+    },
+    {
+      "name": "video-compositing",
+      "description": "Compose layered video, images, overlays, masks, keys, crops, and effects in a DreamCut timeline.",
+      "path": "../../.agents/skills/video-compositing/SKILL.md"
+    },
+    {
+      "name": "video-typography",
+      "description": "Design readable titles, labels, callouts, and on-screen text for a DreamCut video.",
+      "path": "../../.agents/skills/video-typography/SKILL.md"
+    },
+    {
+      "name": "visual-timing",
+      "description": "Time supporting visuals, graphic actors, and on-screen text to spoken beats in a DreamCut edit. Use when deciding when assets enter, persist, replace one another, or leave; when a sequence feels disconnected from narration; or when several visuals accumulate without a deliberate beat structure.",
+      "path": "../../.agents/skills/visual-timing/SKILL.md"
+    },
+    {
+      "name": "voice-file",
+      "description": "Prepare, enhance, align, or replace recorded voice media used by a DreamCut project.",
+      "path": "../../.agents/skills/voice-file/SKILL.md"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Objects float in \u2192 scene switches \u2192 white blips",
+      "skill": "video-compositing",
+      "recipe": "object-led-scene-transition",
+      "reference": "../effects/media/FX-08.mp4",
+      "recreation": "media/dinosaur-birds.mp4",
+      "status": "Prototype",
+      "audio": "Reference: original reel mix. Recreation: silent by request."
+    }
+  ]
+}

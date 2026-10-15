@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-06",
+      "catalog": "../../../../docs/effects/catalog.json#FX-06",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-06.mp4",
+          "sha256": "1eed51bb1df62053385df663296c273427723004408ee10ad6941b93f8b37474",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Two wardrobe takes with matching hand gesture, camera framing and light"
+        ],
+        "preparation": "Shoot/retrieve both performances; align at gesture peak",
+        "success_criteria": [
+          "Hand continuity disguises the outfit change; no accidental motion reversal."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-07",
+      "catalog": "../../../../docs/effects/catalog.json#FX-07",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-07.mp4",
+          "sha256": "08c590f08a784a670f6f12045879138d8abd0e5045b4fe06eb19f46a8f16e6e7",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Indoor and outdoor low-angle takes with matching foot approach and retreat"
+        ],
+        "preparation": "Shoot paired foot action with matching direction and apparent shoe size",
+        "success_criteria": [
+          "Shoe trajectory and camera angle connect without a conspicuous jump."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-10",
+      "catalog": "../../../../docs/effects/catalog.json#FX-10",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-10.mp4",
+          "sha256": "13b42a1dc55eb8ff35698756bb62ea3bf418733eda1f1c57617ec702b857a6d0",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Before and after lunch clips with corresponding plate layout and camera angle"
+        ],
+        "preparation": "Select matching frames and conform framing; retain at least 0.25s handles where available",
+        "success_criteria": [
+          "Plate positions feel continuous while food state changes."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-19",
+      "catalog": "../../../../docs/effects/catalog.json#FX-19",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-19.mp4",
+          "sha256": "aa654b44d7d3efff98aed51e35a9d159ff54550e908c39de8ff81ff679860fcd",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Before and after bowl clips with matching viewpoint and bowl center"
+        ],
+        "preparation": "Same match-cut recipe as lunch; preserve source windows",
+        "success_criteria": [
+          "Bowl center and scale agree across the cut."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    }
+  ]
+}

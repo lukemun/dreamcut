@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "id": "gatsby-brief-before-load-and-upload-drift",
+  "status": "regression",
+  "production_behavior": "product-walkthrough narration-to-screen synchronization v1",
+  "provenance": "Frozen from founder review marks on the 2026-08-14 Great Gatsby character-portrait walkthrough.",
+  "privacy": "Synthetic ids and paraphrased tutorial copy; no private user data.",
+  "hidden_expectations": [
+    "A named product object is visually established before narration explains it.",
+    "A spoken action lands within the declared tolerance of the real on-screen action.",
+    "Silence is allowed only when no action-synchronization contract is violated."
+  ],
+  "input": {
+    "projectId": "gatsby-character-portrait",
+    "timelineSha256": "timeline-hash",
+    "lockedTimelineSha256": "timeline-hash",
+    "qualificationSha256": "qualification-hash",
+    "lockedQualificationSha256": "qualification-hash",
+    "narrationSha256": "narration-hash",
+    "lockedNarrationSha256": "narration-hash",
+    "narrationVisualContractSha256": "sync-hash",
+    "lockedNarrationVisualContractSha256": "sync-hash",
+    "approvedNarration": "Choose Use a book and upload your manuscript.\n\nNow build the character brief.",
+    "qualification": {
+      "project_id": "gatsby-character-portrait",
+      "route_continuity": []
+    },
+    "narrationVisualContract": {
+      "schema_version": 1,
+      "project_id": "gatsby-character-portrait",
+      "narration_sha256": "narration-hash",
+      "lines": [
+        {
+          "line_number": 1,
+          "text": "Choose Use a book and upload your manuscript.",
+          "source_id": "gatsby-take",
+          "prerequisite_source_seconds": 10,
+          "action_source_seconds": 25,
+          "spoken_action_anchor": "end",
+          "max_action_delta_seconds": 1
+        },
+        {
+          "line_number": 2,
+          "text": "Now build the character brief.",
+          "source_id": "gatsby-take",
+          "prerequisite_source_seconds": 40,
+          "max_prerequisite_lead_seconds": 0.25,
+          "spoken_action_anchor": "start"
+        }
+      ]
+    }
+  },
+  "baseline": {
+    "elements": [
+      {
+        "id": "complete-flow",
+        "type": "video_clip",
+        "timeline_start": 0,
+        "duration": 55,
+        "playback_rate": 1,
+        "removed_at": null,
+        "props": {
+          "source_authority_id": "gatsby-take",
+          "source_interval": {
+            "start_seconds": 10,
+            "duration_seconds": 55
+          },
+          "objectFit": "contain",
+          "media_scale": 1,
+          "media_offset_x": 0,
+          "media_offset_y": 0
+        }
+      },
+      {
+        "id": "upload-voice-too-early",
+        "type": "vo_segment",
+        "timeline_start": 0,
+        "duration": 3,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 1,
+          "transcript": "Choose Use a book and upload your manuscript."
+        }
+      },
+      {
+        "id": "brief-voice-before-page",
+        "type": "vo_segment",
+        "timeline_start": 20,
+        "duration": 3,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 2,
+          "transcript": "Now build the character brief."
+        }
+      }
+    ]
+  },
+  "accepted": {
+    "elements": [
+      {
+        "id": "complete-flow",
+        "type": "video_clip",
+        "timeline_start": 0,
+        "duration": 55,
+        "playback_rate": 1,
+        "removed_at": null,
+        "props": {
+          "source_authority_id": "gatsby-take",
+          "source_interval": {
+            "start_seconds": 10,
+            "duration_seconds": 55
+          },
+          "objectFit": "contain",
+          "media_scale": 1,
+          "media_offset_x": 0,
+          "media_offset_y": 0
+        }
+      },
+      {
+        "id": "upload-voice-aligned",
+        "type": "vo_segment",
+        "timeline_start": 12,
+        "duration": 3,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 1,
+          "transcript": "Choose Use a book and upload your manuscript."
+        }
+      },
+      {
+        "id": "brief-voice-after-page",
+        "type": "vo_segment",
+        "timeline_start": 30,
+        "duration": 3,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 2,
+          "transcript": "Now build the character brief."
+        }
+      }
+    ]
+  }
+}

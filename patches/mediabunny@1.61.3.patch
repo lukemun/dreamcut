@@ -1,0 +1,246 @@
+diff --git a/dist/bundles/mediabunny.cjs b/dist/bundles/mediabunny.cjs
+index 19e6478f0ca603ec0e617f893926a7da32bab43f..f444662fe0b0531092a8036e1e0f5ee75332f5c3 100644
+--- a/dist/bundles/mediabunny.cjs
++++ b/dist/bundles/mediabunny.cjs
+@@ -24719,6 +24719,7 @@ var Mediabunny = (() => {
+       this.alphaRaslSkipped = false;
+       // For HEVC stuff
+       this.finalSamples = [];
++      this.closed = false;
+       this.mergeAlphaPromises = [];
+       const MatchingCustomDecoder = customVideoDecoders.find((x) => x.supports(codec, decoderConfig));
+       if (MatchingCustomDecoder) {
+@@ -24992,6 +24993,7 @@ var Mediabunny = (() => {
+       this.onSample(sample);
+     }
+     async mergeAlpha(color, alpha) {
++      if (this.closed) { color.close(); alpha?.close(); return; }
+       const resolver = promiseWithResolvers();
+       this.mergeAlphaPromises.push(resolver.promise);
+       const result = { sample: null };
+@@ -25004,6 +25006,10 @@ var Mediabunny = (() => {
+           const finalFrame = await this.merger.merge(color, alpha);
+           result.sample = new VideoSample(finalFrame);
+         }
++        if (this.closed) {
++          result.sample.close();
++          return;
++        }
+         while (this.finalSamples.length > 0 && this.finalSamples[0].sample !== null) {
+           const next = this.finalSamples.shift();
+           this.sampleHandler(next.sample);
+@@ -25047,6 +25053,10 @@ var Mediabunny = (() => {
+       this.raslSkipped = false;
+     }
+     close() {
++      if (this.closed) return;
++      this.closed = true;
++      for (const result of this.finalSamples) result.sample?.close();
++      this.finalSamples.length = 0;
+       if (this.customDecoder) {
+         void this.customDecoderCallSerializer.call(() => this.customDecoder.close());
+       } else {
+@@ -35643,7 +35653,7 @@ ${cue.notes ?? ""}`;
+       this.error = null;
+       this.errorSet = false;
+       this.lastMuxerPromise = Promise.resolve();
+-      this.closed = false;
++        this.closed = false;
+     }
+     setError(error) {
+       if (!this.errorSet) {
+@@ -36819,7 +36829,7 @@ ${cue.notes ?? ""}`;
+       this.error = null;
+       this.errorSet = false;
+       this.lastMuxerPromise = Promise.resolve();
+-      this.closed = false;
++        this.closed = false;
+     }
+     setError(error) {
+       if (!this.errorSet) {
+diff --git a/dist/bundles/mediabunny.mjs b/dist/bundles/mediabunny.mjs
+index 78b048e11d931e0555291659b8079b0fc557781e..5ad4ea8fd039ebea5b9747748b8c08b6021a0618 100644
+--- a/dist/bundles/mediabunny.mjs
++++ b/dist/bundles/mediabunny.mjs
+@@ -24562,6 +24562,7 @@ var VideoDecoderWrapper = class extends DecoderWrapper {
+     this.alphaRaslSkipped = false;
+     // For HEVC stuff
+     this.finalSamples = [];
++    this.closed = false;
+     this.mergeAlphaPromises = [];
+     const MatchingCustomDecoder = customVideoDecoders.find((x) => x.supports(codec, decoderConfig));
+     if (MatchingCustomDecoder) {
+@@ -24835,6 +24836,7 @@ var VideoDecoderWrapper = class extends DecoderWrapper {
+     this.onSample(sample);
+   }
+   async mergeAlpha(color, alpha) {
++    if (this.closed) { color.close(); alpha?.close(); return; }
+     const resolver = promiseWithResolvers();
+     this.mergeAlphaPromises.push(resolver.promise);
+     const result = { sample: null };
+@@ -24847,6 +24849,10 @@ var VideoDecoderWrapper = class extends DecoderWrapper {
+         const finalFrame = await this.merger.merge(color, alpha);
+         result.sample = new VideoSample(finalFrame);
+       }
++      if (this.closed) {
++        result.sample.close();
++        return;
++      }
+       while (this.finalSamples.length > 0 && this.finalSamples[0].sample !== null) {
+         const next = this.finalSamples.shift();
+         this.sampleHandler(next.sample);
+@@ -24890,6 +24896,10 @@ var VideoDecoderWrapper = class extends DecoderWrapper {
+     this.raslSkipped = false;
+   }
+   close() {
++    if (this.closed) return;
++    this.closed = true;
++    for (const result of this.finalSamples) result.sample?.close();
++    this.finalSamples.length = 0;
+     if (this.customDecoder) {
+       void this.customDecoderCallSerializer.call(() => this.customDecoder.close());
+     } else {
+diff --git a/dist/bundles/mediabunny.node.cjs b/dist/bundles/mediabunny.node.cjs
+index c772fd85aee3e29a3fe14bd7c74701f02797f076..cb3fd0d538c81ac22bdf2f27f89f13f1913661ce 100644
+--- a/dist/bundles/mediabunny.node.cjs
++++ b/dist/bundles/mediabunny.node.cjs
+@@ -24722,6 +24722,7 @@ var Mediabunny = (() => {
+       this.alphaRaslSkipped = false;
+       // For HEVC stuff
+       this.finalSamples = [];
++      this.closed = false;
+       this.mergeAlphaPromises = [];
+       const MatchingCustomDecoder = customVideoDecoders.find((x) => x.supports(codec, decoderConfig));
+       if (MatchingCustomDecoder) {
+@@ -24995,6 +24996,7 @@ var Mediabunny = (() => {
+       this.onSample(sample);
+     }
+     async mergeAlpha(color, alpha) {
++      if (this.closed) { color.close(); alpha?.close(); return; }
+       const resolver = promiseWithResolvers();
+       this.mergeAlphaPromises.push(resolver.promise);
+       const result = { sample: null };
+@@ -25007,6 +25009,10 @@ var Mediabunny = (() => {
+           const finalFrame = await this.merger.merge(color, alpha);
+           result.sample = new VideoSample(finalFrame);
+         }
++        if (this.closed) {
++          result.sample.close();
++          return;
++        }
+         while (this.finalSamples.length > 0 && this.finalSamples[0].sample !== null) {
+           const next = this.finalSamples.shift();
+           this.sampleHandler(next.sample);
+@@ -25050,6 +25056,10 @@ var Mediabunny = (() => {
+       this.raslSkipped = false;
+     }
+     close() {
++      if (this.closed) return;
++      this.closed = true;
++      for (const result of this.finalSamples) result.sample?.close();
++      this.finalSamples.length = 0;
+       if (this.customDecoder) {
+         void this.customDecoderCallSerializer.call(() => this.customDecoder.close());
+       } else {
+@@ -35645,7 +35655,7 @@ ${cue.notes ?? ""}`;
+       this.error = null;
+       this.errorSet = false;
+       this.lastMuxerPromise = Promise.resolve();
+-      this.closed = false;
++        this.closed = false;
+     }
+     setError(error) {
+       if (!this.errorSet) {
+@@ -36821,7 +36831,7 @@ ${cue.notes ?? ""}`;
+       this.error = null;
+       this.errorSet = false;
+       this.lastMuxerPromise = Promise.resolve();
+-      this.closed = false;
++        this.closed = false;
+     }
+     setError(error) {
+       if (!this.errorSet) {
+diff --git a/dist/modules/src/media-sink.js b/dist/modules/src/media-sink.js
+index 2501bfeed99de5f5df04d1e6a62aa42fdb28b718..be4fbdb6543ed4907e4dcde153ff40c613c6eb74 100644
+--- a/dist/modules/src/media-sink.js
++++ b/dist/modules/src/media-sink.js
+@@ -696,6 +696,7 @@ class VideoDecoderWrapper extends DecoderWrapper {
+         this.currentAlphaPacketIndex = 0;
+         this.alphaRaslSkipped = false; // For HEVC stuff
+         this.finalSamples = [];
++        this.closed = false;
+         this.mergeAlphaPromises = [];
+         const MatchingCustomDecoder = customVideoDecoders.find(x => x.supports(codec, decoderConfig));
+         if (MatchingCustomDecoder) {
+@@ -1032,6 +1033,7 @@ class VideoDecoderWrapper extends DecoderWrapper {
+         this.onSample(sample);
+     }
+     async mergeAlpha(color, alpha) {
++        if (this.closed) { color.close(); alpha?.close(); return; }
+         const resolver = promiseWithResolvers();
+         this.mergeAlphaPromises.push(resolver.promise);
+         // Alpha merging is concurrent but the samples must still be emitted in the same order in which the merging
+@@ -1049,6 +1051,10 @@ class VideoDecoderWrapper extends DecoderWrapper {
+                 const finalFrame = await this.merger.merge(color, alpha);
+                 result.sample = new VideoSample(finalFrame);
+             }
++            if (this.closed) {
++                result.sample.close();
++                return;
++            }
+             // Emit any leading samples that are ready, preserving input order
+             while (this.finalSamples.length > 0 && this.finalSamples[0].sample !== null) {
+                 const next = this.finalSamples.shift();
+@@ -1096,6 +1102,10 @@ class VideoDecoderWrapper extends DecoderWrapper {
+         this.raslSkipped = false;
+     }
+     close() {
++        if (this.closed) return;
++        this.closed = true;
++        for (const result of this.finalSamples) result.sample?.close();
++        this.finalSamples.length = 0;
+         if (this.customDecoder) {
+             void this.customDecoderCallSerializer.call(() => this.customDecoder.close());
+         }
+diff --git a/src/media-sink.ts b/src/media-sink.ts
+index 45e4dd88efaf845a8052c29869a73d3e8cb05414..ae0ad745bc2d43e30ac5cd02bdb416a24d9a643c 100644
+--- a/src/media-sink.ts
++++ b/src/media-sink.ts
+@@ -909,6 +909,7 @@ class VideoDecoderWrapper extends DecoderWrapper<VideoSample> {
+ 	nullAlphaFrameQueue: number[] = [];
+ 	currentAlphaPacketIndex = 0;
+ 	alphaRaslSkipped = false; // For HEVC stuff
++	private closed = false;
+ 	finalSamples: { sample: VideoSample | null }[] = [];
+ 	mergeAlphaPromises: Promise<void>[] = [];
+ 
+@@ -1302,6 +1303,7 @@ class VideoDecoderWrapper extends DecoderWrapper<VideoSample> {
+ 	}
+ 
+ 	async mergeAlpha(color: VideoFrame, alpha: VideoFrame | null) {
++		if (this.closed) { color.close(); alpha?.close(); return; }
+ 		const resolver = promiseWithResolvers();
+ 		this.mergeAlphaPromises.push(resolver.promise);
+ 
+@@ -1322,6 +1324,10 @@ class VideoDecoderWrapper extends DecoderWrapper<VideoSample> {
+ 				result.sample = new VideoSample(finalFrame);
+ 			}
+ 
++			if (this.closed) {
++				result.sample.close();
++				return;
++			}
+ 			// Emit any leading samples that are ready, preserving input order
+ 			while (this.finalSamples.length > 0 && this.finalSamples[0]!.sample !== null) {
+ 				const next = this.finalSamples.shift()!;
+@@ -1373,6 +1379,10 @@ class VideoDecoderWrapper extends DecoderWrapper<VideoSample> {
+ 	}
+ 
+ 	close() {
++		if (this.closed) return;
++		this.closed = true;
++		for (const result of this.finalSamples) result.sample?.close();
++		this.finalSamples.length = 0;
+ 		if (this.customDecoder) {
+ 			void this.customDecoderCallSerializer.call(() => this.customDecoder!.close());
+ 		} else {

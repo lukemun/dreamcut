@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="looks.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; overflow: hidden; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: var(--body); }
+      .abs { position: absolute; }
+      .display { font-family: var(--display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.05; }
+      .body { font-family: var(--body); font-weight: var(--body-weight); line-height: 1.25; color: var(--muted); }
+      .figure { font-family: var(--figures); font-weight: var(--display-weight); font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: -0.02em; }
+      .card { position: absolute; background: var(--panel); border-radius: var(--radius); overflow: visible; }
+      .ring { position: absolute; inset: 0; border-radius: var(--radius); border-style: solid; border-color: var(--accent); }
+      .badge { position: absolute; background: var(--accent); color: var(--on-accent); font-family: var(--body); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; border-radius: 999px; }
+      .row { position: absolute; display: flex; align-items: center; }
+      .tick path { fill: none; stroke: var(--accent); stroke-linecap: round; stroke-linejoin: round; }
+      .dash { background: var(--track); border-radius: 4px; }
+      .heading { text-shadow: var(--separation); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080">
+      <div id="heading" class="abs display heading" data-actor="heading"></div>
+      <div id="plans" class="abs" data-actor="plans"></div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          look: "paper", shape: "wide", own_accent: false, accent: "#e4572e", backdrop: true,
+          heading: "Pick the plan that fits", plan_count: 3,
+          plan_1_name: "Starter", plan_1_price: 0, plan_1_note: "For trying it out", plan_1_includes: 2,
+          plan_2_name: "Team", plan_2_price: 12, plan_2_note: "For small teams", plan_2_includes: 4,
+          plan_3_name: "Studio", plan_3_price: 29, plan_3_note: "For busy studios", plan_3_includes: 5,
+          price_prefix: "$", price_period: "/ month", price_decimals: "0",
+          feature_1: "Unlimited projects", feature_2: "Cloud backup", feature_3: "Shared libraries",
+          feature_4: "Review links", feature_5: "Priority support",
+          highlight: "plan_2", badge: "Most popular",
+          entrance: 0.7, cards_start: 0.5, card_gap: 0.22, tick_gap: 0.22, hold: 3,
+        },
+      };
+      const c = dc.controls;
+      const root = document.getElementById("root");
+      const M = window.DreamcutMotion;
+      const S = M.setup(c, root);
+      const { u, tall, W, H } = S;
+      const side = (tall ? 70 : 120) * u;
+      const $ = (id) => document.getElementById(id);
+
+      const count = Math.round(c.plan_count);
+      const plans = [
+        [c.plan_1_name, c.plan_1_price, c.plan_1_note, c.plan_1_includes],
+        [c.plan_2_name, c.plan_2_price, c.plan_2_note, c.plan_2_includes],
+        [c.plan_3_name, c.plan_3_price, c.plan_3_note, c.plan_3_includes],
+      ].slice(0, count).map(([name, price, note, includes], index) => ({ name, price, note, includes: Math.round(includes), index }));
+      const features = [c.feature_1, c.feature_2, c.feature_3, c.feature_4, c.feature_5].map((f) => String(f || "").trim()).filter(Boolean);
+      const highlighted = plans.findIndex((plan) => c.highlight === "plan_" + (plan.index + 1));
+      const format = (v) => M.formatNumber(v, c.price_decimals, c.price_prefix, "");
+
+      const heading = $("heading");
+      heading.textContent = c.heading;
+      Object.assign(heading.style, { left: side + "px", top: (tall ? 150 : 84) * u + "px", width: W - side * 2 + "px", textAlign: tall ? "left" : "center" });
+      M.fit(heading, (tall ? 92 : 78) * u, 36 * u, { width: W - side * 2, height: 230 * u });
+
+      const area = $("plans");
+      const areaTop = heading.offsetTop + heading.offsetHeight + (tall ? 90 : 80) * u;
+      const areaBottom = H - (tall ? 150 : 90) * u;
+      Object.assign(area.style, { left: side + "px", top: areaTop + "px", width: W - side * 2 + "px", height: areaBottom - areaTop + "px" });
+      const AW = W - side * 2, AH = areaBottom - areaTop;
+      const gap = (tall ? 44 : 40) * u;
+      const pad = (tall ? 44 : 44) * u;
+
+      const tl = gsap.timeline({ paused: true });
+      const e = c.entrance;
+      M.enter(tl, heading, 0, e, S.look, { u });
+      const cardAt = (i) => c.cards_start + i * c.card_gap;
+      const ticksStart = cardAt(count - 1) + e * 0.8;
+      // Timed over all five feature slots so the highlight cue never depends on how many are filled.
+      const ticksEnd = ticksStart + 4 * c.tick_gap + 0.4;
+      const highlightAt = ticksEnd + 0.15;
+
+      const featureSize = (tall ? 30 : count > 2 ? 30 : 34) * u;
+      const rowHeight = featureSize * 1.9;
+      plans.forEach((plan, i) => {
+        // Wide: columns side by side. Tall: cards stacked, features in two columns.
+        const card = document.createElement("div");
+        card.className = "card";
+        // Cards are as tall as their content needs, and the set sits centred in the space below the heading.
+        const cw = tall ? AW : (AW - gap * (count - 1)) / count;
+        const contentHeight = (tall ? pad + 136 * u + Math.ceil(features.length / 2) * rowHeight : pad + 270 * u + features.length * rowHeight) + pad * 0.8;
+        const ch = Math.min(tall ? (AH - gap * (count - 1)) / count : AH, contentHeight);
+        const offset = tall ? (AH - (ch * count + gap * (count - 1))) / 2 : (AH - ch) / 2;
+        Object.assign(card.style, { left: tall ? 0 : i * (cw + gap) + "px", top: (tall ? i * (ch + gap) : 0) + offset + "px", width: cw + "px", height: ch + "px" });
+        area.append(card);
+
+        const name = document.createElement("div");
+        name.className = "abs display";
+        name.textContent = plan.name;
+        const nameWidth = tall ? cw * 0.5 - pad : cw - pad * 2;
+        Object.assign(name.style, { left: pad + "px", top: pad + "px", width: nameWidth + "px" });
+        card.append(name);
+        M.fit(name, (tall ? 52 : 50) * u, 24 * u, { width: nameWidth });
+
+        const price = document.createElement("div");
+        price.className = "abs";
+        const figure = document.createElement("span");
+        figure.className = "figure";
+        figure.style.fontSize = (tall ? 84 : 96) * u + "px";
+        figure.style.color = i === highlighted ? "var(--accent)" : "var(--ink)";
+        figure.textContent = format(plan.price);
+        const period = document.createElement("span");
+        period.className = "body";
+        period.textContent = " " + c.price_period;
+        period.style.fontSize = 28 * u + "px";
+        price.append(figure, period);
+        Object.assign(price.style, tall
+          ? { right: pad + "px", top: pad * 0.6 + "px", textAlign: "right" }
+          : { left: pad + "px", top: pad + 70 * u + "px" });
+        card.append(price);
+
+        const note = document.createElement("div");
+        note.className = "abs body";
+        note.textContent = plan.note;
+        Object.assign(note.style, { left: pad + "px", top: (tall ? pad + 64 * u : pad + 196 * u) + "px", fontSize: 28 * u + "px", width: (tall ? cw * 0.5 : cw) - pad * 2 + "px" });
+        card.append(note);
+
+        const listTop = tall ? pad + 136 * u : pad + 270 * u;
+        const columns = tall ? 2 : 1;
+        const colWidth = (cw - pad * 2 - (columns - 1) * 30 * u) / columns;
+        const rows = features.map((feature, f) => {
+          const row = document.createElement("div");
+          row.className = "row";
+          const col = tall ? f % columns : 0, line = tall ? Math.floor(f / columns) : f;
+          Object.assign(row.style, { left: pad + col * (colWidth + 30 * u) + "px", top: listTop + line * rowHeight + "px", width: colWidth + "px", height: rowHeight + "px", gap: 18 * u + "px" });
+          const has = f < plan.includes;
+          const mark = has ? document.createElementNS("http://www.w3.org/2000/svg", "svg") : document.createElement("div");
+          if (has) {
+            mark.setAttribute("class", "tick");
+            mark.setAttribute("viewBox", "0 0 24 24");
+            Object.assign(mark.style, { width: featureSize * 1.1 + "px", height: featureSize * 1.1 + "px", flex: "none" });
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M4 12.5 L10 18 L20 6");
+            path.setAttribute("stroke-width", "3.2");
+            mark.append(path);
+          } else {
+            mark.className = "dash";
+            Object.assign(mark.style, { width: featureSize * 0.9 + "px", height: Math.max(3, featureSize * 0.12) + "px", margin: `0 ${featureSize * 0.1}px`, flex: "none" });
+          }
+          const label = document.createElement("div");
+          label.className = "body";
+          label.textContent = feature;
+          Object.assign(label.style, { fontSize: featureSize + "px", color: has ? "var(--ink)" : "var(--muted)", opacity: has ? 1 : 0.55, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" });
+          row.append(mark, label);
+          card.append(row);
+          return { row, mark, has };
+        });
+
+        // Card arrives, its price counts up, then the feature rows tick in across every card together.
+        M.enter(tl, card, cardAt(i), e, S.look, { u });
+        M.count(tl, figure, plan.price, cardAt(i) + e * 0.3, Math.max(0.4, e * 1.4), format, "power3.out");
+        rows.forEach(({ row, mark, has }, f) => {
+          const at = ticksStart + f * c.tick_gap;
+          tl.fromTo(row, { opacity: 0, x: -14 * u }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", immediateRender: true }, at);
+          if (has) {
+            const path = mark.firstChild;
+            tl.fromTo(path, { strokeDasharray: 30, strokeDashoffset: 30 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, at + 0.08);
+          }
+        });
+
+        if (i === highlighted) {
+          const ring = document.createElement("div");
+          ring.className = "ring";
+          ring.style.borderWidth = Math.max(3, 4 * u) + "px";
+          card.append(ring);
+          const badge = document.createElement("div");
+          badge.className = "badge";
+          badge.textContent = c.badge;
+          const badgeSize = 22 * u;
+          Object.assign(badge.style, { fontSize: badgeSize + "px", padding: `${badgeSize * 0.5}px ${badgeSize}px`, right: pad * 0.7 + "px", top: -badgeSize * 1.0 + "px" });
+          if (!String(c.badge).trim()) badge.style.display = "none";
+          card.append(badge);
+          tl.fromTo(ring, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out", immediateRender: true }, highlightAt);
+          tl.fromTo(badge, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)", immediateRender: true }, highlightAt + 0.1);
+          tl.to(card, { y: -16 * u, duration: 0.5, ease: "power3.out" }, highlightAt);
+        }
+      });
+      tl.set({}, {}, highlightAt + c.hold);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

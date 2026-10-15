@@ -1,0 +1,56 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/8970054. Effect reference: @willrvail breakdown of a video by @nvision.media (instagram.com/reel/Deb-VcJRpxp); no reference pixels are reused.",
+  "footage": [
+    {
+      "pexels_video_id": "8970054",
+      "url": "https://www.pexels.com/video/man-wearing-hat-taking-selfie-8970054/",
+      "role": "Shot of a person (canyon selfie)",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 30,
+  "frames": 120,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed: three 4-frame flashes (white, red, head only) with one black frame between, then the shot at 0.5 s.",
+  "receipt": {
+    "construction": "A DreamCut demo proposal, rendered from the proposal preview (no approval, no project export) with the production browser GPU compositor at 1920x1080, then scaled to 1280x720 H.264 (CRF 23, no audio). SAM 2 cutout of source 0.9-1.6 s. Poster frame 6; stages frames 1, 6, 11 and 18."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/masking-hook/inputs/shot.jpg",
+      "sha256": "76cffc4888aa568fbade2a53b9da06bf097647a15860e07be0c5fa32c2d575d9"
+    },
+    {
+      "file": "/recipe-previews/masking-hook/inputs/cutout.png",
+      "sha256": "bc46a5c2f2874d90d058acb499677642baec52c943f0350282e8355eea4865b2"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "a9fe4e17c003fd9a4bc3d12c332d2f3d83a99c2aa40a9ff4af06c0efca8411a8"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "aed5e613c09bfbea88c9b3a8d24f8713068f232403f770eedbba71295aa37b91"
+    },
+    {
+      "file": "white.jpg",
+      "sha256": "8ce15fc5b00633bb223a27a4d6d335b060781f566dde289c9de998ff35c97513"
+    },
+    {
+      "file": "red.jpg",
+      "sha256": "aed5e613c09bfbea88c9b3a8d24f8713068f232403f770eedbba71295aa37b91"
+    },
+    {
+      "file": "head.jpg",
+      "sha256": "03f08985825333e68a6d4f30a4aa3737f69c5bdaf836f10e8b42eccddede7dd9"
+    },
+    {
+      "file": "shot.jpg",
+      "sha256": "c4f0d3f0559c53ca08d68307c95cd2bdf25afafc36ea3c7ed582fb642eee422f"
+    }
+  ]
+}

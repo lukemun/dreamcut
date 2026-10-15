@@ -1,0 +1,43 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "timeline-editor",
+      "url": "http://localhost:3123",
+      "port": 3123,
+      "autoPort": false
+    },
+    {
+      "name": "timeline-editor-spawn",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "port": 3123,
+      "autoPort": false
+    },
+    {
+      "name": "timeline-editor-alt",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "exec",
+        "next",
+        "dev",
+        "--turbopack",
+        "-p",
+        "3125"
+      ],
+      "port": 3125,
+      "autoPort": false
+    },
+    {
+      "name": "timeline-editor-review",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "review:start"
+      ],
+      "port": 3124,
+      "autoPort": false
+    }
+  ]
+}

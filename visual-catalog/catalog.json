@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "falling-dollar-bills-chroma-key",
+      "type": "video_clip",
+      "title": "Falling Dollar Bills — Transparent Overlay",
+      "description": "Pre-keyed US dollar bills flutter through a transparent 4K frame, ready to layer directly over another shot.",
+      "file": "licensed/pixabay/derived/falling-dollar-bills-alpha.webm",
+      "sha256": "62c7a18b465e9a5842bc87fed24e623b7651dba64bcefc13d059fa8c4f56cb86",
+      "width": 3840,
+      "height": 2160,
+      "duration_seconds": 28.6,
+      "has_alpha_channel": true,
+      "derivation": {
+        "kind": "chroma_key_alpha_v1",
+        "source_file": "licensed/pixabay/falling-dollar-bills-chroma-key.mp4",
+        "source_sha256": "8041a6f5db29f14b61ada3eab04ae5ed773cd6920cc4f63e3c13d86c3f8a96be",
+        "created_at": "2026-09-16T23:59:00.000Z",
+        "recipe": {
+          "key_color": "#1c2846",
+          "similarity": 0.12,
+          "blend": 0.04,
+          "dilation_passes": 2,
+          "erosion_passes": 2,
+          "blur_sigma": 0.6,
+          "output_codec": "libvpx-vp9",
+          "output_pixel_format": "yuva420p"
+        }
+      },
+      "source": {
+        "provider": "Pixabay",
+        "asset_url": "https://pixabay.com/videos/dollars-cash-chroma-key-falling-180015/",
+        "creator": "GreenCardShow",
+        "license_name": "Pixabay Content License",
+        "license_url": "https://pixabay.com/service/license-summary/",
+        "source_status": "licensed",
+        "acquired_at": "2026-09-16T23:49:07.605Z",
+        "acquisition_notes": "Downloaded from the asset page as a 4K MP4. The original dark-navy-plate MP4 is preserved beside this reusable transparent derivative."
+      },
+      "annotation": {
+        "meaning": "A shower of dollar bills signals money, profit, abundance, a financial win, or deliberately excessive celebration.",
+        "use_cases": [
+          "Celebrating revenue, a sale, funding, or a financial milestone",
+          "Adding an exaggerated making-it-rain reaction over another shot",
+          "Visualizing money entering a scene or fluttering down after a cash burst"
+        ],
+        "tone": [
+          "celebratory",
+          "excessive",
+          "playful"
+        ],
+        "template_structure": "Place the transparent clip on a visual lane above the underlying shot, then trim, scale, and position the bills. No per-project chroma key is required.",
+        "cultural_context": "A utility motion-graphics overlay rather than a fixed meme template. Falling US-dollar imagery commonly reads as making it rain, sudden wealth, profit, or a comic financial reward depending on the surrounding edit.",
+        "avoid_when": [
+          "A currency other than US dollars is required",
+          "The imagery could imply a guaranteed financial result or trivialize financial hardship",
+          "The retained fine printed details do not read cleanly against the intended background"
+        ],
+        "tags": [
+          "money",
+          "cash",
+          "dollars",
+          "falling",
+          "money-rain",
+          "transparent",
+          "pre-keyed",
+          "overlay",
+          "celebration",
+          "finance"
+        ],
+        "confidence": "high",
+        "sources": [
+          {
+            "label": "Pixabay source and license page",
+            "url": "https://pixabay.com/videos/dollars-cash-chroma-key-falling-180015/",
+            "kind": "original_source"
+          }
+        ]
+      }
+    }
+  ]
+}

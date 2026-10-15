@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "images": [
+    {
+      "id": "bookshelf_bright_library",
+      "title": "Bright library bookshelf",
+      "description": "A straight-on wall of tightly packed library shelves with colorful book spines filling the frame.",
+      "file": "licensed/unsplash/bookshelf-bright-library.jpg",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/pile-of-books-on-shelf-cY-SXZp6TUY",
+        "acquisition_url": "https://images.unsplash.com/photo-1518336707416-68242ffc0bac?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "CHUTTERSNAP",
+        "creator_url": "https://unsplash.com/@chuttersnap",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:10:00.000Z"
+      }
+    },
+    {
+      "id": "bookshelf_cozy_window",
+      "title": "Bookshelf by a window",
+      "description": "Dark shelves beside a window and plant, with a closer shelf blurred along the right edge.",
+      "file": "licensed/unsplash/bookshelf-cozy-window.jpg",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/a-bookshelf-filled-with-lots-of-books-next-to-a-window-57I496odF5c",
+        "acquisition_url": "https://images.unsplash.com/photo-1699443817739-cf2f7cbcd18d?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Mohammadreza Charkhgard",
+        "creator_url": "https://unsplash.com/@mrcharkhgard",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      }
+    },
+    {
+      "id": "bookshelf_vintage_library",
+      "title": "Dark library shelves",
+      "description": "Tall wooden shelves and a ladder occupy the right side while the left side is dark.",
+      "file": "licensed/unsplash/bookshelf-vintage-library.jpg",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/brown-wooden-shelves-with-assorted-books-h2VrZPWLhIU",
+        "acquisition_url": "https://images.unsplash.com/photo-1533478684236-61e1192879e8?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Kevin Laminto",
+        "creator_url": "https://unsplash.com/@kxvn_lx",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      }
+    },
+    {
+      "id": "bookshelf_dramatic_light",
+      "title": "Bookshelf in directional light",
+      "description": "Rows of books cross the frame under directional light, with deep shadow on the right.",
+      "file": "licensed/unsplash/bookshelf-dramatic-light.jpg",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/a-bookshelf-filled-with-lots-of-books-in-a-dark-room-21GGNSMlk5E",
+        "acquisition_url": "https://images.unsplash.com/photo-1701607632237-4b50076614f7?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Evangelos Vamvounakis",
+        "creator_url": "https://unsplash.com/@aggelosvam",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      }
+    },
+    {
+      "id": "bookshelf_home_fairy_lights",
+      "title": "Home bookshelves with small lights",
+      "description": "A wall of books includes a sculpted bust, plants, and small warm lights.",
+      "file": "licensed/unsplash/bookshelf-home-fairy-lights.jpg",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/tall-bookshelves-filled-with-many-books-mzoKghcfI94",
+        "acquisition_url": "https://images.unsplash.com/photo-1757390026877-5a5d8d0149f7?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Elijah Crouch",
+        "creator_url": "https://unsplash.com/@elijahcrouch",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      }
+    }
+  ]
+}

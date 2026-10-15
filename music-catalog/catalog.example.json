@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "tracks": [
+    {
+      "id": "example_track",
+      "title": "Example track",
+      "artist": "Example artist",
+      "description": "Describe the emotional shape and editorial character.",
+      "moods": ["hopeful", "warm"],
+      "energy": "dynamic",
+      "tempo_bpm": 112,
+      "textures": ["acoustic", "handclaps"],
+      "vocals": "instrumental",
+      "good_for": ["A reveal that should feel earned", "A friendly day-in-the-life montage"],
+      "avoid_for": ["Dense spoken explanation", "A genuinely sad ending"],
+      "default_version_id": "edit_reference",
+      "versions": [
+        {
+          "id": "edit_reference",
+          "label": "Local edit reference",
+          "file": "example-track.mp3",
+          "source_status": "licensed",
+          "delivery_mode": "embedded",
+          "platforms": [],
+          "duration_seconds": 180,
+          "cues": [
+            {
+              "id": "quiet_bed",
+              "label": "Quiet dialogue bed",
+              "start_seconds": 12.4,
+              "end_seconds": 27.2,
+              "role": "bed",
+              "use_when": ["Voiceover needs room while momentum continues"],
+              "avoid_when": ["The cut needs an immediate musical hook"]
+            },
+            {
+              "id": "reveal_hook",
+              "label": "Reveal hook",
+              "start_seconds": 41.8,
+              "end_seconds": 55.8,
+              "role": "reveal",
+              "use_when": ["Title, cover, or payoff lands near the first downbeat"]
+            }
+          ]
+        },
+        {
+          "id": "tiktok_native",
+          "label": "TikTok native sound",
+          "source_status": "platform_native",
+          "delivery_mode": "platform_native",
+          "platforms": ["tiktok"],
+          "platform_sound_url": "https://www.tiktok.com/music/example-0000000000000000000",
+          "platform_sound_id": "0000000000000000000",
+          "notes": "Use the platform sound during posting; the local edit reference is only for timing.",
+          "cues": []
+        }
+      ]
+    }
+  ]
+}

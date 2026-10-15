@@ -1,0 +1,22 @@
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 8px; padding: 0 0 12px; }
+/* Open space over lines: the media and its name sit on the panel; hover and selection add a quiet surface. */
+.tile { position: relative; min-width: 0; overflow: hidden; border-radius: 8px; background: transparent; color: var(--ink); transition: background 120ms ease; }
+.tile:hover { background: var(--chrome-raised); }
+/* Selected takes over the whole tile: a filled surface (preview well included) inside a strong ring, no badge. */
+.tile[data-selected="true"] { background: var(--chrome-selected-bg); box-shadow: inset 0 0 0 2px var(--ink); }
+.tile[data-selected="true"] .preview { margin: 4px 4px 0; height: 80px; background: transparent; }
+.tile[draggable="true"] { cursor: grab; }
+.select { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.select:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: -2px; }
+.select:disabled { cursor: default; opacity: .55; }
+.preview { position: relative; display: grid; place-items: center; height: 84px; overflow: hidden; padding: 8px; border-radius: 8px; background: var(--viewing-surround); }
+.caption { display: grid; gap: 1px; padding: 6px 6px 7px; }
+.label { overflow: hidden; font-size: var(--ui-text-small); line-height: 18px; white-space: nowrap; text-overflow: ellipsis; }
+/* Two lines so short descriptions ("Spring pop-in") are not cut off. */
+.detail { display: -webkit-box; overflow: hidden; color: var(--ink-secondary); font-size: var(--ui-text-small); line-height: 16px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+/* Add sits on the preview's bottom-right corner, as part of the thing it adds, not loose under it. */
+.add { position: absolute; top: calc(84px - 30px); right: 6px; display: flex; align-items: center; gap: 3px; height: 24px; padding: 0 8px 0 6px; border: 0; border-radius: 999px; background: var(--glass-control); color: var(--ink); font-size: var(--ui-text-small); cursor: pointer; transition: background 120ms ease; }
+/* Always visible: hover-only actions were missed by first-time creators (2026-10-10 audit). */
+.add:hover { background: var(--chrome-selected-bg); }
+.add:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: 1px; }
+.add:disabled { cursor: default; opacity: .4; }

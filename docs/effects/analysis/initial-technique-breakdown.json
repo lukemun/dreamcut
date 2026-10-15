@@ -1,0 +1,1049 @@
+{
+  "title": "DreamCut effect catalog",
+  "source_url": "https://www.instagram.com/reel/DdN_aljAIY0/",
+  "source_credit": "@celfstudies",
+  "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+  "status": "reference analysis; recipes planned, recreations not verified",
+  "entries": [
+    {
+      "rank": 1,
+      "catalog_id": "FX-05",
+      "name": "Persistent time and activity labels",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Background clip",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "chapter rows with start/end seconds, time text and activity text",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Emoji; font preference; target placement",
+      "preparation": "Create editable chapter text; validate non-overlapping chapter times and safe margins",
+      "skill_owner": "video-typography",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Native create_text, presets and timing provide a candidate route. Exact reference font and side placement need a trial.",
+      "acceptance": "Labels remain legible and update exactly on chapter boundaries.",
+      "reference_interval": [
+        0.9,
+        15.166667
+      ],
+      "reference_clip": "clips/FX-05.mp4",
+      "recipe_name": "chapter-labels",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+      "clip": "media/FX-05.mp4",
+      "preview": "media/FX-05.gif",
+      "poster": "media/FX-05.jpg",
+      "observation": "White time text at left and activity text at right persist across scenes and update by chapter, sometimes with emoji.",
+      "source_window": {
+        "id": "FX-05",
+        "path": "FX-05.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 21,
+        "source_end_frame_exclusive": 461,
+        "source_start_seconds": 0.7,
+        "frames": 440,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "e0f2371c410bef419bba618a4d06ed7ddc67b9657b572064106f7b1a475306aa"
+      },
+      "preview_source_start_seconds": 0.9,
+      "preview_duration_seconds": 3,
+      "clip_sha256": "e0f2371c410bef419bba618a4d06ed7ddc67b9657b572064106f7b1a475306aa"
+    },
+    {
+      "rank": 2,
+      "catalog_id": "FX-01",
+      "name": "Rapid teaser montage",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Two or more video windows in order",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "chosen cut durations",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Music plus explicit beat markers; continuous title overlay",
+      "preparation": "Prepare clips and source windows; preserve handles; start with silent cuts",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "create_visual accepts complete video source windows; cut assembly needs no new pixel operation. Musical matching is a separate input.",
+      "acceptance": "No gaps, unintended overlaps or repeated frames at cuts.",
+      "reference_interval": [
+        0.0,
+        0.9
+      ],
+      "reference_clip": "clips/FX-01.mp4",
+      "recipe_name": "rapid-montage",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-01.mp4",
+      "preview": "media/FX-01.gif",
+      "poster": "media/FX-01.jpg",
+      "observation": "Background shots change at frames 7, 14 and 21 while the central paper graphic continues.",
+      "source_window": {
+        "id": "FX-01",
+        "path": "FX-01.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 0,
+        "source_end_frame_exclusive": 33,
+        "source_start_seconds": 0.0,
+        "frames": 33,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "c630103cbd51195e534ae1204b76f0060ddd318f74f9375576f0e2f2e5fa1031"
+      },
+      "preview_source_start_seconds": 0.0,
+      "preview_duration_seconds": 1.1,
+      "clip_sha256": "c630103cbd51195e534ae1204b76f0060ddd318f74f9375576f0e2f2e5fa1031"
+    },
+    {
+      "rank": 3,
+      "catalog_id": "FX-10",
+      "name": "Lunch before/after match cut",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Before and after lunch clips with corresponding plate layout and camera angle",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Alignment anchor on plate center",
+      "preparation": "Select matching frames and conform framing; retain at least 0.25s handles where available",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Source-window cut recipe; quality primarily depends on the supplied match.",
+      "acceptance": "Plate positions feel continuous while food state changes.",
+      "reference_interval": [
+        7.1,
+        7.2
+      ],
+      "reference_clip": "clips/FX-10.mp4",
+      "recipe_name": "before-after-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-10.mp4",
+      "preview": "media/FX-10.gif",
+      "poster": "media/FX-10.jpg",
+      "observation": "Full plates switch to mostly empty plates at frame 214, retaining a similar overhead arrangement.",
+      "source_window": {
+        "id": "FX-10",
+        "path": "FX-10.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 207,
+        "source_end_frame_exclusive": 222,
+        "source_start_seconds": 6.9,
+        "frames": 15,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "4a65dbc9c30b48e77e9ecd960ccc83e86210fc44bf21509205789a9d7ded93e4"
+      },
+      "preview_source_start_seconds": 6.9,
+      "preview_duration_seconds": 0.5,
+      "clip_sha256": "4a65dbc9c30b48e77e9ecd960ccc83e86210fc44bf21509205789a9d7ded93e4"
+    },
+    {
+      "rank": 4,
+      "catalog_id": "FX-19",
+      "name": "Dinner before/after match cut",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Before and after bowl clips with matching viewpoint and bowl center",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Alignment anchor; gentle crop",
+      "preparation": "Same match-cut recipe as lunch; preserve source windows",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Reuse FX-10 procedure; no distinct skill needed.",
+      "acceptance": "Bowl center and scale agree across the cut.",
+      "reference_interval": [
+        14.166667,
+        14.266667
+      ],
+      "reference_clip": "clips/FX-19.mp4",
+      "recipe_name": "before-after-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-19.mp4",
+      "preview": "media/FX-19.gif",
+      "poster": "media/FX-19.jpg",
+      "observation": "Full ramen bowl changes to an empty bowl at frame 426 with comparable overhead framing.",
+      "source_window": {
+        "id": "FX-19",
+        "path": "FX-19.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 419,
+        "source_end_frame_exclusive": 434,
+        "source_start_seconds": 13.966666666666667,
+        "frames": 15,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "a2c592db96b350dd4a53a2652ead39b12292355f8cefa9d338830778f5f021bd"
+      },
+      "preview_source_start_seconds": 13.966666666666667,
+      "preview_duration_seconds": 0.5,
+      "clip_sha256": "a2c592db96b350dd4a53a2652ead39b12292355f8cefa9d338830778f5f021bd"
+    },
+    {
+      "rank": 5,
+      "catalog_id": "FX-18",
+      "name": "Full-frame white flash",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background clip or adjacent shots",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "flash time",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Flash color; strength; attack and decay",
+      "preparation": "Prepare a plain white plate and time its opacity/entrance/exit",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Opacity and fades exist; exact multi-stage flash automation needs safe-route validation. Avoid claiming arbitrary opacity keyframes are agent-writable.",
+      "acceptance": "Flash peaks on the chosen frame, clears completely, and covers the intended canvas.",
+      "reference_interval": [
+        13.4,
+        13.533333
+      ],
+      "reference_clip": "clips/FX-18.mp4",
+      "recipe_name": "full-frame-flash",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-18.mp4",
+      "preview": "media/FX-18.gif",
+      "poster": "media/FX-18.jpg",
+      "observation": "Exterior appears under rising pale/white coverage; frame 404 is almost entirely white, then normal exposure returns at 405.",
+      "source_window": {
+        "id": "FX-18",
+        "path": "FX-18.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 396,
+        "source_end_frame_exclusive": 412,
+        "source_start_seconds": 13.2,
+        "frames": 16,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "c1b4b6e27b8c441835292b994ce71af87c0a94082b17996530dc712a65f46588"
+      },
+      "preview_source_start_seconds": 13.2,
+      "preview_duration_seconds": 0.5333333333333333,
+      "clip_sha256": "c1b4b6e27b8c441835292b994ce71af87c0a94082b17996530dc712a65f46588"
+    },
+    {
+      "rank": 6,
+      "catalog_id": "FX-12",
+      "name": "Basket remains across grocery cuts",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background shopping clips",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "transparent basket PNG/WebP with clean alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "start/end window",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Size; named position; outline",
+      "preparation": "Extract a static basket if not supplied; inspect holes/edges; use one overlay across cuts",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Alpha visual creation plus semantic placement is a candidate existing route. Source extraction is separate work.",
+      "acceptance": "Basket holds position and size through background cuts; no rectangular fringe.",
+      "reference_interval": [
+        8.9,
+        10.7
+      ],
+      "reference_clip": "clips/FX-12.mp4",
+      "recipe_name": "persistent-object-overlay",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-12.mp4",
+      "preview": "media/FX-12.gif",
+      "poster": "media/FX-12.jpg",
+      "observation": "A small frontal basket stays near the center while grocery shelf backgrounds change at frames 281, 294 and 307.",
+      "source_window": {
+        "id": "FX-12",
+        "path": "FX-12.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 261,
+        "source_end_frame_exclusive": 327,
+        "source_start_seconds": 8.7,
+        "frames": 66,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "f66c9dfb804e1c472cc37b8e7357e8aae779cd1bb1876aa89768ce6ce31d9929"
+      },
+      "preview_source_start_seconds": 8.7,
+      "preview_duration_seconds": 2.2,
+      "clip_sha256": "f66c9dfb804e1c472cc37b8e7357e8aae779cd1bb1876aa89768ce6ce31d9929"
+    },
+    {
+      "rank": 7,
+      "catalog_id": "FX-20",
+      "name": "Progressive good-night end title",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "exact title and secondary copy",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "available font",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Star graphic; reveal duration; color",
+      "preparation": "Use separate native text actors and optional star; inspect font metrics",
+      "skill_owner": "video-typography",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Native write_on is a horizontal reveal, not traced handwriting. Use that faithful-enough interpretation only if accepted; exact stroke writing needs new work.",
+      "acceptance": "Text remains editable; reveal order and final readability match the brief.",
+      "reference_interval": [
+        15.166667,
+        15.866667
+      ],
+      "reference_clip": "clips/FX-20.mp4",
+      "recipe_name": "progressive-title-reveal",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+      "clip": "media/FX-20.mp4",
+      "preview": "media/FX-20.gif",
+      "poster": "media/FX-20.jpg",
+      "observation": "Script Good Night lettering reveals progressively; a star appears and the smaller thanks-for-watching line builds beneath.",
+      "source_window": {
+        "id": "FX-20",
+        "path": "FX-20.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 449,
+        "source_end_frame_exclusive": 476,
+        "source_start_seconds": 14.966666666666667,
+        "frames": 27,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "4df847cefaccad156cc60ad572c28e5fce37d512ded01bd39bbf0530006aedfc"
+      },
+      "preview_source_start_seconds": 14.966666666666667,
+      "preview_duration_seconds": 0.9,
+      "clip_sha256": "4df847cefaccad156cc60ad572c28e5fce37d512ded01bd39bbf0530006aedfc"
+    },
+    {
+      "rank": 8,
+      "catalog_id": "FX-14",
+      "name": "Floating translucent project screen",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background laptop shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "clean screen recording or screenshot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "interval",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Opacity; position; entrance duration",
+      "preparation": "Prepare screen source and fit within top region; preserve recording time",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Video/still overlay, opacity and animation presets exist. Fine scale synchronization may need a semantic motion extension.",
+      "acceptance": "Screen is readable, translucent and does not cover the subject unintentionally.",
+      "reference_interval": [
+        10.733333,
+        11.733333
+      ],
+      "reference_clip": "clips/FX-14.mp4",
+      "recipe_name": "floating-screen-overlay",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-14.mp4",
+      "preview": "media/FX-14.gif",
+      "poster": "media/FX-14.jpg",
+      "observation": "A rectangular software view grows into the upper part of the laptop shot; ceiling detail remains visible through it and the UI content changes.",
+      "source_window": {
+        "id": "FX-14",
+        "path": "FX-14.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 316,
+        "source_end_frame_exclusive": 358,
+        "source_start_seconds": 10.533333333333333,
+        "frames": 42,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "1ab5a7af1c1a7e34e6e3332a9f633e46e4de2bcfe1a1a6334d51c3490b643c36"
+      },
+      "preview_source_start_seconds": 10.533333333333333,
+      "preview_duration_seconds": 1.4,
+      "clip_sha256": "1ab5a7af1c1a7e34e6e3332a9f633e46e4de2bcfe1a1a6334d51c3490b643c36"
+    },
+    {
+      "rank": 9,
+      "catalog_id": "FX-06",
+      "name": "Gesture-matched outfit change",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Two wardrobe takes with matching hand gesture, camera framing and light",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Match frame selections; crop tolerance",
+      "preparation": "Shoot/retrieve both performances; align at gesture peak",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Editing primitives are simple; capture quality makes this harder than a basic cut.",
+      "acceptance": "Hand continuity disguises the outfit change; no accidental motion reversal.",
+      "reference_interval": [
+        1.8,
+        2.1
+      ],
+      "reference_clip": "clips/FX-06.mp4",
+      "recipe_name": "gesture-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-06.mp4",
+      "preview": "media/FX-06.gif",
+      "poster": "media/FX-06.jpg",
+      "observation": "Light shirt changes to black at frame 57 with the hand held close to the camera in a similar pose.",
+      "source_window": {
+        "id": "FX-06",
+        "path": "FX-06.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 48,
+        "source_end_frame_exclusive": 69,
+        "source_start_seconds": 1.6,
+        "frames": 21,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "ce186bbf6bc6ddc3b4856ebfb4321624269fff58a5fec579a3e741b2e0ffbd47"
+      },
+      "preview_source_start_seconds": 1.6,
+      "preview_duration_seconds": 0.7,
+      "clip_sha256": "ce186bbf6bc6ddc3b4856ebfb4321624269fff58a5fec579a3e741b2e0ffbd47"
+    },
+    {
+      "rank": 10,
+      "catalog_id": "FX-07",
+      "name": "Foot-to-camera location change",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Indoor and outdoor low-angle takes with matching foot approach and retreat",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Occlusion frame; crop tolerance",
+      "preparation": "Shoot paired foot action with matching direction and apparent shoe size",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Cut route exists; missing matched footage is the main risk.",
+      "acceptance": "Shoe trajectory and camera angle connect without a conspicuous jump.",
+      "reference_interval": [
+        4.333333,
+        4.7
+      ],
+      "reference_clip": "clips/FX-07.mp4",
+      "recipe_name": "gesture-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-07.mp4",
+      "preview": "media/FX-07.gif",
+      "poster": "media/FX-07.jpg",
+      "observation": "The raised shoe approaches the camera indoors; the scene switches outdoors at frame 135 with a similar low viewpoint and continuing leg action.",
+      "source_window": {
+        "id": "FX-07",
+        "path": "FX-07.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 124,
+        "source_end_frame_exclusive": 147,
+        "source_start_seconds": 4.133333333333334,
+        "frames": 23,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "2d76c927024b66c79aab3618c9127c7cd24234a5c518dac1c9935b8ca6c5a373"
+      },
+      "preview_source_start_seconds": 4.133333333333334,
+      "preview_duration_seconds": 0.7666666666666667,
+      "clip_sha256": "2d76c927024b66c79aab3618c9127c7cd24234a5c518dac1c9935b8ca6c5a373"
+    },
+    {
+      "rank": 11,
+      "catalog_id": "FX-13",
+      "name": "Basket contents accumulate",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Basket base with alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "separate product cutouts or clean basket states",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "ordered pickup times",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Product scale; stagger; pop entrance",
+      "preparation": "Extract products or photograph basket states; preserve independent product roles",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Layered stills and timing provide a candidate route; exact nesting/occlusion needs prepared mattes.",
+      "acceptance": "Each product appears once at its pickup cue and remains correctly inside the basket.",
+      "reference_interval": [
+        8.9,
+        10.7
+      ],
+      "reference_clip": "clips/FX-13.mp4",
+      "recipe_name": "accumulating-object-collage",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-13.mp4",
+      "preview": "media/FX-13.gif",
+      "poster": "media/FX-13.jpg",
+      "observation": "The basket starts with a popcorn pack, gains a green package, a drink and a sauce item as shelf shots progress.",
+      "source_window": {
+        "id": "FX-13",
+        "path": "FX-13.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 261,
+        "source_end_frame_exclusive": 327,
+        "source_start_seconds": 8.7,
+        "frames": 66,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "f66c9dfb804e1c472cc37b8e7357e8aae779cd1bb1876aa89768ce6ce31d9929"
+      },
+      "preview_source_start_seconds": 8.7,
+      "preview_duration_seconds": 2.2,
+      "clip_sha256": "f66c9dfb804e1c472cc37b8e7357e8aae779cd1bb1876aa89768ce6ce31d9929"
+    },
+    {
+      "rank": 12,
+      "catalog_id": "FX-03",
+      "name": "Paper-card white flicker",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Title artwork with alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "background",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "pulse frames",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "White intensity; pulse count",
+      "preparation": "Make white silhouette from the same alpha; retain original artwork as separate layer",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Static recolor and opacity exist. Exact short pulse sequence and graph provenance require a safe-route trial.",
+      "acceptance": "White never leaks outside card silhouette; artwork returns unchanged.",
+      "reference_interval": [
+        0.666667,
+        1.0
+      ],
+      "reference_clip": "clips/FX-03.mp4",
+      "recipe_name": "masked-flash",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-03.mp4",
+      "preview": "media/FX-03.gif",
+      "poster": "media/FX-03.jpg",
+      "observation": "The title card alternates between legible artwork, pale artwork and a blank white silhouette.",
+      "source_window": {
+        "id": "FX-03",
+        "path": "FX-03.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 14,
+        "source_end_frame_exclusive": 36,
+        "source_start_seconds": 0.4666666666666667,
+        "frames": 22,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "7fed2f691b77bc60cab535020d5c0ab8a7abf995eb9880cc4ab626bc792b84b3"
+      },
+      "preview_source_start_seconds": 0.4666666666666667,
+      "preview_duration_seconds": 0.7333333333333333,
+      "clip_sha256": "7fed2f691b77bc60cab535020d5c0ab8a7abf995eb9880cc4ab626bc792b84b3"
+    },
+    {
+      "rank": 13,
+      "catalog_id": "FX-09",
+      "name": "Plates pulse to white",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Individual plate mattes aligned to footage",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "pulse order and times",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "background",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Pulse strength and duration",
+      "preparation": "Extract plate masks; track if plates/camera move during pulses",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Reuse masked-flash procedure from FX-03, with extra alignment work.",
+      "acceptance": "Each flash stays within its plate and adjacent plates remain unaffected.",
+      "reference_interval": [
+        6.566667,
+        6.933333
+      ],
+      "reference_clip": "clips/FX-09.mp4",
+      "recipe_name": "masked-flash",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-09.mp4",
+      "preview": "media/FX-09.gif",
+      "poster": "media/FX-09.jpg",
+      "observation": "Individual plate silhouettes flash white in succession while the table remains visible.",
+      "source_window": {
+        "id": "FX-09",
+        "path": "FX-09.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 191,
+        "source_end_frame_exclusive": 214,
+        "source_start_seconds": 6.366666666666666,
+        "frames": 23,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "1a2b444e4ec496bddebb1f485b726d7dd2426fb38427ef8765baf17d1930f73d"
+      },
+      "preview_source_start_seconds": 6.366666666666666,
+      "preview_duration_seconds": 0.7666666666666667,
+      "clip_sha256": "1a2b444e4ec496bddebb1f485b726d7dd2426fb38427ef8765baf17d1930f73d"
+    },
+    {
+      "rank": 14,
+      "catalog_id": "FX-08",
+      "name": "Three plates build the next scene",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Outgoing shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "incoming lunch shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "three separate plate cutouts",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "target plate locations",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Stagger; starting sizes; easing",
+      "preparation": "Extract clean plates from destination; align final positions with destination frame",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Native layers and semantic motion are candidates; exact arbitrary landing geometry is a possible contract gap.",
+      "acceptance": "Each plate arrives separately and the background handoff produces no visible plate jump.",
+      "reference_interval": [
+        5.933333,
+        6.6
+      ],
+      "reference_clip": "clips/FX-08.mp4",
+      "recipe_name": "cutout-scene-transition",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-08.mp4",
+      "preview": "media/FX-08.gif",
+      "poster": "media/FX-08.jpg",
+      "observation": "Individual food plates appear successively, enlarge over the street shot and resolve into the lunch-table composition at frame 197.",
+      "source_window": {
+        "id": "FX-08",
+        "path": "FX-08.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 172,
+        "source_end_frame_exclusive": 204,
+        "source_start_seconds": 5.733333333333333,
+        "frames": 32,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "616935ab0402a1cc64962b98a69dd88e87f6f66bba430a28064ac493391f21c7"
+      },
+      "preview_source_start_seconds": 5.733333333333333,
+      "preview_duration_seconds": 1.0666666666666667,
+      "clip_sha256": "616935ab0402a1cc64962b98a69dd88e87f6f66bba430a28064ac493391f21c7"
+    },
+    {
+      "rank": 15,
+      "catalog_id": "FX-11",
+      "name": "Drinks enter before their background",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Outgoing lunch shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "incoming drinks shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "separate moving hand-and-cup layers or approved still cutouts",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "landing targets",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Stagger; travel duration",
+      "preparation": "Rotoscope moving hands/cups for close fidelity; static cutouts are a declared simplification",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Reuse cutout-transition method; moving masks, temporal alignment and exact landing add preparation/integration risk.",
+      "acceptance": "No clipped fingers, changing edges or jump when destination shot takes over.",
+      "reference_interval": [
+        7.6,
+        8.033333
+      ],
+      "reference_clip": "clips/FX-11.mp4",
+      "recipe_name": "cutout-scene-transition",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-11.mp4",
+      "preview": "media/FX-11.gif",
+      "poster": "media/FX-11.jpg",
+      "observation": "A hand with a green drink enters over the lunch table, then another drink/hand appears; the background changes to the drinks shot at frame 240.",
+      "source_window": {
+        "id": "FX-11",
+        "path": "FX-11.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 222,
+        "source_end_frame_exclusive": 247,
+        "source_start_seconds": 7.4,
+        "frames": 25,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "9d8f0060a5fbaf59882e143b4432d0b92800e57c06916ceadc116ffdc7f5688c"
+      },
+      "preview_source_start_seconds": 7.4,
+      "preview_duration_seconds": 0.8333333333333334,
+      "clip_sha256": "9d8f0060a5fbaf59882e143b4432d0b92800e57c06916ceadc116ffdc7f5688c"
+    },
+    {
+      "rank": 16,
+      "catalog_id": "FX-16",
+      "name": "Lanterns and sign assemble next scene",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Walking shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "restaurant exterior",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "separate lantern/sign cutouts",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "ordered reveal times",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "landing targets",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Pulse colors; glitch cue; flash length",
+      "preparation": "Extract masks, stage pieces, align to exterior; compose FX-03/17/18 as dependencies",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Combined cutout build, masked flashes and glitch; no single verified end-to-end recipe yet.",
+      "acceptance": "Parts remain separate and align with the exterior through the flash.",
+      "reference_interval": [
+        12.633333,
+        13.533333
+      ],
+      "reference_clip": "clips/FX-16.mp4",
+      "recipe_name": "cutout-scene-transition",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-16.mp4",
+      "preview": "media/FX-16.gif",
+      "poster": "media/FX-16.jpg",
+      "observation": "Red lanterns appear one by one over the walking shot, flashing white; a restaurant sign appears above them before the exterior fills the frame.",
+      "source_window": {
+        "id": "FX-16",
+        "path": "FX-16.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 373,
+        "source_end_frame_exclusive": 412,
+        "source_start_seconds": 12.433333333333334,
+        "frames": 39,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "e2a35337ea353fa77dd90f19b0104ccc1f4d97a3ffbc448a48eda0624f1d26f5"
+      },
+      "preview_source_start_seconds": 12.433333333333334,
+      "preview_duration_seconds": 1.3,
+      "clip_sha256": "e2a35337ea353fa77dd90f19b0104ccc1f4d97a3ffbc448a48eda0624f1d26f5"
+    },
+    {
+      "rank": 17,
+      "catalog_id": "FX-17",
+      "name": "Sign RGB split and dropout",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Sign with alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "background",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "glitch interval",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Channel separation distance; tint; dropout frames",
+      "preparation": "Inspect whether channel-isolation/blending is available; otherwise build a general effect capability with editable parameters",
+      "skill_owner": "recreate-effect",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "No RGB-split control found in inspected effect registry. Tinted duplicates are only an approximation; dedicated route remains unverified.",
+      "acceptance": "Channels separate inside alpha only, then restore exactly with no persistent color change.",
+      "reference_interval": [
+        13.033333,
+        13.266667
+      ],
+      "reference_clip": "clips/FX-17.mp4",
+      "recipe_name": "rgb-split-glitch",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "clip": "media/FX-17.mp4",
+      "preview": "media/FX-17.gif",
+      "poster": "media/FX-17.jpg",
+      "observation": "The sign turns cyan with offset magenta/green edges, disappears at frame 396 and returns normally at 397.",
+      "source_window": {
+        "id": "FX-17",
+        "path": "FX-17.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 385,
+        "source_end_frame_exclusive": 404,
+        "source_start_seconds": 12.833333333333334,
+        "frames": 19,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "06204f6f501e5643a410f799097d6a6ff63b3e0f2aa36a21521157a6a50fd8a3"
+      },
+      "preview_source_start_seconds": 12.833333333333334,
+      "preview_duration_seconds": 0.6333333333333333,
+      "clip_sha256": "06204f6f501e5643a410f799097d6a6ff63b3e0f2aa36a21521157a6a50fd8a3"
+    },
+    {
+      "rank": 18,
+      "catalog_id": "FX-15",
+      "name": "Laptop-edge scene wipe",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Laptop-closing clip",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "destination clip",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "visible lid edge through transition",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "edge annotations or tracking",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Edge feather; wipe interval",
+      "preparation": "Track/annotate moving diagonal edge and foreground occlusion",
+      "skill_owner": "recreate-effect",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Line-mask helpers exist, but no tracked-edge recipe or safe animated-edge contract was verified. Integration audit precedes implementation.",
+      "acceptance": "Reveal hugs the moving laptop edge without exposing wrong-side pixels.",
+      "reference_interval": [
+        11.966667,
+        12.2
+      ],
+      "reference_clip": "clips/FX-15.mp4",
+      "recipe_name": "object-edge-wipe",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "clip": "media/FX-15.mp4",
+      "preview": "media/FX-15.gif",
+      "poster": "media/FX-15.jpg",
+      "observation": "The walking shot is revealed above the diagonal closing-laptop edge while the desk shot persists below it.",
+      "source_window": {
+        "id": "FX-15",
+        "path": "FX-15.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 353,
+        "source_end_frame_exclusive": 372,
+        "source_start_seconds": 11.766666666666667,
+        "frames": 19,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "c30779aa6c83ddd0d4861c199275acfdb45e1529a5f216f9564c8211bae9f52e"
+      },
+      "preview_source_start_seconds": 11.766666666666667,
+      "preview_duration_seconds": 0.6333333333333333,
+      "clip_sha256": "c30779aa6c83ddd0d4861c199275acfdb45e1529a5f216f9564c8211bae9f52e"
+    },
+    {
+      "rank": 19,
+      "catalog_id": "FX-02",
+      "name": "Crumpled paper unfolds",
+      "effort_band": 5,
+      "required_inputs": [
+        {
+          "role": "Paper title artwork",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "transparent crumpled-to-flat sequence or source to produce one",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "background",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Fold style; unfold duration; scale",
+      "preparation": "Capture stop-motion or prepare an alpha deformation sequence; preserve flat artwork and fold states",
+      "skill_owner": "recreate-effect",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Prepared moving media is a possible route. No native paper-deformation workflow verified; layered-paper-cutout solves a different effect.",
+      "acceptance": "Paper opens coherently, ends with readable artwork and has clean alpha throughout.",
+      "reference_interval": [
+        0.0,
+        0.7
+      ],
+      "reference_clip": "clips/FX-02.mp4",
+      "recipe_name": "paper-unfold",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "clip": "media/FX-02.mp4",
+      "preview": "media/FX-02.gif",
+      "poster": "media/FX-02.jpg",
+      "observation": "Small crumpled paper grows and opens into the DAY IN MY LIFE card.",
+      "source_window": {
+        "id": "FX-02",
+        "path": "FX-02.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 0,
+        "source_end_frame_exclusive": 27,
+        "source_start_seconds": 0.0,
+        "frames": 27,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "9f6f42d705f58567080c696bb8a186f967eed2b819be61e3f87801a971cb5829"
+      },
+      "preview_source_start_seconds": 0.0,
+      "preview_duration_seconds": 0.9,
+      "clip_sha256": "9f6f42d705f58567080c696bb8a186f967eed2b819be61e3f87801a971cb5829"
+    },
+    {
+      "rank": 20,
+      "catalog_id": "FX-04",
+      "name": "Graphic becomes handheld card",
+      "effort_band": 5,
+      "required_inputs": [
+        {
+          "role": "Matched title artwork",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "handheld-card footage",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "exact handoff pose/time",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "foreground hand mask if needed",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Tracking anchors; permissible graphic drift",
+      "preparation": "Track card corners; match perspective and lighting; preserve hand occlusion",
+      "skill_owner": "recreate-effect",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Precise graphic-to-physical handoff needs tracking/occlusion; no complete portable execution route verified.",
+      "acceptance": "No visible jump or edge crossing when graphic becomes the handheld card.",
+      "reference_interval": [
+        0.9,
+        1.5
+      ],
+      "reference_clip": "clips/FX-04.mp4",
+      "recipe_name": "graphic-to-prop-handoff",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "clip": "media/FX-04.mp4",
+      "preview": "media/FX-04.gif",
+      "poster": "media/FX-04.jpg",
+      "observation": "The central card aligns with the indoor shot and then lowers with the hand.",
+      "source_window": {
+        "id": "FX-04",
+        "path": "FX-04.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 21,
+        "source_end_frame_exclusive": 51,
+        "source_start_seconds": 0.7,
+        "frames": 30,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": false,
+        "sha256": "5ed1b1bc41735fd44026bb824b2cc49d9e07c4f45a40fe0dc99b5909352add7a"
+      },
+      "preview_source_start_seconds": 0.7,
+      "preview_duration_seconds": 1.0,
+      "clip_sha256": "5ed1b1bc41735fd44026bb824b2cc49d9e07c4f45a40fe0dc99b5909352add7a"
+    }
+  ]
+}

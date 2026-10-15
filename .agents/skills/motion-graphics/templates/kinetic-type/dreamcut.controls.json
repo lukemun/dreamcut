@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "controls": [
+    {
+      "id": "look",
+      "kind": "choice",
+      "label": "Look",
+      "default": "paper",
+      "options": [
+        {
+          "value": "paper",
+          "label": "Paper"
+        },
+        {
+          "value": "keynote",
+          "label": "Keynote"
+        },
+        {
+          "value": "swiss",
+          "label": "Swiss"
+        },
+        {
+          "value": "terminal",
+          "label": "Terminal"
+        },
+        {
+          "value": "chalk",
+          "label": "Chalk"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "label": "Shape",
+      "default": "wide",
+      "options": [
+        {
+          "value": "wide",
+          "label": "16:9"
+        },
+        {
+          "value": "tall",
+          "label": "9:16"
+        },
+        {
+          "value": "square",
+          "label": "1:1"
+        }
+      ],
+      "fixed": true
+    },
+    {
+      "id": "phrase",
+      "kind": "text",
+      "label": "Phrase",
+      "default": "Less time setting up. More time making the thing.",
+      "max_length": 160
+    },
+    {
+      "id": "accent_words",
+      "kind": "text",
+      "label": "Accent words",
+      "default": "making",
+      "max_length": 60
+    },
+    {
+      "id": "arrangement",
+      "kind": "choice",
+      "label": "Words",
+      "default": "build",
+      "options": [
+        {
+          "value": "build",
+          "label": "Build the line"
+        },
+        {
+          "value": "one",
+          "label": "One at a time"
+        }
+      ]
+    },
+    {
+      "id": "landing",
+      "kind": "choice",
+      "label": "Landing",
+      "default": "look",
+      "options": [
+        {
+          "value": "look",
+          "label": "Look's own"
+        },
+        {
+          "value": "rise",
+          "label": "Rise"
+        },
+        {
+          "value": "drop",
+          "label": "Drop"
+        },
+        {
+          "value": "pop",
+          "label": "Pop"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ]
+    },
+    {
+      "id": "align",
+      "kind": "choice",
+      "label": "Align",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        }
+      ]
+    },
+    {
+      "id": "size",
+      "kind": "number",
+      "label": "Size",
+      "default": 100,
+      "min": 50,
+      "max": 150,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "id": "lead_in",
+      "kind": "number",
+      "label": "First word",
+      "default": 0.3,
+      "min": 0,
+      "max": 5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "beat",
+      "kind": "number",
+      "label": "Beat",
+      "default": 0.32,
+      "min": 0.08,
+      "max": 1.5,
+      "step": 0.01,
+      "unit": "s"
+    },
+    {
+      "id": "word_times",
+      "kind": "text",
+      "label": "Word times",
+      "default": "",
+      "max_length": 200
+    },
+    {
+      "id": "word_time",
+      "kind": "number",
+      "label": "Landing time",
+      "default": 0.45,
+      "min": 0.1,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "hold",
+      "kind": "number",
+      "label": "Hold",
+      "default": 1.6,
+      "min": 0.2,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "own_accent",
+      "kind": "switch",
+      "label": "Own accent",
+      "default": false
+    },
+    {
+      "id": "accent",
+      "kind": "color",
+      "label": "Accent",
+      "default": "#e4572e"
+    },
+    {
+      "id": "backdrop",
+      "kind": "switch",
+      "label": "Backdrop",
+      "default": true
+    }
+  ],
+  "actors": [
+    {
+      "id": "phrase",
+      "label": "Phrase"
+    }
+  ],
+  "markers": [],
+  "timing": {
+    "cues": [
+      {
+        "id": "first_word",
+        "label": "First word",
+        "at": "lead_in"
+      },
+      {
+        "id": "second_word",
+        "label": "Second word",
+        "at": "lead_in + beat"
+      }
+    ]
+  },
+  "canvas": {
+    "control": "shape",
+    "sizes": {
+      "wide": {
+        "width": 1920,
+        "height": 1080
+      },
+      "tall": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  },
+  "opaque_control": "backdrop"
+}

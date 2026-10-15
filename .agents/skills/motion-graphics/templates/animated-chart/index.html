@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="looks.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; overflow: hidden; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: var(--body); }
+      .abs { position: absolute; }
+      .display { font-family: var(--display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.05; text-shadow: var(--separation); }
+      .body { font-family: var(--body); font-weight: var(--body-weight); line-height: 1.25; color: var(--muted); text-shadow: var(--separation); }
+      .figure { font-family: var(--figures); font-weight: var(--display-weight); font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: var(--separation); }
+      .bar { background: var(--ink); }
+      .grid { background: var(--track); }
+      svg { position: absolute; left: 0; top: 0; overflow: visible; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080">
+      <div id="header" class="abs" data-actor="header">
+        <div id="title" class="display"></div>
+        <div id="subtitle" class="body"></div>
+      </div>
+      <div id="chart" class="abs" data-actor="chart"></div>
+      <div id="note" class="abs body" data-actor="note"></div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          look: "paper", shape: "wide", own_accent: false, accent: "#e4572e", backdrop: true,
+          title: "Teams using shared projects", subtitle: "Active teams, in thousands", note: "Source: internal usage data",
+          chart_kind: "bars", bar_count: 5,
+          label_1: "Jan", value_1: 12, label_2: "Feb", value_2: 19, label_3: "Mar", value_3: 27,
+          label_4: "Apr", value_4: 34, label_5: "May", value_5: 48, label_6: "Jun", value_6: 55,
+          value_prefix: "", value_suffix: "k", value_decimals: "0", highlight: "item_5", show_values: true,
+          entrance: 0.7, chart_start: 0.9, grow_time: 1.1, bar_gap: 0.18, hold: 3,
+        },
+      };
+      const c = dc.controls;
+      const root = document.getElementById("root");
+      const M = window.DreamcutMotion;
+      const S = M.setup(c, root);
+      const { u, tall, W, H } = S;
+      const side = (tall ? 90 : 140) * u;
+      const textWidth = W - side * 2;
+      const $ = (id) => document.getElementById(id);
+
+      const count = Math.round(c.bar_count);
+      const items = [
+        [c.label_1, c.value_1], [c.label_2, c.value_2], [c.label_3, c.value_3],
+        [c.label_4, c.value_4], [c.label_5, c.value_5], [c.label_6, c.value_6],
+      ].slice(0, count).map(([label, value], index) => ({ label: String(label), value: Math.max(0, Number(value) || 0), index }));
+      const highlighted = items.findIndex((item) => c.highlight === "item_" + (item.index + 1));
+      const format = (v) => M.formatNumber(v, c.value_decimals, c.value_prefix, c.value_suffix);
+
+      // A rounded ceiling so the tallest item fills most, not all, of the height.
+      const largest = Math.max(...items.map((item) => item.value), 1);
+      const magnitude = Math.pow(10, Math.floor(Math.log10(largest)));
+      const ceiling = [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].map((m) => m * magnitude).find((m) => m >= largest * 1.08) ?? largest * 1.1;
+
+      // Header
+      const header = $("header");
+      Object.assign(header.style, { left: side + "px", top: (tall ? 220 : 100) * u + "px", width: textWidth + "px" });
+      $("title").textContent = c.title;
+      $("title").style.width = textWidth + "px";
+      M.fit($("title"), (tall ? 96 : 84) * u, 36 * u, { width: textWidth, height: (tall ? 320 : 200) * u });
+      $("subtitle").textContent = c.subtitle;
+      Object.assign($("subtitle").style, { fontSize: 34 * u + "px", marginTop: 16 * u + "px" });
+      $("note").textContent = c.note;
+      Object.assign($("note").style, { left: side + "px", bottom: (tall ? 200 : 64) * u + "px", fontSize: 24 * u + "px", width: textWidth + "px" });
+
+      const chart = $("chart");
+      const chartTop = header.offsetTop + header.offsetHeight + (tall ? 110 : 80) * u;
+      const chartBottom = H - (tall ? 300 : 150) * u;
+      Object.assign(chart.style, { left: side + "px", top: chartTop + "px", width: textWidth + "px", height: chartBottom - chartTop + "px" });
+      const CW = textWidth, CH = chartBottom - chartTop;
+
+      const tl = gsap.timeline({ paused: true });
+      const e = c.entrance;
+      M.enter(tl, [$("title"), $("subtitle")], 0, e, S.look, { stagger: 0.12, u });
+      M.enter(tl, $("note"), e * 0.6, e, S.look, { u });
+      const startAt = (index) => c.chart_start + index * c.bar_gap;
+      const landed = c.chart_start + c.grow_time + c.bar_gap * (count - 1);
+      const labelSize = (tall ? 34 : count > 4 ? 30 : 34) * u;
+      const valueSize = (tall ? 46 : 48) * u;
+      const fills = [];
+
+      if (c.chart_kind === "line") {
+        // Line: the path draws through every point; each value counts up as the line reaches it.
+        const plotTop = valueSize * 1.6, plotBottom = CH - labelSize * 2.2;
+        const x = (i) => (count === 1 ? CW / 2 : (CW * 0.06) + (i * CW * 0.88) / (count - 1));
+        const y = (v) => plotBottom - (v / ceiling) * (plotBottom - plotTop);
+        for (let g = 0; g <= 2; g++) {
+          const line = document.createElement("div");
+          line.className = "abs grid";
+          Object.assign(line.style, { left: 0, width: CW + "px", top: y((ceiling * g) / 2) + "px", height: Math.max(1, 2 * u) + "px" });
+          chart.append(line);
+        }
+        const NS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(NS, "svg");
+        svg.setAttribute("width", CW); svg.setAttribute("height", CH);
+        const points = items.map((item, i) => [x(i), y(item.value)]);
+        const d = points.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+        const area = document.createElementNS(NS, "path");
+        area.setAttribute("d", d + ` L${points[points.length - 1][0].toFixed(1)} ${plotBottom} L${points[0][0].toFixed(1)} ${plotBottom} Z`);
+        area.setAttribute("fill", "var(--accent-soft)");
+        const path = document.createElementNS(NS, "path");
+        path.setAttribute("d", d);
+        Object.assign(path.style, { fill: "none", stroke: "var(--accent)", strokeWidth: 7 * u, strokeLinejoin: "round", strokeLinecap: "round" });
+        svg.append(area, path);
+        chart.append(svg);
+        const total = path.getTotalLength();
+        path.style.strokeDasharray = total + " " + total;
+        const drawTime = c.grow_time + c.bar_gap * (count - 1);
+        tl.set(path, { opacity: 0 }, 0).set(path, { opacity: 1 }, c.chart_start + 0.02);
+        tl.fromTo(path, { strokeDashoffset: total }, { strokeDashoffset: 0, duration: drawTime, ease: "none", immediateRender: true }, c.chart_start);
+        tl.fromTo(area, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out", immediateRender: true }, landed - 0.2);
+        // Where the line reaches each point along its own length, so dots land as it passes.
+        const lengths = [0];
+        for (let i = 1; i < points.length; i++) lengths.push(lengths[i - 1] + Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]));
+        items.forEach((item, i) => {
+          const reach = c.chart_start + (lengths[i] / (lengths[lengths.length - 1] || 1)) * drawTime;
+          const dot = document.createElement("div");
+          const r = (i === highlighted ? 16 : 11) * u;
+          dot.className = "abs";
+          Object.assign(dot.style, { left: points[i][0] - r + "px", top: points[i][1] - r + "px", width: 2 * r + "px", height: 2 * r + "px", borderRadius: "50%", background: i === highlighted ? "var(--accent)" : "var(--ink)" });
+          chart.append(dot);
+          tl.fromTo(dot, { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.4)", immediateRender: true }, reach);
+          const label = document.createElement("div");
+          label.className = "abs body";
+          label.textContent = item.label;
+          Object.assign(label.style, { left: points[i][0] - 160 * u + "px", width: 320 * u + "px", textAlign: "center", top: plotBottom + labelSize * 0.6 + "px", fontSize: labelSize + "px" });
+          chart.append(label);
+          M.enter(tl, label, Math.max(0, reach - 0.2), e * 0.7, S.look, { u });
+          if (c.show_values) {
+            const value = document.createElement("div");
+            value.className = "abs figure";
+            Object.assign(value.style, { left: points[i][0] - 200 * u + "px", width: 400 * u + "px", textAlign: "center", top: points[i][1] - valueSize * 1.55 + "px", fontSize: valueSize + "px", color: i === highlighted ? "var(--accent)" : "var(--ink)" });
+            chart.append(value);
+            tl.fromTo(value, { opacity: 0 }, { opacity: 1, duration: 0.25, immediateRender: true }, reach);
+            M.count(tl, value, item.value, reach, Math.min(0.6, c.grow_time), format, "power3.out");
+          }
+          if (i !== highlighted) fills.push(dot);
+        });
+      } else if (tall) {
+        // Tall canvases: horizontal bars, label above each, value at the bar's end.
+        const rowHeight = CH / count;
+        const barHeight = Math.min(rowHeight * 0.36, 70 * u);
+        const valueRoom = c.show_values ? 230 * u : 0;
+        items.forEach((item, i) => {
+          const y0 = i * rowHeight + rowHeight * 0.18;
+          const label = document.createElement("div");
+          label.className = "abs body";
+          label.textContent = item.label;
+          Object.assign(label.style, { left: 0, top: y0 + "px", fontSize: labelSize + "px", width: CW + "px", color: i === highlighted ? "var(--accent)" : "" });
+          const track = document.createElement("div");
+          track.className = "abs grid";
+          const barTop = y0 + labelSize * 1.45;
+          Object.assign(track.style, { left: 0, top: barTop + "px", width: CW - valueRoom + "px", height: barHeight + "px", borderRadius: Math.min(S.look.radius, barHeight / 2) * 0.5 + "px" });
+          const bar = document.createElement("div");
+          bar.className = "abs bar";
+          const length = ((CW - valueRoom) * item.value) / ceiling;
+          Object.assign(bar.style, { left: 0, top: barTop + "px", width: length + "px", height: barHeight + "px", transformOrigin: "0 50%", borderRadius: Math.min(S.look.radius, barHeight / 2) * 0.5 + "px", background: i === highlighted ? "var(--accent)" : "var(--ink)" });
+          chart.append(track, bar, label);
+          M.enter(tl, label, Math.max(0, startAt(i) - 0.15), e * 0.7, S.look, { u });
+          tl.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: c.grow_time, ease: "power3.out", immediateRender: true }, startAt(i));
+          if (c.show_values) {
+            const value = document.createElement("div");
+            value.className = "abs figure";
+            Object.assign(value.style, { left: length + 22 * u + "px", top: barTop + barHeight / 2 - valueSize * 0.62 + "px", fontSize: valueSize + "px", color: i === highlighted ? "var(--accent)" : "var(--ink)" });
+            chart.append(value);
+            tl.fromTo(value, { x: -length - 22 * u }, { x: 0, duration: c.grow_time, ease: "power3.out", immediateRender: true }, startAt(i));
+            tl.set(value, { opacity: 0 }, 0).set(value, { opacity: 1 }, startAt(i));
+            M.count(tl, value, item.value, startAt(i), c.grow_time, format, "power3.out");
+          }
+          if (i !== highlighted) fills.push(bar);
+        });
+      } else {
+        // Wide and square canvases: vertical bars rising from a baseline.
+        const plotTop = c.show_values ? valueSize * 1.5 : 0, plotBottom = CH - labelSize * 2;
+        const slot = CW / count;
+        const barWidth = Math.min(slot * 0.62, 230 * u);
+        const baseline = document.createElement("div");
+        baseline.className = "abs";
+        Object.assign(baseline.style, { left: 0, width: CW + "px", top: plotBottom + "px", height: Math.max(2, 3 * u) + "px", background: "var(--rule)", transformOrigin: "0 50%" });
+        chart.append(baseline);
+        tl.fromTo(baseline, { scaleX: 0 }, { scaleX: 1, duration: e, ease: "power2.out", immediateRender: true }, c.chart_start * 0.5);
+        items.forEach((item, i) => {
+          const cx = slot * i + slot / 2;
+          const h = ((plotBottom - plotTop) * item.value) / ceiling;
+          const bar = document.createElement("div");
+          bar.className = "abs bar";
+          const radius = Math.min(S.look.radius * 0.6, barWidth / 4);
+          Object.assign(bar.style, { left: cx - barWidth / 2 + "px", top: plotBottom - h + "px", width: barWidth + "px", height: h + "px", transformOrigin: "50% 100%", borderRadius: `${radius}px ${radius}px 0 0`, background: i === highlighted ? "var(--accent)" : "var(--ink)" });
+          const label = document.createElement("div");
+          label.className = "abs body";
+          label.textContent = item.label;
+          Object.assign(label.style, { left: cx - slot / 2 + "px", width: slot + "px", textAlign: "center", top: plotBottom + labelSize * 0.55 + "px", fontSize: labelSize + "px", color: i === highlighted ? "var(--accent)" : "" });
+          chart.append(bar, label);
+          M.enter(tl, label, Math.max(0, startAt(i) - 0.15), e * 0.7, S.look, { u });
+          tl.fromTo(bar, { scaleY: 0 }, { scaleY: 1, duration: c.grow_time, ease: "power3.out", immediateRender: true }, startAt(i));
+          if (c.show_values) {
+            const value = document.createElement("div");
+            value.className = "abs figure";
+            Object.assign(value.style, { left: cx - slot / 2 + "px", width: slot + "px", textAlign: "center", top: plotBottom - h - valueSize * 1.35 + "px", fontSize: valueSize + "px", color: i === highlighted ? "var(--accent)" : "var(--ink)" });
+            chart.append(value);
+            tl.fromTo(value, { y: h }, { y: 0, duration: c.grow_time, ease: "power3.out", immediateRender: true }, startAt(i));
+            tl.set(value, { opacity: 0 }, 0).set(value, { opacity: 1 }, startAt(i));
+            M.count(tl, value, item.value, startAt(i), c.grow_time, format, "power3.out");
+          }
+          if (i !== highlighted) fills.push(bar);
+        });
+      }
+      // Once everything has landed, the rest step back so the highlighted item reads first.
+      if (highlighted >= 0 && fills.length) tl.to(fills, { opacity: 0.32, duration: 0.5, ease: "power1.inOut" }, landed + 0.2);
+      tl.set({}, {}, landed + c.hold);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

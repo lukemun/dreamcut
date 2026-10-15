@@ -1,0 +1,80 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/30996082, pexels.com/video/19279353, pexels.com/video/4824399",
+  "footage": [
+    {
+      "pexels_video_id": "30996082",
+      "url": "https://www.pexels.com/video/30996082/",
+      "role": "Starting scene",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "19279353",
+      "url": "https://www.pexels.com/video/19279353/",
+      "role": "First destination scene and subject",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "4824399",
+      "url": "https://www.pexels.com/video/4824399/",
+      "role": "Second destination scene and subject",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 30,
+  "frames": 165,
+  "width": 720,
+  "height": 1280,
+  "teachingNote": "Real moving footage with SAM 2 moving masks built as an editable DreamCut timeline. Real-time playback; each lead-in is 9 frames (0.3 s: 4 white, 5 colour), slightly longer than the 5-frame default so the steps read at gallery size.",
+  "receipt": {
+    "construction": "DreamCut assembly with native cutout clips and keyframed subject_flash; rendered with the browser renderer at 1080x1920, then scaled to 720x1280 H.264 (CRF 23, no audio). Poster is frame 38, the first subject fully white over the starting scene; stages are frames 30, 37, 42 and 60 of the render."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/scene-a-neon.jpg",
+      "sha256": "7ee912014591c4782a331f2c44f5fb4cddb3e650a87cb13373439848abc7f964"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/scene-b-desert.jpg",
+      "sha256": "361d636e1d6a55166741b00284c68216f29a4df3e1e9d35ebaac569b986a0955"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/scene-c-skater.jpg",
+      "sha256": "7c3df4837aa051bb892a47934aa234348ccdd7e448b07c88a321c2054330802d"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/subject-b-walker.png",
+      "sha256": "dae6648bd6e1e17fafc3987f1c3ebf049a53e5e344c2d05d99932c735eb178b6"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/subject-c-skater.png",
+      "sha256": "454a6323fefccf3e3f6754aca0e76fad1e4f7fb3732a5038c50543a1f7347e0a"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "690a0223a486f2e709abab317a44af3975f7f9cafcabe27cf47e4653da2633ba"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "60d2f654e6795c141b03bd03cf227927bd1788f9eb5d7294be1c055058b8db68"
+    },
+    {
+      "file": "start.jpg",
+      "sha256": "bad9dc2a367f79a2b479b0c959ff95e5b65a33571c799055f6a12ebcadb7d5aa"
+    },
+    {
+      "file": "white.jpg",
+      "sha256": "8015c7de19b9bb00904913e186b480c08b1c7d9c5d90b072889cab0e9162eccc"
+    },
+    {
+      "file": "colour.jpg",
+      "sha256": "213b97dc085515725e90dcb01c70021ce4e57dec14269319e74d24e05784d5d8"
+    },
+    {
+      "file": "destination.jpg",
+      "sha256": "b1294724591333aae3205e66921ab3f2cc2d38c19776387c0d4a63a5fbab1245"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/7424171; background is an empty frame of pexels.com/video/9732065.",
+  "footage": [
+    {
+      "pexels_video_id": "7424171",
+      "url": "https://www.pexels.com/video/dancing-woman-7424171/",
+      "role": "Moving subject: dancer in a white studio",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "9732065",
+      "url": "https://www.pexels.com/video/a-model-taking-off-his-leather-jacket-9732065/",
+      "role": "Empty frame used as the separate background",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 30,
+  "frames": 180,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; the cells follow her silhouette frame by frame.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-grid-matte-demo, proposal 20261015T053624-4780edf6 (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Native Moving Grid Matte on the continuous original clip (source 9-15 s) with the greyscale mask from SAM 2 cutout 5806dd9d; cell size 72, mask coverage 1.6, grid strength 0.35, grid width 1.5, over a separate background still. Mask thumbnail is mask frame 45 (source 10.5 s). Poster frame 60; stages frames 15, 45 and 75."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/moving-grid-matte/inputs/background.jpg",
+      "sha256": "23085e406141265ff7008dd1f7ea25503167aed5cee29256053a267e8a6da8bb"
+    },
+    {
+      "file": "/recipe-previews/moving-grid-matte/inputs/greyscale-mask.png",
+      "sha256": "23d73d29eed427502be8ba277aea8356b7fc49f6738a5b3bd3fa19688c153d1d"
+    },
+    {
+      "file": "/recipe-previews/moving-grid-matte/inputs/moving-subject.jpg",
+      "sha256": "12dad35fa56b76836020ad63e0133066b0e86b92893760326bef7a15cfbc0197"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "88db6337565c24579d7c2defe7b057bb0dba94f6226b82562acffa64ad526de8"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "ad6d5d76631570740fc1fa8a730dbeb20f4f81e9a71ddbdf82680ee28634ce41"
+    },
+    {
+      "file": "cells.jpg",
+      "sha256": "4cf2216bd74b7e45ffa0bc3bd724bd8ae9510d5d928aaac9caf111dbd7ff098f"
+    },
+    {
+      "file": "moving.jpg",
+      "sha256": "6d423444b0f3adbd1e0aed9ab3525f2f4faa7123d6aa3f2cb611c2f3bb8bd862"
+    },
+    {
+      "file": "leg-up.jpg",
+      "sha256": "bdf5c15a01c0df0dd3cb3e41df7215ca6a698adce905edf0a406dba8af0df03e"
+    }
+  ]
+}

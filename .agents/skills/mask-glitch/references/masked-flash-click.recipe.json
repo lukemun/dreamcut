@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "kind": "skill_owned_compound_recipe",
+  "id": "masked-flash-click",
+  "version": 1,
+  "name": "Masked flash + crisp click",
+  "owner_skill": "mask-glitch",
+  "supporting_skills": ["sound-design"],
+  "procedure": "masked-flash-click.md",
+  "execution": "agent_translates_to_existing_proposal_operations",
+  "status": "partial",
+  "catalog_id": null,
+  "inputs": ["target_actor_or_region", "registered_white_alpha_media", "first_flash_frame", "output_fps", "cleared_click_source"],
+  "anchor": {"name": "first_flash_frame", "unit": "output_frame"},
+  "defaults": {
+    "reference_fps": 30,
+    "flash_frames": 4,
+    "short_flash_frames": 2,
+    "flash_color": "#ffffff",
+    "flash_opacity": 1,
+    "click_lead_frames": 1,
+    "click_gain": 0.254172,
+    "click_playback_rate": 1,
+    "click_fade_in_seconds": 0,
+    "click_fade_out_seconds": 0.005
+  },
+  "components": [
+    {"role": "masked_white_flash", "editable_actor": "visual", "start": "anchor", "duration": "quantized_flash_duration", "geometry": "registered_target_geometry", "end_behavior": "remove_overlay_reveal_unchanged_underlying_picture"},
+    {"role": "crisp_click", "editable_actor": "sound_effect", "start": "anchor_minus_quantized_source_specific_lead", "source_window": "full_reference_click", "duration_policy": "retain_source_decay_independently_of_flash"}
+  ],
+  "reference_sound": {
+    "catalog_id": "celfstudies_mouse_click_01_crisp",
+    "title": "Mouse Click 01 Crisp",
+    "sha256": "0cbb1a6ca8fc238faee93ef65647801a2ad8e121521c4465b4b1790ad9fa7eae",
+    "source_duration_seconds": 0.227437,
+    "source_in_seconds": 0,
+    "source_out_seconds": 0.227437,
+    "peak_time_seconds": 0.04,
+    "availability": "resolve_catalog_id_and_verify_hash_at_reuse",
+    "rights": "local_catalog_records_user_confirmed_production_use; audio_not_redistributed_by_recipe"
+  },
+  "review": {
+    "unit": "one_audiovisual_accent",
+    "controls_to_select_when_supported": ["flash_duration", "flash_opacity", "click_level"],
+    "linked_anchor_dial": "not_implemented",
+    "application": "human_approved_proposal"
+  },
+  "evidence_summary": {
+    "observed_pair_count": 14,
+    "two_frame_pairs": 5,
+    "four_frame_pairs": 9,
+    "all_clicks_lead_by_reference_frames": 1,
+    "inspected_visual_examples": 2,
+    "new_input_trial": false,
+    "continuous_audio_visual_acceptance": false
+  },
+  "limitations": [
+    "Descriptive parameter contract interpreted by the owning skill; no runtime recipe loader or automatic compound compiler.",
+    "The default sound must be available and cleared in the receiving environment.",
+    "Prepared mask quality and registration remain input requirements.",
+    "Partial evidence; not a complete public catalog recreation or a saved personal style."
+  ]
+}

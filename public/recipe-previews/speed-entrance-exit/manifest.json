@@ -1,0 +1,60 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/8798070. The empty background is a frame of the same take before he walks in.",
+  "footage": [
+    {
+      "pexels_video_id": "8798070",
+      "url": "https://www.pexels.com/video/man-wearing-pink-shirt-looking-at-the-camera-8798070/",
+      "role": "Locked-off performance on a pink backdrop; the opening empty frames supply the matching background",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 25,
+  "frames": 200,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; he streaks in over 0.2 s with horizontal blur that clears as he lands, then streaks out over 0.2 s.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-speed-entrance-demo, proposal 20261015T053604-689f5e70 (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Moving cutout: SAM 2 cutout c84518ff (source 5.5-12.5 s) over the empty-set still, both at scale 1.0667 to fill 16:9. media_offset_x keyed -2 -> 0 over 0.2 s (easeOut) and 0 -> 2 over 0.2 s (easeIn); directional_blur_x 160 -> 0 and 0 -> 160. Poster frame 19; stages frames 8, 18, 150 and 180."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/speed-entrance-exit/inputs/empty-background.jpg",
+      "sha256": "05cd5c7e4f30516ea3c210d7d397c51e8866c1783551e87ea135df5fc23164eb"
+    },
+    {
+      "file": "/recipe-previews/speed-entrance-exit/inputs/moving-cutout.png",
+      "sha256": "6866d5f1aac84af7590b1e53cd612e75820cf4ce9f14ddebbd8b9a77c3dac04e"
+    },
+    {
+      "file": "/recipe-previews/speed-entrance-exit/inputs/performance.jpg",
+      "sha256": "a07c1f730811102a11633a2ef017f1a39e2f0f5f7cb5d1ddb094a546ce6e0c29"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "251a16d546e3151a76ad4125caac1e29006020a818c041d4f6c8437b61352955"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "bb7ae9def435a4f7ba394e61573cf9900a9eac216e2b0cfaf15e9fb73184caa8"
+    },
+    {
+      "file": "empty.jpg",
+      "sha256": "89b6ffda875268a056a9a8eb78c8ff476b2ae01760c56e5dd0e8891f6ee46a38"
+    },
+    {
+      "file": "streak-in.jpg",
+      "sha256": "9a4e7bd74d60d7af0aa8f538fa2fac5c28fca61c70759756b53437f6dd2714b0"
+    },
+    {
+      "file": "settled.jpg",
+      "sha256": "4bc687cd59248b72821260bcc3988e33ff959bb5bc746738c1efb210f483e6d7"
+    },
+    {
+      "file": "streak-out.jpg",
+      "sha256": "fca566c62343a16f1de3c8bc04f541ae59e54dacbf4f6d51bbebef716aff3255"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+# layered-paper-cutout — evolution log
+
+## Purpose
+Build and refine editable concentric paper-collage silhouettes from an existing transparent actor. Scope: multicolor or multi-sheet stacks whose band widths, contour character, paper surface, and depth must remain independently reviewable in DreamCut; a single white perimeter remains the responsibility of `scratchpad-treatment`. Good looks like: constant-distance full-perimeter expansion, intentional width progression, progressively controlled rounding rather than cloned ridges, sufficient overscan, unchanged foreground artwork, separate editable layers, and a combined proposal preview.
+
+## 2026-09-20
+- **Observation:** Scaling identical silhouette images produced disproportionately large gaps above and below a tall actor. Equal-distance dilation corrected the geometry, and a later review showed that repeating the same small ridges through every sheet made the stack feel mechanical. Increasing visible band widths and contour smoothing toward the outer layers produced a more convincing paper collage while retaining separate elements.
+- **Decision:** Created a dedicated craft skill rather than broadening the single-edge Scratchpad definition. Added a deterministic transparent-still builder using cumulative Euclidean-distance contours, per-layer width increments, progressive smoothing, paper grain, overscan, receipts, and an optional black-background preview.
+- **Verification:** Reproduced the reviewed five-layer treatment with visible widths `10, 13, 16, 20, 25` and smoothing `1.0, 1.6, 2.3, 3.2, 4.4`; validated the generated PNG hashes, proposal spatial preflight, and combined DreamCut proposal preview.
+- **Refinement:** Separated deterministic construction from subjective art direction. The skill now owns contour geometry, source preservation, editability, overscan, proposals, and verification; the reviewed palette, width rhythm, progressive rounding, grain, and depth treatment live as the optional `progressive-color-paper-stack` style recipe.

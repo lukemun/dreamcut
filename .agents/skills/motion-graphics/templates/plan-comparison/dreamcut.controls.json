@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "controls": [
+    {
+      "id": "look",
+      "kind": "choice",
+      "label": "Look",
+      "default": "paper",
+      "options": [
+        {
+          "value": "paper",
+          "label": "Paper"
+        },
+        {
+          "value": "keynote",
+          "label": "Keynote"
+        },
+        {
+          "value": "swiss",
+          "label": "Swiss"
+        },
+        {
+          "value": "terminal",
+          "label": "Terminal"
+        },
+        {
+          "value": "chalk",
+          "label": "Chalk"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "label": "Shape",
+      "default": "wide",
+      "options": [
+        {
+          "value": "wide",
+          "label": "16:9"
+        },
+        {
+          "value": "tall",
+          "label": "9:16"
+        },
+        {
+          "value": "square",
+          "label": "1:1"
+        }
+      ],
+      "fixed": true
+    },
+    {
+      "id": "heading",
+      "kind": "text",
+      "label": "Heading",
+      "default": "Pick the plan that fits",
+      "max_length": 60
+    },
+    {
+      "id": "plan_count",
+      "kind": "number",
+      "label": "Plans",
+      "default": 3,
+      "min": 2,
+      "max": 3,
+      "step": 1,
+      "unit": "plans"
+    },
+    {
+      "id": "plan_1_name",
+      "kind": "text",
+      "label": "Plan 1 name",
+      "default": "Starter",
+      "max_length": 24
+    },
+    {
+      "id": "plan_1_price",
+      "kind": "number",
+      "label": "Plan 1 price",
+      "default": 0,
+      "min": 0,
+      "max": 1000,
+      "step": 0.01
+    },
+    {
+      "id": "plan_1_note",
+      "kind": "text",
+      "label": "Plan 1 line",
+      "default": "For trying it out",
+      "max_length": 48
+    },
+    {
+      "id": "plan_1_includes",
+      "kind": "number",
+      "label": "Plan 1 features",
+      "default": 2,
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "features"
+    },
+    {
+      "id": "plan_2_name",
+      "kind": "text",
+      "label": "Plan 2 name",
+      "default": "Team",
+      "max_length": 24
+    },
+    {
+      "id": "plan_2_price",
+      "kind": "number",
+      "label": "Plan 2 price",
+      "default": 12,
+      "min": 0,
+      "max": 1000,
+      "step": 0.01
+    },
+    {
+      "id": "plan_2_note",
+      "kind": "text",
+      "label": "Plan 2 line",
+      "default": "For small teams",
+      "max_length": 48
+    },
+    {
+      "id": "plan_2_includes",
+      "kind": "number",
+      "label": "Plan 2 features",
+      "default": 4,
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "features"
+    },
+    {
+      "id": "plan_3_name",
+      "kind": "text",
+      "label": "Plan 3 name",
+      "default": "Studio",
+      "max_length": 24
+    },
+    {
+      "id": "plan_3_price",
+      "kind": "number",
+      "label": "Plan 3 price",
+      "default": 29,
+      "min": 0,
+      "max": 1000,
+      "step": 0.01
+    },
+    {
+      "id": "plan_3_note",
+      "kind": "text",
+      "label": "Plan 3 line",
+      "default": "For busy studios",
+      "max_length": 48
+    },
+    {
+      "id": "plan_3_includes",
+      "kind": "number",
+      "label": "Plan 3 features",
+      "default": 5,
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "features"
+    },
+    {
+      "id": "price_prefix",
+      "kind": "text",
+      "label": "Currency",
+      "default": "$",
+      "max_length": 4
+    },
+    {
+      "id": "price_period",
+      "kind": "text",
+      "label": "Per",
+      "default": "/ month",
+      "max_length": 16
+    },
+    {
+      "id": "price_decimals",
+      "kind": "choice",
+      "label": "Decimals",
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": "None"
+        },
+        {
+          "value": "2",
+          "label": "Cents"
+        }
+      ]
+    },
+    {
+      "id": "feature_1",
+      "kind": "text",
+      "label": "Feature 1",
+      "default": "Unlimited projects",
+      "max_length": 40
+    },
+    {
+      "id": "feature_2",
+      "kind": "text",
+      "label": "Feature 2",
+      "default": "Cloud backup",
+      "max_length": 40
+    },
+    {
+      "id": "feature_3",
+      "kind": "text",
+      "label": "Feature 3",
+      "default": "Shared libraries",
+      "max_length": 40
+    },
+    {
+      "id": "feature_4",
+      "kind": "text",
+      "label": "Feature 4",
+      "default": "Review links",
+      "max_length": 40
+    },
+    {
+      "id": "feature_5",
+      "kind": "text",
+      "label": "Feature 5",
+      "default": "Priority support",
+      "max_length": 40
+    },
+    {
+      "id": "highlight",
+      "kind": "choice",
+      "label": "Highlight",
+      "default": "plan_2",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "plan_1",
+          "label": "Plan 1",
+          "label_from": "plan_1_name"
+        },
+        {
+          "value": "plan_2",
+          "label": "Plan 2",
+          "label_from": "plan_2_name"
+        },
+        {
+          "value": "plan_3",
+          "label": "Plan 3",
+          "label_from": "plan_3_name"
+        }
+      ]
+    },
+    {
+      "id": "badge",
+      "kind": "text",
+      "label": "Badge",
+      "default": "Most popular",
+      "max_length": 20
+    },
+    {
+      "id": "cards_start",
+      "kind": "number",
+      "label": "Cards start",
+      "default": 0.5,
+      "min": 0,
+      "max": 5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "card_gap",
+      "kind": "number",
+      "label": "Card gap",
+      "default": 0.22,
+      "min": 0,
+      "max": 1.5,
+      "step": 0.02,
+      "unit": "s"
+    },
+    {
+      "id": "tick_gap",
+      "kind": "number",
+      "label": "Tick gap",
+      "default": 0.22,
+      "min": 0.05,
+      "max": 1,
+      "step": 0.01,
+      "unit": "s"
+    },
+    {
+      "id": "hold",
+      "kind": "number",
+      "label": "Hold",
+      "default": 3,
+      "min": 0.5,
+      "max": 15,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "entrance",
+      "kind": "number",
+      "label": "Entrance",
+      "default": 0.7,
+      "min": 0.2,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "own_accent",
+      "kind": "switch",
+      "label": "Own accent",
+      "default": false
+    },
+    {
+      "id": "accent",
+      "kind": "color",
+      "label": "Accent",
+      "default": "#e4572e"
+    },
+    {
+      "id": "backdrop",
+      "kind": "switch",
+      "label": "Backdrop",
+      "default": true
+    }
+  ],
+  "actors": [
+    {
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "id": "plans",
+      "label": "Plans"
+    }
+  ],
+  "markers": [],
+  "timing": {
+    "cues": [
+      {
+        "id": "cards_in",
+        "label": "Cards arrive",
+        "at": "cards_start"
+      },
+      {
+        "id": "ticks_in",
+        "label": "Ticks start",
+        "at": "cards_start + card_gap * (plan_count - 1) + entrance * 0.8"
+      },
+      {
+        "id": "highlight_in",
+        "label": "Highlight",
+        "at": "cards_start + card_gap * (plan_count - 1) + entrance * 0.8 + 4 * tick_gap + 0.55"
+      }
+    ],
+    "duration": "cards_start + card_gap * (plan_count - 1) + entrance * 0.8 + 4 * tick_gap + 0.55 + hold"
+  },
+  "canvas": {
+    "control": "shape",
+    "sizes": {
+      "wide": {
+        "width": 1920,
+        "height": 1080
+      },
+      "tall": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  },
+  "opaque_control": "backdrop"
+}

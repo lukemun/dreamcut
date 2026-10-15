@@ -1,0 +1,68 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/10210101. The empty background is a frame of the same take after he leaves.",
+  "footage": [
+    {
+      "pexels_video_id": "10210101",
+      "url": "https://www.pexels.com/video/man-with-dreadlocks-and-hooded-shirt-10210101/",
+      "role": "Locked-off take of a man crossing a brown set; poses are moments of it, and the closing empty frames supply the matching background",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 25,
+  "frames": 130,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; each pose is white with a halo for 0.12 s, the halo fades by 0.4 s, and a new pose arrives every 0.8 s.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-glitch-glow-hoodie-demo, proposal 20261015T054919-0b106df8 (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Four source windows of SAM 2 cutout 7554f136 (source 1.6-13.6 s) over the empty-set still, all at scale 1.0667; subject_flash 1 held 0.12 s then 0, subject_glow 2 held 0.12 s then 1.2 -> 0 by 0.4 s, glow radius 24. Poster frame 51; stages frames 11, 22, 31 and 120. An earlier attempt on Pexels 9732065 (project tpl-glitch-glow-demo) was set aside because its cutout drops the subject's thin chain necklaces."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/empty-background.jpg",
+      "sha256": "7532e6cd3fdc25bc6be329ebb43c1f17d1b6a7e19c6d414918156e337fb89af5"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/moving-cutout.png",
+      "sha256": "03f11879196d6e71a4e20ee141d55ad48b33a8a50e2b4aba6c792e1522cf530b"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/pose-1.jpg",
+      "sha256": "482fb774e7eca08113af3978a72ca2762def2375c6c48bb3652de44c9c97f2d1"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/pose-2.jpg",
+      "sha256": "930901a4b86ad4ce4548a2589298b7f9442029a5a5508b1f9812c2d950a78db7"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/pose-3.jpg",
+      "sha256": "2281dcb2cbc6f64af05b9d2592737f6bb99ad709c0d9858defe401860b0318ae"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "7b7345a9532969f9c82855bc01082a3eeed35aefaeef0a31d9885c3cc899d866"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "e4ae17ee08c3f81f2487c2db6e322bcc59d3a742007f3e83d1d7969ebe96df2d"
+    },
+    {
+      "file": "white.jpg",
+      "sha256": "2c7b79ced853faa30de4a683b0d698f11dd7fd5576cc538056e32d5006788891"
+    },
+    {
+      "file": "colour.jpg",
+      "sha256": "2d359550aaed966bcf226b820b47913dd3316655823eddca5eb08dec851b4f7d"
+    },
+    {
+      "file": "next.jpg",
+      "sha256": "46429a6a76059be587256b796cd711f1fefc7995fde002a8d9e0167d94f16e6b"
+    },
+    {
+      "file": "last.jpg",
+      "sha256": "73511e477312733c7e10810c82a90c560be62edf8320c7936f482ccedfc7ded7"
+    }
+  ]
+}

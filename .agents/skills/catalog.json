@@ -1,0 +1,770 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "skill": "cut-pacing",
+      "title": "Tighten pauses and repetition",
+      "category": "Edit",
+      "featured": true,
+      "order": 3,
+      "prompt": "Use Cut pacing to tighten this edit. Remove weak pauses, filler, false starts, and repetition while preserving complete words, natural breath, and the speaker's cadence.",
+      "use_cases": [
+        "Remove long pauses without rushing the speaker",
+        "Cut repeated words, false starts, or filler",
+        "Tighten a specific section you marked"
+      ],
+      "example": {
+        "request": "The middle drags. Tighten it without making me sound rushed.",
+        "outcome": "A reviewable cut at aligned word boundaries, with the surrounding cadence preserved.",
+        "timeline": [
+          {
+            "label": "Keep",
+            "detail": "Complete thought before the pause"
+          },
+          {
+            "label": "Remove",
+            "detail": "Repetition and excess silence"
+          },
+          {
+            "label": "Keep",
+            "detail": "Resume on a clean word boundary"
+          }
+        ]
+      },
+      "summary": "Tighten a slow section while keeping speech natural.",
+      "inputs": [
+        "An existing edit"
+      ],
+      "output": "Proposed cuts"
+    },
+    {
+      "skill": "timeline-auditions",
+      "title": "Compare takes and alternate edits",
+      "category": "Edit",
+      "featured": true,
+      "order": 6,
+      "prompt": "Use Timeline auditions to cut and show me a few playable versions of this section without changing my working edit. Keep each option comparable, label them clearly, and leave the final choice to me.",
+      "use_cases": [
+        "Compare two takes of the same line",
+        "Try different openings before choosing one",
+        "Preview alternate treatments without changing the working edit"
+      ],
+      "example": {
+        "request": "Let me compare these three opening takes before we change the main cut.",
+        "outcome": "Playable alternatives for the same editorial question, with no selected winner or changes applied to the working edit.",
+        "timeline": [
+          {
+            "label": "Option A",
+            "detail": "Direct opening"
+          },
+          {
+            "label": "Option B",
+            "detail": "Story-led opening"
+          },
+          {
+            "label": "Option C",
+            "detail": "Result-first opening"
+          }
+        ]
+      },
+      "summary": "Compare different takes or versions before choosing one.",
+      "inputs": [
+        "Source takes or an edit"
+      ],
+      "output": "Playable alternatives"
+    },
+    {
+      "skill": "caption-craft",
+      "title": "Create and refine speech captions",
+      "category": "Captions & text",
+      "featured": true,
+      "order": 1,
+      "prompt": "Use Caption craft to create accurate captions for this video. Keep the spoken wording exact, break lines at natural phrases, default to short single-line groups, and keep them clear of faces and platform controls.",
+      "use_cases": [
+        "Add captions to spoken footage",
+        "Correct when a caption appears",
+        "Fix awkward line breaks or hard-to-read captions"
+      ],
+      "example": {
+        "request": "Caption this vertical clip in short, readable phrases.",
+        "outcome": "A complete caption rail with aligned timing, natural phrase breaks, and one consistent safe-area style.",
+        "timeline": [
+          {
+            "label": "We built this",
+            "detail": "Short phrase"
+          },
+          {
+            "label": "because editing",
+            "detail": "New idea boundary"
+          },
+          {
+            "label": "should stay yours.",
+            "detail": "Complete the sentence"
+          }
+        ]
+      },
+      "summary": "Turn speech into accurate captions that are easy to read.",
+      "inputs": [
+        "Spoken footage or audio"
+      ],
+      "output": "Timed captions"
+    },
+    {
+      "skill": "visual-timing",
+      "title": "Visual timing: sync visuals to speech",
+      "category": "Edit",
+      "featured": false,
+      "prompt": "Use the visual-timing skill. Time these supporting visuals to the spoken points they illustrate. Let each one stay long enough to read, then clear it before the next idea. Propose the timing changes.",
+      "use_cases": [
+        "Reveal a graphic when the speaker names it",
+        "Keep text visible long enough to read",
+        "Clear the previous visual when the topic changes"
+      ],
+      "example": {
+        "request": "Make the graphics follow what I am saying.",
+        "outcome": "A proposed entrance, hold, and exit for each visual.",
+        "timeline": [
+          {
+            "label": "Enter",
+            "detail": "Introduce the visual on its spoken cue"
+          },
+          {
+            "label": "Hold",
+            "detail": "Leave enough time to understand it"
+          },
+          {
+            "label": "Exit",
+            "detail": "Clear the frame for the next idea"
+          }
+        ]
+      },
+      "summary": "Make graphics appear when the speaker mentions them.",
+      "inputs": [
+        "Narration",
+        "Supporting visuals"
+      ],
+      "output": "Proposed visual timing",
+      "order": 4
+    },
+    {
+      "skill": "beat-aligned-cuts",
+      "title": "Sync cuts and reveals to music hits",
+      "category": "Edit",
+      "featured": false,
+      "prompt": "Use the beat-aligned-cuts skill. Align the visual changes in this section to my selected music hits. Preserve the music timing and use only the hits I marked. Prepare a previewable proposal.",
+      "use_cases": [
+        "Cut to a new shot on selected drum hits",
+        "Change poses on selected melody hits",
+        "Reveal graphic layers on the hits you marked"
+      ],
+      "example": {
+        "request": "Make these changes land on the drum hits I selected.",
+        "outcome": "Visual changes aligned to the selected rhythm marks.",
+        "timeline": [
+          {
+            "label": "Select",
+            "detail": "Use the marked music hits"
+          },
+          {
+            "label": "Align",
+            "detail": "Place visual changes on those hits"
+          },
+          {
+            "label": "Review",
+            "detail": "Preview the rhythm before approval"
+          }
+        ]
+      },
+      "summary": "Make cuts and visual changes land on the music hits you choose.",
+      "inputs": [
+        "Music",
+        "Selected hits",
+        "Visuals"
+      ],
+      "output": "Beat-timed visual changes",
+      "order": 5
+    },
+    {
+      "skill": "audio-balance",
+      "title": "Balance speech, music, and effects",
+      "category": "Audio",
+      "featured": false,
+      "prompt": "Use the audio-balance skill. Balance the voice, music, and effects in this edit. Keep every word clear, lower music under speech, and smooth abrupt volume changes. Propose the mix for review.",
+      "use_cases": [
+        "Lower music that masks the voice",
+        "Even out distracting volume changes",
+        "Smooth abrupt audio starts and stops"
+      ],
+      "example": {
+        "request": "The music is fighting my voice.",
+        "outcome": "A dialogue-first mix with reviewable gain and fade changes.",
+        "timeline": [
+          {
+            "label": "Voice",
+            "detail": "Establish a clear speech level"
+          },
+          {
+            "label": "Music",
+            "detail": "Make room beneath dialogue"
+          },
+          {
+            "label": "Transitions",
+            "detail": "Smooth abrupt level changes"
+          }
+        ]
+      },
+      "summary": "Keep the voice clear and the music and effects at the right level.",
+      "inputs": [
+        "An edit with audio"
+      ],
+      "output": "Proposed mix adjustments",
+      "order": 7
+    },
+    {
+      "skill": "sound-design",
+      "title": "Add sound effects to key moments",
+      "category": "Audio",
+      "featured": false,
+      "prompt": "Use the sound-design skill. Suggest subtle sound effects for the marked entrances and transitions. Time each sound to the action and keep speech clear. Prepare a playable proposal before applying anything.",
+      "use_cases": [
+        "Add a pop when a card appears",
+        "Match a whoosh to a transition",
+        "Accent a reveal without covering speech"
+      ],
+      "example": {
+        "request": "Add a little pop when each card appears.",
+        "outcome": "A previewable sound-effects pass linked to the visual actions.",
+        "timeline": [
+          {
+            "label": "Action",
+            "detail": "Identify the moments needing emphasis"
+          },
+          {
+            "label": "Sound",
+            "detail": "Choose and time a fitting effect"
+          },
+          {
+            "label": "Mix",
+            "detail": "Balance each accent against speech and music"
+          }
+        ]
+      },
+      "summary": "Add sounds that emphasize entrances, transitions, and key moments.",
+      "inputs": [
+        "An edit",
+        "Moments to emphasize"
+      ],
+      "output": "Proposed sound effects",
+      "order": 8
+    },
+    {
+      "skill": "music-direction",
+      "title": "Plan the music across your story",
+      "category": "Audio",
+      "featured": false,
+      "prompt": "Use the music-direction skill. Plan the music arc for this edit: a restrained opening, more energy through the middle, and a clear finish. Keep dialogue intelligible and propose the section plan before choosing cues.",
+      "use_cases": [
+        "Build energy through the middle of a video",
+        "Change the mood at a story turn",
+        "Plan where music starts, fades, and stops"
+      ],
+      "example": {
+        "request": "Build energy without making the whole video feel loud.",
+        "outcome": "A section-by-section music plan with cue and mixing direction.",
+        "timeline": [
+          {
+            "label": "Opening",
+            "detail": "Set the starting mood"
+          },
+          {
+            "label": "Development",
+            "detail": "Build energy with the story"
+          },
+          {
+            "label": "Finish",
+            "detail": "Resolve the music at the ending"
+          }
+        ]
+      },
+      "summary": "Plan the musical arc, then coordinate track comparisons, cue transitions, and mixing beneath dialogue.",
+      "inputs": [
+        "An edit or story brief"
+      ],
+      "output": "Music plan and cue proposals",
+      "order": 10
+    },
+    {
+      "skill": "music-audition",
+      "title": "Find and compare music options",
+      "category": "Audio",
+      "featured": false,
+      "prompt": "Use the music-audition skill. Find three suitable passages from the music catalog for this section and prepare playable alternatives. Preserve the current picture and speech timing so I can compare the music fairly.",
+      "use_cases": [
+        "Compare contrasting music under the same scene",
+        "Find a passage that fits the scene\u2019s mood and length",
+        "Hear options before choosing a track"
+      ],
+      "example": {
+        "request": "Let me hear a few tracks under this opening.",
+        "outcome": "Playable music alternatives for the same unchanged section.",
+        "timeline": [
+          {
+            "label": "Find",
+            "detail": "Choose relevant catalog passages"
+          },
+          {
+            "label": "Compare",
+            "detail": "Play each beneath the same section"
+          },
+          {
+            "label": "Choose",
+            "detail": "Leave the final selection to me"
+          }
+        ]
+      },
+      "summary": "Hear different music options under the same section of your edit.",
+      "inputs": [
+        "An edit",
+        "Music direction"
+      ],
+      "output": "Playable music options",
+      "order": 9
+    },
+    {
+      "skill": "voice-file",
+      "title": "Clean up and prepare voice recordings",
+      "category": "Audio",
+      "featured": false,
+      "prompt": "Use the voice-file skill. Inspect this voice recording for clarity problems and prepare an enhanced version if needed. Preserve the original and the speech timing. Let me compare the treatment before using it.",
+      "use_cases": [
+        "Check a recording for noise, clipping, or sync problems",
+        "Compare a cleaned voice recording with the original",
+        "Prepare a replacement voice source while preserving timing"
+      ],
+      "example": {
+        "request": "Can you clean up this voice recording?",
+        "outcome": "A reversible voice treatment with an original-versus-treated comparison.",
+        "timeline": [
+          {
+            "label": "Inspect",
+            "detail": "Identify the recording problems"
+          },
+          {
+            "label": "Prepare",
+            "detail": "Create a timing-matched treatment"
+          },
+          {
+            "label": "Compare",
+            "detail": "Review against the original voice"
+          }
+        ]
+      },
+      "summary": "Prepare a voice recording and compare improvements to its clarity.",
+      "inputs": [
+        "Voice recording"
+      ],
+      "output": "Prepared voice audio",
+      "order": 11
+    },
+    {
+      "skill": "editorial-assembly",
+      "title": "Assemble a first cut from script and footage",
+      "category": "Start here",
+      "featured": false,
+      "prompt": "Use the editorial-assembly skill. Build a new edit from my script, source clips, and visual notes. Establish the brief and delivery format, assemble the story in a separate project, and leave me a coherent first cut to review.",
+      "use_cases": [
+        "Build a new project from a script and supplied media",
+        "Assemble selected speech before adding supporting visuals",
+        "Rebuild an edit in a separate project"
+      ],
+      "example": {
+        "request": "Turn these clips and my script into a first cut.",
+        "outcome": "A separate first assembly organized around the story and supplied direction.",
+        "timeline": [
+          {
+            "label": "Brief",
+            "detail": "Confirm the story and delivery target"
+          },
+          {
+            "label": "Assemble",
+            "detail": "Place the source material into a coherent sequence"
+          },
+          {
+            "label": "Review",
+            "detail": "Present the first cut and unresolved choices"
+          }
+        ]
+      },
+      "summary": "Build a first cut from your script, clips, and visual notes.",
+      "inputs": [
+        "Script or brief",
+        "Source media"
+      ],
+      "output": "First-cut project",
+      "order": 16
+    },
+    {
+      "skill": "talking-video-editing",
+      "title": "Edit a talking-head video",
+      "category": "Start here",
+      "featured": false,
+      "prompt": "Use the talking-video-editing skill. Prepare an edit of this talking-head video. Tighten the pacing while preserving natural speech, add readable captions, and suggest supporting visuals where they clarify the story. Keep the changes previewable.",
+      "use_cases": [
+        "Edit a direct-to-camera video from start to finish",
+        "Coordinate speech, captions, supporting visuals, and audio",
+        "Refine the combined edit after specialist changes"
+      ],
+      "example": {
+        "request": "Make this talking video clearer and more engaging.",
+        "outcome": "A coordinated edit covering speech, captions, supporting visuals, and audio.",
+        "timeline": [
+          {
+            "label": "Story",
+            "detail": "Keep the useful spoken ideas"
+          },
+          {
+            "label": "Clarity",
+            "detail": "Coordinate captions and supporting visuals"
+          },
+          {
+            "label": "Review",
+            "detail": "Preview the proposed changes"
+          }
+        ]
+      },
+      "summary": "Coordinate pacing, captions, supporting visuals, and audio for a talking-head video.",
+      "inputs": [
+        "Talking-head footage",
+        "Editing brief"
+      ],
+      "output": "Coordinated edit proposals",
+      "order": 15
+    },
+    {
+      "skill": "planned-shot-craft",
+      "title": "Choose supporting shots and B-roll",
+      "category": "Visuals",
+      "featured": false,
+      "prompt": "Use the planned-shot-craft skill. Plan supporting shots for the marked sections of this narration. Use my supplied media first, tie each shot to a specific idea, and propose placements that preserve the speech timing.",
+      "use_cases": [
+        "Show the object or idea mentioned in narration",
+        "Cover a spoken cut with a relevant shot",
+        "Choose a still or cutaway that supports a specific point"
+      ],
+      "example": {
+        "request": "Show what I mean while I explain it.",
+        "outcome": "Supporting shots with clear roles and placements against the narration.",
+        "timeline": [
+          {
+            "label": "Idea",
+            "detail": "Identify what needs visual support"
+          },
+          {
+            "label": "Source",
+            "detail": "Choose a relevant shot"
+          },
+          {
+            "label": "Placement",
+            "detail": "Tie the shot to the spoken point"
+          }
+        ]
+      },
+      "summary": "Choose supporting shots that show what the narration is explaining.",
+      "inputs": [
+        "Narration",
+        "Supporting media"
+      ],
+      "output": "Shot plan and placements",
+      "order": 12
+    },
+    {
+      "skill": "motion-graphics",
+      "title": "Animate titles and graphics",
+      "category": "Visuals",
+      "featured": false,
+      "prompt": "Use the motion-graphics skill. Create an animated title for this section using the supplied text. Match the existing visual style, make the entrance purposeful, and hold it long enough to read. Prepare it for preview before applying it.",
+      "use_cases": [
+        "Give a title a timed entrance and exit",
+        "Build an animated callout or graphic overlay",
+        "Create a self-contained logo animation"
+      ],
+      "example": {
+        "request": "Give this title a simple animated entrance.",
+        "outcome": "An animated title prepared through the appropriate graphics workflow.",
+        "timeline": [
+          {
+            "label": "Design",
+            "detail": "Establish the text and treatment"
+          },
+          {
+            "label": "Animate",
+            "detail": "Choose entrance, hold, and exit timing"
+          },
+          {
+            "label": "Preview",
+            "detail": "Check readability in the edit"
+          }
+        ]
+      },
+      "summary": "Create animated titles and graphics for a specific moment.",
+      "inputs": [
+        "Text or artwork",
+        "Motion direction"
+      ],
+      "output": "Animated graphic",
+      "order": 13
+    },
+    {
+      "skill": "spatial-composition",
+      "title": "Arrange text, people, and graphics",
+      "category": "Visuals",
+      "featured": false,
+      "prompt": "Use the spatial-composition skill. Review the layout of this marked scene. Make the main subject and text easy to read, resolve accidental overlaps, and keep important content inside the delivery safe areas. Propose the layout changes.",
+      "use_cases": [
+        "Move text away from a face or important object",
+        "Arrange several cutouts with clear visual hierarchy",
+        "Fix accidental overlap and uneven spacing"
+      ],
+      "example": {
+        "request": "This frame feels crowded. Help me organize it.",
+        "outcome": "A proposed composition with clearer hierarchy, spacing, and safe-area placement.",
+        "timeline": [
+          {
+            "label": "Hierarchy",
+            "detail": "Choose what the viewer should notice first"
+          },
+          {
+            "label": "Layout",
+            "detail": "Space and align the elements"
+          },
+          {
+            "label": "Check",
+            "detail": "Verify overlaps and safe areas"
+          }
+        ]
+      },
+      "summary": "Arrange text, people, and graphics so the frame is easy to follow.",
+      "inputs": [
+        "A scene with visual layers"
+      ],
+      "output": "Proposed layout",
+      "order": 14
+    },
+    {
+      "skill": "video-typography",
+      "title": "Style titles, labels, and callouts",
+      "category": "Captions & text",
+      "featured": false,
+      "prompt": "Use the video-typography skill. Improve the titles and callouts in this section. Match the existing style, establish a clear hierarchy, and check contrast, line breaks, safe areas, and reading time. Propose the changes.",
+      "use_cases": [
+        "Add a title at the start of a section",
+        "Label a person, product, or feature",
+        "Make small or low-contrast text easier to read"
+      ],
+      "example": {
+        "request": "Make these titles easier to read on a phone.",
+        "outcome": "Readable on-screen text with deliberate sizing, placement, and timing.",
+        "timeline": [
+          {
+            "label": "Hierarchy",
+            "detail": "Distinguish titles from supporting labels"
+          },
+          {
+            "label": "Style",
+            "detail": "Choose readable size, contrast, and line breaks"
+          },
+          {
+            "label": "Timing",
+            "detail": "Allow enough time to read"
+          }
+        ]
+      },
+      "summary": "Make titles, labels, and callouts readable and consistent.",
+      "inputs": [
+        "Text to show",
+        "Video or scene"
+      ],
+      "output": "Styled on-screen text",
+      "order": 2
+    },
+    {
+      "skill": "platform-video-delivery",
+      "title": "Check a video before export",
+      "category": "Delivery",
+      "featured": false,
+      "prompt": "Use the platform-video-delivery skill. Check this edit for vertical social delivery. Review framing, safe areas, text readability, and audio, then report anything that needs fixing. Stop before rendering or exporting.",
+      "use_cases": [
+        "Check framing and text against the delivery safe areas",
+        "Find black frames, missing media, or caption drift",
+        "Review audio and the final hold before requesting export"
+      ],
+      "example": {
+        "request": "Is this ready for a vertical social post?",
+        "outcome": "A delivery-readiness review with issues to resolve before an explicitly requested export.",
+        "timeline": [
+          {
+            "label": "Format",
+            "detail": "Check the requested delivery format"
+          },
+          {
+            "label": "Inspect",
+            "detail": "Review picture, text, timing, and audio"
+          },
+          {
+            "label": "Report",
+            "detail": "List fixes before export"
+          }
+        ]
+      },
+      "summary": "Check framing, readability, and audio before the requested export.",
+      "inputs": [
+        "A finished edit",
+        "Delivery format"
+      ],
+      "output": "Readiness report",
+      "order": 17
+    },
+    {
+      "skill": "generated-asset-workflow",
+      "title": "Generate and refine visual assets",
+      "category": "Visuals",
+      "featured": true,
+      "order": 12,
+      "summary": "Create references, test drafts, and review generated images or video before the final quality pass.",
+      "inputs": [
+        "A shot idea or reference",
+        "A DreamCut project"
+      ],
+      "output": "Reviewed generated assets with saved prompts and settings",
+      "prompt": "Use Generated asset workflow to create this shot. Inspect our references, stage the prompt and settings, test at draft quality, review the complete result, and revise it against my direction. Promote to final quality when it passes and I have authorized that step.",
+      "use_cases": [
+        "Refine a generated camera move",
+        "Prepare matching assets for a sequence",
+        "Check a draft before generating at final quality"
+      ],
+      "example": {
+        "request": "Generate a fast camera move through this window. Test it first, then make the high-quality version once it works.",
+        "outcome": "A reviewed draft and, when authorized, a separately verified high-quality candidate with its generation context preserved.",
+        "timeline": [
+          {
+            "label": "Prepare",
+            "detail": "Inspect references and define the shot"
+          },
+          {
+            "label": "Test",
+            "detail": "Generate, review and revise a draft"
+          },
+          {
+            "label": "Finish",
+            "detail": "Recheck the delivery-quality result"
+          }
+        ]
+      }
+    },
+    {
+      "skill": "mask-glitch",
+      "title": "Mask Glitch sequences",
+      "category": "Visuals",
+      "featured": false,
+      "order": 20,
+      "summary": "Link ordered shots with continuous white-to-colour subject masks.",
+      "inputs": [
+        "Two or more ordered shots",
+        "Incoming subjects or prepared white/colour masks"
+      ],
+      "output": "One coordinated proposal with editable masks",
+      "prompt": "Use Mask Glitch across these shots in order. Make consecutive white-to-colour mask handoffs with no disappearing frames. Keep each subject editable and preview the complete sequence on the timeline.",
+      "use_cases": [
+        "Create a single Mask Glitch handoff",
+        "Chain consecutive Mask Glitches across three or more shots",
+        "Reuse the old batched pop-and-white-flash variant"
+      ],
+      "example": {
+        "request": "Use these three statue shots in order with consecutive Mask Glitches.",
+        "outcome": "Two registered white-to-colour subject handoffs in one coordinated preview; each mask remains separately editable.",
+        "timeline": [
+          {
+            "label": "Shot A \u2192 B",
+            "detail": "B white silhouette, then B colour mask, then full shot B"
+          },
+          {
+            "label": "Shot B \u2192 C",
+            "detail": "C white silhouette, then C colour mask, then full shot C"
+          }
+        ]
+      }
+    },
+    {
+      "skill": "rotoscope",
+      "title": "Rotoscope a moving subject",
+      "category": "Visuals",
+      "featured": true,
+      "summary": "Isolate a moving person or object with a source-matched mask and check its edges through motion.",
+      "inputs": [
+        "A video source",
+        "Subject and source interval"
+      ],
+      "output": "Source-linked moving matte and verification receipt",
+      "prompt": "Use Rotoscope to isolate the selected moving subject. Preserve the original and source timing, keep useful handles, correct tracking failures, and verify the mask through motion before proposing its use. Report unavailable masking controls clearly.",
+      "use_cases": [
+        "Remove a background around a moving person",
+        "Prepare an object mask for foreground occlusion",
+        "Prepare a silhouette mask for changing image fills"
+      ],
+      "example": {
+        "request": "Mask this moving person so I can put changing images inside their silhouette.",
+        "outcome": "A source-synchronized subject matte with usable handles and documented edge checks, ready for a supported compositing workflow. Fill composition is verified separately.",
+        "timeline": [
+          {
+            "label": "Source",
+            "detail": "Unchanged performance and source window"
+          },
+          {
+            "label": "Mask",
+            "detail": "Track visible subject and correct failures"
+          },
+          {
+            "label": "Review",
+            "detail": "Inspect edges and motion before adopting"
+          }
+        ]
+      }
+    },
+    {
+      "skill": "surface-text-tracking",
+      "title": "Track text on a moving surface",
+      "category": "Visuals",
+      "featured": false,
+      "order": 55,
+      "prompt": "Use Surface text tracking to attach editable text to a moving flat surface. Check the turn, visibility and playback, and preserve the existing edit.",
+      "use_cases": [
+        "Put editable text on a moving note or sign",
+        "Fix text wobble or disappearing surface text"
+      ],
+      "example": {
+        "request": "Keep this label attached to the note as it turns.",
+        "outcome": "A reviewable native text attachment with source-bound tracking and checked visibility.",
+        "timeline": [
+          {
+            "label": "Track",
+            "detail": "Prepare corners across the visible motion"
+          },
+          {
+            "label": "Attach",
+            "detail": "Propose editable text on the surface"
+          },
+          {
+            "label": "Verify",
+            "detail": "Check turns, boundaries and continuous playback"
+          }
+        ]
+      },
+      "summary": "Make editable text follow a flat object in your footage.",
+      "inputs": [
+        "A local video and a visible flat surface",
+        "Text to attach"
+      ],
+      "output": "Proposed editable tracked text"
+    }
+  ]
+}

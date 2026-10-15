@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "controls": [
+    {
+      "id": "look",
+      "kind": "choice",
+      "label": "Look",
+      "default": "paper",
+      "options": [
+        {
+          "value": "paper",
+          "label": "Paper"
+        },
+        {
+          "value": "keynote",
+          "label": "Keynote"
+        },
+        {
+          "value": "swiss",
+          "label": "Swiss"
+        },
+        {
+          "value": "terminal",
+          "label": "Terminal"
+        },
+        {
+          "value": "chalk",
+          "label": "Chalk"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "label": "Shape",
+      "default": "wide",
+      "options": [
+        {
+          "value": "wide",
+          "label": "16:9"
+        },
+        {
+          "value": "tall",
+          "label": "9:16"
+        },
+        {
+          "value": "square",
+          "label": "1:1"
+        }
+      ],
+      "fixed": true
+    },
+    {
+      "id": "title",
+      "kind": "text",
+      "label": "Title",
+      "default": "Teams using shared projects",
+      "max_length": 70
+    },
+    {
+      "id": "subtitle",
+      "kind": "text",
+      "label": "Subtitle",
+      "default": "Active teams, in thousands",
+      "max_length": 80
+    },
+    {
+      "id": "note",
+      "kind": "text",
+      "label": "Source note",
+      "default": "Source: internal usage data",
+      "max_length": 90
+    },
+    {
+      "id": "chart_kind",
+      "kind": "choice",
+      "label": "Chart",
+      "default": "bars",
+      "options": [
+        {
+          "value": "bars",
+          "label": "Bars"
+        },
+        {
+          "value": "line",
+          "label": "Line"
+        }
+      ]
+    },
+    {
+      "id": "bar_count",
+      "kind": "number",
+      "label": "Items",
+      "default": 5,
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "items"
+    },
+    {
+      "id": "label_1",
+      "kind": "text",
+      "label": "Label 1",
+      "default": "Jan",
+      "max_length": 24
+    },
+    {
+      "id": "value_1",
+      "kind": "number",
+      "label": "Value 1",
+      "default": 12,
+      "min": 0,
+      "max": 1000,
+      "step": 0.5
+    },
+    {
+      "id": "label_2",
+      "kind": "text",
+      "label": "Label 2",
+      "default": "Feb",
+      "max_length": 24
+    },
+    {
+      "id": "value_2",
+      "kind": "number",
+      "label": "Value 2",
+      "default": 19,
+      "min": 0,
+      "max": 1000,
+      "step": 0.5
+    },
+    {
+      "id": "label_3",
+      "kind": "text",
+      "label": "Label 3",
+      "default": "Mar",
+      "max_length": 24
+    },
+    {
+      "id": "value_3",
+      "kind": "number",
+      "label": "Value 3",
+      "default": 27,
+      "min": 0,
+      "max": 1000,
+      "step": 0.5
+    },
+    {
+      "id": "label_4",
+      "kind": "text",
+      "label": "Label 4",
+      "default": "Apr",
+      "max_length": 24
+    },
+    {
+      "id": "value_4",
+      "kind": "number",
+      "label": "Value 4",
+      "default": 34,
+      "min": 0,
+      "max": 1000,
+      "step": 0.5
+    },
+    {
+      "id": "label_5",
+      "kind": "text",
+      "label": "Label 5",
+      "default": "May",
+      "max_length": 24
+    },
+    {
+      "id": "value_5",
+      "kind": "number",
+      "label": "Value 5",
+      "default": 48,
+      "min": 0,
+      "max": 1000,
+      "step": 0.5
+    },
+    {
+      "id": "label_6",
+      "kind": "text",
+      "label": "Label 6",
+      "default": "Jun",
+      "max_length": 24
+    },
+    {
+      "id": "value_6",
+      "kind": "number",
+      "label": "Value 6",
+      "default": 55,
+      "min": 0,
+      "max": 1000,
+      "step": 0.5
+    },
+    {
+      "id": "value_prefix",
+      "kind": "text",
+      "label": "Before values",
+      "default": "",
+      "max_length": 6
+    },
+    {
+      "id": "value_suffix",
+      "kind": "text",
+      "label": "After values",
+      "default": "k",
+      "max_length": 8
+    },
+    {
+      "id": "value_decimals",
+      "kind": "choice",
+      "label": "Decimals",
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": "None"
+        },
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "id": "highlight",
+      "kind": "choice",
+      "label": "Highlight",
+      "default": "item_5",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "item_1",
+          "label": "Item 1",
+          "label_from": "label_1"
+        },
+        {
+          "value": "item_2",
+          "label": "Item 2",
+          "label_from": "label_2"
+        },
+        {
+          "value": "item_3",
+          "label": "Item 3",
+          "label_from": "label_3"
+        },
+        {
+          "value": "item_4",
+          "label": "Item 4",
+          "label_from": "label_4"
+        },
+        {
+          "value": "item_5",
+          "label": "Item 5",
+          "label_from": "label_5"
+        },
+        {
+          "value": "item_6",
+          "label": "Item 6",
+          "label_from": "label_6"
+        }
+      ]
+    },
+    {
+      "id": "show_values",
+      "kind": "switch",
+      "label": "Values",
+      "default": true
+    },
+    {
+      "id": "chart_start",
+      "kind": "number",
+      "label": "Chart starts",
+      "default": 0.9,
+      "min": 0,
+      "max": 5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "grow_time",
+      "kind": "number",
+      "label": "Grow time",
+      "default": 1.1,
+      "min": 0.2,
+      "max": 4,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "bar_gap",
+      "kind": "number",
+      "label": "Item gap",
+      "default": 0.18,
+      "min": 0,
+      "max": 1.5,
+      "step": 0.02,
+      "unit": "s"
+    },
+    {
+      "id": "hold",
+      "kind": "number",
+      "label": "Hold",
+      "default": 3,
+      "min": 0.5,
+      "max": 15,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "entrance",
+      "kind": "number",
+      "label": "Entrance",
+      "default": 0.7,
+      "min": 0.2,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "own_accent",
+      "kind": "switch",
+      "label": "Own accent",
+      "default": false
+    },
+    {
+      "id": "accent",
+      "kind": "color",
+      "label": "Accent",
+      "default": "#e4572e"
+    },
+    {
+      "id": "backdrop",
+      "kind": "switch",
+      "label": "Backdrop",
+      "default": true
+    }
+  ],
+  "actors": [
+    {
+      "id": "header",
+      "label": "Title"
+    },
+    {
+      "id": "chart",
+      "label": "Chart"
+    },
+    {
+      "id": "note",
+      "label": "Source note"
+    }
+  ],
+  "markers": [],
+  "timing": {
+    "cues": [
+      {
+        "id": "chart_in",
+        "label": "Chart starts",
+        "at": "chart_start"
+      },
+      {
+        "id": "all_landed",
+        "label": "Last item lands",
+        "at": "chart_start + grow_time + bar_gap * (bar_count - 1)"
+      },
+      {
+        "id": "highlight_in",
+        "label": "Highlight",
+        "at": "chart_start + grow_time + bar_gap * (bar_count - 1) + 0.2"
+      }
+    ],
+    "duration": "chart_start + grow_time + bar_gap * (bar_count - 1) + hold"
+  },
+  "canvas": {
+    "control": "shape",
+    "sizes": {
+      "wide": {
+        "width": 1920,
+        "height": 1080
+      },
+      "tall": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  },
+  "opaque_control": "backdrop"
+}

@@ -1,0 +1,120 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/34736308, pexels.com/video/4208237, pexels.com/video/8148429, pexels.com/video/9130084, pexels.com/video/10989548, pexels.com/video/5977487, pexels.com/video/3010130, pexels.com/video/7348329, pexels.com/video/35811255. Effect reference: @willrvail breakdown of a video by @nvision.media (instagram.com/reel/Deb-VcJRpxp); no reference pixels are reused.",
+  "footage": [
+    {
+      "pexels_video_id": "34736308",
+      "url": "https://www.pexels.com/video/silhouette-of-man-at-sunset-by-the-ocean-34736308/",
+      "role": "Shot of a person (silhouette at dusk)",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "4208237",
+      "url": "https://www.pexels.com/video/slow-motion-shot-of-waterfalls-4208237/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "8148429",
+      "url": "https://www.pexels.com/video/a-backpacker-walking-between-flower-meadows-8148429/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "9130084",
+      "url": "https://www.pexels.com/video/a-hiker-looking-at-the-mountains-9130084/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "10989548",
+      "url": "https://www.pexels.com/video/hiker-on-boardwalk-in-marsh-in-winter-10989548/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "5977487",
+      "url": "https://www.pexels.com/video/a-man-sitting-on-rocks-5977487/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "3010130",
+      "url": "https://www.pexels.com/video/a-man-taking-selfie-on-seated-on-a-boulder-of-rock-3010130/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "7348329",
+      "url": "https://www.pexels.com/video/a-man-doing-selfie-using-a-smartphone-7348329/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "35811255",
+      "url": "https://www.pexels.com/video/lone-figure-on-rocky-hilltop-at-twilight-35811255/",
+      "role": "Fill clip",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 30,
+  "frames": 180,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; a new fill clip every 0.6 s, shown only inside his moving silhouette.",
+  "receipt": {
+    "construction": "A DreamCut demo proposal, rendered from the proposal preview with the production browser GPU compositor at 1920x1080, scaled to 1280x720 H.264 (CRF 23, no audio). Subject Window mask: SAM 2 grid matte (50 fps, 314 frames), feather 4, expand 0, strength 1. Poster frame 25; stages frames 25, 45, 80 and 100."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/person.jpg",
+      "sha256": "a8564bd477b34ce0c66ae3de51453eaf6d95e487ec30ca65f4b6d68793ab3592"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-water.jpg",
+      "sha256": "1d24e75c18e8cfe8ff0eb45a8b5afef35f20727f14d0610b639e8e937cf3c781"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-meadow.jpg",
+      "sha256": "f759746882db20a783d2ad11174dbf4d5469272ef84e6cfdab19dfbf3444192b"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-rocks.jpg",
+      "sha256": "f36b1acc3c8345d5143ffbc2e2cfcd48693b53add7ca14e8ae8a2761e724a2b6"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-sky.jpg",
+      "sha256": "443774545c832179d13bfecc7e840eb04cc16d6ea30f2cd69c1649a8288a4faa"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/moving-mask.png",
+      "sha256": "e4cf521c908202be0eb9352fff968d7866600cce1f505cf6e1502c669893a757"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "a050f968776343b7ca5baaec7d7d72527c3da761298485a3bf310cae0775290a"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "047f892ac9e2d74ba65760006e553e51774f2417e2f3e1154536a99537ce557c"
+    },
+    {
+      "file": "meadow.jpg",
+      "sha256": "047f892ac9e2d74ba65760006e553e51774f2417e2f3e1154536a99537ce557c"
+    },
+    {
+      "file": "ridge.jpg",
+      "sha256": "64aa3a3fc6d59afa46f8b4dca4c65c360d3c2c91b68b88d7733b6174e1b9681a"
+    },
+    {
+      "file": "rocks.jpg",
+      "sha256": "aebcb574f0bbd2fe2d1847757802866fcdb1c847b861b4d40f4ceab49088812f"
+    },
+    {
+      "file": "sky.jpg",
+      "sha256": "d4b92e2a80209517e4855df265fb4229cf1fb05ff2c273dfc96430c11e9fc9bf"
+    }
+  ]
+}

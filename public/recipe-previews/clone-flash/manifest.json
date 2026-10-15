@@ -1,0 +1,56 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/8680224. Effect reference: @willrvail breakdown of a video by @nvision.media (instagram.com/reel/Deb-VcJRpxp); no reference pixels are reused.",
+  "footage": [
+    {
+      "pexels_video_id": "8680224",
+      "url": "https://www.pexels.com/video/a-man-in-a-trench-coat-looking-around-in-thick-fog-8680224/",
+      "role": "Locked-off shot of a person (man in orange fog)",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 30,
+  "frames": 180,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; each clone holds white for 0.1 s and fades to colour by 0.2 s.",
+  "receipt": {
+    "construction": "A DreamCut demo proposal, rendered from the proposal preview with the production browser GPU compositor at 1920x1080, scaled to 1280x720 H.264 (CRF 23, no audio). Clones are SAM 2 cutout (source 14-24 s) placed with media_offset_x -0.8 and -0.42. Poster frame 74; stages frames 20, 31, 73 and 170."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/clone-flash/inputs/shot.jpg",
+      "sha256": "b82613fb6dddad3049cd822870a559b6779648a351d1102295d4c39eabe0961f"
+    },
+    {
+      "file": "/recipe-previews/clone-flash/inputs/cutout.png",
+      "sha256": "df0dd92e32985e2d7045538840120e712670c4728d0a02717ed96342d8962a9a"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "2381fa38c69b616f11c50a583818e9c2c932a244a87a83d4d3a962da76fc7802"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "e8506dfb10c6bbf1d70c08fbcf25fca0d7a03048b390a91cb1cfc3b85123e2b8"
+    },
+    {
+      "file": "original.jpg",
+      "sha256": "00c22a022f6129864fd8709e95c1a6bb34e138de43fe0d9ba48b2df0928bcb61"
+    },
+    {
+      "file": "first-clone.jpg",
+      "sha256": "492bd5b0a6c0f16fe0b4b930c1af34fc734c7c424339dd77f3000491dce80de4"
+    },
+    {
+      "file": "second-clone.jpg",
+      "sha256": "a8957e279a91f9d0eece77dad29ecac125ed04e4c77962a20a63b09337273e1b"
+    },
+    {
+      "file": "three.jpg",
+      "sha256": "83efc412ccdaa8766b25d27e0601caab76c1b2ad02f1b6f0d969e3351e949977"
+    }
+  ]
+}

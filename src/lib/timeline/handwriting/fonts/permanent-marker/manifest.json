@@ -1,0 +1,26 @@
+{
+  "font_id": "permanent_marker",
+  "family": "Permanent Marker",
+  "schema_version": 2,
+  "source": "https://github.com/google/fonts/blob/main/apache/permanentmarker/PermanentMarker-Regular.ttf",
+  "source_sha256": "28f82c8a7943cb8e9d599f8554da1d4fc75dbcf69b9885ad6c0611d20c6946c5",
+  "license": "Apache-2.0",
+  "units_per_em": 1024,
+  "default_nib_width": 38,
+  "coordinate_space": "Each glyph ink bounding box independently normalized to 0\u2013100, y down.",
+  "supported_characters": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?-:;'\"()",
+  "authorship": "GPT-6 Sol letter groups A\u2013I, J\u2013R, S\u2013Z; OpenEdit integration review",
+  "limitations": [
+    "Stroke order is reconstructed from static font artwork, not recovered original pen motion.",
+    "Stroke ownership prevents a broad nib revealing later gestures; nearby intersections still depend on the authored trajectories.",
+    "Unprepared Unicode characters use whole-character reveal.",
+    "The alphabet lab is the review fixture; full glyph completion does not prove every intermediate gesture is natural."
+  ],
+  "stroke_regions": {
+    "file": "regions.json",
+    "resolution": 256,
+    "method": "Nearest pen trajectory ownership, clipped to unchanged font contours",
+    "generator": "scripts/prepare-handwriting-regions.ts"
+  },
+  "review_receipt": "review.json"
+}

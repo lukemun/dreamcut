@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "font_id": "comic_neue",
+  "family": "Comic Neue",
+  "reviewed_at": "2026-09-28",
+  "status": "needs_review",
+  "human_acceptance": null,
+  "project_id": "handwriting-comic-neue-review",
+  "project_url": "http://127.0.0.1:3123/p/handwriting-comic-neue-review",
+  "review_scope": "Agent inspected all 85 glyphs at 10%, 25%, 50%, 75%, completion and source on three production-component contact sheets. Per-gesture midpoint frames saved but not all visually inspected. Continuous all-character playback pending. B/i project frames instrumented and inspected.",
+  "asset_hashes": {
+    "metrics.json": "5ba9528189301455eb9ea4c17aff24fab7def8647710c33d95e4a9d46bd103a8",
+    "sweeps.json": "9a3e7f2521f540e6bfb699cc4f2c38849470222ce77c838ab80893e19b4554a7",
+    "widths.json": "7832efa5a43843e8255358e4024b8124e40bd84972a96831800ffa16b952ad51",
+    "source.ttf": "5e32e5f7a711862b2847f987537bbc9e89f0048cae31258b771150c1ffc3bd31",
+    "fitting.json": "c2a8a8efc940fda8ce9cd6b15d5d13704bcc606d22bc391266a1499d9e885f93",
+    "authored-guides.json": "8948190558d3ebdd33c7266852f4b71c259eec26fcb43f4cc9ef186236b45258",
+    "manifest.json": "8d0681a195ab0254d30294c3367b2bd8ab85fabb246112e49dda0ea3a1e5663a",
+    "outlines.json": "5428441ab0b73f50b18ea339ece5efd35b4777218ad5ec285d87e3b1d3daa7be",
+    "strokes.json": "7c3bf06f0e613a5b7fcd944d9ec3a92b11f9a484cbc681f44d3e9301f7817f34"
+  },
+  "audit_pack_hashes": {
+    "outlines": "50a41862f77ff077a2ccb281fffbd14c8bb90784001cf3a195fe7622069f45cb",
+    "strokes": "c06abc0db15e12dddd7839eaa6c4fa060e256149921e99845c82f52ae8b4914a",
+    "widths": "51e3ab11d0b6fcd81900013c74f53c7b5a6d9cfcc1fe430977e473888129ee31",
+    "sweeps": "1533ce3bebf1b0c778e93caebff7daa0fbcaaa9b4361dd9d3a215586d8a24d3c",
+    "metrics": "28910ccf5663cafb1fb098359c7cdb2c5d2bba480e817a73f6d1584fd090bea6"
+  },
+  "findings": "Speckled 6/8/@ loops and gaps at stem/crossbar or bowl junctions.",
+  "priority_characters": [
+    "6",
+    "8",
+    "@",
+    "#",
+    "E",
+    "F",
+    "H",
+    "K",
+    "P",
+    "R",
+    "a",
+    "b",
+    "d",
+    "p",
+    "t",
+    "+"
+  ],
+  "completion_below_99_percent": [],
+  "limitations": [
+    "Regular-400 base glyphs only; original advances and pair kerning retained. Contextual alternates, ligatures and other weights remain unprepared.",
+    "Unprepared Unicode appears whole in the selected font; never inherits uppercase guides.",
+    "Sampled stills do not certify smooth speed, direction, lifts or continuous motion.",
+    "Nearest trajectory ownership prevents broad-nib spill into later gestures, but disconnected cells remain at loops/crossings.",
+    "No new font is declared production-ready."
+  ],
+  "audit_hashes": {
+    "audit/page-1.png": "635e6187166f9f78b92f429d9cd36e93cfc525d597982240abda77cfcb12625a",
+    "audit/page-3.png": "e89e4647052b6e0253614a19c6d41639990b02a0a761746dd0830498f2be1352",
+    "audit/page-2.png": "c4f58cf09ba7b72491708a93192e8e7e3ad4e50c4428fa9ac839ad290e188115",
+    "audit/page-6.png": "0e0dce28d6ee0779e0f10903514fecc511443f4fca021a18a728ca86e9f1b845",
+    "audit/page-7.png": "222906079bd96bf3109ccb679a5de648abd4f10a757e5940d561295e725e0e80",
+    "audit/page-5.png": "29c44d01fc8364319c784c5793e86bdfb5f5c17c2e27ec63934f3b1fb7dbcc2d",
+    "audit/page-4.png": "da8b9f49770d96ea9f526426e1857b31dee19d65193f81e5abdc5b6dc48f17c2",
+    "audit/page-9.png": "2b3f698562abd71ea647345caabe33fc1148476db98c5c6677dd7b260031df78",
+    "audit/page-8.png": "51b1a910eb9340827ec999885be911b3ab1fdbd7b185b8c35b08ea045064f61a",
+    "audit/coverage.json": "abf314e8d4b6037bfc4488e53556ddb8b18556e73be640f4c7fc2e6e3a5ccc5c",
+    "audit/review-sheet-2.png": "d2361b4d5a1da79f87d727aef20af189f3c54617662efd84205938e45aeba084",
+    "audit/review-sheet-3.png": "1b08cd450303d3c306d225b187944ded44a1799358769d9fc9f00d1c5a098574",
+    "audit/review-sheet-1.png": "1bdd1cefd2aaf4646123727f644d29d576fbfcfa6bc06923ca0c97d455deb5f6"
+  },
+  "renderer_sha256": "6666903d5b3c48b71d9389a230af68b77f1dab45093acdd4ae49684260bb57bb"
+}

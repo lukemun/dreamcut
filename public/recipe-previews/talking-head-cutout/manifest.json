@@ -1,0 +1,58 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage from Pexels (Pexels License): pexels.com/video/8814086; replacement backdrop is the empty pink set from pexels.com/video/8798070.",
+  "footage": [
+    {
+      "pexels_video_id": "8814086",
+      "url": "https://www.pexels.com/video/woman-talking-in-front-of-a-camera-8814086/",
+      "role": "Talking head filmed in a room",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "8798070",
+      "url": "https://www.pexels.com/video/man-wearing-pink-shirt-looking-at-the-camera-8798070/",
+      "role": "Empty frame used as the replacement backdrop",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 25,
+  "frames": 200,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Real footage at normal speed; the room shows for 1.6 s, then the backdrop changes while she keeps talking.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-talking-head-cutout-demo, proposal 20261015T054111-a16f8127 (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio; the source has no audio track). Cutout: SAM 2 cutout 820bff72 (source 0-10 s, re-prompted from faabcba4 to keep the pendant and hair tips), placed at source 1.6-8 s on the original clock above a pink backdrop still. Poster: frame 41 (backdrop) with frame 38's room kept left of center behind her silhouette, so the change reads in one still; stages frames 12, 44 and 56."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/talking-head-cutout/inputs/moving-cutout.png",
+      "sha256": "ccdb0f228958d4af20aafb2b5431bc1b84d1b191beb22f339aa453af455a65f1"
+    },
+    {
+      "file": "/recipe-previews/talking-head-cutout/inputs/talking-head.jpg",
+      "sha256": "af138a8aec9700e8684fbd65d3ea615be99bef0cafad94a19e14039a739da5d6"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "8e45c89ced999016a68607ebaabf6b16fbf0deb82b78471be673e09ca0c905d2"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "7b36e1abf89e6a058c630bf9752047b93cb80f2f36c333c8a65fb0b11d9b882b"
+    },
+    {
+      "file": "original.jpg",
+      "sha256": "aa83e3769709536719584b23dbfee4ff1ed14cdd13f4701e0a317f05a2d59e95"
+    },
+    {
+      "file": "removed.jpg",
+      "sha256": "1c3683364b33812e8d1a0cdd0a322ae437d87abedb47e5f727b87a26da2994a6"
+    },
+    {
+      "file": "kept.jpg",
+      "sha256": "956cd1880df899af84527fc19fe283547dbc4f03dc791012af3840fa7d6041cb"
+    }
+  ]
+}

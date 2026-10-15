@@ -1,0 +1,598 @@
+/* Compact workspace chrome and a stable, labeled tool rail. */
+.editor-tool-area { flex-direction:row; }
+.editor-tool-header { width:64px; border-right:1px solid var(--chrome-line); background:var(--chrome-panel); }
+.editor-rail-tabs { width:100%; flex:1; min-height:0; }
+.editor-tool-header .editor-tool-rail { display:flex; flex-direction:column; gap:4px; padding:0; background:transparent; border:0; box-shadow:none; border-radius:0; }
+.editor-tool-header .editor-tool-rail > button { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:4px; width:100%; min-height:48px; flex:none; padding:6px 2px; border:0; border-radius:6px; box-shadow:none; font-size:var(--ui-text-small); line-height:1.2; }
+.editor-tool-rail > button svg { flex-shrink:0; }
+.timeline-project-header #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *) { height:auto; min-height:calc(var(--header-control-height) + var(--ui-text-step)); min-width:max-content; flex-shrink:0; padding:4px 10px; font-size:var(--ui-text-small); border-radius:10px; }
+.timeline-project-header #timeline-project-header-actions svg { width:14px; height:14px; }
+.project-review-header { padding:8px 10px; }
+.editor-preview-transport { min-height:40px; }
+.editor-preview-transport .preview-minimal-controls { flex-wrap:nowrap; padding:4px 8px; }
+.editor-preview-transport .preview-play-button { width:30px; height:30px; padding:7px; }
+.editor-preview-transport .preview-play-button svg { width:16px; height:16px; }
+
+/* One header height: project tabs, Editor/Storyboard/Library, the Undo group, panel buttons and Export all
+   share it. Bordered groups size their buttons inside the border so the group's outer box matches. */
+.timeline-project-header { --header-control-height:30px; }
+.timeline-project-header .timeline-history-controls > button { height:calc(var(--header-control-height) - 2px); min-height:calc(var(--header-control-height) - 2px); }
+.editor-playback-workspace--horizontal { grid-template-columns:minmax(420px,42%) minmax(0,1fr); }
+@media(max-width:1050px) { .editor-playback-workspace--horizontal { grid-template-columns:minmax(360px,48%) minmax(0,1fr); } }
+.editor-viewer { container-type:inline-size; }
+@container (max-width:260px) {
+  .editor-preview-transport .preview-minimal-controls { gap:2px; padding-inline:4px; }
+  .editor-preview-transport .preview-play-button { width:24px; height:30px; padding:5px; }
+  .editor-preview-transport .preview-play-button svg { width:14px; height:14px; }
+  .editor-preview-transport .preview-time { font-size:10px; }
+}
+
+.project-chat-marks { flex-shrink:0; border-top:1px solid var(--chrome-line); }
+.project-chat-marks:empty { display:none; }
+
+@container (max-width:350px) {
+ .editor-preview-transport .preview-time { margin-right:auto; }
+ .editor-preview-transport .preview-trailing-controls { margin-left:0; }
+}
+
+/* Compact chat shares a single composer and short context strip. */
+.desktop-chat { display:flex; flex:1; min-height:0; flex-direction:column; }
+.desktop-chat-messages { flex:1; min-height:0; overflow:auto; padding:18px 14px; }
+.desktop-chat-empty { color:var(--ink-muted); font-size:var(--ui-text-body); margin-top:18px; text-align:center; }
+.desktop-chat-message { font-size:var(--ui-text-body); line-height:1.65; color:var(--ink); margin-bottom:20px; overflow-wrap:anywhere; }
+
+.desktop-chat-footer { flex-shrink:0; padding:8px 10px 10px; }
+/* The chat composer is the one framed surface in the dock: a soft light edge, not a dark seam. */
+.desktop-chat-composer { border:1.5px solid var(--chat-composer-edge); border-radius:16px; background:var(--chrome-panel); padding:8px; transition:border-color 140ms ease; }
+.desktop-chat-composer textarea { display:block; width:100%; resize:none; max-height:min(220px, 40vh); overflow-y:auto; border:0; outline:none; background:transparent; padding:4px; color:var(--ink); font-size:var(--ui-text-body); line-height:1.5; }
+.desktop-chat-composer:focus-within { border-color:var(--chat-composer-edge-focus); }
+.desktop-chat-actions { display:flex; align-items:center; gap:3px; }
+.desktop-chat-actions button { height:28px; min-height:28px; }
+.desktop-chat-send { border-radius:50%; }
+.project-chat-marks { border:0; }
+.chat-marks-strip { padding:0 0 6px; display:flex; }
+.chat-marks-strip .timeline-review-controls-group { display:inline-flex; width:max-content; flex:0 0 auto; }
+.chat-marks-strip .timeline-review-controls-group > button { flex:0 0 auto; height:28px !important; }
+
+
+.editor-preview-transport .platform-preview-control { width:30px; height:30px; min-height:30px; border:0; border-radius:4px; background:transparent; box-shadow:none; color:inherit; }
+.editor-preview-transport .platform-preview-control svg { width:16px; height:16px; }
+[data-testid="timeline-toolbar"] { --timeline-control-height:32px; flex-wrap:nowrap; gap:6px; padding:6px; }
+[data-testid="timeline-toolbar"] .timeline-history-controls,
+[data-testid="timeline-toolbar"] .timeline-editing-controls { height:var(--timeline-control-height); box-sizing:border-box; }
+[data-testid="timeline-toolbar"] .timeline-history-controls > button,
+[data-testid="timeline-toolbar"] .timeline-editing-controls > button { height:100% !important; min-height:0; width:32px; padding:0; }
+[data-testid="timeline-toolbar"] [aria-label="Editor layout"] > button { height:100%; min-height:0; width:32px; }
+[data-testid="timeline-toolbar"] .timeline-history-controls svg,
+[data-testid="timeline-toolbar"] .timeline-editing-controls svg { width:16px; height:16px; }
+
+
+/* Keep the complete player row visible in the narrower tall workspace. */
+@container (max-width:380px) {
+  .editor-preview-transport .preview-minimal-controls { gap:1px; padding-inline:4px; }
+  .editor-preview-transport .preview-play-button,
+  .editor-preview-transport .platform-preview-control { width:28px; height:30px; min-height:30px; padding:6px; flex-shrink:0; }
+  .editor-preview-transport .preview-time { font-size:10px; }
+}
+
+.editor-preview-transport--inline { flex:1 0 auto; min-height:32px; border:0; background:transparent; }
+.editor-preview-transport--inline .preview-minimal-controls { padding:0; min-height:32px; justify-content:center; }
+.editor-preview-transport--inline .preview-trailing-controls { margin-left:12px; }
+.editor-preview-transport--inline .preview-time { margin-right:0; }
+
+.workspace-resize { position:absolute; z-index:60; touch-action:none; outline:none; }
+.workspace-resize--x { width:8px; cursor:col-resize; }
+.workspace-resize--y { height:8px; cursor:row-resize; }
+.workspace-resize:focus-visible { box-shadow:inset 0 0 0 1px var(--chrome-focus-ring); }
+
+/* Reading position and viewer utilities are separate from playback navigation. */
+.editor-preview-transport .preview-time { font-size:var(--ui-text-small); font-weight:500; margin-left:6px; }
+.editor-preview-transport .preview-trailing-controls { margin-left:auto; padding-left:10px; gap:2px; }
+.editor-preview-transport--inline .preview-trailing-controls { margin-left:12px; }
+
+/* Compact by default; widening the rail reveals names beside its icons. */
+.editor-tool-rail-shell { position:relative; flex-shrink:0; min-height:0; }
+/* Expanded labels keep their words at every text size: "Properties" is ~4.5em. */
+/* Wide enough that the longest label ("Properties") stays inside its highlighted button at every text size. */
+.editor-tool-rail-shell[data-expanded="true"] { min-width:calc(5.6 * var(--ui-text-small) + 16px); }
+.editor-tool-rail-shell[data-expanded="true"] .editor-tool-header { padding-inline:4px; }
+.editor-tool-rail-shell .editor-tool-header { width:100%; height:100%; padding:10px 6px; box-sizing:border-box; }
+.editor-tool-header .editor-tool-rail > button { min-height:40px; height:40px; padding:6px; gap:6px; }
+.editor-tool-rail-shell .editor-tool-rail { gap:8px; }
+.editor-tool-rail-shell .editor-tool-rail svg { width:18px; height:18px; }
+.editor-tool-rail-shell[data-expanded="false"] .editor-tool-rail > button > span { display:none; }
+.editor-tool-rail-shell[data-expanded="true"] .editor-tool-rail > button { flex-direction:column; justify-content:center; height:54px; padding-inline:4px; font-size:var(--ui-text-small); font-weight:500; line-height:1.2; white-space:nowrap; }
+.project-review-notice { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:0 10px 8px; padding:6px 10px; border:1px solid var(--chrome-line); border-radius:8px; color:var(--ink-secondary); font-size:var(--ui-text-small); }
+.project-review-notice button { border:0; border-radius:5px; padding:4px 8px; background:var(--chrome-raised); color:var(--ink); cursor:pointer; }
+.chat-marks-strip { padding:0 0 8px; border-bottom:1px solid var(--chrome-line); margin-bottom:6px; }
+.chat-marks-strip .timeline-review-controls-group { background:var(--glass-control); }
+
+.timeline-scroll-shell { position:relative; display:flex; flex:1; min-height:0; min-width:0; overflow:hidden; }
+.timeline-overlay-scroll-viewport { scrollbar-width:none; }
+.timeline-overlay-scroll-viewport::-webkit-scrollbar { display:none; }
+.overlay-scrollbar { position:absolute; right:2px; top:0; bottom:0; width:8px; z-index:20; touch-action:none; border-radius:5px; outline:none; }
+.overlay-scrollbar > span { position:absolute; top:0; right:1px; width:5px; border-radius:5px; background:var(--ink-muted); opacity:.35; }
+.overlay-scrollbar:hover > span,.overlay-scrollbar:focus-visible > span { opacity:.85; }
+.overlay-scrollbar:focus-visible { outline:1px solid var(--chrome-focus-ring); }
+.timeline-position-readout { position:absolute; top:6px; color:var(--ink); font:var(--ui-text-small)/1.2 ui-monospace,monospace; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.timeline-position-readout > span { color:var(--ink-muted); }
+.editor-preview-transport .preview-time { display:none; }
+.editor-preview-transport .preview-minimal-controls { position:relative; justify-content:center; }
+.editor-preview-transport .preview-trailing-controls { position:absolute; right:4px; margin-left:0; }
+.editor-preview-transport--inline { min-width:310px; }
+
+/* Tall viewer transport starts at the left; utility tools stay at the right. */
+.editor-preview-transport:not(.editor-preview-transport--inline) .preview-minimal-controls { justify-content:flex-start; }
+
+.editor-viewer-tools-target { display:flex; align-items:center; }
+.editor-viewer-tools-target .preview-play-button { width:32px; height:32px; padding:7px; color:var(--ink); border:0; border-radius:8px; background:transparent; }
+.editor-viewer-tools-target .preview-play-button svg { width:16px; height:16px; }
+
+.preview-utility-controls { display:flex; align-items:center; gap:4px; }
+
+/* Dock selection stays unmistakable without a second notification row. */
+.proposal-count-badge { display:inline-flex; align-items:center; justify-content:center; min-width:18px; height:18px; padding:0 4px; border-radius:9px; background:#f4bf63; color:#252015; font-size:var(--ui-text-small); font-weight:700; }
+.preview-capture-hint { margin:5px 0 10px; color:var(--muted-foreground); font-size:var(--ui-text-small); }
+.preview-settings-panel > .space-y-3 { margin-top:10px; }
+
+
+.chat-marks-strip { border-bottom:0; margin-bottom:0; padding-bottom:6px; }
+
+/* Projects and resources live outside the editing workspace. */
+.dashboard-shell { display:grid; grid-template-columns:260px minmax(0,1fr); height:100dvh; overflow:hidden; }
+.dashboard-sidebar { display:flex; flex-direction:column; min-height:0; padding:24px 16px 16px; gap:18px; background:var(--chrome-panel); }
+.dashboard-sidebar .projects-brand { padding:0 8px; font-size:17px; }
+.dashboard-sidebar .projects-create-trigger:hover:not(:disabled) { background:color-mix(in srgb, var(--primary) 85%, var(--chrome-panel)); color:var(--primary-foreground); }
+.dashboard-sidebar .projects-create-trigger { margin:0; width:100%; height:38px; font-size:var(--ui-text-small); }
+.dashboard-nav { display:flex; flex-direction:column; gap:4px; }
+.dashboard-nav a,.dashboard-projects a { display:flex; align-items:center; gap:10px; border-radius:8px; padding:10px 12px; color:var(--ink-secondary); font-size:var(--ui-text-small); }
+.dashboard-nav a:hover,.dashboard-projects a:hover { background:var(--chrome-raised); color:var(--ink); }
+.dashboard-nav a[aria-current],.dashboard-projects a[aria-current] { background:var(--chrome-raised); color:var(--ink); }
+.dashboard-search { display:flex; align-items:center; gap:6px; padding:0 10px; border:1px solid var(--chrome-line-strong); border-radius:8px; color:var(--ink-muted); }
+.dashboard-search:focus-within { border-color:var(--chrome-focus-ring); box-shadow:0 0 0 2px var(--chrome-focus-ring); }
+.dashboard-search input:focus-visible { outline:none; box-shadow:none; }
+.dashboard-list-label { margin:0 10px 8px; font-size:var(--ui-text-small); font-weight:500; color:var(--ink-muted); }
+.dashboard-search input { border:0; box-shadow:none; background:transparent; padding:0; height:34px; min-width:0; font-size:var(--ui-text-small); }
+.dashboard-projects { flex:1; min-height:0; overflow:auto; }
+.dashboard-projects a { font-size:var(--ui-text-small); padding:9px 10px; }
+.dashboard-projects a svg { flex-shrink:0; opacity:.65; }
+.dashboard-projects a span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.dashboard-projects p { font-size:var(--ui-text-small); color:var(--ink-muted); padding:10px; }
+.dashboard-utilities { border-top:1px solid var(--chrome-line); padding-top:12px; }
+.dashboard-main { min-width:0; overflow:auto; padding:44px clamp(24px,5vw,80px); }
+.dashboard-heading { margin-bottom:32px; }
+.dashboard-heading h1 { font-size:30px; letter-spacing:-.8px; font-weight:600; margin:8px 0; }
+.dashboard-heading p:not(.dashboard-eyebrow) { color:var(--ink-secondary); font-size:var(--ui-text-body); }
+.dashboard-eyebrow { color:var(--ink-muted); font-size:var(--ui-text-small); }
+.dashboard-resume { display:flex; align-items:center; justify-content:space-between; padding:24px; margin-bottom:32px; background:var(--chrome-panel); border:1px solid var(--chrome-line-strong); border-radius:16px; }
+.dashboard-resume:hover { background:var(--chrome-raised); }
+.dashboard-resume span { color:var(--ink-muted); font-size:var(--ui-text-small); }
+.dashboard-resume h2 { font-size:20px; font-weight:500; margin-top:8px; }
+.dashboard-main .memory-page { min-height:0; height:auto; overflow:visible; }
+.dashboard-main .memory-page-body { overflow:visible; }
+.dashboard-shell a:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+.dashboard-empty h1 { font-size:26px; margin-bottom:12px; }
+.dashboard-empty p { color:var(--ink-secondary); }
+@media(max-width:760px) { .dashboard-shell { grid-template-columns:210px minmax(0,1fr); } .dashboard-main { padding:24px 18px; } .dashboard-heading h1 { font-size:24px; } }
+@media(max-width:540px) { .dashboard-shell { height:auto; min-height:100dvh; grid-template-columns:1fr; overflow:visible; } .dashboard-sidebar { border-right:0; border-bottom:1px solid var(--chrome-line); } .dashboard-projects { max-height:180px; } .dashboard-utilities { flex-direction:row; } }
+
+/* Parent clips corners; tabs fill its inner height. */
+.chat-marks-strip { width:100%; }
+.chat-marks-strip .timeline-review-controls-group { width:100%; flex:1; box-sizing:border-box; }
+.chat-marks-strip .timeline-review-controls-group > button { flex:1 1 0; min-width:0; }
+.chat-marks-strip .timeline-review-controls-group > .timeline-marks-button { flex:2 1 0; }
+
+/* Dashboard: a focused starting area above a browsable project collection. */
+.dashboard-shell { grid-template-columns:192px minmax(0,1fr); }
+.dashboard-sidebar { padding:24px 12px 16px; gap:16px; }
+.dashboard-sidebar .projects-brand { margin:0 0 10px; }
+.dashboard-search { background:var(--chrome-raised); border-color:transparent; }
+.dashboard-utilities { margin-top:auto; border:0; }
+.dashboard-main { padding:28px; }
+.dashboard-start { min-height:clamp(360px, 58vh, 620px); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 0 60px; }
+.dashboard-start h1 { font-size:28px; font-weight:500; letter-spacing:-.8px; margin-bottom:28px; text-align:center; }
+.dashboard-composer { width:min(100%,640px); background:var(--chrome-panel); border:1px solid var(--chrome-line-strong); border-radius:14px; padding:16px; }
+.dashboard-composer:focus-within { border-color:var(--chrome-focus-ring); }
+.dashboard-composer textarea { width:100%; min-height:72px; resize:none; max-height:220px; background:transparent; border:0; outline:none; color:var(--ink); font-size:var(--ui-text-body); }
+.dashboard-composer textarea::placeholder { color:var(--ink-muted); }
+.dashboard-composer-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:var(--ui-text-small); color:var(--ink-muted); }
+.dashboard-composer-actions button { border-radius:50%; }
+.dashboard-collection { position:relative; }
+.dashboard-view-all { font-size:var(--ui-text-small); color:var(--ink-muted); white-space:nowrap; }
+.dashboard-collection .projects-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr)); gap:22px 18px; }
+.dashboard-collection .projects-card,.dashboard-collection .projects-new-card { display:flex; flex-direction:column; width:100%; height:auto; aspect-ratio:auto; padding:0; border:0; background:transparent; box-shadow:none; border-radius:8px; text-align:left; align-items:stretch; white-space:normal; }
+.dashboard-collection .projects-card-art { flex:none; aspect-ratio:16/10; width:100%; border-radius:8px; overflow:hidden; background:var(--chrome-panel);  }
+.dashboard-collection .projects-card-art :is(img,video) { width:100%; height:100%; object-fit:contain; }
+.dashboard-collection :is(.projects-card,.projects-new-card):hover .projects-card-art { background:var(--chrome-raised); }
+.dashboard-collection .projects-card-heading { padding:10px 0 0; }
+.dashboard-collection .projects-card-title { font-size:var(--ui-text-small); font-weight:500; }
+.dashboard-collection .projects-new-card { gap:0; }
+.dashboard-collection .projects-new-card .projects-card-art svg { width:24px; height:24px; }
+@media(max-width:760px) { .dashboard-shell { grid-template-columns:200px minmax(0,1fr); } .dashboard-main { padding:22px; } .dashboard-start h1 { font-size:24px; } }
+@media(max-width:540px) { .dashboard-shell { grid-template-columns:1fr; } .dashboard-sidebar { gap:12px; } .dashboard-start { min-height:320px; padding:24px 0 40px; } .dashboard-utilities { margin-top:0; } }
+
+.workspace-tabs { position:sticky; top:0; z-index:90; height:42px; display:flex; align-items:center; gap:6px; padding:5px 12px; background:var(--chrome-deep); border-bottom:1px solid var(--chrome-line); overflow-x:auto; scrollbar-width:none; }
+/* A step under the small text size, so project and section tabs leave room for the header's controls. */
+.workspace-tab { display:flex; align-items:center; gap:6px; height:28px; padding:0 8px; border-radius:7px; color:var(--ink-muted); font-size:calc(var(--ui-text-small) - 1px); white-space:nowrap; }
+.workspace-tab svg { flex-shrink:0; }
+.workspace-tab[aria-current],.workspace-project-tab[data-active] { color:var(--ink); background:var(--chrome-raised); }
+.workspace-tab:hover { color:var(--ink); background:var(--chrome-panel); }
+/* Background project tabs shrink (down to a readable minimum) so the current tab keeps its full name. */
+.workspace-project-tab { display:flex; align-items:center; border-radius:7px; padding-right:4px; flex:0 1 auto; min-width:0; }
+.workspace-project-tab[data-active] { flex-shrink:0; min-width:128px; }
+/* Out of room, tab names give way before any header control: other projects' tabs shrink away first,
+   then the current project's name ellipsizes down to its icon. */
+.workspace-tabs-list[data-active-shrinks] .workspace-project-tab[data-active] { flex-shrink:0.5; min-width:76px; }
+.workspace-tabs-list[data-active-shrinks] .workspace-project-tab:not([data-active]) { min-width:0 !important; flex-shrink:8; overflow:hidden; }
+.workspace-project-tab .workspace-tab { min-width:0; flex:1 1 auto; }
+.workspace-project-tab > button { flex-shrink:0; }
+.workspace-project-tab .workspace-tab { max-width:240px; background:transparent; }
+.workspace-project-tab .workspace-tab span { overflow:hidden; text-overflow:ellipsis; }
+.workspace-tabs :focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:-2px; }
+body:has(.workspace-tabs) :is(.dashboard-shell,.editor-glass-workspace) { height:calc(100dvh - 42px); min-height:0; }
+body:has(.workspace-tabs) { --app-header-height:42px; }
+.dashboard-collection .projects-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr)); }
+/* A project without a cover keeps its tile, so the grid stays even. */
+.dashboard-collection .projects-card-art { position:relative; aspect-ratio:16/10; background:var(--chrome-panel); }
+.project-preview-loading { position:absolute; inset:0; background:linear-gradient(120deg,var(--chrome-panel),var(--chrome-raised)); animation:project-preview-pulse 1.6s ease-in-out infinite alternate; }
+@keyframes project-preview-pulse { from { opacity:.55; } to { opacity:1; } }
+@media (prefers-reduced-motion: reduce) { .project-preview-loading { animation:none; } }
+.dashboard-collection .projects-card-art :is(img,video) { transition:opacity .18s; }
+.dashboard-collection .projects-card-title { font-size:var(--ui-text-small); }
+.dashboard-collection .projects-card-heading { min-height:0; }
+/* One line per title; the full name is in the tooltip. */
+.dashboard-collection .projects-card-title { display:block; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+@media(max-width:540px) { body:has(.workspace-tabs) .dashboard-shell { height:auto; min-height:calc(100dvh - 42px); } }
+
+.dashboard-attachments { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; max-height:112px; overflow:auto; }
+.dashboard-attachments li { display:flex; align-items:center; gap:4px; max-width:100%; background:var(--chrome-raised); border-radius:7px; padding:3px 5px 3px 9px; font-size:var(--ui-text-small); }
+.dashboard-attachments li span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:260px; }
+
+/* Vertical workspace: full-height viewer left; Properties over the timeline right. Library opens as a drawer. */
+.editor-playback-workspace--vertical { grid-template-areas:"viewer inspector" "viewer timeline"; }
+.editor-inspector-tabs { flex-shrink:0; padding:8px 12px; }
+.editor-inspector { grid-area:inspector; display:flex; flex-direction:column; min-height:0; min-width:0; overflow:hidden; border-bottom:1px solid var(--chrome-line); }
+
+.editor-playback-workspace--vertical [data-testid="timeline-toolbar"] .timeline-editing-controls > button { width:32px !important; }
+
+/* One application header: brand, workspaces, then current project actions. */
+.workspace-tabs { overflow:visible; gap:12px; }
+.workspace-brand { display:flex; align-items:center; gap:8px; flex-shrink:0; font-size:var(--ui-text-body); font-weight:600; color:var(--ink); }
+/* At most three tabs, which shrink to fit; the list never scrolls, so no tab can slide under the brand. */
+.workspace-tabs-list { display:flex; align-items:center; gap:6px; min-width:0; flex:1; overflow:clip; overflow-clip-margin:4px; }
+#workspace-project-actions { flex-shrink:0; min-width:0; }
+#workspace-project-actions .timeline-project-header { height:32px; padding:0; border:0; background:transparent !important; box-shadow:none; backdrop-filter:none; }
+.workspace-project-tab .workspace-tab > :last-child { min-width:0; overflow:hidden; text-overflow:ellipsis; }
+
+/* macOS window controls share the workspace row with the application navigation. */
+.workspace-tabs[data-desktop-mac] { padding-left: 84px; -webkit-app-region: drag; }
+/* Everything interactive in the title bar must opt out of window dragging, including
+   panels it hosts (the viewer's settings popover renders inside the bar): in a drag
+   region, Electron turns clicks into window moves, so controls never receive them. */
+.workspace-tabs[data-desktop-mac] :is(a, button, input, select, textarea, label, summary, [role="tab"], [popover], [role="dialog"], [role="menu"], [role="listbox"], [contenteditable="true"]) { -webkit-app-region: no-drag; }
+
+.chat-marks-strip .timeline-review-controls-group > .timeline-marks-clear { flex:0 0 32px; width:32px; }
+
+/* Templates (TemplateCatalog): one browser for Properties → Templates, the Library and Guide → Effects.
+   Panel layout scrolls inside its drawer; page layout lets the page scroll in the page's own column. */
+.recipe-catalog { container-type:inline-size; display:flex; flex-direction:column; min-width:0; color:var(--ink); }
+.recipe-catalog[data-layout="panel"] { flex:1; min-height:0; }
+.recipe-catalog[data-layout="panel"] .template-scroller { flex:1; min-height:0; overflow-y:auto; padding:0 16px 16px; }
+.recipe-catalog[data-layout="panel"]:has(.template-detail-header) .template-scroller { padding-top:8px; }
+.recipe-catalog[data-layout="page"] .template-toolbar { padding:0 0 24px; }
+.recipe-catalog[data-layout="page"] .template-search { flex-basis:260px; max-width:420px; }
+.recipe-catalog[data-layout="page"] .template-search > input { height:36px; font-size:var(--ui-text-body); }
+.recipe-catalog[data-layout="page"] .template-toolbar { gap:12px; }
+.recipe-catalog[data-layout="page"] .template-detail-header { margin-bottom:16px; }
+.recipe-catalog[data-layout="page"] .template-detail-header > h2 { font-size:22px; }
+.template-detail-section + .template-detail-section,.template-detail-lead + .template-detail-section { margin-top:24px; }
+.template-detail-lead { margin:0; font-size:var(--ui-text-body); line-height:1.6; color:var(--ink-secondary); }
+.template-detail-footer { display:grid; gap:12px; margin-top:24px; }
+.template-credit { margin:0; font-size:var(--ui-text-small); color:var(--ink-muted); }
+.template-credit a { text-decoration:underline; text-underline-offset:2px; }
+.template-credit a:hover { color:var(--ink); }
+/* Templates without an example yet: title and line only, no empty picture. */
+.template-plain-list .template-card:hover .template-card-title { text-decoration:underline; text-underline-offset:3px; }
+.template-plain-list .template-card:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:4px; border-radius:4px; }
+/* Template detail: one header line; the example beside what goes in and how to use it when there is room. */
+.template-detail-header { display:flex; align-items:center; gap:8px; margin:0 0 12px; }
+.template-detail-header > h2 { margin:0; font-size:18px; font-weight:600; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.template-detail { display:grid; gap:18px; align-items:start; }
+/* Same weight as the Made from / What happens headings, so the detail reads as one sequence. */
+.template-section-title { margin:0 0 8px; font-size:var(--ui-text-body); font-weight:600; color:var(--ink); }
+/* Comfortable reading measure for the written steps on a wide page. */
+.recipe-catalog[data-layout="page"] :is(.template-steps,.template-detail-lead,.template-detail-footer) { max-width:72ch; }
+.template-steps { margin:0; padding-left:0; display:grid; gap:14px; font-size:var(--ui-text-small); }
+.template-steps > li { padding-left:0; }
+.template-steps > li > strong { color:var(--ink); }
+.template-steps ul { margin:6px 0 0; padding:0; list-style:none; display:grid; gap:6px; color:var(--ink-secondary); }
+.template-steps ul span:first-child { color:var(--ink); font-weight:500; }
+.template-steps > li > [class] { margin-top:8px; }
+.template-detail-side { display:grid; gap:16px; min-width:0; }
+.template-detail-result { min-width:0; }
+/* Fill the column without pillarbox bars: a tall example stops at its max height and keeps its own width. */
+.template-detail-result :is(video,img) { width:auto; max-width:100%; height:auto; }
+/* A template's example played full size over the editor preview. */
+.editor-viewer-takeover { position:absolute; inset:0; z-index:47; display:grid; place-items:center; background:var(--workspace-scene, #000); }
+.editor-viewer-takeover video { max-width:100%; max-height:100%; }
+.editor-viewer:has(.editor-viewer-takeover) :is(.editor-floating-transport,.editor-viewer-corner) { display:none; }
+.editor-viewer-takeover-bar { position:absolute; top:clamp(8px, 2.5cqmin, 20px); left:clamp(8px, 2.5cqmin, 20px); right:clamp(8px, 2.5cqmin, 20px); display:flex; align-items:center; gap:8px; color:#fff; font-size:var(--ui-text-small); }
+@container (min-width:520px) {
+  .template-detail { grid-template-columns:minmax(0, 2fr) minmax(0, 3fr); }
+}
+/* Templates: search and origin filter on one row above the scrolling gallery, on the panel's own surface. */
+.template-toolbar { flex-shrink:0; display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:4px 16px 12px; }
+.template-search { position:relative; flex:1 1 180px; min-width:0; }
+.template-search > svg { position:absolute; left:10px; top:50%; translate:0 -50%; color:var(--ink-muted); pointer-events:none; }
+.template-search > input { height:32px; padding-left:32px; background:var(--chrome-deep); border:1px solid var(--chrome-line); font-size:var(--ui-text-small); }
+.template-status { margin:4px 0 12px; font-size:var(--ui-text-small); color:var(--ink-muted); }
+.template-card { display:flex; flex-direction:column; gap:4px; width:100%; padding:0; border:0; background:none; color:inherit; text-align:left; cursor:pointer; }
+.template-card:hover .template-card-media { filter:brightness(1.12); }
+.template-card:focus-visible { outline:none; }
+.template-card:focus-visible .template-card-media { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+
+/* Gallery: titled sections (Your templates, Shared templates), variant families, then a quiet text list.
+   Posters keep their own shape; MediaGallery evenRows gives each row one shared picture height. */
+.template-section + .template-section { margin-top:40px; }
+.template-section-heading { margin:0 0 14px; font-size:var(--ui-text-body); font-weight:600; color:var(--ink); }
+.template-group + .template-group { margin-top:28px; }
+.template-group-title { margin:0 0 12px; font-size:var(--ui-text-small); font-weight:600; color:var(--ink-secondary); }
+.template-group-title > span { font-weight:400; color:var(--ink-muted); }
+.template-card-media { display:block; align-self:flex-start; max-width:100%; object-fit:contain; border-radius:10px; transition:filter .15s ease; }
+.template-card-title { margin-top:8px; font-size:var(--ui-text-small); font-weight:600; line-height:1.35; }
+/* Most descriptions read in full; an unusually long one ends cleanly at four lines (the detail has it all). */
+.template-card-description { display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; font-size:var(--ui-text-small); line-height:1.45; color:var(--ink-secondary); text-wrap:pretty; }
+.template-plain-list { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr)); gap:20px 24px; }
+.template-plain-list .template-card-title { margin-top:0; }
+.template-variants { margin:0 0 16px; }
+.template-origin { flex-shrink:0; }
+
+/* Transport belongs to the picture; settings belong to the project header. */
+/* Bottom-left over the picture, sized in proportion to the viewer (it is a size container). */
+/* Transport (bottom-left) and preview options (bottom-right) share one bottom band inside the
+   picture: same inset, height and surface in tall and wide, so neither straddles the frame edge. */
+/* The frame never meets the viewer's side edges, even when its width is the limit. */
+.editor-viewer-stage { --viewer-control-inset:10px; --viewer-side-gutter:16px; --transport-size:32px; --viewer-corner-width:116px; }
+.editor-floating-transport { position:absolute; left:var(--viewer-control-inset); right:calc(var(--viewer-control-inset) * 2 + var(--viewer-corner-width)); bottom:var(--viewer-control-inset); z-index:45; display:flex; pointer-events:none; }
+.editor-floating-transport .preview-minimal-controls { position:static; inset:auto; display:flex; align-items:center; flex-wrap:nowrap; gap:0; width:max-content; max-width:100%; padding:4px; color:#fff; background:rgb(20 23 27 / 82%); border:0; border-radius:10px; box-shadow:none; pointer-events:auto; }
+.editor-floating-transport .preview-play-button { width:var(--transport-size); height:var(--transport-size); padding:calc(var(--transport-size) * .24); color:inherit; }
+.editor-floating-transport .preview-play-button svg { width:100%; height:100%; }
+.editor-floating-transport .preview-time { display:none; }
+.editor-floating-transport .preview-trailing-controls { display:flex; margin-left:4px; padding-left:8px; }
+.editor-floating-transport .preview-play-button:focus-visible { outline:2px solid #fff; outline-offset:-2px; border-radius:8px; }
+.workspace-preview-settings { display:flex; align-items:center; gap:6px; }
+.workspace-preview-settings .preview-play-button { width:30px; height:30px; color:var(--ink); border:0; border-radius:9px; background:transparent; padding:7px; }
+.workspace-preview-settings .preview-play-button svg { width:15px; height:15px; }
+
+.editor-floating-transport--local-settings .preview-trailing-controls { display:flex; }
+
+/* Generation keeps browsing and the composer mounted side by side. */
+.generation-library-workspace { display:grid; grid-template-columns:clamp(280px, 30%, 380px) minmax(0, 1fr); flex:1; min-height:0; min-width:0; overflow:hidden; }
+.generation-library-workspace > [data-asset-shelf-root] { border-right:1px solid var(--chrome-line); }
+@media (max-width:700px) { .generation-library-workspace { grid-template-columns:minmax(0, 1fr); grid-template-rows:minmax(180px, 35%) minmax(0, 1fr); } }
+
+/* Empty chat: the question, then the page's short tips. */
+.desktop-chat-tips { margin:14px auto 0; padding:0; max-width:260px; list-style:none; display:grid; gap:8px; text-align:left; font-size:var(--ui-text-small); line-height:1.5; color:var(--ink-muted); }
+.desktop-chat-tips > li { padding-left:14px; position:relative; }
+.desktop-chat-tips > li::before { content:""; position:absolute; left:2px; top:.6em; width:4px; height:4px; border-radius:999px; background:var(--chrome-focus-ring); }
+
+/* Generate point marks: numbered pins over references and results. */
+.generation-mark-pin { position:absolute; z-index:20; transform:translate(-50%,-50%); width:22px; height:22px; display:grid; place-items:center; border-radius:999px; border:2px solid #fff; background:var(--chrome-focus-ring); color:#fff; font-size:var(--ui-text-small); font-weight:700; box-shadow:0 1px 4px rgb(0 0 0 / 45%); cursor:pointer; }
+.generation-mark-pin--selected { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+[data-markable] { outline:1px dashed var(--chrome-focus-ring); outline-offset:-1px; }
+.generation-mark-pin--static { position:static; transform:none; flex-shrink:0; margin-top:16px; }
+
+/* Chat turns: the creator's messages are right-aligned bubbles; replies are labelled
+   prose on the panel so long answers stay easy to read. */
+.desktop-chat-message--user { margin-left:auto; width:fit-content; max-width:88%; background:var(--glass-control); padding:8px 12px; border-radius:14px 14px 4px 14px; color:var(--ink); }
+.desktop-chat-message--assistant { margin-right:8px; }
+.desktop-chat-message--assistant + .desktop-chat-message--assistant { margin-top:-8px; }
+.desktop-chat-author { display:flex; align-items:center; gap:5px; margin-bottom:4px; font-size:var(--ui-text-small); font-weight:600; letter-spacing:.02em; color:var(--ink-secondary); }
+.desktop-chat-author svg { color:var(--ink); }
+.desktop-chat-sent-with { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:4px; margin:6px 0 0; padding:0; list-style:none; }
+.desktop-chat-sent-with li { display:inline-flex; gap:4px; max-width:100%; padding:1px 7px; border-radius:999px; background:var(--chrome-deep); color:var(--ink-secondary); font-size:var(--ui-text-small); line-height:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.desktop-chat-sent-with li span { color:var(--ink-muted); }
+.desktop-chat-activity { margin:0 8px 14px 0; font-size:var(--ui-text-small); line-height:1.5; color:var(--ink-muted); }
+.desktop-chat-view-proposal { display:flex; width:max-content; margin:-6px 0 14px; }
+.desktop-chat-activity > summary { display:flex; align-items:center; gap:6px; width:max-content; max-width:100%; cursor:pointer; list-style:none; border-radius:6px; }
+.desktop-chat-activity > summary::-webkit-details-marker { display:none; }
+.desktop-chat-activity > summary:hover { color:var(--ink-secondary); }
+.desktop-chat-activity > summary:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+.desktop-chat-activity-chevron { transition:transform 120ms ease; }
+.desktop-chat-activity[open] .desktop-chat-activity-chevron { transform:rotate(90deg); }
+.desktop-chat-activity-count { font-variant-numeric:tabular-nums; }
+.desktop-chat-activity > ol { display:grid; gap:3px; margin:6px 0 0 6px; padding:0 0 0 12px; list-style:none; border-left:1px solid var(--chrome-line); }
+.desktop-chat-activity-tool { display:flex; align-items:center; gap:6px; min-width:0; }
+.desktop-chat-activity-reasoning p { margin:2px 0 4px; white-space:pre-wrap; max-height:220px; overflow:auto; }
+.desktop-chat-model-status { display:flex; align-items:center; gap:6px; margin:0 0 12px; font-size:var(--ui-text-small); color:var(--ink-muted); }
+.desktop-chat-notice { margin:0 0 20px; font-size:var(--ui-text-small); line-height:1.5; color:var(--ink-muted); text-align:center; }
+.chat-text { font-size:var(--ui-text-body); line-height:1.6; color:var(--ink); }
+.chat-text > * + * { margin-top:9px; }
+.chat-text ul, .chat-text ol { padding-left:18px; display:grid; gap:4px; }
+.chat-text ul { list-style:disc; }
+.chat-text ol { list-style:decimal; }
+.chat-text li::marker { color:var(--ink-muted); }
+.chat-text strong { font-weight:600; }
+.chat-text .chat-text-heading { font-weight:600; margin-top:14px; }
+.chat-text code { font-family:var(--font-mono, ui-monospace, monospace); font-size:var(--ui-text-small); padding:1px 5px; border-radius:5px; background:var(--glass-field); border:1px solid var(--chrome-line); }
+.chat-text pre { overflow:auto; padding:10px 12px; border-radius:8px; background:var(--glass-field); border:1px solid var(--chrome-line); font-size:var(--ui-text-small); line-height:1.5; }
+.chat-text pre code { padding:0; border:0; background:none; }
+
+/* Claude sign-in sits above the composer until the agent is connected. */
+.desktop-chat-signin { margin-bottom:8px; padding:12px; border-radius:12px; background:var(--glass-control); display:grid; gap:8px; justify-items:start; font-size:var(--ui-text-small); line-height:1.5; color:var(--ink-secondary); }
+.desktop-chat-signin-title { font-size:var(--ui-text-small); font-weight:600; color:var(--ink); }
+.desktop-chat-signin-code { display:flex; gap:6px; width:100%; }
+.desktop-chat-signin-code > input { flex:1; }
+.desktop-chat-signin-error { color:var(--destructive); }
+.desktop-chat-signin-actions { display:flex; gap:4px; margin-left:-8px; }
+
+/* Panel selections the next chat message refers to (Music, Sounds, Captions, Text…). */
+.chat-selection-strip { display:flex; align-items:flex-start; gap:6px; margin:0 0 6px; }
+.chat-selection-pills { display:flex; flex:1; min-width:0; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none; max-height:84px; overflow-y:auto; }
+.chat-upload-pills { margin:0 0 6px; }
+.chat-upload-pills .chat-selection-pill[data-status="failed"] .chat-selection-pill-kind { color:var(--destructive); }
+.chat-selection-clear { flex-shrink:0; height:24px; padding:0 6px; border:0; border-radius:6px; background:transparent; color:var(--ink-muted); font-size:var(--ui-text-small); cursor:pointer; }
+.chat-selection-clear:hover { background:var(--chrome-raised); color:var(--ink); }
+.chat-selection-clear:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:1px; }
+.chat-selection-pill { display:inline-flex; align-items:center; gap:5px; max-width:100%; min-height:24px; padding:2px 4px 2px 8px; border:1px solid var(--chrome-selected-ring); border-radius:999px; background:var(--chrome-selected-bg); color:var(--ink); font-size:var(--ui-text-small); line-height:16px; }
+.chat-selection-pill-kind { flex-shrink:0; color:var(--ink-muted); }
+.chat-selection-pill-label { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.chat-selection-pill > button { display:grid; place-items:center; flex-shrink:0; width:18px; height:18px; padding:0; border:0; border-radius:999px; background:transparent; color:var(--ink-muted); cursor:pointer; }
+.chat-selection-pill > button:hover { background:var(--chrome-raised); color:var(--ink); }
+.chat-selection-pill > button:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:1px; }
+.timeline-drop-indicator { position:absolute; top:0; width:2px; margin-left:-1px; background:var(--chrome-focus-ring); box-shadow:0 0 0 1px color-mix(in srgb, var(--chrome-focus-ring) 35%, transparent); pointer-events:none; z-index:4; }
+
+/* Header layout switch and its placeholder; capture frame in the timeline toolbar. */
+.workspace-layout-actions { display:flex; align-items:center; }
+.workspace-layout-placeholder { display:flex; gap:2px; padding:2px; border-radius:.625rem; background:var(--chrome-deep); }
+.workspace-layout-placeholder > button { border-radius:.5rem; width:30px; height:28px; }
+/* The layout switch is a two-option toggle on a quiet track; the chosen layout is the raised segment. */
+.workspace-layout-option { background:transparent; }
+.workspace-layout-option:not([aria-pressed="true"]):hover { background:var(--chrome-panel); opacity:1 !important; }
+.timeline-viewer-actions { display:flex; align-items:center; }
+.timeline-viewer-actions:empty { display:none; }
+.timeline-viewer-actions .preview-play-button { width:32px; height:32px; padding:0; display:flex; align-items:center; justify-content:center; color:var(--ink); background:transparent; border:0; border-radius:.625rem; }
+/* Header and toolbar icon buttons are ghost: no outline at rest, a quiet surface on
+   hover, and the shared focus ring for keyboard users (open space over lines). */
+:is(.timeline-viewer-actions, .workspace-preview-settings, .editor-viewer-tools-target, .editor-preview-transport) .preview-play-button:hover { background:var(--chrome-raised); }
+:is(.timeline-viewer-actions, .workspace-preview-settings, .editor-viewer-tools-target, .editor-preview-transport) .preview-play-button:focus-visible { background:var(--chrome-raised); color:var(--ink); outline:2px solid var(--chrome-focus-ring); outline-offset:1px; }
+:is(.timeline-viewer-actions, .workspace-preview-settings, .editor-viewer-tools-target, .editor-preview-transport) .preview-capture-button[aria-disabled="true"]:hover { background:transparent; }
+.timeline-viewer-actions .preview-play-button svg { width:15px; height:15px; }
+/* One title row per editor panel tab; actions such as Import sit on the right. */
+.shelf-panel-title { display:flex; flex-shrink:0; align-items:center; justify-content:space-between; gap:8px; height:32px; box-sizing:content-box; padding:10px 16px 4px; }
+/* Heading plus Generate/Import: wraps in a narrow rail panel instead of clipping. */
+.shelf-panel-title:has(.shelf-panel-actions) { flex-wrap:wrap; height:auto; min-height:32px; row-gap:6px; }
+.shelf-panel-actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:8px; margin-left:auto; }
+/* Scrub bar: collapsed beside Play until the transport is hovered or focused, then it slides
+   open to the right; the pill grows rather than covering the picture. */
+.editor-floating-transport .preview-minimal-controls--compact .preview-seek { order:0; flex:none; width:0; min-width:0; margin:0; opacity:0; height:var(--transport-size);
+  transition:width 160ms ease, margin 160ms ease, opacity 120ms ease; }
+.editor-floating-transport .preview-minimal-controls--compact:is(:hover, :focus-within) .preview-seek { flex:0 1 auto; width:clamp(120px, 38cqw, 560px); margin:0 calc(var(--transport-size) * .3); opacity:1; }
+@media (prefers-reduced-motion: reduce) { .editor-floating-transport .preview-minimal-controls--compact .preview-seek { transition:none; } }
+
+/* Live microphone level while dictating: newest loudness enters on the right. */
+.voice-level { display:inline-flex; align-items:center; gap:2px; height:18px; padding:0 4px; color:var(--ink); }
+.voice-level > span { width:2px; height:100%; border-radius:1px; background:currentColor; transform:scaleY(0.12); transition:transform 80ms linear; }
+@media (prefers-reduced-motion: reduce) { .voice-level > span { transition:none; } }
+/* Named tools (Split) size to their word instead of the 32px icon cell; listed last to win over layout-specific cell widths. */
+.editor-chrome [data-testid="timeline-toolbar"] .timeline-editing-controls > button[data-labeled] { width:auto !important; padding:0 10px; gap:6px; }
+
+/* Preview options sit on the preview's top-right corner; edit actions and panels sit in the header. */
+.editor-viewer { position:relative; }
+.editor-viewer-corner { position:absolute; right:var(--viewer-control-inset); bottom:var(--viewer-control-inset); z-index:46; display:flex; align-items:center; gap:2px; padding:4px; border-radius:10px; color:#fff; background:rgb(20 23 27 / 82%); }
+.editor-viewer-corner .preview-play-button { width:var(--transport-size); height:var(--transport-size); }
+/* Preview controls appear while the pointer is over the preview (or a control has focus, or a settings popover is open); always on touch. */
+.editor-viewer :is(.editor-floating-transport,.editor-viewer-corner) { opacity:0; transition:opacity .18s ease; }
+.editor-viewer:is(:hover,:focus-within,:has(:popover-open)) :is(.editor-floating-transport,.editor-viewer-corner) { opacity:1; }
+@media (hover:none) { .editor-viewer :is(.editor-floating-transport,.editor-viewer-corner) { opacity:1; } }
+@media (prefers-reduced-motion: reduce) { .editor-viewer :is(.editor-floating-transport,.editor-viewer-corner) { transition:none; } }
+.editor-viewer-corner-slot { display:flex; align-items:center; gap:2px; }
+.editor-viewer-corner-slot:empty { display:none; }
+/* A phone-narrow viewer stacks preview options above the transport, so Play keeps its full size
+   instead of being squeezed beside them. */
+@container (max-width:340px) {
+  .editor-floating-transport { right:var(--viewer-control-inset); }
+  .editor-viewer-corner { bottom:calc(var(--viewer-control-inset) + var(--transport-size) + 14px); }
+}
+.workspace-edit-actions,.workspace-layout-actions { display:flex; align-items:center; flex-shrink:0; }
+.workspace-edit-actions-group { display:flex; align-items:center; gap:6px; }
+
+/* Background project tabs fall back to their first word when squeezed (WorkspaceTabs decides). */
+.workspace-project-tab:not([data-active]) { min-width:64px; }
+.workspace-tab-short,.workspace-project-tab[data-short] .workspace-tab-full { display:none; }
+.workspace-project-tab[data-short] .workspace-tab-short { display:inline; }
+/* Narrow windows keep the mark and give the wordmark's width to the project tabs. */
+@media (max-width:1100px) { .workspace-brand { gap:0; font-size:0; } }
+/* Projects that no longer fit as tabs sit in one menu; the narrowest header keeps only that menu. */
+/* Beside the menu, the current tab gives up its full width (flex factors under 1 would leave it overflowing). */
+.workspace-tabs-list:has(> .workspace-tabs-more) .workspace-project-tab[data-active] { flex-shrink:1; min-width:76px; }
+.workspace-tabs .workspace-tabs-more { flex-shrink:0; width:auto; min-width:28px; gap:2px; padding-inline:4px; color:var(--ink-muted); }
+.workspace-tabs .workspace-tabs-more:hover,.workspace-tabs .workspace-tabs-more[aria-expanded="true"] { color:var(--ink); }
+@media (max-width:700px) { .workspace-tabs { gap:8px; } }
+
+/* Library with the docked Generate panel: the grid reflows beside a resizable form. */
+.library-workspace { flex-direction:row; }
+.library-browse { min-width:0; min-height:0; flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.library-generate-panel { position:relative; min-height:0; flex:0 0 auto; display:flex; flex-direction:column; border-left:1px solid var(--chrome-line); background:var(--chrome-deep); }
+.memory-body .library-reference-pick { display:block; width:100%; padding:0; border:0; border-radius:8px; background:none; cursor:copy; }
+.memory-body .library-reference-pick:hover:not(:disabled) { border-color:transparent; outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+
+/* Wide editor: an open right-hand drawer docks, and the editor reflows beside it (SlideOutDrawer). */
+html[data-editor-drawer] .editor-glass-workspace:has(.editor-playback-workspace--horizontal) { padding-right:var(--editor-drawer-width, 0px); }
+/* Library page with Generate open: every image says what a click does on hover and keyboard focus. */
+.memory-body .library-reference-pick { position:relative; }
+.memory-body .library-reference-pick:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+.library-reference-pick-label { position:absolute; right:8px; bottom:8px; padding:2px 8px; border-radius:6px; background:var(--chrome-deep); color:var(--ink); font-size:var(--ui-text-small); font-weight:600; opacity:0; transition:opacity 120ms; pointer-events:none; }
+.library-reference-pick:hover .library-reference-pick-label,.library-reference-pick:focus-visible .library-reference-pick-label,.library-reference-pick[aria-busy=true] .library-reference-pick-label { opacity:1; }
+/* One focus ring in the editor: the 2px outline. Buttons drop the extra translucent 3px ring. */
+.editor-chrome :is(button, a, [role="tab"]):focus-visible { --tw-ring-shadow: 0 0 #0000 !important; }
+
+/* A long filter list scrolls sideways in one line; the scrollbar stays out of the way. */
+.library-filter-scroll { flex:0 1 auto; min-width:0 !important; max-width:100%; overflow-x:auto; scrollbar-width:none; }
+.library-filter-scroll::-webkit-scrollbar { display:none; }
+/* A filter is a filled pill, so it reads as something to press without adding a line; one that narrows the list
+   reads as on, like a selected segment. */
+.library-filter-menu { border-radius:999px; background:var(--chrome-raised); color:var(--ink); padding-inline:10px; }
+.library-filter-menu[data-active] { background:var(--chrome-selected-bg); color:var(--ink); }
+.library-filter-scroll > button { flex-shrink:0; white-space:nowrap; }
+.library-filter-scroll[data-more-right="true"] { mask-image:linear-gradient(to right, #000 calc(100% - 32px), transparent); }
+.library-filter-scroll[data-more-left="true"] { mask-image:linear-gradient(to right, transparent, #000 32px); }
+.library-filter-scroll[data-more-left="true"][data-more-right="true"] { mask-image:linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent); }
+
+/* Selected (beside Marks): what the creator has chosen for the agent, listed with kind and name. */
+.timeline-selection-count { display:inline-flex; align-items:center; justify-content:center; min-width:calc(18px + var(--ui-text-step)); height:calc(18px + var(--ui-text-step)); padding:0 4px; border-radius:5px; background:var(--chrome-selected-bg); font-size:var(--ui-text-small); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink); }
+.timeline-selection-panel { position:fixed; z-index:1300; display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--chrome-line-strong); border-radius:10px; background:var(--glass-panel); color:var(--ink); }
+.timeline-selection-panel-header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px 0; font-size:var(--ui-text-small); font-weight:600; }
+.timeline-selection-list { margin:0; padding:4px 6px 8px; list-style:none; overflow-y:auto; }
+.timeline-selection-list li { display:grid; grid-template-columns:auto minmax(0,1fr) 28px; align-items:center; gap:8px; min-height:36px; padding-left:6px; }
+.timeline-selection-kind { color:var(--ink-muted); font-size:var(--ui-text-small); }
+.timeline-selection-label { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:var(--ui-text-body); }
+
+
+/* Header panel buttons name their drawer in words; waiting proposals show as a small count pill. */
+.workspace-panel-count { display:inline-flex; align-items:center; justify-content:center; min-width:calc(18px + var(--ui-text-step)); height:calc(18px + var(--ui-text-step)); padding:0 5px; border-radius:999px; background:var(--chrome-selected-bg); color:var(--ink); font-size:var(--ui-text-small); font-weight:600; line-height:1; font-variant-numeric:tabular-nums; }
+.workspace-panel-group button[aria-pressed="true"] .workspace-panel-count { background:var(--chrome-raised); }
+#workspace-project-actions .workspace-panel-group > button { gap:6px !important; padding-inline:8px !important; }
+.workspace-header-more { display:none; }
+/* Narrower windows give the project name its room first. In order: the panel buttons' words go
+   (kept for screen readers), then Export's word, then Tall/Wide and You fold into More. */
+@media (max-width:1240px) {
+  #workspace-project-actions .workspace-panel-label { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  #workspace-project-actions .workspace-panel-group > button { padding-inline:7px !important; }
+}
+@media (max-width:940px) {
+  #workspace-project-actions .workspace-action-label { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  #workspace-project-actions #timeline-project-header-actions { min-width:0; }
+  #workspace-project-actions #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *) { min-width:32px; padding-inline:8px !important; }
+}
+@media (max-width:780px) {
+  #workspace-project-actions :is(.workspace-layout-actions, .workspace-user-link) { display:none !important; }
+  .workspace-header-more { display:flex; flex-shrink:0; }
+  .workspace-header-more > button { width:32px; height:32px; border-radius:999px; color:var(--ink-secondary); }
+}
+/* Phone width: the project's tabs keep the first row; its actions take a second row of their own. */
+@media (max-width:640px) {
+  .workspace-tabs:has(#workspace-project-actions:not(:empty)) { flex-wrap:wrap; height:auto; row-gap:6px; }
+  #workspace-project-actions:not(:empty) { order:3; flex:1 0 100%; overflow-x:auto; scrollbar-width:none; }
+  #workspace-project-actions .timeline-project-header { flex-wrap:nowrap; padding-block:0; }
+  #workspace-project-actions .timeline-project-header > div:last-child { flex:1 0 auto; margin-left:0; justify-content:space-between; }
+  body:has(#workspace-project-actions:not(:empty)) { --app-header-height:81px; }
+  body:has(#workspace-project-actions:not(:empty)) :is(.dashboard-shell,.editor-glass-workspace) { height:calc(100dvh - 81px); }
+}
+/* The current project's name gets more room than background tabs before it ellipsizes. */
+.workspace-project-tab[data-active] .workspace-tab { max-width:360px; }
+/* Open-projects menu: name to switch, X to close, on one row. */
+.workspace-tabs-menu-row { display:flex; align-items:stretch; gap:2px; }
+.workspace-tabs-menu-row .workspace-tabs-menu-close { flex:0 0 auto; align-items:center; justify-content:center; width:32px; padding:0; color:var(--ink-muted); }
+.workspace-tabs-menu-row .workspace-tabs-menu-close svg { margin-top:0 !important; }
+.workspace-tabs-menu-row .workspace-tabs-menu-close[data-highlighted] svg { color:var(--ink); }
+/* Template detail: the example's credit stays with Limitations; sharing is the last, separate group. */
+.template-detail-footer > .template-share { order:2; margin-top:12px; }
+@media (max-width:480px) {
+  .workspace-tabs { padding-inline:10px; }
+  #workspace-project-actions .timeline-project-header > div:last-child, #workspace-project-actions .workspace-edit-actions-group { gap:4px; }
+  #workspace-project-actions .timeline-history-controls:not(.workspace-panel-group) > button { width:28px !important; min-width:28px !important; }
+  #workspace-project-actions .timeline-project-nav > a { min-width:28px; padding-inline:6px !important; }
+}
+/* One focus ring weight across the header's controls. */
+#workspace-project-actions :is(button, a):focus-visible, .workspace-tabs > :is(a, button):focus-visible { outline-width:2px !important; outline-style:solid !important; outline-color:var(--chrome-focus-ring) !important; }

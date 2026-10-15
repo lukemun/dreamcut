@@ -1,0 +1,65 @@
+name: Desktop qualification
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['desktop/**', 'src/components/desktop/**', '.github/workflows/desktop-qualification.yml']
+permissions:
+  contents: read
+concurrency:
+  group: desktop-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qualify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - name: Desktop contracts (macOS)
+        if: runner.os == 'macOS'
+        run: pnpm desktop:check
+      - name: Portable contracts (Windows)
+        if: runner.os == 'Windows'
+        run: node --test desktop/release-policy.test.mjs desktop/package-policy.test.mjs desktop/build-environment.test.mjs desktop/dictation.test.mjs desktop/dictation-ipc.test.mjs
+      - name: Prepare pinned speech runtime
+        run: pnpm desktop:voice
+      - name: Speech smoke test
+        run: node desktop/verify-voice.mjs
+      - name: macOS media tools
+        if: runner.os == 'macOS'
+        run: brew install ffmpeg
+      - name: Pinned Windows media tools
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $url = 'https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-10-09-14-16/ffmpeg-n9.0.2-24-gfd5d616c29-win64-gpl-shared-9.0.zip'
+          $archive = Join-Path $env:RUNNER_TEMP 'ffmpeg.zip'
+          Invoke-WebRequest $url -OutFile $archive
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash.ToLower() -ne '25a4dd7be950697e87235289e62dc93148d276cb7527620a730a4cbb21dc8488') { throw 'FFmpeg checksum mismatch' }
+          $target = Join-Path $env:RUNNER_TEMP 'media-tools'
+          Expand-Archive $archive $target
+          $directory = (Get-ChildItem $target -Directory | Select-Object -First 1).FullName
+          "DREAMCUT_WINDOWS_MEDIA_DIR=$directory" >> $env:GITHUB_ENV
+      - run: pnpm desktop:build
+      - run: pnpm desktop:package --qualification
+      # No app publication: signing, clean-machine and source/notices qualification remain gates.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qualification-manifests-${{ matrix.os }}
+          path: |
+            .desktop-build/dependency-manifest.json
+            .desktop-build/voice/manifest.json
+          if-no-files-found: ignore

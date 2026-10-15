@@ -1,0 +1,56 @@
+{
+  "rights": "pexels-license",
+  "credit": "Footage: Pexels videos 8680224 (https://www.pexels.com/video/a-man-in-a-trench-coat-looking-around-in-thick-fog-8680224/), 35811255 (https://www.pexels.com/video/lone-figure-on-rocky-hilltop-at-twilight-35811255/), 34736308 (https://www.pexels.com/video/silhouette-of-man-at-sunset-by-the-ocean-34736308/), 9130084 (https://www.pexels.com/video/a-hiker-looking-at-the-mountains-9130084/) (Pexels License). Effect inspired by a \"connect the letters\" tutorial by Camila Tunoni (instagram.com/reel/DbI9OQqMqw8); no reference pixels are reused.",
+  "fps": 30,
+  "frames": 192,
+  "width": 720,
+  "height": 1280,
+  "teachingNote": "Four 1.6 s Pexels shots with the word-search overlay at normal speed. Each outline starts 0.2 s after its cut and draws in 0.6 s.",
+  "receipt": {
+    "construction": "DreamCut project word-search-stock-demo: four native video clips (Pexels 8680224 at 5.4 s, 35811255 at 0.5 s, 34736308 at 1.5 s, 9130084 at 3.2 s, 1.6 s each) plus the word-search HyperFrames motion graphic (render word-search.f04201686bff2f0b.webm, sha256 f04201686bff2f0b6ec47eca7b85fcc041860d017e738133b225ccaa0eb18549; words FOG, HILL, DUSK, TRAIL; other controls at their defaults). Composited with ffmpeg: each landscape clip scaled to 1920 px high and cropped to 1080x1920 around its subject, overlaid with the transparent VP9 render, scaled to 720x1280 H.264 (CRF 20, no audio). The demo project places the same windows at the editor's 3x scale limit. Poster and last stage are frame 190; stages are frames 4 and 30. Shot inputs are the same crops at 360x640; the letter-grid input shows the final overlay frame over a neutral slate so the white letters read at thumbnail size."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-1.jpg",
+      "sha256": "e0e9d752291cf295f01820f377ac527f2a51dc675d7cf0eeed18278a7a3965d8"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-2.jpg",
+      "sha256": "b7679026694f39301a0df6d2b57d6cc6f6b720c63e60e12b3595431548eeb048"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-3.jpg",
+      "sha256": "9ddabe116f5a421db5486d40c32db15524d617ae888f5c69cfc456c25517f821"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-4.jpg",
+      "sha256": "a8c4f1396073c083a9faa261468730432452d680cb57106d416f4015685a6869"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/letter-grid.jpg",
+      "sha256": "07f90cf0c7ceb38486bac251250dfcb722b8829fafd9ff12b0a45702914031d7"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "ee4ca88772e1860afb70740d11defd907dad30999e2f3daf1dec92f5b107f364"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "43f97703bbdc0dc0650e006fc0b95f06a42f9bb38bbe4dcc603c730d6db09d6e"
+    },
+    {
+      "file": "grid.jpg",
+      "sha256": "b0fcbe5269ee28d0b4883f1d3986f922730758e3822af3b4f20a0b2879b3c180"
+    },
+    {
+      "file": "first-word.jpg",
+      "sha256": "19923cf6068ea1b0c0da837ed5f9c07ae93949ca27088ab96bf8b95cefefc4d2"
+    },
+    {
+      "file": "all-words.jpg",
+      "sha256": "43f97703bbdc0dc0650e006fc0b95f06a42f9bb38bbe4dcc603c730d6db09d6e"
+    }
+  ]
+}

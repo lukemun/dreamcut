@@ -1,0 +1,138 @@
+node_modules/
+.next/
+.next-dev/
+.next-review/
+.next-cutover/
+.next-cutover-build/
+testing/results/playback-contract/
+.next-inspector-check/
+.next-proxy-verification/
+.turbo/
+.vercel/
+next-env.d.ts
+*.tsbuildinfo
+*.log
+.cache/
+.metrics/
+.mfa-runtime/
+.mfa-local/
+.venv-audio-enhance/
+.venv-stems/
+coverage/
+.next-memory-check/
+playwright-report/
+test-results/
+.DS_Store
+__pycache__/
+*.pyc
+/.tmp-*/
+
+# Local configuration and credentials. Commit an explicit example file instead.
+.env
+.env.*
+!.env.example
+
+# Local project data (timelines, media, renders, history) stays on this machine.
+# Keep project-specific scripts, notes, and generated assets inside its project folder too.
+/projects/
+/preprocess/
+
+# Local creative work, generated previews, and personal catalog ingestion.
+# Reusable code and small fixtures belong in src/, scripts/, or testing/.
+/analysis/
+/artifacts/
+/assets/
+/design/*
+!/design/openedit-create-panel.pen
+/image-catalog/images/owned/
+/music-catalog/imports/
+/music-catalog/previews/
+
+# Personal media library and social/research work. Keep only schemas and fixtures in Git.
+/library/
+/social-content/
+
+# Generated measurement evidence. Source fixtures belong under testing/.
+/instruments/
+.playwright-mcp/
+
+# Local catalog media is private by default. The small production-cleared music
+# set already tracked below is an intentional exception with provenance in
+# music-catalog/catalog.json and THIRD_PARTY_NOTICES.md.
+/music-catalog/audio/**
+!/music-catalog/audio/claude-debussy-clair-de-lune-laurens-goedhart-cc-by-3.ogg
+!/music-catalog/audio/erik-satie-gymnopedie-no-1-teknopazzo-cc0.ogg
+!/music-catalog/audio/licensed/
+/music-catalog/audio/licensed/**
+!/music-catalog/audio/licensed/bizet-carmen-prelude-musopen-cc0.ogg
+!/music-catalog/audio/licensed/bizet-carmen-prelude-musopen-cc0.extract.json
+!/music-catalog/audio/licensed/bizet-carmen-prelude-musopen-cc0.derive.json
+!/music-catalog/audio/licensed/offenbach-cancan-musopen-public-domain.ogg
+!/music-catalog/audio/licensed/offenbach-cancan-musopen-public-domain.extract.json
+!/music-catalog/audio/licensed/offenbach-cancan-musopen-public-domain.derive.json
+/sfx-library/audio/
+/sfx-library/source-manifests/
+/visual-catalog/media/
+/private/
+/personal/
+.envrc
+*.pem
+*.key
+/.agents/skills/remotion-best-practices/
+/.claude/skills/remotion-best-practices
+/skills-lock.json
+/docs/assets/open-edit-editor.png
+/PUBLIC-RELEASE.md
+
+# Local matting environment (venv + model checkpoint); the script and README are tracked.
+.matting/*
+!.matting/hand_cutout.py
+!.matting/mask_postprocess.py
+!.matting/test_mask_postprocess.py
+!.matting/test_chunk_plan.py
+!.matting/README.md
+
+# Local renderer verification outputs may include private project media.
+/testing/results/renderer-contract/
+/testing/results/export-resolution/
+/public/.export-resolution-fixtures/
+/testing/results/transition-controls-ui/
+/testing/results/renderer-reference/
+/testing/results/still-session/
+/.next-still-verification/
+
+/testing/results/agent-efficiency/
+
+# Machine-local Codex MCP paths.
+.codex/config.toml
+
+# Immutable local preparation runtimes, logs and job journals
+.dreamcut-preview/
+# Legacy prepared-runtime cache from the OpenEdit name.
+.openedit-preview/
+
+# Synthetic worker verification artifacts
+/testing/results/prepared-worker/
+
+# Local build variants, native binaries and verification receipts.
+/.next-*/
+/native/preview/target/
+/docs/research/private/
+/design/
+**/private-credentials/
+
+# Project-specific sound audition records.
+/sfx-library/auditions/
+
+# Generated local evidence and private UI reviews.
+/testing/results/
+/docs/audits/
+
+# Generated desktop staging, dependency manifests and local application bundles
+/.desktop-build/
+
+# Packaged runtime archives and the npm launcher tarball (packaging/)
+/dist/
+
+# Local branch-handoff notes between agent sessions.
+/.claude/branch-handoff.json

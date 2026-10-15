@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "credit": "NPS / Neal Herbert, A. Falgoust, Jacob W. Frank (public domain); Christopher Campbell (CC0); AI-assisted portrait cutout",
+  "rights": "public-domain-and-derived",
+  "renderer": "TimelineComposition via Chromium/FFmpeg",
+  "sources": [
+    {
+      "file": "photos/landscape-a.png",
+      "sha256": "970bf5f3b335da839bd5535e05154fc48b4c03e2ac46e9644d22ea01712c214d"
+    },
+    {
+      "file": "photos/landscape-b.png",
+      "sha256": "4073857330ac074eaeb3a2433beb85f8e7ab4a9649be402dbd7dd57a044b3c4a"
+    },
+    {
+      "file": "photos/background.png",
+      "sha256": "79a1f6cbab4f6d71925006d889ba23cbadcc02594ebba30c68fa19452616b01a"
+    },
+    {
+      "file": "photos/subject.png",
+      "sha256": "8604a536ce1241c07bd5f545f20476440edbd640947b73b453864cb910d5bbfa"
+    }
+  ],
+  "entries": [
+    {
+      "name": "transition-fade",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "17bd953a82357feebedf965a3d133053e2f9e85a65848aa5c74500a81abec70d",
+      "poster_sha256": "900ef219b5fc1ea9f6cb4b84442aa09b0bf7bacb1c159f3bd971a71798070244"
+    },
+    {
+      "name": "transition-slide",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "24f01d7eb98683d0de2ba96ccac2def1e5e460f35d35f6a6b6e90953af4f4f4b",
+      "poster_sha256": "6c09ed01d2cf25e27a1f4df1e24edf857174600b4895d5319949ba3382ac5fdc"
+    },
+    {
+      "name": "transition-wipe",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "c7201e2332e38069e86980c2095080f4f027ce6e11f513f670f0f6ee16e2a91a",
+      "poster_sha256": "6d8a75eb46faee19c36119c2a3ffcf65c0e07a326bf64f98b80373e8a9f23268"
+    },
+    {
+      "name": "transition-whip",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "4b30886727ba6d0f84243731da0b4f755e14cc4f44008b73364d0927d90abad2",
+      "poster_sha256": "cf7f792064cb40c66781da6a246157d69216a135b1aed9aacbeec5e1764d8d6d"
+    },
+    {
+      "name": "transition-cube",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "e8393273b9d38d3749167c3bae13878f82fd921c8436f327c52ef17d3e10929c",
+      "poster_sha256": "c5e81bb342a353060c8d478afe272aaa316ff50d89b4e7df38894cf8a2912db7"
+    },
+    {
+      "name": "transition-page_turn",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "ea869a898b8e4e34fb2784bae06891749e8ad75accf27f868c516815a246c12a",
+      "poster_sha256": "b983645a2deba15c660e0d172b41ab998dfa9402491059ba497df33401052be1"
+    },
+    {
+      "name": "transition-film_burn",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "7595b3086f58fc345a4c89fbf7326b1c9c626b41441efc22c3044a81abfceb1e",
+      "poster_sha256": "ccb077fe9008174912f1fefc1139199d52eb65d66aac2038c021cb3c73ba80b0"
+    },
+    {
+      "name": "transition-camera_flash",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "5e293c39fdfab4e2a1fac8e8f419ff7cc24bde9ae9989893e46543cc730809c2",
+      "poster_sha256": "de0a8d0fa21a3f8f39c6c9078cdfd3304e2e1dc294ed3c94c95dade877ccef1d"
+    },
+    {
+      "name": "transition-blackout",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "84fe1c78baf923712b7f2a2ca925742f1b4cd20ab924bcde9b7d7da4ae11050b",
+      "poster_sha256": "508aead6482e405af6103bfa5f3b84cf1145266fa6b3bc4dee009dfffe2280ef"
+    },
+    {
+      "name": "effect-flash",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "00434218f37631467be10274903f83d3fc7d4b5bed166973d8c27eebf944c69a",
+      "poster_sha256": "4b584522d44e7e6f44d6ffd8a9be13e0406e65eaae22dade65f4998192fbe0ea"
+    },
+    {
+      "name": "effect-glow",
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 31,
+      "treatment_frames": 15,
+      "video_sha256": "08e1f0412e64f9258f80f291cd36441ece8d6c9485ddf72ae8549312a9aff34e",
+      "poster_sha256": "8a18bf37f9aa702150309937bbdaaf146e2ff52e60221d0e99db9af990b5c7b3"
+    }
+  ]
+}

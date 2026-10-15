@@ -1,0 +1,44 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "frames": 172,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Default data in the Paper look at normal speed: bars grow 0.18 s apart, then May is highlighted.",
+  "receipt": {
+    "construction": "DreamCut project explainer-templates-demo: the chart HyperFrames motion graphic (render chart.075c805da994b5cc.webm, sha256 075c805da994b5cc822302bb4c00f20598649d96d0e217a40f631bb5a6f1f1cb), default control values. Encoded from that render to H.264 1280x720 (CRF 20, no audio). Poster is the frame at 4.0 s; stages are frames of the same render. inputs/looks.jpg shows the same graphic in all five looks at the poster moment, rendered from the template with only the look changed."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/motion-chart/inputs/looks.jpg",
+      "sha256": "10c437651020d50ae582932115e51d7df481016bc47164b2baeca76765fcb579"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "a1c1eacec7b22c444b749497fbcf464188777a5bbde15551018ba427e6edfe9f"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "097ce1c1dacda3352b92f5bbd2b9832323fe79ca56b8d46d7dae37917a310770"
+    },
+    {
+      "file": "empty.jpg",
+      "sha256": "a42e2d7da11ce86306c80114deaf206a49150e6dd7453387a5174182f58b4327"
+    },
+    {
+      "file": "growing.jpg",
+      "sha256": "65f1539f7a287a0bb97a33224d56402051fe536838f0d8a3830c45942454d7bf"
+    },
+    {
+      "file": "landed.jpg",
+      "sha256": "e4e224226cfeb25073e5275b9a28450124bc0fc491eaa929741cbb4d3a368d93"
+    },
+    {
+      "file": "highlight.jpg",
+      "sha256": "097ce1c1dacda3352b92f5bbd2b9832323fe79ca56b8d46d7dae37917a310770"
+    }
+  ]
+}

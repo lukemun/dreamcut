@@ -1,0 +1,512 @@
+{
+  "A": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 326.923,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "B": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 149.741,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "C": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 422.992,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "D": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 135.889,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "E": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 201.923,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "F": {
+    "disconnected_segments": 4,
+    "measured_nib_font_units": 355.573,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "G": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 164.185,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "H": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 258.665,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "I": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 96.509,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "J": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 174.278,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "K": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 251.765,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "L": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 171.454,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "M": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 252.103,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "N": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 302.226,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "O": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 309.692,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "P": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 90.713,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "Q": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 211.709,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "R": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 108.788,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "S": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 284.126,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "T": {
+    "disconnected_segments": 1,
+    "measured_nib_font_units": 334.467,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "U": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 257.678,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "V": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 283.718,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "W": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 246.976,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "X": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 251.86,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "Y": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 336.607,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "Z": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 246.6,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "a": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 71.731,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "b": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 282.421,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "c": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 112.514,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "d": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 268.134,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "e": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 140.967,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "f": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 175.586,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "g": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 217.525,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "h": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 158.313,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "i": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 145.995,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "j": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 158.131,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "k": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 132.98,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "l": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 84.895,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "m": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 151.015,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "n": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 80.597,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "o": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 66.844,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "p": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 114.749,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "q": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 233.051,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "r": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 218.168,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "s": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 304.405,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "t": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 115.628,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "u": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 105.94,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "v": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 117.784,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "w": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 77.07,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "x": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 285.351,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "y": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 293.458,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "z": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 179.037,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "0": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 63.719,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "1": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 290.018,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "2": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 112.973,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "3": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 83.901,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "4": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 186.206,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "5": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 120.84,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "6": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 332.125,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "7": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 202.284,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "8": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 71.315,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "9": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 372.641,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  ".": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 81.83,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  ",": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 95.069,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "!": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 208.05,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "?": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 150.013,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "-": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 43.282,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  ":": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 132.28,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  ";": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 131.338,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "'": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 58.642,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "\"": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 61.325,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "(": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 121.945,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  ")": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 118.772,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "[": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 97.219,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "]": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 89.529,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "/": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 86.553,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "\\": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 73.898,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "+": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 117.343,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "&": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 201.634,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "@": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 171.275,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "#": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 124.951,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "%": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 110.642,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "=": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 58.367,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "_": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 79.33,
+    "nib_capped": false,
+    "status": "candidate_needs_intermediate_review"
+  },
+  "*": {
+    "disconnected_segments": 0,
+    "measured_nib_font_units": 244.686,
+    "nib_capped": true,
+    "status": "candidate_needs_intermediate_review"
+  }
+}

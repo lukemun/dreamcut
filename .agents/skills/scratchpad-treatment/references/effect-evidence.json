@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-SCRATCHPAD",
+      "catalog": "../../../../docs/effects/catalog.json#FX-SCRATCHPAD",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "../../public/guide/effects/scratchpad-silhouette-before.png",
+          "sha256": "948561d79e490b994328c464a2c6cd0dc18aaa052fc0959c607fc133b18a6b1b",
+          "kind": "image",
+          "credit": "Madeleine Price Ball / Wikimedia Commons, CC0 1.0",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "../../public/guide/effects/scratchpad-silhouette-after.png",
+          "sha256": "82474dbb845b13c6d79f7ffe0f1662aa00485275d061ba12f8d264a16ee6b204",
+          "kind": "image",
+          "credit": "Existing DreamCut image-generated variant of the CC0 silhouette",
+          "rights": "synthetic"
+        },
+        "skill": "scratchpad-treatment",
+        "skill_path": "../../.agents/skills/scratchpad-treatment/SKILL.md",
+        "evidence_path": "../../.agents/skills/scratchpad-treatment/references/effect-evidence.json",
+        "inputs": [
+          "Transparent silhouette",
+          "White paper border width and texture"
+        ],
+        "preparation": "Preserve the source; add an even continuous white perimeter with enough transparent overscan.",
+        "success_criteria": [
+          "White edge wraps the full silhouette without clipping.",
+          "Subject pixels and pose remain unchanged when applying the current skill."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/guide/effects/scratchpad-silhouette-before.png",
+              "sha256": "948561d79e490b994328c464a2c6cd0dc18aaa052fc0959c607fc133b18a6b1b",
+              "kind": "image",
+              "credit": "Madeleine Price Ball / Wikimedia Commons, CC0 1.0",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "../../public/guide/effects/scratchpad-silhouette-after.png",
+              "sha256": "82474dbb845b13c6d79f7ffe0f1662aa00485275d061ba12f8d264a16ee6b204",
+              "kind": "image",
+              "credit": "Existing DreamCut image-generated variant of the CC0 silhouette",
+              "rights": "synthetic"
+            }
+          ],
+          "observations": [
+            "Existing styled silhouette demonstrates a rough white paper perimeter."
+          ],
+          "limitations": [
+            "Historical generated example changes the source pose; it is a style example, not a passing source-preservation trial.",
+            "Static effect uses image evidence rather than a video clip."
+          ]
+        }
+      }
+    }
+  ]
+}

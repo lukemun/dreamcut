@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="looks.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; overflow: hidden; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); }
+      #phrase { position: absolute; display: flex; flex-wrap: wrap; align-content: center; font-family: var(--display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.02; }
+      .word { display: inline-block; white-space: nowrap; text-shadow: var(--separation); }
+      .accent { color: var(--accent); }
+      .solo { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080">
+      <div id="phrase" data-actor="phrase"></div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          look: "paper", shape: "wide", own_accent: false, accent: "#e4572e", backdrop: true,
+          phrase: "Less time setting up. More time making the thing.", accent_words: "making",
+          arrangement: "build", landing: "look", align: "left", size: 100,
+          lead_in: 0.3, beat: 0.32, word_times: "", word_time: 0.45, hold: 1.6,
+        },
+      };
+      const c = dc.controls;
+      const root = document.getElementById("root");
+      const M = window.DreamcutMotion;
+      const S = M.setup(c, root);
+      const { u, tall, W, H } = S;
+      const side = (tall ? 90 : 150) * u;
+      const box = { width: W - side * 2, height: H * (tall ? 0.62 : 0.66) };
+      const phrase = document.getElementById("phrase");
+      Object.assign(phrase.style, { left: side + "px", top: (H - box.height) / 2 + "px", width: box.width + "px", height: box.height + "px",
+        justifyContent: c.align === "center" ? "center" : "flex-start", textAlign: c.align === "center" ? "center" : "left" });
+
+      const clean = (w) => w.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
+      const accents = new Set(String(c.accent_words || "").split(/[,\s]+/).map(clean).filter(Boolean));
+      const words = String(c.phrase).trim().split(/\s+/).filter(Boolean).slice(0, 40);
+      const one = c.arrangement === "one";
+
+      // Exact word times ("0.3, 0.8, 1.1") follow music or speech; otherwise words land on an even beat.
+      const given = String(c.word_times || "").split(/[ ,;]+/).map(Number).filter((t) => Number.isFinite(t) && t >= 0);
+      const timeOf = (i) => given[i] ?? (given.length ? given[given.length - 1] + (i - given.length + 1) * c.beat : c.lead_in + i * c.beat);
+
+      const scale = c.size / 100;
+      const els = words.map((word) => {
+        const el = document.createElement("span");
+        el.className = "word" + (accents.has(clean(word)) ? " accent" : "");
+        el.textContent = word;
+        return el;
+      });
+      if (one) {
+        // One word at a time: each word as large as the box allows, up to the chosen size.
+        const largest = (tall ? 300 : 280) * u * scale;
+        for (const el of els) {
+          const holder = document.createElement("div");
+          holder.className = "solo";
+          holder.style.justifyContent = c.align === "center" ? "center" : "flex-start";
+          holder.append(el);
+          phrase.append(holder);
+          let size = largest;
+          el.style.fontSize = size + "px";
+          while (size > 40 * u && el.offsetWidth > box.width) { size *= 0.95; el.style.fontSize = size + "px"; }
+        }
+      } else {
+        // The phrase builds word by word into lines sized to fill the box.
+        for (const el of els) { el.style.margin = "0 0.13em"; phrase.append(el); }
+        let size = (tall ? 170 : 170) * u * scale;
+        const fits = () => phrase.scrollHeight <= box.height + 1 && els.every((el) => el.offsetWidth <= box.width);
+        phrase.style.fontSize = size + "px";
+        while (size > 36 * u && !fits()) { size *= 0.95; phrase.style.fontSize = size + "px"; }
+      }
+
+      const tl = gsap.timeline({ paused: true });
+      const landing = c.landing === "look" ? S.look.motion : c.landing;
+      const d = c.word_time;
+      els.forEach((el, i) => {
+        const at = timeOf(i);
+        const target = one ? el.parentNode : el;
+        tl.set(target, { opacity: 0 }, 0).set(target, { opacity: 1 }, at);
+        switch (landing) {
+          case "drop": tl.fromTo(el, { y: -0.6 * parseFloat(getComputedStyle(el).fontSize), opacity: 0 }, { y: 0, opacity: 1, duration: d, ease: "bounce.out", immediateRender: true }, at); break;
+          case "pop": tl.fromTo(el, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: d, ease: "back.out(2.6)", immediateRender: true }, at); break;
+          case "slide": tl.fromTo(el, { x: 80 * u, opacity: 0 }, { x: 0, opacity: 1, duration: d, ease: "expo.out", immediateRender: true }, at); break;
+          case "rise": tl.fromTo(el, { y: 40 * u, opacity: 0 }, { y: 0, opacity: 1, duration: d, ease: "power3.out", immediateRender: true }, at); break;
+          default: M.enter(tl, el, at, d, S.look, { u });
+        }
+        // In one-at-a-time, each word clears just before the next lands.
+        if (one && i < els.length - 1) tl.to(target, { opacity: 0, duration: Math.min(0.12, c.beat * 0.4), ease: "power1.in" }, Math.max(at + d * 0.5, timeOf(i + 1) - Math.min(0.12, c.beat * 0.4)));
+      });
+      tl.set({}, {}, timeOf(els.length - 1) + d + c.hold);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

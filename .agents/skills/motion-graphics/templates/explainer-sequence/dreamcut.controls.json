@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "controls": [
+    {
+      "id": "look",
+      "kind": "choice",
+      "label": "Look",
+      "default": "paper",
+      "options": [
+        {
+          "value": "paper",
+          "label": "Paper"
+        },
+        {
+          "value": "keynote",
+          "label": "Keynote"
+        },
+        {
+          "value": "swiss",
+          "label": "Swiss"
+        },
+        {
+          "value": "terminal",
+          "label": "Terminal"
+        },
+        {
+          "value": "chalk",
+          "label": "Chalk"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "label": "Shape",
+      "default": "wide",
+      "options": [
+        {
+          "value": "wide",
+          "label": "16:9"
+        },
+        {
+          "value": "tall",
+          "label": "9:16"
+        },
+        {
+          "value": "square",
+          "label": "1:1"
+        }
+      ],
+      "fixed": true
+    },
+    {
+      "id": "kicker",
+      "kind": "text",
+      "label": "Kicker",
+      "default": "Q3 in one minute",
+      "max_length": 40
+    },
+    {
+      "id": "title",
+      "kind": "text",
+      "label": "Title",
+      "default": "We made setup three times faster",
+      "max_length": 80
+    },
+    {
+      "id": "point",
+      "kind": "text",
+      "label": "Key point",
+      "default": "Most new teams were stuck on the import step.",
+      "max_length": 140
+    },
+    {
+      "id": "point_highlight",
+      "kind": "text",
+      "label": "Marked words",
+      "default": "the import step",
+      "max_length": 60
+    },
+    {
+      "id": "number",
+      "kind": "number",
+      "label": "Big number",
+      "default": 68,
+      "min": -1000000,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "id": "number_decimals",
+      "kind": "choice",
+      "label": "Decimals",
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": "None"
+        },
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "id": "number_prefix",
+      "kind": "text",
+      "label": "Before number",
+      "default": "",
+      "max_length": 6
+    },
+    {
+      "id": "number_suffix",
+      "kind": "text",
+      "label": "After number",
+      "default": "%",
+      "max_length": 8
+    },
+    {
+      "id": "number_label",
+      "kind": "text",
+      "label": "Number caption",
+      "default": "fewer setup tickets",
+      "max_length": 60
+    },
+    {
+      "id": "steps_heading",
+      "kind": "text",
+      "label": "Steps heading",
+      "default": "What changed",
+      "max_length": 40
+    },
+    {
+      "id": "step_1",
+      "kind": "text",
+      "label": "Step 1",
+      "default": "Import runs in the background",
+      "max_length": 60
+    },
+    {
+      "id": "step_2",
+      "kind": "text",
+      "label": "Step 2",
+      "default": "Columns are matched for you",
+      "max_length": 60
+    },
+    {
+      "id": "step_3",
+      "kind": "text",
+      "label": "Step 3",
+      "default": "Progress shows live",
+      "max_length": 60
+    },
+    {
+      "id": "closing",
+      "kind": "text",
+      "label": "Closing line",
+      "default": "Next: the same care for exports.",
+      "max_length": 80
+    },
+    {
+      "id": "title_hold",
+      "kind": "number",
+      "label": "Title time",
+      "default": 2.6,
+      "min": 1,
+      "max": 8,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "point_hold",
+      "kind": "number",
+      "label": "Point time",
+      "default": 3.0,
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "number_hold",
+      "kind": "number",
+      "label": "Number time",
+      "default": 3.0,
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "steps_hold",
+      "kind": "number",
+      "label": "Steps time",
+      "default": 3.8,
+      "min": 1.5,
+      "max": 12,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "closing_hold",
+      "kind": "number",
+      "label": "Closing time",
+      "default": 2.6,
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "count_time",
+      "kind": "number",
+      "label": "Count-up",
+      "default": 1.4,
+      "min": 0.2,
+      "max": 4,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "step_stagger",
+      "kind": "number",
+      "label": "Step gap",
+      "default": 0.4,
+      "min": 0,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "entrance",
+      "kind": "number",
+      "label": "Entrance",
+      "default": 0.7,
+      "min": 0.2,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "change",
+      "kind": "number",
+      "label": "Scene change",
+      "default": 0.45,
+      "min": 0.1,
+      "max": 1.2,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "own_accent",
+      "kind": "switch",
+      "label": "Own accent",
+      "default": false
+    },
+    {
+      "id": "accent",
+      "kind": "color",
+      "label": "Accent",
+      "default": "#e4572e"
+    },
+    {
+      "id": "backdrop",
+      "kind": "switch",
+      "label": "Backdrop",
+      "default": true
+    }
+  ],
+  "actors": [
+    {
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "point",
+      "label": "Key point"
+    },
+    {
+      "id": "number",
+      "label": "Big number"
+    },
+    {
+      "id": "steps",
+      "label": "Steps"
+    },
+    {
+      "id": "closing",
+      "label": "Closing line"
+    }
+  ],
+  "markers": [],
+  "timing": {
+    "cues": [
+      {
+        "id": "point_in",
+        "label": "Key point",
+        "at": "title_hold"
+      },
+      {
+        "id": "number_in",
+        "label": "Big number",
+        "at": "title_hold + point_hold"
+      },
+      {
+        "id": "number_lands",
+        "label": "Number lands",
+        "at": "title_hold + point_hold + entrance * 0.3 + count_time"
+      },
+      {
+        "id": "steps_in",
+        "label": "Steps",
+        "at": "title_hold + point_hold + number_hold"
+      },
+      {
+        "id": "closing_in",
+        "label": "Closing line",
+        "at": "title_hold + point_hold + number_hold + steps_hold"
+      }
+    ],
+    "duration": "title_hold + point_hold + number_hold + steps_hold + closing_hold"
+  },
+  "canvas": {
+    "control": "shape",
+    "sizes": {
+      "wide": {
+        "width": 1920,
+        "height": 1080
+      },
+      "tall": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  },
+  "opaque_control": "backdrop"
+}
