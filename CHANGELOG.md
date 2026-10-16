@@ -3,7 +3,7 @@
 Notable changes to DreamCut. This project follows [Semantic Versioning](https://semver.org/)
 once it reaches 1.0; until then, minor versions may include breaking changes.
 
-## Unreleased
+## 0.2.0 — 2026-10-15
 
 - First public open-source release under the Apache License 2.0.
 - Data sharing setting reworded: **Share editing history to improve DreamCut (never media)**.
