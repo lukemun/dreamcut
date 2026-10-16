@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Pack the `dreamcut` npm launcher: copies packaging/launcher, writes runtime-manifest.json (version, the
- * public download location given with --base-url, and a snapshot of the update feed
+ * public download location: the latest GitHub Release, or --base-url; and a snapshot of the update feed
  * dist/web-runtime/latest.json, used when the published feed is unreachable) and runs `npm pack` into
  * dist/npm/. Installed launchers follow the published feed, so new versions need no new npm release.
  * The package is also the Claude Code and Codex plugin (manifests, MCP entries and skills at its root);
@@ -15,8 +15,8 @@ import { fileURLToPath } from 'node:url';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const option = name => { const i = process.argv.indexOf(`--${name}`); return i > 0 ? process.argv[i + 1] : undefined; };
-const baseUrl = option('base-url');
-if (!baseUrl) throw new Error('Pass --base-url <public folder holding the runtime archives>.');
+// The feed lives on the public repository's latest GitHub Release; --base-url points at another location.
+const baseUrl = option('base-url') ?? `https://github.com/${option('repo') ?? 'lukemun/dreamcut'}/releases/latest/download`;
 const { version, license } = JSON.parse(await fs.readFile(path.join(repo, 'package.json'), 'utf8'));
 const feed = JSON.parse(await fs.readFile(path.join(repo, 'dist', 'web-runtime', 'latest.json'), 'utf8'));
 if (feed.version !== version) throw new Error(`Built runtimes are ${feed.version}; package.json is ${version}. Rebuild the runtime.`);

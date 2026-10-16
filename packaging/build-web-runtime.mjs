@@ -9,8 +9,8 @@
  *
  * Prerequisites: `pnpm desktop:build` then `node desktop/package.mjs --service-only`.
  * Output in dist/web-runtime/: dreamcut-app-<platform>-<arch>-<version>.tar.gz,
- * dreamcut-base-<platform>-<arch>-<id>.tar.gz and latest.json (the update feed). Upload all three to the
- * public download location; publishing is the owner's step.
+ * dreamcut-base-<platform>-<arch>-<id>.tar.gz and latest.json (the update feed, naming each archive's
+ * GitHub Release address). Publish them with packaging/publish-release.mjs; publishing is the owner's step.
  */
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -100,7 +100,13 @@ const app = await pack(name);
 // An unchanged base keeps its published archive (and checksum).
 const previousBase = Object.values(feed.platforms ?? {}).map(entry => entry.base).find(entry => entry?.id === baseId && entry.folder === baseName);
 const reuseBase = previousBase && await fs.access(path.join(dist, previousBase.file)).then(() => true, () => false);
-const base = reuseBase ? previousBase : { id: baseId, ...await pack(baseName) };
+// Archives are published as GitHub Release assets (packaging/publish-release.mjs). Each feed entry names its
+// own address, so an unchanged base keeps pointing at the release that first attached it.
+const releaseRepo = process.env.DREAMCUT_RELEASE_REPO ?? 'lukemun/dreamcut';
+const assetUrl = file => `https://github.com/${releaseRepo}/releases/download/v${version}/${file}`;
+app.url = assetUrl(app.file);
+const base = reuseBase ? { ...previousBase, url: previousBase.url ?? assetUrl(previousBase.file) } : { id: baseId, ...await pack(baseName) };
+base.url ??= assetUrl(base.file);
 // Run in place for local checks (DREAMCUT_RUNTIME_DIR): the unpacked app layer links its base, as installed.
 await fs.symlink(path.join('..', baseName, 'node_modules'), path.join(out, 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
 

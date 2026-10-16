@@ -9,7 +9,7 @@
  *
  * The runtime is two layers: a base (node_modules), shared by versions until its contents change, and an
  * app layer per version that links to it. The launcher starts the newest installed version at once, then
- * checks the update feed (latest.json at the download location) and installs a newer version in the
+ * checks the update feed (latest.json at the download location: the latest GitHub release) and installs a newer version in the
  * background; the running editor offers it (mcp/runtime-updates.mjs, whose names this file mirrors).
  * Progress goes to stderr; stdout belongs to the runtime (the MCP server speaks JSON-RPC there).
  */
@@ -46,6 +46,14 @@ const runtimes = path.join(appDataRoot(), 'runtimes');
 const appsDir = path.join(runtimes, 'app');
 const basesDir = path.join(runtimes, 'base');
 const downloadBase = () => (process.env.DREAMCUT_RUNTIME_BASE_URL ?? bundled.base_url ?? '').replace(/\/$/, '');
+/**
+ * Where one archive downloads from. Feeds published as GitHub Releases name each file's own address (an
+ * unchanged base layer stays attached to the release that introduced it); an explicit
+ * DREAMCUT_RUNTIME_BASE_URL (a mirror or a local stand-in) always serves every file from that folder.
+ */
+const archiveUrl = entry => (!process.env.DREAMCUT_RUNTIME_BASE_URL && typeof entry.url === 'string' && /^https:\/\//.test(entry.url))
+  ? entry.url
+  : `${downloadBase()}/${entry.file}`;
 
 const parse = version => /^(\d+)\.(\d+)\.(\d+)(?:-([\w.]+))?$/.exec(String(version ?? ''));
 function compareVersions(a, b) {
@@ -116,7 +124,7 @@ async function installArchive(entry, parent, target, finish = () => {}) {
   fs.mkdirSync(staging, { recursive: true });
   try {
     const archive = path.join(staging, entry.file);
-    const hash = await download(`${downloadBase()}/${entry.file}`, archive);
+    const hash = await download(archiveUrl(entry), archive);
     if (fs.statSync(archive).size !== entry.bytes || hash !== entry.sha256) throw new Error('The download did not match its checksum; nothing was installed.');
     // Asynchronous, so a launcher answering an agent during first-time setup stays responsive.
     await promisify(execFile)('tar', ['-xzf', archive, '-C', staging]);

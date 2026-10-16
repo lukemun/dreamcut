@@ -12,3 +12,4 @@ once it reaches 1.0; until then, minor versions may include breaking changes.
 - Install with your agent, no git needed: `claude mcp add dreamcut -- npx -y dreamcut mcp` (Apple Silicon Macs).
 - Voice enhancement is optional (`pnpm setup:voice`); `pnpm bootstrap` no longer requires Python.
 - Word Search Trace follows its Overlay length instead of stopping at 6.4 seconds.
+- Runtime downloads come from this repository's GitHub Releases.

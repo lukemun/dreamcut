@@ -173,14 +173,16 @@ already the default. External references remain allowed but are flagged as not p
 - **Order for agents:** `npx dreamcut install`, then `claude mcp add dreamcut -- npx -y dreamcut mcp` or
   `codex mcp add dreamcut -- npx -y dreamcut mcp`. Installing first keeps the large download out of the
   MCP connection, where a client could time out.
-- **Download location: Vercel Blob (2026-10-11).** The repository is private, so its GitHub releases are
-  not downloadable anonymously. `packaging/upload-runtime.mjs` publishes the archives a build's
-  `latest.json` names to a public Blob store under `dreamcut/runtime/`, then the feed, and prints the
-  location for `packaging/pack-launcher.mjs --base-url`. Published archives never change: each has a
-  `.sha256` beside it, and an archive already published with other contents stops the upload. The feed
-  goes up last, is merged with same-version platforms built elsewhere, never moves to an older version,
-  and is cached for a minute (archives for a year). The owner runs it with their `BLOB_READ_WRITE_TOKEN`;
-  publishing to npm stays a manual owner step.
+- **Download location: GitHub Releases (2026-10-15).** The repository is public, so each version's
+  archives are assets of its release `v<version>` on `lukemun/dreamcut`, and the feed is the latest
+  release's `latest.json` (`releases/latest/download/latest.json`, the launcher's default location).
+  Every feed entry names its own `url`, so an unchanged base layer stays attached to the release that
+  introduced it. `packaging/publish-release.mjs` creates the release as a draft, attaches new archives,
+  then the merged feed, and publishes it; attached archives never change. An explicit
+  `DREAMCUT_RUNTIME_BASE_URL` (a mirror or the local stand-in in `verify-web-runtime.mjs`) serves every
+  file from that folder instead. Superseded: Vercel Blob under `dreamcut/runtime/` (2026-10-11, while the
+  repository was private), still read by 0.1.x launchers; `packaging/upload-runtime.mjs` keeps it current
+  as a bridge.
 - **Edit data** is collected by the existing export sharing (`src/lib/local-store/export-sharing.ts`):
   on by default with learning, consent given on the download page, turned off in settings. The install
   instructions page must state it accurately ([community learning](../community-learning-architecture.md)).
