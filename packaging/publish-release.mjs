@@ -19,6 +19,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { compareVersions } from '../mcp/runtime-updates.mjs';
 import { feedArchives, mergeFeeds, sha256File } from './upload-runtime.mjs';
 
 const say = message => process.stderr.write(`${message}\n`);
@@ -96,6 +97,13 @@ async function main() {
     }
   }
 
+  // Launchers follow the latest release, so an older version must never become it.
+  let latestTag = null;
+  try { latestTag = JSON.parse(gh(['release', 'view', '--repo', repo, '--json', 'tagName'], { stdio: ['ignore', 'pipe', 'pipe'] })).tagName; }
+  catch (error) { if (!/release not found/i.test(String(error.stderr ?? ''))) throw new Error(`Could not read ${repo}'s latest release: ${String(error.stderr || error.message).trim()}`); }
+  if (latestTag && latestTag !== tag && compareVersions(version, latestTag.replace(/^v/, '')) < 0) {
+    throw new Error(`${repo}'s latest release is ${latestTag}, newer than ${tag}. Nothing was changed.`);
+  }
   const plan = planRelease({ feed, repo, tag, published, attached });
   for (const archive of plan.reused) {
     const response = await fetch(archive.url, { method: 'HEAD', redirect: 'follow' });
