@@ -195,7 +195,7 @@
     "@webgpu/types": "^0.1.74",
     "cross-env": "^10.1.0",
     "electron": "44.7.0",
-    "hyperframes": "0.8.40",
+    "hyperframes": "0.8.150",
     "shadcn": "^4.21.0",
     "sharp": "0.35.5",
     "tailwindcss": "^4.2.1",
