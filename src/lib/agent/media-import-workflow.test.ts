@@ -53,8 +53,13 @@ test("workflow isolates source and fails closed on hash drift", async () => {
 test("durable import queue deduplicates, persists artifacts, retries failures, and preserves timeline", async () => {
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), "import-queue-test-"));
   const oldRoot = process.env.TIMELINE_PROJECTS_DIR, oldAuto = process.env.DREAMCUT_IMPORT_AUTOSTART;
+  const oldAnalysis = process.env.DREAMCUT_IMPORT_ANALYSIS;
   process.env.TIMELINE_PROJECTS_DIR = temp; process.env.DREAMCUT_IMPORT_AUTOSTART = "0";
   try {
+    // Background analysis is opt-in; with it off nothing is queued.
+    delete process.env.DREAMCUT_IMPORT_ANALYSIS;
+    assert.equal(enqueueImportJob("test", { asset_id: randomUUID(), media_path: "off.png", source_sha256: "0".repeat(64) }), null);
+    process.env.DREAMCUT_IMPORT_ANALYSIS = "worker";
     fs.mkdirSync(path.join(temp, "test", "media"), { recursive: true });
     const timeline = path.join(temp, "test", "timeline.json"); fs.writeFileSync(timeline, "untouched");
     const source = path.join(temp, "test", "media", "test.png"); fs.writeFileSync(source, "fixture");
@@ -88,6 +93,7 @@ test("durable import queue deduplicates, persists artifacts, retries failures, a
   } finally {
     if (oldRoot === undefined) delete process.env.TIMELINE_PROJECTS_DIR; else process.env.TIMELINE_PROJECTS_DIR = oldRoot;
     if (oldAuto === undefined) delete process.env.DREAMCUT_IMPORT_AUTOSTART; else process.env.DREAMCUT_IMPORT_AUTOSTART = oldAuto;
+    if (oldAnalysis === undefined) delete process.env.DREAMCUT_IMPORT_ANALYSIS; else process.env.DREAMCUT_IMPORT_ANALYSIS = oldAnalysis;
     fs.rmSync(temp, { recursive: true, force: true });
   }
 });

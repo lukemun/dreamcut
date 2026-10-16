@@ -1260,6 +1260,14 @@
       "timeline_write_marker": false
     },
     {
+      "path": "scripts/setup-matting.mjs",
+      "disposition": "exposed",
+      "capability": "cutout-preparation",
+      "reason": "Installs the pinned subject-tracing environment and checksum-verified SAM 2.1 checkpoint. Started by MCP cutout_setup after the creator agrees; no project or timeline writes.",
+      "sha256": "47f0b952583c848511c81372430c7ac0a68cbaf2732d068547bfa6c0fada70a9",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/sfx-analyze.py",
       "disposition": "defer",
       "capability": null,

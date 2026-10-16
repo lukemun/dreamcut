@@ -58,3 +58,13 @@ duplicate of the subject over the footage (cat datamosh demo). The encoder now d
 frame display matrix (`sidedata=mode=delete:type=DISPLAYMATRIX`); the recipe is
 `sam2-custom-cutout/v5` and the job key moved to `cutout-preparation/v2` so affected cutouts
 are re-made instead of reused. Tested in `custom-cutout.test.ts`.
+
+2026-10-16 — New `cutout_setup` (contract version 1). A fresh install had no subject-tracing
+environment (it was a manual step in scripts/matting/README.md), so every cutout template failed
+with a missing-file error. `scripts/setup-matting.mjs` (`pnpm setup:matting`, `dreamcut
+setup-matting`) installs a pinned Python environment and the checksum-verified SAM 2.1
+checkpoint; an installed runtime keeps it in app data (TIMELINE_MATTING_DIR) so updates keep
+it. `cutout_setup` reports status and starts the install in the background after the creator
+agrees; `cutout_prepare` without it fails with MATTING_NOT_INSTALLED pointing there. Verified in
+a clean-environment Claude Code run on the 0.2.1 build: the agent asked before the download,
+installed it and proposed Moving Grid Matte, which previews in the editor.

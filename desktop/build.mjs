@@ -14,7 +14,7 @@ await fs.rm(source, { recursive: true, force: true });
 await fs.mkdir(source, { recursive: true });
 // desktop/ is traced by desktop/package.mjs (claude-session.mjs and the service closure).
 for (const name of ['src', 'public', 'scripts', 'mcp', 'desktop', 'docs', '.agents',
-  'node_modules', 'package.json', 'pnpm-lock.yaml',
+  'node_modules', 'package.json', 'pnpm-lock.yaml', 'AGENTS.md',
   'next.config.ts', 'next-env.d.ts', 'postcss.config.mjs', 'tsconfig.json']) {
   // Windows dependency junctions must be created inside the isolated build root.
   if (name === 'node_modules' && process.platform === 'win32') continue;

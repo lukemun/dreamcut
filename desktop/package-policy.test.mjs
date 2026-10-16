@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 import { packageInput, relativePackageLink } from './package-policy.mjs';
 test('package inputs exclude local data, secrets and generated caches', () => {
  assert.equal(packageInput('node_modules/.cache/webpack/private-render.pack'),false);
- for (const name of ['projects/demo/timeline.json','analysis/log.json','.env.local','private/key','catalogs/music/audio/a.mp3','.next-desktop/cache/a','node_modules/dependency/.env','src/private/a']) assert.equal(packageInput(name),false,name);
- for (const name of ['node_modules/next/package.json','src/lib/gpu-preview/worker.ts','public/font.woff2','.next-desktop/server/app.js']) assert.equal(packageInput(name),true,name);
+ for (const name of ['projects/demo/timeline.json','analysis/log.json','.env.local','private/key','catalogs/music/audio/a.mp3','.next-desktop/cache/a','node_modules/dependency/.env','src/private/a','docs/research/a.md','.agents/hooks/a.mjs']) assert.equal(packageInput(name),false,name);
+ for (const name of ['node_modules/next/package.json','src/lib/gpu-preview/worker.ts','public/font.woff2','.next-desktop/server/app.js','.agents/skills/motion-graphics/SKILL.md','docs/standards/pr-review.md','AGENTS.md']) assert.equal(packageInput(name),true,name);
  assert.throws(()=>packageInput('../private/a'));
  assert.throws(()=>packageInput('/etc/passwd'));
 });

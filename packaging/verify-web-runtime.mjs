@@ -19,7 +19,9 @@ import { fileURLToPath } from 'node:url';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(repo, 'dist');
-const tarball = fs.readdirSync(path.join(dist, 'npm')).find(name => /^dreamcut-.*\.tgz$/.test(name));
+// The launcher packed for this version, never an older tarball left in dist/npm.
+const { version: packageVersion } = JSON.parse(fs.readFileSync(path.join(repo, 'package.json'), 'utf8'));
+const tarball = fs.readdirSync(path.join(dist, 'npm')).find(name => name === `dreamcut-${packageVersion}.tgz`);
 if (!tarball) throw new Error('Run packaging/pack-launcher.mjs first.');
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'dreamcut-first-run-'));
 const results = [];
@@ -74,6 +76,32 @@ try {
   check('the app layer links the shared base layer', fs.lstatSync(path.join(firstApp, 'node_modules')).isSymbolicLink()
     && fs.existsSync(path.join(runtimes, 'base', `${feed.platforms[key].base.id}-${key}`, 'node_modules')));
 
+  // Motion graphics: HyperFrames reads its browser audit scripts from its own package at run time.
+  const appRoot = fs.realpathSync(firstApp);
+  const composition = path.join(temp, 'composition');
+  fs.cpSync(path.join(appRoot, '.agents', 'skills', 'motion-graphics', 'templates', 'word-search-trace'), composition, { recursive: true });
+  const hyperframes = await new Promise(resolve => {
+    const child = spawn(process.execPath, [path.join(appRoot, 'node_modules', 'hyperframes', 'bin', 'hyperframes.mjs'), 'check'], {
+      cwd: composition, env: { ...env, HYPERFRAMES_SKIP_SKILLS: '1', HYPERFRAMES_NO_TELEMETRY: '1' }, stdio: ['ignore', 'pipe', 'pipe'] });
+    let out = ''; child.stdout.on('data', chunk => { out += chunk; }); child.stderr.on('data', chunk => { out += chunk; });
+    child.on('exit', code => resolve({ code, out }));
+  });
+  check('a shipped template passes the HyperFrames check in the runtime', hyperframes.code === 0, hyperframes.code ? hyperframes.out.trim().split('\n').slice(-3).join(' | ') : '');
+
+  // First run in a fresh app-data folder: closing the agent session mid-download does not stop the install.
+  const detachedEnv = { ...env, DREAMCUT_APP_DATA_DIR: path.join(temp, 'detached app data') };
+  const leaving = spawn(bin, ['mcp'], { env: detachedEnv, stdio: ['pipe', 'pipe', 'ignore'] });
+  leaving.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'leaves-early', version: '1' } } })}\n`);
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  leaving.stdin.end(); leaving.kill('SIGTERM');
+  started = Date.now();
+  const detachedApp = path.join(temp, 'detached app data', 'runtimes', 'app', `${feed.version}-${key}`, '.dreamcut-installed');
+  while (!fs.existsSync(detachedApp) && Date.now() - started < 300_000) await new Promise(resolve => setTimeout(resolve, 1000));
+  const installLog = () => { try { return fs.readFileSync(path.join(temp, 'detached app data', 'runtimes', 'install.log'), 'utf8').trim().split('\n').slice(-4).join(' | '); } catch { return 'no install.log'; } };
+  check('the first download finishes after the agent session closes', fs.existsSync(detachedApp), `${Math.round((Date.now() - started) / 1000)} s after closing${fs.existsSync(detachedApp) ? '' : `: ${installLog()}`}`);
+  const leftovers = ['app', 'base'].flatMap(layer => { try { return fs.readdirSync(path.join(temp, 'detached app data', 'runtimes', layer)); } catch { return []; } }).filter(name => /\.(download|unpacked)-/.test(name));
+  check('no partial download is left behind', leftovers.length === 0, leftovers.join(', '));
+
   // An agent connecting to `dreamcut mcp`.
   const mcp = spawn(bin, ['mcp'], { env, stdio: ['pipe', 'pipe', 'pipe'] });
   let stderr = ''; mcp.stderr.on('data', chunk => { stderr += chunk; });
@@ -89,6 +117,20 @@ try {
   let statusBody = null;
   try { statusBody = JSON.parse(status.text); } catch { /* reported below */ }
   check('library_status lists the projects an agent can open', Array.isArray(statusBody?.projects) && Number.isInteger(statusBody?.project_count));
+  const early = await call('assembly_create', { project_id: 'first-edit', title: 'First edit', objective: 'Check', delivery_target: 'reels' });
+  let earlyCode = null;
+  try { earlyCode = JSON.parse(early.text.slice(early.text.indexOf('{'))).code; } catch { /* reported below */ }
+  check('creating a project before a Library exists asks for one', early.error && /LIBRARY_NOT_CONFIGURED|library_setup/.test(early.text), earlyCode ?? early.text.slice(0, 160));
+  const found = await call('capability_catalog', { action: 'search', query: 'Use the Word Search Trace template with my footage', limit: 5 });
+  let top = null;
+  try { top = JSON.parse(found.text).entries?.find(entry => entry.kind === 'template'); } catch { /* reported below */ }
+  check('a gallery template is found by its name', top?.name === 'Word Search Trace', top?.id ?? found.text.slice(0, 160));
+  const skill = await call('capability_catalog', { action: 'get', id: 'skill:motion-graphics' });
+  let skillBody = null;
+  try { skillBody = JSON.parse(skill.text); } catch { /* reported below */ }
+  check('skills are readable through the catalog', /name: motion-graphics/.test(skillBody?.instructions ?? '') && fs.existsSync(path.join(skillBody?.folder ?? '', 'SKILL.md')));
+  const init2 = init.result?.instructions ?? '';
+  check('the agent is told to use the links DreamCut returns, not a fixed port', /editor_open/.test(init2) && !/3123/.test(init2));
   const libraryDir = path.join(temp, 'Movies', 'DreamCut Library');
   const created = await call('library_setup', { action: 'create', dir: libraryDir });
   check('a Library is created where the creator chose', !created.error && fs.existsSync(path.join(libraryDir, 'dreamcut-library.json')));
@@ -107,6 +149,7 @@ try {
   check('the production editor serves its home page', home.status === 200 && (await home.text()).includes('DreamCut'));
   check('the same link cannot be reused', (await fetch(url, { redirect: 'manual' })).status === 403);
 
+  const baseDownloads = downloads.get(feed.platforms[key].base.file);
   // Publish a newer version while the editor runs: the same app layer with a higher version, same base.
   const nextVersion = feed.version.replace(/^(\d+)\.(\d+)\.(\d+)/, (_, major, minor, patch) => `${major}.${minor}.${Number(patch) + 1}`);
   const nextFolder = `dreamcut-app-${key}-${nextVersion}`;
@@ -128,7 +171,7 @@ try {
   started = Date.now();
   while (readLatest() !== nextVersion && Date.now() - started < 180_000) await new Promise(resolve => setTimeout(resolve, 500));
   check('a newer version is installed in the background while the editor runs', readLatest() === nextVersion, `${Math.round((Date.now() - started) / 1000)} s`);
-  check('the update does not download the base layer again', downloads.get(feed.platforms[key].base.file) === 1);
+  check('the update does not download the base layer again', downloads.get(feed.platforms[key].base.file) === baseDownloads);
   const authed = { Cookie: cookie, Origin: origin };
   const offered = await fetch(`${origin}/__dreamcut/update`, { headers: authed }).then(r => r.json(), () => null);
   check('the running editor offers the update', offered?.available === nextVersion, JSON.stringify(offered));

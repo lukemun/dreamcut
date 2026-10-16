@@ -22,7 +22,12 @@ export const isPackagedRuntime = (root = EDITOR_ROOT) => fs.existsSync(path.join
  * Library is chosen, a packaged runtime keeps projects in app data, never inside itself.
  */
 export function runtimeEnvDefaults(root = EDITOR_ROOT, env = process.env) {
-  return isPackagedRuntime(root) && !env.DREAMCUT_DEFAULT_PROJECTS_DIR ? { DREAMCUT_DEFAULT_PROJECTS_DIR: path.join(appDataRoot(env), 'projects') } : {};
+  if (!isPackagedRuntime(root)) return {};
+  return {
+    ...(!env.DREAMCUT_DEFAULT_PROJECTS_DIR ? { DREAMCUT_DEFAULT_PROJECTS_DIR: path.join(appDataRoot(env), 'projects') } : {}),
+    // Subject tracing lives in app data too, so it survives runtime updates (`dreamcut setup-matting`).
+    ...(!env.TIMELINE_MATTING_DIR ? { TIMELINE_MATTING_DIR: path.join(appDataRoot(env), 'matting') } : {}),
+  };
 }
 const cookieHeader = token => ({ Cookie: `dreamcut_desktop_session=${token}` });
 

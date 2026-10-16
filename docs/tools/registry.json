@@ -255,6 +255,7 @@
         "asset_generation_submit",
         "asset_generation_status",
         "video_search",
+        "media_describe",
         "library_present"
       ],
       "owners": [
@@ -295,7 +296,10 @@
         "video catalog",
         "show videos",
         "show footage",
-        "find and show videos"
+        "find and show videos",
+        "describe footage",
+        "analyze my clips",
+        "what is in this video"
       ],
       "editor_agent": {
         "access": "enabled"
@@ -351,6 +355,7 @@
       "tools": [
         "cutout_prepare",
         "cutout_status",
+        "cutout_setup",
         "cutout_correct"
       ],
       "owners": [
@@ -358,7 +363,7 @@
         "src/lib/media-analysis/grid-matte-preparation.ts"
       ],
       "outcome": "Prepare, reuse and correct moving subject cutouts",
-      "authority": "Immutable derivatives/jobs; no timeline writes.",
+      "authority": "Immutable derivatives/jobs; no timeline writes. cutout_setup downloads the tracing model only after the creator agrees.",
       "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
       "evolution": "docs/tools/evolution/cutout-preparation.md",
       "search_aliases": [
@@ -376,7 +381,9 @@
         "cut out",
         "cutouts",
         "SAM",
-        "fix mask"
+        "fix mask",
+        "install subject tracing",
+        "matting model"
       ],
       "editor_agent": {
         "access": "enabled"

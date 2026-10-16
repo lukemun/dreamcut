@@ -31,7 +31,16 @@ export function listImportJobs(projectId: string): MediaImportJob[] {
   return fs.readdirSync(directory(projectId)).filter(name => /^[a-f0-9-]{36}\.json$/.test(name))
     .map(name => readImportJob(projectId, name.slice(0, -5)));
 }
-export function enqueueImportJob(projectId: string, asset: Pick<MediaImportJob, "asset_id" | "media_path" | "source_sha256">) {
+/**
+ * Background import analysis runs a separately configured model (worker-runner.ts), so it is opt-in:
+ * DREAMCUT_IMPORT_ANALYSIS=worker. Otherwise footage is described by the agent the creator is already
+ * using, through media_describe, and no other model runs on their behalf.
+ */
+export const importAnalysisByWorker = (env: NodeJS.ProcessEnv = process.env) => readEnv("IMPORT_ANALYSIS", env) === "worker";
+
+/** Queue background analysis for an import, or null when it is not enabled (see importAnalysisByWorker). */
+export function enqueueImportJob(projectId: string, asset: Pick<MediaImportJob, "asset_id" | "media_path" | "source_sha256">): MediaImportJob | null {
+  if (!importAnalysisByWorker()) return null;
   const existing = readJsonFile<MediaImportJob | null>(jobPath(projectId, asset.asset_id), null);
   if (existing) return existing;
   const job: MediaImportJob = { ...asset, id: asset.asset_id, workflow: "media-process/import", status: "queued", attempt: 0, updated_at: new Date().toISOString() };
@@ -44,8 +53,9 @@ export function analyzeImportedVideo(projectId: string, asset: Pick<MediaImportJ
   if (!/\.(mov|mp4|m4v|webm)$/i.test(asset.media_path)) throw new Error("Select an imported video");
   if (!verifyCatalogSource(projectId, asset.media_path, asset.source_sha256)) throw new Error("Imported source changed; reimport it before analysis");
   if (readVideoDescription(asset.source_sha256)) return { status: "ready" as const };
+  if (!importAnalysisByWorker()) throw new Error("Background analysis is off; ask your agent to describe this video (media_describe)");
   const existing = listImportJobs(projectId).find(job => job.asset_id === asset.asset_id);
-  if (!existing) return enqueueImportJob(projectId, asset);
+  if (!existing) return enqueueImportJob(projectId, asset)!;
   if (existing.media_path !== asset.media_path || existing.source_sha256 !== asset.source_sha256) throw new Error("Import source identity changed");
   if (["queued", "running"].includes(existing.status)) return existing;
   save(projectId, { ...existing, status: "queued", cancel_requested: false, error: undefined });
@@ -162,4 +172,31 @@ export async function runImportQueue(projectId: string, processMedia = processIm
     // Imports may have arrived between the final queue read and releasing ownership.
     if (listImportJobs(projectId).some(job => job.status === "queued")) startImportWorker(projectId);
   }
+}
+
+/**
+ * The agent's own description of an imported video (media_describe): one observation per planned sample
+ * time (videoDescriptionTimes) plus a whole-clip summary. Published like a worker's result, so video_search
+ * and the Library read it; recorded as a complete import job with the agent as its author.
+ */
+export function recordAgentVideoDescription(projectId: string, input: {
+  asset: Pick<MediaImportJob, "asset_id" | "media_path" | "source_sha256">; duration_seconds: number;
+  summary: string; tags: string[]; frames: { time_seconds: number; description: string; tags: string[] }[]; uncertainties: string[]; author: string;
+}) {
+  const { asset } = input;
+  if (!verifyCatalogSource(projectId, asset.media_path, asset.source_sha256)) throw new Error("Imported source changed; reimport it before describing it");
+  const frames = input.frames.map((frame, i) => ({ id: `${asset.asset_id}:f${i + 1}`, time_seconds: frame.time_seconds, description: frame.description, tags: frame.tags }));
+  const description = { schema_version: 1, recipe: "video-descriptions-v1", source_sha256: asset.source_sha256, duration_seconds: input.duration_seconds,
+    summary: input.summary, tags: input.tags, frames, summary_input_ids: frames.map(frame => frame.id), uncertainties: input.uncertainties };
+  publishVideoDescription(description);
+  const outputDir = path.join(projectDir(projectId), "preprocess", "media-process", asset.asset_id, `agent-${Date.now()}`);
+  fs.mkdirSync(outputDir, { recursive: true });
+  const file = path.join(outputDir, "video-description.json");
+  fs.writeFileSync(file, `${JSON.stringify({ ...description, described_by: input.author }, null, 2)}\n`, { flag: "wx", mode: 0o600 });
+  const previous = readJsonFile<MediaImportJob | null>(jobPath(projectId, asset.asset_id), null);
+  const job: MediaImportJob = { ...asset, id: asset.asset_id, workflow: "media-process/import", status: "complete", attempt: (previous?.attempt ?? 0) + 1,
+    updated_at: new Date().toISOString(), outputs: [path.relative(projectDir(projectId), file)],
+    search_text: [input.summary, ...input.tags, ...frames.map(frame => `${frame.description} ${frame.tags.join(" ")}`)].join(" ") };
+  save(projectId, job);
+  return job;
 }

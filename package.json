@@ -1,7 +1,7 @@
 {
   "name": "dreamcut",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.18.3",
   "engines": {
@@ -23,6 +23,7 @@
     "dev:rust": "cross-env DREAMCUT_NATIVE_PREVIEW=1 NEXT_PUBLIC_DREAMCUT_NATIVE_PREVIEW=1 TIMELINE_NEXT_DIST_DIR=.next-native TIMELINE_EDITOR_MODE=development tsx scripts/server-with-otel.ts dev --turbopack -H 127.0.0.1 -p 3143",
     "setup:check": "tsx scripts/setup-local.ts --check",
     "setup:voice": "tsx scripts/setup-local.ts --voice",
+    "setup:matting": "node scripts/setup-matting.mjs",
     "dev": "cross-env TIMELINE_EDITOR_MODE=development tsx scripts/server-with-otel.ts dev --turbopack -H 127.0.0.1 -p 3123",
     "build": "next build",
     "start": "tsx scripts/server-with-otel.ts start -H 127.0.0.1 -p 3123",

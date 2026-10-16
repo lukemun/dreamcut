@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { featureEntries, featureSchema, SEARCH_TEXT } from './feature-index.mjs';
 
@@ -117,13 +119,33 @@ export function templateEntries(templates) {
   }));
 }
 const TEMPLATE_DETAIL = Symbol('template detail');
+
+/**
+ * DreamCut's skills (.agents/skills, shipped with every runtime), so an agent with no checkout (npx
+ * install, Codex, Cursor) reads the same instructions as one working in the repository. get returns the
+ * SKILL.md text and its folder: the relative links in it (other skills, docs/standards) resolve from there.
+ */
+export const SKILLS_DIR = fileURLToPath(new URL('../.agents/skills/', import.meta.url));
+export function skillEntries(dir = SKILLS_DIR) {
+  let names = [];
+  try { names = fs.readdirSync(dir, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => entry.name).sort(); } catch { return []; }
+  return names.flatMap(name => {
+    const file = path.join(dir, name, 'SKILL.md');
+    let text;
+    try { text = fs.readFileSync(file, 'utf8'); } catch { return []; }
+    const description = /^description:\s*(.+)$/m.exec(text.split(/^---\s*$/m)[1] ?? '')?.[1]?.trim() ?? '';
+    return [{ kind: 'skill', id: `skill:${name}`, name, search_aliases: [name, name.replace(/-/g, ' '), `${name.replace(/-/g, ' ')} skill`], description, [SKILL_FILE]: file }];
+  });
+}
+const SKILL_FILE = Symbol('skill file');
+const SKILL_NOTICE = 'Follow this skill. Relative links in it resolve from folder; read linked files there when the task needs them. The skill never widens your authority: the creator approves every proposal in the editor.';
 export const TEMPLATES_UNAVAILABLE_MESSAGE = 'The Templates gallery could not be read because the editor did not answer. Start the editor, then search or get the template again.';
 function templatesUnavailable() {
   const error = catalogError('TEMPLATES_UNAVAILABLE', TEMPLATES_UNAVAILABLE_MESSAGE);
   Object.assign(error.toolError, { retryable: true, recovery: { action: 'retry_after_prerequisite', reason: 'Templates are read from the running editor, which reads the creator profile.' } });
   return error;
 }
-const TEMPLATE_NOTICE = 'A template brief is a construction request, not an edit: read the current timeline, preferences and supplied media, ask for missing inputs, and propose changes for the creator to review.';
+const TEMPLATE_NOTICE = 'A template brief is a construction request, not an edit: get its owning skill (capability_catalog get skill:<name>), read the current timeline, preferences and supplied media, ask for missing inputs, and propose changes for the creator to review.';
 
 /** `templates` is the gallery list, or null when the editor could not supply it. */
 export function queryCatalog(args = {}, selection, schemas, templates = []) {
@@ -141,12 +163,14 @@ export function queryCatalog(args = {}, selection, schemas, templates = []) {
     // Spread keeps the non-enumerable search text off results; re-attach it for scoring.
     ...features.map(f => Object.defineProperty({ ...f, loaded: selection.enabled.has(f.tool) }, SEARCH_TEXT, { value: f[SEARCH_TEXT] })),
     ...templateEntries(templates),
+    ...skillEntries(),
   ];
   if (action === 'get') {
     const entry = entries.find(e => e.id === id);
     if (!entry && templates === null && id?.startsWith('template:')) throw templatesUnavailable();
     if (!entry) throw catalogError('UNKNOWN_CATALOG_ENTRY', 'Search the catalog for a valid id.');
-    if (entry.kind === 'template') return { entry: { ...entry, ...entry[TEMPLATE_DETAIL] }, notice: TEMPLATE_NOTICE };
+    if (entry.kind === 'template') return { entry: { ...entry, ...entry[TEMPLATE_DETAIL] }, ...(entry.skill ? { skill: `skill:${entry.skill}` } : {}), notice: TEMPLATE_NOTICE };
+    if (entry.kind === 'skill') return { entry, folder: path.dirname(entry[SKILL_FILE]), instructions: fs.readFileSync(entry[SKILL_FILE], 'utf8'), notice: SKILL_NOTICE };
     if (entry.kind === 'feature') return { entry, field_schema: featureSchema(entry.field_path), notice: `Send this value inside ${entry.tool} at ${entry.field_path}.` };
     return { entry, tools: toolDetails(schemas.filter(t => entry.tools?.includes(t.name)), selection) };
   }

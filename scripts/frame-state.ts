@@ -67,7 +67,7 @@ async function main() {
   if (!projectId || projectId.startsWith("--")) {
     throw new Error("usage: pnpm frame-state <projectId> [--at 1.5,8,12.5] [--expect-gap captionId:visualId:minPx:maxPx] [--base http://127.0.0.1:3123]");
   }
-  const base = flag("--base") ?? "http://127.0.0.1:3123";
+  const base = flag("--base") ?? process.env.TIMELINE_EDITOR_BASE_URL ?? "http://127.0.0.1:3123";
   const gapExpectation = parseGapExpectation(flag("--expect-gap"));
 
   const proposalFile = flag("--proposal-file");

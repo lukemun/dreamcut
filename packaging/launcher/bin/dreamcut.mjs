@@ -142,10 +142,50 @@ async function installArchive(entry, parent, target, finish = () => {}) {
   } finally { fs.rmSync(staging, { recursive: true, force: true }); }
 }
 
+const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
+/** Remove downloads and unpacked folders left by an installer that is no longer running. */
+function removeAbandonedPartials() {
+  for (const dir of [appsDir, basesDir]) {
+    let names = [];
+    try { names = fs.readdirSync(dir); } catch { continue; }
+    for (const name of names) {
+      const owner = /\.(?:download|unpacked)-(\d+)$/.exec(name);
+      if (owner && !alive(Number(owner[1]))) fs.rmSync(path.join(dir, name), { recursive: true, force: true });
+    }
+  }
+}
+
+/**
+ * First-time setup runs in its own detached process (`dreamcut install --background`), so it survives the
+ * agent session that started it. It holds install.lock and reports through install-progress.json, which any
+ * later session reads to show progress or wait for it instead of starting a second download.
+ */
+const lockFile = path.join(runtimes, 'install.lock');
+const progressFile = path.join(runtimes, 'install-progress.json');
+function takeInstallLock() {
+  fs.mkdirSync(runtimes, { recursive: true });
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try { fs.writeFileSync(lockFile, String(process.pid), { flag: 'wx' }); return true; }
+    catch (error) {
+      if (error.code !== 'EEXIST') throw error;
+      const holder = Number(fs.readFileSync(lockFile, 'utf8'));
+      if (holder && alive(holder)) return false;
+      fs.rmSync(lockFile, { force: true });
+    }
+  }
+  return false;
+}
+const releaseInstallLock = () => { try { if (Number(fs.readFileSync(lockFile, 'utf8')) === process.pid) fs.rmSync(lockFile); } catch { /* not ours */ } };
+const installerRunning = () => { try { return alive(Number(fs.readFileSync(lockFile, 'utf8'))); } catch { return false; } };
+function writeProgress(extra = {}) {
+  try { fs.writeFileSync(progressFile, JSON.stringify({ pid: process.pid, done: progress.done, total: progress.total, updated_at: new Date().toISOString(), ...extra })); } catch { /* progress is advisory */ }
+}
+
 /** Install a release's base (if this computer lacks it) and app layer. Returns the app folder. */
 async function install(release, { quiet = false } = {}) {
   if (!downloadBase()) throw new Error('This DreamCut build has no download location.');
   const log = quiet ? () => {} : say;
+  removeAbandonedPartials();
   const baseDir = path.join(basesDir, `${release.base.id}-${key}`);
   const appDir = path.join(appsDir, `${release.version}-${key}`);
   const needBase = !fs.existsSync(path.join(baseDir, INSTALLED_MARKER));
@@ -222,25 +262,54 @@ try {
   if (process.env.DREAMCUT_RUNTIME_DIR) {
     runtime = path.resolve(process.env.DREAMCUT_RUNTIME_DIR);
   } else if (args[0] === 'install') {
-    const release = await latestRelease();
-    if (!release) throw new Error(`DreamCut has no runtime for ${key} yet.`);
-    const current = installedApps()[0];
-    if (current && compareVersions(current.version, release.version) >= 0) say(`DreamCut ${current.version} is installed and up to date.`);
-    else await install(release);
-    prune([]);
+    if (!takeInstallLock()) {
+      say('DreamCut is already being installed by another process; waiting for it to finish…');
+      while (installerRunning()) await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!installedApps()[0]) throw new Error('The other install did not finish. Run `npx dreamcut install` again.');
+      say(`DreamCut ${installedApps()[0].version} is installed.`);
+      process.exit(0);
+    }
+    const reporter = setInterval(writeProgress, 1000);
+    try {
+      const release = await latestRelease();
+      if (!release) throw new Error(`DreamCut has no runtime for ${key} yet.`);
+      const current = installedApps()[0];
+      if (current && compareVersions(current.version, release.version) >= 0) say(`DreamCut ${current.version} is installed and up to date.`);
+      else await install(release, { quiet: args.includes('--background') });
+      prune([]);
+      writeProgress({ finished: true });
+    } catch (error) {
+      writeProgress({ error: error.cause?.message ? `${error.message} (${error.cause.message})` : error.message });
+      throw error;
+    } finally { clearInterval(reporter); releaseInstallLock(); }
     process.exit(0);
   } else {
     runtime = installedApps()[0]?.dir;
     if (!runtime && args[0] === 'mcp') {
       // First run inside an agent app: answer the agent now and download in the background.
-      const percent = () => (progress.total ? Math.min(99, Math.floor((progress.done / progress.total) * 100)) : 0);
+      // The download runs in a detached installer so closing this agent session does not stop it.
+      const reported = () => readJson(progressFile) ?? {};
+      const percent = ({ done = 0, total = 0 }) => (total ? Math.min(99, Math.floor((done / total) * 100)) : 0);
       const session = serveWhileInstalling({
         version: bundled.version,
-        status: () => `DreamCut is downloading its editor for this computer (${percent()}% of ${Math.round(progress.total / 1024 ** 2) || 'about 280'} MB).`,
+        status: () => { const now = reported(); return `DreamCut is downloading its editor for this computer (${percent(now)}% of ${Math.round((now.total ?? 0) / 1024 ** 2) || 'about 300'} MB). The download continues if this chat closes.`; },
         install: async () => {
-          const release = await latestRelease();
-          if (!release) throw new Error(`DreamCut has no runtime for ${key} yet`);
-          return install(release, { quiet: true });
+          if (!installerRunning()) {
+            fs.mkdirSync(runtimes, { recursive: true });
+            fs.rmSync(progressFile, { force: true });
+            const log = fs.openSync(path.join(runtimes, 'install.log'), 'a');
+            spawn(process.execPath, [fileURLToPath(import.meta.url), 'install', '--background'], { detached: true, stdio: ['ignore', log, log], env: process.env }).unref();
+            fs.closeSync(log);
+          }
+          for (let waited = 0; ; waited += 1) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            const done = installedApps()[0]?.dir;
+            if (done && !installerRunning()) return done;
+            const now = reported();
+            if (now.error) throw new Error(now.error);
+            // The installer takes its lock within a few seconds; one that never appears or vanished without installing failed.
+            if (waited > 15 && !installerRunning() && !done) throw new Error('the installer stopped; see install.log in DreamCut\'s app data');
+          }
         },
         start: dir => {
           keepCurrent(dir);

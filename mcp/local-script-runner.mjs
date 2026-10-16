@@ -12,7 +12,7 @@ export function localScriptCommand(root, name, args) {
   if (!Array.isArray(args) || args.some(value => typeof value !== 'string')) throw Error('Invalid local editor arguments');
   return { executable: process.execPath, args: ['--import', 'tsx', path.join(root, 'scripts', scripts[name]), ...args] };
 }
-export function runLocalEditorScript(root, name, args, timeoutMs = 10 * 60 * 1000, signal) {
+export function runLocalEditorScript(root, name, args, timeoutMs = 10 * 60 * 1000, signal, env = process.env) {
   if (!Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > 2147483647) throw Error('Invalid local editor timeout');
   if (signal?.aborted) return Promise.reject(Error(`${name} cancelled: session closed`));
   const command = localScriptCommand(root, name, args);
@@ -26,7 +26,7 @@ export function runLocalEditorScript(root, name, args, timeoutMs = 10 * 60 * 100
       throw Error(signal?.aborted ? `${name} cancelled: session closed` : 'Helper crash cleanup is unavailable');
     }
     return new Promise((resolve, reject) => {
-      const child = spawn(command.executable, command.args, { cwd: root, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
+      const child = spawn(command.executable, command.args, { cwd: root, env, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
       let stdout = '', stderr = '', timedOut = false, cancelled = false;
       // Only target the private group created by this invocation, never a stored PID.
       stop = () => {

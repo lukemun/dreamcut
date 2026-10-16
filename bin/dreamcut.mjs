@@ -5,6 +5,7 @@
  *   dreamcut            start (or reuse) the editor and open it in your browser
  *   dreamcut mcp        the DreamCut MCP server for Claude Code / Codex (starts the editor on first use)
  *   dreamcut status     show whether an editor is running
+ *   dreamcut setup-matting   install subject tracing for cutout templates (about 1 GB)
  *
  * The editor listens only on 127.0.0.1 and requires a per-launch session; browsers sign in with a
  * single-use link. Projects live in your DreamCut Library; nothing is uploaded.
@@ -33,6 +34,10 @@ if (command === 'mcp') {
   // Exit normally on a signal so the editor this process owns is recorded as stopped.
   for (const signal of ['SIGTERM', 'SIGINT']) process.once(signal, () => process.exit(0));
   await import(pathToFileURL(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'mcp', 'server.mjs')).href);
+} else if (command === 'setup-matting') {
+  // Subject tracing for cutout templates (about 1 GB), into DreamCut's app data.
+  const child = spawn(process.execPath, [path.join(EDITOR_ROOT, 'scripts', 'setup-matting.mjs')], { stdio: 'inherit', env: process.env });
+  child.on('exit', code => process.exit(code ?? 1));
 } else if (command === 'status') {
   const running = await runningEditor();
   console.log(running ? `DreamCut is running at ${running.origin} (pid ${running.pid}).` : 'DreamCut is not running.');
@@ -50,6 +55,6 @@ if (command === 'mcp') {
     editor.stopped.then(code => process.exit(code ?? 0));
   }
 } else {
-  console.error(`Unknown command "${command}". Use: dreamcut, dreamcut mcp, or dreamcut status.`);
+  console.error(`Unknown command "${command}". Use: dreamcut, dreamcut mcp, dreamcut status or dreamcut setup-matting.`);
   process.exit(2);
 }

@@ -116,3 +116,17 @@ test('an entry\'s own title outranks another entry\'s identical alias', () => {
   assert.ok(searchScore(named, 'Silhouette Window') > searchScore(aliased, 'Silhouette Window'));
   assert.ok(searchScore(aliased, 'Silhouette Window') > 0);
 });
+
+test('every skill a gallery template names can be read through the catalog', async () => {
+  const { skillEntries } = await import('./capability-catalog.mjs');
+  const skills = new Map(skillEntries().map(entry => [entry.id, entry]));
+  assert.ok(skills.has('skill:motion-graphics') && skills.has('skill:open-edit-proposals'));
+  for (const effect of galleryFixture()) {
+    const result = queryCatalog({ action: 'get', id: agentTemplate(effect).id }, createToolSelection(), [], [agentTemplate(effect)]);
+    assert.ok(skills.has(result.skill), `${effect.title} names ${result.skill}`);
+  }
+  const skill = queryCatalog({ action: 'get', id: 'skill:motion-graphics' }, createToolSelection(), []);
+  assert.match(skill.instructions, /^---\nname: motion-graphics/);
+  assert.ok(fs.existsSync(path.join(skill.folder, 'SKILL.md')));
+  assert.equal(queryCatalog({ action: 'search', query: 'motion graphics skill' }, createToolSelection(), []).entries[0]?.id, 'skill:motion-graphics');
+});

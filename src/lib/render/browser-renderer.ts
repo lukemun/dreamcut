@@ -350,7 +350,9 @@ export async function createBrowserStillSession() {
         pages.delete(oldest);
       }
       const page = await browser.newPage({ viewport: { width: options.width, height: options.height }, deviceScaleFactor: 1 });
-      if (options.sessionCookie) await page.context().addCookies([{ ...options.sessionCookie, url: baseUrl, httpOnly: true, sameSite: "Strict" }]);
+      // Same session as exports: a DreamCut-started editor refuses /render-frame without it.
+      const cookie = options.sessionCookie ?? desktopRenderSessionCookie();
+      if (cookie) await page.context().addCookies([{ ...cookie, url: baseUrl, httpOnly: true, sameSite: "Strict" }]);
       const errors: string[] = [];
       const tracked: Entry = { page, errors, resources: new Map(), pending: [], fingerprintFailed: false };
       page.on("response", response => {

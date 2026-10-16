@@ -53,3 +53,18 @@ export function projectsRootFor(editorRoot, env = process.env) {
   if (env.DREAMCUT_DEFAULT_PROJECTS_DIR?.trim()) return path.resolve(env.DREAMCUT_DEFAULT_PROJECTS_DIR.trim());
   return path.join(editorRoot, "projects");
 }
+
+/**
+ * Whether a project can be created now. A source checkout always can (./projects). The packaged runtime
+ * keeps projects in the creator's DreamCut Library, so until one is chosen it refuses with
+ * LIBRARY_NOT_CONFIGURED rather than hiding new projects in app data; an older install that already
+ * keeps projects in its app-data fallback carries on there.
+ */
+export function libraryRequired(editorRoot, env = process.env) {
+  if (env.TIMELINE_PROJECTS_DIR?.trim() || !env.DREAMCUT_DEFAULT_PROJECTS_DIR?.trim()) return false;
+  const library = chosenLibrary(env);
+  if (library && fs.existsSync(path.join(library, "dreamcut-library.json"))) return false;
+  const fallback = path.resolve(env.DREAMCUT_DEFAULT_PROJECTS_DIR.trim());
+  try { if (fs.readdirSync(fallback).some(name => !name.startsWith("."))) return false; } catch { /* none yet */ }
+  return true;
+}

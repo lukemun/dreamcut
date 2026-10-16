@@ -76,20 +76,21 @@ for (const item of [...inputs].sort()) {
 }
 // Explicit runtime resources that static server tracing cannot discover.
 // Next's runtime config loader dynamically resolves compiler helpers even in
-// production. Preserve the owning package rather than patching files one by one.
-for (const name of ['next', 'tsx']) {
+// production, and HyperFrames reads its browser audit scripts and studio from its own dist folder at run
+// time. Preserve the owning package rather than patching files one by one.
+for (const name of ['next', 'tsx', 'hyperframes']) {
   const source = await fs.realpath(path.join(root, 'node_modules', name));
   const destination = await fs.realpath(path.join(service, 'node_modules', name));
   await copyRuntime(source, destination, {contents:true});
 }
-for (const folder of [build, 'public', 'src', 'docs/effects', 'scripts', 'mcp']) {
+for (const folder of [build, 'public', 'src', 'docs/effects', 'docs/standards', 'docs/architecture', '.agents/skills', 'scripts', 'mcp']) {
   await fs.cp(path.join(root, folder), path.join(service, folder), { recursive: true, mode: constants.COPYFILE_FICLONE,
     filter: source => packageInput(path.relative(root, source)) && !source.endsWith('.test.ts') && !source.endsWith('.test.tsx') });
 }
 await fs.cp(path.join(root, 'node_modules/canvaskit-wasm/bin'), path.join(service, 'node_modules/canvaskit-wasm/bin'), { recursive: true, dereference: true });
 await fs.mkdir(path.join(service, 'docs/tools'), { recursive: true });
 await fs.copyFile(path.join(root, 'docs/tools/registry.json'), path.join(service, 'docs/tools/registry.json'));
-for (const file of ['tsconfig.json', 'pnpm-lock.yaml']) await fs.copyFile(path.join(root, file), path.join(service, file));
+for (const file of ['tsconfig.json', 'pnpm-lock.yaml', 'AGENTS.md']) await fs.copyFile(path.join(root, file), path.join(service, file));
 await fs.writeFile(path.join(service, 'package.json'), JSON.stringify({ name: 'dreamcut-service', private: true }));
 await fs.writeFile(path.join(service, 'desktop-next-config.json'), JSON.stringify({
   distDir: build, devIndicators: false, serverExternalPackages: manifest.config.serverExternalPackages,

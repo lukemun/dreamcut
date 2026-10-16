@@ -30,6 +30,7 @@ export function createAssemblyWorkspace(raw: AssemblyCreateRequest) {
   const directory = projectDir(request.project_id);
   let ownsDirectory = false;
   try {
+    fs.mkdirSync(path.dirname(directory), { recursive: true });
     fs.mkdirSync(directory, { recursive: false });
     ownsDirectory = true;
     createProject(request.project_id, request.delivery_target, request.title, {

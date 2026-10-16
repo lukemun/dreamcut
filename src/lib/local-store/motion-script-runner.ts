@@ -27,9 +27,12 @@ export function runMotionScript<T>(script: "hyperframes-overlay" | "sound-synth"
     child.once("error", reject);
     child.once("close", (code) => {
       if (code !== 0) {
-        // The CLI throws with the validation message; surface the last error line, not a stack.
-        const message = output.split("\n").map((line) => line.trim()).filter((line) => line.startsWith("Error: "))
-          .map((line) => line.slice(7)).pop();
+        // The CLI throws with the validation message; surface the last error and the detail lines under it
+        // (a failed HyperFrames check names its cause there), not a stack.
+        const lines = output.split("\n").map((line) => line.trim());
+        const start = lines.map((line) => line.startsWith("Error: ")).lastIndexOf(true);
+        const message = start < 0 ? undefined : [lines[start].slice(7), ...lines.slice(start + 1)
+          .filter((line) => line && !/^at\s/.test(line) && !/^Node\.js v\d/.test(line))].join("\n").slice(0, 2000);
         reject(new Error(message || output.trim() || `${script} exited with code ${code ?? "unknown"}`));
         return;
       }

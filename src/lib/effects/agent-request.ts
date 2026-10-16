@@ -11,7 +11,7 @@ export function effectRecipeRequest(effect: GuideEffect, { resolved = false } = 
   return [
     `Use the ${effect.skill} skill for "${effect.title}" (recipe: ${effect.id ?? effect.skill}).`,
     resolved
-      ? effect.implementation !== 'implemented' && shared ? `Its shared catalog entry is capability_catalog get ${effect.id}. Read the owning skill before preparing the edit.` : 'Read the owning skill before preparing the edit.'
+      ? effect.implementation !== 'implemented' && shared ? `Its shared catalog entry is capability_catalog get ${effect.id}. Read its skill (capability_catalog get skill:${effect.skill}) before preparing the edit.` : `Read its skill (capability_catalog get skill:${effect.skill}) before preparing the edit.`
       : effect.implementation === 'implemented' ? `Read the ${effect.id} construction brief in src/lib/effects/promoted-recipes.ts and its owning skill before preparing the edit.` : shared ? `For a shared catalog recipe, read docs/effects/catalog.json entry ${effect.id} and its owning skill before preparing the edit.` : '',
     effect.prompt,
     'My inputs and target: [attach or identify my files, target clips, order and desired timing].',

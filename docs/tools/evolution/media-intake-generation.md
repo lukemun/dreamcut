@@ -205,3 +205,15 @@ instructions tell every connected agent to start the editor itself when it does 
 built-in browser, reopen it at each returned `review_url`, and link the project in replies.
 Tool results' relative `review_url` is now absolute, and EDITOR_UNAVAILABLE recovery says to
 start the editor rather than ask the creator. Verified by MCP tests and an initialize probe.
+
+2026-10-16 — Footage is described by the creator's own agent (creator direction: analysis uses
+whatever agent the creator runs, never a hidden one). Background import analysis, which ran a
+separately configured model (`codex exec` by default), is now opt-in with
+`DREAMCUT_IMPORT_ANALYSIS=worker`. New `media_describe` (contract version 1): `plan` lists the
+project's imported videos without a description and the source times to inspect; the agent looks
+at them through `source_evidence` and `record`s one observation per planned time plus a summary,
+published like a worker result so `video_search` finds it and recorded as a complete import job
+authored by the connected client. `media_import` results point to it when videos were imported.
+Installed runtimes (`dreamcut mcp`) instructions name it. Verified by unit tests (an agent
+description makes a video searchable; an incomplete one is refused) and clean-environment agent
+runs with Claude Code and Codex on the 0.2.1 build.

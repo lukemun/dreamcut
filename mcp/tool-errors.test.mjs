@@ -11,6 +11,7 @@ import { fileURLToPath } from "node:url";
 import { describeValidationIssue, issueFieldNotes, trimValidatorPatterns, unknownFieldHints } from "./argument-errors.mjs";
 import { instrumentArgs, instrumentResult } from "./instrument-args.mjs";
 import { capText, httpFailure, redactLocalText, scriptFailure, toolFailure } from "./tool-runtime.mjs";
+import { projectsRootFor } from "./projects-root.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const UUID_REGEX = "/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/";
@@ -64,8 +65,8 @@ test("F8: script failures carry a typed code and never a stack, absolute path or
   assert.doesNotMatch(text, new RegExp(REPO.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.doesNotMatch(text, /\n\s+at |node_modules|module_job/);
   assert.ok(text.length < 3000);
-  // The projects root follows TIMELINE_PROJECTS_DIR, which CI points at an isolated folder.
-  const projectsRoot = path.resolve(REPO, process.env.TIMELINE_PROJECTS_DIR ?? "projects");
+  // The projects root follows TIMELINE_PROJECTS_DIR or the creator's chosen Library, whichever this machine has.
+  const projectsRoot = projectsRootFor(REPO);
   assert.equal(redactLocalText(`${projectsRoot}/demo/timeline.json`), "projects/demo/timeline.json");
   assert.ok(capText("y".repeat(10_000)).length < 2100);
   const untyped = toolFailure(new Error(`boom at ${os.homedir()}/secret/file.txt\n    at x (${REPO}/a.mjs:1:1)`));

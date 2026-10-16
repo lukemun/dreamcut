@@ -239,7 +239,7 @@ export async function keepAssetOutput(projectId: string, id: string, outputId: s
       }] });
     }
     let annotationStatus = "queued";
-    try { annotationStatus = enqueueImportJob(projectId, asset).status; } catch { annotationStatus = "failed"; }
+    try { annotationStatus = enqueueImportJob(projectId, asset)?.status ?? "not_requested"; } catch { annotationStatus = "failed"; }
     return withAssetJobLock(projectId, id, () => {
       const fresh = readAssetJob(projectId, id);
       const updated = { ...fresh, updatedAt: new Date().toISOString(), outputs: fresh.outputs.map(o => o.id === outputId ? { ...o, assetId: asset.asset_id, keptSource: asset.media_path, annotation: annotation?.trim() || o.annotation, annotationStatus } : o) };

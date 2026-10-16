@@ -77,6 +77,9 @@ export function combineMaskPixels(parent: Buffer, other: Buffer, width: number, 
 }
 async function runtimeFingerprint() {
   const root = path.resolve(process.env.TIMELINE_MATTING_DIR ?? ".matting");
+  if (!fs.existsSync(path.join(root, "sam2.1_hiera_small.pt")) || !fs.existsSync(path.join(root, "venv"))) {
+    throw Object.assign(new Error("Subject tracing is not installed. It is a one-time download of about 1 GB: ask the creator, then call cutout_setup with action install, wait until its status is ready, and retry."), { code: "MATTING_NOT_INSTALLED" });
+  }
   // Model and implementation changes invalidate reuse. Missing runtimes fail explicitly.
   // The worker scripts are tracked under scripts/matting; the model stays in the local environment.
   const hashes = await Promise.all([

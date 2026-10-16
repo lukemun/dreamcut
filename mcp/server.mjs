@@ -35,6 +35,7 @@ import { runLocalEditorScript } from "./local-script-runner.mjs";
 import path from "node:path";
 import fs from "node:fs";
 import readline from "node:readline";
+import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 import {
@@ -57,9 +58,12 @@ const MCP_SESSION_ID = randomUUID();
 // Product signals name their client; the desktop harness sets this when it spawns the server.
 const SIGNAL_CLIENT = process.env.DREAMCUT_MCP_CLIENT === "dreamcut-harness" ? "dreamcut-harness" : "mcp-direct";
 const signal = built => { void sendSignal(body => http("POST", "/api/agent/product-signals", body), built); };
+/** The agent app that connected (initialize clientInfo.name), for authorship of what it records. */
+let connectedClient = null;
+const clientName = () => connectedClient;
 const signalContext = projectId => ({ sessionId: MCP_SESSION_ID, client: SIGNAL_CLIENT, projectId });
 import { desktopServiceAuth } from './desktop-service-auth.mjs';
-import { projectsRootFor } from './projects-root.mjs';
+import { libraryRequired, projectsRootFor } from './projects-root.mjs';
 import { autostartEditorConnection, signInUrl } from './editor-runtime.mjs';
 const BASE_URL = (process.env.TIMELINE_EDITOR_BASE_URL ?? "http://127.0.0.1:3123").replace(/\/$/, "");
 /**
@@ -75,8 +79,23 @@ const autostartEditor = fixedEditor ? null : autostartEditorConnection({ describ
 /** Run `send` against the editor; an autostarted editor that went away is started or reused again. */
 const withEditor = send => fixedEditor ? fixedEditor.then(send) : autostartEditor.request(send);
 const EDITOR_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-/** Shipped with the server so any agent, whatever its own instruction file, keeps the editor in front of the creator. */
-const EDITOR_PRESENCE_INSTRUCTIONS =
+/**
+ * Shipped with the server so any agent, whatever its own instruction file, keeps the editor in front of the
+ * creator. An installed DreamCut (`dreamcut mcp`) starts its own editor on a port chosen per launch behind a
+ * sign-in link, so its instructions name editor_open and returned links, never a fixed address.
+ */
+const AUTOSTART_PRESENCE_INSTRUCTIONS =
+  `Keep the DreamCut editor open in front of the creator whenever you work on a project. DreamCut starts its own editor: `
+  + `call editor_open (with project_id once the project is known) and open the single-use sign-in url it returns in your built-in browser `
+  + `(Claude Code: the Browser pane; Codex or Cursor: their browser) or give it to the creator to open; editor_open never opens a browser itself. `
+  + `The editor's address changes each launch, so never guess a port: use the urls DreamCut returns. Tool results with review_url also return `
+  + `sign_in_url, a single-use link to the same page for a browser that is not signed in yet. Before ending a turn that refers to a project, call `
+  + `editor_context_get with its project_id; if project_shown.showing is false, call editor_open for it and open or share the link. `
+  + `Opening or viewing the editor never approves, generates or applies anything.`;
+const SKILL_INSTRUCTIONS = ` DreamCut's skills are in capability_catalog (search, or get skill:<name>): read skill:open-edit-proposals before `
+  + `changing an existing timeline and skill:editorial-assembly before building a new edit; a template names its own skill. `
+  + `Footage analysis (visual_analyze, video_search) uses you: look at the frames DreamCut returns and record what you see; DreamCut does not send footage to another model unless its owner turned background analysis on.`;
+const EDITOR_PRESENCE_INSTRUCTIONS = autostartEditor ? AUTOSTART_PRESENCE_INSTRUCTIONS + SKILL_INSTRUCTIONS :
   `Keep the DreamCut editor open in front of the creator whenever you work on a project. `
   + `Check that ${BASE_URL} answers; if it does not, start it yourself: run \`pnpm dev\` in ${EDITOR_ROOT} with your preview/launch tool `
   + `(Claude Code: add a launch configuration for it and preview_start it; otherwise a background terminal), wait until it answers, then continue. `
@@ -84,7 +103,49 @@ const EDITOR_PRESENCE_INSTRUCTIONS =
   + `when the project changes or a tool returns review_url (proposals, Generate drafts and results): open that URL so the creator sees what is ready. `
   + `Before ending a turn that refers to a project, call editor_context_get with its project_id; if project_shown.showing is false, open the project (or the review_url you are pointing at) in your built-in browser. `
   + `End every such reply with a link to it: [<project title>](${BASE_URL}/p/<project_id>). `
-  + `Opening or viewing the editor never approves, generates or applies anything.`;
+  + `Opening or viewing the editor never approves, generates or applies anything.` + SKILL_INSTRUCTIONS;
+/**
+ * Absolute review links on the editor actually running: a development server's fixed address, or an installed
+ * editor's per-launch origin plus a single-use sign-in link to the same page.
+ */
+async function reviewLinks(reviewPath) {
+  return withEditor(async ({ base, runtime }) => {
+    if (!runtime) return { review_url: `${base}${reviewPath}` };
+    try { return { review_url: `${base}${reviewPath}`, sign_in_url: (await signInUrl(runtime, reviewPath)).url }; }
+    catch { return { review_url: `${base}${reviewPath}` }; }
+  });
+}
+/**
+ * Subject tracing lives in TIMELINE_MATTING_DIR (an installed runtime's app data) or the checkout's .matting.
+ * The installer (scripts/setup-matting.mjs) runs detached, so it outlives this session; its log is the status.
+ */
+function mattingSetup(action) {
+  const dir = path.resolve(EDITOR_ROOT, process.env.TIMELINE_MATTING_DIR ?? ".matting");
+  const log = path.join(dir, "setup.log"), pidFile = path.join(dir, "setup.pid");
+  const ready = fs.existsSync(path.join(dir, "sam2.1_hiera_small.pt")) && fs.existsSync(path.join(dir, "venv"));
+  const running = (() => { try { process.kill(Number(fs.readFileSync(pidFile, "utf8")), 0); return true; } catch { return false; } })();
+  const tail = () => { try { return fs.readFileSync(log, "utf8").trim().split("\n").slice(-3).join("\n"); } catch { return ""; } };
+  if (action === "install" && !running && !ready) {
+    fs.mkdirSync(dir, { recursive: true });
+    const out = fs.openSync(log, "w");
+    const child = spawn(process.execPath, [path.join(EDITOR_ROOT, "scripts", "setup-matting.mjs"), "--dir", dir], { cwd: EDITOR_ROOT, detached: true, stdio: ["ignore", out, out], env: process.env });
+    fs.closeSync(out);
+    fs.writeFileSync(pidFile, String(child.pid));
+    child.unref();
+    return { state: "installing", next: "Poll cutout_setup status every minute or so; it usually takes a few minutes." };
+  }
+  const state = ready && !running ? "ready" : running ? "installing" : fs.existsSync(log) ? "failed" : "not_installed";
+  return { state, ...(state === "ready" ? {} : { log_tail: tail() }),
+    ...(state === "not_installed" || state === "failed" ? { next: "Ask the creator before the one-time download of about 1 GB, then call cutout_setup with action install." } : {}) };
+}
+/** Tools that can create a project; they need the creator's Library first (mcp/projects-root.mjs). */
+const PROJECT_CREATING_TOOLS = new Set(["assembly_create", "audition_create", "media_import", "storyboard_draft", "storyboard_reference_draft"]);
+function libraryNotConfigured() {
+  const message = "DreamCut has no Library yet, so it has nowhere to keep projects. Ask the creator where to keep them "
+    + "(library_status suggested_dir is the usual place), then call library_setup with action create and that dir, and retry.";
+  return Object.assign(new Error(message), { toolError: { schema_version: 1, code: "LIBRARY_NOT_CONFIGURED", message, retryable: true, state_changed: false,
+    recovery: { action: "library_setup", reason: "Create the Library where the creator chooses, then retry this call." } } });
+}
 /** Resolved per use, so a Library chosen while the server runs takes effect. */
 const projectsDir = () => projectsRootFor(EDITOR_ROOT);
 const PROTOCOL_VERSION = "2024-11-05";
@@ -114,7 +175,7 @@ const FEEDBACK_IDS = { type: "array", maxItems: 100, uniqueItems: true, items: {
 
 const TOOLS = {
   editor_open: {
-    description: "Open the DreamCut editor for the creator. Starts the local editor if it is not running and returns a single-use sign-in link (valid about two minutes) to open in your built-in browser, or for the creator to open in any browser. Optionally lands on a project or its storyboard. The editor runs only on this computer (127.0.0.1); nothing is uploaded. Call again for a fresh link if one expires.",
+    description: "Open the DreamCut editor for the creator. Starts the local editor if it is not running and returns a single-use sign-in link (valid about two minutes) to open in your built-in browser, or for the creator to open in any browser; it never opens a browser itself. Optionally lands on a project or its storyboard. The editor runs only on this computer (127.0.0.1); nothing is uploaded. Call again for a fresh link if one expires.",
     inputSchema: { type: "object", additionalProperties: false, properties: {
       project_id: { ...PROJECT_ID, description: "Optional project to open (the folder name under the Library's projects/). Omit for the projects home." },
       page: { type: "string", enum: ["timeline", "storyboard"], default: "timeline", description: "With project_id: timeline (the editor) or storyboard." },
@@ -125,7 +186,8 @@ const TOOLS = {
       return withEditor(async ({ base, runtime }) => {
         if (!runtime) return { url: `${base}${next}`, sign_in: "not required (development server)" };
         const link = await signInUrl(runtime, next);
-        return { url: link.url, expires_in_seconds: link.expires_in_seconds, single_use: true };
+        return { url: link.url, expires_in_seconds: link.expires_in_seconds, single_use: true,
+          opened: false, next_step: "Nothing was opened. Open url in your browser, or give it to the creator to open." };
       });
     },
   },
@@ -292,6 +354,22 @@ const TOOLS = {
       return http("GET", `/api/video-search?${params}`);
     },
   },
+  media_describe: {
+    description: "Describe imported videos yourself so video_search can find them; DreamCut does not describe footage with another model unless its owner turned that on. action plan lists each imported video in the project still without a description (or the named asset_id) with source_relative_path and the source times_seconds to inspect (one per second plus the ending). Look at those frames with source_evidence (up to 12 times per call), then action record with that asset_id, one frame per planned time in order (time_seconds, what you actually see, specific tags), a whole-clip summary and tags. Describe only what is visible; list uncertainties. Saves analysis only: no timeline edit, import or export.",
+    inputSchema: { type: "object", additionalProperties: false, properties: {
+      project_id: PROJECT_ID,
+      action: { type: "string", enum: ["plan", "record"], default: "plan", description: "plan: which videos need describing and the times to look at. record: save one video's description." },
+      asset_id: { type: "string", description: "The imported video (from media_import or plan). Required for record." },
+      summary: { type: "string", maxLength: 4000, description: "For record: what the whole clip shows." },
+      tags: { type: "array", maxItems: 50, items: { type: "string", maxLength: 100 }, description: "For record: subjects, setting and actions across the clip." },
+      frames: { type: "array", maxItems: 10000, description: "For record: one entry per planned time, in order.", items: { type: "object", additionalProperties: false, properties: {
+        time_seconds: { type: "number", minimum: 0, description: "A planned source time, in order." }, description: { type: "string", maxLength: 2000, description: "What is visible at that time." }, tags: { type: "array", maxItems: 24, items: { type: "string", maxLength: 100 }, description: "Specific subject, action and setting words." } },
+        required: ["time_seconds", "description", "tags"] } },
+      uncertainties: { type: "array", maxItems: 100, items: { type: "string", maxLength: 1000 }, description: "For record: anything you could not make out." },
+    }, required: ["project_id"] },
+    handler: ({ project_id, action = "plan", ...body }) => http("POST", `/api/projects/${encodeURIComponent(project_id)}/media-descriptions`,
+      action === "plan" ? { action, ...(body.asset_id ? { asset_id: body.asset_id } : {}) } : { action, author: `agent:${clientName() ?? "unknown"}`, ...body }),
+  },
   media_import: {
     description:
       "Import one or more local media files into a DreamCut project and record source "
@@ -325,7 +403,9 @@ const TOOLS = {
       const result = await runEditorScript("import-media", ["--request-base64", encoded]);
       if (result.exit_code !== 0) throw scriptFailure("media_import", result, "Media import failed");
       const lines = result.stdout.trim().split("\n").filter(Boolean);
-      return JSON.parse(lines.at(-1));
+      const imported = JSON.parse(lines.at(-1));
+      const videos = (imported?.assets ?? []).filter(asset => /\.(mov|mp4|m4v|webm)$/i.test(asset?.media_path ?? asset?.original_filename ?? ""));
+      return videos.length ? { ...imported, describe_footage: "To make these videos searchable, look at them yourself: media_describe action plan, then source_evidence and media_describe action record." } : imported;
     },
   },
   spatial_assess: {
@@ -1003,6 +1083,13 @@ const TOOLS = {
     inputSchema:{type:"object",properties:{project_id:PROJECT_ID,job_id:{type:"string"}},required:["project_id","job_id"]},
     handler:({project_id,job_id})=>http("POST",`/api/projects/${project_id}/analysis/cutout-preparation`,{action:"status",job_id}),
   },
+  cutout_setup: {
+    description: "Install subject tracing (the local SAM 2.1 model and its Python environment, about 1 GB, once), which cutout_prepare and every cutout template need. action status reports ready, installing or failed with the last log lines. action install starts the download in the background; call it only after the creator agrees to the download, then poll status. No project or timeline changes.",
+    inputSchema: { type: "object", additionalProperties: false, properties: {
+      action: { type: "string", enum: ["status", "install"], default: "status", description: "status: is it installed. install: start the one-time download after the creator agrees." },
+    } },
+    handler: ({ action = "status" }) => mattingSetup(action),
+  },
   cutout_correct: {
     description:"Create an immutable union/intersection correction using two prepared cutout receipts with identical source hash, interval, cadence and geometry. Requires explicit half-open zero-based frame range and normalized ROI [left,top,right,bottom]. Unaffected mask frames are copied byte-identically; pixels outside ROI remain unchanged. Parents are preserved. Use cutout_prepare with parent_cutout_id for new SAM points. No arbitrary scripts or timeline edits; poll cutout_status and inspect result.",
     inputSchema:{type:"object",properties:{project_id:PROJECT_ID,parent_cutout_id:{type:"string"},other_cutout_id:{type:"string"},mode:{type:"string",enum:["union","intersection"]},frame_start:{type:"integer",minimum:0},frame_end:{type:"integer",minimum:1},roi:{type:"array",minItems:4,maxItems:4,items:{type:"number",minimum:0,maximum:1}},retry:{type:"boolean"}},required:["project_id","parent_cutout_id","other_cutout_id","mode","frame_start","frame_end","roi"]},
@@ -1415,8 +1502,17 @@ async function http(method, pathName, body) {
   return parsed;
 }
 
-function runEditorScript(script, args, timeoutMs = 10 * 60 * 1000) {
-  return runLocalEditorScript(EDITOR_ROOT, script, args, timeoutMs, transportLifetime.signal);
+/**
+ * Scripts resolve projects and reach the editor the same way this server does: the resolved projects folder
+ * (the creator's Library) and, for an editor DreamCut started itself, its per-launch address and session.
+ */
+async function runEditorScript(script, args, timeoutMs = 10 * 60 * 1000) {
+  const env = { ...process.env, TIMELINE_PROJECTS_DIR: projectsDir() };
+  if (autostartEditor) await withEditor(async ({ base, runtime }) => {
+    env.TIMELINE_EDITOR_BASE_URL = base;
+    if (runtime?.token) env.DREAMCUT_SERVICE_TOKEN = runtime.token;
+  });
+  return runLocalEditorScript(EDITOR_ROOT, script, args, timeoutMs, transportLifetime.signal, env);
 }
 
 /**
@@ -1563,6 +1659,7 @@ async function handleMessage(message) {
   if (id == null) return;
   try {
     if (method === "initialize") {
+      connectedClient = typeof params?.clientInfo?.name === "string" ? params.clientInfo.name.slice(0, 80) : null;
       send({
         jsonrpc: "2.0",
         id,
@@ -1609,6 +1706,7 @@ async function handleMessage(message) {
         if (HUMAN_ONLY_AGENT_MCP_TOOLS.has(params.name)) assertAgentMcpToolAllowed(params.name, args);
         if (!selection.enabled.has(params.name)) throw catalogError("TOOL_NOT_LOADED", "Discover and load the owning family through capability_catalog; host allowlists cannot be expanded.");
         assertAgentMcpToolAllowed(params?.name, args);
+        if (PROJECT_CREATING_TOOLS.has(params.name) && libraryRequired(EDITOR_ROOT)) throw libraryNotConfigured();
         const published = validationSchema(params.name);
         const unknown = published ? unknownFieldHints(published, args).slice(0, 8) : [];
         if (unknown.length) {
@@ -1621,7 +1719,7 @@ async function handleMessage(message) {
         if (params.name === "capability_catalog") signal(catalogSearchSignal(signalContext(args.project_id), args, result));
         if (params.name === "proposal_create") signal(proposalStagedSignal(signalContext(args.project_id), params.name, result));
         // Absolute so the agent can open it directly in its browser.
-        if (typeof result?.review_url === "string" && result.review_url.startsWith("/")) result.review_url = `${BASE_URL}${result.review_url}`;
+        if (typeof result?.review_url === "string" && result.review_url.startsWith("/")) Object.assign(result, await reviewLinks(result.review_url));
         send({
           jsonrpc: "2.0",
           id,
