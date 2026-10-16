@@ -6,7 +6,7 @@ import test from "node:test";
 import { renderStyleProfile, syncStyleProfile } from "./style-profile";
 import type { EditingPreference } from "./editing-memory";
 
-const template = fs.readFileSync("templates/style/STYLE.md", "utf8");
+const template = fs.readFileSync("src/lib/local-store/STYLE.template.md", "utf8");
 const item = (status: EditingPreference["status"], text: string): EditingPreference => ({ id: status, text, status, scope: "project", project_id: "one-project", category: "Visuals", origin: "human", evidence: ["user-choice"], updated_at: "2026-09-19" });
 
 test("one STYLE combines categories without promoting drafts or losing scope", () => {

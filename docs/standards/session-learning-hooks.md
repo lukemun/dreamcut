@@ -64,7 +64,7 @@ Only this checkout's sessions are covered. The existing retrospective worker's i
 
 ## Activate and verify
 
-Open Codex in this repository, run `/hooks`, review the three definitions in `.codex/hooks.json`, and trust them. Do not fabricate trust hashes or use a bypass flag. Restart/reopen the task afterward. Changes to the script require review even if the registered command has not changed. No universal user-level hooks are installed.
+The hooks are opt-in. Copy `scripts/session-learning/codex-hooks.example.json` to `.codex/hooks.json` (local and untracked), open Codex in this repository, run `/hooks`, review the three definitions and trust them. Do not fabricate trust hashes or use a bypass flag. Restart/reopen the task afterward. Changes to the script require review even if the registered command has not changed. No universal user-level hooks are installed.
 
 Verify quiet receipts for SessionStart, PreToolUse and PostToolUse during a harmless diagnostic. Ordinary UserPromptSubmit/Stop callbacks must return no closeout guidance or repair request even under an older registration. Only an explicit closeout validation should set closed=true. Separately verify desktop/nested tool coverage before claiming it works. Do not run a real export as a hook smoke test.
 

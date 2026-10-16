@@ -10,18 +10,18 @@ test("an empty image catalog is valid", () => {
 });
 
 test("the checked-in image catalog stays schema-valid", () => {
-  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "image-catalog/catalog.json"), "utf8"));
+  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "catalogs/images/catalog.json"), "utf8"));
   assert.equal(imageCatalogSchema.safeParse(catalog).success, true);
 });
 
 test("reference-only images are refused from the production catalog", () => {
-  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "image-catalog/catalog.json"), "utf8"));
+  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "catalogs/images/catalog.json"), "utf8"));
   catalog.images[0].source.source_status = "reference_only";
   assert.equal(imageCatalogSchema.safeParse(catalog).success, false);
 });
 
 test("rights status must agree with the catalog folder", () => {
-  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "image-catalog/catalog.json"), "utf8"));
+  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "catalogs/images/catalog.json"), "utf8"));
   catalog.images[0].source.source_status = "owned";
   assert.equal(imageCatalogSchema.safeParse(catalog).success, false);
 });

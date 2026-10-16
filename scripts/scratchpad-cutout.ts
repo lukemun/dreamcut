@@ -26,7 +26,7 @@ const source = path.join(projectMediaDir(project), parent.source_relative_path);
 const evidence = `instruments/custom-cutouts/${id}`;
 const cleanedMasks = path.join(projectDir(project), evidence, "masks");
 const cleanupArgs = [
-  ".matting/clean_mask_sequence.py", "--input", path.join(projectDir(project), parent.evidence_directory, "masks"), "--output", cleanedMasks,
+  "scripts/matting/clean_mask_sequence.py", "--input", path.join(projectDir(project), parent.evidence_directory, "masks"), "--output", cleanedMasks,
 ];
 if (fillAllEnclosed) cleanupArgs.push("--fill-all-enclosed");
 if (keepLargestComponent) cleanupArgs.push("--largest-component");

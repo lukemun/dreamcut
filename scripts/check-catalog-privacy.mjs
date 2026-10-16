@@ -17,7 +17,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { profileDir } from '../src/lib/local-store/profile-dir.ts';
 
-export const CATALOG_FILE = /^(?:image-catalog|visual-catalog|music-catalog|sfx-library)\/.+\.json$/;
+export const CATALOG_FILE = /^catalogs\/(?:images|visual|music|sfx)\/.+\.json$/;
 // Published docs, skills, Guide/preview manifests, site and source text (incl. tests): scanned for private terms
 // only, since they legitimately mention local paths and project workflows.
 export const TEXT_FILE = /^(?:docs\/.+|public\/(?:guide|recipe-previews)\/.+|site\/(?:src|public)\/.+|\.agents\/.+|mcp\/.+|src\/.+|scripts\/.+|README|AGENTS|[^/]+-CODEX)\.(?:md|json|html|ts|tsx|mjs|txt)$/;

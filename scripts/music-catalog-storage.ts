@@ -14,7 +14,7 @@ const flag = (name: string) => {
 const apply = args.includes("--apply");
 const sourceArg = flag("source");
 const receiptId = flag("receipt");
-const targetRoot = path.resolve(process.env.TIMELINE_MUSIC_CATALOG_DIR ?? "music-catalog");
+const targetRoot = path.resolve(process.env.TIMELINE_MUSIC_CATALOG_DIR ?? "catalogs/music");
 const catalogPath = path.join(targetRoot, "catalog.json");
 const catalog = musicCatalogSchema.parse(JSON.parse(fs.readFileSync(catalogPath, "utf8")));
 const sourceRoot = sourceArg ? path.resolve(sourceArg) : null;

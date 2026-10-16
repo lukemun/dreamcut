@@ -13,6 +13,6 @@ export function localCollectorCommand() {
   const verified = path.resolve("private/tooling/otel-0.162.0/otelcol-contrib");
   return {
     binary: readEnv("OTELCOL_EXECUTABLE") || (fs.existsSync(verified) ? verified : "otelcol-contrib"),
-    config: path.resolve("tooling/otel/collector.yaml"),
+    config: path.resolve("scripts/otel/collector.yaml"),
   };
 }

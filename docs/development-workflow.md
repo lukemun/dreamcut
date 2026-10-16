@@ -61,8 +61,8 @@ bounded package qualification is recorded in the desktop plan; clean-Mac and sig
 
 Packaged projects and media catalogs default to the application's user-data directory,
 outside the replaceable app bundle. Set `DREAMCUT_WORKSPACE_ROOT` in the launch
-environment to reuse an existing workspace's `projects`, `sfx-library`,
-`music-catalog`, `image-catalog` and `visual-catalog` directories. Existing per-library
+environment to reuse an existing workspace's `projects`, `catalogs/sfx`,
+`catalogs/music`, `catalogs/images` and `catalogs/visual` directories. Existing per-library
 `TIMELINE_*_DIR` overrides take precedence. This is currently a launch configuration;
 a native workspace picker remains to be implemented.
 

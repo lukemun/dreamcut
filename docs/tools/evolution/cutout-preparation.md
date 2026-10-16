@@ -44,7 +44,7 @@ flat 30-minute subprocess timeout.
 `hand_cutout.py` now tracks sequences over `--chunk-frames` (400) in seeded sessions that
 share one frame at each seam; shorter sequences keep the single-session path. The SAM 2
 subprocess limit scales with frame count, the route allows 180 seconds, and the recipe is
-`sam2-custom-cutout/v4`. The chunk layout is unit-tested (`.matting/test_chunk_plan.py`);
+`sam2-custom-cutout/v4`. The chunk layout is unit-tested (`scripts/matting/test_chunk_plan.py`);
 the interval and timeout rules are tested in `custom-cutout.test.ts`.
 Real-footage check: the 600-frame window above, re-tracked with `--chunk-frames 200` (five
 sessions), matched the single-session masks at mean IoU 0.998 (minimum 0.9955, frame 436) with

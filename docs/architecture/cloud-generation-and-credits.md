@@ -1,7 +1,7 @@
 # Cloud generation, credits and purchases
 
-Status: cloud side live at dreamcut.io since 2026-10-11 (code in [`site/`](../../site), schema in
-[`supabase/migrations`](../../supabase/migrations)); the editor client is built (see [Editor client](#editor-client)).
+Status: cloud side live at dreamcut.io since 2026-10-11 (code in `site/`, schema in `supabase/migrations`, both in the private
+DreamCut Cloud repository); the editor client is built (see [Editor client](#editor-client)).
 It adds the only hosted pieces DreamCut has: accounts, credits and cloud generation.
 
 ## Business shape

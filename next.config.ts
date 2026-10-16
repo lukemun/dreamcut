@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
   ...(process.env.TIMELINE_NEXT_DIST_DIR === ".next-desktop" ? {
     experimental: { webpackMemoryOptimizations: true },
     webpack: (config) => { config.cache = false; return config; },
-    outputFileTracingExcludes: { "/*": ["./projects/**", "./private/**", "./personal/**", "./analysis/**", "./library/**", "./testing/results/**", "./.env*", "./.venv*/**", "./.matting/**", "./native/**/target/**", "./.next-*/cache/**", "./sfx-library/**", "./music-catalog/**", "./image-catalog/**", "./visual-catalog/**"] },
+    outputFileTracingExcludes: { "/*": ["./projects/**", "./private/**", "./personal/**", "./analysis/**", "./library/**", "./testing/results/**", "./.env*", "./.venv*/**", "./.matting/**", "./native/**/target/**", "./.next-*/cache/**", "./catalogs/sfx/**", "./catalogs/music/**", "./catalogs/images/**", "./catalogs/visual/**"] },
   } : {}),
   turbopack: {
     root: path.join(__dirname),

@@ -12,7 +12,7 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 
 /** Shell commands or repository file paths written as inline code in a skill. */
-export const SHELL_OR_FILE_REFERENCE = /`((?:pnpm|npx|node|tsx|python3?|ffmpeg|ffprobe|\.\/\.venv[\w-]*\/bin\/python)\s[^`]*|[^`\s]*(?:scripts\/|sfx-library\/|music-library\/|projects\/)[^`]*)`/g;
+export const SHELL_OR_FILE_REFERENCE = /`((?:pnpm|npx|node|tsx|python3?|ffmpeg|ffprobe|\.\/\.venv[\w-]*\/bin\/python)\s[^`]*|[^`\s]*(?:scripts\/|catalogs\/sfx\/|music-library\/|projects\/)[^`]*)`/g;
 
 export function checkAgentParity({ skillsDir = path.join(root, ".agents/skills"), exemptions = JSON.parse(read("docs/tools/agent-surface-exemptions.json")), source = registry, files = {
   session: read("desktop/editing-session.mjs"),

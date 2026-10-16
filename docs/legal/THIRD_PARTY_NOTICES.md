@@ -36,12 +36,12 @@ Notable transitive licenses include Apache-2.0, BSD, ISC, LGPL-3.0-or-later, MPL
 Bundled image, music, and sound-effect catalogs retain the source and attribution information stored beside
 their files. Do not remove those records when redistributing the catalog assets.
 
-- The `image-catalog` includes Unsplash images governed by the Unsplash License. Creator, source, acquisition,
-  and license records are in `image-catalog/sources.json`.
+- The `catalogs/images` includes Unsplash images governed by the Unsplash License. Creator, source, acquisition,
+  and license records are in `catalogs/images/sources.json`.
 - “Clair de lune,” performed by Laurens Goedhart, is distributed under CC BY 3.0. Credit: Claude Debussy,
-  performed by Laurens Goedhart. Source and license details are preserved in `music-catalog/catalog.json`.
+  performed by Laurens Goedhart. Source and license details are preserved in `catalogs/music/catalog.json`.
 - The bundled Satie recording is CC0 1.0, and the Bizet and Offenbach recordings are public-domain/CC0
-  sources. Their source records are in `music-catalog/catalog.json`.
+  sources. Their source records are in `catalogs/music/catalog.json`.
 
 ## Bundled font data
 

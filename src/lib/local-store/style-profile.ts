@@ -23,7 +23,7 @@ export function renderStyleProfile(template: string, preferences: EditingPrefere
 
 /** Historical projection writer retained for migration fixtures only. Runtime uses
  * style-document.ts; never call this to update an active personal document. */
-export function syncStyleProfile(directory: string, preferences: EditingPreference[], templatePath = path.join(process.cwd(), "templates/style/STYLE.md")) {
+export function syncStyleProfile(directory: string, preferences: EditingPreference[], templatePath = path.join(process.cwd(), "src/lib/local-store/STYLE.template.md")) {
   return syncProfileDocument(directory, preferences, "STYLE.md", templatePath, marker);
 }
 

@@ -18,10 +18,10 @@ function withLibraries(run: (root: string) => void) {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "personal-library-"));
     const previous = Object.fromEntries(KEYS.map((key) => [key, process.env[key]]));
     process.env.DREAMCUT_PROFILE_DIR = path.join(root, "profile");
-    process.env.TIMELINE_IMAGE_CATALOG_DIR = path.join(root, "image-catalog");
-    process.env.TIMELINE_VISUAL_CATALOG_DIR = path.join(root, "visual-catalog");
-    process.env.TIMELINE_MUSIC_CATALOG_DIR = path.join(root, "music-catalog");
-    process.env.TIMELINE_SFX_CATALOG_DIR = path.join(root, "sfx-library");
+    process.env.TIMELINE_IMAGE_CATALOG_DIR = path.join(root, "catalogs/images");
+    process.env.TIMELINE_VISUAL_CATALOG_DIR = path.join(root, "catalogs/visual");
+    process.env.TIMELINE_MUSIC_CATALOG_DIR = path.join(root, "catalogs/music");
+    process.env.TIMELINE_SFX_CATALOG_DIR = path.join(root, "catalogs/sfx");
     try { run(root); } finally {
       for (const key of KEYS) if (previous[key] === undefined) delete process.env[key]; else process.env[key] = previous[key];
       fs.rmSync(root, { recursive: true, force: true });
@@ -48,7 +48,7 @@ const sound = (id: string, file: string) => ({
 });
 
 test("a fresh checkout without a profile library reads the shared catalogs unchanged", withLibraries((root) => {
-  write(path.join(root, "image-catalog", "catalog.json"), { schema_version: 1, images: [image("stock", "owned/stock.png")] });
+  write(path.join(root, "catalogs/images", "catalog.json"), { schema_version: 1, images: [image("stock", "owned/stock.png")] });
   assert.deepEqual(readImageCatalog().images.map((entry) => [entry.id, entry.personal, entry.file]), [["stock", undefined, "owned/stock.png"]]);
   assert.deepEqual(readVisualCatalog().assets, []);
   assert.deepEqual(readMusicCatalog().tracks, []);
@@ -56,7 +56,7 @@ test("a fresh checkout without a profile library reads the shared catalogs uncha
 
 test("personal entries merge after shared ones, marked personal and resolved inside the profile library", withLibraries((root) => {
   const profile = path.join(root, "profile");
-  write(path.join(root, "image-catalog", "catalog.json"), { schema_version: 1, images: [image("stock", "owned/stock.png"), image("same", "owned/same.png")] });
+  write(path.join(root, "catalogs/images", "catalog.json"), { schema_version: 1, images: [image("stock", "owned/stock.png"), image("same", "owned/same.png")] });
   write(path.join(profile, "library", "images", "catalog.json"), { schema_version: 1, images: [image("mine", "owned/mine.png"), image("same", "owned/other.png")] });
   write(path.join(profile, "library", "images", "files", "owned", "mine.png"), "png");
   const merged = readImageCatalog().images;
@@ -69,7 +69,7 @@ test("personal entries merge after shared ones, marked personal and resolved ins
   assert.throws(() => resolveImageCatalogFile("_personal/../../../secret.png"), /Invalid personal library file path/);
   assert.throws(() => resolvePersonalLibraryFile("images", "owned/mine.png"), /Not a personal library file/);
   assert.equal(visualCatalogMediaRoot("_personal/owned/x.png"), path.join(profile, "library", "visuals", "files"));
-  assert.equal(visualCatalogMediaRoot("owned/x.png"), path.join(root, "visual-catalog", "media"));
+  assert.equal(visualCatalogMediaRoot("owned/x.png"), path.join(root, "catalogs/visual", "media"));
 }));
 
 test("personal music versions and sounds use the profile library and are searchable as personal", withLibraries((root) => {
@@ -82,7 +82,7 @@ test("personal music versions and sounds use the profile library and are searcha
   assert.equal(musicCatalogFileExists("_personal/owned/theme.mp3"), true);
   assert.equal(musicCatalogPreviewDir("_personal/owned/theme.mp3"), path.join(profile, "library", "music", "previews"));
 
-  write(path.join(root, "sfx-library", "catalog.json"), { schema_version: 1, sound_effects: [sound("shared", "owned/shared.wav")] });
+  write(path.join(root, "catalogs/sfx", "catalog.json"), { schema_version: 1, sound_effects: [sound("shared", "owned/shared.wav")] });
   write(path.join(profile, "library", "sfx", "catalog.json"), { schema_version: 1, sound_effects: [sound("mine", "owned/mine.wav"), { ...sound("reel", "owned/reel.wav"), category: "collection" }] });
   const effects = readSfxCatalog().sound_effects;
   assert.deepEqual(effects.map((effect) => effect.id), ["shared", "mine"]);

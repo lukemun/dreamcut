@@ -11,7 +11,7 @@ and the creator chooses by ear among proposal options. Read-only; no timeline wr
 
 ## 2026-10-11 — initial implementation
 
-- **Observation:** The sound-design skill told agents to read `sfx-library/catalog.json`, which
+- **Observation:** The sound-design skill told agents to read `catalogs/sfx/catalog.json`, which
   the in-editor agent cannot do, so it could not choose library sounds; the agent-parity check
   recorded this gap. The creator asked for auditions that understand what is in the video at
   that time.

@@ -9,7 +9,7 @@ The image catalog is the timeline editor's reusable still-image library.
 From the repository root, run `pnpm image-analyze` after adding or changing an image (`--personal` analyzes the profile library's `sources.json`). The analyzer records hashes, dimensions, palettes, global color statistics, and neutral 3×3 layout measurements. It does not add semantic tags, use cases, or placement recommendations.
 
 Add only images whose rights allow the intended use, preserve acquisition and attribution in `sources.json`,
-and review the repository's [third-party notices](../THIRD_PARTY_NOTICES.md) before redistributing catalog media.
+and review the repository's [third-party notices](../../docs/legal/THIRD_PARTY_NOTICES.md) before redistributing catalog media.
 
 ## Personal media stays out of this catalog
 

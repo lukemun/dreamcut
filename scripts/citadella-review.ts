@@ -42,7 +42,7 @@ async function main() {
     const common={project_id:projectId,responds_to_feedback_ids:[feedbackId]};
     const urls=[...new Set<string>(selected.map((e:any)=>e.source_url))];
     const sourceRoot=path.resolve(process.env.TIMELINE_PROJECTS_DIR??'projects',config.project_id,'media');
-    const files=urls.map(url=>{const projectPrefix=`/api/projects/${config.project_id}/media/`;const sfxPrefix='/api/sfx-catalog/media/'; const root=url.startsWith(projectPrefix)?sourceRoot:path.resolve('sfx-library/audio');const suffix=url.startsWith(projectPrefix)?url.slice(projectPrefix.length):url.startsWith(sfxPrefix)?url.slice(sfxPrefix.length):null;if(!suffix)throw new Error('Unsupported source URL');const file=path.resolve(root,decodeURIComponent(suffix));if(!file.startsWith(root+path.sep))throw new Error('Unsafe source');return file;});
+    const files=urls.map(url=>{const projectPrefix=`/api/projects/${config.project_id}/media/`;const sfxPrefix='/api/sfx-catalog/media/'; const root=url.startsWith(projectPrefix)?sourceRoot:path.resolve('catalogs/sfx/audio');const suffix=url.startsWith(projectPrefix)?url.slice(projectPrefix.length):url.startsWith(sfxPrefix)?url.slice(sfxPrefix.length):null;if(!suffix)throw new Error('Unsupported source URL');const file=path.resolve(root,decodeURIComponent(suffix));if(!file.startsWith(root+path.sep))throw new Error('Unsafe source');return file;});
     const imported=await call('media_import',{project_id:projectId,source_paths:files,storage_mode:'managed_copy',create_if_missing:false});
     const sourceMap=Object.fromEntries(urls.map((url,i)=>[url,imported.assets.find((a:any)=>a.source_path===files[i])?.source_url]));
     if(Object.values(sourceMap).some(v=>!v))throw new Error('Incomplete media import');

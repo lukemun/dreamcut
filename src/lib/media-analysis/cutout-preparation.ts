@@ -78,7 +78,10 @@ export function combineMaskPixels(parent: Buffer, other: Buffer, width: number, 
 async function runtimeFingerprint() {
   const root = path.resolve(process.env.TIMELINE_MATTING_DIR ?? ".matting");
   // Model and implementation changes invalidate reuse. Missing runtimes fail explicitly.
-  const hashes = await Promise.all(["hand_cutout.py", "mask_postprocess.py", "sam2.1_hiera_small.pt"].map(f => sha256(path.join(root,f))));
+  // The worker scripts are tracked under scripts/matting; the model stays in the local environment.
+  const hashes = await Promise.all([
+    path.resolve("scripts/matting/hand_cutout.py"), path.resolve("scripts/matting/mask_postprocess.py"), path.join(root, "sam2.1_hiera_small.pt"),
+  ].map(sha256));
   const version = await run(path.join(root,"venv/bin/python"), ["-c", "import importlib.metadata as m,json; print(json.dumps({p:m.version(p) for p in ['torch','sam2','numpy','Pillow','scipy']},sort_keys=True))"]);
   return createHash("sha256").update(JSON.stringify([hashes,version.stdout,await sha256(path.resolve("scripts/run-sam2-cutout.mjs"))])).digest("hex");
 }

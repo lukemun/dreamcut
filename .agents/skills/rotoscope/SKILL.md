@@ -105,7 +105,7 @@ node scripts/run-sam2-cutout.mjs --frames <tracking-frame-directory> \
 ```
 
 This lower-level path uses pixel coordinates in the extracted tracking frames,
-not normalized points. Read [the local setup](../../../.matting/README.md) and
+not normalized points. Read [the local setup](../../../scripts/matting/README.md) and
 [runner](../../../scripts/run-sam2-cutout.mjs) before using it. It requires an optional
 local Python environment, SAM 2 dependencies and checkpoint; `TIMELINE_MATTING_DIR`
 selects its root. Detect missing dependencies and report them. Do not silently

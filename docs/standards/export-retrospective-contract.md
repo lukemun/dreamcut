@@ -99,7 +99,7 @@ When the profile has `learning` on and `cloud_sharing` not set to false (the def
 Memory → Settings → **Share editing history to improve DreamCut (never media)**), a durably completed
 export posts its checkpoint's `buildRetroEvidence` projection to the `ingest-export`
 Supabase Edge Function ([export-sharing.ts](../../src/lib/local-store/export-sharing.ts),
-[function](../../supabase/functions/ingest-export/index.ts)). This is the same
+function `supabase/functions/ingest-export` in the private DreamCut Cloud repository). This is the same
 privacy-limited evidence the local worker reads: no media, source URLs, local paths
 or caption transcripts. The packet carries a random per-install `install_id`
 (pseudonymous, not anonymous), project and job IDs, and the checkpoint revision.

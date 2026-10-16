@@ -5,8 +5,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 const repoRoot = process.cwd();
-const manifestPath = resolve(repoRoot, process.argv[2] ?? "sfx-library/source-manifests/youtube-sfx-compilations-2026-09-16.json");
-const catalogPath = resolve(repoRoot, "sfx-library/catalog.json");
+const manifestPath = resolve(repoRoot, process.argv[2] ?? "catalogs/sfx/source-manifests/youtube-sfx-compilations-2026-09-16.json");
+const catalogPath = resolve(repoRoot, "catalogs/sfx/catalog.json");
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
 const managedSourceUrls = new Set(manifest.sources.map((source) => source.url));
@@ -23,7 +23,7 @@ for (const source of manifest.sources) {
     }
     const entry = entriesBySourceAndFile.get(`${source.url}\0${clipId}.wav`);
     if (!entry) throw new Error(`Catalog entry missing for ${source.id}/${clipId}`);
-    const outputPath = resolve(repoRoot, "sfx-library/audio", entry.file);
+    const outputPath = resolve(repoRoot, "catalogs/sfx/audio", entry.file);
     execFileSync("ffmpeg", [
       "-loglevel", "error", "-y", "-i", masterPath,
       "-af", `atrim=start=${startSeconds}:end=${endSeconds},asetpts=PTS-STARTPTS`,

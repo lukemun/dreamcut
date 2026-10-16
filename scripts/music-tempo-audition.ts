@@ -7,7 +7,7 @@ if (!input) throw new Error('usage: pnpm music-tempo-audition <audio-file> [--se
 
 const python = process.env.MUSIC_PYTHON ?? path.join(__dirname, "..", ".venv-music", "bin", "python");
 if (!fs.existsSync(python)) {
-  throw new Error(`No analysis python at ${python}. See music-catalog/README.md, or set MUSIC_PYTHON.`);
+  throw new Error(`No analysis python at ${python}. See catalogs/music/README.md, or set MUSIC_PYTHON.`);
 }
 
 execFileSync(python, [path.join(__dirname, "music-tempo-audition.py"), ...process.argv.slice(2)], {

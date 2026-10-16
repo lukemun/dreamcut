@@ -6,7 +6,7 @@ import path from "node:path";
 import { appendCustomCutout, type CustomCutoutPoint, type CustomCutoutReceipt } from "@/lib/local-store/custom-cutouts";
 import { projectInstrumentsDir, projectMediaDir } from "@/lib/local-store/paths";
 
-// Long windows track in bounded SAM 2 sessions (.matting/hand_cutout.py --chunk-frames), so the
+// Long windows track in bounded SAM 2 sessions (scripts/matting/hand_cutout.py --chunk-frames), so the
 // limit is set by job time, not device memory: three minutes covers a typical talking-head take.
 const MAX_INTERVAL_SECONDS = 180;
 // SAM 2 tracks roughly one 1080p frame per second on Apple silicon; allow headroom over that.

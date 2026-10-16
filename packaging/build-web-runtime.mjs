@@ -48,7 +48,7 @@ for (const file of await shellFiles(path.join(repo, 'desktop'), ['service.mjs', 
 await fs.mkdir(path.join(out, 'bin'), { recursive: true });
 await fs.copyFile(path.join(repo, 'bin', 'dreamcut.mjs'), path.join(out, 'bin', 'dreamcut.mjs'));
 // Every distributed copy carries the license and the third-party notices.
-for (const file of ['LICENSE', 'THIRD_PARTY_NOTICES.md']) await fs.copyFile(path.join(repo, file), path.join(out, file));
+for (const file of ['LICENSE', 'docs/legal/THIRD_PARTY_NOTICES.md']) await fs.copyFile(path.join(repo, file), path.join(out, path.basename(file)));
 await fs.chmod(path.join(out, 'bin', 'dreamcut.mjs'), 0o755);
 for (const file of ['editor-runtime.mjs', 'projects-root.mjs', 'runtime-updates.mjs']) await fs.copyFile(path.join(repo, 'mcp', file), path.join(out, 'mcp', file));
 

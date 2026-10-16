@@ -198,7 +198,7 @@ before placement, with timing parity and the declared render authority. Moving m
 must follow the actual source clock. Read [media preparation details](docs/architecture/editing-implementation-reference.md#media-preparation-details)
 when changing ingestion, cutouts, proxy generation or playback readiness.
 
-Tracked catalogs (`image-catalog/`, `visual-catalog/`, `music-catalog/`, `sfx-library/`)
+Tracked catalogs (`catalogs/images/`, `catalogs/visual/`, `catalogs/music/`, `catalogs/sfx/`)
 hold only generic, redistributable defaults. Anything depicting or naming the creator, their
 people, pets, clients or brands, media from their projects, and assets cleared only for them
 belongs in the profile library (`<profileDir()>/library/<kind>/`), which every project's

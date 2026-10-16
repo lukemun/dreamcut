@@ -336,7 +336,7 @@ our editorial joins, checkpoints, artifact lifetime or approval semantics.
 ## Implementation owners
 
 - [MCP dispatch](../../mcp/server.mjs), [worker runner](../../src/lib/agent/worker-runner.ts), and [tool trial harness](../../scripts/lib/codex-tool-trial.mjs): capture and correlation boundaries.
-- [Usage reader](../../src/lib/observability/model-usage.ts), [normalizer](../../src/lib/observability/model-event.ts), [collector](../../tooling/otel/collector.yaml): metadata/usage transport. The [native checkpoint reader](../../src/lib/observability/native-model-usage.ts) separately reconciles durable Codex session usage; never sum overlapping sources.
+- [Usage reader](../../src/lib/observability/model-usage.ts), [normalizer](../../src/lib/observability/model-event.ts), [collector](../../scripts/otel/collector.yaml): metadata/usage transport. The [native checkpoint reader](../../src/lib/observability/native-model-usage.ts) separately reconciles durable Codex session usage; never sum overlapping sources.
 - [Edit attribution](../../src/lib/local-store/edit-attribution.ts), [store](../../src/lib/local-store/store.ts), [proposals](../../src/lib/local-store/proposals.ts): canonical editorial links and writes.
 - [Editing memory/checkpoints](../../src/lib/local-store/editing-memory.ts), [retro projection](../../src/lib/local-store/editing-retro.ts): frozen evidence, privacy projection and adoption boundaries.
 - [Custom cutout receipts](../../src/lib/local-store/custom-cutouts.ts), [media-analysis worker](../../src/lib/media-analysis/worker.ts): examples of instrumenting actual capability execution.

@@ -7,7 +7,7 @@ import { historicalScanInputs, stagedScanInput } from './private-file-scan-input
 const git = (...args) => execFileSync('git', args, { maxBuffer: 128 * 1024 * 1024 });
 const staged = process.argv.includes('--staged');
 const prePush = process.argv.includes('--pre-push');
-const forbidden = /^(?:projects|preprocess|instruments|private|personal|library|social-content|analysis|artifacts|assets|design)\/|^(?:image-catalog\/images\/owned|music-catalog\/(?:imports|previews)|sfx-library\/(?:audio|source-manifests))\/|^\.tmp-|^\.agents\/skills\/remotion-best-practices\/|(?:^|\/)__pycache__\/|\.pyc$|(?:^|\/)\.env(?:$|\.(?!example$))|(?:^|\/)\.envrc$|\.(?:pem|key)$/i;
+const forbidden = /^(?:projects|preprocess|instruments|private|personal|library|social-content|analysis|artifacts|assets|design)\/|^catalogs\/(?:images\/images\/owned|music\/(?:imports|previews)|sfx\/(?:audio|source-manifests))\/|^\.tmp-|^\.agents\/skills\/remotion-best-practices\/|(?:^|\/)__pycache__\/|\.pyc$|(?:^|\/)\.env(?:$|\.(?!example$))|(?:^|\/)\.envrc$|\.(?:pem|key)$/i;
 const checkPaths = (files) => {
   // Apply Git's own ignore matcher as well as the hard privacy boundary so that
   // force-adding a local-only recipe, screenshot or upstream skill cannot bypass
@@ -50,7 +50,7 @@ try {
     checkPaths(git('ls-files', '-z').toString().split('\0').filter(Boolean));
     // Staged catalog JSON must not carry the creator's personal media (see check-catalog-privacy.mjs).
     const stagedFiles = git('diff', '--cached', '--name-only', '-z').toString().split('\0').filter(Boolean);
-    if (stagedFiles.some(file => /^(?:image-catalog|visual-catalog|music-catalog|sfx-library)\/.+\.json$/.test(file))) {
+    if (stagedFiles.some(file => /^catalogs\/(?:images|visual|music|sfx)\/.+\.json$/.test(file))) {
       const privacy = spawnSync(process.execPath, ['--import', 'tsx', 'scripts/check-catalog-privacy.mjs', '--staged'], { stdio: 'inherit' });
       if (privacy.status !== 0) throw new Error('Catalog privacy check failed. Move personal entries to the profile library before committing.');
     }

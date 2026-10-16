@@ -83,7 +83,7 @@ fs.mkdirSync(mediaDir, { recursive: true });
 fs.mkdirSync(path.join(projectDir(AUDITION), "analysis"), { recursive: true });
 
 // ── Level-matched excerpts ───────────────────────────────────────────────────
-const catalogAudio = path.resolve("music-catalog/audio/licensed");
+const catalogAudio = path.resolve("catalogs/music/audio/licensed");
 for (const c of CANDIDATES) {
   const out = path.join(mediaDir, `bed-${c.key}-${c.id}.mp3`);
   execFileSync("ffmpeg", [

@@ -62,7 +62,7 @@ for (const url of urls) {
   const local = url.match(/^\/api\/projects\/([^/]+)\/media\/(.+)$/);
   const sfx = url.match(/^\/api\/sfx-catalog\/media\/(.+)$/);
   if (local && local[1] === config.project_id) { source = path.resolve(sourceProject, 'media', decodeURIComponent(local[2])); dest = path.resolve(fixtureProject, 'media', decodeURIComponent(local[2])); if (!source.startsWith(sourceProject + '/media/') || !dest.startsWith(fixtureProject + '/media/')) throw new Error('Unsafe media path'); }
-  else if (sfx) { source = path.resolve(root, 'sfx-library/audio', decodeURIComponent(sfx[1])); dest = path.resolve(runDir, 'sfx-library/audio', decodeURIComponent(sfx[1])); if (!source.startsWith(path.join(root, 'sfx-library/audio') + '/') || !dest.startsWith(path.join(runDir, 'sfx-library/audio') + '/')) throw new Error('Unsafe SFX path'); }
+  else if (sfx) { source = path.resolve(root, 'catalogs/sfx/audio', decodeURIComponent(sfx[1])); dest = path.resolve(runDir, 'catalogs/sfx/audio', decodeURIComponent(sfx[1])); if (!source.startsWith(path.join(root, 'catalogs/sfx/audio') + '/') || !dest.startsWith(path.join(runDir, 'catalogs/sfx/audio') + '/')) throw new Error('Unsafe SFX path'); }
   else throw new Error(`Unresolved media URL: ${url}`);
   if (!fs.existsSync(source) || !fs.statSync(source).isFile()) throw new Error(`Required media missing: ${url}`);
   fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.copyFileSync(source, dest, fs.constants.COPYFILE_FICLONE);
@@ -71,7 +71,7 @@ for (const url of urls) {
 }
 process.env.TIMELINE_PROJECTS_DIR = path.join(runDir, 'projects');
 process.env.DREAMCUT_PROFILE_DIR = profile;
-process.env.TIMELINE_SFX_CATALOG_DIR = path.join(runDir, 'sfx-library');
+process.env.TIMELINE_SFX_CATALOG_DIR = path.join(runDir, 'catalogs/sfx');
 const preferences = effectivePreferences(config.project_id, snapshot.metadata.output_aspect_ratio ?? '9:16');
 const revision = timelineRevision(config.project_id);
 const original = readTimeline(config.project_id);

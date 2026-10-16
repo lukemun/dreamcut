@@ -32,8 +32,8 @@ export function syncEffectCreatorDocs(write = false, root = process.cwd()) {
     const status = recipeStatusLabel(effect);
     return { effect, id, guide, status };
   });
-  const index = [begin, 'Browse every shared effect and reference study below. Each link opens its demo, input brief, build sequence and copyable agent request. Reference-only entries are ideas to assess, not verified implementations.', '', '| Effect | What you supply | Home | Evidence |', '| --- | --- | --- | --- |', ...rows.map(({ effect, id, guide, status }) => `| [${effect.title}](docs/effects/recipes.md#${anchor(id)}) | ${guide.inputs.map(input => input.title).join('; ')} | ${effectHome(id)} | ${status} |`), '', 'Want to add one? Start with the [effect page template](docs/effects/creator-template.md) and [PR contribution guide](CONTRIBUTING.md#contributing-an-effect).', end].join('\n');
-  const pages = ['# Make an effect with your own assets', '', 'Every recipe includes an input brief and build instructions. Demonstrations are optional; when present, they show the actual construction. Copy its request into your agent chat and identify your files. The agent prepares the construction; you review the proposed edit and fine-tune its persistent controls. Generation needs a separate reviewed draft and authorization.', '', '[All effects](../../README.md#effect-catalog) · [Contribute an effect](creator-template.md) · [Evidence and packaging](README.md)', '', ...rows.flatMap(({ effect, id, guide, status }) => {
+  const index = [begin, 'Browse every shared effect and reference study below. Each link opens its demo, input brief, build sequence and copyable agent request. Reference-only entries are ideas to assess, not verified implementations.', '', '| Effect | What you supply | Home | Evidence |', '| --- | --- | --- | --- |', ...rows.map(({ effect, id, guide, status }) => `| [${effect.title}](recipes.md#${anchor(id)}) | ${guide.inputs.map(input => input.title).join('; ')} | ${effectHome(id)} | ${status} |`), '', 'Want to add one? Start with the [effect page template](creator-template.md) and [PR contribution guide](../../CONTRIBUTING.md#add-a-template).', end].join('\n');
+  const pages = ['# Make an effect with your own assets', '', 'Every recipe includes an input brief and build instructions. Demonstrations are optional; when present, they show the actual construction. Copy its request into your agent chat and identify your files. The agent prepares the construction; you review the proposed edit and fine-tune its persistent controls. Generation needs a separate reviewed draft and authorization.', '', '[All effects](README.md#all-templates) · [Contribute an effect](creator-template.md) · [Evidence and packaging](README.md)', '', ...rows.flatMap(({ effect, id, guide, status }) => {
     const visual = recipeVisuals[id];
     const visualLines = visual ? [
       `[<img src="../../public${visual.poster}" width="160" alt="${effect.title} demonstration" />](../../public${visual.video})`, '',
@@ -68,10 +68,11 @@ export function syncEffectCreatorDocs(write = false, root = process.cwd()) {
       ...(r ? [`[Technical recipe and evidence](catalog.json) · [Skill receipt](${r.evidence_path})`, ''] : []),
     ];
   })].join('\n') + '\n';
-  const readmePath = path.join(root, 'README.md');
+  // The full index lives with the catalog; the repository README shows a short gallery instead.
+  const readmePath = path.join(root, 'docs/effects/README.md');
   const readme = fs.readFileSync(readmePath, 'utf8');
   const start = readme.indexOf(begin), finish = readme.indexOf(end);
-  if (start < 0 || finish < start) throw new Error('README effect index markers missing');
+  if (start < 0 || finish < start) throw new Error('docs/effects/README.md effect index markers missing');
   const nextReadme = readme.slice(0, start) + index + readme.slice(finish + end.length);
   for (const [file, content] of [[readmePath, nextReadme], [path.join(root, 'docs/effects/recipes.md'), pages]]) {
     if (write) fs.writeFileSync(file, content);

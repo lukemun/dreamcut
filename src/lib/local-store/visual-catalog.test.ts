@@ -6,7 +6,7 @@ import test from "node:test";
 import { visualCatalogSchema } from "@/lib/visual-catalog/schema";
 
 test("checked-in visual catalog is valid", () => {
-  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "visual-catalog/catalog.json"), "utf8"));
+  const catalog = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "catalogs/visual/catalog.json"), "utf8"));
   const parsed = visualCatalogSchema.safeParse(catalog);
   assert.equal(parsed.success, true);
   if (!parsed.success) return;

@@ -84,7 +84,7 @@ const projectRoot = path.join(root, "projects", projectId);
 // --shared names the shared catalog (only for generic, redistributable stock).
 const shared = process.argv.includes("--shared");
 const catalogRoot = shared
-  ? process.env.TIMELINE_VISUAL_CATALOG_DIR ? path.resolve(process.env.TIMELINE_VISUAL_CATALOG_DIR) : path.join(root, "visual-catalog")
+  ? process.env.TIMELINE_VISUAL_CATALOG_DIR ? path.resolve(process.env.TIMELINE_VISUAL_CATALOG_DIR) : path.join(root, "catalogs/visual")
   : personalLibraryRoot("visuals");
 const manifest = JSON.parse(fs.readFileSync(path.join(projectRoot, "source-manifest.json"), "utf8")) as SourceManifest;
 const annotations = JSON.parse(fs.readFileSync(path.join(projectRoot, "library-annotations.json"), "utf8")) as ProjectAnnotations;

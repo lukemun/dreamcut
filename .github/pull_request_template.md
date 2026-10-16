@@ -8,7 +8,7 @@ Describe the problem, trigger, and resulting behavior.
 - UI changes: before/after screenshots in both themes, or explain why not applicable.
 - Playback/render changes: relevant instrument receipt (a unit test is not delivery proof).
 
-For editor UI changes: include the creator task, canonical UI path, reused/replaced controls, state and reset/undo semantics, and tall/wide plus narrow-panel and keyboard evidence under the [feature integration standard](docs/standards/editor-feature-integration.md). Include the fresh-eyes task and pass/fail/unverified result: an unfamiliar tester must find, change, verify and undo through visible UI without implementation hints. Mark untested cases explicitly.
+For editor UI changes: include the creator task, canonical UI path, reused/replaced controls, state and reset/undo semantics, and tall/wide plus narrow-panel and keyboard evidence under the [feature integration standard](../docs/standards/editor-feature-integration.md). Include the fresh-eyes task and pass/fail/unverified result: an unfamiliar tester must find, change, verify and undo through visible UI without implementation hints. Mark untested cases explicitly.
 
 ## Review
 

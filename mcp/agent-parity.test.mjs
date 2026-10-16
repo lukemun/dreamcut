@@ -60,7 +60,7 @@ test('a hand-kept family list or allowlist is a violation', () => {
 
 test('editing skills must name an MCP tool, record a gap, or be coding-agent skills', () => {
   const dir = skills({
-    'sound-demo': 'Inspect `sfx-library/catalog.json` for candidates.\n',
+    'sound-demo': 'Inspect `catalogs/sfx/catalog.json` for candidates.\n',
     'named-demo': 'Run `pnpm frame-state demo`, or in the editor `run_instrument` then `timeline_evidence`.\n',
     'dev-demo': 'Run `pnpm typecheck`.\n',
   });
@@ -75,7 +75,7 @@ test('editing skills must name an MCP tool, record a gap, or be coding-agent ski
     exemptions: {
       schema_version: 1,
       coding_agent_skills: { 'dev-demo': 'Repository development.' },
-      gaps: [{ skill: 'sound-demo', line_contains: 'sfx-library/catalog.json', missing: 'SFX search', reason: 'No tool yet.' }],
+      gaps: [{ skill: 'sound-demo', line_contains: 'catalogs/sfx/catalog.json', missing: 'SFX search', reason: 'No tool yet.' }],
     },
   });
   assert.deepEqual(exempted.violations, []);
@@ -89,7 +89,7 @@ test('an exemption that no longer matches fails, so closed gaps leave the list',
     exemptions: {
       schema_version: 1,
       coding_agent_skills: { 'gone-skill': 'Removed.' },
-      gaps: [{ skill: 'sound-demo', line_contains: 'sfx-library/catalog.json', missing: 'SFX search', reason: 'No tool yet.' }],
+      gaps: [{ skill: 'sound-demo', line_contains: 'catalogs/sfx/catalog.json', missing: 'SFX search', reason: 'No tool yet.' }],
     },
   });
   assert.match(report.violations.join('\n'), /stale gap/);

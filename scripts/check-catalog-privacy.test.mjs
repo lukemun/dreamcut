@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { catalogFindings, CATALOG_FILE, parseTerms, TEXT_FILE, textFindings } from './check-catalog-privacy.mjs';
 
-const reasons = (document, terms = []) => catalogFindings('visual-catalog/catalog.json', document, terms).map(({ id, reason }) => `${id}: ${reason}`);
+const reasons = (document, terms = []) => catalogFindings('catalogs/visual/catalog.json', document, terms).map(({ id, reason }) => `${id}: ${reason}`);
 
 test('generic stock passes', () => {
   assert.deepEqual(reasons({ schema_version: 1, assets: [{ id: 'bills', title: 'Falling dollar bills', source: { provider: 'Pixabay' } }] }, ['Ava']), []);
@@ -36,8 +36,8 @@ test('private terms match whole words, case-insensitively', () => {
 });
 
 test('only tracked catalog JSON is in scope', () => {
-  assert.ok(CATALOG_FILE.test('music-catalog/catalog.json'));
-  assert.ok(CATALOG_FILE.test('image-catalog/sources.json'));
+  assert.ok(CATALOG_FILE.test('catalogs/music/catalog.json'));
+  assert.ok(CATALOG_FILE.test('catalogs/images/sources.json'));
   assert.ok(!CATALOG_FILE.test('docs/effects/catalog.json'));
 });
 

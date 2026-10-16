@@ -11,7 +11,7 @@ export function imageCatalogRoot(): string {
   const fromEnv = process.env.TIMELINE_IMAGE_CATALOG_DIR?.trim();
   return fromEnv && fromEnv.length > 0
     ? path.resolve(fromEnv)
-    : path.resolve(process.cwd(), "image-catalog");
+    : path.resolve(process.cwd(), "catalogs/images");
 }
 
 export function imageCatalogPath(): string {

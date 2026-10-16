@@ -4,7 +4,7 @@ Beat trackers routinely return a tempo an octave off, and the detected number ca
 about which octave is right. Counting a track by hand is slow and error-prone; hearing a click
 lock (or drift) against it takes seconds.
 
-    pnpm music-tempo-audition "music-catalog/audio/reference/<track>.opus"
+    pnpm music-tempo-audition "catalogs/music/audio/reference/<track>.opus"
 
 Writes one excerpt per candidate next to the track as <name>.tempo-<bpm>.wav. Play them; the
 right tempo is the one whose click sits on the beat for the whole excerpt rather than sliding.

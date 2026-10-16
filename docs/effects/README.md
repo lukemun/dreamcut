@@ -7,6 +7,56 @@ This repository catalog contains shared methods with evidence. The editor also s
 user-only recipes from the local profile; those are not contributed here. Personal
 styles remain private parameter settings, a separate concept from a recipe.
 
+
+## All templates
+
+<!-- BEGIN EFFECT INDEX -->
+Browse every shared effect and reference study below. Each link opens its demo, input brief, build sequence and copyable agent request. Reference-only entries are ideas to assess, not verified implementations.
+
+| Effect | What you supply | Home | Evidence |
+| --- | --- | --- | --- |
+| [Shopping basket fills as items are picked](recipes.md#fx-12) | Shopping footage; Basket and products | Properties → Templates | Reference example |
+| [Floating translucent project screen](recipes.md#fx-14) | Laptop footage; Screen content | Properties → Templates | Reference example |
+| [Gesture-matched outfit change](recipes.md#fx-06) | Two outfit takes | Properties → Templates | Reference example |
+| [Foot-to-camera location change](recipes.md#fx-07) | Two location takes | Properties → Templates | Reference example |
+| [Objects float in → scene switches → white blips](recipes.md#fx-08) | Starting scene; Destination scene | Properties → Templates | Partial recreation · read limitations |
+| [Drinks enter before their background](recipes.md#fx-11) | Starting and drinks shots | Properties → Templates | Reference example |
+| [Restaurant builds over the shot, then becomes the scene](recipes.md#fx-16) | Walking and restaurant shots | Properties → Templates | Reference example |
+| [Laptop-edge scene wipe](recipes.md#fx-15) | Closing laptop shot; Destination shot | Properties → Templates | Reference example |
+| [Paper unfolds across cuts, then becomes a handheld title](recipes.md#fx-02) | Title artwork and scenes; Paper and handoff footage | Properties → Templates | Reference example |
+| [Persistent time and activity labels](recipes.md#fx-05) | Footage and chapter labels | Properties → Templates | Reference example |
+| [Lunch before/after match cut](recipes.md#fx-10) | Before and after lunch | Properties → Templates | Reference example |
+| [Dinner before/after match cut](recipes.md#fx-19) | Before and after dinner | Properties → Templates | Reference example |
+| [Remove-to-show title reveal — provisional](recipes.md#fx-20) | Background and title | Properties → Templates | Reference example |
+| [White paper outline](recipes.md#fx-scratchpad) | Artwork; Border preference | Properties → Templates | Partial recreation · read limitations |
+| [Inverse Video captions — Blue steel option](recipes.md#fx-inverse-captions) | Background and words | Properties → Templates | Reference example |
+| [Film Burn](recipes.md#fx-film-burn) | Two shots; Optional burn texture | Properties → transition join | Partial recreation · read limitations |
+| [Mask Glitch](recipes.md#fx-mask-glitch) | Ordered shots | Properties → Templates | Partial recreation · read limitations |
+| [Camera Flash](recipes.md#fx-camera-flash) | Two shots and cut point | Properties → transition join | Partial recreation · read limitations |
+| [Blackout](recipes.md#fx-blackout) | Cover and uncover takes | Properties → transition join | Partial recreation · read limitations |
+| [Whip Pan](recipes.md#fx-whip-pan) | Matching camera turns | Properties → transition join | Partial recreation · read limitations |
+| [Negative Pop](recipes.md#fx-negative-pop) | Subject and background | Properties → Templates | Reference example |
+| [Scene Portal](recipes.md#fx-scene-portal) | Host footage; Insert and destination | Properties → Templates | Reference example |
+| [Speed Entrance & Exit](recipes.md#fx-speed-entrance-exit) | Performance footage; Matching empty background | Properties → Templates | Implemented template · built with your agent |
+| [Mask Glitch · Glow](recipes.md#fx-mask-glitch-glow) | Ordered pose or performance takes; Matching empty background | Properties → Templates | Implemented template · built with your agent |
+| [Moving Grid Matte](recipes.md#fx-moving-grid-matte) | Moving subject footage; Background | Properties → Templates | Implemented template · built with your agent |
+| [Word Search Trace](recipes.md#fx-word-search-trace) | Two to four short shots; One word per shot | Properties → Templates | Implemented template · built with your agent |
+| [Explainer Sequence](recipes.md#fx-motion-explainer) | Your title and key point; One number; Three steps and a closing line | Properties → Templates | Implemented template · built with your agent |
+| [Animated Chart](recipes.md#fx-motion-chart) | A title; Two to six labels and values | Properties → Templates | Implemented template · built with your agent |
+| [Plan Comparison](recipes.md#fx-motion-plans) | Plan names and prices; Up to five features | Properties → Templates | Implemented template · built with your agent |
+| [Walkthrough Steps](recipes.md#fx-motion-walkthrough) | Two to four steps; A screenshot per step (optional) | Properties → Templates | Implemented template · built with your agent |
+| [Kinetic Type](recipes.md#fx-motion-kinetic) | A short phrase; The beat or word times (optional) | Properties → Templates | Implemented template · built with your agent |
+| [Masking Hook](recipes.md#fx-masking-hook) | One shot of a person | Properties → Templates | Implemented template · built with your agent |
+| [Clone Flash](recipes.md#fx-clone-flash) | A still shot of a person | Properties → Templates | Implemented template · built with your agent |
+| [Silhouette Window](recipes.md#fx-silhouette-window) | A shot of a person; Several short fill clips | Properties → Templates | Implemented template · built with your agent |
+| [Lyric Pop](recipes.md#fx-lyric-pop) | A shot; The word | Properties → Templates | Implemented template · built with your agent |
+| [Cross into Negative](recipes.md#fx-cross-negative) | Two shots | Properties → Templates | Implemented template · built with your agent |
+| [Layered Paper Cutout](recipes.md#layered-paper-cutout) | Portrait; Music and hits | Properties → Templates | Demonstration · not catalog-verified |
+| [Talking-Head Background Removal](recipes.md#talking-head-cutout) | Original recording | Properties → Templates | Demo not available yet |
+
+Want to add one? Start with the [effect page template](creator-template.md) and [PR contribution guide](../../CONTRIBUTING.md#add-a-template).
+<!-- END EFFECT INDEX -->
+
 ## User-only recipes
 
 Guide → Effects has All recipes / User-only / Shared catalog filters and an origin

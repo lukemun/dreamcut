@@ -11,7 +11,7 @@ export function visualCatalogRoot(): string {
   const fromEnv = process.env.TIMELINE_VISUAL_CATALOG_DIR?.trim();
   return fromEnv && fromEnv.length > 0
     ? path.resolve(fromEnv)
-    : path.resolve(process.cwd(), "visual-catalog");
+    : path.resolve(process.cwd(), "catalogs/visual");
 }
 
 export function visualCatalogPath(): string {

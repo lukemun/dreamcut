@@ -11,7 +11,7 @@ const value = (flag: string) =>
   process.argv.includes(flag) ? process.argv[process.argv.indexOf(flag) + 1] : undefined;
 
 const catalogDir =
-  process.env.TIMELINE_MUSIC_CATALOG_DIR ?? path.join(__dirname, "..", "music-catalog");
+  process.env.TIMELINE_MUSIC_CATALOG_DIR ?? path.join(__dirname, "..", "catalogs/music");
 const audioDir = path.join(catalogDir, "audio");
 const python = process.env.MUSIC_PYTHON ?? path.join(__dirname, "..", ".venv-music", "bin", "python");
 

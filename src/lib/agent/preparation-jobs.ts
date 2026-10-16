@@ -44,7 +44,7 @@ async function dependencies(input:Input){
   const unknown=findOovTokens(input.reviewed_text??"",dictionaryWords(fs.readFileSync(dictionary,"utf8")));
   if(unknown.length)throw toolError("PRONUNCIATION_REVIEW_REQUIRED",`Review pronunciations before alignment: ${unknown.slice(0,20).join(", ")}`,{action:"review_pronunciations",reason:"This tool does not generate or approve unknown pronunciations, download a model, or substitute ASR timing."});
  }
- const files=input.kind==="treatment"?["scripts/scratchpad-cutout.ts", ".matting/clean_mask_sequence.py"]:input.mode==="transcribe"?["scripts/transcribe.ts",process.env.WHISPER_MODEL??path.join(os.homedir(),".cache/whisper-models/ggml-small.bin"),process.env.WHISPER_VAD_MODEL??path.join(os.homedir(),".cache/whisper-models/ggml-silero-v6.2.0.bin")]:["scripts/align.ts",dictionary];
+ const files=input.kind==="treatment"?["scripts/scratchpad-cutout.ts", "scripts/matting/clean_mask_sequence.py"]:input.mode==="transcribe"?["scripts/transcribe.ts",process.env.WHISPER_MODEL??path.join(os.homedir(),".cache/whisper-models/ggml-small.bin"),process.env.WHISPER_VAD_MODEL??path.join(os.homedir(),".cache/whisper-models/ggml-silero-v6.2.0.bin")]:["scripts/align.ts",dictionary];
  try{return await Promise.all(files.map(sha256));}catch{throw toolError("RUNTIME_UNAVAILABLE","Required local model or preparation implementation is missing.",{action:"report_missing_prerequisite",reason:"No models are downloaded automatically."});}
 }
 export async function enqueuePreparation(project:string,raw:unknown){

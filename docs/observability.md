@@ -129,7 +129,7 @@ editor with `DREAMCUT_CODEX_OTEL_ENDPOINT=http://127.0.0.1:4318/v1/logs`. Worker
 are supplied explicitly because the existing worker uses `--ignore-user-config`.
 Without an explicit endpoint or successful automatic startup, worker behavior is unchanged.
 
-For desktop/other Codex sessions, merge [the example OTel section](../tooling/otel/codex.config.example.toml)
+For desktop/other Codex sessions, merge [the example OTel section](../scripts/otel/codex.config.example.toml)
 into the user Codex configuration, preserving existing sections. Existing processes may
 require restart; verify actual receipt before claiming coverage. The repository does not
 modify a user's global Codex configuration automatically. Configuration keys were checked

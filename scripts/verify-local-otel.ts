@@ -17,7 +17,7 @@ listener.listen(0, "127.0.0.1"); await once(listener, "listening");
 const port = (listener.address() as net.AddressInfo).port;
 await new Promise<void>(resolve => listener.close(() => resolve()));
 const config = path.join(root, "collector.yaml");
-fs.writeFileSync(config, fs.readFileSync("tooling/otel/collector.yaml", "utf8").replace("127.0.0.1:4318", `127.0.0.1:${port}`).replace("  telemetry:\n", "  telemetry:\n    metrics:\n      level: none\n"));
+fs.writeFileSync(config, fs.readFileSync("scripts/otel/collector.yaml", "utf8").replace("127.0.0.1:4318", `127.0.0.1:${port}`).replace("  telemetry:\n", "  telemetry:\n    metrics:\n      level: none\n"));
 const endpoint = `http://127.0.0.1:${port}/v1/logs`;
 const executable = readEnv("OTELCOL_EXECUTABLE") || "otelcol-contrib";
 let child: ChildProcess | undefined;

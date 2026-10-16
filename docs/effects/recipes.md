@@ -2,7 +2,7 @@
 
 Every recipe includes an input brief and build instructions. Demonstrations are optional; when present, they show the actual construction. Copy its request into your agent chat and identify your files. The agent prepares the construction; you review the proposed edit and fine-tune its persistent controls. Generation needs a separate reviewed draft and authorization.
 
-[All effects](../../README.md#effect-catalog) · [Contribute an effect](creator-template.md) · [Evidence and packaging](README.md)
+[All effects](README.md#all-templates) · [Contribute an effect](creator-template.md) · [Evidence and packaging](README.md)
 
 <a id="fx-12"></a>
 

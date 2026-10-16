@@ -660,6 +660,54 @@
       "timeline_write_marker": false
     },
     {
+      "path": "scripts/matting/README.md",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "308c7a9bce69a50ae18ef5ae85d616904a662b63cb80e9dbc1f7671bb1020469",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/clean_mask_sequence.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "1c3464f1ae9b3bdf3def237e74ebfb074be43f33a2da287187ef7d58de502d88",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/hand_cutout.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "f0a5d54e00c532199046669982180909195d6f5c95021c0d7bf843cb29ff3955",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/mask_postprocess.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "e05ec5510059d2161cf6d43b46dcbf17a97e5204d2567767e1877a6c13d491d2",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/test_chunk_plan.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "ef4518b34e9aa44af51d2a63ed235da11d9ed1088127e1597a05a77d93a4a4bf",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/test_mask_postprocess.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "a16481631de6d605df297e1e8e4c622c516d8144a0e4cf7d787014c44eb5076b",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/measure-reels-reference.py",
       "disposition": "development-eval-internal",
       "capability": null,
@@ -753,6 +801,22 @@
       "capability": null,
       "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
       "sha256": "777b780ce591c9963a75fdff8f25be08632a50f42463367189d616b8157779e4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/otel/codex.config.example.toml",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Local OpenTelemetry collector configuration used by otel-local and verify-local-otel; not an operator interface.",
+      "sha256": "9aed1d6b0080612cc081ac19b38fee59f1f2f970570df9a31c95fd7e071b2a5c",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/otel/collector.yaml",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Local OpenTelemetry collector configuration used by otel-local and verify-local-otel; not an operator interface.",
+      "sha256": "08e91920f7f3d6a77e9f6a3136db02af2540d01599173ada856edc2a9c31b7c0",
       "timeline_write_marker": false
     },
     {
@@ -1161,6 +1225,14 @@
       "capability": null,
       "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
       "sha256": "f554827a8a3cca1cb2fdba7b2c926a26827122c918f0fbebeb5f0703ca1e79e0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/session-learning/codex-hooks.example.json",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Opt-in Codex hook definitions for the session-learning closeout; copied to the untracked .codex/hooks.json by maintainers who want them.",
+      "sha256": "904466b79a8d6e3b807d57153eda120986fb8edce38d0d6196113d2a462e8a52",
       "timeline_write_marker": false
     },
     {

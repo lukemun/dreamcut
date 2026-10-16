@@ -42,7 +42,7 @@ if (!input || input.startsWith("--")) {
   process.exit(1);
 }
 
-const catalogDir = process.env.TIMELINE_MUSIC_CATALOG_DIR ?? path.join(__dirname, "..", "music-catalog");
+const catalogDir = process.env.TIMELINE_MUSIC_CATALOG_DIR ?? path.join(__dirname, "..", "catalogs/music");
 const catalogPath = path.join(catalogDir, "catalog.json");
 const audioPath = path.isAbsolute(input) ? input : path.resolve(input);
 const stem = audioPath.replace(/\.[^.]+$/, "");

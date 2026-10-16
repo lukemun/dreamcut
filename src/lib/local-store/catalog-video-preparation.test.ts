@@ -13,7 +13,7 @@ import { POST as prepare } from "../../app/api/projects/[projectId]/media-prepar
 import { GET as assets } from "../../app/api/projects/[projectId]/timeline/assets/route";
 
 test("catalog videos import, prepare, and become placeable without changing the timeline", async () => {
-  const template = JSON.parse(fs.readFileSync("visual-catalog/catalog.json", "utf8")).assets[0];
+  const template = JSON.parse(fs.readFileSync("catalogs/visual/catalog.json", "utf8")).assets[0];
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "catalog-video-preparation-"));
   const keys = ["TIMELINE_PROJECTS_DIR", "TIMELINE_VISUAL_CATALOG_DIR", "MEDIA_PREPARATION_AUTOSTART"] as const;
   const previous = keys.map(key => process.env[key]);

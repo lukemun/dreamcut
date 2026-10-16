@@ -69,7 +69,7 @@ const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_").
 const bundleDir = path.resolve(bundleArg);
 const annotationDir = path.join(bundleDir, "annotations");
 const trackDir = path.join(bundleDir, "tracks");
-const catalogDir = process.env.TIMELINE_MUSIC_CATALOG_DIR ?? path.resolve("music-catalog");
+const catalogDir = process.env.TIMELINE_MUSIC_CATALOG_DIR ?? path.resolve("catalogs/music");
 const catalogPath = path.join(catalogDir, "catalog.json");
 const statusFolder = sourceStatus === "reference_only" ? "reference" : sourceStatus;
 const audioDir = path.join(catalogDir, "audio", statusFolder);

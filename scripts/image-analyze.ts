@@ -160,7 +160,7 @@ function analyze(entry: SourceEntry, mediaRoot: string) {
 function main() {
   // --personal analyzes the creator's profile library (sources.json + files/) instead of the shared catalog.
   const personal = process.argv.includes("--personal");
-  const root = personal ? personalLibraryRoot("images") : path.resolve(process.cwd(), "image-catalog");
+  const root = personal ? personalLibraryRoot("images") : path.resolve(process.cwd(), "catalogs/images");
   const mediaRoot = personal ? personalLibraryFilesRoot("images") : path.join(root, "images");
   const sourcePath = path.join(root, "sources.json");
   const sources = JSON.parse(fs.readFileSync(sourcePath, "utf8")) as { schema_version: 1; images: SourceEntry[] };

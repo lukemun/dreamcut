@@ -11,7 +11,7 @@ export function musicCatalogRoot(): string {
   const fromEnv = process.env.TIMELINE_MUSIC_CATALOG_DIR?.trim();
   return fromEnv && fromEnv.length > 0
     ? path.resolve(fromEnv)
-    : path.resolve(process.cwd(), "music-catalog");
+    : path.resolve(process.cwd(), "catalogs/music");
 }
 
 export function musicCatalogPath(): string {

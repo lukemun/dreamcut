@@ -3,6 +3,12 @@
 Notable changes to DreamCut. This project follows [Semantic Versioning](https://semver.org/)
 once it reaches 1.0; until then, minor versions may include breaking changes.
 
+## Unreleased
+
+- Shorter README with an editor screenshot and a template gallery; the full template list moved to `docs/effects/`.
+- Tidier repository root: catalogs under `catalogs/`, community files under `.github/`, legal notices under `docs/legal/`, matting and OpenTelemetry scripts under `scripts/`.
+- Dependabot groups minor and patch updates into one weekly PR.
+
 ## 0.2.0 — 2026-10-15
 
 - First public open-source release under the Apache License 2.0.

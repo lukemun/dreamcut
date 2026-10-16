@@ -24,7 +24,7 @@ function withProject(run: (projectId: string, root: string) => Promise<void> | v
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "motion-flow-"));
     const previous = { projects: process.env.TIMELINE_PROJECTS_DIR, sfx: process.env.TIMELINE_SFX_CATALOG_DIR, profile: process.env.DREAMCUT_PROFILE_DIR };
     process.env.TIMELINE_PROJECTS_DIR = path.join(root, "projects");
-    process.env.TIMELINE_SFX_CATALOG_DIR = path.join(root, "sfx-library");
+    process.env.TIMELINE_SFX_CATALOG_DIR = path.join(root, "catalogs/sfx");
     process.env.DREAMCUT_PROFILE_DIR = path.join(root, "profile");
     fs.mkdirSync(path.join(root, "projects", "demo", "media", "sources"), { recursive: true });
     try {
@@ -146,8 +146,8 @@ test("library intake copies exact bytes, registers an owned entry and dedupes", 
     render: { renderer: "dreamcut-synth@1", rendered_at: "2026-10-10T00:00:00.000Z" },
   };
   fs.writeFileSync(path.join(project, "preprocess", "sounds", "whoosh.json"), JSON.stringify(receipt));
-  fs.mkdirSync(path.join(root, "sfx-library"), { recursive: true });
-  fs.writeFileSync(path.join(root, "sfx-library", "catalog.json"), JSON.stringify({ schema_version: 1, sound_effects: [] }));
+  fs.mkdirSync(path.join(root, "catalogs/sfx"), { recursive: true });
+  fs.writeFileSync(path.join(root, "catalogs/sfx", "catalog.json"), JSON.stringify({ schema_version: 1, sound_effects: [] }));
 
   const analyzed = { version: "test", codec: "pcm_16", active_start_seconds: 0, active_end_seconds: 0.5, peak_time_seconds: 0.1, peak_position: "front" as const, spectral_centroid_hz: 3000, analyzed_at: "2026-10-10T00:00:00.000Z" };
   const first = await addSynthSoundToLibrary(projectId, "whoosh", async () => analyzed);
@@ -157,7 +157,7 @@ test("library intake copies exact bytes, registers an owned entry and dedupes", 
   const personal = path.join(process.env.DREAMCUT_PROFILE_DIR!, "library", "sfx");
   assert.deepEqual(fs.readFileSync(path.join(personal, "files", first.file.slice("_personal/".length))), wav);
   // Project-derived sounds belong to the creator's profile library, never the shared catalog.
-  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, "sfx-library", "catalog.json"), "utf8")).sound_effects, []);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, "catalogs/sfx", "catalog.json"), "utf8")).sound_effects, []);
   const catalog = sfxCatalogSchema.parse(JSON.parse(fs.readFileSync(path.join(personal, "catalog.json"), "utf8")));
   assert.equal(catalog.sound_effects[0]?.source_status, "owned");
   assert.equal(catalog.sound_effects[0]?.sha256, sha);

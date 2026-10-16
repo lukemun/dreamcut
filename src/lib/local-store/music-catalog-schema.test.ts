@@ -18,7 +18,7 @@ test("an empty music catalog is valid", () => {
 
 test("the documented catalog example stays schema-valid", () => {
   const example = JSON.parse(
-    fs.readFileSync(path.resolve(process.cwd(), "music-catalog/catalog.example.json"), "utf8"),
+    fs.readFileSync(path.resolve(process.cwd(), "catalogs/music/catalog.example.json"), "utf8"),
   );
   assert.equal(musicCatalogSchema.safeParse(example).success, true);
 });

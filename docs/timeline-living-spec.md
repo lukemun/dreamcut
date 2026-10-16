@@ -25,7 +25,7 @@
 
 ### Local music catalog and platform variants
 
-- The local editor has one shared, file-backed music catalog at `music-catalog/catalog.json` (or `TIMELINE_MUSIC_CATALOG_DIR`). Audio acquisition is not part of the catalog workflow.
+- The local editor has one shared, file-backed music catalog at `catalogs/music/catalog.json` (or `TIMELINE_MUSIC_CATALOG_DIR`). Audio acquisition is not part of the catalog workflow.
 - A catalog track represents one musical idea. It stores editorial guidance (mood, energy, tempo, textures, vocals, good/poor scenarios) and contains one or more versions.
 - Cue windows belong to versions, not tracks. Each cue stores exact source start/end times, an editorial role, and use/avoid guidance because platform edits can have different timing.
 - Versions record source status, delivery mode (`embedded` or `platform_native`), platform sound identifiers/URLs, and an optional local audio file.

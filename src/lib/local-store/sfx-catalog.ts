@@ -11,7 +11,7 @@ export function sfxCatalogRoot(): string {
   const fromEnv = process.env.TIMELINE_SFX_CATALOG_DIR?.trim();
   return fromEnv && fromEnv.length > 0
     ? path.resolve(fromEnv)
-    : path.resolve(process.cwd(), "sfx-library");
+    : path.resolve(process.cwd(), "catalogs/sfx");
 }
 
 export function sfxCatalogPath(): string {

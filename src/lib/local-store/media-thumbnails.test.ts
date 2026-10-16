@@ -26,7 +26,7 @@ import { coverFromTimeline, projectCover } from "./project-cover";
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), "dreamcut-thumbs-"));
 process.env.TIMELINE_PROJECTS_DIR = path.join(root, "projects");
-process.env.TIMELINE_IMAGE_CATALOG_DIR = path.join(root, "image-catalog");
+process.env.TIMELINE_IMAGE_CATALOG_DIR = path.join(root, "catalogs/images");
 test.after(() => fs.rmSync(root, { recursive: true, force: true }));
 
 async function noisyJpeg(file: string, width = 1920, height = 1080) {

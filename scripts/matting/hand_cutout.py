@@ -31,7 +31,10 @@ from sam2.build_sam import build_sam2_video_predictor
 from mask_postprocess import DEFAULT_MAX_HOLE_AREA_RATIO, fill_small_enclosed_holes
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_CKPT = os.path.join(HERE, "sam2.1_hiera_small.pt")
+# The model checkpoint lives in the local matting environment (TIMELINE_MATTING_DIR, default .matting),
+# not beside this tracked script.
+MATTING_DIR = os.path.abspath(os.environ.get("TIMELINE_MATTING_DIR", os.path.join(HERE, "..", "..", ".matting")))
+DEFAULT_CKPT = os.path.join(MATTING_DIR, "sam2.1_hiera_small.pt")
 DEFAULT_CONFIG = "configs/sam2.1/sam2.1_hiera_s.yaml"
 # 600 frames (20 s at 30 fps) are known to track on a 1024px SAM 2 input; ~1,740 overflow.
 DEFAULT_CHUNK_FRAMES = 400

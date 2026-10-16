@@ -17,6 +17,6 @@ Rights already granted for earlier releases are not revoked:
 
 ## Third-party terms and branding
 
-Dependencies, bundled assets, and your own footage, music, fonts, and other inputs retain their own terms. Review [the third-party notices](../THIRD_PARTY_NOTICES.md) before redistribution.
+Dependencies, bundled assets, and your own footage, music, fonts, and other inputs retain their own terms. Review [the third-party notices](legal/THIRD_PARTY_NOTICES.md) before redistribution.
 
-The software license does not grant rights to brand another product or fork as DreamCut. See [the trademark policy](../TRADEMARKS.md).
+The software license does not grant rights to brand another product or fork as DreamCut. See [the trademark policy](legal/TRADEMARKS.md).

@@ -462,7 +462,7 @@
         "src/lib/observability/native-model-usage.ts",
         "src/lib/observability/worker-usage.ts",
         "src/lib/observability/agent-activity.ts",
-        "tooling/otel/collector.yaml",
+        "scripts/otel/collector.yaml",
         "src/lib/observability/tool-events.ts",
         "mcp/tool-runtime.mjs"
       ],
