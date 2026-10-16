@@ -55,7 +55,7 @@ jobs:
       - run: pnpm desktop:build
       - run: pnpm desktop:package --qualification
       # No app publication: signing, clean-machine and source/notices qualification remain gates.
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: qualification-manifests-${{ matrix.os }}
