@@ -119,7 +119,7 @@ master. These assets are included in Git; project folders are not required for p
 
 The maintainer confirmed public redistribution clearance on 2026-09-29 for the existing documentation gallery media, including reference excerpts, recreation videos, stills, thumbnails and GIFs. Catalog artifacts marked `licensed` rely on that confirmation; original creator credits remain attached. This records clearance to distribute the gallery assets with DreamCut, without asserting ownership transfer or a broader license for unrelated uses. New contributions must provide their own rights basis.
 
-On 2026-10-14 the creator confirmed public redistribution of the Layered Paper Cutout Guide example (`public/guide/effects/contour-first-half.mp4`, `contour-first-half.jpg` and `input-contour-current.png`), which shows the creator and is credited "creator-supplied portrait". The same limits apply: clearance to distribute with OpenEdit, not an ownership transfer or broader license.
+On 2026-10-14 the creator confirmed public redistribution of the Layered Paper Cutout Guide example (`public/guide/effects/contour-first-half.mp4`, `contour-first-half.jpg` and `input-contour-current.png`), which shows the creator and is credited "creator-supplied portrait". The same limits apply: clearance to distribute with DreamCut, not an ownership transfer or broader license.
 
 ## Format and status
 

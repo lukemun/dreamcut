@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/open-edit-logo.png" alt="DreamCut logo" width="120" />
+  <img src="docs/assets/dreamcut-logo.png" alt="DreamCut logo" width="120" />
 </p>
 
 <h1 align="center">DreamCut</h1>
@@ -16,7 +16,8 @@
 
 Tell Claude Code or Codex what you want. DreamCut builds it on a real timeline, with clips, captions,
 masks, motion graphics and sound, and hands it back as a **proposal**. You preview it, tune it with
-sliders, then apply or reject it. Everything runs locally and stays editable by hand.
+sliders, then apply or reject it. The editor and your projects stay on your machine, and everything
+stays editable by hand.
 
 ## Templates
 
@@ -46,7 +47,8 @@ claude mcp add dreamcut -- npx -y dreamcut mcp
 ```
 
 For Codex: `codex mcp add dreamcut -- npx -y dreamcut mcp`. Then tell your agent **"Open DreamCut."**
-The first start downloads the editor (about 300 MB).
+The first start downloads the editor (about 300 MB, about 900 MB installed); keep the chat open until it
+finishes, or ask again if it stops. The first time, DreamCut asks where to keep your projects.
 
 **From source** (Node 22 or 24, pnpm, FFmpeg, Chrome):
 
@@ -68,7 +70,8 @@ Open http://127.0.0.1:3123, then run `claude` or `codex` in the repo folder; `.m
 After an export, DreamCut shares that project's **editing history** (your directions, the agent's
 proposals and what you applied or tuned) to improve the agent. **Never your media**: no video, audio,
 images, file paths or transcripts. It's on by default; turn it off in **User → Settings**, or set
-`DREAMCUT_CLOUD_INGEST_URL=off`.
+`DREAMCUT_CLOUD_INGEST_URL=off`. Separately, your agent (Claude Code or Codex) sees what it works on,
+including frames it analyzes when you import footage, under your agent's own terms.
 
 ## More
 
