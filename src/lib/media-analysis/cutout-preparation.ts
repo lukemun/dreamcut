@@ -85,7 +85,7 @@ async function runtimeFingerprint() {
   const hashes = await Promise.all([
     path.resolve("scripts/matting/hand_cutout.py"), path.resolve("scripts/matting/mask_postprocess.py"), path.join(root, "sam2.1_hiera_small.pt"),
   ].map(sha256));
-  const version = await run(path.join(root,"venv/bin/python"), ["-c", "import importlib.metadata as m,json; print(json.dumps({p:m.version(p) for p in ['torch','sam2','numpy','Pillow','scipy']},sort_keys=True))"]);
+  const version = await run(path.join(root, process.platform === "win32" ? "venv/Scripts/python.exe" : "venv/bin/python"), ["-c", "import importlib.metadata as m,json; print(json.dumps({p:m.version(p) for p in ['torch','sam2','numpy','Pillow','scipy']},sort_keys=True))"]);
   return createHash("sha256").update(JSON.stringify([hashes,version.stdout,await sha256(path.resolve("scripts/run-sam2-cutout.mjs"))])).digest("hex");
 }
 const saveJob = (projectId: string, job: CutoutJob) => writeJsonFileAtomic(jobPath(projectId,job.id), {...job, updated_at:new Date().toISOString()});

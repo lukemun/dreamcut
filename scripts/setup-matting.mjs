@@ -31,7 +31,15 @@ const venv = path.join(dir, 'venv');
 const python = path.join(venv, process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python');
 const run = (command, args) => spawnSync(command, args, { stdio: 'inherit' }).status === 0;
 const quiet = (command, args) => spawnSync(command, args, { stdio: 'ignore' }).status === 0;
-const fail = message => { console.error(`DreamCut could not set up subject tracing: ${message}`); process.exit(1); };
+class SetupError extends Error {}
+const fail = message => { throw new SetupError(message); };
+// The MCP tool (cutout_setup) passes a pid file it reads as "installing"; it is removed however this ends.
+const pidFile = flag('--pid-file');
+if (pidFile) { fs.writeFileSync(pidFile, String(process.pid)); process.on('exit', () => fs.rmSync(pidFile, { force: true })); }
+process.on('uncaughtException', error => {
+  console.error(`DreamCut could not set up subject tracing: ${error instanceof SetupError ? error.message : error.stack ?? error}`);
+  process.exit(1);
+});
 
 fs.mkdirSync(dir, { recursive: true });
 const free = fs.statfsSync(dir);

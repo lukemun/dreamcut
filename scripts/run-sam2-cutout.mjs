@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const mattingRoot = path.resolve(process.cwd(), process.env.TIMELINE_MATTING_DIR ?? ".matting");
-const python = path.join(mattingRoot, "venv", "bin", "python");
+const python = path.join(mattingRoot, "venv", ...(process.platform === "win32" ? ["Scripts", "python.exe"] : ["bin", "python"]));
 const script = path.resolve(process.cwd(), "scripts/matting/hand_cutout.py");
 
 if (!fs.existsSync(python) || !fs.existsSync(script)) {

@@ -320,9 +320,19 @@ try {
       process.exit(await session.exited);
     }
     if (!runtime) {
-      const release = await latestRelease();
-      if (!release) throw new Error(`DreamCut has no runtime for ${key} yet.`);
-      runtime = await install(release);
+      // Another launcher (an agent session's background install) may already be downloading: wait for it.
+      if (!takeInstallLock()) {
+        say('DreamCut is already downloading in the background; waiting for it to finish…');
+        while (installerRunning()) await new Promise(resolve => setTimeout(resolve, 1000));
+        runtime = installedApps()[0]?.dir;
+        if (!runtime) throw new Error('The background install did not finish. Run `npx dreamcut install` to see why.');
+      } else {
+        try {
+          const release = await latestRelease();
+          if (!release) throw new Error(`DreamCut has no runtime for ${key} yet.`);
+          runtime = await install(release);
+        } finally { releaseInstallLock(); }
+      }
     }
   }
   const child = spawn(process.execPath, [path.join(runtime, 'bin', 'dreamcut.mjs'), ...args], { stdio: 'inherit' });

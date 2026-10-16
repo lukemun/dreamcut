@@ -12,7 +12,7 @@ import { withProjectLock } from "@/lib/local-store/store";
 const text = (max: number) => z.string().trim().min(1).max(max);
 const bodySchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("plan"), asset_id: z.string().optional() }).strict(),
-  z.object({ action: z.literal("record"), asset_id: z.string(), summary: text(4000), tags: z.array(text(100)).max(50),
+  z.object({ action: z.literal("record"), asset_id: z.string(), summary: text(4000), tags: z.array(text(100)).max(50).default([]),
     frames: z.array(z.object({ time_seconds: z.number().finite().nonnegative(), description: text(2000), tags: z.array(text(100)).max(24) }).strict()).min(1).max(10000),
     uncertainties: z.array(text(1000)).max(100).default([]), author: text(120).default("agent") }).strict(),
 ]);

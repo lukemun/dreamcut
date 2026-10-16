@@ -520,7 +520,7 @@
       "disposition": "covered-or-internal-worker",
       "capability": "visual-evidence",
       "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
-      "sha256": "bdef3a73028987881000ecc2252047191189975e50bdf7505360a2f792e9f610",
+      "sha256": "d1b5a91ac02a9fee09816929bccb082a48209a697bbec6240d2af4352a84edd0",
       "timeline_write_marker": false
     },
     {
@@ -1160,7 +1160,7 @@
       "disposition": "covered-or-internal-worker",
       "capability": "cutout-preparation",
       "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
-      "sha256": "bdde8769f85d81ef86690abd667697febea4fc67520eb418a1f124dc9a855829",
+      "sha256": "9f839b0fe0463c96ac050b04f1c28dc784dc0d66ca6c110893ca7d249e17d916",
       "timeline_write_marker": false
     },
     {
@@ -1264,7 +1264,7 @@
       "disposition": "exposed",
       "capability": "cutout-preparation",
       "reason": "Installs the pinned subject-tracing environment and checksum-verified SAM 2.1 checkpoint. Started by MCP cutout_setup after the creator agrees; no project or timeline writes.",
-      "sha256": "47f0b952583c848511c81372430c7ac0a68cbaf2732d068547bfa6c0fada70a9",
+      "sha256": "c2163057470915dc4cad10e36aec44cb3ba2264e580bf1f7682d42b3916cb041",
       "timeline_write_marker": false
     },
     {

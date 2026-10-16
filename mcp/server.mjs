@@ -94,7 +94,7 @@ const AUTOSTART_PRESENCE_INSTRUCTIONS =
   + `Opening or viewing the editor never approves, generates or applies anything.`;
 const SKILL_INSTRUCTIONS = ` DreamCut's skills are in capability_catalog (search, or get skill:<name>): read skill:open-edit-proposals before `
   + `changing an existing timeline and skill:editorial-assembly before building a new edit; a template names its own skill. `
-  + `Footage analysis (visual_analyze, video_search) uses you: look at the frames DreamCut returns and record what you see; DreamCut does not send footage to another model unless its owner turned background analysis on.`;
+  + `To make imported footage searchable (video_search), describe it yourself: media_describe plan, look at the frames with source_evidence, then media_describe record. Import analysis by another model runs only when its owner turned it on.`;
 const EDITOR_PRESENCE_INSTRUCTIONS = autostartEditor ? AUTOSTART_PRESENCE_INSTRUCTIONS + SKILL_INSTRUCTIONS :
   `Keep the DreamCut editor open in front of the creator whenever you work on a project. `
   + `Check that ${BASE_URL} answers; if it does not, start it yourself: run \`pnpm dev\` in ${EDITOR_ROOT} with your preview/launch tool `
@@ -123,14 +123,14 @@ function mattingSetup(action) {
   const dir = path.resolve(EDITOR_ROOT, process.env.TIMELINE_MATTING_DIR ?? ".matting");
   const log = path.join(dir, "setup.log"), pidFile = path.join(dir, "setup.pid");
   const ready = fs.existsSync(path.join(dir, "sam2.1_hiera_small.pt")) && fs.existsSync(path.join(dir, "venv"));
-  const running = (() => { try { process.kill(Number(fs.readFileSync(pidFile, "utf8")), 0); return true; } catch { return false; } })();
+  // The installer removes its pid file when it exits; a pid left by a crash or reboot is trusted only while the log is fresh.
+  const running = (() => { try { process.kill(Number(fs.readFileSync(pidFile, "utf8")), 0); return Date.now() - fs.statSync(log).mtimeMs < 20 * 60_000; } catch { return false; } })();
   const tail = () => { try { return fs.readFileSync(log, "utf8").trim().split("\n").slice(-3).join("\n"); } catch { return ""; } };
   if (action === "install" && !running && !ready) {
     fs.mkdirSync(dir, { recursive: true });
     const out = fs.openSync(log, "w");
-    const child = spawn(process.execPath, [path.join(EDITOR_ROOT, "scripts", "setup-matting.mjs"), "--dir", dir], { cwd: EDITOR_ROOT, detached: true, stdio: ["ignore", out, out], env: process.env });
+    const child = spawn(process.execPath, [path.join(EDITOR_ROOT, "scripts", "setup-matting.mjs"), "--dir", dir, "--pid-file", pidFile], { cwd: EDITOR_ROOT, detached: true, stdio: ["ignore", out, out], env: process.env });
     fs.closeSync(out);
-    fs.writeFileSync(pidFile, String(child.pid));
     child.unref();
     return { state: "installing", next: "Poll cutout_setup status every minute or so; it usually takes a few minutes." };
   }
@@ -360,7 +360,7 @@ const TOOLS = {
       project_id: PROJECT_ID,
       action: { type: "string", enum: ["plan", "record"], default: "plan", description: "plan: which videos need describing and the times to look at. record: save one video's description." },
       asset_id: { type: "string", description: "The imported video (from media_import or plan). Required for record." },
-      summary: { type: "string", maxLength: 4000, description: "For record: what the whole clip shows." },
+      summary: { type: "string", maxLength: 4000, description: "Required for record: what the whole clip shows." },
       tags: { type: "array", maxItems: 50, items: { type: "string", maxLength: 100 }, description: "For record: subjects, setting and actions across the clip." },
       frames: { type: "array", maxItems: 10000, description: "For record: one entry per planned time, in order.", items: { type: "object", additionalProperties: false, properties: {
         time_seconds: { type: "number", minimum: 0, description: "A planned source time, in order." }, description: { type: "string", maxLength: 2000, description: "What is visible at that time." }, tags: { type: "array", maxItems: 24, items: { type: "string", maxLength: 100 }, description: "Specific subject, action and setting words." } },
