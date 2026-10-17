@@ -1176,7 +1176,7 @@
       "disposition": "candidate-family",
       "capability": "cutout-treatment",
       "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
-      "sha256": "54c96e9d82060fa0c21a6ac9288c73e7be9478c07be5500d4144e5598e53d787",
+      "sha256": "ddbf9aaeaa51f846f1c4fd8207bc6aeeb88f0ee596767ef0d2c3055920611cf4",
       "timeline_write_marker": false
     },
     {

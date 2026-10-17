@@ -27,6 +27,19 @@ which owns draft review, retry decisions and delivery-quality promotion.
 Model-specific capabilities and syntax must come from the current integration or
 current official documentation; do not turn a provider convention into a universal rule.
 
+## Choose the depth before writing
+
+For substantial analytical or planning tasks, identify the decision or outcome behind
+the requested artifact. Preserve the user's scope and creative intent. Before rewriting,
+name what an expert would add, the raw inputs needed, the specific methods and tools,
+and an independent check of the result. Identify unavailable access explicitly.
+Use relevant methods from adjacent disciplines to challenge assumptions; a persona
+alone does not supply those methods. Keep routine requests proportional.
+
+Put these choices into the prompt's inputs, direction and acceptance criteria. Ambitious
+targets remain hypotheses to test, never grounds for claiming success without evidence.
+This is practitioner-informed guidance, not a demonstrated performance improvement.
+
 ## Compose useful direction
 
 Start with the concrete outcome and artifact. Supply only the context needed to
@@ -88,3 +101,10 @@ the same representative inputs, including ambiguity and relevant failure cases. 
 the prompt version, model/settings, available tools, and context used. Use independent
 artifact checks where available; the model's own self-check does not establish quality.
 Keep one-off prompt writing proportional to the task.
+
+## Provenance
+
+Adapted on 2026-10-16 from Felix Rieseberg's
+[tutorial](https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/)
+(published 2026-10-13). The advice here concerns agent task framing, not proven
+image/video-model prompting behavior.

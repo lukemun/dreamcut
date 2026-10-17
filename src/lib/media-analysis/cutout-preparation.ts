@@ -8,6 +8,7 @@ import { projectDir, projectMediaDir, projectInstrumentsDir } from "../local-sto
 import { readJsonFile, writeJsonFileAtomic } from "../local-store/atomic-json";
 import { appendCustomCutout, readCustomCutouts, type CustomCutoutReceipt } from "../local-store/custom-cutouts";
 import { enqueueMediaPreparation, readPreparation } from "../local-store/media-preparation";
+import { MATTING_CHECKPOINT, mattingRoot, requireMattingPython } from "./matting-runtime";
 import { buildCustomCutoutEncodeArgs, createCustomCutout, normalizeCustomCutoutRequest, run, sha256 } from "./custom-cutout";
 
 export type Correction = { parent_cutout_id: string; other_cutout_id: string; mode: "union" | "intersection"; frame_start: number; frame_end: number; roi: [number, number, number, number] };
@@ -76,16 +77,13 @@ export function combineMaskPixels(parent: Buffer, other: Buffer, width: number, 
   return result;
 }
 async function runtimeFingerprint() {
-  const root = path.resolve(process.env.TIMELINE_MATTING_DIR ?? ".matting");
-  if (!fs.existsSync(path.join(root, "sam2.1_hiera_small.pt")) || !fs.existsSync(path.join(root, "venv"))) {
-    throw Object.assign(new Error("Subject tracing is not installed. It is a one-time download of about 1 GB: ask the creator, then call cutout_setup with action install, wait until its status is ready, and retry."), { code: "MATTING_NOT_INSTALLED" });
-  }
+  const root = mattingRoot(), python = requireMattingPython({ checkpoint: true });
   // Model and implementation changes invalidate reuse. Missing runtimes fail explicitly.
   // The worker scripts are tracked under scripts/matting; the model stays in the local environment.
   const hashes = await Promise.all([
-    path.resolve("scripts/matting/hand_cutout.py"), path.resolve("scripts/matting/mask_postprocess.py"), path.join(root, "sam2.1_hiera_small.pt"),
+    path.resolve("scripts/matting/hand_cutout.py"), path.resolve("scripts/matting/mask_postprocess.py"), path.join(root, MATTING_CHECKPOINT),
   ].map(sha256));
-  const version = await run(path.join(root, process.platform === "win32" ? "venv/Scripts/python.exe" : "venv/bin/python"), ["-c", "import importlib.metadata as m,json; print(json.dumps({p:m.version(p) for p in ['torch','sam2','numpy','Pillow','scipy']},sort_keys=True))"]);
+  const version = await run(python, ["-c", "import importlib.metadata as m,json; print(json.dumps({p:m.version(p) for p in ['torch','sam2','numpy','Pillow','scipy']},sort_keys=True))"]);
   return createHash("sha256").update(JSON.stringify([hashes,version.stdout,await sha256(path.resolve("scripts/run-sam2-cutout.mjs"))])).digest("hex");
 }
 const saveJob = (projectId: string, job: CutoutJob) => writeJsonFileAtomic(jobPath(projectId,job.id), {...job, updated_at:new Date().toISOString()});

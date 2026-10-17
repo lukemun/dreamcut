@@ -327,11 +327,17 @@ try {
         runtime = installedApps()[0]?.dir;
         if (!runtime) throw new Error('The background install did not finish. Run `npx dreamcut install` to see why.');
       } else {
+        // Report like the background installer, so an agent session waiting on this lock shows progress.
+        const reporter = setInterval(writeProgress, 1000);
         try {
           const release = await latestRelease();
           if (!release) throw new Error(`DreamCut has no runtime for ${key} yet.`);
           runtime = await install(release);
-        } finally { releaseInstallLock(); }
+          writeProgress({ finished: true });
+        } catch (error) {
+          writeProgress({ error: error.cause?.message ? `${error.message} (${error.cause.message})` : error.message });
+          throw error;
+        } finally { clearInterval(reporter); releaseInstallLock(); }
       }
     }
   }

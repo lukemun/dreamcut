@@ -70,3 +70,14 @@ Prompt writing does not establish media understanding or authorize execution.
   review and promotion rather than expanding this authoring skill into a job runner.
 - **Verification:** Link/discovery checks and written routing walkthroughs. The session
   supplies examples of failure, not controlled evidence that a shorter prompt always wins.
+
+## 2026-10-16 — Expert methods in task framing
+
+- **Observation:** The user requested incorporation of Felix Rieseberg's published advice;
+  existing instructions named outcomes and checks without an explicit expert-methods pass.
+- **Decision:** Added bounded outcome, raw-input, methods/tool and independent-check
+  guidance. Preserve scope, missing-access honesty, and proportionality. This is an
+  attributed working default, not a measured model improvement.
+- **Verification:** Source tutorial inspected; written walkthroughs cover an analytical
+  pitch, a literal wording edit, and missing licensed data. Both skill-purpose and skill-catalog tests passed.
+  Fresh-context comparative trials have not run.

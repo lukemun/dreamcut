@@ -20,6 +20,17 @@ type SlideOutDrawerProps = {
   side?: DrawerSide | "auto";
 };
 
+/** Drawers hold one card column: wider only wastes the editor behind them. Dragging can widen up to the hard cap. */
+const DRAWER_DEFAULT_MAX = 440;
+const DRAWER_DRAG_MAX = 640;
+/** Below this much room above the timeline (a short window), the drawer runs to the bottom instead. */
+const DRAWER_MIN_HEIGHT = 360;
+const roomAboveTimeline = (column: HTMLElement | null) => {
+  if (!column) return null;
+  const { top, bottom } = column.getBoundingClientRect();
+  return bottom - top >= DRAWER_MIN_HEIGHT ? Math.round(bottom) : null;
+};
+
 const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([role="separator"])';
 
 /** Text the person is typing keeps its own Escape; an empty field or any other control closes the drawer. */
@@ -35,9 +46,10 @@ function keepsEscape(target: EventTarget | null) {
  * media browsing, review state, and scroll position survive every open/close.
  *
  * In the editor every drawer takes the same place so nothing behind it is cut mid-control:
- * the tall layout covers the whole Properties/timeline column (the preview stays visible),
+ * the tall layout covers the Properties column above the timeline (the preview and timeline stay visible),
  * and the wide layout docks it, so the editor reflows beside it rather than under it. A drawer
- * from the left (Wide) matches the tool column's width until the person drags its right edge.
+ * from the left (Wide) covers the tool column, at most DRAWER_DEFAULT_MAX wide until the person
+ * drags its right edge, and stops above the timeline.
  * Opening moves focus into the drawer; closing returns focus to whatever opened it.
  */
 export function SlideOutDrawer({
@@ -72,7 +84,7 @@ export function SlideOutDrawer({
   const drag = useRef<{ x: number; width: number; previous: number | null } | null>(null);
   // Dragging the free edge away from the screen side widens the drawer.
   const grow = fromLeft ? 1 : -1;
-  const clamp = (value: number) => Math.max(Math.min(320, window.innerWidth), Math.min(window.innerWidth - 24, value));
+  const clamp = (value: number) => Math.max(Math.min(320, window.innerWidth), Math.min(window.innerWidth - 24, DRAWER_DRAG_MAX, value));
   const persist = (value: number) => {
     setSavedWidth(value);
     if (widthStorageKey) try { localStorage.setItem(widthStorageKey, String(value)); } catch { /* Storage may be unavailable. */ }
@@ -82,11 +94,15 @@ export function SlideOutDrawer({
     update(); window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
-  // Tall editor: the drawer's left edge meets the preview frame's right edge (else the side column's left edge).
+  // Tall editor: the drawer's left edge meets the preview frame's right edge (else the side column's left edge),
+  // at most DRAWER_DEFAULT_MAX wide.
   const [columnLeft, setColumnLeft] = useState<number | null>(null);
-  // Wide editor, from the left: the drawer runs down the left as wide as the tool column (Library/Properties),
-  // over the tools and the timeline beneath them; its right edge drags wider or narrower.
+  // Wide editor, from the left: the drawer runs down the tool column (Library/Properties), at most
+  // DRAWER_DEFAULT_MAX wide, and stops above the timeline; its right edge drags wider or narrower.
   const [toolColumnRight, setToolColumnRight] = useState<number | null>(null);
+  // Both layouts: the drawer stops where the timeline starts, so the whole timeline stays visible
+  // (unless the window is too short to leave the drawer DRAWER_MIN_HEIGHT above it).
+  const [timelineTop, setTimelineTop] = useState<number | null>(null);
   useEffect(() => {
     if (!open) return;
     // The drawer opens right up to the video frame itself (not its letterboxed viewer), covering every
@@ -97,10 +113,12 @@ export function SlideOutDrawer({
       if (fromLeft) {
         const tools = document.querySelector<HTMLElement>(".editor-playback-workspace--horizontal .editor-tools");
         setToolColumnRight(tools ? Math.round(tools.getBoundingClientRect().right) : null);
+        setTimelineTop(roomAboveTimeline(tools));
         return;
       }
       const column = document.querySelector<HTMLElement>(".editor-playback-workspace--vertical .editor-inspector");
       setColumnLeft(column ? Math.round(picture && picture.width > 0 ? picture.right : column.getBoundingClientRect().left) : null);
+      setTimelineTop(roomAboveTimeline(column));
     };
     measure();
     const workspace = document.querySelector(".editor-playback-workspace");
@@ -108,6 +126,9 @@ export function SlideOutDrawer({
     if (workspace) observer.observe(workspace);
     const framed = document.querySelector(".editor-playback-workspace [data-composition-master-frame]");
     if (framed) observer.observe(framed);
+    // Dragging the timeline's top edge resizes the tool or Properties column, not the workspace.
+    const column = document.querySelector(".editor-playback-workspace--horizontal .editor-tools, .editor-playback-workspace--vertical .editor-inspector");
+    if (column) observer.observe(column);
     window.addEventListener("resize", measure);
     return () => { observer.disconnect(); window.removeEventListener("resize", measure); };
   }, [fromLeft, open]);
@@ -126,6 +147,14 @@ export function SlideOutDrawer({
       observer.disconnect();
       if (root.dataset.editorDrawer === label) { delete root.dataset.editorDrawer; root.style.removeProperty("--editor-drawer-width"); }
     };
+  }, [fromLeft, label, open]);
+  // Wide editor, from the left: the drawer can be narrower than the tool column it covers, so the column's
+  // controls are hidden while it is open rather than showing cut off beside it (editor-workspace.css).
+  useEffect(() => {
+    if (!open || !fromLeft) return;
+    const root = document.documentElement;
+    root.dataset.editorDrawerLeft = label;
+    return () => { if (root.dataset.editorDrawerLeft === label) delete root.dataset.editorDrawerLeft; };
   }, [fromLeft, label, open]);
   // Focus moves into the drawer when it opens and back to its opener when it closes.
   useEffect(() => {
@@ -159,7 +188,8 @@ export function SlideOutDrawer({
     if (!widthStorageKey) return;
     try {
       const value = Number(getStoredItem(localStorage, widthStorageKey));
-      if (Number.isFinite(value) && value >= 320) setSavedWidth(value);
+      // A width saved before the cap existed comes back capped.
+      if (Number.isFinite(value) && value >= 320) setSavedWidth(Math.min(value, DRAWER_DRAG_MAX));
     } catch { /* Keep the default width. */ }
   }, [widthStorageKey]);
   return (
@@ -176,10 +206,10 @@ export function SlideOutDrawer({
         // Meets the bottom of whichever app header is present (see --app-header-height).
         top: "var(--app-header-height, 3.5rem)",
         ...(fromLeft ? { left: 0 } : { right: 0 }),
-        bottom: 0,
+        bottom: timelineTop !== null ? `calc(100vh - ${timelineTop}px)` : 0,
         width: fromLeft && savedWidth !== null ? `min(${savedWidth}px, calc(100vw - 24px))`
-          : fromLeft && toolColumnRight !== null ? `min(max(${toolColumnRight}px, 320px), calc(100vw - 24px))`
-          : columnLeft !== null ? `calc(100vw - ${columnLeft}px)` : savedWidth === null ? width : `min(${savedWidth}px, calc(100vw - 24px))`,
+          : fromLeft && toolColumnRight !== null ? `min(max(${toolColumnRight}px, 320px), ${DRAWER_DEFAULT_MAX}px, calc(100vw - 24px))`
+          : columnLeft !== null ? `min(calc(100vw - ${columnLeft}px), ${DRAWER_DEFAULT_MAX}px)` : savedWidth === null ? width : `min(${savedWidth}px, calc(100vw - 24px))`,
         zIndex,
         display: "flex",
         flexDirection: "column",
@@ -196,7 +226,7 @@ export function SlideOutDrawer({
     >
       {widthStorageKey && (fromLeft || columnLeft === null) && <div
         role="separator" aria-orientation="vertical" aria-label={`Resize ${label}`}
-        aria-valuemin={Math.min(320, viewportWidth - 24)} aria-valuemax={viewportWidth - 24} aria-valuenow={Math.min(savedWidth ?? 480, viewportWidth - 24)} aria-valuetext={`${Math.round(Math.min(savedWidth ?? 480, viewportWidth - 24))} pixels wide`}
+        aria-valuemin={Math.min(320, viewportWidth - 24)} aria-valuemax={Math.min(DRAWER_DRAG_MAX, viewportWidth - 24)} aria-valuenow={Math.min(savedWidth ?? 480, viewportWidth - 24)} aria-valuetext={`${Math.round(Math.min(savedWidth ?? 480, viewportWidth - 24))} pixels wide`}
         tabIndex={open ? 0 : -1}
         title="Drag to resize"
         className={`group absolute ${fromLeft ? "-right-1" : "-left-1"} top-0 z-10 flex h-full w-2 cursor-col-resize items-center justify-center touch-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--chrome-focus-ring)]`}

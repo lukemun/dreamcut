@@ -10,6 +10,7 @@ import { cutoutMediaPath } from "./cutout-preparation";
 import { sha256 } from "./custom-cutout";
 import { surfaceQuadSchema, surfaceTrackSchema, type SurfaceTrack } from "../timeline/surface-track";
 import { readEnv } from "@/lib/env-name";
+import { requireMattingPython } from "./matting-runtime";
 
 export const surfaceTrackingRequestSchema=z.object({parentId:z.string().min(1),start:z.number().finite().min(0),end:z.number().finite().positive(),
   reference:z.number().finite().min(0),quad:surfaceQuadSchema,retry:z.boolean().optional()}).strict().refine(r=>r.end>r.start&&r.end-r.start<=15&&r.reference>=r.start&&r.reference<=r.end,"Choose a visible range of at most 15 seconds containing the reference frame");
@@ -27,9 +28,12 @@ export async function prepareSurfaceTracking(projectId:string,raw:unknown) {
   if(!parent||parent.removed_at||parent.type!=="video_clip"||!parent.source_url?.startsWith(prefix))throw Error("Choose a local project video");
   const file=cutoutMediaPath(projectId,decodeURIComponent(parent.source_url.slice(prefix.length)));
   const hash=await sha256(file),script=path.resolve("scripts/track-surface.py");
-  const python=readEnv("TRACKING_PYTHON")??path.resolve(".matting/venv/bin/python");
-  if(!fs.existsSync(python))throw Error("Surface tracking requires OpenCV in DREAMCUT_TRACKING_PYTHON. Existing attachments can still be corrected manually.");
-  const runtime=execFileSync(python,["-c","import cv2,numpy; print(cv2.__version__,numpy.__version__)"],{encoding:"utf8",timeout:10000}).trim();
+  const configured=readEnv("TRACKING_PYTHON");
+  if(configured&&!fs.existsSync(configured))throw Error("DREAMCUT_TRACKING_PYTHON does not exist. Existing attachments can still be corrected manually.");
+  const python=configured??requireMattingPython();
+  let runtime:string;
+  try{runtime=execFileSync(python,["-c","import cv2,numpy; print(cv2.__version__,numpy.__version__)"],{encoding:"utf8",timeout:10000,stdio:["ignore","pipe","pipe"]}).trim();}
+  catch{throw Error(`Surface tracking requires OpenCV (cv2) in ${python}. Existing attachments can still be corrected manually.`);}
   const id=createHash("sha256").update(JSON.stringify({...input,retry:undefined,source:hash,worker:await sha256(script),python,runtime})).digest("hex");
   const output=fileFor(projectId,id),key=`${projectId}:${id}`,old=readJsonFile<Job|null>(output,null);
   if(old&&(old.state==="completed"||jobs.has(key)))return old;

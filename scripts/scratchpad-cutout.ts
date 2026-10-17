@@ -5,6 +5,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { appendCustomCutout, readCustomCutouts } from "../src/lib/local-store/custom-cutouts";
 import { projectDir, projectMediaDir } from "../src/lib/local-store/paths";
+import { requireMattingPython } from "../src/lib/media-analysis/matting-runtime";
 
 const [project, parentId, widthText = "12", bottomText = "1", cleanupMode = "small-holes"] = process.argv.slice(2);
 const fillAllEnclosed = cleanupMode === "fill-all" || cleanupMode === "fill-all-largest";
@@ -30,7 +31,7 @@ const cleanupArgs = [
 ];
 if (fillAllEnclosed) cleanupArgs.push("--fill-all-enclosed");
 if (keepLargestComponent) cleanupArgs.push("--largest-component");
-const cleanup = spawnSync(path.resolve(".matting/venv/bin/python"), cleanupArgs, { encoding: "utf8" });
+const cleanup = spawnSync(requireMattingPython(), cleanupArgs, { encoding: "utf8" });
 if (cleanup.status !== 0) throw new Error(`Mask cleanup failed: ${cleanup.stderr}`);
 const maskFacts = JSON.parse(cleanup.stdout);
 if (maskFacts.frame_count !== parent.frame_count || maskFacts.frames_with_remaining_holes !== 0) throw new Error(`Matte requires review: ${cleanup.stdout}`);
