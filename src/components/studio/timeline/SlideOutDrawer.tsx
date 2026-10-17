@@ -23,13 +23,6 @@ type SlideOutDrawerProps = {
 /** Drawers hold one card column: wider only wastes the editor behind them. Dragging can widen up to the hard cap. */
 const DRAWER_DEFAULT_MAX = 440;
 const DRAWER_DRAG_MAX = 640;
-/** Below this much room above the timeline (a short window), the drawer runs to the bottom instead. */
-const DRAWER_MIN_HEIGHT = 360;
-const roomAboveTimeline = (column: HTMLElement | null) => {
-  if (!column) return null;
-  const { top, bottom } = column.getBoundingClientRect();
-  return bottom - top >= DRAWER_MIN_HEIGHT ? Math.round(bottom) : null;
-};
 
 const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([role="separator"])';
 
@@ -46,10 +39,10 @@ function keepsEscape(target: EventTarget | null) {
  * media browsing, review state, and scroll position survive every open/close.
  *
  * In the editor every drawer takes the same place so nothing behind it is cut mid-control:
- * the tall layout covers the Properties column above the timeline (the preview and timeline stay visible),
+ * the tall layout covers the whole Properties/timeline column (the preview stays visible),
  * and the wide layout docks it, so the editor reflows beside it rather than under it. A drawer
  * from the left (Wide) covers the tool column, at most DRAWER_DEFAULT_MAX wide until the person
- * drags its right edge, and stops above the timeline.
+ * drags its right edge, and runs the full height over the timeline.
  * Opening moves focus into the drawer; closing returns focus to whatever opened it.
  */
 export function SlideOutDrawer({
@@ -98,11 +91,8 @@ export function SlideOutDrawer({
   // at most DRAWER_DEFAULT_MAX wide.
   const [columnLeft, setColumnLeft] = useState<number | null>(null);
   // Wide editor, from the left: the drawer runs down the tool column (Library/Properties), at most
-  // DRAWER_DEFAULT_MAX wide, and stops above the timeline; its right edge drags wider or narrower.
+  // DRAWER_DEFAULT_MAX wide, over the timeline beneath it; its right edge drags wider or narrower.
   const [toolColumnRight, setToolColumnRight] = useState<number | null>(null);
-  // Both layouts: the drawer stops where the timeline starts, so the whole timeline stays visible
-  // (unless the window is too short to leave the drawer DRAWER_MIN_HEIGHT above it).
-  const [timelineTop, setTimelineTop] = useState<number | null>(null);
   useEffect(() => {
     if (!open) return;
     // The drawer opens right up to the video frame itself (not its letterboxed viewer), covering every
@@ -113,12 +103,10 @@ export function SlideOutDrawer({
       if (fromLeft) {
         const tools = document.querySelector<HTMLElement>(".editor-playback-workspace--horizontal .editor-tools");
         setToolColumnRight(tools ? Math.round(tools.getBoundingClientRect().right) : null);
-        setTimelineTop(roomAboveTimeline(tools));
         return;
       }
       const column = document.querySelector<HTMLElement>(".editor-playback-workspace--vertical .editor-inspector");
       setColumnLeft(column ? Math.round(picture && picture.width > 0 ? picture.right : column.getBoundingClientRect().left) : null);
-      setTimelineTop(roomAboveTimeline(column));
     };
     measure();
     const workspace = document.querySelector(".editor-playback-workspace");
@@ -126,7 +114,7 @@ export function SlideOutDrawer({
     if (workspace) observer.observe(workspace);
     const framed = document.querySelector(".editor-playback-workspace [data-composition-master-frame]");
     if (framed) observer.observe(framed);
-    // Dragging the timeline's top edge resizes the tool or Properties column, not the workspace.
+    // Dragging the timeline's top edge resizes the tool or Properties column, not the workspace: re-measure it.
     const column = document.querySelector(".editor-playback-workspace--horizontal .editor-tools, .editor-playback-workspace--vertical .editor-inspector");
     if (column) observer.observe(column);
     window.addEventListener("resize", measure);
@@ -207,7 +195,7 @@ export function SlideOutDrawer({
         // Meets the bottom of whichever app header is present (see --app-header-height).
         top: "var(--app-header-height, 3.5rem)",
         ...(fromLeft ? { left: 0 } : { right: 0 }),
-        bottom: timelineTop !== null ? `calc(100vh - ${timelineTop}px)` : 0,
+        bottom: 0,
         width: fromLeft && savedWidth !== null ? `min(${savedWidth}px, calc(100vw - 24px))`
           : fromLeft && toolColumnRight !== null ? `min(max(${toolColumnRight}px, 320px), ${DRAWER_DEFAULT_MAX}px, calc(100vw - 24px))`
           : columnLeft !== null ? `min(calc(100vw - ${columnLeft}px), ${DRAWER_DEFAULT_MAX}px)` : savedWidth === null ? width : `min(${savedWidth}px, calc(100vw - 24px))`,
