@@ -138,10 +138,13 @@ async function mattingSetup(action) {
     child.unref();
     return { state: "installing", next: "Poll cutout_setup status every minute or so; it usually takes a few minutes." };
   }
-  const state = ready && !running ? "ready" : running ? "installing" : fs.existsSync(log) && !fs.existsSync(path.join(dir, "venv")) ? "failed"
+  // setup-matting ends a failed run with this line; the venv may still exist, so it alone does not mean "needs_update".
+  const lastRunFailed = /could not set up subject tracing/.test(tail());
+  const state = ready && !running ? "ready" : running ? "installing" : lastRunFailed ? "failed"
     : fs.existsSync(path.join(dir, "venv")) ? "needs_update" : "not_installed";
   return { state, ...(state === "ready" ? {} : { log_tail: tail() }),
-    ...(state === "not_installed" || state === "failed" ? { next: "Ask the creator before the one-time download of about 1 GB, then call cutout_setup with action install." } : {}),
+    ...(state === "not_installed" ? { next: "Ask the creator before the one-time download of about 1 GB, then call cutout_setup with action install." } : {}),
+    ...(state === "failed" ? { next: "Tell the creator what log_tail says went wrong; retry install only after that is fixed." } : {}),
     ...(state === "needs_update" ? { next: "Call cutout_setup with action install to add the missing packages (a smaller download)." } : {}) };
 }
 /** Tools that can create a project; they need the creator's Library first (mcp/projects-root.mjs). */
