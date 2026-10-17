@@ -21,8 +21,8 @@ First-run fixes for installing with your agent (`npx dreamcut mcp`):
   `npx dreamcut setup-matting`) installs subject tracing after you agree, about 1 GB once.
 - `run_instrument` (frame-state, qc) works in the installed editor: the right projects folder, address and session.
 - Surface tracking uses the same one-time install (it now includes OpenCV); an older install updates in place.
-- Editor drawers (Proposals, Library, Generate) are at most 440 px wide by default (640 px when dragged); the
-  column behind an open drawer hides instead of showing cut off.
+- Editor drawers (Proposals, Library, Generate) slide over the timeline at full height but are at most 440 px
+  wide by default (640 px when dragged); the Library/Properties column behind an open drawer hides.
 - Shorter README with an editor screenshot and a template gallery; the full template list moved to `docs/effects/`.
 - Tidier repository root: catalogs under `catalogs/`, community files under `.github/`, legal notices under `docs/legal/`, matting and OpenTelemetry scripts under `scripts/`.
 - Dependabot groups minor and patch updates into one weekly PR.
