@@ -68,3 +68,10 @@ it. `cutout_setup` reports status and starts the install in the background after
 agrees; `cutout_prepare` without it fails with MATTING_NOT_INSTALLED pointing there. Verified in
 a clean-environment Claude Code run on the 0.2.1 build: the agent asked before the download,
 installed it and proposed Moving Grid Matte, which previews in the editor.
+
+2026-10-16 — The subject-tracing environment includes OpenCV (`opencv-python-headless==5.0.0.93`),
+because surface tracking now runs on the same Python and an npx install otherwise stopped with
+"requires OpenCV (cv2)". The package list moved to `scripts/matting/environment.mjs`; setup writes an
+`environment.json` marker, `cutout_setup` reports `needs_update` when an environment predates the
+current list (and `failed`, with the log tail, when the last run failed), and rerunning setup adds
+only the missing packages. Verified: a fresh install and an in-place update both import cv2.

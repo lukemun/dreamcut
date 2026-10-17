@@ -11,3 +11,8 @@ Validation receipts and footage-specific assessment remain private. Current boun
 The canonical control home is a selected native text actor → Text → Attach text to a surface. Source frame and visibility values use original-video seconds; the renderer derives placement from the parent’s source clock, including speed steps. Four corners are a structured attachment, edited as a local draft and saved atomically through normal props history. Discard restores the saved attachment; Undo restores the preceding save. Words, font, size and colour remain native caption values. Ordinary position/effect controls are hidden when attached. Visibility edits reuse the prepared samples. Tracking preparation validates source bytes and records the worker/runtime identity in its cache key; variable timing is rejected rather than silently drifting.
 
 Validation: source-clock, visibility, convexity and homography tests; synthetic preview/render parity, repeated seeking, text changes and visibility; a local real-video run and corner-save/Undo exercised. Full independent UI acceptance remains incomplete because the second visual reviewer could not get past editor loading. The broad repository and renderer suites have unresolved failures; do not infer PR readiness from scoped checks. Ordinary caption box/ink metrics explicitly exclude tracked surfaces rather than reporting false geometry.
+
+2026-10-16 — Tracking runs on the subject-tracing environment (`requireMattingPython`, honoring
+`TIMELINE_MATTING_DIR`; `DREAMCUT_TRACKING_PYTHON` still overrides), which now ships OpenCV. An
+npx-installed DreamCut gets it through `cutout_setup`; an environment from before OpenCV was added
+reports `needs_update`, and tracking says to run `cutout_setup install` rather than crash.

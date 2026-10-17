@@ -2,14 +2,13 @@
 
 Tracks an object (such as a hand) through a clip and emits source-mapped per-frame masks.
 The masks are the default editor tracking evidence and may drive crop/contact geometry without
-ever becoming a visible layer. Encode a cutout only when the layer contract requests one. The
-tracked scripts, tests, and this README rebuild against a local environment created with:
-
-```sh
-/opt/homebrew/bin/python3.13 -m venv venv
-./venv/bin/pip install torch torchvision numpy pillow scipy tqdm sam2
-curl -L -o sam2.1_hiera_small.pt https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt
-```
+ever becoming a visible layer. Encode a cutout only when the layer contract requests one. Install the
+environment with `pnpm setup:matting` (a checkout: `.matting`), `npx dreamcut setup-matting` or the
+`cutout_setup` MCP tool (an installed DreamCut: its app data, `TIMELINE_MATTING_DIR`). It installs the
+pinned packages in [`environment.mjs`](environment.mjs) (PyTorch, SAM 2, NumPy, Pillow, SciPy and
+OpenCV, which surface tracking also uses) and the checksum-verified `sam2.1_hiera_small.pt`, about 1 GB
+in all, and records them in `environment.json`. Rerunning it after the package list changes adds only
+what is missing.
 
 Usage (frames extracted with `ffmpeg -i clip.mp4 -q:v 2 frames/%05d.jpg`):
 
