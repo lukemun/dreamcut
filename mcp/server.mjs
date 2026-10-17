@@ -119,10 +119,14 @@ async function reviewLinks(reviewPath) {
  * Subject tracing lives in TIMELINE_MATTING_DIR (an installed runtime's app data) or the checkout's .matting.
  * The installer (scripts/setup-matting.mjs) runs detached, so it outlives this session; its log is the status.
  */
-function mattingSetup(action) {
+async function mattingSetup(action) {
+  // Loaded on use: the server also runs where the installer scripts are absent.
+  const { MARKER: MATTING_MARKER, PACKAGES: MATTING_PACKAGES } = await import("../scripts/matting/environment.mjs");
   const dir = path.resolve(EDITOR_ROOT, process.env.TIMELINE_MATTING_DIR ?? ".matting");
   const log = path.join(dir, "setup.log"), pidFile = path.join(dir, "setup.pid");
-  const ready = fs.existsSync(path.join(dir, "sam2.1_hiera_small.pt")) && fs.existsSync(path.join(dir, "venv"));
+  // Ready means installed by the current package list (an older environment lacks, for example, OpenCV).
+  const marker = (() => { try { return JSON.parse(fs.readFileSync(path.join(dir, MATTING_MARKER), "utf8")); } catch { return null; } })();
+  const ready = fs.existsSync(path.join(dir, "sam2.1_hiera_small.pt")) && JSON.stringify(marker?.packages) === JSON.stringify(MATTING_PACKAGES);
   // The installer removes its pid file when it exits; a pid left by a crash or reboot is trusted only while the log is fresh.
   const running = (() => { try { process.kill(Number(fs.readFileSync(pidFile, "utf8")), 0); return Date.now() - fs.statSync(log).mtimeMs < 20 * 60_000; } catch { return false; } })();
   const tail = () => { try { return fs.readFileSync(log, "utf8").trim().split("\n").slice(-3).join("\n"); } catch { return ""; } };
@@ -134,9 +138,11 @@ function mattingSetup(action) {
     child.unref();
     return { state: "installing", next: "Poll cutout_setup status every minute or so; it usually takes a few minutes." };
   }
-  const state = ready && !running ? "ready" : running ? "installing" : fs.existsSync(log) ? "failed" : "not_installed";
+  const state = ready && !running ? "ready" : running ? "installing" : fs.existsSync(log) && !fs.existsSync(path.join(dir, "venv")) ? "failed"
+    : fs.existsSync(path.join(dir, "venv")) ? "needs_update" : "not_installed";
   return { state, ...(state === "ready" ? {} : { log_tail: tail() }),
-    ...(state === "not_installed" || state === "failed" ? { next: "Ask the creator before the one-time download of about 1 GB, then call cutout_setup with action install." } : {}) };
+    ...(state === "not_installed" || state === "failed" ? { next: "Ask the creator before the one-time download of about 1 GB, then call cutout_setup with action install." } : {}),
+    ...(state === "needs_update" ? { next: "Call cutout_setup with action install to add the missing packages (a smaller download)." } : {}) };
 }
 /** Tools that can create a project; they need the creator's Library first (mcp/projects-root.mjs). */
 const PROJECT_CREATING_TOOLS = new Set(["assembly_create", "audition_create", "media_import", "storyboard_draft", "storyboard_reference_draft"]);
@@ -1084,7 +1090,7 @@ const TOOLS = {
     handler:({project_id,job_id})=>http("POST",`/api/projects/${project_id}/analysis/cutout-preparation`,{action:"status",job_id}),
   },
   cutout_setup: {
-    description: "Install subject tracing (the local SAM 2.1 model and its Python environment, about 1 GB, once), which cutout_prepare and every cutout template need. action status reports ready, installing or failed with the last log lines. action install starts the download in the background; call it only after the creator agrees to the download, then poll status. No project or timeline changes.",
+    description: "Install subject tracing (the local SAM 2.1 model and its Python environment, about 1 GB, once), which cutout_prepare and every cutout template need. action status reports ready, installing, needs_update or failed with the last log lines. action install starts the download in the background; call it only after the creator agrees to the download, then poll status. No project or timeline changes.",
     inputSchema: { type: "object", additionalProperties: false, properties: {
       action: { type: "string", enum: ["status", "install"], default: "status", description: "status: is it installed. install: start the one-time download after the creator agrees." },
     } },

@@ -133,6 +133,7 @@ export function SlideOutDrawer({
     return () => { observer.disconnect(); window.removeEventListener("resize", measure); };
   }, [fromLeft, open]);
   // Wide editor: publish the open drawer's width so the editor reflows beside it (editor-workspace.css).
+  // Tall editor: the same flag hides the Properties column the drawer covers.
   // A left drawer covers the tool column instead, so nothing reflows.
   useEffect(() => {
     const element = panel.current;

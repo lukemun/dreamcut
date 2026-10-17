@@ -676,6 +676,14 @@
       "timeline_write_marker": false
     },
     {
+      "path": "scripts/matting/environment.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": "cutout-preparation",
+      "reason": "Shared package list and checkpoint for the subject-tracing environment, read by setup-matting and cutout_setup. Data only; no project or timeline writes.",
+      "sha256": "b173e97764bf32860feb02a08b0c2a6422c60818bcca121c7efd821013bd47d1",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/matting/hand_cutout.py",
       "disposition": "covered-or-internal-worker",
       "capability": "cutout-preparation",
@@ -1264,7 +1272,7 @@
       "disposition": "exposed",
       "capability": "cutout-preparation",
       "reason": "Installs the pinned subject-tracing environment and checksum-verified SAM 2.1 checkpoint. Started by MCP cutout_setup after the creator agrees; no project or timeline writes.",
-      "sha256": "c2163057470915dc4cad10e36aec44cb3ba2264e580bf1f7682d42b3916cb041",
+      "sha256": "ccfeec1653f6c3c84141d57613219eacdb9062e5c9a7b7882bd2858e2b6e04ec",
       "timeline_write_marker": false
     },
     {

@@ -519,7 +519,9 @@ body:has(.workspace-tabs) { --app-header-height:42px; }
 
 /* Wide editor: an open right-hand drawer docks, and the editor reflows beside it (SlideOutDrawer). */
 html[data-editor-drawer] .editor-glass-workspace:has(.editor-playback-workspace--horizontal) { padding-right:var(--editor-drawer-width, 0px); }
-html[data-editor-drawer-left] .editor-playback-workspace--horizontal .editor-tools { visibility:hidden; }
+/* An open drawer can be narrower than the column it covers: that column's controls hide rather than show cut off. */
+html[data-editor-drawer-left] .editor-playback-workspace--horizontal .editor-tools,
+html[data-editor-drawer] .editor-playback-workspace--vertical .editor-inspector { visibility:hidden; }
 /* Library page with Generate open: every image says what a click does on hover and keyboard focus. */
 .memory-body .library-reference-pick { position:relative; }
 .memory-body .library-reference-pick:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }

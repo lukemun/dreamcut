@@ -33,7 +33,9 @@ export async function prepareSurfaceTracking(projectId:string,raw:unknown) {
   const python=configured??requireMattingPython();
   let runtime:string;
   try{runtime=execFileSync(python,["-c","import cv2,numpy; print(cv2.__version__,numpy.__version__)"],{encoding:"utf8",timeout:10000,stdio:["ignore","pipe","pipe"]}).trim();}
-  catch{throw Error(`Surface tracking requires OpenCV (cv2) in ${python}. Existing attachments can still be corrected manually.`);}
+  catch{throw Error(configured ? `Surface tracking requires OpenCV (cv2) in ${python}. Existing attachments can still be corrected manually.`
+    // The tracing environment gained OpenCV after its first release: an older install only needs updating.
+    : "Surface tracking needs the subject-tracing environment updated: ask the creator, then call cutout_setup with action install and retry. Existing attachments can still be corrected manually.");}
   const id=createHash("sha256").update(JSON.stringify({...input,retry:undefined,source:hash,worker:await sha256(script),python,runtime})).digest("hex");
   const output=fileFor(projectId,id),key=`${projectId}:${id}`,old=readJsonFile<Job|null>(output,null);
   if(old&&(old.state==="completed"||jobs.has(key)))return old;

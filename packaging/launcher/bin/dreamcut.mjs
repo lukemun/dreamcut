@@ -269,6 +269,8 @@ try {
       say(`DreamCut ${installedApps()[0].version} is installed.`);
       process.exit(0);
     }
+    // Written at once, so a waiting session never reads an earlier install's error.
+    writeProgress();
     const reporter = setInterval(writeProgress, 1000);
     try {
       const release = await latestRelease();
@@ -328,6 +330,8 @@ try {
         if (!runtime) throw new Error('The background install did not finish. Run `npx dreamcut install` to see why.');
       } else {
         // Report like the background installer, so an agent session waiting on this lock shows progress.
+        // Written at once, so a waiting session never reads an earlier install's error.
+        writeProgress();
         const reporter = setInterval(writeProgress, 1000);
         try {
           const release = await latestRelease();

@@ -20,6 +20,9 @@ First-run fixes for installing with your agent (`npx dreamcut mcp`):
 - Cutout templates can be set up on a fresh install: `cutout_setup` (or `pnpm setup:matting` /
   `npx dreamcut setup-matting`) installs subject tracing after you agree, about 1 GB once.
 - `run_instrument` (frame-state, qc) works in the installed editor: the right projects folder, address and session.
+- Surface tracking uses the same one-time install (it now includes OpenCV); an older install updates in place.
+- Editor drawers (Proposals, Library, Generate) are at most 440 px wide by default and stop above the timeline,
+  in both the wide and tall layouts.
 - Shorter README with an editor screenshot and a template gallery; the full template list moved to `docs/effects/`.
 - Tidier repository root: catalogs under `catalogs/`, community files under `.github/`, legal notices under `docs/legal/`, matting and OpenTelemetry scripts under `scripts/`.
 - Dependabot groups minor and patch updates into one weekly PR.

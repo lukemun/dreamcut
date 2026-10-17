@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Install the local subject-tracing (SAM 2.1) environment that cutout templates need: a Python virtual
- * environment with pinned packages and the checksum-verified model checkpoint, about 1 GB in all.
+ * environment with pinned packages (scripts/matting/environment.mjs) and the checksum-verified model
+ * checkpoint, about 1 GB in all. Surface tracking uses the same environment (OpenCV).
  *
  *   pnpm setup:matting                      a source checkout: into .matting
  *   npx dreamcut setup-matting              an installed DreamCut: into its app data
@@ -16,14 +17,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
+import { CHECKPOINT, MARKER, PACKAGES } from './matting/environment.mjs';
 
-const PACKAGES = ['torch==2.14.0', 'torchvision==0.29.0', 'sam2==1.1.0', 'numpy==2.5.3', 'pillow==12.3.0', 'scipy==1.18.1', 'tqdm==4.70.1'];
-const CHECKPOINT = {
-  file: 'sam2.1_hiera_small.pt',
-  url: 'https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt',
-  sha256: '6d1aa6f30de5c92224f8172114de081d104bbd23dd9dc5c58996f0cad5dc4d38',
-  bytes: 184416285,
-};
 
 const flag = name => { const index = process.argv.indexOf(name); return index >= 0 ? process.argv[index + 1] : undefined; };
 const dir = path.resolve(flag('--dir') ?? process.env.TIMELINE_MATTING_DIR ?? '.matting');
@@ -45,7 +40,13 @@ fs.mkdirSync(dir, { recursive: true });
 const free = fs.statfsSync(dir);
 if (free.bavail * free.bsize < 3 * 1024 ** 3) fail(`it needs about 3 GB free while installing in ${dir}.`);
 
-const ready = () => fs.existsSync(python) && quiet(python, ['-c', 'import torch, sam2, numpy, PIL, scipy']);
+const ready = () => fs.existsSync(python) && quiet(python, ['-c', 'import torch, sam2, numpy, PIL, scipy, cv2']);
+// An environment made by an earlier package list only needs the packages it lacks.
+if (!ready() && fs.existsSync(python) && quiet(python, ['-c', 'import torch, sam2'])) {
+  console.log('Updating the subject-tracing environment…');
+  if (quiet('uv', ['--version'])) run('uv', ['pip', 'install', '--python', python, ...PACKAGES]);
+  else run(python, ['-m', 'pip', 'install', '--disable-pip-version-check', ...PACKAGES]);
+}
 if (!ready()) {
   console.log(`Installing the subject-tracing environment in ${venv} (about 800 MB)…`);
   fs.rmSync(venv, { recursive: true, force: true });
@@ -77,4 +78,5 @@ if (!fs.existsSync(checkpoint) || await sha256(checkpoint) !== CHECKPOINT.sha256
     fs.renameSync(partial, checkpoint);
   } finally { fs.rmSync(partial, { force: true }); }
 }
+fs.writeFileSync(path.join(dir, MARKER), JSON.stringify({ packages: PACKAGES, checkpoint: CHECKPOINT.sha256, installed_at: new Date().toISOString() }, null, 2));
 console.log(`Subject tracing is ready in ${dir}.`);
