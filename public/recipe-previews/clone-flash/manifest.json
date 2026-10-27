@@ -1,0 +1,54 @@
+{
+  "rights": "owned",
+  "credit": "Shot and copies: the bobblehead character running on a plain studio, owned and shown by the DreamCut owner's choice. Effect reference: @willrvail breakdown of a video by @nvision.media; no reference pixels are reused.",
+  "footage": [
+    {
+      "role": "The bobblehead runs, then cartwheels, on a plain grey studio (8 s)",
+      "license": "Owned"
+    }
+  ],
+  "fps": 24,
+  "frames": 120,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; each copy is white for 0.1 s and in its own colours by 0.2 s.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-clone-flash-bobblehead-demo, proposal 20261027T162404-3fc08d0c (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Shot: the run, source 0-5 s. Copies: SAM 2 cutout a6d66bfa (same prompt and masks as the Moving Grid Matte demo's cutout 650185fa), source 1.4 s at timeline 1.0 s with media_offset_x -0.62 and source 2.8 s at 2.4 s with +0.62, subject_flash held 0.1 s then 0 by 0.2 s. Poster frame 58; stages frames 20, 24, 58 and 110."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/clone-flash/inputs/shot.jpg",
+      "sha256": "393bef6fba255b2ab065e25d0ad0542b377fd9e2077bb9bc45d9c0716c327245"
+    },
+    {
+      "file": "/recipe-previews/clone-flash/inputs/cutout.png",
+      "sha256": "e28614039867690368c0c5d9c1c564f90a10acb03152942c06bf66d43713aa2a"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "5cc183aaea106e2d2a78ddbc5739cec3fd3a2c3efa561fb43da8b9c77512e6d4"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "784a37554420cd6b8b03a778ca3d82883a23da4e019bd17dce4a60f7f0579fe4"
+    },
+    {
+      "file": "original.jpg",
+      "sha256": "87042eb6a85d931b9ebb3500da37435b21981a4174d885292f0200dc99ccdd54"
+    },
+    {
+      "file": "first-clone.jpg",
+      "sha256": "60281be1a7465172c39f1875ef5e079675a3c6d8cdf1e6bb8804d9efa7e48be0"
+    },
+    {
+      "file": "second-clone.jpg",
+      "sha256": "784a37554420cd6b8b03a778ca3d82883a23da4e019bd17dce4a60f7f0579fe4"
+    },
+    {
+      "file": "three.jpg",
+      "sha256": "2bf3ce39cb4827539b364562ca1ff6f6275addebdf22e19d4f6945e5daacda03"
+    }
+  ]
+}

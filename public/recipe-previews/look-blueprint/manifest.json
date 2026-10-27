@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Blueprint look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"blueprint\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 Anatomy of a card",
+      "at": 5.16
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Assembly line",
+      "at": 2.81
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 Review room",
+      "at": 2.65
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "5d2daab4ef6375f5b739929c55bce86fde3eebbe5716ed693ab306ae2fd4abd6"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "49f9f20438c74ffee09d63316e1bc710826d5844f86854014ec67ca7197e31b6"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "440a1fe4e52356d0481a38ae9ae735f3ec9954c7cdb55212bcbcd609413df6ee"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "49f9f20438c74ffee09d63316e1bc710826d5844f86854014ec67ca7197e31b6"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "abd5faf5ba38341cbe0ba11aa70041f220f77e53719d73afd99fff03a10434f6"
+    }
+  ]
+}

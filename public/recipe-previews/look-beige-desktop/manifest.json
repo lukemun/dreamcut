@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Beige Desktop look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"beige-desktop\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 Opening the cut",
+      "at": 6.28
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Review traffic",
+      "at": 3.28
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 Whole show",
+      "at": 5.25
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "4a84abfda565aac042acb7ba4cdc6152494c485d5ea2db1aeebe6c64a5d01b23"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "5bc64f16d3f5f4fd138047735e31943c1691db70b1e2c7e2671ae5139adf80c5"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "d423c24f8b8c290de8a57866971bfb86b7d69cd49631d6ceb2e07319b2dd96fc"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "5bc64f16d3f5f4fd138047735e31943c1691db70b1e2c7e2671ae5139adf80c5"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "e87878ab6da386be4dc89c89e6e12807396c408d9c45982ccdc52a39ed28af93"
+    }
+  ]
+}
