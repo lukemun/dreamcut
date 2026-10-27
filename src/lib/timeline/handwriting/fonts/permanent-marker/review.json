@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-28",
+  "status": "accepted_shown_result",
+  "user_words": "Looks good. Could we record this?",
+  "scope": "The handwriting result shown in marker-alphabet-lab, including the corrected B. This is not independent certification of every intermediate glyph gesture.",
+  "review_fixture": "marker-alphabet-lab",
+  "feedback_id": "feedback:b890e3dee9835af18916a8c06aa9d252edad042f9f2921409c6dcaf666618255",
+  "sha256": {
+    "outlines.json": "5089868a395ee24c1645f0bedf10b105295b8cffd72b3d5a6e39e8c661a76ed8",
+    "strokes.json": "d1c1b9b24de9fc77413fa1ec7a7f48b4934798babe11a1e38f937aa445acfc5d",
+    "widths.json": "16f85f26481d2bc760def44dc67c8cc0578c1653d69e8872137de44d2c933926",
+    "regions.json": "999a9f4a3d7f9b4af3810a0d7ea78b31df098274179a0151616ab8778f829cfa",
+    "metrics.json": "af10c38f975c55f5ef07d47272686091028bb7c542c49eaed85e8cf8b5c45d74"
+  }
+}

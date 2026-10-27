@@ -1,0 +1,282 @@
+{
+  "font_id": "handwritten_script",
+  "reveal_mode": "line_mask",
+  "line_guides_sha256": "ebfb5a2d79e871ffa1930e68d215f5ac295164142d674e6c439b2b516c4bc8f4",
+  "method": "Chromium production component SVG; same-page alpha-weighted source comparison at 480×640; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "311e458142f028bfbe9b87ace9ae3ae920bbe241a4f58967bf6acb63a69b9c0a",
+    "strokes": "1fa90587c237198a6c7209528e171000c37aad7165a4e6f40bd895d17b021d87",
+    "widths": "f3fccd8a3826943a362f86e2acd91c0a7e2ec91d8d86e0d7ffa5dad92d8a8009",
+    "sweeps": "767655c48d8b6ce6c9be939bcb49d99b6bed586278effe75eecc62728e83aeda",
+    "metrics": "afaefde8e2e3865bfed6d4ea78c1fd39023c7bc1affbf0bb87831d1139762895"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.21483896814974737",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.7148389681497473",
+          "x": 1932,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "+",
+      "codepoint": 43,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.91,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 748.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.12427593139527086",
+          "x": 492,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.3876487514640327",
+          "x": 1452,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1932,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.6376487514640328",
+          "x": 2412,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2892,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.8742759313952708",
+          "x": 3372,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 3852,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "1",
+          "x": 4332,
+          "inkY": 790.171875
+        },
+        {
+          "progress": null,
+          "x": 4812,
+          "inkY": 790.171875
+        }
+      ],
+      "character": "#",
+      "codepoint": 35,
+      "page": "page-1.png",
+      "gestures": 4,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.05,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1445.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.21792815907633098",
+          "x": 492,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.7179281590763309",
+          "x": 1932,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 1487.171875
+        }
+      ],
+      "character": "=",
+      "codepoint": 61,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 100,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2142.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.12335194365390183",
+          "x": 492,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.44338509323518216",
+          "x": 1452,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1932,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.8033187940726215",
+          "x": 2892,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 3372,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "1",
+          "x": 3852,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": null,
+          "x": 4332,
+          "inkY": 2184.171875
+        }
+      ],
+      "character": "*",
+      "codepoint": 42,
+      "page": "page-1.png",
+      "gestures": 3,
+      "coverage_percent": 99.93,
+      "extra_ink_percent": 0.11,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}

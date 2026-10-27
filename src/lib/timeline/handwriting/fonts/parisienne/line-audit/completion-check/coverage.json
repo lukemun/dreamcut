@@ -1,0 +1,272 @@
+{
+  "font_id": "parisienne",
+  "reveal_mode": "line_mask",
+  "line_guides_sha256": "79df779a669212d6d0e74d7b561fbc8d715c6cc5556b909d8f7b4ce1ec45ca9f",
+  "method": "Chromium production component SVG; same-page alpha-weighted source comparison at 480×640; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "37d53e2b31e2ecc4b37e08603de724f43b8c3aae5fe1dc5dbb6b1733712639cf",
+    "strokes": "0458ee783e40b9ee4b00b37a05f397827eb9371f7ff6938380157c114a47e06e",
+    "widths": "b712bd871b2134414ac42edd0e94cb02ce716856d877683307b9ad08686b0156",
+    "sweeps": "48287bbefd68ce39a450f4657e83a269dce11f68a7739f2dd85cbc54e2decb13",
+    "metrics": "3fd64c92b28a5385bccf769a6c19596f2a7d7100f3fbbcb2560e1e59b919774a"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.20127521888085267",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.7012752188808526",
+          "x": 1932,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "\"",
+      "codepoint": 34,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.02,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 748.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.21076364673809675",
+          "x": 492,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.7107636467380968",
+          "x": 1932,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 790.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 790.171875
+        }
+      ],
+      "character": "+",
+      "codepoint": 43,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.92,
+      "extra_ink_percent": 0.03,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 1445.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.2207520493559167",
+          "x": 492,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.7207520493559167",
+          "x": 1932,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 1487.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 1487.171875
+        }
+      ],
+      "character": "=",
+      "codepoint": 61,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.99,
+      "extra_ink_percent": 0,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 2142.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.12942752620120135",
+          "x": 492,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.4548901771225668",
+          "x": 1452,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1932,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.8039648752798358",
+          "x": 2892,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 3372,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": "1",
+          "x": 3852,
+          "inkY": 2184.171875
+        },
+        {
+          "progress": null,
+          "x": 4332,
+          "inkY": 2184.171875
+        }
+      ],
+      "character": "*",
+      "codepoint": 42,
+      "page": "page-1.png",
+      "gestures": 3,
+      "coverage_percent": 99.84,
+      "extra_ink_percent": 0.07,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}

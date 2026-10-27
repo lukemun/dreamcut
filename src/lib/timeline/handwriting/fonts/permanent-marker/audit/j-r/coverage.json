@@ -1,0 +1,179 @@
+{
+  "J": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 32.591,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.517,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "K": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 87.151,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.535,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "L": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 47.903,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.429,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "M": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 85.296,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.41,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "N": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 99.356,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.628,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "O": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 66.504,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.849,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "P": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 98.902,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.598,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "Q": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 75.311,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.856,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "R": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 79.93,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": 0.519,
+    "lowercase_mask_coverage_percent": 100.0
+  },
+  "4": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 88.038,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": null
+  },
+  "5": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 81.021,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": null
+  },
+  "6": {
+    "mask_coverage_percent": {
+      "38": 100.0,
+      "40": 100.0,
+      "42": 100.0,
+      "44": 100.0,
+      "46": 100.0,
+      "48": 100.0,
+      "50": 100.0
+    },
+    "original_guide_mask_coverage_percent": 83.317,
+    "completed_mask_uncovered_ink_pixels": 0,
+    "normalized_case_difference_percent": null
+  }
+}
