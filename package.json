@@ -30,6 +30,7 @@
     "dev": "cross-env TIMELINE_EDITOR_MODE=development tsx scripts/server-with-otel.ts dev --turbopack -H 127.0.0.1 -p 3129",
     "editor": "tsx scripts/editor-launch.ts",
     "editor:status": "tsx scripts/stable-editor.ts status",
+    "qa": "node scripts/qa-fresh-clone.mjs",
     "build": "next build",
     "start": "tsx scripts/server-with-otel.ts start -H 127.0.0.1 -p 3123",
     "review:build": "tsx scripts/stable-editor.ts build",

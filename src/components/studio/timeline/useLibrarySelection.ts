@@ -1,8 +1,24 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 
+// The editor mounts several Library views (the drawer, the docked panel); each change is announced so every
+// view, and the Selected tray they feed, shows the same selection.
+const CHANGED_EVENT = "dreamcut:library-selection-changed";
+
 export function useLibrarySelection(projectId: string, open: boolean) {
   const [sources, setSources] = useState<string[]>([]);
+  useEffect(() => {
+    const onChanged = (event: Event) => {
+      const detail = (event as CustomEvent<{ projectId: string; sources: string[] }>).detail;
+      if (detail?.projectId === projectId) setSources(detail.sources);
+    };
+    window.addEventListener(CHANGED_EVENT, onChanged);
+    return () => window.removeEventListener(CHANGED_EVENT, onChanged);
+  }, [projectId]);
+  const announce = useCallback((next: string[]) => {
+    setSources(next);
+    window.dispatchEvent(new CustomEvent(CHANGED_EVENT, { detail: { projectId, sources: next } }));
+  }, [projectId]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const request = useCallback(async (command?: unknown) => {
@@ -22,14 +38,14 @@ export function useLibrarySelection(projectId: string, open: boolean) {
     try { started = sessionStorage.getItem(sessionKey) === "1"; sessionStorage.setItem(sessionKey, "1"); } catch { /* Keep the saved selection. */ }
     void request().then(async body => {
       const sources: string[] = !started && body.sources.length ? (await request({ action: "set", sources: [] })).sources : body.sources;
-      if (!canceled) { setSources(sources); setError(null); }
+      if (!canceled) { announce(sources); setError(null); }
     }).catch(err => { if (!canceled) setError(err.message); });
     return () => { canceled = true; };
-  }, [open, request, projectId]);
+  }, [open, request, projectId, announce]);
   const update = async (command: unknown) => {
     setBusy(true);
     setError(null);
-    try { const body = await request(command); setSources(body.sources); }
+    try { const body = await request(command); announce(body.sources); }
     finally { setBusy(false); }
   };
   return { sources, busy, error, toggle: (source: string) => update({ action: "toggle", source }),

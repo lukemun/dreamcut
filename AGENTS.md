@@ -340,6 +340,7 @@ pnpm install                 # first-time dependencies
 pnpm editor                  # project work: stable build on http://127.0.0.1:3123
 pnpm dev                     # code work: hot-reloading editor on http://127.0.0.1:3129
 pnpm review <id>             # stable review: port 3124, leaves the other servers alone
+pnpm qa                      # QA: fresh clone of pushed main, installed and opened as a new user gets it
 pnpm project-health <id>     # read-only project report
 pnpm typecheck
 pnpm test

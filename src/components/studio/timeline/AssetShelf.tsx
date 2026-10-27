@@ -499,15 +499,18 @@ export function AssetShelf({
   const imageKindsRef = useRef(new Map<string, VisualAsset["type"]>());
   for (const asset of assets?.visuals ?? []) { imageNamesRef.current.set(libraryIdentity(asset), asset.name); imageKindsRef.current.set(libraryIdentity(asset), asset.type); }
   const toggleLibrarySource = librarySelection.toggle;
+  // Whichever open view shows the Library (the docked panel or either drawer) keeps the Selected tray
+  // current; closing it leaves the pills in place.
+  const showsLibrary = (!!propertiesTab || !!workflowPanes?.includes("browse")) && (open || alwaysOpen) && !mediaPicker;
   useEffect(() => {
-    if (!replaceSelectionGroup || !propertiesTab) return;
+    if (!replaceSelectionGroup || !showsLibrary) return;
     replaceSelectionGroup("library-images", librarySelection.sources.map(source => {
       const label = imageNamesRef.current.get(source) ?? source.split(/[/:]/).pop() ?? source;
       const kind = libraryKindForSource(source, imageKindsRef.current.get(source));
       return { id: `image:${source}`, group: "library-images", kind, label, agentText: `Library ${kind.toLowerCase()} "${label}" (${source}).`,
         onRemove: () => void toggleLibrarySource(source).catch(error => toast.error(error.message)) };
     }));
-  }, [librarySelection.sources, propertiesTab, replaceSelectionGroup, toggleLibrarySource, assets]);
+  }, [librarySelection.sources, showsLibrary, replaceSelectionGroup, toggleLibrarySource, assets]);
 
   const [isResizing, setIsResizing] = useState(false);
   const [addingKey, setAddingKey] = useState<string | null>(null);
