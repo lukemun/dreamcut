@@ -1,0 +1,145 @@
+node_modules/
+.next/
+.next-dev/
+.next-review/
+.next-cutover/
+.next-cutover-build/
+testing/results/playback-contract/
+.next-inspector-check/
+.next-proxy-verification/
+.turbo/
+.vercel/
+next-env.d.ts
+*.tsbuildinfo
+*.log
+.cache/
+.metrics/
+.mfa-runtime/
+.mfa-local/
+.venv-audio-enhance/
+.venv-stems/
+coverage/
+.next-memory-check/
+playwright-report/
+test-results/
+.DS_Store
+__pycache__/
+*.pyc
+/.tmp-*/
+# Agent scratch probes (e.g. .probe.tmp.mjs, scripts/.tmp-cost.ts) never belong in history.
+*.tmp.*
+.tmp-*
+
+# Local configuration and credentials. Commit an explicit example file instead.
+.env
+.env.*
+!.env.example
+
+# Local project data (timelines, media, renders, history) stays on this machine.
+# Keep project-specific scripts, notes, and generated assets inside its project folder too.
+/projects/
+/preprocess/
+
+# Local creative work, generated previews, and personal catalog ingestion.
+# Reusable code and small fixtures belong in src/, scripts/, or testing/.
+/analysis/
+/artifacts/
+/assets/
+/design/*
+!/design/openedit-create-panel.pen
+/catalogs/images/images/owned/
+/catalogs/music/imports/
+/catalogs/music/previews/
+
+# Personal media library and social/research work. Keep only schemas and fixtures in Git.
+/library/
+/social-content/
+
+# Generated measurement evidence. Source fixtures belong under testing/.
+/instruments/
+.playwright-mcp/
+
+# Local catalog media is private by default. The small production-cleared music
+# set already tracked below is an intentional exception with provenance in
+# catalogs/music/catalog.json and docs/legal/THIRD_PARTY_NOTICES.md.
+/catalogs/music/audio/**
+!/catalogs/music/audio/claude-debussy-clair-de-lune-laurens-goedhart-cc-by-3.ogg
+!/catalogs/music/audio/erik-satie-gymnopedie-no-1-teknopazzo-cc0.ogg
+!/catalogs/music/audio/licensed/
+/catalogs/music/audio/licensed/**
+!/catalogs/music/audio/licensed/bizet-carmen-prelude-musopen-cc0.ogg
+!/catalogs/music/audio/licensed/bizet-carmen-prelude-musopen-cc0.extract.json
+!/catalogs/music/audio/licensed/bizet-carmen-prelude-musopen-cc0.derive.json
+!/catalogs/music/audio/licensed/offenbach-cancan-musopen-public-domain.ogg
+!/catalogs/music/audio/licensed/offenbach-cancan-musopen-public-domain.extract.json
+!/catalogs/music/audio/licensed/offenbach-cancan-musopen-public-domain.derive.json
+/catalogs/sfx/audio/
+/catalogs/sfx/source-manifests/
+# Catalog media is downloaded from DreamCut Cloud, never committed; the list and provenance are in catalogs/visual/catalog.json.
+/catalogs/visual/media/
+/private/
+/personal/
+.envrc
+*.pem
+*.key
+/.agents/skills/remotion-best-practices/
+/.claude/skills/remotion-best-practices
+/skills-lock.json
+/docs/assets/open-edit-editor.png
+/PUBLIC-RELEASE.md
+
+# Local matting environment (venv + model checkpoint); its scripts live in scripts/matting.
+/.matting/
+
+# Local renderer verification outputs may include private project media.
+/testing/results/renderer-contract/
+/testing/results/export-resolution/
+/public/.export-resolution-fixtures/
+/testing/results/transition-controls-ui/
+/testing/results/renderer-reference/
+/testing/results/still-session/
+/.next-still-verification/
+
+/testing/results/agent-efficiency/
+
+# Machine-local Codex MCP paths.
+.codex/config.toml
+
+# Immutable local preparation runtimes, logs and job journals
+.dreamcut-preview/
+# Legacy prepared-runtime cache from the OpenEdit name.
+.openedit-preview/
+
+# Synthetic worker verification artifacts
+/testing/results/prepared-worker/
+
+# Local build variants, native binaries and verification receipts.
+/.next-*/
+/native/preview/target/
+/docs/research/private/
+/design/
+**/private-credentials/
+
+# Project-specific sound audition records.
+/catalogs/sfx/auditions/
+
+# Generated local evidence and private UI reviews.
+/testing/results/
+/docs/audits/
+
+# Generated desktop staging, dependency manifests and local application bundles
+/.desktop-build/
+
+# Packaged runtime archives and the npm launcher tarball (packaging/)
+/dist/
+
+# Local branch-handoff notes between agent sessions.
+/.claude/branch-handoff.json
+
+# Local agent configuration (Claude Code launch configs, Codex hooks).
+/.claude/
+/.codex/
+
+# Built-runtime outputs (desktop/build-workers.mjs, desktop/code-identity.mjs); written only into .desktop-build.
+/workers/
+/code-identity.json

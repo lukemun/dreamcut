@@ -1,0 +1,81 @@
+{
+  "id": "flow-field",
+  "title": "Flow Field",
+  "family": "Generative",
+  "description": "A generative current: thousands of curl-noise streamlines in additive gradient colour run full frame with comets riding them. Bars and devices become obstacles the flow wraps around, people become vortices, and a surge front sweeps each scene away as the current re-forms for the next.",
+  "arrival": "wipe",
+  "change": "grid",
+  "texture": "streamlines",
+  "examples": [
+    {
+      "name": "Currents of an edit",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 4.2,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "How a change flows",
+        "title": "Every edit starts as a current",
+        "object_title": "One card, three parts",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "You steer. It flows."
+      }
+    },
+    {
+      "name": "Review tides",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4,
+        "object_hold": 0,
+        "people_hold": 4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed each day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "people_title": "Who steers the cut",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent"
+      }
+    },
+    {
+      "name": "Tune the flow",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 4,
+        "closing_hold": 0,
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You approve",
+        "compare_title": "Re-prompting vs tuning",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 2
+      }
+    }
+  ]
+}

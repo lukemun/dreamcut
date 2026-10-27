@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-12",
+      "catalog": "../../../../docs/effects/catalog.json#FX-12",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-12.mp4",
+          "sha256": "72034b9b8bb8c109907fc0c7edd4947a694e2a2ed6a382faa97de1aa59b9905b",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Background shopping clips",
+          "transparent basket PNG/WebP with clean alpha",
+          "start/end window",
+          "Basket base with alpha",
+          "separate product cutouts or clean basket states",
+          "ordered pickup times"
+        ],
+        "preparation": "Extract a static basket if not supplied; inspect holes/edges; use one overlay across cuts",
+        "success_criteria": [
+          "Basket remains stable across cuts and each selected product appears once, stays inside the basket and persists through following shots."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-14",
+      "catalog": "../../../../docs/effects/catalog.json#FX-14",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-14.mp4",
+          "sha256": "67a6ebdd8fd7229efb9528854d1b74f77c5b98d0425cbb439e7ef213e368ecee",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Background laptop shot",
+          "clean screen recording or screenshot",
+          "interval"
+        ],
+        "preparation": "Prepare screen source and fit within top region; preserve recording time",
+        "success_criteria": [
+          "Screen is readable, translucent and does not cover the subject unintentionally."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-11",
+      "catalog": "../../../../docs/effects/catalog.json#FX-11",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-11.mp4",
+          "sha256": "dcae916162032720bf0b4c1d0f79ebebb5768d4ef97e9d9fc88dc6fca5547c53",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing lunch shot",
+          "incoming drinks shot",
+          "separate moving hand-and-cup layers or approved still cutouts",
+          "landing targets"
+        ],
+        "preparation": "Rotoscope moving hands/cups for close fidelity; static cutouts are a declared simplification",
+        "success_criteria": [
+          "No clipped fingers, changing edges or jump when destination shot takes over."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-16",
+      "catalog": "../../../../docs/effects/catalog.json#FX-16",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-16.mp4",
+          "sha256": "a428da74737d95996843800d78ca72690a50369de07481de951e4e5e471d1c80",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Walking shot",
+          "restaurant exterior",
+          "separate lantern/sign cutouts",
+          "ordered reveal times",
+          "landing targets",
+          "Sign with alpha",
+          "background",
+          "glitch interval",
+          "Background clip or adjacent shots",
+          "flash time"
+        ],
+        "preparation": "Extract masks, stage pieces, align to exterior; compose FX-03/17/18 as dependencies",
+        "success_criteria": [
+          "Staged objects align to the incoming exterior; the glitch and flash resolve cleanly as part of the same scene handoff."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-SCENE-PORTAL",
+      "catalog": "../../../../docs/effects/catalog.json#FX-SCENE-PORTAL",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/sunglasses/portal-reference.jpg",
+          "sha256": "fbe978cc706cb0c29f167d3853421b13b6d457006b85e7e0e6601bec0583d50f",
+          "kind": "image",
+          "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Host footage with a bounded region",
+          "Tracked region matte",
+          "Moving insert video",
+          "Destination footage"
+        ],
+        "preparation": "Track the region at source resolution, map the insert with curved wrapping, preserve alpha, then coordinate the host/insert zoom and full-scene handoff. Inspect baked alpha onsets as well as timeline bounds.",
+        "success_criteria": [
+          "Inserted video follows the region without rim spill",
+          "Wrapping remains legible during motion",
+          "No empty frame at scene handoff"
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/sunglasses/portal-reference.jpg",
+              "sha256": "fbe978cc706cb0c29f167d3853421b13b6d457006b85e7e0e6601bec0583d50f",
+              "kind": "image",
+              "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+              "rights": "licensed"
+            }
+          ],
+          "after": [],
+          "observations": [
+            "The technique was recreated once on private footage with source and effect layers stored separately; that example is not redistributed, so no recreation is packaged here."
+          ],
+          "limitations": [
+            "No redistributable recreation is packaged yet; recreate on cleared footage before marking this partial again.",
+            "The earlier private recreation used prepared tracking/warping rather than native adjustable geometry.",
+            "That recreation's alpha overlay began visibly 34 source frames late; inspect baked alpha onsets, since a timing-only correction does not remove a baked delay.",
+            "Reference scene changes and timing were not matched exactly."
+          ]
+        }
+      }
+    }
+  ]
+}

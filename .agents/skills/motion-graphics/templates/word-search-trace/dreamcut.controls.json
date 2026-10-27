@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "template": "word-search-trace",
+  "controls": [
+    {
+      "id": "word_1",
+      "kind": "text",
+      "label": "Word 1",
+      "default": "FOG",
+      "max_length": 12
+    },
+    {
+      "id": "direction_1",
+      "kind": "choice",
+      "label": "Word 1 direction",
+      "default": "across",
+      "options": [
+        {
+          "value": "across",
+          "label": "Across"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        },
+        {
+          "value": "diagonal",
+          "label": "Diagonal"
+        }
+      ]
+    },
+    {
+      "id": "word_2",
+      "kind": "text",
+      "label": "Word 2",
+      "default": "HILL",
+      "max_length": 12
+    },
+    {
+      "id": "direction_2",
+      "kind": "choice",
+      "label": "Word 2 direction",
+      "default": "down",
+      "options": [
+        {
+          "value": "across",
+          "label": "Across"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        },
+        {
+          "value": "diagonal",
+          "label": "Diagonal"
+        }
+      ]
+    },
+    {
+      "id": "word_3",
+      "kind": "text",
+      "label": "Word 3",
+      "default": "DUSK",
+      "max_length": 12
+    },
+    {
+      "id": "direction_3",
+      "kind": "choice",
+      "label": "Word 3 direction",
+      "default": "across",
+      "options": [
+        {
+          "value": "across",
+          "label": "Across"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        },
+        {
+          "value": "diagonal",
+          "label": "Diagonal"
+        }
+      ]
+    },
+    {
+      "id": "word_4",
+      "kind": "text",
+      "label": "Word 4",
+      "default": "TRAIL",
+      "max_length": 12
+    },
+    {
+      "id": "direction_4",
+      "kind": "choice",
+      "label": "Word 4 direction",
+      "default": "diagonal",
+      "options": [
+        {
+          "value": "across",
+          "label": "Across"
+        },
+        {
+          "value": "down",
+          "label": "Down"
+        },
+        {
+          "value": "diagonal",
+          "label": "Diagonal"
+        }
+      ]
+    },
+    {
+      "id": "first_trace",
+      "kind": "number",
+      "label": "First trace starts",
+      "default": 0.2,
+      "min": 0,
+      "max": 5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "trace_spacing",
+      "kind": "number",
+      "label": "Time between traces",
+      "default": 1.6,
+      "min": 0.3,
+      "max": 6,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "trace_times",
+      "kind": "text",
+      "label": "Trace start times",
+      "default": "",
+      "max_length": 80
+    },
+    {
+      "id": "trace_speed",
+      "kind": "number",
+      "label": "Trace draw time",
+      "default": 0.6,
+      "min": 0.15,
+      "max": 2,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "length",
+      "kind": "number",
+      "label": "Overlay length",
+      "default": 6.4,
+      "min": 1,
+      "max": 30,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "columns",
+      "kind": "number",
+      "label": "Letters per row",
+      "default": 11,
+      "min": 7,
+      "max": 20,
+      "step": 1
+    },
+    {
+      "id": "letter_size",
+      "kind": "number",
+      "label": "Letter size",
+      "default": 42,
+      "min": 20,
+      "max": 70,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "id": "letter_opacity",
+      "kind": "number",
+      "label": "Letter opacity",
+      "default": 85,
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "id": "letter_color",
+      "kind": "color",
+      "label": "Letter color",
+      "default": "#ffffff"
+    },
+    {
+      "id": "trace_color",
+      "kind": "color",
+      "label": "Trace color",
+      "default": "#f4cdfa"
+    },
+    {
+      "id": "trace_width",
+      "kind": "number",
+      "label": "Trace width",
+      "default": 4,
+      "min": 1,
+      "max": 12,
+      "step": 0.5,
+      "unit": "px"
+    },
+    {
+      "id": "wobble",
+      "kind": "number",
+      "label": "Hand-drawn wobble",
+      "default": 35,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "id": "shadow",
+      "kind": "switch",
+      "label": "Soft shadow",
+      "default": true
+    },
+    {
+      "id": "seed",
+      "kind": "number",
+      "label": "Letter shuffle",
+      "default": 7,
+      "min": 1,
+      "max": 999,
+      "step": 1
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "label": "Shape",
+      "default": "tall",
+      "options": [
+        {
+          "value": "wide",
+          "label": "16:9"
+        },
+        {
+          "value": "tall",
+          "label": "9:16"
+        },
+        {
+          "value": "square",
+          "label": "1:1"
+        }
+      ],
+      "fixed": true
+    }
+  ],
+  "actors": [
+    {
+      "id": "grid",
+      "label": "Letter grid"
+    },
+    {
+      "id": "traces",
+      "label": "Traces"
+    }
+  ],
+  "markers": [],
+  "timing": {
+    "duration": "max(length, first_trace + 3 * trace_spacing + trace_speed + 0.3)",
+    "cues": [
+      {
+        "id": "first_word",
+        "label": "First word circled",
+        "at": "first_trace + trace_speed"
+      }
+    ]
+  },
+  "canvas": {
+    "control": "shape",
+    "sizes": {
+      "wide": {
+        "width": 1920,
+        "height": 1080
+      },
+      "tall": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  }
+}

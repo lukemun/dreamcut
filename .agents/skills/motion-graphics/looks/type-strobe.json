@@ -1,0 +1,80 @@
+{
+  "id": "type-strobe",
+  "title": "Type Strobe",
+  "family": "Generative",
+  "description": "A frame built from condensed lettering: words run edge to edge, filled then outlined, trailed by stepped strobe echoes and cut into glitching slices, while charts, devices and people are slabs, numerals and marching chevrons. Colour bars sweep between scenes.",
+  "arrival": "slice",
+  "change": "bars",
+  "examples": [
+    {
+      "name": "Review loop",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.8,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Edit review",
+        "title": "Every cut gets a second look",
+        "chart_title": "Cards reviewed per day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 22,
+        "bar_4": 35,
+        "highlight": "4",
+        "closing": "Approve what you like."
+      }
+    },
+    {
+      "name": "Card anatomy",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "A change arrives as a card",
+        "callout_1": "Preview it",
+        "callout_2": "Tune the dials",
+        "callout_3": "Undo any time",
+        "process_title": "Draft, review, apply",
+        "step_1": "Agent drafts",
+        "step_2": "You review",
+        "step_3": "Edit applies"
+      }
+    },
+    {
+      "name": "Team and tuning",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Everyone can weigh in",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Retakes before and after",
+        "before_label": "Retakes",
+        "before_value": 12,
+        "after_label": "Tweaks",
+        "after_value": 3
+      }
+    }
+  ]
+}

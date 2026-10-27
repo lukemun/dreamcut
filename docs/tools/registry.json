@@ -1,0 +1,1291 @@
+{
+  "schema_version": 1,
+  "scope": "Current published MCP catalog plus prioritized capability families. Existing registration is not retroactive conformance certification.",
+  "capabilities": [
+    {
+      "id": "editing-context",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "editor_context_get",
+        "timeline_get",
+        "editing_memory_get",
+        "personal_style_list",
+        "personal_style_get",
+        "personal_style_save",
+        "editing_feedback_record",
+        "editing_feedback_check",
+        "editing_feedback_disposition"
+      ],
+      "owners": [
+        "src/lib/local-store/style-document.ts",
+        "src/lib/local-store/editing-memory.ts",
+        "src/lib/local-store/workspace-media-selection.ts",
+        "src/lib/local-store/timeline-payload.ts",
+        "src/lib/local-store/open-project.ts",
+        "mcp/local-media-policy.mjs",
+        "packaging/setup-chatgpt-local-trial.mjs"
+      ],
+      "outcome": "Read editing context, creator-selected Library media and explicit preferences",
+      "authority": "Reads and authorized profile/feedback writes; no timeline approval.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/editing-context.md",
+      "search_aliases": [
+        "preferences",
+        "personal style",
+        "remember my style",
+        "editing memory",
+        "feedback",
+        "creative direction",
+        "open project",
+        "current project",
+        "which project",
+        "my footage"
+      ],
+      "editor_agent": {
+        "access": "enabled",
+        "excluded_tools": {
+          "editor_context_get": "The in-editor agent runs inside one open project and receives it as session context; this tool is for coding agents beside the editor."
+        }
+      }
+    },
+    {
+      "id": "proposal-authoring",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "proposal_create",
+        "proposal_spatial_preflight",
+        "proposal_list",
+        "proposal_get",
+        "proposal_preview",
+        "proposal_reveal_sequence",
+        "proposal_work_record",
+        "recipe_compile",
+        "color_look_cards"
+      ],
+      "owners": [
+        "src/lib/agent/timeline-editor-agent-apply.ts",
+        "src/lib/timeline/transition-effects.ts",
+        "src/lib/agent/proposal-controls.ts",
+        "src/lib/agent/proposal-review.ts",
+        "src/lib/agent/proposal-overrides.ts",
+        "src/lib/agent/proposal-blocks.ts",
+        "src/lib/agent/proposal-block-kit.ts",
+        "src/lib/agent/proposal-blocks-hops.ts",
+        "src/lib/agent/proposal-mask-window.ts",
+        "src/lib/local-store/proposal-tuning.ts",
+        "src/lib/agent/proposal-timing-controls.ts",
+        "src/components/studio/timeline/ProposalAdjustments.tsx",
+        "mcp/proposal-work-auto.mjs",
+        "src/lib/observability/proposal-work.ts",
+        "mcp/proposal-schema.json",
+        "mcp/generate-proposal-schema.ts",
+        "src/lib/timeline/gpu-write-admission.ts",
+        "src/lib/agent/proposal-waves.ts",
+        "src/lib/agent/proposal-placement.ts",
+        "src/lib/timeline/placement-relation.ts",
+        "src/lib/timeline/subject-window.ts",
+        "src/lib/color/shot-match.ts",
+        "src/lib/media-analysis/shot-match.ts",
+        "src/lib/media-analysis/look-cards.ts",
+        "src/app/api/projects/[projectId]/analysis/look-cards/route.ts"
+      ],
+      "outcome": "Compile, validate and stage reviewable edits",
+      "authority": "Proposal/evidence writes only; human applies or rejects.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/proposal-authoring.md",
+      "search_aliases": [
+        "label under the drawing",
+        "place below",
+        "relative placement",
+        "keep the label with",
+        "label under the sketch",
+        "under the skyline sketch",
+        "caption the sketch underneath",
+        "label below",
+        "to the right of the photo",
+        "keep it next to",
+        "price tag beside",
+        "suggest an edit",
+        "draft edit",
+        "review edits",
+        "proposals",
+        "sliders",
+        "dials",
+        "reveal sequence",
+        "spacing between entrances",
+        "reverse",
+        "reverse a clip",
+        "play backward",
+        "play in reverse",
+        "rewind",
+        "playback direction",
+        "slow down",
+        "speed up",
+        "half speed",
+        "slow motion",
+        "crop",
+        "zoom in",
+        "punch in",
+        "warmer",
+        "warm up the colors",
+        "color grade",
+        "fade out",
+        "fade in",
+        "quieter",
+        "turn down the volume",
+        "louder",
+        "flip",
+        "mirror",
+        "green screen",
+        "chroma key",
+        "key out",
+        "speed",
+        "link sounds",
+        "link these sounds",
+        "sounds move with",
+        "move with the opener",
+        "follow the title",
+        "sounds follow",
+        "split a big edit into steps",
+        "proposal queue",
+        "one step at a time",
+        "proposal waves",
+        "rename a clip",
+        "rename that sound",
+        "call this clip",
+        "swap a sound effect",
+        "remove commas from the captions",
+        "caption punctuation",
+        "no punctuation in captions",
+        "full stops out of the subtitles",
+        "subject window",
+        "silhouette window",
+        "footage inside the silhouette",
+        "show footage only inside the person",
+        "show footage inside the subject",
+        "show clip outside the subject",
+        "inside the person's shape",
+        "soften the window edge",
+        "grow the window edge",
+        "shrink the window edge",
+        "window strength",
+        "switch the subject window off",
+        "change the window subject",
+        "window follows the person",
+        "feather the silhouette edge",
+        "soft silhouette edge",
+        "tilt the text",
+        "tilt the stamp",
+        "rotate text",
+        "text rotation",
+        "highlight a word",
+        "highlight box behind a word",
+        "colour one word",
+        "make one word blue",
+        "draw a ring",
+        "circle outline",
+        "add a shape",
+        "morph the shape",
+        "morph into a diamond",
+        "morph into a star",
+        "morph this heart",
+        "morph into a circle",
+        "rectangle",
+        "highlight bar",
+        "shockwave",
+        "underline",
+        "golden tone",
+        "colour cast",
+        "color cast",
+        "too magenta",
+        "too green",
+        "yellows",
+        "greens",
+        "grass",
+        "cyan",
+        "blues",
+        "sky",
+        "purple",
+        "pink",
+        "magentas",
+        "midtones",
+        "shadows",
+        "highlights",
+        "cross-process",
+        "saturated colours",
+        "saturated colors",
+        "muted colours",
+        "muted colors",
+        "skin tones",
+        "colour wheel",
+        "color wheel",
+        "curves",
+        "hue curve",
+        "shot match",
+        "match shots",
+        "match colour",
+        "match color",
+        "make this clip match",
+        "match the look of",
+        "even out the colour",
+        "colour match",
+        "same look",
+        "copy the grade",
+        "copy grade",
+        "paste grade",
+        "give these the same look",
+        "billboard",
+        "billboard edge",
+        "screen edge",
+        "edge showing",
+        "on the screen",
+        "put it on the screen",
+        "screen replacement",
+        "replace the screen",
+        "video on a billboard",
+        "on the tv"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "assembly-auditions",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "assembly_create",
+        "assembly_get",
+        "audition_create",
+        "assembly_handoff"
+      ],
+      "owners": [
+        "mcp/local-script-runner.mjs",
+        "mcp/proposal-gate.mjs",
+        "src/lib/local-store/assembly-workspaces.ts",
+        "src/lib/local-store/assembly-source-seed.ts",
+        "mcp/worker-crash-guard.mjs",
+        "mcp/worker-crash-watchdog.mjs"
+      ],
+      "outcome": "Create isolated first assemblies and comparisons",
+      "authority": "Bounded new-project grant ends permanently at first layout handoff or human edit. Call assembly_handoff before presenting the layout; later changes require proposals.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/assembly-auditions.md",
+      "search_aliases": [
+        "new edit",
+        "start a video",
+        "rough assembly",
+        "compare takes",
+        "pick the best take",
+        "best take",
+        "choose a take",
+        "audition",
+        "alternatives",
+        "vertical version",
+        "make a vertical version",
+        "short-form version"
+      ],
+      "editor_agent": {
+        "access": "excluded",
+        "reason": "Creates separate assembly and audition projects with a bounded direct-write grant; the in-editor agent works on the open project through proposals."
+      }
+    },
+    {
+      "id": "workspace-editing",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "elements_batch",
+        "element_create",
+        "element_create_from_source_window",
+        "element_trim",
+        "element_props_patch",
+        "element_delete",
+        "element_restore",
+        "element_split",
+        "element_duplicate",
+        "element_normalize",
+        "transition_create",
+        "transition_patch",
+        "transition_delete",
+        "lane_order_set",
+        "muted_lanes_set",
+        "output_format_set"
+      ],
+      "owners": [
+        "mcp/proposal-gate.mjs",
+        "src/lib/timeline/gpu-write-admission.ts"
+      ],
+      "outcome": "Edit only within an active assembly workspace, including native film burn, camera flash and blackout joins",
+      "authority": "Direct changes require agent_workspace; never human approval/history restoration.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/workspace-editing.md",
+      "search_aliases": [
+        "trim",
+        "trimming",
+        "split clips",
+        "cut clips",
+        "cutting",
+        "cutter",
+        "arrange clips",
+        "reorder clips",
+        "transitions",
+        "mute lanes",
+        "aspect ratio"
+      ],
+      "editor_agent": {
+        "access": "excluded",
+        "reason": "Direct timeline writes are limited to agent_workspace projects before handoff; the in-editor agent proposes instead."
+      }
+    },
+    {
+      "id": "media-intake-generation",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "media_import",
+        "generate_media",
+        "asset_generation_prepare",
+        "asset_generation_submit",
+        "asset_generation_status",
+        "video_search",
+        "media_describe",
+        "library_present"
+      ],
+      "owners": [
+        "mcp/local-script-runner.mjs",
+        "src/lib/local-store/media-ingest.ts",
+        "src/lib/agent/media-import-workflow.ts",
+        "src/lib/local-store/media-import-jobs.ts",
+        "src/lib/local-store/video-descriptions.ts",
+        "src/lib/local-store/video-search.ts",
+        "src/lib/media-analysis/project-context.ts",
+        "src/lib/local-store/library-presentation.ts",
+        "src/lib/agent/asset-generation-results.ts",
+        "mcp/worker-crash-guard.mjs",
+        "mcp/worker-crash-watchdog.mjs",
+        "src/lib/local-store/chat-generation.ts",
+        "src/lib/generation/model-guides.ts"
+      ],
+      "outcome": "Import media, search source videos and stage authorized generation",
+      "authority": "Import and generation drafts. Stage the complete visible draft; generate only after the creator clicks Generate or explicitly approves that draft in chat (asset_generation_submit with their words, which spends their DreamCut credits). generate_media drafts a request with the recommended model and settings, fills the visible Generate form with it and prices it (never charging), and generates only when the creator clicks Generate or approves that model and price in chat, quoting their words; without a project it generates into the Generations project. Timeline placement has separate authority.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/media-intake-generation.md",
+      "search_aliases": [
+        "import footage",
+        "find clips",
+        "search my footage",
+        "find a shot",
+        "add media",
+        "bring in files",
+        "upload footage",
+        "generate assets",
+        "image generation",
+        "video generation",
+        "show generation results",
+        "is my image ready",
+        "what the generation came back with",
+        "generation results",
+        "search videos",
+        "find footage",
+        "find cats",
+        "video catalog",
+        "show videos",
+        "show footage",
+        "find and show videos",
+        "describe footage",
+        "analyze my clips",
+        "what is in this video",
+        "generate an image",
+        "make a video",
+        "make an image",
+        "animate this photo",
+        "generate media",
+        "make a song"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "spatial-rhythm",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "spatial_assess",
+        "open_space_find",
+        "beat_grid_get",
+        "beat_annotation_prepare",
+        "framing_compile"
+      ],
+      "owners": [
+        "mcp/server.mjs",
+        "src/lib/local-store/open-space.ts",
+        "src/lib/media-analysis/open-space.ts",
+        "src/lib/agent/framing-compile.ts",
+        "src/lib/timeline/framing-geometry.ts"
+      ],
+      "outcome": "Inspect spatial evidence and prepare rhythm annotations",
+      "authority": "Assessment/annotation preparation; preserve evidence limits.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/spatial-rhythm.md",
+      "search_aliases": [
+        "layout",
+        "positioning",
+        "placement",
+        "overlap",
+        "spacing",
+        "beats",
+        "beat detection",
+        "rhythm",
+        "music timing",
+        "open space",
+        "empty space",
+        "fill the space",
+        "make the text bigger",
+        "pull quote size",
+        "where is there room",
+        "text is too small",
+        "take up the open area",
+        "open area",
+        "frame the app window",
+        "zoom into part of the screen",
+        "push in on a region",
+        "pan across the recording",
+        "frame a region"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "cutout-preparation",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "cutout_prepare",
+        "cutout_status",
+        "cutout_setup",
+        "cutout_correct"
+      ],
+      "owners": [
+        "src/lib/media-analysis/cutout-preparation.ts",
+        "src/lib/media-analysis/grid-matte-preparation.ts"
+      ],
+      "outcome": "Prepare, reuse and correct moving subject cutouts",
+      "authority": "Immutable derivatives/jobs; no timeline writes. cutout_setup downloads the tracing model only after the creator agrees.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/cutout-preparation.md",
+      "search_aliases": [
+        "mask",
+        "masks",
+        "masking",
+        "segmentation",
+        "rotoscope",
+        "rotoscoping",
+        "remove background",
+        "background removal",
+        "isolate a person",
+        "isolate subject",
+        "extract subject",
+        "cut out",
+        "cutouts",
+        "SAM",
+        "fix mask",
+        "install subject tracing",
+        "matting model"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "visual-evidence",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "source_evidence",
+        "run_instrument",
+        "timeline_evidence",
+        "visual_analyze"
+      ],
+      "owners": [
+        "mcp/local-script-runner.mjs",
+        "src/lib/media-analysis/source-evidence.ts",
+        "src/lib/media-analysis/reference-analysis.ts",
+        "scripts/validate-effect-recipes.ts",
+        "scripts/frame-state.ts",
+        "scripts/frame-state-contact-sheet.py",
+        "src/lib/agent/timeline-evidence.ts",
+        "src/lib/agent/visual-analysis.ts",
+        "mcp/visual-analysis-bridge.mjs",
+        "mcp/visual-analysis-cli.ts",
+        "mcp/worker-crash-guard.mjs",
+        "mcp/worker-crash-watchdog.mjs"
+      ],
+      "outcome": "Deliver source images and inspect edit state",
+      "authority": "Read-only inspection and derived evidence; no export or approval.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/visual-evidence.md",
+      "search_aliases": [
+        "inspect frames",
+        "see footage",
+        "view images",
+        "contact sheet",
+        "screenshots",
+        "check appearance",
+        "visual inspection",
+        "describe footage",
+        "visual analysis",
+        "VLM",
+        "frame descriptions",
+        "annotate video"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "compound-preparation",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "compound_prepare"
+      ],
+      "owners": [
+        "mcp/server.mjs"
+      ],
+      "outcome": "Prepare compound previews",
+      "authority": "Preparation; approval/source adoption remains separate.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/compound-preparation.md",
+      "search_aliases": [
+        "compound clip",
+        "nested clip",
+        "nested composition",
+        "compound preview"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "tool-accounting",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "capability_gap_report"
+      ],
+      "owners": [
+        "src/lib/observability/model-usage.ts",
+        "src/lib/observability/native-model-usage.ts",
+        "src/lib/observability/worker-usage.ts",
+        "src/lib/observability/agent-activity.ts",
+        "src/lib/observability/session-timeline.ts",
+        "scripts/session-timeline.ts",
+        "scripts/otel/collector.yaml",
+        "src/lib/observability/tool-events.ts",
+        "mcp/tool-runtime.mjs",
+        "mcp/product-signals.mjs",
+        "src/lib/observability/product-signals.ts",
+        "src/lib/local-store/usage-evidence-sync.ts",
+        "src/lib/observability/day-files.ts",
+        "src/lib/observability/session-evidence.ts",
+        "src/app/api/projects/[projectId]/session-evidence/route.ts",
+        "src/app/BugReportButton.tsx"
+      ],
+      "outcome": "Measure observed calls, failures and coverage, and record work done without DreamCut tools",
+      "authority": "Local diagnostics and fixed-schema product signals uploaded only under the sharing setting; no project change, approval or automatic attribution.",
+      "acceptance": "Preserve existing authority tests; migrate recovery and accounting contracts with representative success/failure cases.",
+      "evolution": "docs/tools/evolution/tool-accounting.md",
+      "search_aliases": [
+        "tool usage",
+        "tool calls",
+        "call counts",
+        "observability",
+        "telemetry",
+        "token usage",
+        "token consumption",
+        "capability gap",
+        "missing tool",
+        "no tool for this",
+        "wrote a script",
+        "workaround",
+        "report a gap"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "media-readiness",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "media_readiness",
+        "asset_preparation_status",
+        "audio_waveform_prepare"
+      ],
+      "owners": [
+        "src/lib/local-store/media-preparation.ts",
+        "src/lib/local-store/audio-loudness.ts",
+        "src/lib/media-analysis/prepare-audio-loudness.ts",
+        "src/lib/local-store/still-preview.ts",
+        "src/lib/local-store/preview-proxy-validation.ts",
+        "src/lib/local-store/timeline-payload.ts",
+        "src/lib/local-store/media-analysis.ts",
+        "src/lib/agent/media-readiness.ts",
+        "src/lib/agent/preparation-jobs.ts",
+        "src/lib/local-store/project-waveforms.ts",
+        "src/lib/local-store/prepare-waveform.ts"
+      ],
+      "outcome": "Prepare, poll and retry an existing media asset",
+      "authority": "Project-scoped cached preparation; respect optional analysis settings; no import or timeline mutation.",
+      "acceptance": "Existing ready asset reuses work; failure identifies stage; retry preserves job/source identity; missing preview blocks placement.",
+      "evolution": "docs/tools/evolution/media-readiness.md",
+      "search_aliases": [
+        "proxy",
+        "proxies",
+        "playback readiness",
+        "prepare footage",
+        "preview preparation",
+        "waveforms",
+        "audio waveform",
+        "retry preparation"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "cutout-treatment",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "cutout_treatment_prepare"
+      ],
+      "owners": [
+        "scripts/prepare-outline-mask.ts",
+        "scripts/scratchpad-cutout.ts",
+        "src/lib/agent/preparation-jobs.ts"
+      ],
+      "outcome": "Prepare reusable outline/Scratchpad derivatives from a cutout receipt",
+      "authority": "Versioned derivative only; retain raw cutout/source mappings and require preview readiness.",
+      "acceptance": "Repeat request reuses verified result; parent untouched; source clock and alpha valid; unsupported treatment fails with actionable guidance.",
+      "evolution": "docs/tools/evolution/cutout-treatment.md",
+      "search_aliases": [
+        "scratchpad",
+        "scratch pad",
+        "scribble",
+        "sketch cutout",
+        "outline",
+        "outlines",
+        "outline mask",
+        "cutout styling"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "speech-preparation",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "speech_prepare",
+        "caption_proposal_compile"
+      ],
+      "owners": [
+        "scripts/transcribe.ts",
+        "scripts/align.ts",
+        "src/lib/instruments/alignment-chunks.ts",
+        "scripts/captions-from-alignment.ts",
+        "scripts/rough-cut.ts",
+        "src/lib/agent/caption-proposal-compile.ts",
+        "src/lib/agent/preparation-jobs.ts"
+      ],
+      "outcome": "Prepare transcript/alignment and compile captions for review",
+      "authority": "Transcription and MFA alignment are distinct; reviewed transcript required for alignment-dependent edits; return proposals, never invoke direct apply.",
+      "acceptance": "Unknown words and unavailable MFA surface blockers; captions preserve source mapping; no timeline write; proposal preflight and human review remain required.",
+      "evolution": "docs/tools/evolution/speech-preparation.md",
+      "search_aliases": [
+        "captions",
+        "subtitles",
+        "transcript",
+        "transcription",
+        "transcribe speech",
+        "word alignment",
+        "forced alignment",
+        "MFA",
+        "speech to text"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "capability-discovery",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "capability_catalog"
+      ],
+      "owners": [
+        "src/lib/effects/saved-effect-recipes.ts",
+        "src/lib/effects/gallery.ts",
+        "src/app/api/agent/templates/route.ts",
+        "mcp/capability-catalog.mjs",
+        "mcp/feature-index.mjs",
+        "docs/effects/executable-recipes.json",
+        "mcp/progressive-eval-client.mjs",
+        "mcp/grade-progressive.mjs",
+        "mcp/ollama-discovery-eval.mjs",
+        "mcp/harness-adapters.mjs",
+        "mcp/harness-session.mjs",
+        "mcp/harness-mcp.mjs",
+        "mcp/harness-langgraph.mjs",
+        "mcp/editing-harness.mjs",
+        "mcp/qualify-local-model.mjs",
+        "mcp/local-model-suite.mjs",
+        "mcp/harness-llama.mjs",
+        "mcp/harness-observability.mjs",
+        "mcp/run-editing-agent.mjs",
+        "mcp/harness-langgraph-coordinator.mjs",
+        "mcp/harness-context.mjs",
+        "mcp/desktop-service-auth.mjs",
+        "desktop/codex-tool-bridge.mjs",
+        "desktop/codex-connection.mjs",
+        "desktop/worker-crash-guard.mjs",
+        "desktop/worker-crash-watchdog.mjs",
+        "desktop/editing-session.mjs",
+        "desktop/project-lease.mjs",
+        "desktop/conversation-reset.mjs",
+        "mcp/worker-crash-guard.mjs",
+        "mcp/worker-crash-watchdog.mjs"
+      ],
+      "outcome": "Discover capabilities, recipes and Templates gallery templates and load permitted tool families",
+      "authority": "Session schema exposure only; fixed harness allowlist and write gates remain authoritative.",
+      "acceptance": "Pagination, denied family loading, hidden dispatch rejection, recipe version validation, full versus editing profile comparison, and every gallery template resolving by its copied request with the editor unavailable reported.",
+      "evolution": "docs/tools/evolution/capability-discovery.md",
+      "search_aliases": [
+        "find tools",
+        "available tools",
+        "tool catalog",
+        "search capabilities",
+        "discover effects",
+        "find recipes",
+        "find template",
+        "use template",
+        "my template"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "surface-tracking",
+      "status": "existing",
+      "conformance": "legacy_review_pending",
+      "tools": [
+        "surface_track_prepare",
+        "surface_track_status"
+      ],
+      "owners": [
+        "src/lib/media-analysis/surface-tracking.ts",
+        "src/lib/timeline/surface-track.ts",
+        "scripts/track-surface.py"
+      ],
+      "outcome": "Prepare source-bound planar tracks for editable text attachments",
+      "authority": "Preparation jobs and immutable track receipts only; placement requires a proposal.",
+      "acceptance": "Synthetic perspective, source-clock and lost-track tests plus encoded renderer and independent UI acceptance.",
+      "evolution": "docs/tools/evolution/surface-tracking.md",
+      "search_aliases": [
+        "planar tracking",
+        "corner pin",
+        "attach text",
+        "track surface",
+        "Post-it"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "native-render-verification",
+      "status": "existing",
+      "conformance": "experimental",
+      "tools": [],
+      "owners": [
+        "scripts/verify-native-projects.ts",
+        "src/lib/native-preview/NativeComparisonFixture.tsx",
+        "src/lib/native-preview/scene.ts",
+        "src/lib/native-preview/NativeSourceProvider.tsx",
+        "src/lib/native-preview/NativeSourceVideo.tsx",
+        "src/lib/native-preview/frame-packet.ts",
+        "src/app/api/projects/[projectId]/native-frames/route.ts",
+        "scripts/verify-renderer-contract.ts",
+        "src/lib/native-preview/source-path.ts",
+        "src/lib/native-preview/source-queue.ts",
+        "src/lib/native-preview/source-batches.ts",
+        "src/lib/native-preview/worker-capacity.ts",
+        "src/lib/native-preview/request-scheduler.ts",
+        "scripts/verify-playback-contract.ts",
+        "src/app/playback-proof/page.tsx",
+        "scripts/verify-surface-tracking.ts",
+        "scripts/verify-alpha-preview.ts",
+        "src/lib/native-preview/source-time.ts",
+        "src/lib/native-preview/source-metadata.ts",
+        "src/lib/native-preview/source-color.ts",
+        "src/lib/native-preview/presentation-schedule.ts",
+        "src/lib/native-preview/reply-reader.ts",
+        "src/lib/native-preview/source-clock.ts",
+        "src/lib/native-preview/warmup-plan.ts",
+        "src/lib/native-preview/use-source-warmup.ts",
+        "native/preview/tests/pixels.py"
+      ],
+      "outcome": "Verify isolated Rust source decoding through the shared compositor and export pipeline",
+      "authority": "Reads isolated project copies; writes engineering comparison artifacts only; no timeline edits or delivery API",
+      "acceptance": "Fail closed; enforce source clocks, registered effect behavior, repeated seeks, encoded structure and independent audiovisual acceptance",
+      "evolution": "docs/tools/evolution/native-render-verification.md",
+      "search_aliases": [
+        "native render comparison",
+        "Rust frame parity"
+      ],
+      "editor_agent": {
+        "access": "excluded",
+        "reason": "Renderer verification for repository development; no MCP tool and not an editing operation."
+      }
+    },
+    {
+      "id": "gpu-preview-verification",
+      "status": "existing",
+      "conformance": "experimental",
+      "tools": [],
+      "owners": [
+        "scripts/verify-gpu-preview.ts",
+        "src/lib/gpu-preview/export-session.ts",
+        "src/lib/gpu-preview/frame-compositor.ts",
+        "src/lib/gpu-preview/canvaskit-compositor.ts",
+        "src/lib/gpu-preview/catalog-coverage.ts",
+        "src/lib/gpu-preview/runtime.ts",
+        "src/lib/gpu-preview/browser-frame-provider.ts",
+        "src/lib/gpu-preview/sequential-samples.ts",
+        "src/lib/gpu-preview/frame-store.ts",
+        "src/lib/gpu-preview/image-frame.ts",
+        "src/lib/gpu-preview/resource-lookahead.ts",
+        "src/lib/gpu-preview/feather-mask.ts",
+        "src/lib/gpu-preview/lut-textures.ts",
+        "src/lib/gpu-preview/lut-assets.ts",
+        "src/lib/gpu-preview/lut-shader.ts",
+        "src/components/studio/timeline/capture-preview-hold.ts",
+        "src/lib/gpu-preview/scene.ts",
+        "src/lib/gpu-preview/capability-inventory.ts",
+        "src/lib/gpu-preview/transition-scene.ts",
+        "src/lib/gpu-preview/post-blur-pass.ts",
+        "src/lib/timeline/transition-frame.ts",
+        "src/lib/gpu-preview/compositor.ts",
+        "scripts/benchmark-preview-playback.ts",
+        "scripts/verify-gpu-proposal-preview.ts",
+        "scripts/benchmark-gpu-seeks.ts",
+        "scripts/verify-render-goldens.ts"
+      ],
+      "outcome": "Inventory GPU admission through production timeline projection and verify the opt-in GPU preview against synthetic standard-renderer and encoded references",
+      "authority": "Reads working cuts for private admission/performance receipts and creates only named synthetic media fixtures in explicitly isolated storage; no creator timeline writes or user-project exports",
+      "acceptance": "Complete supported picture, repeated seeks, bounded resources and every-frame encoded reference comparisons; caption layout and speech cases additionally require visible neutral-control differences and deterministic word/gap states; failures remain visible",
+      "evolution": "docs/tools/evolution/gpu-preview-verification.md",
+      "search_aliases": [
+        "GPU preview parity",
+        "WebGPU renderer verification"
+      ],
+      "editor_agent": {
+        "access": "excluded",
+        "reason": "Renderer verification for repository development; no MCP tool and not an editing operation."
+      }
+    },
+    {
+      "id": "performance-profiling",
+      "status": "existing",
+      "conformance": "experimental",
+      "tools": [],
+      "owners": [
+        "scripts/profile-route.ts",
+        "scripts/profile-summary.ts",
+        "scripts/perf-check.ts",
+        "src/lib/instruments/cpu-profile-summary.ts",
+        "src/lib/instruments/devtools-trace-summary.ts"
+      ],
+      "outcome": "Profile editor server paths in process and summarise browser CPU profiles and DevTools traces into ranked functions, long tasks, frames and GPU time; compare fixed real-project workloads against local baselines",
+      "authority": "Reads copy-on-write clones of creator projects and serves them from a private stable server on a free port; writes only private receipts, profiles and baselines under private/perf; never writes a creator timeline, builds, exports or schedules anything",
+      "acceptance": "Summaries match hand-computed self/total time, recursion, long tasks, frame states and GPU per-frame time on fixtures; real runs print source-mapped server functions and excerpt-named browser positions; a regression report names the metric, baseline and the functions that grew",
+      "evolution": "docs/tools/evolution/performance-profiling.md",
+      "search_aliases": [
+        "CPU profile",
+        "GPU profile",
+        "profiling",
+        "why is the editor slow",
+        "flame graph",
+        "performance regression check"
+      ],
+      "editor_agent": {
+        "access": "excluded",
+        "reason": "Repository development instrument run from a shell; no MCP tool and not an editing operation."
+      }
+    },
+    {
+      "id": "agent-delegation",
+      "status": "existing",
+      "conformance": "experimental",
+      "tools": [],
+      "owners": [
+        "desktop/agent-delegation.mjs",
+        "desktop/codex-tool-bridge.mjs",
+        "desktop/editing-session.mjs"
+      ],
+      "outcome": "Let the in-editor Claude or Codex agent run independent read-only or preparation tasks in parallel helper sessions and use their reports",
+      "authority": "Host tool agent_delegate in desktop chat only. Helpers share the project lease, use the same provider and model, read and prepare through a fixed allowlist, and cannot create proposals, record feedback, change the timeline, approve or delegate. Local models do not delegate.",
+      "acceptance": "Bounded tasks, concurrency and deadline; per-helper journals; cancellation follows the main turn; reports return as evidence; provider smoke run with real Claude and Codex helpers before widening the allowlist.",
+      "evolution": "docs/tools/evolution/agent-delegation.md",
+      "search_aliases": [
+        "sub-agents",
+        "subagents",
+        "parallel helpers",
+        "delegate work",
+        "split the work"
+      ],
+      "editor_agent": {
+        "access": "host",
+        "reason": "agent_delegate is a desktop host tool supplied by the editing tool bridge, not an MCP tool; coding agents use their own sub-agents."
+      }
+    },
+    {
+      "id": "model-authored-motion",
+      "status": "existing",
+      "conformance": "experimental",
+      "tools": [
+        "motion_graphic_prepare",
+        "motion_graphic_status",
+        "sound_synth_prepare",
+        "motion_library_list",
+        "motion_library_save",
+        "motion_library_use"
+      ],
+      "owners": [
+        "mcp/server.mjs",
+        "scripts/hyperframes-overlay.ts",
+        "scripts/sound-synth.ts",
+        "src/app/api/projects/[projectId]/hyperframes/prepare/route.ts",
+        "src/app/api/projects/[projectId]/sounds/prepare/route.ts",
+        "src/lib/hyperframes/composition-manifest.ts",
+        "src/lib/local-store/hyperframes-candidates.ts",
+        "src/lib/local-store/motion-audit.ts",
+        "src/lib/local-store/motion-jobs.ts",
+        "src/lib/local-store/motion-script-runner.ts",
+        "src/lib/local-store/synth-sounds.ts",
+        "src/lib/sound-synth/synth.ts",
+        "src/lib/local-store/motion-library.ts",
+        "src/app/api/motion-library/route.ts",
+        "src/lib/hyperframes/composition-timing.ts",
+        "src/lib/local-store/motion-timing.ts",
+        "src/lib/timeline/sound-link.ts",
+        "src/lib/hyperframes/composition-objects.ts",
+        "scripts/composition-object-probe.ts"
+      ],
+      "outcome": "Let the agent author motion graphics and sounds as code, optionally declare creator controls, actors and holds, and keep an append-only audit trail with the creator's review rating; save a creator's own graphic with its linked sounds to their personal Library and reuse it in other projects",
+      "authority": "Agent preparation: writes composition and sound source under hyperframes/<id>/ and sounds/<id>/, renders candidates, and appends audit events. Never edits the timeline, approves or exports; the proposal that places the result is the human review point, where the creator may rate the motion. Library tools write only the personal Library (save) or prepare renders in the target project (use); placing still goes through a proposal.",
+      "acceptance": "Controls file optional and never coverage-gated; declared controls the code ignores fail check; equal source, values and seed give identical sound bytes; every check and render appends audit events; project-health reports per-item revisions, edits, missed controls and ratings.",
+      "evolution": "docs/tools/evolution/model-authored-motion.md",
+      "search_aliases": [
+        "motion graphics",
+        "animated logo",
+        "logo sting",
+        "animation controls",
+        "synthesize a sound",
+        "sound effect from code",
+        "whoosh",
+        "motion audit",
+        "my opener",
+        "my intro",
+        "save to my library",
+        "reuse my intro",
+        "library motion graphic"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "storyboard-drafting",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "storyboard_get",
+        "storyboard_draft",
+        "storyboard_script_write",
+        "storyboard_script_link",
+        "storyboard_canvas_write"
+      ],
+      "owners": [
+        "src/lib/storyboard/agent-draft.ts",
+        "src/app/api/projects/[projectId]/storyboard/draft/route.ts",
+        "src/app/api/projects/[projectId]/storyboard/script/route.ts",
+        "src/app/api/projects/[projectId]/storyboard/script/link/route.ts",
+        "src/lib/storyboard/script.ts",
+        "src/lib/local-store/storyboard.ts",
+        "src/lib/storyboard/model.ts",
+        "src/lib/storyboard/canvas.ts",
+        "src/app/api/projects/[projectId]/storyboard/canvas/route.ts"
+      ],
+      "outcome": "Break supplied footage into a planned storyboard of beats and shots, with visuals shown over shots, that the creator reviews and tunes; and a planning canvas joining marked moments, effects and text that the agent reads to assemble",
+      "authority": "Writes only the freeform storyboard and its planning canvas, on the creator's request, as one revision-checked Undo step; shots reference original source windows; no cuts, timeline writes, generation or approval. Build timeline stays a human action.",
+      "acceptance": "A draft from a talking take saves as one Undo step with beats, notes, text, transitions and visuals over shots; stale revisions, unknown or unprepared sources, out-of-range windows, audio shots or visuals, and visuals outside or overlapping within their shot are refused without changing the board; an open Storyboard page adopts the new revision; Build timeline keeps each talking window one continuous clip with visuals on the lane above. Canvas writes add marked moments with notes, effect and text cards and the lines between them as one Undo step; unknown cards, bad ranges and stale revisions are refused without changing the board; storyboard_get returns the canvas as a resolved graph.",
+      "evolution": "docs/tools/evolution/storyboard-drafting.md",
+      "search_aliases": [
+        "storyboard",
+        "plan the video",
+        "break up footage",
+        "split into beats",
+        "beats",
+        "shot list",
+        "plan shots",
+        "storyboard my talking video",
+        "outline the edit",
+        "scene breakdown",
+        "b-roll over talking",
+        "cutaway",
+        "screenshot over talking head",
+        "visuals while I talk",
+        "overlay a mockup",
+        "on screen while I talk",
+        "screenshot while I explain",
+        "transcribe into the script",
+        "put the transcript in the script",
+        "write the script",
+        "script panel",
+        "link visuals to the script",
+        "link these",
+        "assign visuals to sections",
+        "canvas",
+        "connect these",
+        "mark these stops",
+        "storyboard canvas",
+        "connect the effect to these moments",
+        "node",
+        "nodes",
+        "add a note",
+        "note on the storyboard",
+        "say my line",
+        "add text to the storyboard"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "storyboard-recast",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "storyboard_reference_draft",
+        "storyboard_recast_quote"
+      ],
+      "owners": [
+        "src/lib/storyboard/recast.ts",
+        "src/lib/storyboard/agent-draft.ts",
+        "src/lib/local-store/storyboard-recast.ts",
+        "src/app/api/projects/[projectId]/storyboard/reference-draft/route.ts",
+        "src/app/api/projects/[projectId]/storyboard/recast/route.ts"
+      ],
+      "outcome": "Recreate a reference video with other people: the reference split into beats at its cuts, a cast with photos, who appears in each beat, per-beat prices, and generated takes the creator chooses as each beat's footage",
+      "authority": "Writes only the Follow-reference storyboard plan, on the creator's request, as one revision-checked Undo step, and quotes prices for free. Generation spends credits only from the creator's Recast click in the Storyboard; choosing a take, Build timeline and approval stay human actions.",
+      "acceptance": "A plan without beats splits the reference at its shot cuts and saves as one Undo step with cast and per-beat people; unknown cast names, non-photo cast sources, overlapping or out-of-range beats and stale revisions are refused without changing the board; quotes pad short beats to the model's minimum window; a chosen take is kept in the Library and becomes the beat's selected footage trimmed back to the beat.",
+      "evolution": "docs/tools/evolution/storyboard-recast.md",
+      "search_aliases": [
+        "recast",
+        "recast video",
+        "replace the people",
+        "swap the people",
+        "remake this video",
+        "recreate this video with me",
+        "face swap the clip",
+        "copy this video",
+        "follow reference",
+        "replace the singer"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "sound-effects",
+      "status": "existing",
+      "conformance": "experimental",
+      "tools": [
+        "sfx_search",
+        "sfx_audition_prepare",
+        "visual_activity_prepare",
+        "sound_units_extract"
+      ],
+      "owners": [
+        "src/lib/local-store/sound-units.ts",
+        "src/lib/sound-synth/unit-resynth.ts",
+        "scripts/sound-units.py",
+        "src/app/api/projects/[projectId]/tools/sound-units/route.ts",
+        "src/lib/sfx-catalog/search.ts",
+        "src/lib/local-store/sfx-audition.ts",
+        "src/lib/agent/sfx-tools.ts",
+        "src/app/api/sfx-catalog/search/route.ts",
+        "src/app/api/projects/[projectId]/tools/sfx-audition/route.ts",
+        "src/lib/agent/visual-activity-tool.ts",
+        "src/lib/sound-synth/visual-activity.ts",
+        "src/lib/sound-synth/sound-alignment.ts",
+        "src/lib/sound-synth/activity-media.ts",
+        "src/app/api/projects/[projectId]/tools/visual-activity/route.ts",
+        "src/lib/agent/sound-sync-eval.ts",
+        "scripts/eval-sound-sync.ts",
+        "mcp/server.mjs"
+      ],
+      "outcome": "Find library sound effects and prepare a cue-specific audition: picture, speech and audio context, peak-aligned leveled candidates with ready create_audio operations, and a loudness-alignment image; measure on-screen activity curves (from keyframes, presets, composition scene data or decoded frames) so sounds follow the picture, and verify a sound's alignment numerically; split a reference's sound effects into single spectrally isolated units with measured character and leakage, and rebuild units as tunable synth sounds",
+      "authority": "Read-only catalog, timeline, proposal and media reads; never edits the timeline. visual_activity_prepare runs agent-written activity_js over a composition's local scene data in an isolated VM only for trusted local requests. sound_units_extract starts the shared stem separation for a project source, writes a rebuildable cache under analysis/sound-units/, imports units as managed project media (never tracked catalogs: reference audio is cleared for that project only) and writes rebuilt sounds through the sound-synth renderer. Placement happens through proposal_create, where the creator listens and chooses.",
+      "acceptance": "Ranking respects role, query, duration and audibility; each candidate's measured peak lands on the cue; speech basis is reported; operations validate in proposal_create; the image is returned as MCP image content. Activity curves land on the timeline clock through trims and speed; the sound-sync eval separates curve-driven sounds from single-cue placements. Sound units carry less foreign energy than equal-span time cuts, named events keep their own unit, identical calls reuse the cached result, rebuilt sounds report their spectral fit and respond to every declared control.",
+      "evolution": "docs/tools/evolution/sound-effects.md",
+      "search_aliases": [
+        "sound effects",
+        "sfx",
+        "whoosh",
+        "find a sound",
+        "audition sounds",
+        "pick a sound effect",
+        "sound library",
+        "sync sound to the picture",
+        "sound follows the animation",
+        "time sound to motion",
+        "activity curve",
+        "pencil sound while drawing",
+        "pencil sound while the sketch draws",
+        "handwriting sound",
+        "handwritten pencil strokes",
+        "whoosh on the camera move",
+        "sound doesn't line up with the animation",
+        "sound out of sync with the picture",
+        "fix the sound timing",
+        "sound effects from a reference",
+        "extract sound effects",
+        "isolate a sound effect",
+        "separate overlapping sounds",
+        "two sounds in one cut",
+        "recreate a sound effect",
+        "sounds from this tutorial"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    },
+    {
+      "id": "library-setup",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "library_status",
+        "library_setup"
+      ],
+      "owners": [
+        "src/lib/library/library.ts",
+        "src/lib/library/migrate.ts",
+        "src/lib/library/setup.ts",
+        "src/app/api/library/route.ts",
+        "mcp/projects-root.mjs"
+      ],
+      "outcome": "Choose where DreamCut keeps projects and move existing projects into the creator's DreamCut Library",
+      "authority": "Creates a Library only in an empty folder and saves the creator's choice; moves only the projects the creator confirmed from a shown plan; never deletes, merges or overwrites projects; no timeline edits.",
+      "acceptance": "A new Library is created at the suggested or chosen folder; an existing one is chosen; a migration plan lists projects and sizes; only confirmed projects move (rename on one disk, verified copy keeping originals across disks); conflicts are skipped; a newer Library is refused.",
+      "evolution": "docs/tools/evolution/library-setup.md",
+      "editor_agent": {
+        "access": "enabled"
+      },
+      "search_aliases": [
+        "library",
+        "dreamcut library",
+        "where are my projects",
+        "project folder",
+        "move projects",
+        "set up dreamcut",
+        "choose library folder",
+        "migrate projects"
+      ]
+    },
+    {
+      "id": "editor-access",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "editor_open"
+      ],
+      "owners": [
+        "mcp/editor-runtime.mjs",
+        "desktop/service.mjs",
+        "desktop/service-policy.mjs",
+        "bin/dreamcut.mjs"
+      ],
+      "outcome": "Open the local DreamCut editor for the creator from their coding agent",
+      "authority": "Starts the local editor bound to 127.0.0.1 and returns a single-use, short-lived browser sign-in link; no project, timeline or file changes.",
+      "acceptance": "The editor starts or is reused; the link signs a browser in once and expires; requests without the session, with a foreign Host or Origin, or cross-site are refused.",
+      "evolution": "docs/tools/evolution/editor-access.md",
+      "editor_agent": {
+        "access": "excluded",
+        "reason": "The in-editor agent already runs inside the open editor."
+      },
+      "search_aliases": [
+        "open dreamcut",
+        "open the editor",
+        "show me the editor",
+        "launch dreamcut",
+        "open storyboard",
+        "open project",
+        "editor link",
+        "start dreamcut",
+        "take me to",
+        "take me to the storyboard",
+        "show me the storyboard",
+        "go to project",
+        "open in dreamcut",
+        "view project"
+      ]
+    },
+    {
+      "id": "vector-pieces",
+      "status": "existing",
+      "conformance": "partial_runtime_verification",
+      "tools": [
+        "svg_pieces_compile"
+      ],
+      "owners": [
+        "src/lib/agent/svg-pieces.ts",
+        "src/app/api/projects/[projectId]/tools/svg-pieces/route.ts",
+        "src/lib/timeline/shape-ink.ts",
+        "src/lib/timeline/shapes.ts"
+      ],
+      "outcome": "Split a drawing into native, separately editable shape pieces that draw on",
+      "authority": "Compiles create_shape operations only; no timeline writes; proposal_create and human review remain required.",
+      "acceptance": "Pieces land where they were drawn, pass the proposal operation schema, draw in order, and keep each piece within shape limits; invalid SVG fails with a reason.",
+      "evolution": "docs/tools/evolution/vector-pieces.md",
+      "search_aliases": [
+        "sketch",
+        "draw a sketch",
+        "hand-drawn drawing",
+        "whiteboard drawing",
+        "draw as I explain",
+        "svg",
+        "split into pieces",
+        "break into pieces",
+        "line drawing",
+        "doodle"
+      ],
+      "editor_agent": {
+        "access": "enabled"
+      }
+    }
+  ],
+  "editor_agent_contract": "Each capability states whether the in-editor agent gets its MCP tools. The editor session's families and the harness operator allowlist are derived from these fields; coding agents (Claude Code, Codex) use the same MCP server. See docs/standards/agent-surface-parity.md."
+}

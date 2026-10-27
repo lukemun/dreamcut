@@ -1,0 +1,82 @@
+{
+  "id": "riso",
+  "title": "Riso",
+  "family": "Print",
+  "description": "A three-drum risograph zine: every drawing is split into fluorescent pink, yellow and blue-key plates that overprint out of register on cream stock, with halftone screens, ink dropout and roller streaks. Scenes print in plate by plate behind a moving roller band and leave by sliding their plates apart.",
+  "arrival": "wipe",
+  "change": "grid",
+  "texture": "print",
+  "examples": [
+    {
+      "name": "Proof run",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Issue 01",
+        "title": "Print your cut, proof it, then press go",
+        "object_title": "Each draft arrives as a proof",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed trim",
+        "callout_3": "Your original audio",
+        "closing": "Nothing prints without your OK."
+      }
+    },
+    {
+      "name": "Print shop",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Templates used this month",
+        "bar_1_label": "Captions",
+        "bar_2_label": "Titles",
+        "bar_3_label": "Charts",
+        "bar_4_label": "Wipes",
+        "bar_1": 34,
+        "bar_2": 21,
+        "bar_3": 12,
+        "bar_4": 9,
+        "highlight": "1",
+        "process_title": "How a card gets made",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Zine club",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "people_title": "Everyone gets a copy",
+        "people_count": 4,
+        "badge_1": "Host",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Fewer reprints",
+        "before_label": "Re-renders",
+        "before_value": 12,
+        "after_label": "Dial tweaks",
+        "after_value": 3
+      }
+    }
+  ]
+}

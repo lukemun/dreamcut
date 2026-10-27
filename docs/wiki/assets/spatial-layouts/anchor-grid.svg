@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="700" viewBox="0 0 390 700" role="img" aria-labelledby="title desc">
+  <title id="title">DreamCut vertical semantic anchor grid</title>
+  <desc id="desc">A three-column by five-row named anchor grid inside a vertical-video safe area.</desc>
+  <rect width="390" height="700" rx="32" fill="#090b10"/>
+  <rect x="30" y="56" width="330" height="588" rx="18" fill="#111621" stroke="#92a2bd" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="195" y="31" fill="#f7f9fc" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">DELIVERY-SAFE ANCHOR GRID</text>
+  <g stroke="#2f3a4e" stroke-width="1">
+    <path d="M140 56V644M250 56V644"/>
+    <path d="M30 173.6H360M30 291.2H360M30 408.8H360M30 526.4H360"/>
+  </g>
+  <g fill="#69e6b3" stroke="#07100c" stroke-width="3">
+    <circle cx="85" cy="114.8" r="7"/><circle cx="195" cy="114.8" r="7"/><circle cx="305" cy="114.8" r="7"/>
+    <circle cx="85" cy="232.4" r="7"/><circle cx="195" cy="232.4" r="7"/><circle cx="305" cy="232.4" r="7"/>
+    <circle cx="85" cy="350" r="7"/><circle cx="195" cy="350" r="7"/><circle cx="305" cy="350" r="7"/>
+    <circle cx="85" cy="467.6" r="7"/><circle cx="195" cy="467.6" r="7"/><circle cx="305" cy="467.6" r="7"/>
+    <circle cx="85" cy="585.2" r="7"/><circle cx="195" cy="585.2" r="7"/><circle cx="305" cy="585.2" r="7"/>
+  </g>
+  <g fill="#cdd6e5" font-family="Inter,Arial,sans-serif" font-size="10" text-anchor="middle">
+    <text x="85" y="136">top_left</text><text x="195" y="136">top_center</text><text x="305" y="136">top_right</text>
+    <text x="85" y="254">upper_left</text><text x="195" y="254">upper_center</text><text x="305" y="254">upper_right</text>
+    <text x="85" y="372">center_left</text><text x="195" y="372">center</text><text x="305" y="372">center_right</text>
+    <text x="85" y="489">lower_left</text><text x="195" y="489">lower_center</text><text x="305" y="489">lower_right</text>
+    <text x="85" y="607">bottom_left</text><text x="195" y="607">bottom_center</text><text x="305" y="607">bottom_right</text>
+  </g>
+  <rect x="78" y="660" width="234" height="22" rx="11" fill="#1e2634"/>
+  <text x="195" y="675" fill="#92a2bd" font-family="Inter,Arial,sans-serif" font-size="10" text-anchor="middle">Platform controls live outside the safe rectangle</text>
+</svg>

@@ -1,0 +1,81 @@
+{
+  "id": "origami",
+  "title": "Origami",
+  "family": "Craft",
+  "description": "A warm studio sweep where everything is folded from two-tone paper: accordion-pleated columns, a folded laptop with its white edges turned in, folded figures under bunting, fold-diagram steps and two paper fans, with headlines on unfolding cards and each scene folding flat into a creased floor sheet as the next stands up.",
+  "arrival": "unfold",
+  "change": "fold-flat",
+  "texture": "washi",
+  "examples": [
+    {
+      "name": "Fold the first draft",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "kicker": "DreamCut studio",
+        "title": "Every edit starts as a crease",
+        "process_title": "How a change takes shape",
+        "step_1": "Read the cut",
+        "step_2": "Fold a draft",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Pleated week",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 3.6,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 11,
+        "bar_4": 23,
+        "highlight": "4",
+        "object_title": "A proposal, folded open",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original track"
+      }
+    },
+    {
+      "name": "Fewer folds",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 2.6,
+        "people_title": "Everyone reviews the same cut",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "compare_title": "Tuning beats re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 2,
+        "closing": "Nothing lands without your OK."
+      }
+    }
+  ]
+}

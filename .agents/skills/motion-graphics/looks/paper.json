@@ -1,0 +1,83 @@
+{
+  "id": "paper",
+  "title": "Paper",
+  "family": "Print",
+  "description": "An editorial essay collage: each scene is a new grained sheet slapped over the last with a torn, fibrous edge, built from halftone photo scraps, a contact sheet under a roaming loupe, a clapping cut-card slate, newsprint clippings, tape, cut-out headline strips, ransom-cut numbers, a running film strip, a kraft project folder, highlighter and red marker notes.",
+  "arrival": "rise",
+  "change": "lift",
+  "examples": [
+    {
+      "name": "Your files stay yours",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 3,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Local first",
+        "title": "Your footage never leaves your folder",
+        "object_title": "One project, one folder",
+        "device": "laptop",
+        "callout_1": "Your original media",
+        "callout_2": "timeline.json",
+        "callout_3": "Every proposal, saved",
+        "closing": "Open it any time, in any editor."
+      }
+    },
+    {
+      "name": "Review round",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 2.6,
+        "people_title": "Send one review link",
+        "people_count": 3,
+        "badge_1": "You",
+        "badge_2": "Editor",
+        "badge_3": "Client",
+        "compare_title": "Notes become cards",
+        "before_label": "Email threads",
+        "before_value": 14,
+        "after_label": "Cards to approve",
+        "after_value": 3,
+        "closing": "Feedback you can apply."
+      }
+    },
+    {
+      "name": "A week of edits",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "chart_title": "Proposals approved",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 4,
+        "bar_2": 7,
+        "bar_3": 6,
+        "bar_4": 11,
+        "highlight": "4",
+        "process_title": "How a change lands",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve",
+        "closing": "Small steps, every day."
+      }
+    }
+  ]
+}

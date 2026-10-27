@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "dreamcut": {
+      "command": "npx",
+      "args": ["-y", "dreamcut@0.0.0", "mcp"]
+    }
+  }
+}

@@ -1,0 +1,2007 @@
+{
+  "title": "DreamCut effect catalog",
+  "source_url": "https://www.instagram.com/reel/DdN_aljAIY0/",
+  "source_credit": "@celfstudies",
+  "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+  "status": "Versioned recipes: explicit candidates, partial recreations, and evidence-backed complete entries.",
+  "entries": [
+    {
+      "rank": 1,
+      "catalog_id": "FX-12",
+      "name": "Shopping basket fills as items are picked",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background shopping clips",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "transparent basket PNG/WebP with clean alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "start/end window",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Basket base with alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "separate product cutouts or clean basket states",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "ordered pickup times",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Size; named position; outline",
+      "preparation": "Extract a static basket if not supplied; inspect holes/edges; use one overlay across cuts",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Alpha visual creation plus semantic placement is a candidate existing route. Source extraction is separate work.",
+      "acceptance": "Basket remains stable across cuts and each selected product appears once, stays inside the basket and persists through following shots.",
+      "reference_interval": [
+        8.9,
+        10.7
+      ],
+      "reference_clip": "media/FX-12.mp4",
+      "recipe_name": "accumulating-object-collage",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-12.mp4",
+      "preview": "media/FX-12.gif",
+      "poster": "media/FX-12.jpg",
+      "observation": "A basket remains centered across shopping cuts while products accumulate inside it in time with the pickups.",
+      "source_window": {
+        "id": "FX-12",
+        "path": "FX-12.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 261,
+        "source_end_frame_exclusive": 327,
+        "source_start_seconds": 8.7,
+        "frames": 66,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "72034b9b8bb8c109907fc0c7edd4947a694e2a2ed6a382faa97de1aa59b9905b"
+      },
+      "preview_source_start_seconds": 8.7,
+      "preview_duration_seconds": 2.2,
+      "clip_sha256": "72034b9b8bb8c109907fc0c7edd4947a694e2a2ed6a382faa97de1aa59b9905b",
+      "component_ids": [
+        "FX-12",
+        "FX-13"
+      ],
+      "component_notes": [
+        {
+          "id": "FX-12",
+          "name": "Basket remains across grocery cuts",
+          "observation": "A small frontal basket stays near the center while grocery shelf backgrounds change at frames 281, 294 and 307."
+        },
+        {
+          "id": "FX-13",
+          "name": "Basket contents accumulate",
+          "observation": "The basket starts with a popcorn pack, gains a green package, a drink and a sauce item as shelf shots progress."
+        }
+      ],
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-12.mp4",
+          "sha256": "72034b9b8bb8c109907fc0c7edd4947a694e2a2ed6a382faa97de1aa59b9905b",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Background shopping clips",
+          "transparent basket PNG/WebP with clean alpha",
+          "start/end window",
+          "Basket base with alpha",
+          "separate product cutouts or clean basket states",
+          "ordered pickup times"
+        ],
+        "preparation": "Extract a static basket if not supplied; inspect holes/edges; use one overlay across cuts",
+        "success_criteria": [
+          "Basket remains stable across cuts and each selected product appears once, stays inside the basket and persists through following shots."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 2,
+      "catalog_id": "FX-14",
+      "name": "Floating translucent project screen",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background laptop shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "clean screen recording or screenshot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "interval",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Opacity; position; entrance duration",
+      "preparation": "Prepare screen source and fit within top region; preserve recording time",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Video/still overlay, opacity and animation presets exist. Fine scale synchronization may need a semantic motion extension.",
+      "acceptance": "Screen is readable, translucent and does not cover the subject unintentionally.",
+      "reference_interval": [
+        10.733333,
+        11.733333
+      ],
+      "reference_clip": "media/FX-14.mp4",
+      "recipe_name": "floating-screen-overlay",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-14.mp4",
+      "preview": "media/FX-14.gif",
+      "poster": "media/FX-14.jpg",
+      "observation": "A rectangular software view grows into the upper part of the laptop shot; ceiling detail remains visible through it and the UI content changes.",
+      "source_window": {
+        "id": "FX-14",
+        "path": "FX-14.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 316,
+        "source_end_frame_exclusive": 358,
+        "source_start_seconds": 10.533333333333333,
+        "frames": 42,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "67a6ebdd8fd7229efb9528854d1b74f77c5b98d0425cbb439e7ef213e368ecee"
+      },
+      "preview_source_start_seconds": 10.533333333333333,
+      "preview_duration_seconds": 1.4,
+      "clip_sha256": "67a6ebdd8fd7229efb9528854d1b74f77c5b98d0425cbb439e7ef213e368ecee",
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-14.mp4",
+          "sha256": "67a6ebdd8fd7229efb9528854d1b74f77c5b98d0425cbb439e7ef213e368ecee",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Background laptop shot",
+          "clean screen recording or screenshot",
+          "interval"
+        ],
+        "preparation": "Prepare screen source and fit within top region; preserve recording time",
+        "success_criteria": [
+          "Screen is readable, translucent and does not cover the subject unintentionally."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 3,
+      "catalog_id": "FX-06",
+      "name": "Gesture-matched outfit change",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Two wardrobe takes with matching hand gesture, camera framing and light",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Match frame selections; crop tolerance",
+      "preparation": "Shoot/retrieve both performances; align at gesture peak",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Editing primitives are simple; capture quality makes this harder than a basic cut.",
+      "acceptance": "Hand continuity disguises the outfit change; no accidental motion reversal.",
+      "reference_interval": [
+        1.8,
+        2.1
+      ],
+      "reference_clip": "media/FX-06.mp4",
+      "recipe_name": "gesture-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-06.mp4",
+      "preview": "media/FX-06.gif",
+      "poster": "media/FX-06.jpg",
+      "observation": "Light shirt changes to black at frame 57 with the hand held close to the camera in a similar pose.",
+      "source_window": {
+        "id": "FX-06",
+        "path": "FX-06.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 48,
+        "source_end_frame_exclusive": 69,
+        "source_start_seconds": 1.6,
+        "frames": 21,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "1eed51bb1df62053385df663296c273427723004408ee10ad6941b93f8b37474"
+      },
+      "preview_source_start_seconds": 1.6,
+      "preview_duration_seconds": 0.7,
+      "clip_sha256": "1eed51bb1df62053385df663296c273427723004408ee10ad6941b93f8b37474",
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-06.mp4",
+          "sha256": "1eed51bb1df62053385df663296c273427723004408ee10ad6941b93f8b37474",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Two wardrobe takes with matching hand gesture, camera framing and light"
+        ],
+        "preparation": "Shoot/retrieve both performances; align at gesture peak",
+        "success_criteria": [
+          "Hand continuity disguises the outfit change; no accidental motion reversal."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 4,
+      "catalog_id": "FX-07",
+      "name": "Foot-to-camera location change",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Indoor and outdoor low-angle takes with matching foot approach and retreat",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Occlusion frame; crop tolerance",
+      "preparation": "Shoot paired foot action with matching direction and apparent shoe size",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Cut route exists; missing matched footage is the main risk.",
+      "acceptance": "Shoe trajectory and camera angle connect without a conspicuous jump.",
+      "reference_interval": [
+        4.333333,
+        4.7
+      ],
+      "reference_clip": "media/FX-07.mp4",
+      "recipe_name": "gesture-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-07.mp4",
+      "preview": "media/FX-07.gif",
+      "poster": "media/FX-07.jpg",
+      "observation": "The raised shoe approaches the camera indoors; the scene switches outdoors at frame 135 with a similar low viewpoint and continuing leg action.",
+      "source_window": {
+        "id": "FX-07",
+        "path": "FX-07.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 124,
+        "source_end_frame_exclusive": 147,
+        "source_start_seconds": 4.133333333333334,
+        "frames": 23,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "08c590f08a784a670f6f12045879138d8abd0e5045b4fe06eb19f46a8f16e6e7"
+      },
+      "preview_source_start_seconds": 4.133333333333334,
+      "preview_duration_seconds": 0.7666666666666667,
+      "clip_sha256": "08c590f08a784a670f6f12045879138d8abd0e5045b4fe06eb19f46a8f16e6e7",
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-07.mp4",
+          "sha256": "08c590f08a784a670f6f12045879138d8abd0e5045b4fe06eb19f46a8f16e6e7",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Indoor and outdoor low-angle takes with matching foot approach and retreat"
+        ],
+        "preparation": "Shoot paired foot action with matching direction and apparent shoe size",
+        "success_criteria": [
+          "Shoe trajectory and camera angle connect without a conspicuous jump."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 5,
+      "catalog_id": "FX-08",
+      "name": "Objects float in \u2192 scene switches \u2192 white blips",
+      "effort_band": 3,
+      "required_inputs": [
+        {
+          "role": "Outgoing scene",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Incoming scene containing the objects in their final arrangement",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "One separate cutout/mask per object, extracted from or matched to the incoming scene",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Object entrance order and final alignment targets",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Background-switch time and per-object white-blip timing",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Stagger; starting sizes; easing",
+      "preparation": "Extract each object independently; align its settled size/position with the incoming scene; build staggered entrances, one background switch, and alpha-confined white blips as one sequence",
+      "skill_owner": "mask-glitch",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "One combined recipe owns entrances, landing alignment, background replacement and masked flashes. Native layers and timing are candidates; exact landing geometry and safe pulse automation still need verification.",
+      "acceptance": "Objects enter separately over the outgoing shot, land without jumping when the background switches, then blip white within their own silhouettes. Reuse with a different number and type of objects.",
+      "reference_interval": [
+        5.933333,
+        6.933333
+      ],
+      "reference_clip": "media/FX-08.mp4",
+      "recipe_name": "object-led-scene-transition",
+      "recipe_status": "partial recreation packaged; see recipe.evidence.limitations",
+      "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+      "clip": "media/FX-08.mp4",
+      "preview": "media/FX-08.gif",
+      "poster": "media/FX-08.jpg",
+      "observation": "Objects from the next scene enter individually over the current shot. After they form the destination arrangement, the background switches to that scene, then individual objects briefly flash white. The food plates are one example; object type and count are replaceable.",
+      "source_window": {
+        "id": "FX-08",
+        "path": "FX-08.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 172,
+        "source_end_frame_exclusive": 214,
+        "source_start_seconds": 5.733333333333333,
+        "frames": 42,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "570b5d921f1e62b6a763674dcb2deb4b33e4a384a220a88d41613c291a999f42"
+      },
+      "preview_source_start_seconds": 5.733333333333333,
+      "preview_duration_seconds": 1.4,
+      "clip_sha256": "570b5d921f1e62b6a763674dcb2deb4b33e4a384a220a88d41613c291a999f42",
+      "component_ids": [
+        "FX-08",
+        "FX-09"
+      ],
+      "component_notes": [
+        {
+          "id": "FX-08",
+          "name": "Three plates build the next scene",
+          "observation": "Individual food plates appear successively, enlarge over the street shot and resolve into the lunch-table composition at frame 197."
+        },
+        {
+          "id": "FX-09",
+          "name": "Plates pulse to white",
+          "observation": "Individual plate silhouettes flash white in succession while the table remains visible."
+        }
+      ],
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/FX-08.mp4",
+          "sha256": "570b5d921f1e62b6a763674dcb2deb4b33e4a384a220a88d41613c291a999f42",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/FX-08-recreation.mp4",
+          "sha256": "babe6d4d70abb6a14b5cf5513e66fb32a630769d6ccd960df2e91815ecd69c3a",
+          "kind": "video",
+          "credit": "DreamCut dinosaur/bird example; supplied photos",
+          "rights": "owned"
+        },
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing scene",
+          "Incoming scene containing the objects in their final arrangement",
+          "One separate cutout/mask per object, extracted from or matched to the incoming scene",
+          "Object entrance order and final alignment targets",
+          "Background-switch time and per-object white-blip timing"
+        ],
+        "preparation": "Extract each object independently; align its settled size/position with the incoming scene; build staggered entrances, one background switch, and alpha-confined white blips as one sequence",
+        "success_criteria": [
+          "Objects enter separately over the outgoing shot, land without jumping when the background switches, then blip white within their own silhouettes. Reuse with a different number and type of objects."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/guide/effects/input-dinosaur.jpg",
+              "sha256": "179c961cf3e23120a16cafe8863f44e69d7c0fb12b8aeeb97a28483e0f0be669",
+              "kind": "image",
+              "credit": "Creator-supplied museum photo",
+              "rights": "owned"
+            },
+            {
+              "path": "../../public/guide/effects/input-small-birds.png",
+              "sha256": "df9b5741f2aa8ff68e840363471f9aa3b42ea6100dd2ca8f635602fd33d74439",
+              "kind": "image",
+              "credit": "Creator-supplied museum photo",
+              "rights": "owned"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/FX-08-recreation.mp4",
+              "sha256": "babe6d4d70abb6a14b5cf5513e66fb32a630769d6ccd960df2e91815ecd69c3a",
+              "kind": "video",
+              "credit": "DreamCut dinosaur/bird example; supplied photos",
+              "rights": "owned"
+            }
+          ],
+          "observations": [
+            "Existing 1.5-second recreation uses 33 separately placed birds, one scene switch, and white flashes.",
+            "Reuses the previously exported DreamCut working edit; no new export performed."
+          ],
+          "limitations": [
+            "Batched pop-ins adapt the reference rather than reproducing its individual float trajectories.",
+            "No new input trial or fresh frame-by-frame fidelity review was performed for this packaging."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 6,
+      "catalog_id": "FX-11",
+      "name": "Drinks enter before their background",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Outgoing lunch shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "incoming drinks shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "separate moving hand-and-cup layers or approved still cutouts",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "landing targets",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Stagger; travel duration",
+      "preparation": "Rotoscope moving hands/cups for close fidelity; static cutouts are a declared simplification",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Reuse cutout-transition method; moving masks, temporal alignment and exact landing add preparation/integration risk.",
+      "acceptance": "No clipped fingers, changing edges or jump when destination shot takes over.",
+      "reference_interval": [
+        7.6,
+        8.033333
+      ],
+      "reference_clip": "media/FX-11.mp4",
+      "recipe_name": "cutout-scene-transition",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-11.mp4",
+      "preview": "media/FX-11.gif",
+      "poster": "media/FX-11.jpg",
+      "observation": "A hand with a green drink enters over the lunch table, then another drink/hand appears; the background changes to the drinks shot at frame 240.",
+      "source_window": {
+        "id": "FX-11",
+        "path": "FX-11.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 222,
+        "source_end_frame_exclusive": 247,
+        "source_start_seconds": 7.4,
+        "frames": 25,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "dcae916162032720bf0b4c1d0f79ebebb5768d4ef97e9d9fc88dc6fca5547c53"
+      },
+      "preview_source_start_seconds": 7.4,
+      "preview_duration_seconds": 0.8333333333333334,
+      "clip_sha256": "dcae916162032720bf0b4c1d0f79ebebb5768d4ef97e9d9fc88dc6fca5547c53",
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-11.mp4",
+          "sha256": "dcae916162032720bf0b4c1d0f79ebebb5768d4ef97e9d9fc88dc6fca5547c53",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing lunch shot",
+          "incoming drinks shot",
+          "separate moving hand-and-cup layers or approved still cutouts",
+          "landing targets"
+        ],
+        "preparation": "Rotoscope moving hands/cups for close fidelity; static cutouts are a declared simplification",
+        "success_criteria": [
+          "No clipped fingers, changing edges or jump when destination shot takes over."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 7,
+      "catalog_id": "FX-16",
+      "name": "Restaurant builds over the shot, then becomes the scene",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Walking shot",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "restaurant exterior",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "separate lantern/sign cutouts",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "ordered reveal times",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "landing targets",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Sign with alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "background",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "glitch interval",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Background clip or adjacent shots",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "flash time",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Pulse colors; glitch cue; flash length",
+      "preparation": "Extract masks, stage pieces, align to exterior; compose FX-03/17/18 as dependencies",
+      "skill_owner": "video-compositing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Combined cutout build, masked flashes and glitch; no single verified end-to-end recipe yet.",
+      "acceptance": "Staged objects align to the incoming exterior; the glitch and flash resolve cleanly as part of the same scene handoff.",
+      "reference_interval": [
+        12.633333,
+        13.533333
+      ],
+      "reference_clip": "media/FX-16.mp4",
+      "recipe_name": "object-led-scene-transition",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+      "clip": "media/FX-16.mp4",
+      "preview": "media/FX-16.gif",
+      "poster": "media/FX-16.jpg",
+      "observation": "Lanterns build one by one over the walking shot, the sign enters with an RGB glitch, and a white flash reveals the matching restaurant exterior. These are components of one transition.",
+      "source_window": {
+        "id": "FX-16",
+        "path": "FX-16.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 373,
+        "source_end_frame_exclusive": 412,
+        "source_start_seconds": 12.433333333333334,
+        "frames": 39,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "a428da74737d95996843800d78ca72690a50369de07481de951e4e5e471d1c80"
+      },
+      "preview_source_start_seconds": 12.433333333333334,
+      "preview_duration_seconds": 1.3,
+      "clip_sha256": "a428da74737d95996843800d78ca72690a50369de07481de951e4e5e471d1c80",
+      "component_ids": [
+        "FX-16",
+        "FX-17",
+        "FX-18"
+      ],
+      "component_notes": [
+        {
+          "id": "FX-16",
+          "name": "Lanterns and sign assemble next scene",
+          "observation": "Red lanterns appear one by one over the walking shot, flashing white; a restaurant sign appears above them before the exterior fills the frame."
+        },
+        {
+          "id": "FX-17",
+          "name": "Sign RGB split and dropout",
+          "observation": "The sign turns cyan with offset magenta/green edges, disappears at frame 396 and returns normally at 397."
+        },
+        {
+          "id": "FX-18",
+          "name": "Full-frame white flash",
+          "observation": "Exterior appears under rising pale/white coverage; frame 404 is almost entirely white, then normal exposure returns at 405."
+        }
+      ],
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-16.mp4",
+          "sha256": "a428da74737d95996843800d78ca72690a50369de07481de951e4e5e471d1c80",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Walking shot",
+          "restaurant exterior",
+          "separate lantern/sign cutouts",
+          "ordered reveal times",
+          "landing targets",
+          "Sign with alpha",
+          "background",
+          "glitch interval",
+          "Background clip or adjacent shots",
+          "flash time"
+        ],
+        "preparation": "Extract masks, stage pieces, align to exterior; compose FX-03/17/18 as dependencies",
+        "success_criteria": [
+          "Staged objects align to the incoming exterior; the glitch and flash resolve cleanly as part of the same scene handoff."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 8,
+      "catalog_id": "FX-15",
+      "name": "Laptop-edge scene wipe",
+      "effort_band": 4,
+      "required_inputs": [
+        {
+          "role": "Laptop-closing clip",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "destination clip",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "visible lid edge through transition",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "edge annotations or tracking",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Edge feather; wipe interval",
+      "preparation": "Track/annotate moving diagonal edge and foreground occlusion",
+      "skill_owner": "recreate-effect",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Line-mask helpers exist, but no tracked-edge recipe or safe animated-edge contract was verified. Integration audit precedes implementation.",
+      "acceptance": "Reveal hugs the moving laptop edge without exposing wrong-side pixels.",
+      "reference_interval": [
+        11.966667,
+        12.2
+      ],
+      "reference_clip": "media/FX-15.mp4",
+      "recipe_name": "object-edge-wipe",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "clip": "media/FX-15.mp4",
+      "preview": "media/FX-15.gif",
+      "poster": "media/FX-15.jpg",
+      "observation": "The walking shot is revealed above the diagonal closing-laptop edge while the desk shot persists below it.",
+      "source_window": {
+        "id": "FX-15",
+        "path": "FX-15.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 353,
+        "source_end_frame_exclusive": 372,
+        "source_start_seconds": 11.766666666666667,
+        "frames": 19,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "557a4ed6bf334c8e7fee64b10b183546ebcca573954fd72e0bee69ac0f0557ca"
+      },
+      "preview_source_start_seconds": 11.766666666666667,
+      "preview_duration_seconds": 0.6333333333333333,
+      "clip_sha256": "557a4ed6bf334c8e7fee64b10b183546ebcca573954fd72e0bee69ac0f0557ca",
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-15.mp4",
+          "sha256": "557a4ed6bf334c8e7fee64b10b183546ebcca573954fd72e0bee69ac0f0557ca",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Laptop-closing clip",
+          "destination clip",
+          "visible lid edge through transition",
+          "edge annotations or tracking"
+        ],
+        "preparation": "Track/annotate moving diagonal edge and foreground occlusion",
+        "success_criteria": [
+          "Reveal hugs the moving laptop edge without exposing wrong-side pixels."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 9,
+      "catalog_id": "FX-02",
+      "name": "Paper unfolds across cuts, then becomes a handheld title",
+      "effort_band": 5,
+      "required_inputs": [
+        {
+          "role": "Two or more video windows in order",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "chosen cut durations",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Paper title artwork",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "transparent crumpled-to-flat sequence or source to produce one",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "background",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Title artwork with alpha",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "pulse frames",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "Matched title artwork",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "handheld-card footage",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "exact handoff pose/time",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "foreground hand mask if needed",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Fold style; unfold duration; scale",
+      "preparation": "Capture stop-motion or prepare an alpha deformation sequence; preserve flat artwork and fold states",
+      "skill_owner": "recreate-effect",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Prepared moving media is a possible route. No native paper-deformation workflow verified; layered-paper-cutout solves a different effect.",
+      "acceptance": "Paper opens into readable artwork and transitions into the handheld card without a visible positional jump.",
+      "reference_interval": [
+        0.0,
+        1.5
+      ],
+      "reference_clip": "media/FX-02.mp4",
+      "recipe_name": "paper-title-handoff",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "clip": "media/FX-02.mp4",
+      "preview": "media/FX-02.gif",
+      "poster": "media/FX-02.jpg",
+      "observation": "A paper title opens over quick background cuts, flickers white, then aligns with the handheld card in the next shot. Unfolding, flicker and handoff are parts of one sequence.",
+      "source_window": {
+        "id": "FX-02",
+        "path": "FX-02.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 0,
+        "source_end_frame_exclusive": 51,
+        "source_start_seconds": 0.0,
+        "frames": 51,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "610ab9b904006da1a2d89a8ff76aee67fce0f7dafbaa998648ffda3a07ccf809"
+      },
+      "preview_source_start_seconds": 0.0,
+      "preview_duration_seconds": 1.7,
+      "clip_sha256": "610ab9b904006da1a2d89a8ff76aee67fce0f7dafbaa998648ffda3a07ccf809",
+      "component_ids": [
+        "FX-01",
+        "FX-02",
+        "FX-03",
+        "FX-04"
+      ],
+      "component_notes": [
+        {
+          "id": "FX-01",
+          "name": "Rapid teaser montage",
+          "observation": "Background shots change at frames 7, 14 and 21 while the central paper graphic continues."
+        },
+        {
+          "id": "FX-02",
+          "name": "Crumpled paper unfolds",
+          "observation": "Small crumpled paper grows and opens into the DAY IN MY LIFE card."
+        },
+        {
+          "id": "FX-03",
+          "name": "Paper-card white flicker",
+          "observation": "The title card alternates between legible artwork, pale artwork and a blank white silhouette."
+        },
+        {
+          "id": "FX-04",
+          "name": "Graphic becomes handheld card",
+          "observation": "The central card aligns with the indoor shot and then lowers with the hand."
+        }
+      ],
+      "category": "effect",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-02.mp4",
+          "sha256": "610ab9b904006da1a2d89a8ff76aee67fce0f7dafbaa998648ffda3a07ccf809",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Two or more video windows in order",
+          "chosen cut durations",
+          "Paper title artwork",
+          "transparent crumpled-to-flat sequence or source to produce one",
+          "background",
+          "Title artwork with alpha",
+          "pulse frames",
+          "Matched title artwork",
+          "handheld-card footage",
+          "exact handoff pose/time",
+          "foreground hand mask if needed"
+        ],
+        "preparation": "Capture stop-motion or prepare an alpha deformation sequence; preserve flat artwork and fold states",
+        "success_criteria": [
+          "Paper opens into readable artwork and transitions into the handheld card without a visible positional jump."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 10,
+      "catalog_id": "FX-05",
+      "name": "Persistent time and activity labels",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Background clip",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "chapter rows with start/end seconds, time text and activity text",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Emoji; font preference; target placement",
+      "preparation": "Create editable chapter text; validate non-overlapping chapter times and safe margins",
+      "skill_owner": "video-typography",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Native create_text, presets and timing provide a candidate route. Exact reference font and side placement need a trial.",
+      "acceptance": "Labels remain legible and update exactly on chapter boundaries.",
+      "reference_interval": [
+        0.9,
+        15.166667
+      ],
+      "reference_clip": "media/FX-05.mp4",
+      "recipe_name": "chapter-labels",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+      "clip": "media/FX-05.mp4",
+      "preview": "media/FX-05.gif",
+      "poster": "media/FX-05.jpg",
+      "observation": "White time text at left and activity text at right persist across scenes and update by chapter, sometimes with emoji.",
+      "source_window": {
+        "id": "FX-05",
+        "path": "FX-05.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 21,
+        "source_end_frame_exclusive": 461,
+        "source_start_seconds": 0.7,
+        "frames": 440,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "7d06d5659fa2ada40c3c69f701953b1656583e2f7e739a4b09548c39f0be2813"
+      },
+      "preview_source_start_seconds": 0.9,
+      "preview_duration_seconds": 3,
+      "clip_sha256": "7d06d5659fa2ada40c3c69f701953b1656583e2f7e739a4b09548c39f0be2813",
+      "category": "treatment",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-05.mp4",
+          "sha256": "7d06d5659fa2ada40c3c69f701953b1656583e2f7e739a4b09548c39f0be2813",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-typography",
+        "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-typography/references/effect-evidence.json",
+        "inputs": [
+          "Background clip",
+          "chapter rows with start/end seconds, time text and activity text"
+        ],
+        "preparation": "Create editable chapter text; validate non-overlapping chapter times and safe margins",
+        "success_criteria": [
+          "Labels remain legible and update exactly on chapter boundaries."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 11,
+      "catalog_id": "FX-10",
+      "name": "Lunch before/after match cut",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Before and after lunch clips with corresponding plate layout and camera angle",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Alignment anchor on plate center",
+      "preparation": "Select matching frames and conform framing; retain at least 0.25s handles where available",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Source-window cut recipe; quality primarily depends on the supplied match.",
+      "acceptance": "Plate positions feel continuous while food state changes.",
+      "reference_interval": [
+        7.1,
+        7.2
+      ],
+      "reference_clip": "media/FX-10.mp4",
+      "recipe_name": "before-after-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-10.mp4",
+      "preview": "media/FX-10.gif",
+      "poster": "media/FX-10.jpg",
+      "observation": "Full plates switch to mostly empty plates at frame 214, retaining a similar overhead arrangement.",
+      "source_window": {
+        "id": "FX-10",
+        "path": "FX-10.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 207,
+        "source_end_frame_exclusive": 222,
+        "source_start_seconds": 6.9,
+        "frames": 15,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "13b42a1dc55eb8ff35698756bb62ea3bf418733eda1f1c57617ec702b857a6d0"
+      },
+      "preview_source_start_seconds": 6.9,
+      "preview_duration_seconds": 0.5,
+      "clip_sha256": "13b42a1dc55eb8ff35698756bb62ea3bf418733eda1f1c57617ec702b857a6d0",
+      "category": "treatment",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-10.mp4",
+          "sha256": "13b42a1dc55eb8ff35698756bb62ea3bf418733eda1f1c57617ec702b857a6d0",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Before and after lunch clips with corresponding plate layout and camera angle"
+        ],
+        "preparation": "Select matching frames and conform framing; retain at least 0.25s handles where available",
+        "success_criteria": [
+          "Plate positions feel continuous while food state changes."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 12,
+      "catalog_id": "FX-19",
+      "name": "Dinner before/after match cut",
+      "effort_band": 1,
+      "required_inputs": [
+        {
+          "role": "Before and after bowl clips with matching viewpoint and bowl center",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Alignment anchor; gentle crop",
+      "preparation": "Same match-cut recipe as lunch; preserve source windows",
+      "skill_owner": "visual-timing",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Reuse FX-10 procedure; no distinct skill needed.",
+      "acceptance": "Bowl center and scale agree across the cut.",
+      "reference_interval": [
+        14.166667,
+        14.266667
+      ],
+      "reference_clip": "media/FX-19.mp4",
+      "recipe_name": "before-after-match-cut",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+      "clip": "media/FX-19.mp4",
+      "preview": "media/FX-19.gif",
+      "poster": "media/FX-19.jpg",
+      "observation": "Full ramen bowl changes to an empty bowl at frame 426 with comparable overhead framing.",
+      "source_window": {
+        "id": "FX-19",
+        "path": "FX-19.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 419,
+        "source_end_frame_exclusive": 434,
+        "source_start_seconds": 13.966666666666667,
+        "frames": 15,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "aa654b44d7d3efff98aed51e35a9d159ff54550e908c39de8ff81ff679860fcd"
+      },
+      "preview_source_start_seconds": 13.966666666666667,
+      "preview_duration_seconds": 0.5,
+      "clip_sha256": "aa654b44d7d3efff98aed51e35a9d159ff54550e908c39de8ff81ff679860fcd",
+      "category": "treatment",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-19.mp4",
+          "sha256": "aa654b44d7d3efff98aed51e35a9d159ff54550e908c39de8ff81ff679860fcd",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "visual-timing",
+        "skill_path": "../../.agents/skills/visual-timing/SKILL.md",
+        "evidence_path": "../../.agents/skills/visual-timing/references/effect-evidence.json",
+        "inputs": [
+          "Before and after bowl clips with matching viewpoint and bowl center"
+        ],
+        "preparation": "Same match-cut recipe as lunch; preserve source windows",
+        "success_criteria": [
+          "Bowl center and scale agree across the cut."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 13,
+      "catalog_id": "FX-20",
+      "name": "Remove-to-show title reveal \u2014 provisional",
+      "effort_band": 2,
+      "required_inputs": [
+        {
+          "role": "Background",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "exact title and secondary copy",
+          "availability": "missing_for_new_recreation"
+        },
+        {
+          "role": "available font",
+          "availability": "missing_for_new_recreation"
+        }
+      ],
+      "optional_inputs": "Star graphic; reveal duration; color",
+      "preparation": "Use separate native text actors and optional star; inspect font metrics",
+      "skill_owner": "video-typography",
+      "skill_status": "existing craft owner; effect-specific execution procedure proposed",
+      "support_assessment": "Treat as a reveal treatment for now. The earlier horizontal write_on route is only an approximation; inspect occlusion/mask behavior before choosing the implementation.",
+      "acceptance": "Define what is removed or moved away and what it reveals, then verify the revealed title follows that interaction. Exact mechanism remains pending.",
+      "reference_interval": [
+        15.166667,
+        15.866667
+      ],
+      "reference_clip": "media/FX-20.mp4",
+      "recipe_name": "remove-to-show-reveal",
+      "recipe_status": "planned; not a standalone skill",
+      "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+      "clip": "media/FX-20.mp4",
+      "preview": "media/FX-20.gif",
+      "poster": "media/FX-20.jpg",
+      "observation": "The closing title becomes visible progressively as the foreground scene changes. The creator groups this as a remove-to-show reveal treatment. Whether the exact mechanism is foreground occlusion, an animated mask or a text reveal remains unresolved.",
+      "source_window": {
+        "id": "FX-20",
+        "path": "FX-20.mp4",
+        "source_sha256": "0573da99cb513d7295113047f39b5bbe1c5895f333e5741c7e0516bbcdb42885",
+        "source_start_frame": 449,
+        "source_end_frame_exclusive": 476,
+        "source_start_seconds": 14.966666666666667,
+        "frames": 27,
+        "clip_time_mapping": "source_seconds = clip_seconds + source_start_seconds",
+        "audio": true,
+        "sha256": "7c60569159f9ca57588490af22cb92b0812bb63c06eb3b0e58479dd71c089276"
+      },
+      "preview_source_start_seconds": 14.966666666666667,
+      "preview_duration_seconds": 0.9,
+      "clip_sha256": "7c60569159f9ca57588490af22cb92b0812bb63c06eb3b0e58479dd71c089276",
+      "category": "treatment",
+      "audio_note": "Original reel mix; individual added SFX unconfirmed.",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-20.mp4",
+          "sha256": "7c60569159f9ca57588490af22cb92b0812bb63c06eb3b0e58479dd71c089276",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-typography",
+        "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-typography/references/effect-evidence.json",
+        "inputs": [
+          "Background",
+          "exact title and secondary copy",
+          "available font"
+        ],
+        "preparation": "Use separate native text actors and optional star; inspect font metrics",
+        "success_criteria": [
+          "Define what is removed or moved away and what it reveals, then verify the revealed title follows that interaction. Exact mechanism remains pending."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "rank": 14,
+      "catalog_id": "FX-SCRATCHPAD",
+      "name": "White paper outline",
+      "recipe_name": "white-paper-outline",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "../../public/guide/effects/scratchpad-silhouette-before.png",
+          "sha256": "948561d79e490b994328c464a2c6cd0dc18aaa052fc0959c607fc133b18a6b1b",
+          "kind": "image",
+          "credit": "Madeleine Price Ball / Wikimedia Commons, CC0 1.0",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "../../public/guide/effects/scratchpad-silhouette-after.png",
+          "sha256": "82474dbb845b13c6d79f7ffe0f1662aa00485275d061ba12f8d264a16ee6b204",
+          "kind": "image",
+          "credit": "Existing DreamCut image-generated variant of the CC0 silhouette",
+          "rights": "synthetic"
+        },
+        "skill": "scratchpad-treatment",
+        "skill_path": "../../.agents/skills/scratchpad-treatment/SKILL.md",
+        "evidence_path": "../../.agents/skills/scratchpad-treatment/references/effect-evidence.json",
+        "inputs": [
+          "Transparent silhouette",
+          "White paper border width and texture"
+        ],
+        "preparation": "Preserve the source; add an even continuous white perimeter with enough transparent overscan.",
+        "success_criteria": [
+          "White edge wraps the full silhouette without clipping.",
+          "Subject pixels and pose remain unchanged when applying the current skill."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/guide/effects/scratchpad-silhouette-before.png",
+              "sha256": "948561d79e490b994328c464a2c6cd0dc18aaa052fc0959c607fc133b18a6b1b",
+              "kind": "image",
+              "credit": "Madeleine Price Ball / Wikimedia Commons, CC0 1.0",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "../../public/guide/effects/scratchpad-silhouette-after.png",
+              "sha256": "82474dbb845b13c6d79f7ffe0f1662aa00485275d061ba12f8d264a16ee6b204",
+              "kind": "image",
+              "credit": "Existing DreamCut image-generated variant of the CC0 silhouette",
+              "rights": "synthetic"
+            }
+          ],
+          "observations": [
+            "Existing styled silhouette demonstrates a rough white paper perimeter."
+          ],
+          "limitations": [
+            "Historical generated example changes the source pose; it is a style example, not a passing source-preservation trial.",
+            "Static effect uses image evidence rather than a video clip."
+          ]
+        }
+      },
+      "category": "treatment",
+      "skill_owner": "scratchpad-treatment",
+      "skill_path": "../../.agents/skills/scratchpad-treatment/SKILL.md"
+    },
+    {
+      "rank": 15,
+      "catalog_id": "FX-INVERSE-CAPTIONS",
+      "name": "Inverse Video captions \u2014 Blue steel option",
+      "recipe_name": "inverse-video-captions",
+      "category": "effect",
+      "skill_owner": "video-typography",
+      "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "../../public/guide/effects/blue-steel-caption-reference.png",
+          "sha256": "a3bdc5ccbd1c2a2c0a5babfb3036adf26fcabadd441254d950bbeef0ba77f88e",
+          "kind": "image",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; source frame 2 at 24 fps",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-typography",
+        "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-typography/references/effect-evidence.json",
+        "inputs": [
+          "Background footage beneath native text",
+          "Exact caption text",
+          "Reviewed MFA word timings when following speech"
+        ],
+        "preparation": "Choose Inverse Video and its Blue steel captions option. Follow the blue-steel-inverse-captions style recipe for settings and timing limits.",
+        "success_criteria": [
+          "Glyphs invert the composed background, producing blue steel over warm skin and charcoal over light clothing.",
+          "Text remains native and speech timing remains source-bound.",
+          "Verify new-footage contrast and word-change motion before claiming the reference recreated."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/guide/effects/blue-steel-caption-reference.png",
+              "sha256": "a3bdc5ccbd1c2a2c0a5babfb3036adf26fcabadd441254d950bbeef0ba77f88e",
+              "kind": "image",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; source frame 2 at 24 fps",
+              "rights": "licensed"
+            }
+          ],
+          "after": [],
+          "observations": [
+            "Source frame 2 shows the opening inverted word; frames 41\u201343 show a quick downward word entrance.",
+            "Existing Inverse Video uses white glyphs with Difference on the compositing wrapper. The option clears outline, drift and sweep."
+          ],
+          "limitations": [
+            "No new-footage recreation packaged for this recipe.",
+            "Exact original font and blend preset are unconfirmed.",
+            "Aligned single-word captions do not yet support a downward entrance at each word; independently timed word clips can approximate it.",
+            "Colour depends on the underlying footage; this is not a fixed blue gradient."
+          ]
+        }
+      },
+      "variants": [
+        {
+          "id": "blue-steel-inverse-captions",
+          "label": "Blue steel captions",
+          "recipe_path": "../../.agents/style-recipes/blue-steel-inverse-captions.md",
+          "renderer": "Existing inverse caption style; no new blend primitive"
+        }
+      ]
+    },
+    {
+      "rank": 16,
+      "catalog_id": "FX-FILM-BURN",
+      "name": "Film Burn",
+      "recipe_name": "film-burn",
+      "category": "effect",
+      "skill_owner": "recreate-effect",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/film-burn-reference.mp4",
+          "sha256": "6a901b0aa6c554d1c69f45cb4f7655d3dd70ab1fb566dcc9aa99c6333dcbaa34",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/film-burn-practice.mp4",
+          "sha256": "8f73ee7cee504173b0d2791363b8b9f5031d45509b4eb1be1ca17b899fcb1f10",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Two shots with source handles; optional cleared burn texture"
+        ],
+        "preparation": "Layer a warm flare across the cut; keep intensity, colour and envelope editable. See anderson-taii-transitions.md for timing and required inputs.",
+        "success_criteria": [
+          "Preserve sources and editable layers; reproduce the observed scene handoff on new inputs.",
+          "Compare reference-relative entrance, peak, cut and settled frames at normal speed."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/film-burn-reference.mp4",
+              "sha256": "6a901b0aa6c554d1c69f45cb4f7655d3dd70ab1fb566dcc9aa99c6333dcbaa34",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/film-burn-practice.jpg",
+              "sha256": "3fd33e2f9e5e6e8c176db9bc824e57c317f7f30317a927ea415559d2f9414897",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/film-burn-practice.mp4",
+              "sha256": "8f73ee7cee504173b0d2791363b8b9f5031d45509b4eb1be1ca17b899fcb1f10",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on Pexels footage: meadow backpacker \u2192 ocean-sunset silhouette, both reframed to 9:16 from landscape sources.",
+            "Native film_burn transition: 0.6 s blend, strength 100%, peak hold 10%; the warm flare spans output frames 42\u201359 of 120, the picture switches under the covered peak and the incoming shot is clear from frame 60.",
+            "Every frame across the transition and the settled incoming frames were inspected in the rendered sample; contact sheet frames 30, 48\u201372 and 80/100.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "Procedural gradient approximates the flare; a photographed burn texture is not used.",
+            "Study envelope is 0.6 s, an intentional timing adaptation.",
+            "Normal-speed fidelity to the reference and dedicated creator-flow acceptance remain incomplete.",
+            "Reference excerpts are muted; isolated sound cues were not analysed."
+          ]
+        }
+      },
+      "source_url": "https://www.instagram.com/reel/Da0d8suu6kJ/",
+      "source_sha256": "7b060ee3b2d5018072c5d34d0b3afd64f309e9496f9918615bc51fa93ea656b0",
+      "source_window": {
+        "source_start_frame": 116,
+        "source_end_frame_exclusive": 140,
+        "source_fps": 24,
+        "clip_time_mapping": "source_seconds = clip_seconds + 116/24"
+      },
+      "guide_path": "anderson-taii-transitions.md"
+    },
+    {
+      "rank": 17,
+      "catalog_id": "FX-MASK-GLITCH",
+      "name": "Mask Glitch",
+      "recipe_name": "mask-glitch",
+      "category": "effect",
+      "skill_owner": "mask-glitch",
+      "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/mask-glitch-reference.mp4",
+          "sha256": "7da6e4858a8507ca11c4ae36c8ae0e6941fcdc26faa701a6909d497190f2f519",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+          "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+          "kind": "video",
+          "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+          "rights": "licensed"
+        },
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing shot",
+          "Incoming shot with an isolatable subject",
+          "Matching original-color and white alpha mattes"
+        ],
+        "preparation": "Continuous variant: align white and original-color alpha mattes to the incoming picture. At 30 fps, cover all five lead-in frames: white for two frames, color for three, then switch scene. No empty frame between masks. Keep each matte native and editable. See anderson-taii-transitions.md for reference-pulse and continuous variants. For consecutive handoffs, invoke mask-glitch with ordered shots and derive one coordinated chain schedule; masks remain separate editable rows.",
+        "success_criteria": [
+          "Every lead-in frame contains the white silhouette or original-color subject mask; no disappearance before the incoming scene.",
+          "White and colour masks share alpha and geometry and match the incoming picture; preserve unchanged sources and editable layers.",
+          "Verify on another incoming subject before promoting the recipe to complete."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/mask-glitch-reference.mp4",
+              "sha256": "7da6e4858a8507ca11c4ae36c8ae0e6941fcdc26faa701a6909d497190f2f519",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/mask-glitch-practice.jpg",
+              "sha256": "b98e784ad25e47cfc04001786d303b35b49b072b8f99dac9410b02e6cebb6f2f",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/30996082, pexels.com/video/19279353, pexels.com/video/4824399; DreamCut Mask Glitch template teaching media (native cutout clips with keyframed subject_flash).",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+              "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+              "kind": "video",
+              "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+              "rights": "licensed"
+            }
+          ],
+          "observations": [
+            "Rebuilt for the Templates card with the bobblehead, landscape 16:9: a bright library hands off to a bookshelf in directional light, then to home bookshelves with small lights, each with a still bobblehead pose in the middle of the frame (alpha PNG, no cut-out needed).",
+            "Each lead-in is 5 frames at 30 fps (2 white, 3 original colour) ending on the cut, the skill's continuous handoff default; checked frame by frame at 55-60 and 115-120.",
+            "Recreation sample is the Mask Glitch template result (1280\u00d7720, 30 fps, 180 frames). The practice contact sheet is from the earlier Pexels build (desert walker and skater) and its 9-frame lead-ins.",
+            "Continuous coverage: no empty frame between the masks and the incoming scene."
+          ],
+          "limitations": [
+            "Lead-in is lengthened from the 5-frame default to 9 frames so the steps read at gallery size; continuous coverage intentionally differs from the reference pulse/off cadence.",
+            "No dedicated Mask Glitch preset; matte preparation and native layer composition remain the supported route.",
+            "Exact source-reference fidelity remains incomplete."
+          ]
+        }
+      },
+      "source_url": "https://www.instagram.com/reel/Da0d8suu6kJ/",
+      "source_sha256": "7b060ee3b2d5018072c5d34d0b3afd64f309e9496f9918615bc51fa93ea656b0",
+      "source_window": {
+        "source_start_frame": 158,
+        "source_end_frame_exclusive": 218,
+        "source_fps": 24,
+        "clip_time_mapping": "source_seconds = clip_seconds + 158/24"
+      },
+      "guide_path": "anderson-taii-transitions.md",
+      "recipe_revision": 3
+    },
+    {
+      "rank": 18,
+      "catalog_id": "FX-CAMERA-FLASH",
+      "name": "Camera Flash",
+      "recipe_name": "camera-flash",
+      "category": "effect",
+      "skill_owner": "recreate-effect",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/camera-flash-reference.mp4",
+          "sha256": "e38af9bc360954b77f6f82491dcbb619b4ec2b065b830e3d443d8b68fdd3c114",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/camera-flash-practice.mp4",
+          "sha256": "2f5a94a7343f9b7e46bb78d491007ad7830fef0af7953337969f77d066ded1e0",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Two shots and the cut point"
+        ],
+        "preparation": "Place a short white exposure wash across the join; cut at peak and clear the incoming picture. See anderson-taii-transitions.md for timing and required inputs.",
+        "success_criteria": [
+          "Preserve sources and editable layers; reproduce the observed scene handoff on new inputs.",
+          "Compare reference-relative entrance, peak, cut and settled frames at normal speed."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/camera-flash-reference.mp4",
+              "sha256": "e38af9bc360954b77f6f82491dcbb619b4ec2b065b830e3d443d8b68fdd3c114",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/camera-flash-practice.jpg",
+              "sha256": "47a36527875c7406b7edbecbd840efc852ee706a20ef8142797212125cc146b8",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/camera-flash-practice.mp4",
+              "sha256": "2f5a94a7343f9b7e46bb78d491007ad7830fef0af7953337969f77d066ded1e0",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on Pexels footage: canyon selfie \u2192 boulder selfie with arms raised, both reframed to 9:16.",
+            "Native camera_flash transition: 7-frame (0.233 s) blend, strength 100%, peak hold 15%; the white wash spans output frames 53\u201359 of 120, covering the switch, and the incoming shot is clear from frame 60.",
+            "Every frame across the flash and the settled incoming frames were inspected in the rendered sample.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "Seven-frame 30 fps study is shorter than the reference interval; exact exposure curve remains unverified.",
+            "Normal-speed fidelity to the reference and dedicated creator-flow acceptance remain incomplete.",
+            "Reference excerpts are muted; isolated sound cues were not analysed."
+          ]
+        }
+      },
+      "source_url": "https://www.instagram.com/reel/Da0d8suu6kJ/",
+      "source_sha256": "7b060ee3b2d5018072c5d34d0b3afd64f309e9496f9918615bc51fa93ea656b0",
+      "source_window": {
+        "source_start_frame": 263,
+        "source_end_frame_exclusive": 278,
+        "source_fps": 24,
+        "clip_time_mapping": "source_seconds = clip_seconds + 263/24"
+      },
+      "guide_path": "anderson-taii-transitions.md"
+    },
+    {
+      "rank": 19,
+      "catalog_id": "FX-BLACKOUT",
+      "name": "Blackout",
+      "recipe_name": "blackout",
+      "category": "effect",
+      "skill_owner": "recreate-effect",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/blackout-reference.mp4",
+          "sha256": "2178c5f2868ea6fb267ce7ad3a64f81d0801da7d5ffea09ad532b1715b10cf84",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/blackout-practice.mp4",
+          "sha256": "10759646cb3108f5230869add9ec073670b318df0b3f4453c12639555800173a",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing take covering the lens",
+          "Incoming take starting covered and uncovering"
+        ],
+        "preparation": "Match hand direction and coverage; cut during full darkness; preserve source handles. See anderson-taii-transitions.md for timing and required inputs.",
+        "success_criteria": [
+          "Preserve sources and editable layers; reproduce the observed scene handoff on new inputs.",
+          "Compare reference-relative entrance, peak, cut and settled frames at normal speed."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/blackout-reference.mp4",
+              "sha256": "2178c5f2868ea6fb267ce7ad3a64f81d0801da7d5ffea09ad532b1715b10cf84",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/blackout-practice.jpg",
+              "sha256": "b5eb6e490dce576fa58dcdc72ab904a7c965854307bb9e04712633d9ca365f90",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/blackout-practice.mp4",
+              "sha256": "10759646cb3108f5230869add9ec073670b318df0b3f4453c12639555800173a",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on Pexels footage: a walker passes close to the lens in a field (the body covers the frame at the cut) \u2192 a hooded hiker's pack moves out of frame to open on misty mountains.",
+            "Native blackout transition: 0.6 s blend, strength 100%, peak hold 30%; output frames 42\u201359 of 120 darken to a held black over the switch, then the incoming shot fades up and is clear from frame 60.",
+            "Every frame across the hold and the settled incoming frames were inspected in the rendered sample.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "The outgoing cover is a body passing the lens, not a hand; the incoming uncover is a pack moving out of frame rather than a hand pulled away.",
+            "Black hold timing at 30 fps differs from the reference's eight frames at 24 fps.",
+            "Normal-speed fidelity to the reference and dedicated creator-flow acceptance remain incomplete.",
+            "Reference excerpts are muted; isolated sound cues were not analysed."
+          ]
+        }
+      },
+      "source_url": "https://www.instagram.com/reel/Da0d8suu6kJ/",
+      "source_sha256": "7b060ee3b2d5018072c5d34d0b3afd64f309e9496f9918615bc51fa93ea656b0",
+      "source_window": {
+        "source_start_frame": 309,
+        "source_end_frame_exclusive": 338,
+        "source_fps": 24,
+        "clip_time_mapping": "source_seconds = clip_seconds + 309/24"
+      },
+      "guide_path": "anderson-taii-transitions.md"
+    },
+    {
+      "rank": 20,
+      "catalog_id": "FX-WHIP-PAN",
+      "name": "Whip Pan",
+      "recipe_name": "whip-pan",
+      "category": "effect",
+      "skill_owner": "recreate-effect",
+      "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/whip-pan-reference.mp4",
+          "sha256": "8c9594b240be8cb9186796399e8ca211515169629d3206a073bd5d0347ad1a52",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/whip-pan-practice.mp4",
+          "sha256": "4546c1e3c667141eec115d86bcbb88d8873e58b81378d352ecf37ce0e80e1b7a",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing shot; preferably a captured camera turn",
+          "Incoming camera turn moving in the same screen direction",
+          "Full incoming source with enough head handles for the chosen blend duration \u00d7 playback rate"
+        ],
+        "preparation": "Choose an incoming source head inside the developed camera turn, skipping its slow setup. Use native Whip with Blend into motion smear enabled (params.motion=smear), direction matching camera travel, and adjustable duration/blur. Incoming real head handles play during the overlap and land on the saved source head without replay. Require head handles >= transition duration \u00d7 incoming playback rate; insufficient handles currently fall back to a frozen boundary. Match horizon, motion speed and lighting. See anderson-taii-transitions.md.",
+        "success_criteria": [
+          "Blend follows real incoming camera-turn motion, rather than a held first frame before the turn starts.",
+          "Full-frame shots overlap without a travelling dividing edge or exposed gutter.",
+          "Incoming source clock continues across the join without frozen or repeated motion; preserve full original sources.",
+          "Review at normal speed and repeat with another shot pair before marking complete."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/whip-pan-reference.mp4",
+              "sha256": "8c9594b240be8cb9186796399e8ca211515169629d3206a073bd5d0347ad1a52",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/whip-pan-practice.jpg",
+              "sha256": "d318905128dba2cec3870de9dc55a2ec05b912f98a0ee42fccde516f2611a1f6",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/whip-pan-practice.mp4",
+              "sha256": "4546c1e3c667141eec115d86bcbb88d8873e58b81378d352ecf37ce0e80e1b7a",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on native-vertical Pexels footage: neon crossing in rain \u2192 billboard crossing at night.",
+            "Native Whip with Blend into motion smear (params.motion=smear), direction from-right, 0.4 s, motion blur 1.3\u00d7, smear zoom 35%, smear travel 12%; incoming head handles before source 8.0 s play during the overlap and continue from the saved source head without replay.",
+            "Every output frame across the 12-frame overlap (output frames 48\u201359 of 120) and the first incoming frames were inspected in the rendered sample.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "Neither shot contains a captured camera whip; the native smear supplies all sideways motion.",
+            "Precise fidelity to the Instagram reference remains incomplete.",
+            "Moving overlap requires sufficient incoming head handles; with insufficient handles the renderer holds the head frame."
+          ]
+        }
+      },
+      "source_url": "https://www.instagram.com/reel/Da0d8suu6kJ/",
+      "source_sha256": "7b060ee3b2d5018072c5d34d0b3afd64f309e9496f9918615bc51fa93ea656b0",
+      "source_window": {
+        "source_start_frame": 402,
+        "source_end_frame_exclusive": 436,
+        "source_fps": 24,
+        "clip_time_mapping": "source_seconds = clip_seconds + 402/24"
+      },
+      "guide_path": "anderson-taii-transitions.md",
+      "recipe_revision": 3
+    },
+    {
+      "catalog_id": "FX-NEGATIVE-POP",
+      "name": "Negative Pop",
+      "recipe_name": "fx-negative-pop",
+      "skill_owner": "mask-glitch",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/sunglasses/negative-reference.jpg",
+          "sha256": "980953a163c22aabb17a11332cf039bd2f85ef68cf32a5a8ccd6d9d488902e05",
+          "kind": "image",
+          "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Isolated subject with alpha",
+          "Matching original-color subject",
+          "Background"
+        ],
+        "preparation": "Prepare a registered grayscale negative derivative; show the negative briefly, then original color. Keep background and any inserted lens media independently treated.",
+        "success_criteria": [
+          "Match the chosen negative/original timing map",
+          "Preserve alpha and silhouette alignment",
+          "Keep the negative treatment scoped to the portrait"
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/sunglasses/negative-reference.jpg",
+              "sha256": "980953a163c22aabb17a11332cf039bd2f85ef68cf32a5a8ccd6d9d488902e05",
+              "kind": "image",
+              "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+              "rights": "licensed"
+            }
+          ],
+          "after": [],
+          "observations": [
+            "The technique was recreated once on private footage with source and effect layers stored separately; that example is not redistributed, so no recreation is packaged here."
+          ],
+          "limitations": [
+            "No redistributable recreation is packaged yet; recreate on cleared footage before marking this partial again.",
+            "The earlier private recreation baked the inversion into the derivative; there is no native negative-amount dial. Exposure and contrast are reviewable shading controls.",
+            "Reference negative duration is eight frames at 30 fps; a one-second hold is only an inspection aid."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-SCENE-PORTAL",
+      "name": "Scene Portal",
+      "recipe_name": "fx-scene-portal",
+      "skill_owner": "video-compositing",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/sunglasses/portal-reference.jpg",
+          "sha256": "fbe978cc706cb0c29f167d3853421b13b6d457006b85e7e0e6601bec0583d50f",
+          "kind": "image",
+          "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Host footage with a bounded region",
+          "Tracked region matte",
+          "Moving insert video",
+          "Destination footage"
+        ],
+        "preparation": "Track the region at source resolution, map the insert with curved wrapping, preserve alpha, then coordinate the host/insert zoom and full-scene handoff. Inspect baked alpha onsets as well as timeline bounds.",
+        "success_criteria": [
+          "Inserted video follows the region without rim spill",
+          "Wrapping remains legible during motion",
+          "No empty frame at scene handoff"
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/sunglasses/portal-reference.jpg",
+              "sha256": "fbe978cc706cb0c29f167d3853421b13b6d457006b85e7e0e6601bec0583d50f",
+              "kind": "image",
+              "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+              "rights": "licensed"
+            }
+          ],
+          "after": [],
+          "observations": [
+            "The technique was recreated once on private footage with source and effect layers stored separately; that example is not redistributed, so no recreation is packaged here."
+          ],
+          "limitations": [
+            "No redistributable recreation is packaged yet; recreate on cleared footage before marking this partial again.",
+            "The earlier private recreation used prepared tracking/warping rather than native adjustable geometry.",
+            "That recreation's alpha overlay began visibly 34 source frames late; inspect baked alpha onsets, since a timing-only correction does not remove a baked delay.",
+            "Reference scene changes and timing were not matched exactly."
+          ]
+        }
+      }
+    }
+  ],
+  "catalog_unit": "Complete perceptual sequence; component techniques are nested, not counted as separate effects.",
+  "revision_note": "Creator correction: prior ranked entries 13 (FX-09) and 14 (FX-08) form one generic object-led scene transition. Related fragments grouped provisionally; basic treatments retained separately.",
+  "effect_count": 15,
+  "treatment_count": 5,
+  "audio": {
+    "track_title": "SaWaDiKa",
+    "artist": "LISA",
+    "credit_source": "https://www.instagram.com/reels/audio/920970734420597/",
+    "credit_basis": "Displayed reel credit and linked Instagram audio page",
+    "playback": "Original reel mix retained in every excerpt",
+    "sfx_status": "Unconfirmed: comparisons against all 28 imported @celfstudies sounds, including speed variants and reversed controls, did not reliably identify an entrance sample."
+  },
+  "schema_version": 1
+}

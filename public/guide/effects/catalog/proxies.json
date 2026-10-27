@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "recipe": "H.264 Main / yuv420p / limited Rec.709 / 640px long edge / 30fps / CRF24 / silent / faststart",
+  "entries": [
+    {
+      "catalog_id": "FX-FILM-BURN",
+      "source_path": "docs/effects/media/stock-transitions/film-burn-practice.mp4",
+      "source_sha256": "8f73ee7cee504173b0d2791363b8b9f5031d45509b4eb1be1ca17b899fcb1f10",
+      "file": "fx-film-burn-8f73ee7cee50-640-v1.mp4",
+      "sha256": "a15dea9c88d668b243585ded383668b749994ff8306da98544d7de13d3147057",
+      "bytes": 312638,
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 120,
+      "duration_seconds": 4,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+      "rights": "pexels-license",
+      "poster": {
+        "file": "fx-film-burn-8f73ee7cee50-640-v1-poster-f48.jpg",
+        "sha256": "1eb82c4b6367b73378d116894d911995953da02985958e849ce1bc7a11eb6b07",
+        "frame": 48
+      }
+    },
+    {
+      "catalog_id": "FX-MASK-GLITCH",
+      "source_path": "docs/effects/../../public/recipe-previews/mask-glitch/result.mp4",
+      "source_sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+      "file": "fx-mask-glitch-d54e8b5caa3f-640-v1.mp4",
+      "sha256": "9f677a0f1d54a0114c383cb0f1b33230704abc234fa43a2c9400341aa778367d",
+      "bytes": 210909,
+      "width": 640,
+      "height": 360,
+      "fps": 30,
+      "frames": 180,
+      "duration_seconds": 6,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+      "rights": "licensed",
+      "poster": {
+        "file": "fx-mask-glitch-d54e8b5caa3f-640-v1-poster-f55.jpg",
+        "sha256": "1d6beb77bc8f24a4590d7fa89c0f3ae29b86d21e20a14120f0c2cb7c9028aa5d",
+        "frame": 55
+      }
+    },
+    {
+      "catalog_id": "FX-CAMERA-FLASH",
+      "source_path": "docs/effects/media/stock-transitions/camera-flash-practice.mp4",
+      "source_sha256": "2f5a94a7343f9b7e46bb78d491007ad7830fef0af7953337969f77d066ded1e0",
+      "file": "fx-camera-flash-2f5a94a7343f-640-v1.mp4",
+      "sha256": "65d1fa8fc01de69e9a3ee658c222413f512d9d95d0734e112329bd583f1fbbeb",
+      "bytes": 125340,
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 120,
+      "duration_seconds": 4,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+      "rights": "pexels-license",
+      "poster": {
+        "file": "fx-camera-flash-2f5a94a7343f-640-v1-poster-f58.jpg",
+        "sha256": "faf348270ea2302f8900546b5834595f1a22b2c6a4cc3f5c5533b1fb25365382",
+        "frame": 58
+      }
+    },
+    {
+      "catalog_id": "FX-BLACKOUT",
+      "source_path": "docs/effects/media/stock-transitions/blackout-practice.mp4",
+      "source_sha256": "10759646cb3108f5230869add9ec073670b318df0b3f4453c12639555800173a",
+      "file": "fx-blackout-10759646cb31-640-v1.mp4",
+      "sha256": "2eb52caaccd6b43ba83cf47ecebba6b5ee6f2838c24e889f4417ece295b489f4",
+      "bytes": 209863,
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 120,
+      "duration_seconds": 4,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+      "rights": "pexels-license",
+      "poster": {
+        "file": "fx-blackout-10759646cb31-640-v1-poster-f57.jpg",
+        "sha256": "cbae56624f9766c490394c5d93c89700ced30214ff3c99b15cf973112c47d3a5",
+        "frame": 57
+      }
+    },
+    {
+      "catalog_id": "FX-WHIP-PAN",
+      "source_path": "docs/effects/media/stock-transitions/whip-pan-practice.mp4",
+      "source_sha256": "4546c1e3c667141eec115d86bcbb88d8873e58b81378d352ecf37ce0e80e1b7a",
+      "file": "fx-whip-pan-4546c1e3c667-640-v1.mp4",
+      "sha256": "897c9f85bf0f655520f55cb722b37f5fb4656e3f51be67f6d320fbb213601a22",
+      "bytes": 368638,
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 120,
+      "duration_seconds": 4,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+      "rights": "pexels-license",
+      "poster": {
+        "file": "fx-whip-pan-4546c1e3c667-640-v1-poster-f49.jpg",
+        "sha256": "91dd572958740438b1b1e3f174dc661e191af2c30c5a5bb3be6fcde4340545dd",
+        "frame": 49
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "id": "terminal",
+  "title": "Terminal",
+  "family": "Screen",
+  "description": "A phosphor CRT workstation: every scene is a text-mode window of lit cells (block-cell bar stacks, a dithered device screen, pixel-sprite people, a piped job runner, dot-matrix figures) under bloom, curved glass, red/blue fringe and a rolling hum bar; a beam wipe clears each scene as the next types in.",
+  "arrival": "type",
+  "change": "lift",
+  "examples": [
+    {
+      "name": "Runs on your machine",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "$ npx dreamcut",
+        "title": "Runs on your machine",
+        "process_title": "Three commands to a cut",
+        "step_1": "Install",
+        "step_2": "Open a folder",
+        "step_3": "Start editing",
+        "closing": "No upload. No wait."
+      }
+    },
+    {
+      "name": "Session stats",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "chart_title": "Cards per session",
+        "bar_1_label": "S1",
+        "bar_2_label": "S2",
+        "bar_3_label": "S3",
+        "bar_4_label": "S4",
+        "bar_1": 5,
+        "bar_2": 8,
+        "bar_3": 12,
+        "bar_4": 9,
+        "highlight": "3",
+        "compare_title": "Rejected vs applied",
+        "before_label": "Rejected",
+        "before_value": 4,
+        "after_label": "Applied",
+        "after_value": 21
+      }
+    },
+    {
+      "name": "Review station",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.2,
+        "object_title": "Preview while it renders",
+        "device": "laptop",
+        "callout_1": "Frame preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Source tracks",
+        "people_title": "Who reviews the cut",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Agent",
+        "badge_3": "Client",
+        "closing": "Ready when you are."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "id": "flat-science",
+  "title": "Flat Science",
+  "family": "Illustration",
+  "description": "A flat-vector science world in deep space: outline-free gradient shapes with shadow crescents and rim light, round antenna-topped characters, turning crater planets, bubbling test tubes and floating rock islands, with every change diving the camera through scale into the next scene.",
+  "arrival": "focus",
+  "change": "zoom",
+  "texture": "starfield",
+  "examples": [
+    {
+      "name": "Lab results",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "The experiment",
+        "title": "Cards make edits measurable",
+        "chart_title": "Cards approved per day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 21,
+        "bar_4": 36,
+        "highlight": "4",
+        "closing": "Every result, reviewed by you."
+      }
+    },
+    {
+      "name": "Mission orbit",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "Every change lands as a card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Your original",
+        "process_title": "From draft to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Crew report",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "The whole crew reviews",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "compare_title": "Fewer redos with dials",
+        "before_label": "Re-prompts",
+        "before_value": 11,
+        "after_label": "Dial moves",
+        "after_value": 3
+      }
+    }
+  ]
+}

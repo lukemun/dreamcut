@@ -1,0 +1,82 @@
+{
+  "id": "papercraft",
+  "title": "Papercraft",
+  "family": "Craft",
+  "description": "Low-poly cardstock models on a slate cutting mat under a desk lamp: printed die-cut nets with dashed fold lines and glue tabs fold up into faceted columns, a laptop whose screen swings up off the net, pop-up figures, a balance that cube nets fold and float into, and a rubber stamp pressing checks, while the camera slides along the mat from station to station.",
+  "arrival": "fold",
+  "change": "fold",
+  "texture": "cardstock",
+  "examples": [
+    {
+      "name": "Build a template",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "kicker": "Kit 07 · Cut, fold, glue",
+        "title": "Assemble your first template",
+        "object_title": "Every change lands as a card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original track",
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft the change",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Weekly review",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 11,
+        "bar_4": 23,
+        "highlight": "4",
+        "people_title": "Everyone reviews the same cut",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Producer",
+        "badge_3": "Client"
+      }
+    },
+    {
+      "name": "Tune, don't redo",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 2.8,
+        "compare_title": "Tune instead of re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial changes",
+        "after_value": 2,
+        "closing": "Nothing lands without your OK."
+      }
+    }
+  ]
+}

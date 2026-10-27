@@ -1,0 +1,72 @@
+{
+  "id": "pocket-lcd",
+  "title": "Pocket LCD",
+  "family": "Retro",
+  "description": "The whole frame is the glass of a handheld dot-matrix player: four olive greens on a visible pixel grid, hand-built bitmap type, an original sprout-topped hero hopping through the data, scrolling scenery, ghost trails and pixel wipes between scenes.",
+  "arrival": "type",
+  "change": "fade",
+  "texture": "grid",
+  "examples": [
+    {
+      "name": "Level one",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "How DreamCut works",
+        "title": "Your agent drafts. You decide.",
+        "chart_title": "Edits reviewed this week",
+        "closing": "Nothing lands without your OK."
+      }
+    },
+    {
+      "name": "Bench and route",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "Every change lands as a card",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Your original track",
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft the change",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Party and balance",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "The whole team can review",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Producer",
+        "badge_3": "Client",
+        "compare_title": "Tune instead of re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial changes",
+        "after_value": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "tarot",
+  "title": "Tarot",
+  "family": "Illustration",
+  "description": "Foxed ivory tarot cards with even ink outlines, muted litho colours and gold halos are dealt onto deep green velvet: coin towers, robed figures, a gilded oracle, a wax seal and a balance scale live in oval windows while cards flip, shuffle and sweep between scenes.",
+  "arrival": "focus",
+  "change": "frost",
+  "texture": "velvet",
+  "examples": [
+    {
+      "name": "Cards that carry the numbers",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6, "chart_hold": 4.2, "object_hold": 0, "people_hold": 0, "process_hold": 0, "compare_hold": 0, "closing_hold": 2.4,
+        "kicker": "Reading the week", "title": "Your edits, dealt face up",
+        "chart_title": "Proposals reviewed this week",
+        "bar_1_label": "Mon", "bar_2_label": "Tue", "bar_3_label": "Wed", "bar_4_label": "Thu",
+        "bar_1": 12, "bar_2": 19, "bar_3": 27, "bar_4": 41, "highlight": "4",
+        "closing": "Every card is yours to keep or return."
+      }
+    },
+    {
+      "name": "The oracle and its steps",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0, "chart_hold": 0, "object_hold": 4.2, "people_hold": 0, "process_hold": 4.4, "compare_hold": 0, "closing_hold": 0,
+        "object_title": "Every change lands as a card",
+        "callout_1": "Live preview", "callout_2": "The proposed clip", "callout_3": "Your original track",
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut", "step_2": "Draft the change", "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The court and the scales",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0, "chart_hold": 0, "object_hold": 0, "people_hold": 4.2, "process_hold": 0, "compare_hold": 4.2, "closing_hold": 0,
+        "people_title": "The whole team can review", "people_count": 4,
+        "badge_1": "Director", "badge_2": "Editor", "badge_3": "Agent",
+        "compare_title": "Tuning beats re-prompting",
+        "before_label": "Redos", "before_value": 8, "after_label": "Tweaks", "after_value": 2
+      }
+    }
+  ]
+}

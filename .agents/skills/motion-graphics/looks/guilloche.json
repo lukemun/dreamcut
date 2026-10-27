@@ -1,0 +1,81 @@
+{
+  "id": "guilloche",
+  "title": "Guilloché",
+  "family": "Generative",
+  "description": "A security-printed certificate world: hairline rosettes and woven wave meshes in rainbow inks fill the sheet, a UV pass sweeps across to reveal hidden print, and each scene is an engraved plate, cameo portrait, perforated stamp or note joined by a ribbon wipe.",
+  "arrival": "stroke",
+  "change": "fade",
+  "texture": "banknote",
+  "examples": [
+    {
+      "name": "Certified by you",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Series one",
+        "title": "Every change is a signed note",
+        "object_title": "What the card carries",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "Nothing lands unsigned."
+      }
+    },
+    {
+      "name": "Ledger of approvals",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Approvals per week",
+        "bar_1_label": "Wk 1",
+        "bar_2_label": "Wk 2",
+        "bar_3_label": "Wk 3",
+        "bar_4_label": "Wk 4",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 46,
+        "highlight": "4",
+        "process_title": "From draft to signed",
+        "step_1": "Draft it",
+        "step_2": "Review it",
+        "step_3": "Sign it"
+      }
+    },
+    {
+      "name": "The signing room",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.8,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Who signs a cut",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Rework before and after",
+        "before_label": "Redos",
+        "before_value": 12,
+        "after_label": "Tweaks",
+        "after_value": 3
+      }
+    }
+  ]
+}

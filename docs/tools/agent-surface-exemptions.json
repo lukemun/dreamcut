@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "about": "Known differences between what coding agents (Claude Code, Codex with a shell) and the in-editor agent (MCP tools only) can do. checked by scripts/check-agent-parity.mjs; see docs/standards/agent-surface-parity.md. Gaps are reported on every run until a tool closes them; an entry that no longer matches its skill fails the check.",
+  "coding_agent_skills": {
+    "device-format-coverage": "Checks media pipeline changes against synthetic device fixtures and updates the coverage registry; repository development only.",
+    "editor-ui-design": "Changes editor source code; repository development only.",
+    "session-retro": "Reviews coding-agent session transcripts in the repository; contributor work, not editing.",
+    "music-catalog-ingestion": "Maintains the shared music catalog files and analysis environment.",
+    "dreamcut-rendering": "Renderer integration work in the repository.",
+    "performance-review": "Measures and changes repository code for speed; repository development only.",
+    "platform-video-delivery": "Export runs only on an explicit creator request; the editor's Export button is the creator's path and no agent export tool exists.",
+    "pr-review": "Pull request review in the repository.",
+    "recreate-effect": "Builds new effect capabilities in source code.",
+    "tutorial-screen-recording": "Captures the screen with a shell command and drives the built-in browser; the in-editor agent has neither.",
+    "windows-compatibility": "Validates packaged releases in a disposable Windows VM; repository release engineering, not a working-timeline editing operation.",
+    "releasing": "Orders the release checks and publishing for the owner; repository development only.",
+    "install-check": "Checks setup, packaging and the launcher in disposable folders; repository development only.",
+    "release-build": "Builds and verifies release downloads from this checkout; repository development only.",
+    "release-publish": "Publishes a release on the owner's word; repository development only."
+  },
+  "gaps": [
+    {
+      "skill": "editorial-intent-planning",
+      "line_contains": "editorial-intent-plans/<plan_id>.json",
+      "missing": "Tool to persist an editorial intent plan",
+      "reason": "Writing the plan file needs filesystem access the in-editor agent does not have."
+    },
+    {
+      "skill": "layered-paper-cutout",
+      "line_contains": "scripts/build_layered_paper_cutout.py",
+      "missing": "Layered paper cutout preparation tool",
+      "reason": "The layer builder is a repository script."
+    },
+    {
+      "skill": "media-intake",
+      "line_contains": "/api/projects/<id>/analysis/",
+      "missing": "MCP coverage of the analysis job and annotation routes",
+      "reason": "The skill points at HTTP routes; the in-editor agent reaches analysis only through visual_analyze and media_readiness."
+    },
+    {
+      "skill": "motion-graphics",
+      "line_contains": "npx hyperframes snapshot",
+      "missing": "Composition frame snapshots before proposing",
+      "reason": "The in-editor agent can inspect frames only after proposing (run_instrument frame-state on the proposal, then timeline_evidence)."
+    },
+    {
+      "skill": "motion-graphics",
+      "line_contains": "pnpm verify:effect-primitives",
+      "missing": "Effect primitive verification as a tool",
+      "reason": "Repository verification script used when effect code changes."
+    },
+    {
+      "skill": "talking-head-cutout",
+      "line_contains": "scripts/cutout-contact-sheet.mjs",
+      "missing": "Per-second cutout audit contact sheet",
+      "reason": "Repository script; the in-editor agent can review cutouts only through visual_analyze."
+    },
+    {
+      "skill": "talking-head-cutout",
+      "line_contains": "scripts/scratchpad-c",
+      "missing": "Cutout outline verification",
+      "reason": "Repository script."
+    },
+    {
+      "skill": "video-reference-analysis",
+      "line_contains": "pnpm check:effects --reference",
+      "missing": "Reference record validation as a tool",
+      "reason": "Repository validator for effect reference records."
+    },
+    {
+      "skill": "video-letters",
+      "line_contains": "scripts/render-preview.ts",
+      "missing": "Tool to render a proposal preview to a video file",
+      "reason": "Rendering a card's preview to MP4 is a repository script; the in-editor agent replays the card in the editor instead."
+    },
+    {
+      "skill": "effect-authoring",
+      "line_contains": "pnpm check:catalog-privacy",
+      "missing": "Shared catalog privacy check as a tool",
+      "reason": "Only shared catalog changes in the repository run it; a Yours card stays in the creator's profile."
+    },
+    {
+      "skill": "effect-authoring",
+      "line_contains": "pnpm check:effects",
+      "missing": "Shared effect catalog validation as a tool",
+      "reason": "Shared cards are repository files, which the in-editor agent does not change."
+    }
+  ]
+}

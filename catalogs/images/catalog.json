@@ -1,0 +1,1070 @@
+{
+  "schema_version": 1,
+  "images": [
+    {
+      "id": "bookshelf_bright_library",
+      "title": "Bright library bookshelf",
+      "description": "A straight-on wall of tightly packed library shelves with colorful book spines filling the frame.",
+      "file": "licensed/unsplash/bookshelf-bright-library.jpg",
+      "sha256": "15baff34d139be6c363c5c70790d0ae503bcd475ccb1c428b0514898012cbbe1",
+      "width": 1920,
+      "height": 1080,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/pile-of-books-on-shelf-cY-SXZp6TUY",
+        "acquisition_url": "https://images.unsplash.com/photo-1518336707416-68242ffc0bac?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "CHUTTERSNAP",
+        "creator_url": "https://unsplash.com/@chuttersnap",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:10:00.000Z"
+      },
+      "layout": {
+        "visual_weight": {
+          "x": 0.4959,
+          "y": 0.5469
+        },
+        "zones": [
+          {
+            "id": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.6926,
+            "contrast": 0.4976,
+            "edge_density": 0.4174,
+            "saturation": 0.1805,
+            "low_variation_score": 0.5586
+          },
+          {
+            "id": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.7102,
+            "contrast": 0.4555,
+            "edge_density": 0.3485,
+            "saturation": 0.1646,
+            "low_variation_score": 0.6194
+          },
+          {
+            "id": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.6558,
+            "contrast": 0.5266,
+            "edge_density": 0.3985,
+            "saturation": 0.2117,
+            "low_variation_score": 0.5631
+          },
+          {
+            "id": "middle_left",
+            "rect": {
+              "x": 0,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.634,
+            "contrast": 0.5589,
+            "edge_density": 0.4648,
+            "saturation": 0.2286,
+            "low_variation_score": 0.5069
+          },
+          {
+            "id": "middle_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.5931,
+            "contrast": 0.6115,
+            "edge_density": 0.5078,
+            "saturation": 0.2236,
+            "low_variation_score": 0.4611
+          },
+          {
+            "id": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.6335,
+            "contrast": 0.5518,
+            "edge_density": 0.4518,
+            "saturation": 0.2131,
+            "low_variation_score": 0.5182
+          },
+          {
+            "id": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.4906,
+            "contrast": 0.6374,
+            "edge_density": 0.5944,
+            "saturation": 0.3035,
+            "low_variation_score": 0.3927
+          },
+          {
+            "id": "bottom_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.5128,
+            "contrast": 0.6386,
+            "edge_density": 0.6188,
+            "saturation": 0.2904,
+            "low_variation_score": 0.3753
+          },
+          {
+            "id": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.5042,
+            "contrast": 0.6099,
+            "edge_density": 0.5847,
+            "saturation": 0.2933,
+            "low_variation_score": 0.4077
+          }
+        ],
+        "low_variation_regions": [
+          {
+            "zone": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.6194,
+            "evidence": "Measured low-variation score 0.62 from local edge density 0.35 and contrast 0.46."
+          },
+          {
+            "zone": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.5631,
+            "evidence": "Measured low-variation score 0.56 from local edge density 0.40 and contrast 0.53."
+          },
+          {
+            "zone": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.5586,
+            "evidence": "Measured low-variation score 0.56 from local edge density 0.42 and contrast 0.50."
+          }
+        ]
+      },
+      "colors": {
+        "palette_hex": [
+          "#cdd8d0",
+          "#a9ad98",
+          "#778370",
+          "#455b4e",
+          "#162d28"
+        ],
+        "average_luminance": 0.603,
+        "contrast": 0.601,
+        "saturation": 0.2344,
+        "warmth": 0.0001,
+        "tone": "mid"
+      },
+      "analysis": {
+        "extract_version": "pixel-extract-v1",
+        "derive_version": "layout-derive-v1",
+        "sample_width": 160,
+        "sample_height": 90,
+        "analyzed_at": "2026-09-16T19:27:03.630Z"
+      }
+    },
+    {
+      "id": "bookshelf_cozy_window",
+      "title": "Bookshelf by a window",
+      "description": "Dark shelves beside a window and plant, with a closer shelf blurred along the right edge.",
+      "file": "licensed/unsplash/bookshelf-cozy-window.jpg",
+      "sha256": "41bf80bdef558e49db43a2d7cdd14b5ca65a9367f0a7ace4c0395db48c1ed35b",
+      "width": 1920,
+      "height": 1080,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/a-bookshelf-filled-with-lots-of-books-next-to-a-window-57I496odF5c",
+        "acquisition_url": "https://images.unsplash.com/photo-1699443817739-cf2f7cbcd18d?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Mohammadreza Charkhgard",
+        "creator_url": "https://unsplash.com/@mrcharkhgard",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      },
+      "layout": {
+        "visual_weight": {
+          "x": 0.5012,
+          "y": 0.4916
+        },
+        "zones": [
+          {
+            "id": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2202,
+            "contrast": 0.418,
+            "edge_density": 0.3095,
+            "saturation": 0.2942,
+            "low_variation_score": 0.658
+          },
+          {
+            "id": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.148,
+            "contrast": 0.2163,
+            "edge_density": 0.1941,
+            "saturation": 0.2552,
+            "low_variation_score": 0.7993
+          },
+          {
+            "id": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2059,
+            "contrast": 0.3274,
+            "edge_density": 0.2377,
+            "saturation": 0.2704,
+            "low_variation_score": 0.7354
+          },
+          {
+            "id": "middle_left",
+            "rect": {
+              "x": 0,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1941,
+            "contrast": 0.4379,
+            "edge_density": 0.2148,
+            "saturation": 0.2068,
+            "low_variation_score": 0.7182
+          },
+          {
+            "id": "middle_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2373,
+            "contrast": 0.3339,
+            "edge_density": 0.3293,
+            "saturation": 0.2817,
+            "low_variation_score": 0.6693
+          },
+          {
+            "id": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2355,
+            "contrast": 0.3573,
+            "edge_density": 0.285,
+            "saturation": 0.2272,
+            "low_variation_score": 0.6933
+          },
+          {
+            "id": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1684,
+            "contrast": 0.318,
+            "edge_density": 0.1738,
+            "saturation": 0.2368,
+            "low_variation_score": 0.7829
+          },
+          {
+            "id": "bottom_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.309,
+            "contrast": 0.3902,
+            "edge_density": 0.3125,
+            "saturation": 0.4342,
+            "low_variation_score": 0.6642
+          },
+          {
+            "id": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2456,
+            "contrast": 0.3859,
+            "edge_density": 0.2761,
+            "saturation": 0.2545,
+            "low_variation_score": 0.691
+          }
+        ],
+        "low_variation_regions": [
+          {
+            "zone": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.7993,
+            "evidence": "Measured low-variation score 0.80 from local edge density 0.19 and contrast 0.22."
+          },
+          {
+            "zone": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.7829,
+            "evidence": "Measured low-variation score 0.78 from local edge density 0.17 and contrast 0.32."
+          },
+          {
+            "zone": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.7354,
+            "evidence": "Measured low-variation score 0.74 from local edge density 0.24 and contrast 0.33."
+          }
+        ]
+      },
+      "colors": {
+        "palette_hex": [
+          "#1a1a16",
+          "#3c3126",
+          "#614836",
+          "#726d5f",
+          "#a4a093"
+        ],
+        "average_luminance": 0.2183,
+        "contrast": 0.376,
+        "saturation": 0.2733,
+        "warmth": 0.0655,
+        "tone": "dark"
+      },
+      "analysis": {
+        "extract_version": "pixel-extract-v1",
+        "derive_version": "layout-derive-v1",
+        "sample_width": 160,
+        "sample_height": 90,
+        "analyzed_at": "2026-09-16T19:27:03.724Z"
+      }
+    },
+    {
+      "id": "bookshelf_vintage_library",
+      "title": "Dark library shelves",
+      "description": "Tall wooden shelves and a ladder occupy the right side while the left side is dark.",
+      "file": "licensed/unsplash/bookshelf-vintage-library.jpg",
+      "sha256": "bc13bd94efd863ab1abac512ca01a012fc71e1cacb8acd4558beef52648f7699",
+      "width": 1920,
+      "height": 1080,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/brown-wooden-shelves-with-assorted-books-h2VrZPWLhIU",
+        "acquisition_url": "https://images.unsplash.com/photo-1533478684236-61e1192879e8?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Kevin Laminto",
+        "creator_url": "https://unsplash.com/@kxvn_lx",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      },
+      "layout": {
+        "visual_weight": {
+          "x": 0.6179,
+          "y": 0.3562
+        },
+        "zones": [
+          {
+            "id": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.0635,
+            "contrast": 0.0506,
+            "edge_density": 0.0168,
+            "saturation": 0.4887,
+            "low_variation_score": 0.9731
+          },
+          {
+            "id": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1692,
+            "contrast": 0.2809,
+            "edge_density": 0.2378,
+            "saturation": 0.6599,
+            "low_variation_score": 0.7493
+          },
+          {
+            "id": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1506,
+            "contrast": 0.21,
+            "edge_density": 0.1614,
+            "saturation": 0.6028,
+            "low_variation_score": 0.824
+          },
+          {
+            "id": "middle_left",
+            "rect": {
+              "x": 0,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.0671,
+            "contrast": 0.0612,
+            "edge_density": 0.0166,
+            "saturation": 0.5148,
+            "low_variation_score": 0.97
+          },
+          {
+            "id": "middle_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1057,
+            "contrast": 0.1838,
+            "edge_density": 0.1359,
+            "saturation": 0.5714,
+            "low_variation_score": 0.8497
+          },
+          {
+            "id": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1489,
+            "contrast": 0.2921,
+            "edge_density": 0.1189,
+            "saturation": 0.5005,
+            "low_variation_score": 0.8291
+          },
+          {
+            "id": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.0657,
+            "contrast": 0.0531,
+            "edge_density": 0.0156,
+            "saturation": 0.5081,
+            "low_variation_score": 0.9731
+          },
+          {
+            "id": "bottom_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.0636,
+            "contrast": 0.0482,
+            "edge_density": 0.048,
+            "saturation": 0.5318,
+            "low_variation_score": 0.9519
+          },
+          {
+            "id": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.0758,
+            "contrast": 0.1058,
+            "edge_density": 0.0512,
+            "saturation": 0.4609,
+            "low_variation_score": 0.9324
+          }
+        ],
+        "low_variation_regions": [
+          {
+            "zone": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.9731,
+            "evidence": "Measured low-variation score 0.97 from local edge density 0.02 and contrast 0.05."
+          },
+          {
+            "zone": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.9731,
+            "evidence": "Measured low-variation score 0.97 from local edge density 0.02 and contrast 0.05."
+          },
+          {
+            "zone": "middle_left",
+            "rect": {
+              "x": 0,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.97,
+            "evidence": "Measured low-variation score 0.97 from local edge density 0.02 and contrast 0.06."
+          }
+        ]
+      },
+      "colors": {
+        "palette_hex": [
+          "#0c110b",
+          "#2a2111",
+          "#563d1f",
+          "#89663d",
+          "#aeb4c0"
+        ],
+        "average_luminance": 0.1013,
+        "contrast": 0.2003,
+        "saturation": 0.5376,
+        "warmth": 0.0501,
+        "tone": "dark"
+      },
+      "analysis": {
+        "extract_version": "pixel-extract-v1",
+        "derive_version": "layout-derive-v1",
+        "sample_width": 160,
+        "sample_height": 90,
+        "analyzed_at": "2026-09-16T19:27:03.811Z"
+      }
+    },
+    {
+      "id": "bookshelf_dramatic_light",
+      "title": "Bookshelf in directional light",
+      "description": "Rows of books cross the frame under directional light, with deep shadow on the right.",
+      "file": "licensed/unsplash/bookshelf-dramatic-light.jpg",
+      "sha256": "c10657a7c674e326250abce2b42b2bb71e47a61174596fe1631e8659b296f471",
+      "width": 1920,
+      "height": 1080,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/a-bookshelf-filled-with-lots-of-books-in-a-dark-room-21GGNSMlk5E",
+        "acquisition_url": "https://images.unsplash.com/photo-1701607632237-4b50076614f7?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Evangelos Vamvounakis",
+        "creator_url": "https://unsplash.com/@aggelosvam",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      },
+      "layout": {
+        "visual_weight": {
+          "x": 0.4498,
+          "y": 0.4517
+        },
+        "zones": [
+          {
+            "id": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2575,
+            "contrast": 0.3879,
+            "edge_density": 0.3145,
+            "saturation": 0.4103,
+            "low_variation_score": 0.6635
+          },
+          {
+            "id": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.4184,
+            "contrast": 0.6636,
+            "edge_density": 0.5594,
+            "saturation": 0.3551,
+            "low_variation_score": 0.4093
+          },
+          {
+            "id": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1832,
+            "contrast": 0.4289,
+            "edge_density": 0.1713,
+            "saturation": 0.1558,
+            "low_variation_score": 0.7514
+          },
+          {
+            "id": "middle_left",
+            "rect": {
+              "x": 0,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2318,
+            "contrast": 0.3444,
+            "edge_density": 0.2759,
+            "saturation": 0.3728,
+            "low_variation_score": 0.7035
+          },
+          {
+            "id": "middle_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.4178,
+            "contrast": 0.7488,
+            "edge_density": 0.4799,
+            "saturation": 0.2569,
+            "low_variation_score": 0.4394
+          },
+          {
+            "id": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1459,
+            "contrast": 0.2534,
+            "edge_density": 0.108,
+            "saturation": 0.1291,
+            "low_variation_score": 0.8484
+          },
+          {
+            "id": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1607,
+            "contrast": 0.2043,
+            "edge_density": 0.154,
+            "saturation": 0.2561,
+            "low_variation_score": 0.8309
+          },
+          {
+            "id": "bottom_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.382,
+            "contrast": 0.6982,
+            "edge_density": 0.5231,
+            "saturation": 0.2752,
+            "low_variation_score": 0.4243
+          },
+          {
+            "id": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.1259,
+            "contrast": 0.1584,
+            "edge_density": 0.0681,
+            "saturation": 0.1047,
+            "low_variation_score": 0.9048
+          }
+        ],
+        "low_variation_regions": [
+          {
+            "zone": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.9048,
+            "evidence": "Measured low-variation score 0.90 from local edge density 0.07 and contrast 0.16."
+          },
+          {
+            "zone": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.8484,
+            "evidence": "Measured low-variation score 0.85 from local edge density 0.11 and contrast 0.25."
+          },
+          {
+            "zone": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.8309,
+            "evidence": "Measured low-variation score 0.83 from local edge density 0.15 and contrast 0.20."
+          }
+        ]
+      },
+      "colors": {
+        "palette_hex": [
+          "#1f1c1a",
+          "#4d3927",
+          "#806246",
+          "#b39475",
+          "#eadac4"
+        ],
+        "average_luminance": 0.2575,
+        "contrast": 0.5545,
+        "saturation": 0.2565,
+        "warmth": 0.0945,
+        "tone": "dark"
+      },
+      "analysis": {
+        "extract_version": "pixel-extract-v1",
+        "derive_version": "layout-derive-v1",
+        "sample_width": 160,
+        "sample_height": 90,
+        "analyzed_at": "2026-09-16T19:27:03.897Z"
+      }
+    },
+    {
+      "id": "bookshelf_home_fairy_lights",
+      "title": "Home bookshelves with small lights",
+      "description": "A wall of books includes a sculpted bust, plants, and small warm lights.",
+      "file": "licensed/unsplash/bookshelf-home-fairy-lights.jpg",
+      "sha256": "15beed4ceafcedc83d1c7a2b338d7bb4060298ebf1eb54766c826195fe36d63c",
+      "width": 1920,
+      "height": 1080,
+      "aspect_ratio": "16:9",
+      "orientation": "landscape",
+      "source": {
+        "provider": "Unsplash",
+        "asset_url": "https://unsplash.com/photos/tall-bookshelves-filled-with-many-books-mzoKghcfI94",
+        "acquisition_url": "https://images.unsplash.com/photo-1757390026877-5a5d8d0149f7?auto=format&fit=crop&w=1920&h=1080&q=85",
+        "acquisition_notes": "Unsplash image-service landscape derivative requested at 1920x1080 with fit=crop and q=85.",
+        "creator": "Elijah Crouch",
+        "creator_url": "https://unsplash.com/@elijahcrouch",
+        "license_name": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "source_status": "licensed",
+        "downloaded_at": "2026-07-16T01:19:00.000Z"
+      },
+      "layout": {
+        "visual_weight": {
+          "x": 0.4656,
+          "y": 0.4769
+        },
+        "zones": [
+          {
+            "id": "top_left",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2835,
+            "contrast": 0.4564,
+            "edge_density": 0.3645,
+            "saturation": 0.2824,
+            "low_variation_score": 0.6079
+          },
+          {
+            "id": "top_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2363,
+            "contrast": 0.3665,
+            "edge_density": 0.355,
+            "saturation": 0.2879,
+            "low_variation_score": 0.6415
+          },
+          {
+            "id": "top_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2098,
+            "contrast": 0.3086,
+            "edge_density": 0.3125,
+            "saturation": 0.3039,
+            "low_variation_score": 0.6887
+          },
+          {
+            "id": "middle_left",
+            "rect": {
+              "x": 0,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.3205,
+            "contrast": 0.4822,
+            "edge_density": 0.4332,
+            "saturation": 0.2754,
+            "low_variation_score": 0.5521
+          },
+          {
+            "id": "middle_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2262,
+            "contrast": 0.4041,
+            "edge_density": 0.2708,
+            "saturation": 0.3077,
+            "low_variation_score": 0.6892
+          },
+          {
+            "id": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.17,
+            "contrast": 0.2765,
+            "edge_density": 0.2839,
+            "saturation": 0.2869,
+            "low_variation_score": 0.7183
+          },
+          {
+            "id": "bottom_left",
+            "rect": {
+              "x": 0,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2359,
+            "contrast": 0.4382,
+            "edge_density": 0.3217,
+            "saturation": 0.2993,
+            "low_variation_score": 0.6433
+          },
+          {
+            "id": "bottom_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2394,
+            "contrast": 0.4548,
+            "edge_density": 0.3188,
+            "saturation": 0.3281,
+            "low_variation_score": 0.6404
+          },
+          {
+            "id": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "luminance": 0.2054,
+            "contrast": 0.3649,
+            "edge_density": 0.2691,
+            "saturation": 0.3559,
+            "low_variation_score": 0.7021
+          }
+        ],
+        "low_variation_regions": [
+          {
+            "zone": "middle_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.7183,
+            "evidence": "Measured low-variation score 0.72 from local edge density 0.28 and contrast 0.28."
+          },
+          {
+            "zone": "bottom_right",
+            "rect": {
+              "x": 0.6667,
+              "y": 0.6667,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.7021,
+            "evidence": "Measured low-variation score 0.70 from local edge density 0.27 and contrast 0.36."
+          },
+          {
+            "zone": "middle_center",
+            "rect": {
+              "x": 0.3333,
+              "y": 0.3333,
+              "width": 0.3333,
+              "height": 0.3333
+            },
+            "score": 0.6892,
+            "evidence": "Measured low-variation score 0.69 from local edge density 0.27 and contrast 0.40."
+          }
+        ]
+      },
+      "colors": {
+        "palette_hex": [
+          "#0f1615",
+          "#31312b",
+          "#554f46",
+          "#7f7161",
+          "#a99f8b"
+        ],
+        "average_luminance": 0.2361,
+        "contrast": 0.4131,
+        "saturation": 0.3031,
+        "warmth": 0.0311,
+        "tone": "dark"
+      },
+      "analysis": {
+        "extract_version": "pixel-extract-v1",
+        "derive_version": "layout-derive-v1",
+        "sample_width": 160,
+        "sample_height": 90,
+        "analyzed_at": "2026-09-16T19:27:03.987Z"
+      }
+    }
+  ]
+}

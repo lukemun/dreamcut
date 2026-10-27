@@ -1,0 +1,7 @@
+{
+  "name": "dreamcut",
+  "version": "0.0.0",
+  "description": "Edit video with DreamCut: a local editor you drive from your agent. Your footage never leaves your computer.",
+  "author": { "name": "DreamCut" },
+  "keywords": ["video", "editing", "storyboard", "mcp"]
+}

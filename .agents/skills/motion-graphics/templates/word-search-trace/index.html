@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .layer { position: absolute; inset: 0; }
+      #letters { position: absolute; inset: 0; }
+      .letter {
+        position: absolute; transform: translate(-50%, -50%);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300;
+        line-height: 1; text-align: center;
+      }
+      svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+      path.trace { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6.4" data-width="1080" data-height="1920">
+      <div id="grid" class="layer clip" data-start="0" data-duration="6.4" data-track-index="0" data-actor="grid">
+        <div id="letters"></div>
+      </div>
+      <div id="traces" class="layer clip" data-start="0" data-duration="6.4" data-track-index="1" data-actor="traces">
+        <svg id="trace-svg"></svg>
+      </div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          word_1: "FOG", direction_1: "across", word_2: "HILL", direction_2: "down",
+          word_3: "DUSK", direction_3: "across", word_4: "TRAIL", direction_4: "diagonal",
+          first_trace: 0.2, trace_spacing: 1.6, trace_times: "", trace_speed: 0.6, length: 6.4,
+          columns: 11, letter_size: 42, letter_opacity: 85, letter_color: "#ffffff",
+          trace_color: "#f4cdfa", trace_width: 4, wobble: 35, shadow: true, seed: 7, shape: "tall",
+        },
+      };
+      const c = dc.controls;
+      // The canvas follows the project: DreamCut writes the chosen shape's size onto #root.
+      const SIZES = { wide: [1920, 1080], tall: [1080, 1920], square: [1080, 1080] };
+      const [W, H] = SIZES[c.shape] || SIZES.tall;
+
+      // Deterministic random: the same seed always gives the same grid.
+      function rng(seed) {
+        let s = (Math.floor(seed) * 2654435761) >>> 0 || 1;
+        return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; };
+      }
+      const rand = rng(c.seed);
+
+      // Grid geometry: square cells, centred, with a margin like the reference.
+      const cols = Math.round(c.columns);
+      const cell = (W * 0.9) / cols;
+      const rows = Math.floor((H * 0.94) / cell);
+      const x0 = (W - cols * cell) / 2 + cell / 2;
+      const y0 = (H - rows * cell) / 2 + cell / 2;
+      const cx = (col) => x0 + col * cell;
+      const cy = (row) => y0 + row * cell;
+
+      const STEP = { across: [1, 0], down: [0, 1], diagonal: [1, 1] };
+      const words = [
+        [c.word_1, c.direction_1], [c.word_2, c.direction_2], [c.word_3, c.direction_3], [c.word_4, c.direction_4],
+      ]
+        .map(([text, dir]) => ({ text: String(text || "").toUpperCase().replace(/[^A-Z]/g, ""), dir }))
+        .filter((w) => w.text.length > 1);
+
+      // Place each word where it fits, preferring spots far from earlier words.
+      const grid = Array.from({ length: rows }, () => Array(cols).fill(null));
+      const placed = [];
+      for (const word of words) {
+        const [dx, dy] = STEP[word.dir] || STEP.across;
+        const len = word.text.length;
+        let best = null;
+        for (let row = 0; row < rows; row++) {
+          for (let col = 0; col < cols; col++) {
+            const endCol = col + dx * (len - 1), endRow = row + dy * (len - 1);
+            if (endCol >= cols || endRow >= rows) continue;
+            let ok = true;
+            for (let i = 0; i < len && ok; i++) {
+              const existing = grid[row + dy * i][col + dx * i];
+              if (existing && existing !== word.text[i]) ok = false;
+            }
+            if (!ok) continue;
+            const mx = (col + endCol) / 2, my = (row + endRow) / 2;
+            const edge = Math.min(col, row, cols - 1 - endCol, rows - 1 - endRow);
+            let spread = placed.length ? Infinity : 0;
+            for (const p of placed) spread = Math.min(spread, Math.hypot((mx - p.mx) * 1.6, my - p.my));
+            const score = Math.min(spread, 9) + (edge >= 1 ? 2 : 0) + rand() * 3;
+            if (!best || score > best.score) best = { row, col, endRow, endCol, mx, my, score };
+          }
+        }
+        if (!best) continue;
+        for (let i = 0; i < len; i++) grid[best.row + dy * i][best.col + dx * i] = word.text[i];
+        placed.push({ ...best, word });
+      }
+
+      // Fill the rest with random letters.
+      const ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const letters = document.getElementById("letters");
+      const fontSize = cell * (c.letter_size / 100);
+      const shadow = c.shadow ? "0 0 " + Math.round(fontSize * 0.35) + "px rgba(0,0,0,0.55)" : "none";
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const span = document.createElement("div");
+          span.className = "letter";
+          span.textContent = grid[row][col] || ALPHA[Math.floor(rand() * 26)];
+          span.style.left = cx(col) + "px";
+          span.style.top = cy(row) + "px";
+          span.style.fontSize = fontSize + "px";
+          span.style.color = c.letter_color;
+          span.style.opacity = c.letter_opacity / 100;
+          span.style.textShadow = shadow;
+          letters.appendChild(span);
+        }
+      }
+
+      // A hand-drawn pill around each word: starts top-left, runs clockwise and overlaps its start.
+      function pillPoints(p) {
+        const ax = cx(p.col), ay = cy(p.row), bx = cx(p.endCol), by = cy(p.endRow);
+        const angle = Math.atan2(by - ay, bx - ax);
+        const half = Math.hypot(bx - ax, by - ay) / 2 + cell * 0.42;
+        const r = cell * 0.42;
+        const pts = [];
+        const straight = Math.max(half - r, 0);
+        // Local frame: x along the word, y across it.
+        for (let i = 0; i <= 12; i++) pts.push([-straight + (2 * straight * i) / 12, -r]);
+        for (let i = 1; i <= 10; i++) { const t = -Math.PI / 2 + (Math.PI * i) / 10; pts.push([straight + r * Math.cos(t), r * Math.sin(t)]); }
+        for (let i = 1; i <= 12; i++) pts.push([straight - (2 * straight * i) / 12, r]);
+        for (let i = 1; i <= 10; i++) { const t = Math.PI / 2 + (Math.PI * i) / 10; pts.push([-straight + r * Math.cos(t), r * Math.sin(t)]); }
+        for (let i = 1; i <= 3; i++) pts.push([-straight + (Math.max(straight, cell) * 0.35 * i) / 3, -r + cell * 0.025 * i]);
+        const wob = (c.wobble / 100) * cell * 0.12;
+        const ox = (ax + bx) / 2, oy = (ay + by) / 2, ca = Math.cos(angle), sa = Math.sin(angle);
+        return pts.map(([lx, ly], i) => {
+          const n = Math.sin(i * 0.7 + p.word.text.length) * wob + (rand() - 0.5) * wob * 0.6;
+          const y2 = ly + Math.sign(ly || 1) * n;
+          return [ox + lx * ca - y2 * sa, oy + lx * sa + y2 * ca];
+        });
+      }
+      function smoothPath(pts) {
+        let d = "M" + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
+        for (let i = 0; i < pts.length - 1; i++) {
+          const p0 = pts[Math.max(i - 1, 0)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(i + 2, pts.length - 1)];
+          const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+          const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+          d += " C" + c1.map((v) => v.toFixed(1)).join(" ") + " " + c2.map((v) => v.toFixed(1)).join(" ") + " " + p2.map((v) => v.toFixed(1)).join(" ");
+        }
+        return d;
+      }
+
+      // Optional exact start times ("0.2, 1.9, 3.1") for uneven cuts; otherwise traces are evenly spaced.
+      const traceTimes = String(c.trace_times || "").split(/[ ,;]+/).map(Number).filter((t) => Number.isFinite(t) && t >= 0);
+      const svg = document.getElementById("trace-svg");
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+      const NS = "http://www.w3.org/2000/svg";
+      const tl = gsap.timeline({ paused: true });
+      // The grid settles in over the first few frames, as the letters land on the shot.
+      tl.fromTo("#letters", { opacity: 0, scale: 1.015 }, { opacity: 1, scale: 1, duration: 0.15, ease: "power2.out" }, 0);
+      let lastEnd = 0;
+      placed.forEach((p, index) => {
+        const path = document.createElementNS(NS, "path");
+        path.setAttribute("class", "trace");
+        path.setAttribute("d", smoothPath(pillPoints(p)));
+        path.setAttribute("stroke", c.trace_color);
+        path.setAttribute("stroke-width", String(c.trace_width));
+        if (c.shadow) path.style.filter = "drop-shadow(0 0 3px rgba(0,0,0,0.45))";
+        svg.appendChild(path);
+        const total = path.getTotalLength();
+        path.style.strokeDasharray = total + " " + total;
+        const at = traceTimes[index] ?? c.first_trace + index * c.trace_spacing;
+        tl.set(path, { opacity: 0 }, 0)
+          .set(path, { opacity: 1 }, at)
+          .fromTo(path, { strokeDashoffset: total }, { strokeDashoffset: 0, duration: c.trace_speed, ease: "power1.inOut", immediateRender: true }, at);
+        lastEnd = Math.max(lastEnd, at + c.trace_speed);
+      });
+
+      const duration = Math.max(c.length, lastEnd + 0.3);
+      for (const el of [document.getElementById("root"), document.getElementById("grid"), document.getElementById("traces")]) {
+        el.dataset.duration = String(duration);
+      }
+      tl.set({}, {}, duration);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

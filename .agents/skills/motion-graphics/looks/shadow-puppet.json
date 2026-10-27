@@ -1,0 +1,81 @@
+{
+  "id": "shadow-puppet",
+  "title": "Shadow Puppet",
+  "family": "Craft",
+  "description": "A small shadow theatre: lace-cut card puppets pinned at the joints and worked on rods press against a lamp-lit cloth glowing amber to red, with gel in their cuts, a faint far country held back from the cloth, wave strips rocking at the front of the stage, a soft bird shadow sweeping past the lamp at every change and a curtain call of drapes, lanterns and falling petals to close.",
+  "arrival": "focus",
+  "change": "frost",
+  "texture": "cloth",
+  "examples": [
+    {
+      "name": "The night's programme",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Tonight on the screen",
+        "title": "How a change reaches you",
+        "object_title": "Every edit arrives as a card",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your own track",
+        "closing": "You take the final bow."
+      }
+    },
+    {
+      "name": "Lighting the lamps",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed each night",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 9,
+        "bar_2": 14,
+        "bar_3": 22,
+        "bar_4": 31,
+        "highlight": "4",
+        "process_title": "From script to screen",
+        "step_1": "Read the cut",
+        "step_2": "Draft the scene",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The troupe",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.8,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Everyone has a part to play",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Fewer retakes, more tuning",
+        "before_label": "Retakes",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 3
+      }
+    }
+  ]
+}

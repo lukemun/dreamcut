@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-08",
+      "catalog": "../../../../docs/effects/catalog.json#FX-08",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/FX-08.mp4",
+          "sha256": "570b5d921f1e62b6a763674dcb2deb4b33e4a384a220a88d41613c291a999f42",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/FX-08-recreation.mp4",
+          "sha256": "babe6d4d70abb6a14b5cf5513e66fb32a630769d6ccd960df2e91815ecd69c3a",
+          "kind": "video",
+          "credit": "DreamCut dinosaur/bird example; supplied photos",
+          "rights": "owned"
+        },
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing scene",
+          "Incoming scene containing the objects in their final arrangement",
+          "One separate cutout/mask per object, extracted from or matched to the incoming scene",
+          "Object entrance order and final alignment targets",
+          "Background-switch time and per-object white-blip timing"
+        ],
+        "preparation": "Extract each object independently; align its settled size/position with the incoming scene; build staggered entrances, one background switch, and alpha-confined white blips as one sequence",
+        "success_criteria": [
+          "Objects enter separately over the outgoing shot, land without jumping when the background switches, then blip white within their own silhouettes. Reuse with a different number and type of objects."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/guide/effects/input-dinosaur.jpg",
+              "sha256": "179c961cf3e23120a16cafe8863f44e69d7c0fb12b8aeeb97a28483e0f0be669",
+              "kind": "image",
+              "credit": "Creator-supplied museum photo",
+              "rights": "owned"
+            },
+            {
+              "path": "../../public/guide/effects/input-small-birds.png",
+              "sha256": "df9b5741f2aa8ff68e840363471f9aa3b42ea6100dd2ca8f635602fd33d74439",
+              "kind": "image",
+              "credit": "Creator-supplied museum photo",
+              "rights": "owned"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/FX-08-recreation.mp4",
+              "sha256": "babe6d4d70abb6a14b5cf5513e66fb32a630769d6ccd960df2e91815ecd69c3a",
+              "kind": "video",
+              "credit": "DreamCut dinosaur/bird example; supplied photos",
+              "rights": "owned"
+            }
+          ],
+          "observations": [
+            "Existing 1.5-second recreation uses 33 separately placed birds, one scene switch, and white flashes.",
+            "Reuses the previously exported DreamCut working edit; no new export performed."
+          ],
+          "limitations": [
+            "Batched pop-ins adapt the reference rather than reproducing its individual float trajectories.",
+            "No new input trial or fresh frame-by-frame fidelity review was performed for this packaging."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-MASK-GLITCH",
+      "catalog": "../../../../docs/effects/catalog.json#FX-MASK-GLITCH",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/mask-glitch-reference.mp4",
+          "sha256": "7da6e4858a8507ca11c4ae36c8ae0e6941fcdc26faa701a6909d497190f2f519",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+          "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+          "kind": "video",
+          "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+          "rights": "licensed"
+        },
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing shot",
+          "Incoming shot with an isolatable subject",
+          "Matching original-color and white alpha mattes"
+        ],
+        "preparation": "Continuous variant: align white and original-color alpha mattes to the incoming picture. At 30 fps, cover all five lead-in frames: white for two frames, color for three, then switch scene. No empty frame between masks. Keep each matte native and editable. See anderson-taii-transitions.md for reference-pulse and continuous variants. For consecutive handoffs, invoke mask-glitch with ordered shots and derive one coordinated chain schedule; masks remain separate editable rows.",
+        "success_criteria": [
+          "Every lead-in frame contains the white silhouette or original-color subject mask; no disappearance before the incoming scene.",
+          "White and colour masks share alpha and geometry and match the incoming picture; preserve unchanged sources and editable layers.",
+          "Verify on another incoming subject before promoting the recipe to complete."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/mask-glitch-reference.mp4",
+              "sha256": "7da6e4858a8507ca11c4ae36c8ae0e6941fcdc26faa701a6909d497190f2f519",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/mask-glitch-practice.jpg",
+              "sha256": "b98e784ad25e47cfc04001786d303b35b49b072b8f99dac9410b02e6cebb6f2f",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/30996082, pexels.com/video/19279353, pexels.com/video/4824399; DreamCut Mask Glitch template teaching media (native cutout clips with keyframed subject_flash).",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+              "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+              "kind": "video",
+              "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+              "rights": "licensed"
+            }
+          ],
+          "observations": [
+            "Rebuilt for the Templates card with the bobblehead, landscape 16:9: a bright library hands off to a bookshelf in directional light, then to home bookshelves with small lights, each with a still bobblehead pose in the middle of the frame (alpha PNG, no cut-out needed).",
+            "Each lead-in is 5 frames at 30 fps (2 white, 3 original colour) ending on the cut, the skill's continuous handoff default; checked frame by frame at 55-60 and 115-120.",
+            "Recreation sample is the Mask Glitch template result (1280\u00d7720, 30 fps, 180 frames). The practice contact sheet is from the earlier Pexels build (desert walker and skater) and its 9-frame lead-ins.",
+            "Continuous coverage: no empty frame between the masks and the incoming scene."
+          ],
+          "limitations": [
+            "Lead-in is lengthened from the 5-frame default to 9 frames so the steps read at gallery size; continuous coverage intentionally differs from the reference pulse/off cadence.",
+            "No dedicated Mask Glitch preset; matte preparation and native layer composition remain the supported route.",
+            "Exact source-reference fidelity remains incomplete."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-NEGATIVE-POP",
+      "catalog": "../../../../docs/effects/catalog.json#FX-NEGATIVE-POP",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/sunglasses/negative-reference.jpg",
+          "sha256": "980953a163c22aabb17a11332cf039bd2f85ef68cf32a5a8ccd6d9d488902e05",
+          "kind": "image",
+          "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Isolated subject with alpha",
+          "Matching original-color subject",
+          "Background"
+        ],
+        "preparation": "Prepare a registered grayscale negative derivative; show the negative briefly, then original color. Keep background and any inserted lens media independently treated.",
+        "success_criteria": [
+          "Match the chosen negative/original timing map",
+          "Preserve alpha and silhouette alignment",
+          "Keep the negative treatment scoped to the portrait"
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/sunglasses/negative-reference.jpg",
+              "sha256": "980953a163c22aabb17a11332cf039bd2f85ef68cf32a5a8ccd6d9d488902e05",
+              "kind": "image",
+              "credit": "@cgouldfish / Cade; https://www.instagram.com/reel/DbA5MAIthut/",
+              "rights": "licensed"
+            }
+          ],
+          "after": [],
+          "observations": [
+            "The technique was recreated once on private footage with source and effect layers stored separately; that example is not redistributed, so no recreation is packaged here."
+          ],
+          "limitations": [
+            "No redistributable recreation is packaged yet; recreate on cleared footage before marking this partial again.",
+            "The earlier private recreation baked the inversion into the derivative; there is no native negative-amount dial. Exposure and contrast are reviewable shading controls.",
+            "Reference negative duration is eight frames at 30 fps; a one-second hold is only an inspection aid."
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-15",
+      "catalog": "../../../../docs/effects/catalog.json#FX-15",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-15.mp4",
+          "sha256": "557a4ed6bf334c8e7fee64b10b183546ebcca573954fd72e0bee69ac0f0557ca",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Laptop-closing clip",
+          "destination clip",
+          "visible lid edge through transition",
+          "edge annotations or tracking"
+        ],
+        "preparation": "Track/annotate moving diagonal edge and foreground occlusion",
+        "success_criteria": [
+          "Reveal hugs the moving laptop edge without exposing wrong-side pixels."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-02",
+      "catalog": "../../../../docs/effects/catalog.json#FX-02",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-02.mp4",
+          "sha256": "610ab9b904006da1a2d89a8ff76aee67fce0f7dafbaa998648ffda3a07ccf809",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Two or more video windows in order",
+          "chosen cut durations",
+          "Paper title artwork",
+          "transparent crumpled-to-flat sequence or source to produce one",
+          "background",
+          "Title artwork with alpha",
+          "pulse frames",
+          "Matched title artwork",
+          "handheld-card footage",
+          "exact handoff pose/time",
+          "foreground hand mask if needed"
+        ],
+        "preparation": "Capture stop-motion or prepare an alpha deformation sequence; preserve flat artwork and fold states",
+        "success_criteria": [
+          "Paper opens into readable artwork and transitions into the handheld card without a visible positional jump."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-FILM-BURN",
+      "catalog": "../../../../docs/effects/catalog.json#FX-FILM-BURN",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/film-burn-reference.mp4",
+          "sha256": "6a901b0aa6c554d1c69f45cb4f7655d3dd70ab1fb566dcc9aa99c6333dcbaa34",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/film-burn-practice.mp4",
+          "sha256": "8f73ee7cee504173b0d2791363b8b9f5031d45509b4eb1be1ca17b899fcb1f10",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Two shots with source handles; optional cleared burn texture"
+        ],
+        "preparation": "Layer a warm flare across the cut; keep intensity, colour and envelope editable. See anderson-taii-transitions.md for timing and required inputs.",
+        "success_criteria": [
+          "Preserve sources and editable layers; reproduce the observed scene handoff on new inputs.",
+          "Compare reference-relative entrance, peak, cut and settled frames at normal speed."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/film-burn-reference.mp4",
+              "sha256": "6a901b0aa6c554d1c69f45cb4f7655d3dd70ab1fb566dcc9aa99c6333dcbaa34",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/film-burn-practice.jpg",
+              "sha256": "3fd33e2f9e5e6e8c176db9bc824e57c317f7f30317a927ea415559d2f9414897",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/film-burn-practice.mp4",
+              "sha256": "8f73ee7cee504173b0d2791363b8b9f5031d45509b4eb1be1ca17b899fcb1f10",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8148429/, pexels.com/video/34736308/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on Pexels footage: meadow backpacker \u2192 ocean-sunset silhouette, both reframed to 9:16 from landscape sources.",
+            "Native film_burn transition: 0.6 s blend, strength 100%, peak hold 10%; the warm flare spans output frames 42\u201359 of 120, the picture switches under the covered peak and the incoming shot is clear from frame 60.",
+            "Every frame across the transition and the settled incoming frames were inspected in the rendered sample; contact sheet frames 30, 48\u201372 and 80/100.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "Procedural gradient approximates the flare; a photographed burn texture is not used.",
+            "Study envelope is 0.6 s, an intentional timing adaptation.",
+            "Normal-speed fidelity to the reference and dedicated creator-flow acceptance remain incomplete.",
+            "Reference excerpts are muted; isolated sound cues were not analysed."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-CAMERA-FLASH",
+      "catalog": "../../../../docs/effects/catalog.json#FX-CAMERA-FLASH",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/camera-flash-reference.mp4",
+          "sha256": "e38af9bc360954b77f6f82491dcbb619b4ec2b065b830e3d443d8b68fdd3c114",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/camera-flash-practice.mp4",
+          "sha256": "2f5a94a7343f9b7e46bb78d491007ad7830fef0af7953337969f77d066ded1e0",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Two shots and the cut point"
+        ],
+        "preparation": "Place a short white exposure wash across the join; cut at peak and clear the incoming picture. See anderson-taii-transitions.md for timing and required inputs.",
+        "success_criteria": [
+          "Preserve sources and editable layers; reproduce the observed scene handoff on new inputs.",
+          "Compare reference-relative entrance, peak, cut and settled frames at normal speed."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/camera-flash-reference.mp4",
+              "sha256": "e38af9bc360954b77f6f82491dcbb619b4ec2b065b830e3d443d8b68fdd3c114",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/camera-flash-practice.jpg",
+              "sha256": "47a36527875c7406b7edbecbd840efc852ee706a20ef8142797212125cc146b8",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/camera-flash-practice.mp4",
+              "sha256": "2f5a94a7343f9b7e46bb78d491007ad7830fef0af7953337969f77d066ded1e0",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/8970054/, pexels.com/video/3010130/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on Pexels footage: canyon selfie \u2192 boulder selfie with arms raised, both reframed to 9:16.",
+            "Native camera_flash transition: 7-frame (0.233 s) blend, strength 100%, peak hold 15%; the white wash spans output frames 53\u201359 of 120, covering the switch, and the incoming shot is clear from frame 60.",
+            "Every frame across the flash and the settled incoming frames were inspected in the rendered sample.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "Seven-frame 30 fps study is shorter than the reference interval; exact exposure curve remains unverified.",
+            "Normal-speed fidelity to the reference and dedicated creator-flow acceptance remain incomplete.",
+            "Reference excerpts are muted; isolated sound cues were not analysed."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-BLACKOUT",
+      "catalog": "../../../../docs/effects/catalog.json#FX-BLACKOUT",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/blackout-reference.mp4",
+          "sha256": "2178c5f2868ea6fb267ce7ad3a64f81d0801da7d5ffea09ad532b1715b10cf84",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/blackout-practice.mp4",
+          "sha256": "10759646cb3108f5230869add9ec073670b318df0b3f4453c12639555800173a",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing take covering the lens",
+          "Incoming take starting covered and uncovering"
+        ],
+        "preparation": "Match hand direction and coverage; cut during full darkness; preserve source handles. See anderson-taii-transitions.md for timing and required inputs.",
+        "success_criteria": [
+          "Preserve sources and editable layers; reproduce the observed scene handoff on new inputs.",
+          "Compare reference-relative entrance, peak, cut and settled frames at normal speed."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/blackout-reference.mp4",
+              "sha256": "2178c5f2868ea6fb267ce7ad3a64f81d0801da7d5ffea09ad532b1715b10cf84",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/blackout-practice.jpg",
+              "sha256": "b5eb6e490dce576fa58dcdc72ab904a7c965854307bb9e04712633d9ca365f90",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/blackout-practice.mp4",
+              "sha256": "10759646cb3108f5230869add9ec073670b318df0b3f4453c12639555800173a",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/18005884/, pexels.com/video/9130084/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on Pexels footage: a walker passes close to the lens in a field (the body covers the frame at the cut) \u2192 a hooded hiker's pack moves out of frame to open on misty mountains.",
+            "Native blackout transition: 0.6 s blend, strength 100%, peak hold 30%; output frames 42\u201359 of 120 darken to a held black over the switch, then the incoming shot fades up and is clear from frame 60.",
+            "Every frame across the hold and the settled incoming frames were inspected in the rendered sample.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "The outgoing cover is a body passing the lens, not a hand; the incoming uncover is a pack moving out of frame rather than a hand pulled away.",
+            "Black hold timing at 30 fps differs from the reference's eight frames at 24 fps.",
+            "Normal-speed fidelity to the reference and dedicated creator-flow acceptance remain incomplete.",
+            "Reference excerpts are muted; isolated sound cues were not analysed."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-WHIP-PAN",
+      "catalog": "../../../../docs/effects/catalog.json#FX-WHIP-PAN",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "media/anderson-taii/whip-pan-reference.mp4",
+          "sha256": "8c9594b240be8cb9186796399e8ca211515169629d3206a073bd5d0347ad1a52",
+          "kind": "video",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "media/stock-transitions/whip-pan-practice.mp4",
+          "sha256": "4546c1e3c667141eec115d86bcbb88d8873e58b81378d352ecf37ce0e80e1b7a",
+          "kind": "video",
+          "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+          "rights": "pexels-license"
+        },
+        "skill": "recreate-effect",
+        "skill_path": "../../.agents/skills/recreate-effect/SKILL.md",
+        "evidence_path": "../../.agents/skills/recreate-effect/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing shot; preferably a captured camera turn",
+          "Incoming camera turn moving in the same screen direction",
+          "Full incoming source with enough head handles for the chosen blend duration \u00d7 playback rate"
+        ],
+        "preparation": "Choose an incoming source head inside the developed camera turn, skipping its slow setup. Use native Whip with Blend into motion smear enabled (params.motion=smear), direction matching camera travel, and adjustable duration/blur. Incoming real head handles play during the overlap and land on the saved source head without replay. Require head handles >= transition duration \u00d7 incoming playback rate; insufficient handles currently fall back to a frozen boundary. Match horizon, motion speed and lighting. See anderson-taii-transitions.md.",
+        "success_criteria": [
+          "Blend follows real incoming camera-turn motion, rather than a held first frame before the turn starts.",
+          "Full-frame shots overlap without a travelling dividing edge or exposed gutter.",
+          "Incoming source clock continues across the join without frozen or repeated motion; preserve full original sources.",
+          "Review at normal speed and repeat with another shot pair before marking complete."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/anderson-taii/whip-pan-reference.mp4",
+              "sha256": "8c9594b240be8cb9186796399e8ca211515169629d3206a073bd5d0347ad1a52",
+              "kind": "video",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; muted reference excerpt",
+              "rights": "licensed"
+            }
+          ],
+          "after": [
+            {
+              "path": "media/stock-transitions/whip-pan-practice.jpg",
+              "sha256": "d318905128dba2cec3870de9dc55a2ec05b912f98a0ee42fccde516f2611a1f6",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            },
+            {
+              "path": "media/stock-transitions/whip-pan-practice.mp4",
+              "sha256": "4546c1e3c667141eec115d86bcbb88d8873e58b81378d352ecf37ce0e80e1b7a",
+              "kind": "video",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/32287884/, pexels.com/video/31397167/; DreamCut recreation with the native transition, rendered from a pending demo proposal.",
+              "rights": "pexels-license"
+            }
+          ],
+          "observations": [
+            "Rebuilt 2026-10-14 on native-vertical Pexels footage: neon crossing in rain \u2192 billboard crossing at night.",
+            "Native Whip with Blend into motion smear (params.motion=smear), direction from-right, 0.4 s, motion blur 1.3\u00d7, smear zoom 35%, smear travel 12%; incoming head handles before source 8.0 s play during the overlap and continue from the saved source head without replay.",
+            "Every output frame across the 12-frame overlap (output frames 48\u201359 of 120) and the first incoming frames were inspected in the rendered sample.",
+            "Teaching sample: 720\u00d71280, 30 fps, 120 frames, H.264 Main, limited-range yuv420p Rec.709, fast-start, silent; rendered at 1080\u00d71920 by the browser renderer (scripts/render-preview.ts) with the pending proposal applied in preview only. The demo timeline and proposal were left unapproved."
+          ],
+          "limitations": [
+            "Neither shot contains a captured camera whip; the native smear supplies all sideways motion.",
+            "Precise fidelity to the Instagram reference remains incomplete.",
+            "Moving overlap requires sufficient incoming head handles; with insufficient handles the renderer holds the head frame."
+          ]
+        }
+      }
+    }
+  ]
+}

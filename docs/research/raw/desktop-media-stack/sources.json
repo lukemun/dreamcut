@@ -1,0 +1,144 @@
+[
+  {
+    "id": "electron-security",
+    "url": "https://www.electronjs.org/docs/latest/tutorial/security",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "Validate the sender of all IPC messages",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "electron-performance",
+    "url": "https://www.electronjs.org/docs/latest/tutorial/performance",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": null,
+    "excerpt_status": "metadata only; selected phrase did not match normalized text"
+  },
+  {
+    "id": "electron-utility",
+    "url": "https://www.electronjs.org/docs/latest/api/utility-process",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "creates a child process with Node.js",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "next-custom-server",
+    "url": "https://nextjs.org/docs/app/guides/custom-server",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "it does not trace custom server files",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "next-output",
+    "url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/output",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "does not copy the public or .next/static folders",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "offscreen",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "OffscreenCanvas is a transferable object",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "audio-worklet",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "a separate Web Audio thread",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "webcodecs",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": null,
+    "excerpt_status": "metadata only; selected phrase did not match normalized text"
+  },
+  {
+    "id": "video-close",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame/close",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "clears all states and releases the reference",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "native-modules",
+    "url": "https://www.electronjs.org/docs/latest/tutorial/using-native-node-modules",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "different application binary interface",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "signing",
+    "url": "https://www.electronjs.org/docs/latest/tutorial/code-signing",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "Code Signing",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "updates",
+    "url": "https://www.electronjs.org/docs/latest/tutorial/updates",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "autoUpdater",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "ffmpeg",
+    "url": "https://ffmpeg.org/legal.html",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "optional parts and optimizations",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "sentry",
+    "url": "https://docs.sentry.io/platforms/javascript/guides/electron/",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "initialize Sentry in each one",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "sentry-options",
+    "url": "https://docs.sentry.io/platforms/javascript/guides/electron/configuration/options/",
+    "retrieved": "2026-10-08",
+    "scope": "Short excerpt only; page inspected, full page not retained in repository",
+    "excerpt": "Controls which categories of data the SDK collects automatically",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "decoder-config",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/VideoDecoder/isConfigSupported_static",
+    "retrieved": "2026-10-08",
+    "scope": "API description read through web tool; metadata record"
+  },
+  {
+    "id": "canvaskit",
+    "url": "https://skia.org/docs/user/modules/canvaskit/",
+    "retrieved": "2026-10-08",
+    "scope": "Features section; short excerpt only",
+    "excerpt": "WebGL context encapsulated as an SkSurface",
+    "excerpt_status": "verified"
+  },
+  {
+    "id": "mediabunny",
+    "url": "https://mediabunny.dev/guide/supported-formats-and-codecs",
+    "retrieved": "2026-10-08",
+    "scope": "Codecs section; short excerpt only",
+    "excerpt": "depends on the browser and thus cannot be guaranteed by this library",
+    "excerpt_status": "verified"
+  }
+]

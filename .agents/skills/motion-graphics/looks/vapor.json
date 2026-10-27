@@ -1,0 +1,86 @@
+{
+  "id": "vapor",
+  "title": "Vapor",
+  "family": "Retro",
+  "description": "A dusk-lit retro-futurist dream: a sliced sun sinks behind faceted ridges and a marble colonnade while a neon grid scrolls under floating orbs, wireframe solids and a leaping dolphin, and each scene is a stack of bevelled desktop windows that power off like a tube under a tracking glitch.",
+  "arrival": "glow",
+  "change": "scan",
+  "texture": "tape",
+  "examples": [
+    {
+      "name": "Your agent drafts",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Side A",
+        "title": "Your agent drafts. You decide.",
+        "object_title": "Every change is a card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Your own track",
+        "process_title": "From idea to edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft the change",
+        "step_3": "You approve",
+        "closing": "Nothing lands without you."
+      }
+    },
+    {
+      "name": "Edits reviewed",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "chart_title": "Edits reviewed this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "people_title": "Everyone can review",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Producer",
+        "badge_3": "Client",
+        "closing": "Approve one card at a time."
+      }
+    },
+    {
+      "name": "Tune, do not re-prompt",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 4,
+        "closing_hold": 2.4,
+        "kicker": "Side B",
+        "title": "Dials beat do-overs",
+        "compare_title": "Fixing a template",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2,
+        "closing": "Tune it until it is yours."
+      }
+    }
+  ]
+}

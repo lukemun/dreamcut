@@ -1,0 +1,57 @@
+[
+  {
+    "id": "drawsvg",
+    "title": "DrawSVG documentation",
+    "publisher": "GSAP",
+    "url": "https://gsap.com/docs/v3/Plugins/DrawSVGPlugin/",
+    "publication_date": "unknown",
+    "retrieved": "2026-09-27",
+    "examined_sections": "Description; caveats",
+    "capture_scope": "Source metadata and paraphrased finding, not a full capture",
+    "supports": "DrawSVG animates SVG strokes using dash offsets; it does not animate fills."
+  },
+  {
+    "id": "vivus",
+    "title": "vivus.js",
+    "publisher": "maxwellito",
+    "url": "https://github.com/maxwellito/vivus",
+    "publication_date": "unknown",
+    "retrieved": "2026-09-27",
+    "examined_sections": "Principles; OneByOne",
+    "capture_scope": "Source metadata and paraphrased finding, not a full capture",
+    "supports": "Requires stroke paths; text elements are not accepted; supports sequential length-weighted drawing."
+  },
+  {
+    "id": "masked",
+    "title": "SVG handwriting animation",
+    "publisher": "parttimenerd",
+    "url": "https://github.com/parttimenerd/svg-writing-animation",
+    "publication_date": "unknown",
+    "retrieved": "2026-09-27",
+    "examined_sections": "Creating your own text",
+    "capture_scope": "Source metadata and paraphrased finding, not a full capture",
+    "supports": "Authored pen trajectories clipped to glyph shapes preserve filled lettering."
+  },
+  {
+    "id": "hershey",
+    "title": "Hershey Text JS",
+    "publisher": "techninja",
+    "url": "https://github.com/techninja/hersheytextjs",
+    "publication_date": "unknown",
+    "retrieved": "2026-09-27",
+    "examined_sections": "README; LICENSE; JSON",
+    "capture_scope": "Source metadata and paraphrased finding, not a full capture",
+    "supports": "Provides stroke-font data as JSON and SVG; repository license is MIT."
+  },
+  {
+    "id": "custom",
+    "title": "Inkscape stroke fonts",
+    "publisher": "Shriinivas",
+    "url": "https://github.com/Shriinivas/inkscapestrokefont",
+    "publication_date": "unknown",
+    "retrieved": "2026-09-27",
+    "examined_sections": "README",
+    "capture_scope": "Source metadata and paraphrased finding, not a full capture",
+    "supports": "Supports creating and editing stroke fonts, including non-English fonts."
+  }
+]

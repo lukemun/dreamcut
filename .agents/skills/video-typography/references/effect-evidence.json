@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-05",
+      "catalog": "../../../../docs/effects/catalog.json#FX-05",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-05.mp4",
+          "sha256": "7d06d5659fa2ada40c3c69f701953b1656583e2f7e739a4b09548c39f0be2813",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-typography",
+        "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-typography/references/effect-evidence.json",
+        "inputs": [
+          "Background clip",
+          "chapter rows with start/end seconds, time text and activity text"
+        ],
+        "preparation": "Create editable chapter text; validate non-overlapping chapter times and safe margins",
+        "success_criteria": [
+          "Labels remain legible and update exactly on chapter boundaries."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-20",
+      "catalog": "../../../../docs/effects/catalog.json#FX-20",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "media/FX-20.mp4",
+          "sha256": "7c60569159f9ca57588490af22cb92b0812bb63c06eb3b0e58479dd71c089276",
+          "kind": "video",
+          "credit": "@celfstudies; https://www.instagram.com/reel/DdN_aljAIY0/",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-typography",
+        "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-typography/references/effect-evidence.json",
+        "inputs": [
+          "Background",
+          "exact title and secondary copy",
+          "available font"
+        ],
+        "preparation": "Use separate native text actors and optional star; inspect font metrics",
+        "success_criteria": [
+          "Define what is removed or moved away and what it reveals, then verify the revealed title follows that interaction. Exact mechanism remains pending."
+        ],
+        "evidence": {
+          "before": [],
+          "after": [],
+          "observations": [],
+          "limitations": [
+            "Reference analyzed; no verified recreation packaged."
+          ]
+        }
+      }
+    },
+    {
+      "catalog_id": "FX-INVERSE-CAPTIONS",
+      "catalog": "../../../../docs/effects/catalog.json#FX-INVERSE-CAPTIONS",
+      "recipe": {
+        "version": 1,
+        "status": "candidate",
+        "reference": {
+          "path": "../../public/guide/effects/blue-steel-caption-reference.png",
+          "sha256": "a3bdc5ccbd1c2a2c0a5babfb3036adf26fcabadd441254d950bbeef0ba77f88e",
+          "kind": "image",
+          "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; source frame 2 at 24 fps",
+          "rights": "licensed"
+        },
+        "recreation": null,
+        "skill": "video-typography",
+        "skill_path": "../../.agents/skills/video-typography/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-typography/references/effect-evidence.json",
+        "inputs": [
+          "Background footage beneath native text",
+          "Exact caption text",
+          "Reviewed MFA word timings when following speech"
+        ],
+        "preparation": "Choose Inverse Video and its Blue steel captions option. Follow the blue-steel-inverse-captions style recipe for settings and timing limits.",
+        "success_criteria": [
+          "Glyphs invert the composed background, producing blue steel over warm skin and charcoal over light clothing.",
+          "Text remains native and speech timing remains source-bound.",
+          "Verify new-footage contrast and word-change motion before claiming the reference recreated."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/guide/effects/blue-steel-caption-reference.png",
+              "sha256": "a3bdc5ccbd1c2a2c0a5babfb3036adf26fcabadd441254d950bbeef0ba77f88e",
+              "kind": "image",
+              "credit": "@anderson.taii / Anderson Tai; https://www.instagram.com/reel/Da0d8suu6kJ/; source frame 2 at 24 fps",
+              "rights": "licensed"
+            }
+          ],
+          "after": [],
+          "observations": [
+            "Source frame 2 shows the opening inverted word; frames 41\u201343 show a quick downward word entrance.",
+            "Existing Inverse Video uses white glyphs with Difference on the compositing wrapper. The option clears outline, drift and sweep."
+          ],
+          "limitations": [
+            "No new-footage recreation packaged for this recipe.",
+            "Exact original font and blend preset are unconfirmed.",
+            "Aligned single-word captions do not yet support a downward entrance at each word; independently timed word clips can approximate it.",
+            "Colour depends on the underlying footage; this is not a fixed blue gradient."
+          ]
+        }
+      }
+    }
+  ]
+}

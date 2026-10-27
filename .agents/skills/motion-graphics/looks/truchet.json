@@ -1,0 +1,81 @@
+{
+  "id": "truchet",
+  "title": "Truchet",
+  "family": "Generative",
+  "description": "A living multi-scale maze of quarter-arc pipe tiles that flip, glow and carry colour waves under hard-shadow plates; bars, bodies, clips and meters fill with their own small mazes, the headline word spells itself in tiles, and scene changes are a diagonal wave of tiles turning over.",
+  "arrival": "wipe",
+  "change": "grid",
+  "texture": "maze",
+  "examples": [
+    {
+      "name": "Anatomy of a proposal",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 4.2,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Inside DreamCut",
+        "title": "Every edit is a proposal",
+        "object_title": "What is on a card",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed change",
+        "callout_3": "Your current cut",
+        "closing": "You approve every change."
+      }
+    },
+    {
+      "name": "Review pipeline",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4.0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "process_title": "How a change is made",
+        "step_1": "Read the cut",
+        "step_2": "Draft the edit",
+        "step_3": "You approve",
+        "chart_title": "Dials per template",
+        "bar_1_label": "Text",
+        "bar_2_label": "Timing",
+        "bar_3_label": "Colour",
+        "bar_4_label": "Motion",
+        "bar_1": 6,
+        "bar_2": 9,
+        "bar_3": 4,
+        "bar_4": 12,
+        "highlight": "4"
+      }
+    },
+    {
+      "name": "Crew and tuning",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.8,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Who reviews the cut",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Tuning beats re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

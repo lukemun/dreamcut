@@ -1,0 +1,81 @@
+{
+  "id": "light-painting",
+  "title": "Light Painting",
+  "family": "Light",
+  "description": "A long-exposure night photograph: star trails wheel over a town and a road of car trails while a wand writes every word in single-stroke capitals and draws each bar, figure and step in white-hot light, and a shutter streak crosses the frame between scenes.",
+  "arrival": "write",
+  "change": "frost",
+  "texture": "grain",
+  "examples": [
+    {
+      "name": "Anatomy of a card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Drawn in light",
+        "title": "Every change arrives as a card",
+        "object_title": "What is on the card",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "Approve it, tune it, or undo it."
+      }
+    },
+    {
+      "name": "Numbers and steps",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed each week",
+        "bar_1_label": "Wk 1",
+        "bar_2_label": "Wk 2",
+        "bar_3_label": "Wk 3",
+        "bar_4_label": "Wk 4",
+        "bar_1": 8,
+        "bar_2": 15,
+        "bar_3": 24,
+        "bar_4": 38,
+        "highlight": "4",
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The review room",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Who works on the cut",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Rework before and after",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

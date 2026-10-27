@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talking Head Cutout"
+  short_description: "Create and audit source-synchronized presenter cutouts"
+  default_prompt: "Create or refine a talking-head cutout and verify its matte across the full visible interval."

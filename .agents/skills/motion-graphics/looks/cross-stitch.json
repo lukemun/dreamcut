@@ -1,0 +1,82 @@
+{
+  "id": "cross-stitch",
+  "title": "Cross-Stitch",
+  "family": "Craft",
+  "description": "A sampler worked on aida cloth in a wooden hoop: every picture, label and number is built from real cross stitches, sewn row by row behind a needle that trails its thread, while a second needle sews a seam and the hoop slides along the cloth between scenes.",
+  "arrival": "type",
+  "change": "fade",
+  "texture": "linen",
+  "examples": [
+    {
+      "name": "Growing together",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "The garden journal",
+        "title": "Small steps grow into good work",
+        "chart_title": "Seedlings this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 21,
+        "bar_4": 36,
+        "highlight": "4",
+        "closing": "One stitch at a time."
+      }
+    },
+    {
+      "name": "A careful workflow",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "A place for every idea",
+        "device": "laptop",
+        "callout_1": "Picture",
+        "callout_2": "Sequence",
+        "callout_3": "Source",
+        "process_title": "Make something worth keeping",
+        "step_1": "Plan",
+        "step_2": "Make",
+        "step_3": "Refine"
+      }
+    },
+    {
+      "name": "Small changes add up",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "Made with a little help",
+        "people_count": 4,
+        "badge_1": "Plan",
+        "badge_2": "Make",
+        "badge_3": "Share",
+        "compare_title": "Small changes add up",
+        "before_label": "First try",
+        "before_value": 3,
+        "after_label": "Next try",
+        "after_value": 8
+      }
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "gouache",
+  "title": "Gouache",
+  "family": "Painterly",
+  "description": "A travelling poster painted in flat, matte gouache. A coastal world sits under every scene in receding layers of snow peaks, pine ridges, sea, a lighthouse headland, meadow and bluff, each edge dragged dry so bristle marks show the colour below. The camera pans along the coast between scenes while the sky turns from dawn to night. Numbers are crate towers on a quay or the height of a mountain, labels are lettered tags, and everything keeps moving: flags flap, a lighthouse beam sweeps, gulls cross, boats bob, smoke curls and painted folk breathe and blink.",
+  "arrival": "wipe",
+  "change": "fade",
+  "texture": "grain",
+  "examples": [
+    {
+      "name": "Proposal quay",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "A DreamCut field guide",
+        "title": "Every edit starts as a proposal",
+        "chart_title": "Proposals reviewed this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "closing": "You approve. Then it lands."
+      }
+    },
+    {
+      "name": "Desk and trail",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "One card, three parts",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "process_title": "From request to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Crew and summit",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Who works on a cut",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Re-prompts vs dial tweaks",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

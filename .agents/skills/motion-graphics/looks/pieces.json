@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "template": "illustrated-explainer",
+  "sections": {
+    "stage": {
+      "label": "World"
+    },
+    "front": {
+      "label": "Front light"
+    }
+  },
+  "scenes": {
+    "title": {
+      "label": "Title",
+      "pieces": {
+        "avatars": "Avatars",
+        "notice": "Notice",
+        "timeline": "Timeline",
+        "meter": "Meter",
+        "dial": "Dial",
+        "card": "Card",
+        "bird#": "Bird",
+        "film": "Film",
+        "shears": "Shears",
+        "offcut": "Offcut"
+      }
+    },
+    "chart": {
+      "label": "Chart",
+      "pieces": {
+        "bars": "Bars",
+        "stat": "Stat",
+        "share": "Share",
+        "toolbar": "Toolbar"
+      }
+    },
+    "object": {
+      "label": "Device",
+      "pieces": {
+        "device": "Device",
+        "device-card": "Device card",
+        "meter": "Meter",
+        "callout#": "Callout",
+        "toolbar": "Toolbar"
+      }
+    },
+    "people": {
+      "label": "People",
+      "pieces": {
+        "card": "Card",
+        "person#": "Person",
+        "badge#": "Badge",
+        "toolbar": "Toolbar"
+      }
+    },
+    "process": {
+      "label": "Steps",
+      "pieces": {
+        "step#": "Step",
+        "track": "Track",
+        "toolbar": "Toolbar"
+      }
+    },
+    "compare": {
+      "label": "Comparison",
+      "pieces": {
+        "before": "Before",
+        "after": "After",
+        "bridge": "Bridge",
+        "toolbar": "Toolbar"
+      }
+    },
+    "closing": {
+      "label": "Closing",
+      "pieces": {
+        "card": "Card",
+        "seal": "Seal",
+        "ring": "Ring",
+        "dot#": "Dot",
+        "chip-*": "Chip",
+        "moon": "Moon",
+        "branch": "Branch",
+        "bird#": "Bird"
+      }
+    }
+  }
+}

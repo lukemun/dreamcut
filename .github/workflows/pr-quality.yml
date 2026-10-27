@@ -1,0 +1,63 @@
+name: PR quality
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pr-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    name: PR quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Isolate local project storage
+        run: |
+          echo "TIMELINE_PROJECTS_DIR=$RUNNER_TEMP/dreamcut-projects" >> "$GITHUB_ENV"
+          echo "DREAMCUT_PROFILE_DIR=$RUNNER_TEMP/dreamcut-profile" >> "$GITHUB_ENV"
+      - run: pnpm install --frozen-lockfile
+      - name: Install media test tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3-venv
+          python3 -m venv "$RUNNER_TEMP/media-python"
+          "$RUNNER_TEMP/media-python/bin/python" -m pip install numpy==2.2.6 librosa==1.0.0
+          echo "$RUNNER_TEMP/media-python/bin" >> "$GITHUB_PATH"
+          echo "BEAT_PYTHON=$RUNNER_TEMP/media-python/bin/python" >> "$GITHUB_ENV"
+      - name: Typecheck
+        id: types
+        run: pnpm typecheck
+      - name: Editor UI integration contract
+        run: pnpm check:editor-ui
+      - name: Regression tests
+        id: tests
+        if: ${{ !cancelled() }}
+        run: pnpm test
+      - name: Audio comparison boundary tests
+        run: '"$BEAT_PYTHON" scripts/compare-rendered-audio.test.py'
+      - name: Evidence summary
+        if: ${{ always() }}
+        env:
+          TYPES: ${{ steps.types.outcome }}
+          TESTS: ${{ steps.tests.outcome }}
+        run: |
+          {
+            echo '## PR quality evidence'
+            echo "Typecheck: $TYPES"
+            echo "Regression tests: $TESTS"
+            echo "Renderer contract: run locally with pnpm verify:render-contract"
+            echo 'Passing checks means ready for code review, not proof of correctness or approval to merge.'
+            echo 'Review correctness, safety, complexity, meaningful tests, and UI evidence using docs/standards/pr-review.md.'
+          } >> "$GITHUB_STEP_SUMMARY"

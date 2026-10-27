@@ -1,0 +1,81 @@
+{
+  "id": "pictograms",
+  "title": "Pictograms",
+  "family": "Data",
+  "description": "A printed picture-statistics sheet: rows of identical symbols are the data, part-filled symbols are the remainders, and three muted inks sit on warm paper while symbol conveyors, a halftone sun and a printing roller keep the sheet moving between plates.",
+  "arrival": "wipe",
+  "change": "grid",
+  "texture": "paper",
+  "examples": [
+    {
+      "name": "Anatomy of a proposal card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.2,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.2,
+        "kicker": "Plate 01",
+        "title": "Anatomy of a proposal card",
+        "object_title": "What is on the card",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "Every part has a purpose."
+      }
+    },
+    {
+      "name": "Edits reviewed per week",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Edits reviewed each week",
+        "bar_1_label": "Week 1",
+        "bar_2_label": "Week 2",
+        "bar_3_label": "Week 3",
+        "bar_4_label": "Week 4",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "process_title": "How a change gets built",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You sign off"
+      }
+    },
+    {
+      "name": "Who reviews, and how much rework",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Roles on the project",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Rework before and after",
+        "before_label": "Redos",
+        "before_value": 8,
+        "after_label": "Tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

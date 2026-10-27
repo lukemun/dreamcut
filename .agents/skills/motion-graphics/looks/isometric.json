@@ -1,0 +1,82 @@
+{
+  "id": "isometric",
+  "title": "Isometric",
+  "family": "Dimensional",
+  "description": "A chain of floating pastel islands in true 30° isometric: three-tone solids with long soft shadows build up scene by scene (a studio, a skyline chart, a desk, a review table, an assembly line), trams shuttle across the bridges and the camera glides from island to island before pulling back over the finished world.",
+  "arrival": "rise",
+  "change": "fade",
+  "texture": "grain",
+  "examples": [
+    {
+      "name": "The edit studio",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Inside DreamCut",
+        "title": "A studio that builds itself",
+        "object_title": "Every change lands as a card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original track",
+        "closing": "You approve. It applies."
+      }
+    },
+    {
+      "name": "Skyline to assembly line",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed each day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 48,
+        "highlight": "4",
+        "process_title": "How an edit gets made",
+        "step_1": "Read the cut",
+        "step_2": "Draft the card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Review island",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "people_title": "Everyone reviews together",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "compare_title": "Rework before and after",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

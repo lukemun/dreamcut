@@ -1,0 +1,1655 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-30",
+  "method": "Repository-wide file inventory and static boundary scan; focused implementation review of shortlisted families. Marker scan is advisory, not a complete effect analysis. Not every file received a line-by-line correctness review.",
+  "scripts": [
+    {
+      "path": "scripts/agent-activity.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "bafbc1cadc5e6e42a27dfea8d11e8fff9304c2779ec9597e87d02c94e7d0621d",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/align.ts",
+      "disposition": "candidate-family",
+      "capability": "speech-preparation",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "402e46bd8d721636ec070faf58ae4cbff52120da00c921a767b2e1674c8b8779",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/alpha-footprints.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "8533d102f479ad5b50b90ea32abc13d4610af3fe76e6de9fbcd48d8ab886bf70",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/animation-layout-check.ts",
+      "disposition": "candidate-family",
+      "capability": "visual-evidence",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "137b1e5d23faba6c1db72acc4c5ee64ce0b582d31dcd10a7c429e6bf528dc813",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/animation-preview-proxy.ts",
+      "disposition": "candidate-family",
+      "capability": "media-readiness",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "43c1fa98e04aee0c5179fa765c25141490579b1d5f8a427a63534ff81d62f0ac",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/audio-enhance-requirements.txt",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "a9d36096c31daaf73f002bd7387b038dc75092f3f0a5acb6b8c2faba8c464d69",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/audit-handwriting-pack.tsx",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "1551906c8ed53d4898c182a8c7cc769f2b8cc0bdbdb7bbfe6105e4c9b958df99",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/audit-interaction-targets.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "f84068f486fd642334b66279ff67ad01a60bb39719d6b71cd348256f3ed4b700",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/beat-grid.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "spatial-rhythm",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "cea23d91ece62593225c105536eff9d3d81f720cea56ecde0c4f0359737b35ce",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/beat-grid.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "spatial-rhythm",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "e05244fd4fda2512e672e572a840e4134e20590cbeac18e5b6ac5b2293ccfcb5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/benchmark-agent-efficiency.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "c70608bc030cc9a38bfd5e4bead12ddab845b3031282b2f0e61b8b64ec3e9565",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/benchmark-editor.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "9937068ffa06420ea94d205225f6ad9e8579b026b2354481c8b3e5ec55fac2a1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/benchmark-gpu-seeks.ts",
+      "disposition": "development-eval-internal",
+      "capability": "gpu-preview-verification",
+      "reason": "Internal paused-seek and playback instrument for the GPU preview on synthetic media; does not mutate working timelines or expose an editing tool.",
+      "sha256": "0ab1bd84bc74f3b2b33d987e7ee970f7027c611de001ce45f87f30d0e4fe0450",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/benchmark-preview-playback.ts",
+      "disposition": "development-eval-internal",
+      "capability": "gpu-preview-verification",
+      "reason": "Internal playback performance and correctness instrument; does not mutate working timelines or expose an editing tool.",
+      "sha256": "d08ac660f511f2fb0eeaa2964b3657a5696069b74bd48b1f3c882401c4a7cc76",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/benchmark-warm-stills.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "9c886dd986704ef073c802520da8f4da30da1d66f784fdb164d3ef81931c53a7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/build-looks.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Repository check: confirms every look in looks.json has its code and details and builds into its own bundle (runtime, kit, one look). DreamCut supplies that bundle to each graphic; agents never send look code.",
+      "sha256": "bcdaadfe4a3610b670bb30b77d72dfc8cbd6f0b1706ec8ab6595150f69a37779",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/build-paper-contour-assets.py",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "39d71d7c51fe03431b3013e976ff14fd83f375a6e0b803a20a5f0a2b37d880f8",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/build-prebuilt-runtime.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Release build step called by desktop/build.mjs; compiles the GPU preview worker and prepared renderer into prebuilt/. Not an agent tool.",
+      "sha256": "67172c42d3c4067a38a772639fadb857e00882e11445b7b020e5dabbbe1d958e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/build-take-audition.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "2c6b640cdffae55119250cf404ec4585e2d962515972f5a8461e512069a5cbeb",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/caption-geometry.ts",
+      "disposition": "candidate-family",
+      "capability": "visual-evidence",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "132d47ac0dd02f8facf92edf46f82b028246bce5cf566b8a7fcc70d89ef6e73f",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/caption-wrap-parity.ts",
+      "disposition": "candidate-family",
+      "capability": "visual-evidence",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "3d30fd9428cab484ef7e889187cde2c1a8d519159599e52b1eb2f8bf41e31883",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/captions-from-alignment.ts",
+      "disposition": "candidate-family",
+      "capability": "speech-preparation",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "6380b5ae383c5b67c368b88c0e07cb74aaeeb6c29d6dfa7c1eafda94f3a4d240",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/check-agent-parity.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Repository check enforcing one MCP editing surface for coding agents and the in-editor agent; not an agent tool.",
+      "sha256": "6ae2332ce8bac17cdbecb4ab4b70819f3bf3a4ac515803f5a165d34c08548914",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-catalog-privacy.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Repository check (pnpm check:catalog-privacy, pre-commit, check:pr) that keeps the creator's personal media out of tracked catalogs; not an agent tool.",
+      "sha256": "bd36ab1b83ffd8e5476d3e20008658f019b9670d6fb55812f9c8a397144ef3e4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-catalog-privacy.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Tests for the catalog privacy check; not an agent tool.",
+      "sha256": "d4cfafd4018e52e5630547701d4e0b48c684f1d7d0aa8b0728329a0bd5f6d3b7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-private-files.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "a249300968b6ad8505857996e331018e9aea7fa128ca099a2c42ba1f49a60dad",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-tool-features.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "0bbdd1175edbc136d43ab0be61f294d7d1f79b88fb74e057976b22660fbd8c61",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-tool-registry.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "e8c6881fa2580ff418590fa7b0f7ae5a0ec1b4c4463f491b0113dd4692cd3e12",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-tool-schema-portability.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "4ef4614da2357fed3d0a9077694d52bee798822679cf65f9fe3c88cafab6e678",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/citadella-review.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "d7e19a43d5004778a739a6b78b93e66a04b98669dbc27e94902d92b95dbda790",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/citadella-trial-policy.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "4dacc65b3e0158af62d9a44169d01139f804a5032fee7f4bdf7ed1e52a1826dc",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/code-review-hook.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "aa60d0268e0d7c9148a6532cd6bf5f565723349a6f76be09d30fc5d8b5dbcf6e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/code-review-hook.test.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Internal Git review-hook environment isolation and regression verification; no agent tool exposure.",
+      "timeline_write_marker": false,
+      "sha256": "92d95aa5c5e0dd4982f6b107749dcef31a04ef07390b3021e53124151a65c9a8"
+    },
+    {
+      "path": "scripts/codex-local.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "46cbbd2cdc7e22ef066fdbbe22e531208a6d75e382cfb533f4d58afa73dad21f",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/codex-tool-trial.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "0aed8b8b92aaae04368ab64eb98470b09de661a5329e55bfb94b63ace0a478c2",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/color-managed-video.ts",
+      "disposition": "candidate-family",
+      "capability": "media-readiness",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "803032f6cf125eeefbf190277401bcdcd2b904856fc32341eeceaa037b81ee3b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/compact-timeline.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "b1064fa4b75a938e7cc8990d005fe26a2faef6da1279c01ebb25af9fccb4135c",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/compare-caption-variants.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "1740570bbe17b9c3a5ed5dc88930674ed2d2b6f72c7883f7f62c4ba627cfc0d7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/compare-rendered-audio.py",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "12a9d1913893869ad7a74a9b30272767bbf211591721e86fc9df7e4a0ba98155",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/compare-rendered-audio.test.py",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "8de7a2550c09ba0d42071d8ec3e9e880cf712eab677746cc66b86ecf162b6e98",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/compare-rendered-videos.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "c8d14f2218fa839b036b9d2d3bd58695ac714724094c97a8f524ab0bb911b035",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/compare-renderer-reference.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "a7b01e85fad95e2124ddd5c7542f419857bd95512ab7b64561a0fba240c973a6",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/composition-object-probe.ts",
+      "disposition": "candidate-family",
+      "capability": "model-authored-motion",
+      "reason": "Read-only frame probe called by the hyperframes-overlay check: counts separable objects in a composition's default frames so one composition draws one object.",
+      "sha256": "bc9b17f89b554338bc2877446b12463a63cebcef32c93a6b756a5a1fb443d292",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/control-gap-report.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Read-only audit of recorded proposal control gaps for capability planning; never writes a timeline.",
+      "sha256": "e7429ce51d2561d4f5fc0282602ea610d7b5d7e39a47eec3f5b6dcf9f76a9b50",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/denoise-take-audio-spectral-gate.py",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "2268a97de6ecc8f8cc9e8774905b801059eb385c92bc137372a0faf0801930a7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/detect-faces.swift",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "bf210843fb36c1e0c23ca20c5ae5228511eb02f21dae11f334e17c51484753fc",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/doctor.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Read-only health check for an installed DreamCut (`dreamcut doctor`) and `pnpm setup:check`: reports FFmpeg, Chrome, speech tools and models, voice enhancement and subject tracing with the command that installs each. No project/profile mutation or MCP exposure.",
+      "sha256": "4a96f8146b97a44b3e9d8d55090aa9eb576cd676357293a2a58e9ff0fbbea634",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/editor-launch.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Developer launcher for the self-rebuilding stable editor on 3123 (`pnpm editor`); not an editing operation.",
+      "sha256": "8be0391a82662e447d087606d07f59880312d81b9b1b5cb44f3148ab8c87f462",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/episode.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Read-only printout of one activity-journal episode for review; never writes a timeline.",
+      "sha256": "5c08c4f4de479cb948e4394698e57bc1b5262d4ad1f8a6bbe4d68ec0453aaea4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-citadella.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "05773521f2f718b01ad31672b2b1a61b272b0618dc9dd1dd3dfdfc1a0403181b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-dial-selection.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "bf7c963fdae35ef5c89449c3402651c4d8b8af445f5fa61ed12eed560c7914a1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-editing.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "8f287f424dd2b6f40986475850bfd94492a76b537060a12c5edaf30fa8e94ec6",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-hand-swipe-models.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "d247d337a7dea5a813f8696a898d41954a9165c5961814de634474794c20e3da",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-local-models.mts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "de2a049efe7e883696c3fe29e5cfefae758e8810d095b692850cdae0a2e33ea4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-reveals.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "530c0e4b75a9e0e6e09be189208e182b5ea8bd99aeefe0b96c785c88780d0ae3",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/eval-sound-sync.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "598ee5df00ff81624dc5cafdf7cf33513c022babb306ee453f8392b09412c79f",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/extract-enclosed-alpha-mask.ts",
+      "disposition": "candidate-family",
+      "capability": "cutout-treatment",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "79ec8ca41c138c865ffa32d0d432e1efb4a57acc445709da2d3e464c3bda8f17",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/extract-video-window-matte.ts",
+      "disposition": "candidate-family",
+      "capability": "cutout-treatment",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "347cd1b7493a59e8e6f1aaffdfbb31275e4fd9db68dfc5079ce7e72097fad2eb",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/feature-tools.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Paths and pins (micromamba, conda-forge package lists) for the programs an installed DreamCut sets up, and the PATH/DREAMCUT_PYTHON/MFA_BIN it runs with. Data only; no project/profile mutation or MCP exposure.",
+      "sha256": "7eaad9dfc6e8e72ccd22cd2bb62e2dab84194f6008d4f45e83f2022d801a20b0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/fit-handwriting-guides.py",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "b9d327b33d7e19b7031df604e46fa30eb77fb94f44fb2a90eb14eba140d5984c",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/fixtures/generate-source-format-fixtures.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Generates synthetic phone-like fixture clips (HLG, PQ, SDR variants, VFR, rotation) for source-format coverage checks (pnpm fixtures:source-formats); not an agent tool.",
+      "sha256": "04b80dd078f1c9f55c5afbf7829c8833a981d9fd5bec8fcdbe40befb8c266151",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/frame-state-contact-sheet.py",
+      "disposition": "candidate-family",
+      "capability": "visual-evidence",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "cd54eddd8118e8600697c9f643ff051a15ffc64799335ef951c604a23c90abb5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/frame-state.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "visual-evidence",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "d1b5a91ac02a9fee09816929bccb082a48209a697bbec6240d2af4352a84edd0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/frame-vision.sh",
+      "disposition": "internal-worker",
+      "capability": "visual-evidence",
+      "reason": "Historical internal workflow; visual_analyze owns configurable model observations without exposing this shell script.",
+      "sha256": "354ea57904dd4f8a50365737230424d723289b4ba2e86dcda54b87cd63d52788",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/frames.ts",
+      "disposition": "candidate-family",
+      "capability": "visual-evidence",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "e722cb843acea0636de76f78512b5ec9e0ed5b093bcd4cf6ba8ab1af124eda96",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/freeze-dom-assets.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "132b81ad0293acfe2a23be8c6f506b3f51dfcfff19958ba7c9edebf79ee99170",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/generate-assets.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "media-intake-generation",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "0d14df0bd1d0c0b8215b9cc2997b0282f5550853701e7bd62ffc0d0f98a898a0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/generate-effect-pages.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Synchronize public creator pages and README from canonical briefs; no runtime mutation.",
+      "sha256": "1c88d1b6e87d26c6f9132c2a669f142accbb32f9cace6cee82332d4fb9cd2666",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/generate-voice-previews.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Developer recorder for the Generate voice picker's samples: writes public/voice-previews with OpenRouter credit, never a project or timeline. Not an agent-facing capability.",
+      "sha256": "ca4aed39a9c3eee035ab9ea20916cb8457c5492d8bee2c3f5670f148ca0db57b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/grade-citadella.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "945def0736e62654d702ab36c267679b8df6b4aeba6d5a0ed257bc1217ada241",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/hooks/editor-shown-gate.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Internal Claude Code stop hook that checks transcript evidence of editor visibility; not an editing tool or timeline writer.",
+      "sha256": "47519f9f5f619f4b07a47838ceae6b6615cfb2812081a22f40e637b2408cb9c1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/hyperframes-overlay.ts",
+      "disposition": "candidate-family",
+      "capability": "model-authored-motion",
+      "reason": "Experimental CLI owner for model-authored compositions: optional controls file, audit trail and review rating. Evaluate through the shared capability before any MCP exposure.",
+      "sha256": "e8d45fa35f1a8ab057d16c9424d13fc3a50bccdaed383b6019419dbca4b94ec7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/image-analyze.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "e4f91a4419202a002088c8b3b3d9e8d2a842fd25aefd8b4aea26842be0836aba",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/import-media.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "media-intake-generation",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "4840a59c6b0c7294cf71d544d808cf4d7dbecc48850015d3641acaf0be6809c4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/import-video-idea.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "443ee6d7a93d325b5d89f32f643ad0209a8228c2050e3e5aa278f493681f6074",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/lib/citadella-trial-policy.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "dd2977a7805de0b0c0a5eb9bb00326a38d5b900f3f194a7d9d18ff43394311f9",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/lib/codex-tool-trial.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "8fe88a81bc8080156866016b01140a4ca662b7c3b1c3f066414338e8a4502497",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/lib/color-managed-video.ts",
+      "disposition": "candidate-family",
+      "capability": "media-readiness",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "e73050adcc99f8aa372f3de79192d7b44e41e9aab4d304bce0f7699e0f0519b5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/lib/grade-linked-spacing.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "7dccbde1a5f2980c55b10c07405910f84d4e7d6e9895440451a7d968a2619d2f",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/lib/local-tool-trial.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "8e1e885994d3cb516736c350567448a1a352ba4c867fe73c070e2de5cf8e4edb",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/lib/script-error.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "media-intake-generation",
+      "reason": "Shared one-line typed failure report for helper scripts run by MCP tools (media_import, audition_create); not a tool itself.",
+      "sha256": "65fba897f6ea34a1f7158bd334644d1b6a086e223bb700beaadfe15944c119ed",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/loopback-alias.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Editor server plumbing: relays the IPv6 loopback name so long-lived streams get their own browser connection pool; not an editing tool.",
+      "sha256": "7ab678d14ee3e3a4ee122f87417934f7248dc75dd82d8a3614d76a81acec22ff",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/README.md",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "308c7a9bce69a50ae18ef5ae85d616904a662b63cb80e9dbc1f7671bb1020469",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/clean_mask_sequence.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "1c3464f1ae9b3bdf3def237e74ebfb074be43f33a2da287187ef7d58de502d88",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/environment.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": "cutout-preparation",
+      "reason": "Shared package list and checkpoint for the subject-tracing environment, read by setup-matting and cutout_setup. Data only; no project or timeline writes.",
+      "sha256": "b173e97764bf32860feb02a08b0c2a6422c60818bcca121c7efd821013bd47d1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/hand_cutout.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "f0a5d54e00c532199046669982180909195d6f5c95021c0d7bf843cb29ff3955",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/mask_postprocess.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "e05ec5510059d2161cf6d43b46dcbf17a97e5204d2567767e1877a6c13d491d2",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/test_chunk_plan.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "ef4518b34e9aa44af51d2a63ed235da11d9ed1088127e1597a05a77d93a4a4bf",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/matting/test_mask_postprocess.py",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Python worker (or its test/readme) behind the cutout-preparation capability; moved from .matting/ so the local environment folder holds no tracked files.",
+      "sha256": "a16481631de6d605df297e1e8e4c622c516d8144a0e4cf7d787014c44eb5076b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/measure-reels-reference.py",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "0dc9f05ba2ae0c109a25eb03cf3ac069dee64a183ee6e5c79507e8dc9be54e65",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/model-usage.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "f02477db5e5bd1cc1cb42976339751ed9cbba8dbb0bd760947b178351b986917",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-analyze.py",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "fc8da9a27bc8af552c9e6f5aba3adbee94977b0240de0aa6aaf3efc3fe0f6e2f",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-analyze.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "636233aa07a5c4ced0391a6fb88d0e8e9289419d38c77213be25f8a672ef7726",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-catalog-storage.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "de6b28346b9bb2bf0cfc17054eabea175573f72439005079757992a1d254d866",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-derive.py",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "dff1fc74b0fa369145aa5662e62114a865d4e09eb1be59d4bee5a4cbe5c96e30",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-fixture.py",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "5ba6c1242ca786c7a7af3793e53f61df8dd676366323472877669384718d72d4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-import-bundle.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "754af66fb08a6ce5d49b430505b9f6bfa89ed4f286e18657a63e2a38563209a1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-promote.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "ebf0f9b3e5cd1f241f3d693862546522c12d6a1e87df9acce8700353e0c69c1d",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-tempo-audition.py",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "2544cab0bee3365fa861d784df24b4a9a6859f1b0128e83080bb286f4e314bda",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/music-tempo-audition.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "920e3eb54e31ccad4e007b8d9b8aeb9cf0bb1b809e471d66cc682eb1befd826b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/otel-local.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "777b780ce591c9963a75fdff8f25be08632a50f42463367189d616b8157779e4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/otel/codex.config.example.toml",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Local OpenTelemetry collector configuration used by otel-local and verify-local-otel; not an operator interface.",
+      "sha256": "9aed1d6b0080612cc081ac19b38fee59f1f2f970570df9a31c95fd7e071b2a5c",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/otel/collector.yaml",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Local OpenTelemetry collector configuration used by otel-local and verify-local-otel; not an operator interface.",
+      "sha256": "08e91920f7f3d6a77e9f6a3136db02af2540d01599173ada856edc2a9c31b7c0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/perf-check.ts",
+      "disposition": "development-eval-internal",
+      "capability": "performance-profiling",
+      "reason": "Recurring local performance check over clones of configured projects; private receipts and baselines only; not an editing tool.",
+      "sha256": "997acac31618288e32316b98a5d494f0a6d5ca50772ee14efd2513bf54526bed",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/personal-library-move.ts",
+      "disposition": "internal-operator",
+      "capability": null,
+      "reason": "Creator/maintainer CLI that moves catalog entries into the profile's personal library with hash-verified copies; catalog maintenance, not a timeline edit or agent tool.",
+      "sha256": "73565029a236d0ee5cd643222a858cfe498e188bb84147569b507f8bf55219e1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/pr-quality.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "4345ee6e2b0d72ac24af17e825ffb95381ccff8643db58b2b30db87d8c68f20b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-agent-assets.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "media-readiness",
+      "reason": "Internal speech/treatment worker; callable through bounded preparation tools.",
+      "sha256": "127a64fa62683c307aa34d62c0f41a9faac2902d999f257c5c9da42b6933979a",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-cutouts.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "aff0fed76d950e03dba21b6e619558a7e704faf109894ceb56e3658ee4aaf8be",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-edge-aura.py",
+      "disposition": "candidate-family",
+      "capability": "cutout-treatment",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "2b5a73f40d5e74080ec606bda62859bdab55dcafb0476c65fe66a9e2cde9eb23",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-editing-fixture.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Internal hash-verified isolated evaluation setup; no model-facing tool and no working-project writes.",
+      "sha256": "083e2ab0b95fc054c4687cd37686c3830fdef77c112dc5e48712383473bcae33",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-editing-fixture.test.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Deterministic fixture isolation and integrity regression tests.",
+      "sha256": "5758241f5ce679818b1271712a8eef74f455a85423cb2d5655c2b43715e4273e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-guide-proxies.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "78676f752300a984772227ef3de2fb782c6131d17b825aa21b69af1fa8e6b0f8",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-handwriting-font.py",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "c8caad2e5681090c92494bbfe1e30ae704579571960a688d8ed93a05d2633e40",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-handwriting-lines.py",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "1cd991a12039d9672a026b650125f17aef45c246d05db08c6c5d2cd9aa59e9e6",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-handwriting-regions.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "55c555c5a3f25cdf073f7c56c89d94324b2f4531eca7fd58a614db6c6caf13b3",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-handwriting-sweeps.py",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "b6be64fa87791a6ec281752e1ea1921add9c51e11392b42d15004b3fda4ecdda",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-media.ts",
+      "disposition": "candidate-family",
+      "capability": "media-readiness",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "ae93d66a8468c94b3e3efdbfd09391afdf89989502b118871f1d94c30b5875d5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-outline-mask.ts",
+      "disposition": "candidate-family",
+      "capability": "cutout-treatment",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "996cfa792d9ffc6e17b96937549a8b41160d8b23148ab976f15008358c71f066",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/prepare-sprite-alpha.py",
+      "disposition": "candidate-family",
+      "capability": "cutout-treatment",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "8addafa3bd0ad2d9f2904f299a71ec218f2a0048d8a9a30cb8bf665e1efc9cef",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/preprocess.ts",
+      "disposition": "candidate-family",
+      "capability": "media-readiness",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "2df531eca4cb074e2936e750e0004cd73b849a11df06f8c054ae7d8cc96d39d0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/presenter-layout-check.ts",
+      "disposition": "candidate-family",
+      "capability": "visual-evidence",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "c0635c1b12ada9f611b96fbef8de8eda2bdf8bf4870cec916c227909a1b3f48d",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/preview-readiness.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "visual-evidence",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "0a1eca48c3350f797de929003ccd2103b9a36c9df4f66da09a0c97978cd96f44",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/private-file-scan-input.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "c1d110d678466047b380f6d98b2bffde903adca433f3baf87127d733000733a8",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/private-file-scan-input.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "7836cc02cd9b39fd31e2d32ddfea57398eaa20c02639437833e6f0c5ddfe3e0b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/probe.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "edadb79bcfbf8d8e3845bed0f201bb31bc2cd21b65c16e28826e492dbff35c13",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/process-imports.ts",
+      "disposition": "candidate-family",
+      "capability": "media-readiness",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "87527d2485ad8bd2c9cfb02c9776babb06790ac3e9cf2f8e0997421acb6299b6",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/product-signals.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Read-only summary of the local product-signal stream for capability planning; never writes a timeline.",
+      "sha256": "baeeb0a85300ff77abcae25814a76992710097a59b2bdc7f7d29451e28c1d0c0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/product-walkthrough-workflow.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "f54ce441ccecc57c2fda476664ffa57aabfab13cc117fa1bd558c0f8b74621fe",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/profile-route.ts",
+      "disposition": "development-eval-internal",
+      "capability": "performance-profiling",
+      "reason": "In-process CPU profiler for editor server paths on a project clone; private receipts only; not an editing tool.",
+      "sha256": "74b9de80afcc70e1782e35fe809ff39a421b73e594a09a1c30bf9bd3e8a5b841",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/profile-summary.ts",
+      "disposition": "development-eval-internal",
+      "capability": "performance-profiling",
+      "reason": "Read-only summary of saved CPU profiles, DevTools traces and benchmark reports.",
+      "sha256": "d3db038d7f9f90196cad5793c23fb60ea1b99d4710c6f91d9d5be1f35a2d0dfb",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/project-health.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "visual-evidence",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "baf770e9a72cd19d9d4474cb79f73157f3e3a306dfb96e2188d1541f807a905a",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/qc.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "visual-evidence",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "41b2932a67bb17b4e0398fb32dbdf688164a6be9c8753a83a1c51420af5357a0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/record-inspector-previews.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Read an authorized sample assembly and record production-rendered previews; validate credited public sample hashes and optionally substitute the photo fixture without writing a timeline.",
+      "sha256": "b5ba8cb069c5554ab3815d42597e40c9f368c78c03e82fe39077ee44cc6bd5e2",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/record-look-previews.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Developer fixture recorder for public sample look previews through the production GPU renderer; writes preview media and its manifest, never a project timeline. Not an agent-facing editing capability.",
+      "sha256": "53ef84be613efe80b1ee5da8211941d4584c17cbeff06abf1c095b24405819e9",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/record-recipe-demonstrations.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Read-only owned teaching-media recorder; no timeline writes or exposed editing tool.",
+      "sha256": "35179289f0d576ee8ac133fdee3315e047c22aa3b932ec3bfc7a76459d719ff5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/reframe.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "93374ffaa23eb6dfc10ccb2bd6caa2beb100492c9150bb0f2a8ea80a25ed832b",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/render-preview.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "53ae0d2374d8d5cd3d2c98efa176721bd09aa9361e9ffeed562f9542b828ab56",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/render.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "63914207dd9f0e774741f73a78d157d48c6053d45ba7487e8d6cef3c42032b72",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/requirements-stems.txt",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "1bc8abfe1803a16aa60978934ec39dd80228634989708770025b0472b62e95f4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/review-launch.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "9ce876608b41e3bcd0d3f16e301c3afe2e42d2fdf1faebc02b543fd04706079f",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/rough-cut.ts",
+      "disposition": "candidate-family",
+      "capability": "speech-preparation",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "814c8146f0c7f680bc164ff12e8c60a51b8282c63f18e7c3c2565033ec05a09b",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/run-sam2-cutout.mjs",
+      "disposition": "covered-or-internal-worker",
+      "capability": "cutout-preparation",
+      "reason": "Existing MCP capability owns this workflow; improve that owner rather than duplicate it.",
+      "sha256": "9f839b0fe0463c96ac050b04f1c28dc784dc0d66ca6c110893ca7d249e17d916",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/scenes.ts",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "d72b55458618ee33d64495175fdc08ead88276c33fd074167f197a03726cb831",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/scratchpad-cutout.ts",
+      "disposition": "candidate-family",
+      "capability": "cutout-treatment",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "ddbf9aaeaa51f846f1c4fd8207bc6aeeb88f0ee596767ef0d2c3055920611cf4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/seed-demo.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "acfac95487dfabf766f38256287ebf5f8010a8a8fb40dc53b5d6c496bbbe5e40",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/seed-take-auditions.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "91f46d4abffa3dbcd16376837d1ac2990829b2901dffb1f10da7c5ec0da79c88",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/seed-ui-smoke.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "18455a441bab9beeae0b438b05ceda66afad9f612c9398308a43cc1eb3a92291",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/separate-instruments.py",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "fdc523a9d234649d69c98a15c3ad00bc4a53b34cc4e3e8b743d28187520a0589",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/server-with-otel.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "f554827a8a3cca1cb2fdba7b2c926a26827122c918f0fbebeb5f0703ca1e79e0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/session-timeline.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Read-only timeline of one coding-agent session transcript for session retros; never writes a timeline or project.",
+      "sha256": "c5ed5cf438cb3be5ad4ced380da3506f7ad0dcd376fc7fcb8b7a0ec6b6d9b82c",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-features.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "`dreamcut setup`, also started in the background by an installed DreamCut: installs FFmpeg, whisper.cpp, uv, Python and MFA from conda-forge, then the speech models, voice enhancement and subject tracing. No project/profile mutation or MCP exposure.",
+      "sha256": "abd6f1f8747a290167d2003172056e3fd2d60f5903be2f04d8a61d36a7533d51",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-features.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Checks the installed tools' PATH order and the background setup's start rules. Test only.",
+      "sha256": "5ae18b357b4e73fab42428b1ce953ca647aa16c07816a291f7a95fc6fe125f5e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-local.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Developer-only standard/Rust setup: prerequisite checks, confirmed local dependency installation, locked helper build/tests and disposable decode verification. No project/profile mutation or MCP exposure.",
+      "sha256": "ad420a8921bf1cfb0ad459bacb595ec6e3812a55d1630395080b1baf61f5625e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-matting.mjs",
+      "disposition": "exposed",
+      "capability": "cutout-preparation",
+      "reason": "Installs the pinned subject-tracing environment and checksum-verified SAM 2.1 checkpoint. Started by MCP cutout_setup after the creator agrees; no project or timeline writes.",
+      "sha256": "ccfeec1653f6c3c84141d57613219eacdb9062e5c9a7b7882bd2858e2b6e04ec",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-speech.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Downloads the checksum-pinned Whisper models and, when MFA is installed, its English models (`dreamcut setup-speech`, `pnpm setup:speech`). No project/profile mutation or MCP exposure.",
+      "sha256": "3a852309460c630413849a1a61128582de4c1fdd01d529ae164d0e24e9a06977",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-speech.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Checks the speech installer writes models where transcribe, align and speech_prepare read them. Test only.",
+      "sha256": "bbdc35afb124fb3e7a2dc77dfe26bef6cd5ce6ab9ea6d9596dd37404bad3abaf",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/setup-voice.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Installs or repairs the pinned DeepFilterNet voice-enhancement environment and model in the user cache (`dreamcut setup-voice`, `pnpm setup:voice`); a launcher whose venv folder was renamed is rebuilt in the DreamCut location. No project/profile mutation or MCP exposure.",
+      "sha256": "80b29ae361982d4bd285f8700b02b337b3bcee34835cfb12eed675608ddf53ad",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/sfx-analyze.py",
+      "disposition": "defer",
+      "capability": null,
+      "reason": "Potential reusable behavior, but not in the first implementation batch; check existing owners and task evidence first.",
+      "sha256": "a86e3349d241ed4ff7efcc9b9c4ffcac8979583248dadc1933c3d907ff374a9a",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/sound-synth.ts",
+      "disposition": "candidate-family",
+      "capability": "model-authored-motion",
+      "reason": "Experimental CLI owner for code-synthesized sounds with receipts and audit events; no timeline writes. Evaluate through the shared capability before any MCP exposure.",
+      "sha256": "5b1d299a81364de0e0a2dc2bb59396590ebd65b08e727b112dfd1d6d25f32f48",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/sound-units.py",
+      "disposition": "exposed",
+      "capability": "sound-effects",
+      "reason": "Worker behind MCP sound_units_extract: isolates single sound units from separated stems (onset-constrained NMF), fits rebuild models and scores rebuilds. Writes only the job directory it is given; no project or timeline writes.",
+      "sha256": "415667c1301ecadaf24cd6e923b16100cd7fc881d4b1cf84cfc3ccfef2de814d",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/stable-editor.test.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Unit test for the stable editor build slots and the proxy's fallback to a superseded build's static files.",
+      "sha256": "4227ca0ff7e85e0938f88b27d854c6b10d2423f70897bf29b69cc6b1e19ff6ec",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/stable-editor.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Builds and serves the stable editor shared by `pnpm editor` and `pnpm review`; not an editing operation.",
+      "sha256": "685b8e26d1514bc56b834c921e1c8f2b331a5da64b61de5a0939482b49f38371",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/still-worker.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "83eab7e019fb9b449e4bf9716aa9242dfd26a98fb0efd5fb4c83e7998208f6d5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/storage-report.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Read-only storage diagnostic for the creator or developer (storage-management step 1); classifies project media by the records that name it and deletes nothing. No editing outcome, so no MCP tool.",
+      "sha256": "97b20231da84b6ec023b61a39f2b2a55dadbf67835161681af28e76e72d871c0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/task-metrics.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "6ed7cf3e3ea88b1d287616d1fe40fdee04c6f61ba07a9517ca93ebb01806f2b7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/test-core.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "d36df72e13c8d473f8d38b68261f621fec92eac5c097f4118025ea6bd7a74879",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/timeline-editor-agent.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "d671ed97bc87e684a9dd8392563ddd537fea2c1e557b770f902de2a5e8ab3030",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/tool-usage.ts",
+      "disposition": "covered-or-internal-worker",
+      "capability": "tool-accounting",
+      "reason": "Local report of unique DreamCut MCP dispatches; separate from provider OTEL counts.",
+      "sha256": "d8999de95a73c433f33563c4a504a6c6f937aec0a94061cca7f9832be77dfc4b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/track-surface.py",
+      "disposition": "internal-or-deferred",
+      "capability": "surface-tracking",
+      "reason": "Internal bounded preparation worker or synthetic renderer verification; never writes a creator timeline.",
+      "sha256": "c77096d68c5c85034b2b177235f99204bf18f0f636fa9bb4317ddc9435730548",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/transcribe.ts",
+      "disposition": "candidate-family",
+      "capability": "speech-preparation",
+      "reason": "Evaluate through the shared capability; do not expose this CLI unchanged.",
+      "sha256": "e959520f4efb31a2443f4ad7a074f65e2ffb1e65355c279f38ee1b7e4225c05a",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/validate-effect-recipes.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
+      "sha256": "151295c5e60a8a6714ea1a0c64f4114ec8785dd864c65a9829c646e4dd2471d5",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-alpha-preview.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "4d459287276f23b3df5135e61568332418e4cc9145a67776628eff918e99cfc1",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-audio-live-gain.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "2820d49f0142de810ab44563fdb7888e50f9c1ff780ab74a5b2693d74f07e96e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-audio-volume-replay.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "e9161a56900b23d88040871093e9a9dd2938f6063586358f0229186d2bcafe54",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-chroma-key-render.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "a2882ac4a078a404679ec2db8b2ff1816f6257dd2bd0169f477106c34a57b5c6",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-colin-effect-render.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "099cb123e27af95d3c48efcc8a58df5b3da8aba36d364d99d179b1edb04ab00e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-color-grade-render.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "b1cbb63c2345da7166e261280ad6878a11eaff67a62c6b254b46904503f40904",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-continuous-audio-playback.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "b17daccb15544f9a29c5cff22dd2dc87a856589c579e19698467801ad3e13574",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-effect-primitives-render.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "488908dbeca533205c275fed49d88e8f40dc9b495e166ee423db25a746af346b",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-export-resolution.ts",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Renderer-contract export-resolution proof on synthetic fixtures for every supported output canvas; no creator timeline or agent tool exposure.",
+      "sha256": "ba5d55a67be55718fd99068554ec9ec031facb231f4849561e97866b080765a2",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-gpu-preview.ts",
+      "disposition": "internal-or-deferred",
+      "capability": "gpu-preview-verification",
+      "reason": "Internal synthetic preview/encoded reference proof; no creator timeline or agent tool exposure.",
+      "sha256": "d7cd14be9e8da15720f5b48776d1aa440fc4e6a0c12fb926750363b85389bcb9",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-gpu-proposal-preview.ts",
+      "disposition": "internal-or-deferred",
+      "capability": "gpu-preview-verification",
+      "reason": "Isolated synthetic real-editor proposal review proof; no user project or approval authority.",
+      "sha256": "2005a95cd1781fcb2a15b177a06fe4812704119f414e8bf055b1cb7c1b49133a",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/verify-local-otel.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "9390f8e803cb66b1c23b8a57e8cc14ed10622f27d32b954a43273f0585056a8a",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-native-projects.ts",
+      "disposition": "internal-or-deferred",
+      "capability": "native-render-verification",
+      "reason": "Opt-in engineering comparisons of isolated project copies; not an editorial operator or delivery shortcut.",
+      "sha256": "a09144f0ac6e178ea98ad23da1d0b96745793e47eda33c5ce788cf6163ebf463",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-observability.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "fd828a0f58a81ad116e2c8e7e7e036f2a440062732d56713630f87f71a420035",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-playable-windows.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "b6d16ddfe808b44390e560c44636c6fc08b6f0b44366844a45380ae2c3795181",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-playback-contract.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "5c71deebdc6b6ac29ef90a849c7f4951f78ff299dd0d4a49baddca048d974b3e",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-prepared-blocks.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Synthetic selective-preview playback, range-clock and cache acceptance fixture; never edits a creator project.",
+      "sha256": "90a751ac08d3b9437369c5188d89c9ea015577df1096a107f1f1cf5f8eeacd40",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/verify-prepared-playback.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Disposable prepared-playback fixture and regression proof; never edits a creator timeline.",
+      "sha256": "4dbdaa834e5904d2cd31ddc23a0a80ce2c59ac772636bf73339656a7d943efa7",
+      "timeline_write_marker": true
+    },
+    {
+      "path": "scripts/verify-prepared-worker.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Synthetic detached-worker recovery, catalog resolution and sound-only cache verification; never edits a creator timeline.",
+      "sha256": "a8cea2e3f0b2c14c7cd2004d4140aad1e5ce5d57a2824fbbbb964c1a41a0d682",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-preview-first-load.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "4fb2688d8ba9cfb7ae7d5d7af7717c704248d9f4d33880d50f33c5c469d001e3",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-render-goldens.ts",
+      "disposition": "development-eval-internal",
+      "capability": "gpu-preview-verification",
+      "reason": "Internal Standard and GPU export parity check against synthetic golden scenes; does not mutate working timelines or expose an editing tool.",
+      "sha256": "1b114a8f2a48d61a9a3e6e4e02ce46aff3fc721b57f8cf88c25919362e16e1b3",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-renderer-contract.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "f42bc2f250afd62f2bdd2820d0dcabf4584765e242df04c9983997d76e9ba317",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-source-frame-parity.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "2231a6d3dc689ee740c49d31ab42a78ef25eaa61f70cfcc60d66ae9734704978",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-spatial-scene.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "e934a4dc6549261377da703cf4e1d1c2761a0ef5511d36a57bc14613d2a54c5d",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-still-session.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "d1499f4e1577e03c46e4a848c8558e1fcdefc594bddde110608ecedad8c4a3b0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-surface-tracking.ts",
+      "disposition": "internal-or-deferred",
+      "capability": "surface-tracking",
+      "reason": "Internal bounded preparation worker or synthetic renderer verification; never writes a creator timeline.",
+      "sha256": "526c6536060ef976a96ba692c05937955425f73dc69aeed5d54095137087d326",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify-video-render-session.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Internal playback performance and correctness instrument; does not mutate working timelines or expose an editing tool.",
+      "sha256": "6f2ed6415b9153b344a0c87a956cb334cd3d9dca78cd67f352875c0fc44df8c0",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/verify.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "9e2995d8c2eeaec60e3aa3845026a89ea6627092d479908dbfae284bad62c97a",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/walkthrough-assembly-readiness.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "5e294f3bf95cbe816ef04b124d5d0a27c121dcaf9cd196da5f244419f21e8ed4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/walkthrough-boundary-integrity.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "6631987a1147236491dd8564d27882a4752c1c4f41a377c32228aa05acd61bd8",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/walkthrough-capture-atlas.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "419cba94513231bfabd2c6ccba9bc6d6ef694f1af554be566668c8de8e122e16",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/walkthrough-review-readiness.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "faad278d36fb5f1745a5226eaf910b33bea163b3f67004fb6b24ea521254fa14",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/walkthrough-rough-spine-readiness.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "62e03ec935ffcc930036cb731cf5fd7187a2da3e309215cf221e82aea8a8efa6",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/walkthrough-source-readiness.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "f06d91d19175abf3934b95bb6d37d8e853597d195f1fc4ba68dcde10bf5e5d26",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/warm-still-trial.ts",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Development, validation, fixture or evaluation helper; not an editing-operator tool.",
+      "sha256": "4b9329e1710b47c8a924b5d40ca9f309a16e799c460708cd8c53c2331f4a5c83",
+      "timeline_write_marker": false
+    }
+  ]
+}

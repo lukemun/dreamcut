@@ -1,0 +1,81 @@
+{
+  "id": "psychedelic",
+  "title": "Psychedelic",
+  "family": "Poster",
+  "description": "Vibrating poster inks, swirling colour fields and swelling lettering; every scene is a new trip.",
+  "arrival": "rise",
+  "change": "lift",
+  "texture": "swirl",
+  "examples": [
+    {
+      "name": "Far-out edits",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.2,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.2,
+        "kicker": "Tonight only",
+        "title": "Your agent drafts the trip",
+        "process_title": "Turn on, tune in, approve",
+        "step_1": "It reads the cut",
+        "step_2": "It drafts a card",
+        "step_3": "You approve",
+        "closing": "Peace, love and Undo."
+      }
+    },
+    {
+      "name": "The crowd",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "people_title": "Everybody gets a say",
+        "people_count": 5,
+        "badge_1": "You",
+        "badge_2": "Editor",
+        "badge_3": "Client",
+        "chart_title": "Good vibes per cut",
+        "bar_1_label": "Take 1",
+        "bar_2_label": "Take 2",
+        "bar_3_label": "Take 3",
+        "bar_4_label": "Final",
+        "bar_1": 3,
+        "bar_2": 6,
+        "bar_3": 9,
+        "bar_4": 14
+      }
+    },
+    {
+      "name": "Groovy dials",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "object_title": "Every setting is a dial",
+        "device": "phone",
+        "callout_1": "Look",
+        "callout_2": "Colour",
+        "callout_3": "Timing",
+        "compare_title": "Re-prompts vs dial moves",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial moves",
+        "after_value": 2
+      }
+    }
+  ]
+}

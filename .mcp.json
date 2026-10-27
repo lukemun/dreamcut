@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "timeline-editor": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "mcp/server.mjs",
+        "--profile=full"
+      ]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "id": "chalk",
+  "title": "Chalk",
+  "family": "Hand-drawn",
+  "description": "A classroom slate in an oak frame: broken, grainy chalk in white and coloured sticks, written on by a chalk stick, wiped between scenes by a felt eraser and toured with a wooden pointer while dust drifts down.",
+  "arrival": "write",
+  "change": "lift",
+  "examples": [
+    {
+      "name": "Lesson one",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Lesson one",
+        "title": "How a DreamCut edit happens",
+        "process_title": "Three steps to a change",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve",
+        "closing": "Homework: approve one card."
+      }
+    },
+    {
+      "name": "Class results",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved each week",
+        "bar_1_label": "Wk 1",
+        "bar_2_label": "Wk 2",
+        "bar_3_label": "Wk 3",
+        "bar_4_label": "Wk 4",
+        "bar_1": 6,
+        "bar_2": 11,
+        "bar_3": 17,
+        "bar_4": 28,
+        "highlight": "4",
+        "people_title": "Everyone reviews the cut",
+        "people_count": 3,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client"
+      }
+    },
+    {
+      "name": "Show your work",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 2.4,
+        "object_title": "Every change on one card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The new clip",
+        "callout_3": "Your original",
+        "compare_title": "Re-prompts versus dial turns",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 3,
+        "closing": "Check your work, then apply."
+      }
+    }
+  ]
+}

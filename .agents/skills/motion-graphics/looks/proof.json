@@ -1,0 +1,85 @@
+{
+  "id": "proof",
+  "title": "Proof",
+  "family": "Hand-drawn",
+  "description": "Pure black, thin bright strokes and italic serif statements on an endless coordinate plane: axes, fitted curves, braces, boxed results and a commuting diagram draw on, then fill, while the plane pans and shears between scenes.",
+  "arrival": "stroke",
+  "change": "fade",
+  "examples": [
+    {
+      "name": "Theorem of the dial",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 4.2,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 4,
+        "closing_hold": 2.5,
+        "kicker": "Theorem 1",
+        "title": "A dial beats a re-prompt",
+        "chart_title": "Tweaks per approved card",
+        "bar_1_label": "Week 1",
+        "bar_2_label": "Week 2",
+        "bar_3_label": "Week 3",
+        "bar_4_label": "Week 4",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 46,
+        "highlight": "4",
+        "compare_title": "Rounds to reach the look",
+        "before_label": "Re-prompting",
+        "before_value": 9,
+        "after_label": "Turning a dial",
+        "after_value": 2,
+        "closing": "Tune it; don't retype it."
+      }
+    },
+    {
+      "name": "Lemma of the card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4.2,
+        "people_hold": 0,
+        "process_hold": 4.4,
+        "compare_hold": 0,
+        "closing_hold": 2.5,
+        "object_title": "What a proposal shows you",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your cut, untouched",
+        "process_title": "Every edit takes one route",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve",
+        "closing": "Nothing lands without you."
+      }
+    },
+    {
+      "name": "Who holds the pen",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 4.2,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.5,
+        "kicker": "Definition",
+        "title": "Agents draft. People decide.",
+        "people_title": "One reviewer holds the pen",
+        "people_count": 4,
+        "badge_1": "Agent",
+        "badge_2": "You",
+        "badge_3": "Agent",
+        "closing": "The suggestion is theirs; the cut is yours."
+      }
+    }
+  ]
+}

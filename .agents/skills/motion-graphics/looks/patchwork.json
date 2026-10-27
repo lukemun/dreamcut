@@ -1,0 +1,81 @@
+{
+  "id": "patchwork",
+  "title": "Patchwork",
+  "family": "Craft",
+  "description": "A whole quilt as the world: felt appliqu\u00e9 with blanket stitch, button nodes, woven tags, measuring tape and button-eyed dolls sew on over drifting cotton patches, and each change puffs the patches up in a wave while a needle sews a seam across.",
+  "arrival": "wipe",
+  "change": "fade",
+  "texture": "quilt",
+  "examples": [
+    {
+      "name": "Stitched proposal card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.2,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.2,
+        "kicker": "Stitch 01",
+        "title": "A proposal, sewn on",
+        "object_title": "Pinned to the cut",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "Nothing is sewn until you say."
+      }
+    },
+    {
+      "name": "Thread of a change",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "process_title": "How a change is sewn",
+        "step_1": "Measure the cut",
+        "step_2": "Snip and stitch",
+        "step_3": "You approve",
+        "chart_title": "Patches per template",
+        "bar_1_label": "Text",
+        "bar_2_label": "Timing",
+        "bar_3_label": "Colour",
+        "bar_4_label": "Motion",
+        "bar_1": 6,
+        "bar_2": 5,
+        "bar_3": 3,
+        "bar_4": 4,
+        "highlight": "1"
+      }
+    },
+    {
+      "name": "Quilting bee",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.0,
+        "closing_hold": 0,
+        "people_title": "Who sews the cut",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Reworks, before and after",
+        "before_label": "Redos",
+        "before_value": 8,
+        "after_label": "Tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}
