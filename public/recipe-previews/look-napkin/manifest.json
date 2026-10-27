@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Napkin look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"napkin\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 A proposal on a napkin",
+      "at": 5.36
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Sketching the workflow",
+      "at": 2.96
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 Who reviews, what changes",
+      "at": 2.81
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "cbbc3bd98783d948ed73383a3bcef36a1c5eacb4bfc0e76fbb8d422d4aa917e8"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "c7c19c68a21115e51210d49344b2b84675eac2b2147f91266f5141b3dc2e9764"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "26f022cf00fa2c79efce19e4e03cb46018aa28d8c15c64c3abbed5bebf652bd6"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "c7c19c68a21115e51210d49344b2b84675eac2b2147f91266f5141b3dc2e9764"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "7bec7126d847be1ae1a1cb5691285937735040672404c6725bcdf3659d44859a"
+    }
+  ]
+}
