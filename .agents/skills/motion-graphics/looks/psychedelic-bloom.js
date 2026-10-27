@@ -1,7 +1,14 @@
 // Original light-show variation. Shares DreamCut's poster figures and lettering,
 // with a separate deterministic vector backdrop; no reference artwork is embedded.
-window.DreamcutMotion.register("psychedelic-bloom", () => {
+window.DreamcutMotion.register("psychedelic-bloom", ({ hexA }) => {
   const base = window.DreamcutMotion.LOOKS.psychedelic;
+  // The light show fills the frame with the poster's dark ink, so type set in the page reads in
+  // the cream with an ink edge (Psychedelic's own dark type sits on its bright bands).
+  const onShow = (tokens) => ({
+    ink: tokens.psy.cream, muted: hexA(tokens.psy.cream, 0.78),
+    rule: hexA(tokens.psy.cream, 0.9), track: hexA(tokens.psy.cream, 0.14),
+    textShadow: () => `0 0.05em 0 ${tokens.psy.ink}, 0 0 0.18em ${hexA(tokens.psy.ink, 0.6)}`,
+  });
   const TAU = Math.PI * 2;
   function flower(ctx, x, y, r, t, colors, ink) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(t * .12);
@@ -61,6 +68,8 @@ window.DreamcutMotion.register("psychedelic-bloom", () => {
   }
   return {
     ...base,
+    ...onShow(base),
+    palettes: Object.fromEntries(Object.entries(base.palettes).map(([id, palette]) => [id, { ...palette, ...onShow(palette) }])),
     backdrop: () => '#2a0f3d',
     paintOver: false,
     paint: (ctx,W,H,t,accent,look) => lightShow(ctx,W,H,t,look),

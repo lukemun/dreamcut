@@ -1,6 +1,6 @@
 // Shared runtime for motion-graphic looks. Each look file registers itself with
 // `DreamcutMotion.register(id, make)`. DreamCut supplies each graphic's looks.js: this runtime,
-// kit.js and the one look the graphic uses (src/lib/hyperframes/look-bundle.ts).
+// kit.js and the one look the graphic uses, after any look it builds on (src/lib/hyperframes/look-bundle.ts).
 // Deterministic: no clocks, no network fonts, no unseeded randomness.
 (function () {
   const GRAIN = (opacity) =>

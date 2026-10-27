@@ -17,14 +17,18 @@ const looksOrder = JSON.parse(fs.readFileSync(path.join(LOOKS_DIR, "looks.json")
 const looksManifest = { works_with: looksOrder.works_with, looks: looksOrder.order.map((id) => JSON.parse(fs.readFileSync(path.join(LOOKS_DIR, `${id}.json`), "utf8")) as { id: string; examples: { template: string; controls: Record<string, unknown> }[] }) };
 const lookIds = looksManifest.looks.map((look) => look.id);
 
-test("each look builds its own bundle that registers only that look", () => {
+test("each look builds its own bundle that registers that look and only the looks it builds on", () => {
   assert.deepEqual(sharedLooksTemplates(), TEMPLATES);
   for (const id of lookIds) {
     const bundle = buildLookBundle(id);
+    const source = fs.readFileSync(path.join(LOOKS_DIR, `${id}.js`), "utf8");
+    const bases = [...source.matchAll(/DreamcutMotion\.LOOKS\.([a-z0-9_]+)/g)].map((match) => match[1]);
     const registered = [...bundle.matchAll(/DreamcutMotion\.register\("([a-z0-9-]+)"/g)].map((match) => match[1]);
-    assert.deepEqual(registered, [id], `${id} bundle`);
+    assert.equal(registered.at(-1), id, `${id} bundle ends with its own look`);
+    assert.deepEqual(new Set(registered.slice(0, -1)), new Set(bases), `${id} bundle carries the looks it builds on`);
     assert.doesNotThrow(() => new Function(bundle), `${id} bundle parses`);
   }
+  assert.deepEqual([...buildLookBundle("psychedelic-bloom").matchAll(/DreamcutMotion\.register\("([a-z0-9-]+)"/g)].map((match) => match[1]), ["psychedelic", "psychedelic-bloom"]);
   assert.match(buildLookBundle("no-such-look"), /register\("paper"/, "an unknown look falls back to Paper");
 });
 

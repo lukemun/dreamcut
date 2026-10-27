@@ -47,7 +47,18 @@ export function lookIdFromValues(values: Record<string, unknown> | null | undefi
   return typeof look === "string" && LOOK_ID_RE.test(look) ? look : FALLBACK_LOOK;
 }
 
-/** The runtime, the drawing kit and one look; a look with no file falls back to Paper. */
+const BASE_LOOK_RE = /DreamcutMotion\.LOOKS(?:\.([a-z0-9_]+)|\[["']([a-z0-9-]+)["']\])/g;
+
+/** A look and the looks it builds on (read as `DreamcutMotion.LOOKS.<id>`), bases first. */
+function lookChain(dir: string, id: string, seen = new Set<string>()): string[] {
+  if (seen.has(id)) return [];
+  seen.add(id);
+  const source = fs.readFileSync(path.join(dir, `${id}.js`), "utf8");
+  const bases = [...source.matchAll(BASE_LOOK_RE)].map((m) => m[1] ?? m[2]).filter((base) => base !== id && fs.existsSync(path.join(dir, `${base}.js`)));
+  return [...bases.flatMap((base) => lookChain(dir, base, seen)), id];
+}
+
+/** The runtime, the drawing kit and one look with any looks it builds on; a look with no file falls back to Paper. */
 export function buildLookBundle(lookId: string, root = process.cwd()): string {
   const dir = looksDirectory(root);
   const id = LOOK_ID_RE.test(lookId) && fs.existsSync(path.join(dir, `${lookId}.js`)) ? lookId : FALLBACK_LOOK;
@@ -55,7 +66,7 @@ export function buildLookBundle(lookId: string, root = process.cwd()): string {
     `// Supplied by DreamCut for this graphic: the look runtime, the drawing kit and the "${id}" look.`,
     fs.readFileSync(path.join(dir, "runtime.js"), "utf8").trimEnd(),
     fs.readFileSync(path.join(dir, "kit.js"), "utf8").trimEnd(),
-    fs.readFileSync(path.join(dir, `${id}.js`), "utf8").trimEnd(),
+    ...lookChain(dir, id).map((look) => fs.readFileSync(path.join(dir, `${look}.js`), "utf8").trimEnd()),
   ];
   return parts.join("\n\n") + "\n";
 }
