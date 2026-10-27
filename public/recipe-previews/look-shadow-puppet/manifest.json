@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Shadow Puppet look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"shadow-puppet\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 The night's programme",
+      "at": 5.72
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Lighting the lamps",
+      "at": 3.12
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 The troupe",
+      "at": 2.96
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "72e886027d3f5f5d03a82080b954c3a4f6b1c53d0a0ff3b7cc0e76977abe4268"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "54e7fb7a17ea2769080ce6926b6cb4fcb305aa460baee6c374b4971b2b5461d1"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "30fd2018bd0acf8a7c19c43af8749616c6789ecaf796a3be03899425c5d37bc2"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "54e7fb7a17ea2769080ce6926b6cb4fcb305aa460baee6c374b4971b2b5461d1"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "1191b3e8ad8fbf7ec7066572ad2596ea16c43ed2a66654642b468ed93ff3f567"
+    }
+  ]
+}
