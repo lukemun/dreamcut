@@ -1,0 +1,100 @@
+{
+  "rights": "owned",
+  "credit": "Subject and shot: the bobblehead character running on a plain studio, owned and shown by the DreamCut owner's choice. Fill clips from Pexels (Pexels License): pexels.com/video/20082249, 30996082, 4208237, 32287884 and 18830028. Effect reference: @willrvail breakdown of a video by @nvision.media.",
+  "footage": [
+    {
+      "license": "Owned",
+      "role": "The bobblehead runs, then cartwheels, on a plain grey studio (8 s)"
+    },
+    {
+      "pexels_video_id": "20082249",
+      "url": "https://www.pexels.com/video/20082249/",
+      "role": "Fill: ocean aerial",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "30996082",
+      "url": "https://www.pexels.com/video/30996082/",
+      "role": "Fill: neon building at night",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "4208237",
+      "url": "https://www.pexels.com/video/4208237/",
+      "role": "Fill: waterfall",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "32287884",
+      "url": "https://www.pexels.com/video/32287884/",
+      "role": "Fill: rainy neon street",
+      "license": "Pexels License"
+    },
+    {
+      "pexels_video_id": "18830028",
+      "url": "https://www.pexels.com/video/18830028/",
+      "role": "Fill: aerial city at night",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 24,
+  "frames": 144,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; a new clip every 0.5 seconds inside the moving silhouette, with no people in the fills.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-silhouette-window-bobblehead-demo, proposal 20261027T083631-557f34fe (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). The run clip (source 0-6 s) with SAM 2 cutout 9e588f3f as the subject window mask (same prompt and masks as the Moving Grid Matte demo's cutout 650185fa); twelve 0.5 s fills inside it, feather 2, expand 4, strength 1; portrait city fills at scale 1.25. Mask thumbnail is mask frame 24. Poster frame 18; stages frames 6, 18, 30 and 138."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/person.jpg",
+      "sha256": "393bef6fba255b2ab065e25d0ad0542b377fd9e2077bb9bc45d9c0716c327245"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-ocean.jpg",
+      "sha256": "20ae6a4e6fbeaa1fe997c509631021a47452157b34e01158807418f0c96e1d92"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-neon.jpg",
+      "sha256": "807bcc829d81bee4c4efa0f293fc54bd33cfdb25d24c438465255f5919d50bda"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-waterfall.jpg",
+      "sha256": "836f25e053cf752e61ed7b4b5613ee7b30602cedaed6d14d20628752d5874ce8"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/fill-street.jpg",
+      "sha256": "9142c5e4e91f8cbb5691f12aaedab3de2e49d1f33516a6902d5d710002b8ff3d"
+    },
+    {
+      "file": "/recipe-previews/silhouette-window/inputs/moving-mask.png",
+      "sha256": "4da1bf2fd7d047e50fdb751eb1dc0bb1356439a300c3ec919d04244367b7dc05"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "5dc747d35d5d806fd011e753b70eac7f05a34fdec8e594554b68c50fe578168f"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "7d02c07bad1e6dd1f739129c5959fc36eb480ba3dbdae7f4a86766695f7a35f3"
+    },
+    {
+      "file": "first.jpg",
+      "sha256": "150bf1ae934e40c0efa017996f0aeb4bceab17c657e4fd722d4dc4962ca1a1b6"
+    },
+    {
+      "file": "next.jpg",
+      "sha256": "7d02c07bad1e6dd1f739129c5959fc36eb480ba3dbdae7f4a86766695f7a35f3"
+    },
+    {
+      "file": "third.jpg",
+      "sha256": "3857187e917a791377740acfcda26f71a3bd44433faff50f7aa50238de2b4841"
+    },
+    {
+      "file": "follows.jpg",
+      "sha256": "2d41bf5d065b5e1054d24c72a31a260923eb219a1ec0f4e4d8ad644000f68dbd"
+    }
+  ]
+}

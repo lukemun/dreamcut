@@ -1,0 +1,40 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built 3D motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "frames": 180,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "The default city scene at normal speed: it draws in for 1.6 s, then the camera flies for 4 s.",
+  "receipt": {
+    "construction": "Rendered with HyperFrames from .agents/skills/motion-graphics/templates/sketch-3d (index.html, scene.js and dreamcut.controls.json defaults). Encoded to H.264 1280x720 (CRF 31, no audio). Poster is the frame at 2.6 s; stages are frames of the same render at 0.8, 2.6 and 3.8 s. inputs/scenes.jpg is the same engine with a different scene.js (tower, sphere, block, forest, extruded arrow, ground grid) at 3.5 s."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/motion-sketch-3d/inputs/scenes.jpg",
+      "sha256": "5c9c5316adadfebd370c3c96b9044cd43017a4e113de40f8a1527f4c4f6cead0"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "813723fb6e9c44bd2ba8658b9e2e87665569f2008a4c1d17d80372687ddb1215"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "ce7f3737150f23e6f7d6bcf56a6fb71b0bd463a1cbd3d34ee9d1194aa2de898d"
+    },
+    {
+      "file": "drawing-in.jpg",
+      "sha256": "1489b827cd7031ceffe6a1a7e12847b593cbedc9c379d864e0c90380d5dc055c"
+    },
+    {
+      "file": "swooping.jpg",
+      "sha256": "ce7f3737150f23e6f7d6bcf56a6fb71b0bd463a1cbd3d34ee9d1194aa2de898d"
+    },
+    {
+      "file": "street.jpg",
+      "sha256": "c2067c573e73a7e098aa829c4da133ec7abf326f34e120846042305c80072e69"
+    }
+  ]
+}

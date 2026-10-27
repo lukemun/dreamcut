@@ -1,0 +1,37 @@
+{
+  "rights": "owned",
+  "credit": "Subject: the bobblehead character, owned and shown by the DreamCut owner's choice (two still poses). Empty set: \"Bookshelf by a window\" by Mohammadreza Charkhgard on Unsplash (Unsplash License), from DreamCut's image catalog.",
+  "footage": [
+    {
+      "role": "Two still poses of the bobblehead with transparent backgrounds: walking (streaks in and out) and arms crossed (the hold)",
+      "license": "Owned"
+    },
+    {
+      "url": "https://unsplash.com/photos/a-bookshelf-filled-with-lots-of-books-next-to-a-window-57I496odF5c",
+      "role": "Empty set behind the poses",
+      "license": "Unsplash License"
+    }
+  ],
+  "fps": 25,
+  "frames": 130,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; the bobblehead streaks in over 5 frames with a light sideways blur, lands sharp, crosses its arms, then streaks out in 2 frames.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-speed-entrance-bobblehead-demo, proposal 20261027T075309-12798cff (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Stills over the empty-set still: walking pose 0.4-1.0 s keyed media_offset_x -2 -> 0 over 0.2 s (linear) with directional_blur_x 20 held until the last frame before landing; arms-crossed pose 1.0-4.0 s; walking pose 4.0-4.6 s holds 0.12 s, then media_offset_x 0 -> 2 over 0.08 s (easeIn) with directional_blur_x 0 -> 20. The prepared-input thumbnail is the walking pose with a sideways box blur drawn by ffmpeg for illustration. Poster frame 14; stages frames 5, 13, 60 and 104."
+  },
+  "sources": [
+    {"file": "/recipe-previews/speed-entrance-exit/inputs/empty-background.jpg", "sha256": "3a839561c2c821300c004ba5d11e7bc96bac0fc9230634c9dddd072d3966c1d3"},
+    {"file": "/recipe-previews/speed-entrance-exit/inputs/pose-walking.png", "sha256": "d95a8dbdc1cd00fcadadc28c1abb993335e2fe05f9b3a1cd47fa934a35176bd8"},
+    {"file": "/recipe-previews/speed-entrance-exit/inputs/pose-arms-crossed.png", "sha256": "e0ed327aa8e01bb126a3b3dd98809314fbe761b27314153ab17d98e940316d23"},
+    {"file": "/recipe-previews/speed-entrance-exit/inputs/streak-cutout.png", "sha256": "36c4cd00169f56f441acac2a96db051cf0b14417e7d42bcc2acbbf28cc808a64"}
+  ],
+  "outputs": [
+    {"file": "result.mp4", "sha256": "fdf0fc4ec067c1fce7dc5169143824abc7bf060313e2c5be9ab2ab27d8bf920b"},
+    {"file": "poster.jpg", "sha256": "90d7028be9b3fc37dbd424efa367d7770ecdda1ce7dbf1b71753bf98a3124d3e"},
+    {"file": "empty.jpg", "sha256": "232a584aedf8683c672c1998f9fdae9dad267a2e3a0e4b9d6bf58047eabb2705"},
+    {"file": "streak-in.jpg", "sha256": "b8a2c6f4cf5ab048b0b7c9b790ff57af466e9a741021dd4def6be489bf1adcce"},
+    {"file": "settled.jpg", "sha256": "729fb3f828f500111e4f985ff4e637fb97ee323bf90bfef40087c3c71bd8c739"},
+    {"file": "streak-out.jpg", "sha256": "5343c9c8bd7050e10615f175bb7e8cda3ba83ab700ff015f2b72bd23442123d2"}
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "rights": "owned",
+  "credit": "Subject: the bobblehead character, owned and shown by the DreamCut owner's choice (its thumbs-up pose). Empty set: \"Dark library shelves\" by Kevin Laminto on Unsplash (Unsplash License), from DreamCut's image catalog.",
+  "footage": [
+    {
+      "role": "One still pose of the bobblehead with a transparent background: thumbs up",
+      "license": "Owned"
+    },
+    {
+      "url": "https://unsplash.com/photos/brown-wooden-shelves-with-assorted-books-h2VrZPWLhIU",
+      "role": "Empty set behind the poses",
+      "license": "Unsplash License"
+    }
+  ],
+  "fps": 25,
+  "frames": 80,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; the bobblehead appears once at 0.4 s, white for 0.12 s with a halo gone by 0.4 s, then holds in its own colours.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-glitch-glow-bobblehead-demo, proposal 20261027T081719-e41ccafe (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). One still pose (thumbs up, alpha PNG, scale 0.74, centred) over the empty-set still from 0.4 to 3.2 s; subject_flash 1 held 0.12 s then 0, subject_glow 2 held 0.12 s then 1.2 -> 0 by 0.4 s, glow radius 24. The prepared input is the pose's alpha drawn white. Poster frame 13; stages frames 5, 10, 20 and 79."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/empty-background.jpg",
+      "sha256": "14e88c86ce147572e141edb11e82536a54d01b37ff98a12a50383e07a857bf63"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/pose.jpg",
+      "sha256": "03d90a77c8b082ea52ceda17941021b8d31eed585af82917d1adff0d0d416c32"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch-glow/inputs/moving-cutout.png",
+      "sha256": "db29d51960472ac877a39ced67fae43c603c715b4019311b04e3ff32a81147a8"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "1597d5b177f8afe8945574f61994509b9477b4c4e3db1092e3b6a0c69c662f7c"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "6b28743ccd856eddd0b1874f4643ebec9cd4c6cb574ca921faadd3ef68841050"
+    },
+    {
+      "file": "empty.jpg",
+      "sha256": "21557f8f844cacc9701c53e60636625e121bc3d68ab65823fb343acc80149c56"
+    },
+    {
+      "file": "white.jpg",
+      "sha256": "83efdd9cb6c8aec50fcee20471c8634ac3fd74f47ff2186e969e24588bd3f8d5"
+    },
+    {
+      "file": "colour.jpg",
+      "sha256": "0e0233319f0232164857ae35a66b435c62a1837cecf15cfa9f8257a314c5d527"
+    },
+    {
+      "file": "last.jpg",
+      "sha256": "02dcedb4e9479c8e936a700a5fa05f164db51d03054965c517de74db3e88b92b"
+    }
+  ]
+}
