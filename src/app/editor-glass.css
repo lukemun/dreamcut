@@ -1,0 +1,774 @@
+/* Shape: the one home for edges. Every grouped control, field, card and popover reads these, so a look
+   changes corners, outlines and control height in one place. Looks below override them. */
+:root, .editor-chrome {
+  --edge-control: 8px;        /* buttons, fields, toolbar groups, segmented controls */
+  --edge-control-inner: 6px;  /* a segment or button inside a group */
+  --edge-surface: 10px;       /* cards, queue rows, popovers, panels that float */
+  --edge-outline: var(--chrome-line-strong); /* the outline on every group, card and row */
+  --control-height: 32px;
+  --edge-pill: 999px;         /* chips and badges with text (step chips, counts, tags); pro looks square them */
+  /* Counts that ask for attention (proposals to review) take the look's accent, not the panel grey. */
+  --attention: var(--proposal-action, #2f6fbf);
+  --attention-ink: var(--proposal-action-ink, #ffffff);
+}
+/* Tailwind's rounded-* classes follow the same edges inside the editor and its portalled menus. */
+html[data-editor-theme], .editor-chrome {
+  --radius: var(--edge-control); --radius-sm: var(--edge-control-inner); --radius-md: var(--edge-control-inner);
+  --radius-lg: var(--edge-control); --radius-xl: var(--edge-surface); --radius-2xl: var(--edge-surface);
+}
+.editor-chrome :is(.timeline-history-controls, .timeline-playback-controls, .timeline-review-controls-group) {
+  border-radius: var(--edge-control); border: 1px solid var(--edge-outline);
+}
+/* A group is --control-height tall outside its outline, so every group lines up in a row. */
+.editor-chrome :is(.timeline-history-controls, .timeline-playback-controls, .timeline-review-controls-group) { box-sizing: border-box; height: var(--control-height); }
+.editor-chrome :is(.timeline-history-controls, .timeline-playback-controls, .timeline-review-controls-group) > button { height: calc(var(--control-height) - 2px); }
+.editor-chrome :is(.timeline-history-controls, .timeline-playback-controls, .timeline-review-controls-group) > button:first-child { border-radius: var(--edge-control-inner) 0 0 var(--edge-control-inner); }
+.editor-chrome :is(.timeline-history-controls, .timeline-playback-controls, .timeline-review-controls-group) > button:last-child { border-radius: 0 var(--edge-control-inner) var(--edge-control-inner) 0; }
+.preview-settings-panel { border-radius: var(--edge-surface); border-color: var(--edge-outline); }
+
+/* Appearance owns material and canvas colours. Components use semantic tokens;
+   the static backdrop never samples media or follows the playback clock. */
+.editor-chrome {
+  /* Cool Mist surfaces, paired with dark clips for timeline contrast. */
+  color-scheme: light;
+  --chrome-deep: #dfe8f0;
+  --chrome-panel: #f0f5fa;
+  --viewing-surround: #242628;
+  --chrome-raised: #ffffff;
+  --ink: #273747;
+  --ink-secondary: #42576b;
+  --ink-muted: #536b80;
+  --chrome-line: rgb(39 55 71 / 14%);
+  --chrome-line-strong: rgb(39 55 71 / 26%);
+  --chrome-selected-bg: #cddfed;
+  --chrome-selected-ring: #557c9b;
+  --chrome-focus-ring: #326f9d;
+  --surface-raise: var(--chrome-raised);
+  --surface-sink: var(--chrome-deep);
+  --timeline-position-color: #b3382c;
+  --timeline-review-marker-color: #795400;
+  --editor-destructive-ink: #ab302c;
+  --destructive: var(--editor-destructive-ink);
+  --destructive-foreground: var(--editor-destructive-ink);
+  --background: var(--chrome-panel);
+  --foreground: var(--ink);
+  --card: var(--chrome-raised);
+  --card-foreground: var(--ink);
+  --popover: var(--chrome-panel);
+  --popover-foreground: var(--ink);
+  --muted: var(--chrome-deep);
+  --muted-foreground: var(--ink-muted);
+  --secondary: var(--chrome-panel);
+  --secondary-foreground: var(--ink);
+  --border: var(--chrome-line);
+  --input: var(--chrome-line-strong);
+  --ring: var(--chrome-focus-ring);
+  --color-bg-primary: var(--chrome-deep);
+  --color-bg-secondary: var(--chrome-panel);
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--ink-secondary);
+  --color-text-muted: var(--ink-muted);
+  --color-border: var(--chrome-line);
+  --color-card: var(--card);
+  --color-bg-dark: var(--chrome-deep);
+  --color-text-light: var(--ink-muted);
+  --color-divider: var(--chrome-line);
+  --glass-panel: #f0f5fa;
+  --glass-bar: #f0f5fa;
+  --glass-control: #e4edf5;
+  --glass-edge: rgb(255 255 255 / 85%);
+  --glass-shadow: inset 0 1px 0 var(--glass-edge), 0 2px 8px rgb(25 30 40 / 5%);
+  --glass-blur: 28px;
+  --glass-solid: #f0f5fa;
+  --glass-field: #ffffff;
+  --workspace-scene: #dfe8f0;
+  --timeline-clip-visual: #2b455b;
+  --timeline-clip-audio: #294941;
+  --timeline-clip-text: #3d3b50;
+  /* A camera clip: its own colour on every look, so it never reads as picture. */
+  --timeline-clip-camera: #7a5226;
+  /* Layout diagram sections: mid-tone hues that read apart on every appearance. */
+  --layout-slot-1: #6f9fe0;
+  --layout-slot-2: #e39274;
+  --layout-slot-3: #6fbf93;
+  --layout-slot-4: #d8b45c;
+  --timeline-clip-border: #60788c;
+  --timeline-clip-ink: #ffffff;
+  --timeline-clip-shade: 0.12;
+  /* Timeline rows separate by a hairline only, so clips carry the contrast. */
+  --timeline-lane-divider: rgb(39 55 71 / 7%);
+  --chat-composer-edge: rgb(39 55 71 / 28%);
+  --chat-composer-edge-focus: rgb(39 55 71 / 55%);
+  --lane-background: #dfe8f0;
+  --lane-panel: #f0f5fa;
+  --lane-ink: #273747;
+  --lane-muted: #536b80;
+  --lane-line: #bdcddd;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+}
+/* Base UI portals live under <body>, outside .editor-chrome. Mirror the active
+   editor palette on the document root so a Select, tooltip, or popover cannot
+   fall back to the unrelated site theme. These are deliberately opaque: a
+   control menu is a working surface, not glass over the footage. */
+html[data-editor-theme="light"] {
+  color-scheme: light;
+  --chrome-deep: #dfe8f0;
+  --chrome-panel: #f0f5fa;
+  --chrome-raised: #ffffff;
+  --ink: #273747;
+  --ink-secondary: #42576b;
+  --ink-muted: #536b80;
+  --chrome-line: rgb(39 55 71 / 14%);
+  --chrome-line-strong: rgb(39 55 71 / 26%);
+  --chrome-focus-ring: #326f9d;
+  --background: #f0f5fa;
+  --foreground: #273747;
+  --card: #ffffff;
+  --card-foreground: #273747;
+  --popover: #f0f5fa;
+  --popover-foreground: #273747;
+  --accent: #dfe8f0;
+  --accent-foreground: #273747;
+  --border: rgb(39 55 71 / 26%);
+  --input: rgb(39 55 71 / 26%);
+  --ring: #326f9d;
+  --select-selected-bg: #cddfed;
+  --select-selected-marker: #273747;
+}
+html[data-editor-theme="dark"] {
+  color-scheme: dark;
+  --chrome-deep: #1e2228;
+  --chrome-panel: #282e35;
+  --chrome-raised: #3b454f;
+  --ink: #eeeeee;
+  --ink-secondary: #cccccc;
+  --ink-muted: #bdc5cf;
+  --chrome-line: rgb(0 0 0 / 45%); /* dividers read as dark seams, not light lines */
+  --chrome-line-strong: rgb(255 255 255 / 18%);
+  --chrome-focus-ring: #a9bdcf;
+  --background: #282e35;
+  --foreground: #eeeeee;
+  --card: #3b454f;
+  --card-foreground: #eeeeee;
+  --popover: #282e35;
+  --popover-foreground: #eeeeee;
+  --accent: #3b454f;
+  --accent-foreground: #eeeeee;
+  --border: rgb(255 255 255 / 18%);
+  --input: rgb(255 255 255 / 18%);
+  --ring: #a9bdcf;
+  --select-selected-bg: #3b454f;
+  --select-selected-marker: #eeeeee;
+}
+html[data-editor-theme="dark"] .editor-chrome {
+  color-scheme: dark;
+  --chrome-deep: #1e2228;
+  --chrome-panel: #282e35;
+  --viewing-surround: #202122;
+  --chrome-raised: #3b454f;
+  --ink: #eeeeee;
+  --ink-secondary: #cccccc;
+  --ink-muted: #bdc5cf;
+  --chrome-line: rgb(0 0 0 / 45%); /* dividers read as dark seams, not light lines */
+  --chrome-line-strong: rgb(255 255 255 / 18%);
+  --chrome-selected-bg: #424b55;
+  --chrome-selected-ring: #999999;
+  --chrome-focus-ring: #a9bdcf;
+  --timeline-position-color: #ffa291;
+  --timeline-review-marker-color: #ffda82;
+  --editor-destructive-ink: #ffaca4;
+  --glass-panel: #282e35;
+  --glass-bar: #2d353e;
+  --glass-control: #343e48;
+  --glass-edge: rgb(255 255 255 / 10%);
+  --glass-shadow: none;
+  --glass-solid: #2d353e;
+  --glass-field: #22272d;
+  --workspace-scene: #1e2228;
+  --timeline-clip-visual: #243445;
+  --timeline-clip-audio: #243b36;
+  --timeline-clip-text: #343044;
+  --timeline-clip-border: rgb(190 208 225 / 24%);
+  --timeline-clip-ink: #ffffff;
+  --timeline-clip-shade: 0.30;
+  --timeline-lane-divider: rgb(0 0 0 / 40%);
+  /* Soft cool white that sits with the chrome palette. */
+  --chat-composer-edge: rgb(226 233 247 / 30%);
+  --chat-composer-edge-focus: rgb(226 233 247 / 62%);
+  --lane-background: #242b32;
+  --lane-panel: #2d353e;
+  --lane-ink: #eeeeee;
+  --lane-muted: #b8b8b8;
+  --lane-line: rgb(255 255 255 / 12%);
+}
+.editor-glass-workspace { background: var(--workspace-scene); }
+.editor-chrome .timeline-project-header,
+.editor-chrome .timeline-transport-scroll,
+.editor-chrome.timeline-project-header {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-bar) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  box-shadow: var(--glass-shadow);
+  border-color: var(--glass-edge);
+}
+.editor-chrome .portrait-inspector-shell,
+.editor-chrome .glass-workspace-panel {
+  background: var(--glass-panel) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  box-shadow: var(--glass-shadow);
+}
+.editor-chrome .timeline-history-controls,
+.editor-chrome .timeline-playback-controls,
+.editor-chrome .timeline-review-controls-group,
+.editor-appearance-control {
+  background: var(--glass-control);
+  border: 1px solid var(--edge-outline);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 2px 8px rgb(22 55 80 / 10%);
+}
+.editor-appearance-control { display: flex; align-items: center; gap: 5px; padding: 0 8px; min-height: 34px; border-radius: var(--edge-control); color: var(--ink-secondary); }
+.editor-appearance-control select { background: transparent; color: var(--ink); font-size: var(--ui-text-small); min-height: 32px; cursor: pointer; }
+.editor-appearance-control option { background: var(--glass-solid); color: var(--ink); }
+.editor-chrome button:hover:not(:disabled) { color: var(--ink); }
+.editor-chrome :is(button, select):focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: 2px; }
+.timeline-export-backdrop { background: rgb(18 42 64 / 35%); backdrop-filter: blur(8px); }
+.timeline-export-dialog { background: var(--glass-panel); border-color: var(--glass-edge); box-shadow: 0 24px 90px rgb(12 34 54 / 30%); backdrop-filter: blur(var(--glass-blur)); }
+.editor-chrome :is(aside, [role="complementary"], [role="dialog"]) :is(p, span, div, summary, code, input)[class*="text-white"] { color: var(--ink); }
+/* The canvas reads these same tokens; retain a stable reading surface under clips. */
+.editor-chrome .timeline-contrast-well {
+  --chrome-deep: var(--lane-background);
+  --chrome-panel: var(--lane-panel);
+  --ink: var(--lane-ink);
+  --ink-muted: var(--lane-muted);
+  --chrome-line: var(--lane-line);
+  --glass-panel: linear-gradient(150deg, var(--lane-panel), var(--lane-background));
+  box-shadow: inset 0 2px 12px rgb(11 25 44 / 12%);
+}
+.editor-chrome .portrait-inspector-shell :is(input, select, [role="spinbutton"]) { color: var(--ink); background: var(--glass-field); border-color: var(--chrome-line-strong); }
+.editor-chrome .portrait-inspector-shell button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--chrome-selected-ring); }
+@media (prefers-reduced-transparency: reduce) {
+  .editor-chrome, html[data-editor-theme="dark"] .editor-chrome { --glass-panel: var(--glass-solid); --glass-bar: var(--glass-solid); --glass-control: var(--glass-solid); --glass-blur: 0px; }
+  .editor-glass-workspace { background: var(--glass-solid); }
+  .editor-chrome .timeline-contrast-well { --glass-panel: var(--lane-background); }
+}
+
+/* Continuous glass bars meet the workspace at one shared divider. */
+.editor-chrome .timeline-project-header {
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--edge-outline);
+  border-radius: 0;
+  box-shadow: none;
+}
+.editor-chrome .timeline-transport-scroll {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--edge-outline);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Playback leads the left action group; the timecode stays at the right edge. */
+.editor-chrome .timeline-transport-toolbar {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "editing status";
+}
+.editor-chrome .timeline-transport-status {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 0.5rem;
+  grid-area: status;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.editor-chrome .timeline-playback-cluster {
+  grid-area: unset;
+  justify-self: auto;
+}
+.editor-chrome .timeline-timecode { grid-area: unset; flex-shrink: 0; }
+
+/* Header groups share one outer height; nested navigation keeps its inset. Popovers and
+   dialogs anchored in the header (viewer settings, menus) are not header controls: their
+   buttons keep the shared component sizing instead of inheriting header geometry. */
+.timeline-project-header { --header-control-height: 40px; }
+.timeline-project-header .editor-appearance-control,
+.timeline-project-header button:not(.timeline-project-nav > *, [popover] *, [role="dialog"] *, [role="menu"] *) {
+  height: var(--header-control-height);
+  min-height: var(--header-control-height);
+  box-sizing: border-box;
+}
+.timeline-project-header .editor-appearance-control {
+  display: flex;
+  padding: 0;
+  gap: 0;
+  flex-shrink: 0;
+  min-height: var(--header-control-height);
+  height: var(--header-control-height);
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid var(--edge-outline);
+  border-radius: var(--edge-control-inner);
+  background: var(--chrome-panel);
+}
+.timeline-project-header .editor-appearance-control button {
+  display: grid;
+  width: 38px;
+  min-width: 38px;
+  height: calc(var(--header-control-height) - 2px);
+  min-height: calc(var(--header-control-height) - 2px);
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--chrome-line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.timeline-project-header .editor-appearance-control button:first-child { border-left: 0; }
+.timeline-project-header .editor-appearance-control button:hover {
+  background: var(--chrome-raised);
+  color: var(--ink);
+}
+.timeline-project-header .editor-appearance-control button[aria-pressed="true"] {
+  background: var(--chrome-raised);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+}
+.timeline-project-header .editor-appearance-control button:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--chrome-focus-ring);
+  outline-offset: -2px;
+}
+.timeline-project-header .platform-preview-control {
+  display: flex;
+  height: var(--header-control-height);
+  align-items: center;
+  gap: 4px;
+  padding-inline: 7px 6px;
+  border: 1px solid var(--edge-outline);
+  border-radius: var(--edge-control);
+  background: var(--glass-control);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 2px 8px rgb(22 55 80 / 10%);
+  color: var(--ink-secondary);
+}
+.timeline-project-header .platform-preview-control {
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.platform-preview-menu {
+  min-width: 8.25rem;
+  background: var(--chrome-panel);
+  color: var(--ink);
+  border-color: var(--chrome-line-strong);
+  box-shadow: 0 12px 32px rgb(12 34 54 / 20%);
+}
+.timeline-project-header #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *) {
+  height: var(--header-control-height);
+  min-height: var(--header-control-height);
+  border: 1px solid var(--edge-outline);
+  border-radius: var(--edge-control);
+  background: var(--glass-control);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 2px 8px rgb(22 55 80 / 10%);
+  color: var(--ink-secondary);
+}
+.timeline-project-header #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *):hover {
+  background: var(--chrome-raised);
+  color: var(--ink);
+}
+.timeline-project-header #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *)[aria-label] { width: 30px; }
+/* Library and Proposals panel buttons: bordered like Export and the Undo group; selected while their drawer is open. */
+.editor-chrome button.workspace-panel-button {
+  border: 1px solid var(--edge-outline);
+  border-radius: var(--edge-control);
+  background: var(--glass-control);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 2px 8px rgb(22 55 80 / 10%);
+  color: var(--ink-secondary);
+}
+.editor-chrome button.workspace-panel-button:hover:not(:disabled, [aria-pressed="true"]) { background: var(--chrome-raised); color: var(--ink); }
+.editor-chrome button.workspace-panel-button[aria-pressed="true"] {
+  border-color: var(--chrome-selected-ring);
+  background: var(--chrome-selected-bg);
+  box-shadow: inset 0 0 0 1px var(--chrome-selected-ring);
+  color: var(--ink);
+}
+/* Grouped in the header: the group carries the border; each button is a plain cell that fills when its drawer is open. */
+.editor-chrome .workspace-panel-group { padding: 1px; }
+.editor-chrome .workspace-panel-group button.workspace-panel-button { border-color: transparent; background: transparent; box-shadow: none; border-radius: var(--edge-control); height: calc(var(--header-control-height, 32px) - 4px) !important; }
+.editor-chrome .workspace-panel-group button.workspace-panel-button[aria-pressed="true"] { background: var(--chrome-selected-bg); box-shadow: inset 0 0 0 1px var(--chrome-selected-ring); }
+.timeline-project-header .editor-appearance-control select { min-height: 36px; height: 36px; }
+.timeline-project-header button[aria-label="Enter fullscreen"],
+.timeline-project-header button[aria-label="Exit fullscreen"],
+.timeline-project-header button[aria-label="Explain color continuity review"] { width: var(--header-control-height); }
+
+
+/* Proposal prose and controls need opaque reading surfaces in both modes. */
+.editor-chrome {
+  --proposal-surface: #eef5fa;
+  --proposal-positive: #17633f;
+  --proposal-warning: #78500b;
+  --proposal-accent: #654099;
+  --proposal-action: #17633f;
+  --proposal-action-hover: #124e32;
+  --proposal-action-ink: #ffffff;
+  /* Apply stays green in every theme and palette; palettes recolor only --proposal-action. */
+  --proposal-apply: #1a7f4b;
+  --proposal-apply-hover: #166b40;
+  --proposal-apply-ink: #ffffff;
+}
+html[data-editor-theme="dark"] .editor-chrome {
+  --proposal-surface: #263f53;
+  --proposal-positive: #9fe1ba;
+  --proposal-warning: #f3d58c;
+  --proposal-accent: #d5beff;
+  --proposal-action: #17633f;
+  --proposal-action-hover: #1c754b;
+}
+.editor-chrome button[class*="--proposal-action-ink"]:hover { color: var(--proposal-action-ink); }
+.editor-chrome .proposal-panel button[class*="--proposal-apply-ink"]:hover { color: var(--proposal-apply-ink); }
+/* A loading button is busy, not unavailable, so it keeps full strength (review-action-row-v1). */
+.editor-chrome .proposal-panel button:disabled:not([aria-busy="true"]) { opacity: 0.65; }
+.editor-chrome .proposal-panel article { border-color: var(--chrome-line-strong); }
+
+/* Editor-only guides use the compact toolbar control style. */
+[aria-label="Editor view options"] .platform-preview-control {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  justify-content: center;
+  border: 1px solid var(--edge-outline);
+  border-radius: var(--edge-control);
+  background: var(--glass-control);
+  color: var(--ink-secondary);
+}
+
+/* Light appearance is a complete UI palette across routes and body portals.
+   White fields sit above mist panels; blue marks navigation and primary actions. */
+html[data-editor-theme="light"],
+html[data-editor-theme="light"] .editor-chrome {
+  --primary: #32658d;
+  --primary-foreground: #ffffff;
+  --secondary: #e4edf5;
+  --secondary-foreground: #42576b;
+  --muted: #e4edf5;
+  --muted-foreground: #536b80;
+  --accent: #d8e7f3;
+  --accent-foreground: #273747;
+  --proposal-action: #32658d;
+  --proposal-action-hover: #285475;
+  --proposal-action-ink: #ffffff;
+  --proposal-surface: #ffffff;
+  --glass-field: #ffffff;
+  --select-selected-bg: #cddfed;
+  --select-selected-marker: #32658d;
+}
+
+/* Chrome palette (dark appearance, data-editor-palette="chrome"), trial 2026-10-09: brushed graphite
+   with the logo's blue (#0081FB) as the one accent. Buttons use a deeper step of it for 4.5:1 white text.
+   Solid tokens keep every background-color consumer valid; the brushed-metal sheen is a
+   separate background-image layer on bars, panels and controls. Kept quiet: a hint, not a skin. */
+html[data-editor-theme="dark"][data-editor-palette="chrome"] {
+  --logo-blue: #0081fb;
+  --chrome-deep: #12151b;
+  --chrome-panel: #191d24;
+  --chrome-raised: #242a33;
+  --ink: #edf0f6;
+  --ink-secondary: #cbd2de;
+  --ink-muted: #a6aebd;
+  --chrome-line: rgb(0 0 0 / 45%);
+  --chrome-line-strong: rgb(210 225 255 / 17%);
+  --chrome-focus-ring: #4aa3ff;
+  --background: #191d24;
+  --foreground: #edf0f6;
+  --card: #242a33;
+  --card-foreground: #edf0f6;
+  --popover: #191d24;
+  --popover-foreground: #edf0f6;
+  --accent: #232a36;
+  --accent-foreground: #edf0f6;
+  --border: rgb(210 225 255 / 17%);
+  --input: rgb(210 225 255 / 17%);
+  --ring: #4aa3ff;
+  --primary: #0070dc;
+  --primary-foreground: #ffffff;
+  --select-selected-bg: #1d3352;
+  --select-selected-marker: #edf0f6;
+  --color-bg-primary: #12151b;
+  --sheen: linear-gradient(180deg, rgb(255 255 255 / 3.5%), rgb(255 255 255 / 0%) 55%);
+  --sheen-control: linear-gradient(180deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 1%));
+}
+html[data-editor-theme="dark"][data-editor-palette="chrome"] .editor-chrome {
+  --chrome-deep: #13161c;
+  --chrome-panel: #1a1e25;
+  --chrome-raised: #252b34;
+  --viewing-surround: #0d0f12;
+  --ink: #edf0f6;
+  --ink-secondary: #cbd2de;
+  --ink-muted: #a6aebd;
+  --chrome-line: rgb(0 0 0 / 45%);
+  --chrome-line-strong: rgb(210 225 255 / 17%);
+  --chrome-selected-bg: rgb(0 129 251 / 16%);
+  --chrome-selected-ring: rgb(74 163 255 / 60%);
+  --chrome-focus-ring: #4aa3ff;
+  --timeline-position-color: #ff9f8f;
+  --background: #1a1e25;
+  --card: #252b34;
+  --popover: #191d24;
+  --accent: rgb(0 129 251 / 12%);
+  --primary: #0070dc;
+  --glass-panel: #1a1e25;
+  --glass-bar: #1e232b;
+  --glass-control: #252b34;
+  --glass-edge: rgb(255 255 255 / 8%);
+  --glass-shadow: inset 0 1px 0 rgb(255 255 255 / 6%);
+  --glass-blur: 0px;
+  --glass-solid: #1a1e25;
+  --glass-field: #0f1217;
+  --workspace-scene: #13161c;
+  --proposal-surface: #222832;
+  --proposal-action: #0070dc;
+  --proposal-action-hover: #0a7cf0;
+  --proposal-action-ink: #ffffff;
+  --proposal-accent: #8cc4ff;
+  --timeline-clip-visual: #1f4a7a;
+  --timeline-clip-audio: #1f4f55;
+  --timeline-clip-text: #3b3f72;
+  --timeline-clip-border: rgb(210 225 255 / 22%);
+  --lane-background: #15181e;
+  --lane-panel: #1c2028;
+  --lane-ink: #edf0f6;
+  --lane-muted: #a6aebd;
+  --lane-line: rgb(210 225 255 / 9%);
+}
+html[data-editor-theme="dark"][data-editor-palette="chrome"] .editor-chrome :is(.timeline-project-header, .timeline-transport-scroll, .editor-tool-tabs, .portrait-inspector-shell, .glass-workspace-panel) {
+  background-image: var(--sheen);
+}
+html[data-editor-theme="dark"][data-editor-palette="chrome"] .editor-chrome :is(.timeline-history-controls, .timeline-playback-controls, .timeline-review-controls-group, .segmented-control > [aria-selected="true"], .segmented-control > [aria-current="page"], .segmented-control > [aria-pressed="true"], [class*="bg-[var(--glass-control)]"]),
+html[data-editor-theme="dark"][data-editor-palette="chrome"] .editor-appearance-control {
+  background-image: var(--sheen-control);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 7%);
+}
+html[data-editor-theme="dark"][data-editor-palette="chrome"] .editor-chrome :is(button, a):is([class*="bg-[var(--proposal-action)]"], [class*="bg-[var(--proposal-apply)]"]):not(:disabled) {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 14%), rgb(255 255 255 / 0%));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 22%), 0 1px 2px rgb(0 0 0 / 35%);
+}
+
+/* Light appearance with the chrome palette, matched to Claude Code's light theme (2026-10-13): warm ivory
+   surfaces, near-black ink and the clay accent, so the editor sits beside the agent's window as one app.
+   Clay steps are deepened where white text sits on them (4.5:1); clips stay dark for timeline contrast. */
+html[data-editor-theme="light"][data-editor-palette="chrome"],
+html[data-editor-theme="light"][data-editor-palette="chrome"] .editor-chrome {
+  --chrome-deep: #f0eee6;
+  --chrome-panel: #faf9f5;
+  --chrome-raised: #ffffff;
+  --viewing-surround: #1f1e1d;
+  --ink: #1f1e1d;
+  --ink-secondary: #3d3d3a;
+  --ink-muted: #65645e;
+  --chrome-line: rgb(31 30 29 / 13%);
+  --chrome-line-strong: rgb(31 30 29 / 24%);
+  --chrome-selected-bg: #f6e5dc;
+  --chrome-selected-ring: #d97757;
+  --chrome-focus-ring: #b5512f;
+  --logo-blue: #0081fb;
+  --timeline-position-color: #b5512f;
+  --background: #faf9f5;
+  --foreground: #1f1e1d;
+  --card: #ffffff;
+  --card-foreground: #1f1e1d;
+  --popover: #ffffff;
+  --popover-foreground: #1f1e1d;
+  --muted: #f0eee6;
+  --muted-foreground: #65645e;
+  --secondary: #f0eee6;
+  --secondary-foreground: #3d3d3a;
+  --accent: #ece9df;
+  --accent-foreground: #1f1e1d;
+  --border: rgb(31 30 29 / 13%);
+  --input: rgb(31 30 29 / 24%);
+  --ring: #b5512f;
+  --primary: #b5512f;
+  --primary-foreground: #ffffff;
+  --proposal-action: #b5512f;
+  --proposal-action-hover: #9c4426;
+  --proposal-action-ink: #ffffff;
+  --proposal-surface: #ffffff;
+  --proposal-accent: #b5512f;
+  --select-selected-bg: #f6e5dc;
+  --select-selected-marker: #b5512f;
+  --glass-panel: #faf9f5;
+  --glass-bar: #faf9f5;
+  --glass-control: #f3f1ea;
+  --glass-edge: rgb(255 255 255 / 80%);
+  --glass-shadow: none;
+  --glass-solid: #faf9f5;
+  --glass-field: #ffffff;
+  --workspace-scene: #f0eee6;
+  --timeline-clip-visual: #33475b;
+  --timeline-clip-audio: #34493d;
+  --timeline-clip-text: #4a3f57;
+  --timeline-clip-border: #8a8577;
+  --timeline-lane-divider: rgb(31 30 29 / 7%);
+  --chat-composer-edge: rgb(31 30 29 / 24%);
+  --chat-composer-edge-focus: rgb(31 30 29 / 50%);
+  --lane-background: #f0eee6;
+  --lane-panel: #faf9f5;
+  --lane-ink: #1f1e1d;
+  --lane-muted: #65645e;
+  --lane-line: #dedbd0;
+}
+
+/* Portaled menus and dialogs sit outside .editor-chrome: keep the legacy warm `.dark` site
+   tokens from leaking brown into their fields and cards. */
+html[data-editor-theme] {
+  --color-card: var(--card);
+  --color-bg-dark: var(--chrome-deep, var(--background));
+  --color-text-light: var(--ink-muted, var(--muted-foreground));
+  --color-divider: var(--chrome-line, var(--border));
+}
+
+/* Header controls, right side: one size and look for every group (sections, Tall/Wide, Undo/History/Redo,
+   Library/Proposals, Export). Groups are --control-height tall with cells 4px shorter, all edges from the
+   shape tokens, 16px icons, secondary ink at rest;
+   the current section or layout is a neutral fill, an open drawer keeps its blue selected fill. */
+#workspace-project-actions :is(.timeline-project-nav, [aria-label="Editor layout"], .timeline-history-controls, .workspace-panel-group) {
+  height: var(--control-height) !important; box-sizing: border-box; gap: 0 !important; padding: 1px !important;
+  border: 1px solid var(--edge-outline) !important; border-radius: var(--edge-control) !important;
+  background: var(--glass-control) !important; box-shadow: none !important;
+}
+#workspace-project-actions :is(.timeline-project-nav > a, [aria-label="Editor layout"] > button, .timeline-history-controls > button, .workspace-panel-group > button) {
+  height: calc(var(--control-height) - 4px) !important; min-height: calc(var(--control-height) - 4px) !important; min-width: 30px; align-self: center !important;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding-inline: 7px !important; border-radius: var(--edge-control-inner) !important; opacity: 1 !important;
+  color: var(--ink-secondary) !important; background: transparent !important;
+}
+#workspace-project-actions :is(.timeline-project-nav > a, [aria-label="Editor layout"] > button, .timeline-history-controls > button, .workspace-panel-group > button):hover:not(:disabled, [aria-expanded="true"]) { color: var(--ink) !important; background: color-mix(in srgb, var(--ink) 8%, transparent) !important; }
+#workspace-project-actions :is(.timeline-project-nav > a[aria-current="page"], [aria-label="Editor layout"] > button[aria-pressed="true"]) { color: var(--ink) !important; background: color-mix(in srgb, var(--ink) 14%, transparent) !important; box-shadow: none !important; }
+#workspace-project-actions :is(.workspace-panel-group > button[aria-pressed="true"], .timeline-history-controls > button[aria-expanded="true"]) { color: var(--ink) !important; background: var(--chrome-selected-bg) !important; }
+#workspace-project-actions .timeline-history-controls > button:disabled { opacity: .45 !important; }
+#workspace-project-actions :is(.timeline-project-nav, .timeline-history-controls, .workspace-panel-group, #timeline-project-header-actions) svg { width: 16px; height: 16px; stroke-width: 2; }
+#workspace-project-actions #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *) {
+  height: var(--control-height) !important; border-radius: var(--edge-control) !important; border: 1px solid var(--edge-outline) !important;
+  background: var(--glass-control) !important; color: var(--ink-secondary) !important; box-shadow: none !important;
+}
+#workspace-project-actions #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *):hover:not(:disabled) { color: var(--ink) !important; }
+#workspace-project-actions :is(.timeline-project-nav > a, [aria-label="Editor layout"] > button, .timeline-history-controls > button, .workspace-panel-group > button):disabled { opacity: .45 !important; cursor: default; }
+/* The unavailable stand-ins hold each slot until the editor's own controls mount into it. */
+#workspace-project-actions :is(.workspace-layout-actions, .workspace-edit-actions, #timeline-project-header-actions):has(> :not(.editor-only-placeholder)) > .editor-only-placeholder { display: none !important; }
+/* Fixed cell and Export widths, so the header measures the same in every section. */
+#workspace-project-actions .timeline-history-controls:not(.workspace-panel-group) > button { width: 30px !important; min-width: 30px !important; padding-inline: 0 !important; }
+/* Export keeps at least its usual width; longer states (Export ready, Exporting 40%) grow instead of clipping. */
+#workspace-project-actions #timeline-project-header-actions { min-width: 80px; }
+#workspace-project-actions #timeline-project-header-actions button:not([popover] *, [role="dialog"] *, [role="menu"] *) { width: auto !important; min-width: 80px; max-width: none; gap: 6px; }
+/* Cells inside a header group are separated by space, never a divider line. */
+#workspace-project-actions :is(.timeline-history-controls, .timeline-project-nav, [aria-label="Editor layout"]) > :is(button, a) { border: 0 !important; }
+
+/* Studio (default since 2026-10-22): neutral charcoal and one working blue, like DaVinci Resolve and Premiere Pro.
+   Chosen in Settings → Appearance → Look, or ?look=<name> (saved like any palette). */
+html[data-editor-theme="dark"][data-editor-palette="studio"],
+html[data-editor-theme="dark"][data-editor-palette="studio"] .editor-chrome {
+  --chrome-deep: #161616; --chrome-panel: #202020; --chrome-raised: #2e2e2e; --viewing-surround: #0c0c0c;
+  --ink: #e6e6e6; --ink-secondary: #bdbdbd; --ink-muted: #9a9a9a;
+  --chrome-line: rgb(0 0 0 / 55%); --chrome-line-strong: rgb(255 255 255 / 14%);
+  --chrome-selected-bg: #2b3d52; --chrome-selected-ring: #4d8fd6; --chrome-focus-ring: #4d8fd6;
+  --timeline-position-color: #e5484d; --timeline-review-marker-color: #f5c451;
+  --background: #202020; --foreground: #e6e6e6; --card: #2a2a2a; --card-foreground: #e6e6e6;
+  --popover: #232323; --popover-foreground: #e6e6e6; --accent: #2b3d52; --accent-foreground: #e6e6e6;
+  --border: rgb(255 255 255 / 14%); --input: rgb(255 255 255 / 14%); --ring: #4d8fd6;
+  --primary: #2f6fbf; --primary-foreground: #ffffff; --select-selected-bg: #2b3d52; --select-selected-marker: #e6e6e6;
+  --glass-panel: #202020; --glass-bar: #1b1b1b; --glass-control: #2a2a2a; --glass-edge: rgb(255 255 255 / 6%);
+  --glass-shadow: none; --glass-blur: 0px; --glass-solid: #202020; --glass-field: #141414; --workspace-scene: #161616;
+  --proposal-surface: #262626; --proposal-action: #2f6fbf; --proposal-action-hover: #3a7fd4; --proposal-action-ink: #ffffff; --proposal-accent: #8fbfee;
+  --timeline-clip-visual: #2f5b8c; --timeline-clip-audio: #2f6b4f; --timeline-clip-text: #5c4a8c;
+  --timeline-clip-border: rgb(255 255 255 / 18%); --timeline-clip-shade: 0.25; --timeline-lane-divider: rgb(0 0 0 / 55%);
+  --lane-background: #181818; --lane-panel: #202020; --lane-ink: #e6e6e6; --lane-muted: #9a9a9a; --lane-line: rgb(255 255 255 / 8%);
+  --color-bg-primary: #161616;
+}
+html[data-editor-palette="studio"] .editor-chrome { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.005em; }
+/* Studio light (2026-10-24): warm white and one light clay accent, Claude's colours, in place of the cool blue mist. */
+html[data-editor-theme="light"][data-editor-palette="studio"],
+html[data-editor-theme="light"][data-editor-palette="studio"] .editor-chrome {
+  --chrome-deep: #f7f6f3; --chrome-panel: #fdfcfa; --chrome-raised: #ffffff;
+  --ink: #262624; --ink-secondary: #4a4943; --ink-muted: #6b6a63;
+  --chrome-line: rgb(38 38 36 / 11%); --chrome-line-strong: rgb(38 38 36 / 20%);
+  --chrome-selected-bg: #fcefe9; --chrome-selected-ring: #e3a48a; --chrome-focus-ring: #e3a48a;
+  --background: #fdfcfa; --foreground: #262624; --card: #ffffff; --card-foreground: #262624;
+  --popover: #ffffff; --popover-foreground: #262624; --accent: #fcefe9; --accent-foreground: #262624;
+  --secondary: #f7f6f3; --secondary-foreground: #4a4943; --muted: #f7f6f3; --muted-foreground: #6b6a63;
+  --border: rgb(38 38 36 / 20%); --input: rgb(38 38 36 / 20%); --ring: #e3a48a;
+  --primary: #c96442; --primary-foreground: #ffffff; --select-selected-bg: #fcefe9; --select-selected-marker: #c96442;
+  --glass-panel: #fdfcfa; --glass-bar: #fdfcfa; --glass-control: #f7f6f3; --glass-edge: rgb(255 255 255 / 70%);
+  --glass-shadow: none; --glass-blur: 0px; --glass-solid: #fdfcfa; --glass-field: #f6f5f1; --workspace-scene: #f7f6f3;
+  --proposal-surface: #ffffff; --proposal-action: #c96442; --proposal-action-hover: #b85a36; --proposal-action-ink: #ffffff; --proposal-accent: #c96442;
+  --chat-composer-edge: rgb(38 38 36 / 20%); --chat-composer-edge-focus: rgb(38 38 36 / 40%);
+  --timeline-clip-border: #7d776c; --timeline-lane-divider: rgb(38 38 36 / 7%); --timeline-pending-alpha: 0.72;
+  --lane-background: #f7f6f3; --lane-panel: #fdfcfa; --lane-ink: #262624; --lane-muted: #6b6a63; --lane-line: rgb(38 38 36 / 11%);
+  --timeline-review-marker-color: #a86b00;
+  --color-bg-primary: #f7f6f3;
+}
+/* The field around the frame stays neutral but light; previews elsewhere (caption tiles) keep the dark field white text needs. */
+/* Marks drawn over the footage keep the bright amber they have on dark; the light amber is for the chrome around it. */
+html[data-editor-theme="light"][data-editor-palette="studio"] .editor-chrome .editor-viewer { --viewing-surround: #e9e8e4; --timeline-review-marker-color: #f5c451; }
+/* Studio outlines every control: field-filled secondary buttons get the same edge as inputs. */
+html[data-editor-palette="studio"] .editor-chrome [data-slot="button"][class*="bg-[var(--glass-field)]"] { border-color: var(--edge-outline); }
+html[data-editor-palette="studio"] .editor-chrome .memory-body button:not(:where(.recipe-catalog *)) { border-color: var(--edge-outline); }
+/* A switcher's track gets the same edge (the side icon rail has no track), so its unselected options read as choices even where the track matches the panel. */
+html[data-editor-palette="studio"] .editor-chrome .segmented-control:not(.editor-tool-rail) { box-shadow: inset 0 0 0 1px var(--edge-outline); }
+
+
+/* Shape for each look: corners carry as much of a look as colour does, so they hold in both themes.
+   Studio and Ember share the tight pro-editor edges. */
+html:is([data-editor-palette="studio"], [data-editor-palette="ember"]),
+html:is([data-editor-palette="studio"], [data-editor-palette="ember"]) .editor-chrome { --edge-control: 4px; --edge-control-inner: 3px; --edge-surface: 6px; --control-height: 30px; --edge-pill: 3px; }
+
+/* Ember (2026-10-22): warm charcoal with an orange accent, like Logic Pro or Fairlight. Same tight edges as Studio. */
+html[data-editor-theme="dark"][data-editor-palette="ember"],
+html[data-editor-theme="dark"][data-editor-palette="ember"] .editor-chrome {
+  --chrome-deep: #191715; --chrome-panel: #22201d; --chrome-raised: #312d29; --viewing-surround: #0d0c0b;
+  --ink: #ece7e1; --ink-secondary: #c4bcb2; --ink-muted: #a0978c;
+  --chrome-line: rgb(0 0 0 / 55%); --chrome-line-strong: rgb(255 240 225 / 14%);
+  --chrome-selected-bg: #45301f; --chrome-selected-ring: #e8853d; --chrome-focus-ring: #e8853d;
+  --timeline-position-color: #ff6b4a; --timeline-review-marker-color: #f5c451;
+  --background: #22201d; --foreground: #ece7e1; --card: #2a2724; --card-foreground: #ece7e1;
+  --popover: #25221f; --popover-foreground: #ece7e1; --accent: #45301f; --accent-foreground: #ece7e1;
+  --border: rgb(255 240 225 / 14%); --input: rgb(255 240 225 / 14%); --ring: #e8853d;
+  --primary: #b8581c; --primary-foreground: #ffffff; --select-selected-bg: #45301f; --select-selected-marker: #ece7e1;
+  --glass-panel: #22201d; --glass-bar: #1d1b19; --glass-control: #2a2724; --glass-edge: rgb(255 255 255 / 6%);
+  --glass-shadow: none; --glass-blur: 0px; --glass-solid: #22201d; --glass-field: #151311; --workspace-scene: #191715;
+  --proposal-surface: #27241f; --proposal-action: #b8581c; --proposal-action-hover: #cc6526; --proposal-action-ink: #ffffff; --proposal-accent: #f3b07c;
+  --timeline-clip-visual: #4a5d7a; --timeline-clip-audio: #4d6b45; --timeline-clip-text: #6e4d6b;
+  --timeline-clip-border: rgb(255 240 225 / 18%); --timeline-clip-shade: 0.25; --timeline-lane-divider: rgb(0 0 0 / 55%);
+  --lane-background: #1b1917; --lane-panel: #22201d; --lane-ink: #ece7e1; --lane-muted: #a0978c; --lane-line: rgb(255 240 225 / 8%);
+  --color-bg-primary: #191715;
+}
+/* Ember light (2026-10-24): warm off-whites with the same orange accent; clips stay dark for timeline contrast. */
+html[data-editor-theme="light"][data-editor-palette="ember"],
+html[data-editor-theme="light"][data-editor-palette="ember"] .editor-chrome {
+  --chrome-deep: #f5f2ee; --chrome-panel: #fbf9f6; --chrome-raised: #ffffff;
+  --ink: #2a2622; --ink-secondary: #4d463f; --ink-muted: #6e655b;
+  --chrome-line: rgb(42 38 34 / 11%); --chrome-line-strong: rgb(42 38 34 / 20%);
+  --chrome-selected-bg: #fbe8da; --chrome-selected-ring: #e8a06a; --chrome-focus-ring: #d9782f;
+  --timeline-position-color: #d04a2c; --timeline-review-marker-color: #a86b00;
+  --background: #fbf9f6; --foreground: #2a2622; --card: #ffffff; --card-foreground: #2a2622;
+  --popover: #ffffff; --popover-foreground: #2a2622; --accent: #fbe8da; --accent-foreground: #2a2622;
+  --secondary: #f5f2ee; --secondary-foreground: #4d463f; --muted: #f5f2ee; --muted-foreground: #6e655b;
+  --border: rgb(42 38 34 / 20%); --input: rgb(42 38 34 / 20%); --ring: #d9782f;
+  --primary: #b8581c; --primary-foreground: #ffffff; --select-selected-bg: #fbe8da; --select-selected-marker: #b8581c;
+  --glass-panel: #fbf9f6; --glass-bar: #fbf9f6; --glass-control: #f5f2ee; --glass-edge: rgb(255 255 255 / 70%);
+  --glass-shadow: none; --glass-blur: 0px; --glass-solid: #fbf9f6; --glass-field: #f7f4f0; --workspace-scene: #f5f2ee;
+  --proposal-surface: #ffffff; --proposal-action: #b8581c; --proposal-action-hover: #a24c16; --proposal-action-ink: #ffffff; --proposal-accent: #b8581c;
+  --chat-composer-edge: rgb(42 38 34 / 20%); --chat-composer-edge-focus: rgb(42 38 34 / 40%);
+  --timeline-clip-visual: #4a5d7a; --timeline-clip-audio: #4d6b45; --timeline-clip-text: #6e4d6b;
+  --timeline-clip-border: #7d756a; --timeline-lane-divider: rgb(42 38 34 / 7%); --timeline-pending-alpha: 0.72;
+  --lane-background: #f5f2ee; --lane-panel: #fbf9f6; --lane-ink: #2a2622; --lane-muted: #6e655b; --lane-line: rgb(42 38 34 / 11%);
+  --color-bg-primary: #f5f2ee;
+}
+/* Marks over the footage keep the bright amber; the frame's surround stays light but neutral, as in Studio. */
+html[data-editor-theme="light"][data-editor-palette="ember"] .editor-chrome .editor-viewer { --viewing-surround: #e9e6e1; --timeline-review-marker-color: #f5c451; }

@@ -1,0 +1,49 @@
+.instructions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; color: var(--ink-secondary); font-size: var(--ui-text-small); }
+.grid { padding: 0 0 12px; }
+/* Open space over lines: tiles are borderless; the media and its name sit on the panel, and
+   hover/selection add a quiet surface (selection keeps its ring). */
+.tile { position: relative; min-width: 0; padding: 0; overflow: hidden; border: 0; border-radius: var(--edge-control); background: transparent; color: var(--ink); text-align: left; cursor: pointer; transition: background 120ms ease; }
+.tile:hover { background: var(--chrome-raised); }
+.tile:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: 2px; }
+.tile:disabled { cursor: default; opacity: .55; }
+.tile[data-selected="true"] { background: var(--chrome-selected-bg); outline: 2px solid var(--chrome-selected-ring); outline-offset: -2px; }
+.selectImage { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.selectImage:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: -2px; }
+.selectImage:disabled { opacity: .55; cursor: default; }
+/* Over the picture, so selecting never changes the tile's size. */
+.selectionLabel { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 999px; background: var(--glass-control); color: var(--ink); font-size: var(--ui-text-small); pointer-events: none; }
+/* Every card's one action (Add, Add to Media, Use, Prepare, In Media) is the same pill. On image and video cards it sits
+   on the picture's top corner, as part of the thing it adds (2026-10-13 audit); always visible, since hover-only actions
+   were missed. Out of the layout flow, so a label change never resizes the tile. The on-timeline mark keeps the bottom corner. */
+.imageActions { position: absolute; top: 6px; right: 6px; display: flex; }
+.actionPill { flex-shrink: 0; height: 24px; min-height: 24px; padding: 0 8px 0 6px; gap: 3px; border-radius: 999px; background: var(--glass-control); color: var(--ink); white-space: nowrap; font-size: var(--ui-text-small); font-weight: 500; }
+.actionPill:not(:disabled):hover { background: var(--chrome-selected-bg); }
+.actionPill[data-state="in-media"]:disabled { opacity: 1; color: var(--ink-secondary); padding-left: 6px; }
+.selectionBar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; color: var(--ink); font-size: var(--ui-text-small); }
+.picture { position: relative; display: grid; place-items: center; width: 100%; min-height: 40px; overflow: hidden; border-radius: var(--edge-control); background: var(--chrome-deep); }
+.picture img { width: 100%; height: auto; min-height: 0; object-fit: contain; }
+/* Long names keep their end (IMG_2026…_0412.jpg), so a row of shared prefixes still reads apart. */
+.name { display: flex; min-width: 0; padding: 6px 6px 4px; font-size: var(--ui-text-small); line-height: 18px; white-space: nowrap; }
+/* pre keeps a space at the split ("Week Recap" + " Oct 23.mov"); both halves stay on one line. */
+.nameHead { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: pre; }
+.nameTail { flex-shrink: 0; white-space: pre; }
+.status { position: absolute; right: 6px; bottom: 6px; display: grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border: 0; border-radius: var(--edge-control-inner); background: var(--chrome-panel); color: var(--ink); font-size: var(--ui-text-small); }
+
+.videoPicture { position: relative; display: grid; place-items: center; width: 100%; min-height: 40px; overflow: hidden; border-radius: var(--edge-control); background: var(--chrome-deep); }
+.videoPicture video { display: block; width: 100%; height: auto; min-height: 0; object-fit: contain; }
+.meta { display: flex; align-items: center; gap: 6px; padding: 0 6px 6px; font-size: var(--ui-text-small); color: var(--ink-secondary); font-variant-numeric: tabular-nums; }
+
+
+
+/* Fills the tile's picture box (a grid item would otherwise shrink to an unloaded image's zero width). */
+.videoPreviewHost { position: relative; display: grid; place-items: center; width: 100%; min-height: 40px; }
+.videoPicture video, .videoPicture img { cursor: pointer; }
+/* A shared clip not downloaded yet: its shape, a download mark, and the same play button. */
+.notDownloaded { display: grid; place-items: center; width: 100%; color: var(--ink-secondary); cursor: pointer; }
+.videoPicture img { display: block; width: 100%; height: auto; object-fit: contain; }
+/* The started video sits exactly over its poster so the measured tile size never changes. */
+.videoOverlay { position: absolute; inset: 0; width: 100% !important; height: 100% !important; object-fit: contain; background: var(--chrome-deep); }
+/* The one preview control: always visible (no hover-only affordance), large enough to hit easily. */
+.previewButton { position: absolute; left: 8px; bottom: 8px; display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 999px; background: rgb(0 0 0 / 60%); color: #fff; cursor: pointer; }
+.previewButton:hover { background: rgb(0 0 0 / 75%); }
+.previewButton:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: 2px; }

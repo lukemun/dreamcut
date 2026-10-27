@@ -1,0 +1,62 @@
+{
+  "rights": "owned",
+  "credit": "Footage: the bobblehead character running and cartwheeling on a plain studio, owned and shown by the DreamCut owner's choice. Inspired by a \"connect the letters\" tutorial by Camila Tunoni; no reference pixels are reused.",
+  "footage": [
+    {
+      "role": "The bobblehead runs, then cartwheels, on a plain grey studio (8 s), cut into four 1.6 s shots",
+      "license": "Owned"
+    }
+  ],
+  "fps": 30,
+  "frames": 192,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; each outline starts 0.2 s after its cut and draws in 0.6 s, and every outline stays on screen.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-word-search-bobblehead-demo (16:9, 30 fps), proposal 20261027T085941-b2b66160 (pending, not approved): four native clips of the bobblehead clip (source 0.4, 2.2, 5.2 and 6.4 s, 1.6 s each) plus the word-search HyperFrames motion graphic rendered on its landscape canvas (shape wide; render word-search.dc8ec5ae57bf8722.webm, sha256 dc8ec5ae57bf8722cc38b77a6a62bd66fee60dfe6ce31ed88e7c11755ef748a0; words RUN, DASH, FLIP, LAND; 15 columns, letters #232323 at 70%, trace #e5322d at 6 px, shadow off). Rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). The prepared-input thumbnail is overlay frame 190 over plain grey. Poster frame 190; stages frames 5, 30 and 190."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-1.jpg",
+      "sha256": "947855833168da0db0e233a55844fb434b4cd251e4612fd71416c85ca986651e"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-2.jpg",
+      "sha256": "00025b2f30d57cd800939c629377860e3ae6c879fecbb8576db00173fbf36a27"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-3.jpg",
+      "sha256": "921dac6aebe51af80cbef0a4280580c9b41f5ddcd4b217b20780917658b067ca"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/shot-4.jpg",
+      "sha256": "d42082062ac8abd11b76910493b648287d8beb08c918f8122d3aa8a58a3b6f03"
+    },
+    {
+      "file": "/recipe-previews/word-search/inputs/letter-grid.jpg",
+      "sha256": "5c16f513d2ed159f5754183282b96afce35bc875981b41648cd50be6c54b6799"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "0b87f6dc9ab0c0c235c3319acd2ab27e505127134d937ecbeddc7927273f0ef7"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "a116c6f57b37ab5774de54f674518e58d9d1c608314b5cfdfe62904866cefafb"
+    },
+    {
+      "file": "grid.jpg",
+      "sha256": "5acdd756c291e70f1414dc3d71fbe6a746e7f9047cbf1b96edff05acab386a08"
+    },
+    {
+      "file": "first-word.jpg",
+      "sha256": "3c399e216eb707388316d1f78e6e1c3acc691f385fdf320bd06c2513de1b4d0c"
+    },
+    {
+      "file": "all-words.jpg",
+      "sha256": "a116c6f57b37ab5774de54f674518e58d9d1c608314b5cfdfe62904866cefafb"
+    }
+  ]
+}

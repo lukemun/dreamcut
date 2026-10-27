@@ -1,0 +1,46 @@
+/* Project history: one dated feed of what changed, read top (newest) to bottom. */
+.history { display: flex; flex-direction: column; gap: 20px; }
+.waiting { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid color-mix(in srgb, var(--proposal-warning) 35%, transparent); border-radius: var(--edge-surface); background: color-mix(in srgb, var(--proposal-warning) 8%, transparent); }
+.waiting p { flex: 1; margin: 0; font-weight: 600; }
+.waitingDot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 999px; background: var(--proposal-warning); }
+.action { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border: 1px solid var(--edge-outline); border-radius: var(--edge-control); background: var(--glass-control); color: var(--ink); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.action:hover { background: var(--chrome-raised); }
+.action:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: 2px; }
+
+.day { margin: 0; }
+.dayTitle { margin: 0 0 4px; padding: 8px 0; color: var(--ink-secondary); font-size: var(--ui-text-small); font-weight: 650; letter-spacing: .04em; text-transform: uppercase; }
+.feed { position: relative; margin: 0; padding: 0; list-style: none; }
+/* The rail runs through every dot in the day. */
+.feed::before { content: ""; position: absolute; top: 10px; bottom: 10px; left: 75px; width: 2px; border-radius: 2px; background: var(--chrome-line); }
+.entry { position: relative; display: grid; grid-template-columns: 52px 24px minmax(0, 1fr); column-gap: 12px; padding: 8px 0; }
+.time { padding-top: 2px; color: var(--ink-muted); font-size: var(--ui-text-small); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.dot { position: relative; z-index: 1; width: 12px; height: 12px; margin: 5px auto 0; border: 2px solid var(--chrome-deep, var(--background)); border-radius: 999px; background: var(--ink-muted); box-sizing: content-box; }
+.entry[data-kind="request"] .dot { background: var(--timeline-review-marker-color); }
+.entry[data-actor="agent"] .dot { background: var(--proposal-accent); }
+.entry[data-actor="human"] .dot { background: var(--proposal-positive); }
+.body { min-width: 0; }
+.who { margin: 0 0 4px; color: var(--ink-secondary); font-size: var(--ui-text-small); font-weight: 600; }
+
+.request { margin: 0; padding: 10px 14px; border-left: 3px solid var(--timeline-review-marker-color); border-radius: 0 var(--edge-control) var(--edge-control) 0; background: var(--chrome-panel); color: var(--ink); font-size: 15px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cards { display: grid; gap: 6px; margin: 8px 0 0; padding: 0; list-style: none; }
+.status { text-transform: none; }
+.moreCards { margin-top: 4px; }
+.moreCards summary { font-weight: 600; color: var(--ink); }
+/* The status sits inline, so the summary wraps under it instead of into a narrow column. */
+.cards li { min-width: 0; color: var(--ink); line-height: 1.5; overflow-wrap: anywhere; }
+.cards li .status { margin-right: 8px; vertical-align: 1px; }
+
+.steps { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.step { display: flex; align-items: center; gap: 10px; min-height: 30px; padding: 2px 8px; margin: 0 -8px; border-radius: var(--edge-control-inner); }
+.step:hover { background: var(--chrome-raised); }
+.stepLabel { flex: 1; min-width: 0; color: var(--ink); font-weight: 500; overflow-wrap: anywhere; }
+.jump { flex-shrink: 0; color: var(--ink-secondary); font-size: var(--ui-text-small); font-variant-numeric: tabular-nums; text-decoration: none; }
+.jump:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+.empty { padding: 32px 0; color: var(--ink-muted); text-align: center; }
+.more { align-self: center; }
+
+@media (max-width: 600px) {
+  .entry { grid-template-columns: 44px 20px minmax(0, 1fr); column-gap: 8px; }
+  .feed::before { left: 61px; }
+}

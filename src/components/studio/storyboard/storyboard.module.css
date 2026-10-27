@@ -1,0 +1,421 @@
+.workspace { container-type:inline-size; height:100%; overflow:auto; color:var(--ink); background:var(--chrome-deep); padding:12px; font-size:var(--ui-text-small); }
+.workspace h1 { font-size:24px; font-weight:650; margin:0 0 4px; }
+.workspace h2 { font-size:20px; font-weight:600; }
+.sectionBar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+/* Media toolbar: heading and its actions read left to right; Add media closes the row. */
+.mediaBar { justify-content:flex-start; }
+.spacer { flex:1; }
+.actions { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+.actions input { width:210px; }
+.muted { color:var(--ink-secondary); font-size:12px; line-height:1.5; margin:6px 0 10px; }
+.count { color:var(--ink-secondary); font-size:var(--ui-text-small); font-weight:400; margin-left:8px; }
+.error { white-space:pre-line; border:1px solid var(--destructive); padding:12px; border-radius:var(--edge-control); margin-bottom:12px; }
+/* Saving shows as a floating pill so the page never shifts. */
+.status { position:fixed; z-index:50; left:50%; bottom:20px; transform:translateX(-50%); margin:0; padding:6px 12px; border-radius:999px; background:var(--chrome-raised); border:1px solid var(--edge-outline); box-shadow:0 4px 16px rgb(0 0 0 / .25); pointer-events:none; }
+.mainBody { display:flex; align-items:flex-start; gap:20px; }
+.content { flex:1; min-width:0; display:grid; grid-template-columns:minmax(0,1fr); gap:16px; }
+/* Open space over lines: regions separate by surface and spacing; cards carry no resting outline. */
+.footage,.assembly,.sourcePanel,.library { min-width:0; background:var(--chrome-panel); border-radius:var(--edge-surface); padding:12px; }
+.library { margin-bottom:20px; }
+.search { max-width:210px; }
+.sectionBar select { border:1px solid var(--chrome-line); padding:6px 10px; border-radius:var(--edge-control-inner); background:var(--chrome-panel); }
+/* The media toolbar keeps one control height (the small segmented controls). */
+.sectionBar .search, .sectionBar select { height:calc(30px + var(--ui-text-step)); font-size:var(--ui-text-small); }
+/* One scroll area: the page scrolls; the media grid never scrolls inside it. */
+.grid { margin-top:12px; padding:2px; }
+.showAll { margin-top:8px; }
+.mediaCard { min-width:0; border:1px solid transparent; border-radius:var(--edge-control); padding:8px; background:var(--chrome-raised); }
+.mediaCard[data-active=true] { background:var(--chrome-selected-bg); outline:2px solid var(--chrome-selected-ring); outline-offset:1px; }
+.mediaOpen { width:100%; display:grid; text-align:left; gap:6px; border-radius:var(--edge-control-inner); }
+.mediaOpen { cursor:pointer; }
+.mediaName { display:block; width:100%; min-width:0; margin-top:6px; padding:0; border:0; background:none; color:var(--ink); font:inherit; font-weight:500; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
+.mediaName:hover { text-decoration:underline; text-underline-offset:3px; }
+.thumb { width:100%; height:auto; object-fit:contain; border-radius:var(--edge-control-inner); background:#141414; color:#ddd; display:grid; place-items:center; text-align:center; font-size:11px; }
+.empty { display:grid; justify-items:center; gap:12px; text-align:center; padding:45px 15px; }
+.empty h2 { margin:0; }
+.emptyActions { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.libraryGrid { max-height:40vh; overflow:auto; margin-top:12px; }
+.libraryItem { min-width:0; display:grid; grid-template-columns:1fr; gap:6px; align-items:start; }
+.libraryItem span { grid-column:1; overflow-wrap:anywhere; }
+/* The clip dialog opens large and its corner drags to any size; the picture fills what it is given. */
+.clipDialog { display:flex; flex-direction:column; width:min(1100px, 94vw); height:min(88vh, 960px); min-width:min(480px, 94vw); min-height:360px; max-width:98vw; max-height:96vh; resize:both; overflow:auto;
+  padding:20px; border:1px solid var(--edge-outline); border-radius:var(--edge-surface); background:var(--chrome-panel); color:var(--ink); }
+.clipDialog .sourceColumns { flex:1; min-height:0; grid-template-rows:minmax(0,1fr); }
+.clipDialog .sourceColumns[data-landscape] { grid-template-rows:minmax(0,1fr) auto; }
+.clipDialog .viewer { container-type:size; min-height:200px; }
+.clipDialog .viewer > img { max-height:100%; }
+.sourceColumns { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,1fr); gap:16px; margin-top:12px; }
+.sourceColumns[data-landscape] { grid-template-columns:minmax(0,1fr); gap:10px; }
+@media (max-width:640px) { .sourceColumns { grid-template-columns:minmax(0,1fr); gap:10px; } }
+.viewer { min-width:0; background:#141414; color:white; display:grid; place-items:center; border-radius:var(--edge-control); padding:8px; }
+.viewer > img { max-width:100%; max-height:42vh; object-fit:contain; }
+/* The editor's Marks group with its list in place: beside a vertical source, under a landscape one. */
+.markRow { display:flex; flex-wrap:wrap; align-content:start; align-items:center; gap:12px; min-height:0; overflow:auto; font-size:var(--ui-text-small); color:var(--ink-secondary); }
+.sourceColumns[data-landscape] .markRow { border-top:1px solid var(--chrome-line); padding-top:8px; max-height:40vh; }
+@media (max-width:640px) { .markRow { border-top:1px solid var(--chrome-line); padding-top:8px; } }
+.details { width:300px; flex-shrink:0; position:sticky; top:0; max-height:calc(100vh - 72px); overflow:auto; overscroll-behavior:contain; border-radius:var(--edge-surface); padding:16px; background:var(--chrome-panel); }
+.detailsBody { display:grid; gap:16px; margin-top:12px; }
+.detailsBody > .thumb { max-height:180px; }
+.workspace input:not([type=checkbox]):not([type=file]):not([type=range]) { background:var(--chrome-panel); color:var(--ink); }
+.detailsBody label { display:grid; gap:6px; }
+.detailsBody textarea { width:100%; min-height:80px; resize:vertical; border:1px solid var(--chrome-line); border-radius:var(--edge-control-inner); padding:8px; margin-bottom:12px; background:var(--chrome-raised); }
+.number { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.workspace button:focus-visible,.workspace input:focus-visible,.workspace textarea:focus-visible,.workspace select:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:3px; }
+/* The storyboard shares the window with chat, so layout follows the workspace width, not the viewport.
+   Narrow: Shot details floats as a bottom sheet over the story instead of squeezing it. */
+@container (max-width:900px) {
+  .mainBody { flex-direction:column; } .content { width:100%; } .sourceColumns { grid-template-columns:1fr; }
+  .details { position:sticky; top:auto; bottom:-12px; z-index:20; margin-bottom:-12px; width:100%; max-height:55vh; overflow:auto; border-radius:var(--edge-surface) var(--edge-surface) 0 0; box-shadow:0 -8px 24px var(--chrome-deep); }
+}
+
+.cardPreview { position:relative; width:100%; min-height:100px; }
+.cardPreview video { display:block; }
+.detailsBody .cardPreview .thumb { max-height:180px; }
+
+.sourceSelection { display:flex; align-items:center; gap:8px; padding:8px 2px; cursor:pointer; font-weight:500; }
+.sourceSelection [data-slot="checkbox"] { width:18px; height:18px; }
+.sourceSelection[data-checked=true] { color:var(--proposal-positive); }
+.mediaCard[data-added=true] { border-color:var(--proposal-positive); }
+
+.audioList { display:grid; gap:12px; margin-top:18px; }
+.audioList:empty { display:none; }
+.audioList .cardPreview { min-height:0; margin-top:8px; }
+
+.audioList { grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+.audioCard { display:grid; gap:8px; min-width:0; padding:10px; border:1px solid transparent; border-radius:var(--edge-control); background:var(--chrome-raised); }
+.audioCard[data-active=true] { background:var(--chrome-selected-bg); outline:2px solid var(--chrome-selected-ring); outline-offset:1px; }
+.audioSelect { display:grid; gap:4px; min-width:0; flex:1; text-align:left; cursor:pointer; }
+.audioSelect strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.audioSelect span { color:var(--ink-secondary); font-size:12px; }
+.referenceDetail { display: grid; gap: 14px; padding: 16px 0; border-top: 1px solid var(--chrome-line); }
+.referenceDetail label { display: grid; gap: 6px; }
+.referenceDetail textarea { width: 100%; min-height: 72px; padding: 8px; border: 1px solid var(--edge-outline); border-radius: var(--edge-control-inner); background: var(--chrome-input); color: var(--ink); }
+
+.referenceSetup { display: flex; flex-wrap:wrap; align-items:center; gap:16px; margin:18px 0; }
+.referenceSetup p { flex:1 1 280px; max-width:75ch; color:var(--ink-secondary); line-height:1.6; font-size:var(--ui-text-body); }
+.referenceField { display: grid; gap: 8px; min-width: 0; align-content: start; }
+.referenceField > span { color: var(--ink-secondary); }
+@media (max-width: 760px) { .referenceSetup { grid-template-columns: minmax(0, 1fr); } }
+
+.referenceDetail { scroll-margin-top: 20px; }
+
+.previewFrame { box-sizing:border-box; max-width:100%; margin:auto; border:2px solid var(--ink-secondary); border-radius:var(--edge-surface); padding:4px; background:#101114; box-shadow:0 4px 14px #0003; overflow:hidden; }
+.previewFrame > div { border-radius:var(--edge-surface); overflow:hidden; }
+/* The story preview: the whole board played at full size above the sequence. */
+.storyPlayer { display:grid; margin:16px 0 4px; scroll-margin:12px; }
+
+
+.trimControls { display:grid; gap:12px; min-width:0; }
+.trimReadout { display:flex; justify-content:space-between; gap:8px; color:var(--ink-secondary); font-size:11px; font-variant-numeric:tabular-nums; }
+
+.cardPlay { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); box-shadow:0 2px 8px #0005; }
+.cardActions { display:flex; align-items:center; gap:6px; margin-top:4px; }
+.cardDuration { flex:1; min-width:0; font-size:11px; color:var(--ink-secondary); font-variant-numeric:tabular-nums; }
+
+
+/* Inline notes read as the person's text, not a boxed field: a quiet fill on hover, field surface while editing. */
+.noteField { display:flex; align-items:flex-start; gap:2px; min-width:0; margin:6px 0 2px; }
+.noteField textarea, .detailsBody .noteField textarea { flex:1; min-width:0; min-height:0; margin:0; padding:6px 8px; border:0; border-radius:var(--edge-control-inner); resize:none; overflow:hidden; background:transparent; color:var(--ink); font:inherit; line-height:1.45; overflow-wrap:anywhere; cursor:text; }
+.noteField textarea::placeholder { color:var(--ink-muted); }
+.noteField textarea:hover { background:var(--glass-control); }
+.noteField textarea:focus { background:var(--glass-field); }
+.noteField > div { flex-wrap:wrap; justify-content:flex-end; }
+.noteGroup { display:grid; gap:4px; }
+.noteGroup > span { color:var(--ink-secondary); }
+
+/* Story canvas: one sequence line, beats as labels on it, shots hanging off it. Open space, no boxes. */
+.pace { display:flex; gap:6px; height:6px; margin:14px 0 4px; }
+.paceUnit { display:flex; gap:2px; min-width:0; flex-basis:0; }
+.paceShot { flex-basis:0; min-width:3px; border:0; padding:0; border-radius:2px; background:var(--chrome-line-strong); cursor:pointer; }
+.paceShot:hover { background:var(--ink-muted); }
+.paceShot[data-active=true] { background:var(--ink); }
+.groupBar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:12px; }
+.groupBar input { width:220px; }
+.storyEmpty { display:grid; place-items:center; min-height:180px; margin-top:12px; border-radius:var(--edge-control); color:var(--ink-secondary); }
+.storyEmpty[data-drop=true] { background:var(--glass-control); }
+.beatLabel { display:inline-flex; align-items:center; gap:2px; max-width:100%; padding-right:6px; background:var(--chrome-panel); color:var(--ink-secondary); font-size:var(--ui-text-small); font-weight:500; }
+.beatLabel > span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.railDot { display:inline-grid; place-items:center; min-width:22px; height:22px; padding:0 6px; border-radius:var(--edge-surface); background:var(--chrome-raised); color:var(--ink); font-size:var(--ui-text-small); font-variant-numeric:tabular-nums; }
+/* The shot the story preview is showing: its number lights up on the line. */
+[data-playing=true] .railDot, .scriptRow[data-playing=true] > .railDot { background:var(--ink); color:var(--chrome-deep); }
+.paceShot[data-playing=true] { background:var(--ink-secondary); }
+.shotPicture { position:relative; border-radius:var(--edge-control-inner); overflow:hidden; }
+.shotPicture .cardPreview { min-height:60px; }
+.shotPicture .thumb { border-radius:var(--edge-control-inner); }
+.shotDuration { position:absolute; left:6px; bottom:6px; padding:1px 6px; border-radius:var(--edge-control-inner); background:var(--chrome-deep); color:var(--ink); font-size:var(--ui-text-small); font-variant-numeric:tabular-nums; pointer-events:none; }
+.shotCheck { position:absolute; left:6px; top:6px; display:grid; place-items:center; width:20px; height:20px; border-radius:var(--edge-control); background:var(--ink); color:var(--chrome-deep); }
+.shotCheck svg { width:13px; height:13px; }
+.shotMenu { position:absolute; right:4px; top:4px; background:var(--chrome-deep); opacity:.8; }
+.stripShot:hover .shotMenu,.stripShot:focus-within .shotMenu,.shotMenu[data-popup-open],.scriptRow:hover .shotMenu,.scriptRow:focus-within .shotMenu { opacity:1; }
+.stripShot,.scriptRow { user-select:none; -webkit-user-select:none; }
+.scriptRow textarea { user-select:text; -webkit-user-select:text; }
+.shotLabel { display:block; min-width:0; font-size:var(--ui-text-body); font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.shotNotePreview { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; margin:2px 0 0; color:var(--ink-secondary); font-size:12px; line-height:1.45; }
+.transitionChip { display:inline-flex; align-items:center; gap:5px; min-width:0; max-width:100%; padding:2px 8px; border:0; border-radius:var(--edge-control); background:var(--chrome-raised); color:var(--ink); font-size:var(--ui-text-small); cursor:pointer; }
+.transitionChip:hover { color:var(--ink); }
+.transitionChip svg { width:12px; height:12px; flex-shrink:0; }
+.transitionChip span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.transitionChip small { flex-shrink:0; color:var(--ink-secondary); }
+.moreShots { align-self:center; padding:6px 10px; border:0; border-radius:var(--edge-control); background:transparent; color:var(--ink-secondary); cursor:pointer; }
+.moreShots:hover { background:var(--glass-control); color:var(--ink); }
+
+/* Strip: reading order left to right. The line runs through the numbered dots. */
+.strip { position:relative; display:flex; align-items:flex-start; gap:28px; overflow-x:auto; padding:16px 2px 12px 18px; }
+.strip::before { content:""; position:absolute; left:0; right:0; top:59px; border-top:1px solid var(--edge-outline); }
+.stripUnit { position:relative; flex-shrink:0; display:grid; gap:10px; }
+.stripUnit[data-group=true]::after { content:""; position:absolute; left:0; right:0; top:41px; border-top:2px solid var(--ink-muted); }
+.stripUnit[data-drop=true]::before,.stripEnd[data-drop=true]::before { content:""; position:absolute; left:-15px; top:30px; bottom:0; border-left:2px solid var(--ink); }
+.stripBeat { position:relative; z-index:1; height:24px; display:flex; align-items:center; }
+.stripShots { display:flex; align-items:flex-start; gap:14px; }
+.stripShot { position:relative; width:184px; display:grid; gap:8px; padding:0 0 6px; border-radius:var(--edge-control); cursor:pointer; outline:none; }
+.rail { position:relative; z-index:1; height:22px; display:flex; align-items:center; gap:6px; margin-top:-2px; }
+.rail .transitionChip { max-width:150px; }
+.stripShot[data-active=true] .shotPicture,.scriptRow[data-active=true] .shotPicture { outline:2px solid var(--ink); outline-offset:2px; }
+.stripShot[data-selected=true] .shotPicture,.scriptRow[data-selected=true] .shotPicture { outline:2px solid var(--chrome-selected-ring); outline-offset:2px; }
+.stripShot:focus-visible .shotPicture,.scriptRow:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:3px; }
+.stripEnd { position:relative; flex:0 0 120px; align-self:stretch; min-height:120px; }
+
+/* Script: reading order top to bottom, picture beside its words. The line runs down the dots. */
+.script { position:relative; display:grid; grid-template-columns:minmax(0,1fr); gap:4px; margin-top:16px; padding-left:2px; }
+.script::before { content:""; position:absolute; left:12px; top:8px; bottom:8px; border-left:1px solid var(--edge-outline); }
+.scriptUnit { position:relative; display:grid; grid-template-columns:minmax(0,1fr); gap:4px; padding-bottom:12px; }
+.scriptUnit[data-drop=true]::before,.scriptEnd[data-drop=true]::before { content:""; position:absolute; left:32px; right:0; top:-4px; border-top:2px solid var(--ink); }
+.scriptBeat { position:relative; z-index:1; display:flex; align-items:center; gap:8px; padding:6px 0 6px 6px; }
+.scriptBeat::before { content:""; width:13px; height:13px; flex-shrink:0; border-radius:var(--edge-control-inner); background:var(--ink-muted); box-shadow:0 0 0 4px var(--chrome-panel); }
+.scriptBeat .beatLabel { color:var(--ink); font-size:calc(var(--ui-text-heading) + 2px); font-weight:600; }
+.scriptRow { position:relative; display:grid; grid-template-columns:24px minmax(140px,240px) minmax(0,1fr); gap:20px; align-items:start; padding:10px 8px 12px 0; border-radius:var(--edge-control); outline:none; }
+
+.scriptRow > .railDot { position:relative; z-index:1; margin-top:2px; box-shadow:0 0 0 3px var(--chrome-panel); }
+.scriptRow:hover > .railDot { box-shadow:none; }
+.scriptRow .shotPicture .cardPreview { min-height:0; }
+.scriptBody { display:grid; gap:8px; min-width:0; max-width:72ch; }
+.scriptBody .noteField textarea { font-size:var(--ui-text-base); line-height:1.6; }
+.scriptHead { display:flex; align-items:center; gap:10px; min-width:0; }
+.scriptHead .shotLabel { font-size:var(--ui-text-emphasis); font-weight:600; }
+.scriptHead > span { flex-shrink:0; color:var(--ink-secondary); font-size:var(--ui-text-small); font-variant-numeric:tabular-nums; }
+.scriptHead .shotMenu { position:static; margin-left:auto; background:transparent; }
+.scriptBody .noteField { margin:0 0 0 -8px; }
+.scriptText { margin:0; color:var(--ink-secondary); font-size:var(--ui-text-body); line-height:1.5; }
+.scriptTransition { position:relative; z-index:1; padding:2px 0 2px 32px; }
+.scriptEnd { position:relative; min-height:32px; }
+@media(max-width:760px) { .scriptRow { grid-template-columns:24px 120px minmax(0,1fr); gap:10px; } }
+
+/* Reference mode: the same line, with the reference frame paired above (Strip) or beside (Script) our pick. */
+.referenceLayout { display:flex; align-items:flex-start; gap:20px; }
+.referenceLayout > section { flex:1; min-width:0; }
+.paceShot[data-missing=true] { background:transparent; box-shadow:inset 0 0 0 1px var(--chrome-line-strong); }
+.paceShot[data-missing=true][data-active=true] { background:var(--ink-muted); }
+.referenceStrip { display:flex; gap:14px; }
+.referenceStrip > .strip { flex:1; min-width:0; }
+.referenceStrip > .strip::before { top:24px; }
+.laneLabels { display:grid; align-content:start; gap:8px; padding-top:42px; color:var(--ink-secondary); font-size:12px; }
+.laneLabels > span { writing-mode:vertical-rl; transform:rotate(180deg); height:200px; text-align:center; }
+.referenceStrip .stripShot { border:0; background:transparent; color:var(--ink); text-align:left; font:inherit; }
+.referenceStrip .stripShot .shotPicture { height:200px; background:var(--chrome-deep); }
+.referenceStrip .stripShot .shotPicture .cardPreview { height:100%; min-height:0; }
+.referenceStrip .stripShot .shotPicture .thumb { height:100%; object-fit:contain; }
+.railTime { color:var(--ink-secondary); font-size:11px; font-variant-numeric:tabular-nums; }
+.missingPicture { display:grid; place-items:center; min-height:100px; height:100%; border-radius:var(--edge-control-inner); background:var(--glass-control); color:var(--ink-secondary); font-size:12px; text-align:center; }
+.referenceStrip .missingPicture { height:200px; }
+.referenceRowScript { width:100%; border:0; background:transparent; color:var(--ink); text-align:left; font:inherit; }
+.referenceRowScript[data-ours=true] { grid-template-columns:24px repeat(2, minmax(56px,84px)) minmax(0,1fr); }
+.referenceRowScript[aria-pressed=true] { background:var(--glass-control); }
+.beatDetails { display:grid; gap:14px; width:340px; }
+.beatPlayers { display:grid; gap:10px; }
+.beatPlayers[data-ours=true] { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.beatPlayers > div { display:grid; align-content:start; gap:6px; min-width:0; }
+.beatPlayers .previewFrame { border-width:1px; border-radius:var(--edge-surface); padding:2px; }
+.beatPlayers .previewFrame > div { border-radius:var(--edge-control); }
+.beatPlayers .missingPicture { aspect-ratio:9/16; }
+.laneName { color:var(--ink-secondary); font-size:12px; }
+@media(max-width:760px) { .referenceRowScript[data-ours=true] { grid-template-columns:24px repeat(2, 56px) minmax(0,1fr); } }
+.storyLead { display:flex; flex-wrap:wrap; align-items:center; gap:10px; min-width:0; }
+.storyLead > .count { margin-left:0; }
+.referenceDrop { display:grid; justify-items:center; align-content:center; gap:12px; min-height:180px; margin-top:14px; padding:24px; border-radius:var(--edge-control); background:var(--glass-control); text-align:center; color:var(--ink-secondary); }
+.referenceDrop strong { color:var(--ink); font-weight:500; }
+.referenceDrop[data-drop=true] { outline:2px solid var(--ink); outline-offset:-2px; }
+.beatFootage label { display:grid; gap:6px; }
+/* After the base reference rules so the stacked layout wins. */
+@container (max-width:900px) {
+  .referenceLayout { flex-direction:column; align-items:stretch; }
+  .beatDetails { position:static; width:100%; max-height:none; margin-bottom:0; box-shadow:none; border-radius:var(--edge-surface); }
+}
+.stripShot,.scriptRow { touch-action:pan-y; }
+.stripShot[data-dragging=true],.scriptRow[data-dragging=true] { opacity:.4; cursor:grabbing; }
+
+
+/* Visuals shown over a shot: small labelled thumbnails in time order, under the shot. */
+.visualStrip { display:grid; grid-template-columns:minmax(0, 1fr); gap:2px; margin:0; padding:0; list-style:none; min-width:0; }
+.scriptBody .visualStrip { display:flex; flex-wrap:wrap; gap:4px 10px; margin-top:4px; }
+.visualChip { display:flex; align-items:center; gap:6px; width:100%; min-width:0; padding:2px 4px 2px 2px; border:0; border-radius:var(--edge-control-inner); background:transparent; color:var(--ink-secondary); font:inherit; font-size:var(--ui-text-small); text-align:left; cursor:pointer; }
+.scriptBody .visualChip { width:auto; max-width:220px; }
+.visualChip:hover { background:var(--glass-control); color:var(--ink); }
+.visualChip > span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.visualChip > small { flex-shrink:0; font-size:11px; font-variant-numeric:tabular-nums; }
+.visualThumb { display:block; flex-shrink:0; height:24px; width:auto; max-width:44px; min-width:24px; object-fit:contain; border-radius:3px; background:#141414; }
+.visualEditor { display:grid; gap:16px; }
+.visualPicker { max-height:220px; overflow:auto; }
+.visualPick { display:grid; gap:4px; min-width:0; padding:0; border:0; background:transparent; color:var(--ink-secondary); font:inherit; font-size:11px; text-align:left; cursor:pointer; }
+.visualPick .cardPreview { min-height:0; }
+.visualPick > span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.visualPick:hover { color:var(--ink); }
+.visualRow { display:grid; gap:6px; scroll-margin:12px; }
+.visualRowHead { display:flex; align-items:center; gap:6px; min-width:0; }
+.visualRowHead > input { flex:1; min-width:0; }
+.visualRowHead .visualThumb { height:32px; max-width:56px; }
+
+.mediaToggle { display:inline-flex; align-items:center; gap:4px; margin-left:-4px; padding:2px 4px; border:0; border-radius:var(--edge-control-inner); background:transparent; color:inherit; font:inherit; cursor:pointer; }
+.mediaToggle:hover { background:var(--glass-control); }
+.mediaToggle:focus-visible { outline:2px solid var(--chrome-focus-ring); }
+.mediaToggle > svg { width:14px; height:14px; color:var(--ink-secondary); transition:transform .15s; }
+.mediaToggle[aria-expanded=true] > svg { transform:rotate(90deg); }
+/* Script view: the shot's assets as a full-width strip beneath the picture and line. */
+.assetList { grid-column:2 / -1; display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px; margin:6px 0 0; padding:0; list-style:none; }
+.assetItem { display:grid; gap:6px; width:100%; padding:0; border:0; background:transparent; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.assetPicture { display:block; width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:var(--edge-control); background:#141414; outline:1px solid var(--chrome-line); }
+/* A motion graphic is transparent: a neutral grey reads its white type and colours on their own. */
+.assetPicture[data-look=motion] { background:#3a3d44; }
+/* A motion graphic marked floating is drawn in the left third of its frame; the card shows that third. Unmarked ones show whole. */
+.assetPicture[data-look=motion][data-placement=float] > img { transform:scale(2.2); transform-origin:0 50%; }
+.assetPicture > img { display:block; width:100%; height:100%; object-fit:contain; }
+.assetItem:hover .assetPicture { outline-color:var(--ink-secondary); }
+.assetItem:focus-visible .assetPicture { outline:2px solid var(--chrome-focus-ring); }
+.assetName { display:flex; align-items:flex-start; gap:6px; min-width:0; font-size:var(--ui-text-body); line-height:1.35; }
+.assetName > svg { flex-shrink:0; width:13px; height:13px; margin-top:2px; color:var(--ink-secondary); }
+.assetItem > small { color:var(--ink-secondary); font-size:var(--ui-text-small); font-variant-numeric:tabular-nums; }
+/* Recast: the cast and each beat's recast plan and takes. Open space, no rules between parts. */
+.castList { display:grid; gap:16px; padding-top:8px; }
+.castMember { display:grid; gap:8px; }
+.castHead { display:flex; align-items:center; gap:6px; }
+.castPhotos { display:flex; flex-wrap:wrap; gap:6px; }
+.castPhoto { position:relative; width:56px; height:56px; }
+.castPhoto img { width:100%; height:100%; border-radius:var(--edge-control); object-fit:cover; }
+.castPhoto button { position:absolute; top:2px; right:2px; display:grid; place-items:center; width:18px; height:18px; border:0; border-radius:50%; background:var(--chrome-panel); color:var(--ink); }
+.castEmpty, .recastNote { color:var(--ink-secondary); font-size:13px; }
+.recast { display:grid; gap:12px; padding-top:8px; }
+.recast h3 { font-size:13px; font-weight:600; color:var(--ink); }
+.recast label { display:grid; gap:6px; }
+.recast textarea { width:100%; min-height:64px; padding:8px; border:1px solid var(--edge-outline); border-radius:var(--edge-control-inner); background:var(--chrome-input); color:var(--ink); }
+.recastPeople { display:flex; flex-wrap:wrap; gap:6px; }
+.recastPeople button { display:inline-flex; align-items:center; gap:6px; padding:4px 10px 4px 4px; border:0; border-radius:999px; background:var(--glass-control); color:var(--ink-secondary); font:inherit; font-size:13px; }
+.recastPeople button[aria-pressed=true] { background:var(--chrome-selected-bg); color:var(--ink); }
+.recastPeople img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+.recastTakes { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+.recastTakes figure { display:grid; gap:4px; margin:0; }
+.recastTakes video { width:100%; border-radius:var(--edge-control); background:var(--chrome-deep); }
+.recastTakes figcaption { display:flex; align-items:center; justify-content:space-between; color:var(--ink-secondary); font-size:13px; }
+
+.footage[data-dragging=true] { outline:2px solid var(--chrome-focus-ring); outline-offset:-2px; background:var(--chrome-raised); }
+
+.referenceLayout[data-layout=column] { flex-direction:column; }
+.referenceLayout[data-layout=column] > section, .referenceLayout[data-layout=column] > aside { width:100%; max-width:none; }
+
+.inlineLibrary { height:100%; min-height:240px; min-width:0; overflow:hidden; }
+/* Keep an empty media drop target useful without pushing the writing panels down. */
+.footage .empty { padding:18px 15px; }
+
+/* Media and Story inside a storyboard panel: the panel is the surface. */
+.mediaBody { display:flex; flex-direction:column; gap:12px; min-height:100%; border-radius:var(--edge-control); }
+.mediaBody[data-dragging=true] { outline:2px solid var(--chrome-focus-ring); outline-offset:-2px; background:var(--chrome-raised); }
+.mediaFilters { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.mediaFilters > .search { flex:1 1 160px; min-width:120px; }
+[data-storyboard-panel] .assembly { background:none; padding:0; }
+.linkedTo { margin:2px 0 0; color:var(--ink-secondary); font-size:var(--ui-text-small); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+/* Media: the project's intake bin above the Storyboard; its height drags from the edge below it. */
+.bin { display:flex; flex-direction:column; min-width:0; min-height:160px; background:var(--chrome-panel); border:1px solid var(--edge-outline); border-radius:var(--edge-surface); overflow:hidden; }
+.bin[data-dragging=true] { outline:2px solid var(--chrome-focus-ring); outline-offset:-2px; }
+.binHeader { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-height:44px; padding:6px 8px 6px 12px; border-bottom:1px solid var(--edge-outline); }
+.binHeader > .search { flex:0 1 200px; min-width:120px; }
+.binBody { flex:1; min-height:0; overflow:auto; padding:12px; }
+.mediaOpen { position:relative; }
+/* Add to Visuals sits over the picture's corner, so the card never changes size. */
+.cardPill { position:absolute; top:6px; right:6px; z-index:1; gap:4px; }
+span.cardPill { display:inline-flex; align-items:center; padding:2px 8px; border-radius:999px; background:var(--chrome-panel); color:var(--ink); font-size:var(--ui-text-small); }
+.cardPill svg { width:14px; height:14px; }
+.binSort { flex:0 0 150px; min-width:0; }
+/* Every control in the Media header is one height: the small switch's. */
+.binHeader { --bin-control:calc(30px + var(--ui-text-step)); }
+.binHeader :is(input, [data-slot=select-trigger], [data-slot=button]) { height:var(--bin-control); min-height:var(--bin-control); }
+.binHeader input { font-size:var(--ui-text-small); }
+.bin > [role=separator] { border-radius:var(--edge-control-inner); transition:background .12s; }
+.bin > [role=separator]:hover,.bin > [role=separator]:focus-visible { background:var(--glass-control); }
+.bin > [role=separator]::after { content:""; position:absolute; width:44px; height:4px; border-radius:2px; background:var(--ink-secondary); left:50%; top:50%; transform:translate(-50%,-50%); }
+
+/* Canvas: cards placed freely and joined by lines (StoryboardCanvas). */
+.canvasWrap { display:flex; flex-direction:column; height:100%; min-height:0; }
+.canvasToolbar { display:flex; flex-wrap:wrap; gap:4px; padding:4px 0 8px; }
+.canvas { position:relative; flex:1; min-height:360px; border:1px solid var(--edge-outline); border-radius:var(--edge-surface); overflow:hidden; background:var(--chrome-deep);
+  --xy-background-color:var(--chrome-deep); --xy-background-pattern-color:var(--edge-outline); --xy-edge-stroke:var(--ink-muted); --xy-edge-stroke-selected:var(--timeline-review-marker-color);
+  --xy-connectionline-stroke:var(--timeline-review-marker-color); --xy-controls-button-background-color:var(--chrome-panel); --xy-controls-button-color:var(--ink);
+  --xy-controls-button-border-color:var(--edge-outline); --xy-controls-button-background-color-hover:var(--glass-control); --xy-node-border-radius:var(--edge-control);
+  --xy-edge-label-background-color:var(--chrome-panel); --xy-edge-label-color:var(--ink); }
+.canvasEmpty { position:absolute; inset:0; display:grid; place-items:center; padding:24px; text-align:center; color:var(--ink-muted); pointer-events:none; z-index:1; }
+.canvasCard { display:grid; gap:6px; padding:8px; border:1px solid var(--edge-outline); border-radius:var(--edge-control); background:var(--chrome-panel); color:var(--ink); font-size:var(--ui-text-small); }
+.canvasCard[data-kind="effect"] { border-color:color-mix(in srgb, var(--timeline-review-marker-color) 55%, var(--edge-outline)); }
+.canvasCard video { width:100%; border-radius:var(--edge-control-inner); background:var(--chrome-deep); }
+/* The frame fills the card's width at its own shape (no side bars); the card's width sets its size. */
+.canvasMedia { overflow:hidden; border-radius:var(--edge-control-inner); }
+.canvasMedia :global(*) { min-height:0; }
+.canvasMedia :is(img, video, canvas) { display:block; width:100%; height:auto; }
+.canvasTime { color:var(--ink-secondary); }
+.canvasResize { border-color:transparent !important; }
+.canvasCard:hover .canvasResize, :global(.react-flow__node.selected) .canvasResize { border-color:var(--timeline-review-marker-color) !important; }
+:global(.react-flow__node.selected) > .canvasCard { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+.canvasCardHead { display:flex; align-items:center; gap:6px; min-width:0; color:var(--ink-secondary); }
+.canvasCardTitle { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink); font-weight:600; }
+.canvasNumber { color:var(--timeline-review-marker-color); font-weight:800; }
+.canvasHandle { width:14px; height:14px; border:1px solid var(--edge-outline); background:var(--timeline-review-marker-color); opacity:0; transition:opacity .15s; }
+.canvasCard:hover .canvasHandle, :global(.react-flow__node.selected) .canvasHandle, :global(.react-flow.connecting) .canvasHandle { opacity:1; }
+.canvasEdge :global(.react-flow__edge-path) { stroke-width:2; }
+.canvasPicker { width:min(960px, calc(100vw - 32px)); height:min(82vh, 880px); display:flex; flex-direction:column; gap:8px; overflow:hidden; padding:16px; border:1px solid var(--edge-outline); border-radius:var(--edge-surface); background:var(--chrome-panel); color:var(--ink); }
+.canvasPicker > :last-child { flex:1; min-height:0; overflow:auto; }
+.canvasBackdrop { background:color-mix(in srgb, var(--chrome-deep) 80%, transparent); }
+
+/* Timeline: one row per mark, the frame beside what should happen there (MomentsTimeline). */
+.moments { display:flex; flex-direction:column; height:100%; min-height:0; }
+.momentsEmpty { padding:24px; text-align:center; color:var(--ink-muted); }
+.momentsList { display:grid; gap:8px; margin:0; padding:0; list-style:none; overflow:auto; min-height:0; }
+.momentFrame { display:block; padding:0; border:0; background:none; cursor:pointer; border-radius:var(--edge-control-inner); overflow:hidden; }
+/* Frames share a height (the S/M/L size); each is as wide as its clip's shape. */
+.momentFrame :global(*) { min-height:0; width:auto; }
+.momentFrame :is(img, video, canvas) { display:block; height:var(--moment-frame); width:auto; max-width:min(50vw, 520px); object-fit:contain; }
+.momentFrame:focus-visible { outline:2px solid var(--chrome-focus-ring); outline-offset:2px; }
+.effectChip { display:inline-flex; align-items:center; gap:4px; padding:2px 4px 2px 8px; border:1px solid color-mix(in srgb, var(--timeline-review-marker-color) 55%, var(--edge-outline)); border-radius:var(--edge-control); font-size:var(--ui-text-small); }
+.effectChip button { display:inline-grid; place-items:center; width:20px; height:20px; border:0; border-radius:var(--edge-control-inner); background:none; color:var(--ink-secondary); cursor:pointer; }
+.effectChip button:hover { background:var(--glass-control); color:var(--ink); }
+
+/* Clip dialog: the picture with its marks along a strip below it; marks listed beside it (Timeline rows),
+   with the Marks controls at the column's foot. */
+.viewerColumn { display:flex; flex-direction:column; gap:6px; min-height:0; min-width:0; }
+.viewerColumn > .viewer { flex:1; }
+.markColumn { display:flex; flex-direction:column; gap:8px; min-height:0; min-width:0; }
+.markColumn > .momentsList { flex:1; }
+.markColumn > .markRow { flex:none; overflow:visible; border-top:1px solid var(--chrome-line); padding-top:8px; }
+.markStrip { position:relative; height:34px; flex:none; cursor:pointer; }
+.markStripTrack { position:absolute; left:0; right:0; bottom:6px; height:4px; border-radius:var(--edge-control-inner); background:var(--edge-outline); }
+.markStripRange { position:absolute; bottom:4px; height:8px; border-radius:var(--edge-control-inner); background:color-mix(in srgb, var(--timeline-review-marker-color) 45%, transparent); pointer-events:none; }
+.markStripRange[data-pending] { background:color-mix(in srgb, var(--timeline-review-marker-color) 25%, transparent); outline:1px dashed var(--timeline-review-marker-color); }
+.markStripPlayhead { position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--ink); pointer-events:none; }
+.sourceColumns[data-landscape] .markColumn { max-height:45vh; }
+.markRowItem { display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px; align-items:start; padding:6px; border:1px solid var(--edge-outline); border-radius:var(--edge-control); background:var(--chrome-panel); }
+.markRowItem textarea { min-height:56px; padding:6px 8px; border:1px solid var(--edge-outline); border-radius:var(--edge-control-inner); background:var(--chrome-deep); }
+.markRowBody { display:grid; gap:4px; min-width:0; }
+.markRowHead { display:flex; align-items:center; gap:8px; min-width:0; color:var(--ink-secondary); font-size:var(--ui-text-small); }
+.markRowHead strong { color:var(--timeline-review-marker-color); font-size:var(--ui-text-body); }
+.markRowHead > button { margin-left:auto; }
+
+/* Timeline: frames down the left joined by a squiggle into the next one; what was added for each on the right. */
+.timelineList { display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:16px; margin:0; padding:4px 0 0; list-style:none; overflow:auto; min-height:0; }
+/* Rows share the list's columns, so every frame lines up under the widest name. */
+.timelineRow { grid-column:1 / -1; display:grid; grid-template-columns:subgrid; align-items:start; padding-bottom:36px; }
+.timelineRow:last-child { padding-bottom:8px; }
+.timelineLeft { position:relative; display:grid; justify-items:center; gap:4px; }
+.timelineRow:not(:last-child) .timelineLeft::after { content:""; position:absolute; top:100%; left:50%; width:18px; height:36px; margin-left:-9px; background:var(--timeline-review-marker-color);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 36'%3E%3Cpath d='M9 0 C 1 6, 17 12, 9 18 S 1 30, 9 36' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / 18px 36px no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 36'%3E%3Cpath d='M9 0 C 1 6, 17 12, 9 18 S 1 30, 9 36' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / 18px 36px no-repeat; }
+.timelineLeft .markRowHead { width:100%; }
+.timelineLeft .markRowHead > button { margin-left:auto; }
+.timelineRight { display:flex; flex-wrap:wrap; align-content:flex-start; align-items:flex-start; gap:8px; min-width:0; padding-top:28px; }
+.canvasOrderEdge :global(.react-flow__edge-path) { stroke:var(--timeline-review-marker-color); stroke-width:2; stroke-dasharray:6 6; }
+/* An effect card names the treatment; its example stays a short preview so rows do not run into each other. */
+.canvasCard[data-kind="effect"] video { max-height:200px; object-fit:contain; }

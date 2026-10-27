@@ -1,0 +1,17 @@
+/* Open space: the picker sits in the form's flow, separated by spacing, not a box. */
+.picker { display:grid; gap:10px; min-width:0; scroll-margin:16px; }
+.head { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.head h4 { margin:0; font-size:var(--ui-text-body); font-weight:600; color:var(--ink); }
+.search { position:relative; display:flex; align-items:center; }
+.search svg { position:absolute; left:10px; color:var(--ink-muted); pointer-events:none; }
+.search input { width:100%; height:32px; padding:0 10px 0 32px; border:1px solid var(--edge-outline); border-radius:var(--edge-control); background:var(--glass-field); color:var(--ink); font-size:var(--ui-text-small); outline:none; }
+.search input:focus-visible { border-color:var(--chrome-focus-ring); }
+.note { margin:0; color:var(--ink-muted); font-size:var(--ui-text-small); }
+.item { position:relative; display:block; width:100%; padding:0; border:0; border-radius:var(--edge-control-inner); background:none; cursor:pointer; overflow:hidden; }
+.item img { display:block; width:100%; height:auto; border-radius:var(--edge-control-inner); }
+.item:disabled { cursor:wait; }
+/* Hover and keyboard focus say what a click does. */
+.use { position:absolute; inset:auto 6px 6px auto; padding:2px 8px; border-radius:var(--edge-control-inner); background:var(--chrome-deep); color:var(--ink); font-size:var(--ui-text-small); font-weight:600; opacity:0; transition:opacity 120ms; }
+.item:hover .use, .item:focus-visible .use, .item[aria-busy=true] .use { opacity:1; }
+.item:hover img, .item:focus-visible img { outline:2px solid var(--chrome-focus-ring); outline-offset:-2px; }
+.item:focus-visible { outline:none; }

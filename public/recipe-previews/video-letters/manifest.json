@@ -1,0 +1,50 @@
+{
+  "rights": "owned",
+  "credit": "Footage inside the letters: the bobblehead character running on a plain studio, owned and shown by the DreamCut owner's choice. Built natively in DreamCut.",
+  "footage": [
+    {
+      "role": "The bobblehead runs, then cartwheels, on a plain grey studio (8 s)",
+      "license": "Owned"
+    }
+  ],
+  "fps": 24,
+  "frames": 120,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; the word fades in over 0.2 s and the bobblehead's run plays inside the letters for 4.5 s.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-video-letters-bobblehead-demo, proposal 20261027T084826-bfb59fa8 (pending, not approved): native create_text \"RUN\", Anton 300 px, centre, styleVariant image_fill with the run clip as mediaFillVideoUrl and its prepared preview, fill zoom 1.6, fade in 0.2 s, fade out 0.3 s, 4.5 s, over a black frame, landscape 16:9 (set_output_format on the card). Rendered from the proposal preview at 1920x1080 with scripts/render-preview.ts, scaled to 1280x720 H.264 (CRF 23, no audio). Poster frame 60; stages frames 3, 36 and 84. The letter window input is a still of the same title in plain white."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/video-letters/inputs/footage.jpg",
+      "sha256": "fa9ada1af81e996b94ad8aa7ada5d4cba638b165e48f41c1de05f4210f7b230c"
+    },
+    {
+      "file": "/recipe-previews/video-letters/inputs/letters.jpg",
+      "sha256": "cecf2fd81e0fce3b81af5735589a4b62bbf580e1c0bbffe8fd801f6f2fe45576"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "97acc64fca4552cd2ff1f2f928922b5ccd6024ab4e3d6e2efaed0a1cb0657c85"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "997a18f80045db1a09161550158867953c70232cf021be556cc8e104bcc39c7e"
+    },
+    {
+      "file": "fade.jpg",
+      "sha256": "cba29d4edb1d788f05d370265801990b7cd726e9edee2562929130cbc39de0c3"
+    },
+    {
+      "file": "letters.jpg",
+      "sha256": "57e23eeb9c29ff1ad05fa77b6ca225f936ba5020192e9d4354b02571b3c39301"
+    },
+    {
+      "file": "moving.jpg",
+      "sha256": "cc6afb09f24d1bf6d177361128472dc5003355b0ba1337915895ac8dce32e3bc"
+    }
+  ]
+}

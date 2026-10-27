@@ -1,0 +1,50 @@
+{
+  "rights": "owned",
+  "credit": "Subject and shot: the bobblehead character running and cartwheeling on a plain studio, owned and shown by the DreamCut owner's choice.",
+  "footage": [
+    {
+      "role": "The bobblehead runs, then cartwheels, on a plain grey studio (8 s)",
+      "license": "Owned"
+    }
+  ],
+  "fps": 24,
+  "frames": 156,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; the studio shows for 1.6 seconds, then the bobblehead runs and cartwheels over a plain backdrop.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-background-removal-bobblehead-demo, proposal 20261027T162455-050db142 (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). The original run (source 0-1.6 s), then SAM 2 cutout f0269fd9 (same prompt and masks as the Moving Grid Matte demo's cutout 650185fa) on the original clock from source 1.6 to 6.5 s over a plain #F4C542 backdrop shape. Poster frame 80; stages frames 20, 50 and 145."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/talking-head-cutout/inputs/subject.jpg",
+      "sha256": "1f0f858e2a4f76e38b7681f46f35cf7272c4fdc407df50bf409934185da36496"
+    },
+    {
+      "file": "/recipe-previews/talking-head-cutout/inputs/moving-cutout.png",
+      "sha256": "e28614039867690368c0c5d9c1c564f90a10acb03152942c06bf66d43713aa2a"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "b3c0ded409e7b2e1cd4113263518560f24ce6d43ca6e81fbb44a46f96c8f6555"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "53e8e68b1eade3282cc44730c524b0fe3275437998fab205485abe1e9c67bcf6"
+    },
+    {
+      "file": "original.jpg",
+      "sha256": "1eb98165fe4acf86de8c3e71ea2888365808210836bd99aa4870cf1378c15750"
+    },
+    {
+      "file": "removed.jpg",
+      "sha256": "f82f399b5680d06504cb8ac713e68e71b7a77a47f85ff695a7cc29d0e5102b74"
+    },
+    {
+      "file": "kept.jpg",
+      "sha256": "d1f71f573733a850b0de40219aa455fcf1d9b45bcb2670196487d4287d7f9825"
+    }
+  ]
+}

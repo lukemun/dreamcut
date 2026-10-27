@@ -1,0 +1,139 @@
+{
+  "font_id": "alex_brush",
+  "method": "Chromium production component SVG; same-page alpha-weighted source comparison at 480×640; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "a8fcaa23d00209bff89880d698b719e7495214740fe911c66ffe34a70c1b072c",
+    "strokes": "eb9ce09283ee034da632a491c06ffd06c4006a3d3ec3f94168715f8e4277a218",
+    "widths": "b2c50fe28aea726469b12acd369a671d340583bb4b538de6c681a91fa1870723",
+    "sweeps": "86019c3490c8b2d1773caf43f302ce7aed38ecf4ca0ca7f0b51b4dba8562816f",
+    "metrics": "d6a88e401017ff63522495d4c85b233acd82ec065f4eab562f9bce23e6f3d80d"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.2772996165021769",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 1932,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.7772996165021768",
+          "x": 2412,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "O",
+      "codepoint": 79,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.72,
+      "extra_ink_percent": 0.31,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    },
+    {
+      "section": {
+        "x": 12,
+        "y": 748.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 492,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.3256609450142451",
+          "x": 972,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 1932,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.8256609450142451",
+          "x": 2412,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 790.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 790.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 790.171875
+        }
+      ],
+      "character": "&",
+      "codepoint": 38,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.75,
+      "extra_ink_percent": 0.19,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}

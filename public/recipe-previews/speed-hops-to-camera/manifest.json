@@ -1,0 +1,54 @@
+{
+  "rights": "owned",
+  "credit": "Subject and footage: the DreamCut owner, filmed by them and shown by their choice (2026-10-27). Effect inspired by a speed-effect tutorial by Marvin Appiah Korang.",
+  "footage": [
+    {
+      "role": "One locked-off take: an empty path, then the owner walking between six stops toward the camera, a spoken line, and walking off (29.5 s shown, 48 s filmed)",
+      "license": "Owned"
+    }
+  ],
+  "fps": 30,
+  "frames": 228,
+  "width": 720,
+  "height": 1280,
+  "teachingNote": "Normal speed; holds of 3 frames, takeoff streaks of 2 frames, the line from 2.0 s and the exit streak at 7.1 s.",
+  "receipt": {
+    "construction": "DreamCut project new-storyboard-02e21080 after the owner applied its speed-hop, exit and sound cards, rendered 0-7.6 s with the production browser GPU compositor (scripts/render-preview.ts, scale 0.6667) through an unposted proposal file that removes the captions, then H.264 CRF 28 without audio (the hop sounds come from a third-party tutorial with no documented redistribution right). Poster at 2.6 s; stages at 0.05, 0.25, 3.0 and 7.13 s. The supplied take is 15.0-44.5 s of the original, 480x854. The prepared cut-out is frame 3 of SAM 2 cut-out e91a3c13 (source 44.0-44.3 s)."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/speed-hops-to-camera/inputs/take.mp4",
+      "sha256": "8bf68b6c3f8b78c61150df7b4bbafafd03a4f286cb1b8355a36742dd7116eb9a"
+    },
+    {
+      "file": "/recipe-previews/speed-hops-to-camera/inputs/cutout.png",
+      "sha256": "a5d737d6f819e60df6c1f50312f8716be6437ae3b51e9e7bdddb5be0ea48bea1"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "6093b9084ee618c56f61b7fcd3c165b02e0a7594a78f675de88947ec4991b968"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "b55da61b04343503658039e7ad5f0035d771d602b92c7b07ec278f76fe9d226a"
+    },
+    {
+      "file": "first-stop.jpg",
+      "sha256": "ab1369d0b3e9fcfd389da107d4af338eefc051d68913e42568c4a0446aef08e3"
+    },
+    {
+      "file": "streak.jpg",
+      "sha256": "2ef344458692c1372dfb55ebd54b143a874f6dc4422b74fa90e5390d5a130b85"
+    },
+    {
+      "file": "line.jpg",
+      "sha256": "6b630f7bbf7ee5fabf3cf47a3e19f2948661ddf0615751525adcda94a7ece677"
+    },
+    {
+      "file": "streak-out.jpg",
+      "sha256": "84a7216820d51b3c154fb858d729f48a450f138fd0656813f1738c1c1f8fa5a0"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+.period {
+  position: relative;
+  top: -0.12em;
+  animation: period-pulse 900ms ease-in-out infinite;
+}
+
+@keyframes period-pulse {
+  0%, 60%, 100% { opacity: 0.35; }
+  30% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .period { animation: none; opacity: 1; }
+}
