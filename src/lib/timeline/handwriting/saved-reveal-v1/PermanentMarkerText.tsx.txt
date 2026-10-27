@@ -1,0 +1,47 @@
+import React, { useId, useMemo } from 'react';
+import outlines from '../timeline/handwriting/fonts/permanent-marker/outlines.json';
+import widths from '../timeline/handwriting/fonts/permanent-marker/widths.json';
+import { layoutMarker, markerStrokeProgress, markerStrokeRegions } from '../timeline/marker-handwriting';
+import { HandwritingImageFill, type HandwritingFill } from './HandwritingImageFill';
+
+export function PermanentMarkerText({ text, progress, fontSize, maxWidth, singleLine, align, color, imageFill }: {
+  text: string; progress: number; fontSize: number; maxWidth: number; singleLine: boolean;
+  align: 'left' | 'center' | 'right'; color: string; imageFill?: HandwritingFill;
+}) {
+  const id = useId().replace(/:/g, '');
+  const layout = useMemo(() => layoutMarker(text, singleLine ? Infinity : maxWidth / fontSize * 1024, align), [text, singleLine, maxWidth, fontSize, align]);
+  const scale = Math.min(fontSize / 1024, maxWidth / layout.width);
+  const clock = Math.max(0, Math.min(1, progress)) * layout.duration;
+  const fill = imageFill && (imageFill.videoUrl || imageFill.urls.length) ? imageFill : undefined;
+  const inkColor = fill ? '#ffffff' : color;
+  const ink = layout.glyphs.map((g, index) => {
+      const glyph = outlines[g.char as keyof typeof outlines];
+      if (!glyph) return clock > g.start ? <text key={index} x={g.x} y={g.y+800} fontSize={800} fill={inkColor}>{g.char}</text> : null;
+      const [left, bottom, right, top] = glyph.bounds;
+      const maskId = `${id}-pen-${index}`;
+      const strokeRegions = markerStrokeRegions(g.char);
+      return <g key={index} transform={`translate(${g.x} ${g.y})`}>
+        <defs><mask id={maskId} maskUnits="userSpaceOnUse" x={left-100} y={-100} width={right-left+200} height={1200}>
+          <g transform={`translate(${left} ${800-top}) scale(${(right-left)/100} ${(top-bottom)/100})`}>
+            {g.strokes.map((s, i) => {
+              const p = markerStrokeProgress(s, clock);
+              const region = strokeRegions?.[i];
+              const regionId = `${maskId}-region-${i}`;
+              return p > 0 ? <g key={i}>
+                {region ? <defs><clipPath id={regionId}><path d={region} /></clipPath></defs> : null}
+                <g clipPath={region ? `url(#${regionId})` : undefined}>
+                  <path d={s.d} fill="none" stroke="white" strokeWidth={widths[g.char as keyof typeof widths] ?? widths[g.char.toUpperCase() as keyof typeof widths] ?? 38} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1-p} />
+                </g>
+              </g> : null;
+            })}
+          </g>
+        </mask></defs>
+        <g mask={`url(#${maskId})`}><path d={glyph.d} transform="translate(0 800) scale(1 -1)" fill={inkColor} /></g>
+      </g>;
+    });
+  if (fill) return <HandwritingImageFill label={text} fill={fill} width={layout.width} height={layout.height} displayWidth={layout.width * scale} displayHeight={layout.height * scale}>{ink}</HandwritingImageFill>;
+  return <svg role="img" aria-label={text} data-handwriting="permanent-marker" width={layout.width * scale} height={layout.height * scale}
+    viewBox={`0 0 ${layout.width} ${layout.height}`} style={{ display: 'inline-block', verticalAlign: 'middle', overflow: 'visible' }}>
+    {ink}
+  </svg>;
+}

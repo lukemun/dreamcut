@@ -1,0 +1,83 @@
+{
+  "font_id": "yellowtail",
+  "reveal_mode": "line_mask",
+  "line_guides_sha256": "d8cc592a970b354dfd73add9ae9b9a3d907138f513546b5974d2802d72e14750",
+  "method": "Chromium production component SVG; same-page alpha-weighted source comparison at 480×640; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "395fe04952baca21a28392c58e1335d831024cbbb5368b7f4e540c17aaf80977",
+    "strokes": "acd59ad1e4da93361528aac831755cd9b37146a74bda07e3eb0df5a88172555c",
+    "widths": "ce721a2eb28ce32e9d104d70316ad2a3d56e49a16246782205512b5b2fb182ca",
+    "sweeps": "bb159184ac588300c6d63c113f69eda780aa34b1b8a559c88c140ded007810c2",
+    "metrics": "0112e0d1b8495a1901624de0efaa000566178ea08b8ea0425c9235d7a952a1a9"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.1322982269647048",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.44959435126590747",
+          "x": 1452,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1932,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.796807222897988",
+          "x": 2892,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 3372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 3852,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 4332,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "*",
+      "codepoint": 42,
+      "page": "page-1.png",
+      "gestures": 3,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.01,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}
