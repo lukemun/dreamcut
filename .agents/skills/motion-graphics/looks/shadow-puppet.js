@@ -1527,6 +1527,8 @@ window.DreamcutMotion.register("shadow-puppet", ({ rng, hexA }) => {
     tone: TONE,
     keepArt: true,
     overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#6c160f", dark: "#2e240f" },
     palettes: {
       // Daylight: a pale paper screen in a bright room. Moonlit: a cool blue lamp. Mono: grey paper and black card.
       light: { bg: "#f1e6cc", ink: "#20160f", muted: "#5a4632", accent: "#2f7f70", onAccent: "#fff6e6", rule: "rgba(32,22,15,0.8)", track: "rgba(32,22,15,0.2)", panel: "rgba(32,22,15,0.9)",

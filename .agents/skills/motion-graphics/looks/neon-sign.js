@@ -1262,6 +1262,8 @@ window.DreamcutMotion.register("neon-sign", ({ grain, rng }) => {
     figures: "'Avenir Next', 'Century Gothic', 'Segoe UI', Arial, sans-serif", radius: 26, motion: "glow", change: "fade",
     kit: { line: 3.5, glow: 18, fill: "none", panel: "outline" },
     tubes: ["#38f0ff", "#ffb340", "#a66bff", "#7dff6b", "#ff5537"], brick: "#3a2a35", mortar: "#140f16",
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#5a0931" },
     palettes: {
       // Light: a whitewashed wall by day, the tubes as coloured glass. Dark: slate brick at midnight. Mono: white neon.
       light: { bg: "#d9d3cd", panel: "rgba(255,255,255,0.3)", ink: "#2a1430", muted: "rgba(42,20,48,0.7)", accent: "#e0177a", onAccent: "#ffffff", rule: "rgba(42,20,48,0.3)", track: "rgba(42,20,48,0.1)",

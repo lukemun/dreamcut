@@ -1483,6 +1483,8 @@ window.DreamcutMotion.register("low-poly", ({ grain, rng, hexA }) => {
     radius: 6, motion: "rise", change: "fade", kit: { line: 3, fill: "solid", panel: "fill" },
     panelEdge: "rgba(255,246,234,0.4)",
     world: WORLD_DUSK,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#fff8f7", light: "#993832" },
     palettes: {
       // Daylight lagoon, a moonlit night, and a graphite study.
       light: { bg: "#62b2ee", ink: "#14224d", muted: "rgba(20,34,77,0.76)", accent: "#ff5e54", onAccent: "#ffffff", rule: "rgba(20,34,77,0.4)", track: "rgba(20,34,77,0.14)", panel: "rgba(255,255,255,0.92)",

@@ -697,6 +697,8 @@ window.DreamcutMotion.register("constructivist", ({ grain, smudge, rng, hexA }) 
     body: FONT, bodyWeight: 400, figures: FONT, radius: 0, motion: "wipe", change: "fade",
     kit: { line: 4, fill: "solid", panel: "fill" },
     panelEdge: PAPER.ink, overprint: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { dark: "#e47f76" },
     palettes: {
       light: { bg: "#f2eee5", ink: "#1b1613", muted: "#a59a85", accent: "#d02c22", onAccent: "#f6f1e4", panelEdge: "#1b1613", rule: "rgba(27,22,19,0.8)", backdrop: backdropOf("#f2eee5") },
       dark: { bg: "#14100d", ink: "#ecdfc0", muted: "#6f6350", accent: "#d63a2c", onAccent: "#14100d", panelEdge: "#ecdfc0", panel: "#ecdfc0", rule: "rgba(236,223,192,0.8)", track: "rgba(236,223,192,0.12)", overprint: false, backdrop: backdropOf("#14100d") },

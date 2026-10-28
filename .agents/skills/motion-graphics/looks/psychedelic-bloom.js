@@ -36,13 +36,15 @@ window.DreamcutMotion.register("psychedelic-bloom", ({ hexA }) => {
     for (const side of [-1, 1]) {
       ctx.save(); ctx.translate(W / 2, H / 2); if (tall) ctx.rotate(Math.PI / 2);
       const span = tall ? H : W, depth = tall ? W : H;
+      // A tall frame is narrow across, so its bands start further out to leave the words their middle.
+      const inner = tall ? .3 : .18;
       for (let b = 0; b < 9; b++) {
         ctx.beginPath();
         for (let j = 0; j <= 100; j++) {
           const x = (j / 100 - .5) * span * 1.1;
           const wave = Math.sin(x / span * 7 + t * .38 + phase + b * .13) * depth * .055
             + Math.sin(x / span * 13 - t * .22 + b * .22) * depth * .023;
-          const y = side * (depth * (.18 + b * .043) + wave);
+          const y = side * (depth * (inner + b * .043) + wave);
           if (!j) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
         ctx.lineTo(span, side * depth); ctx.lineTo(-span, side * depth); ctx.closePath();
@@ -69,6 +71,8 @@ window.DreamcutMotion.register("psychedelic-bloom", ({ hexA }) => {
   return {
     ...base,
     ...onShow(base),
+    // Psychedelic's backdrop colours are for its bright bands; Bloom's dark light show reads with its own ink and accent.
+    displayInk: undefined, displayAccent: undefined,
     palettes: Object.fromEntries(Object.entries(base.palettes).map(([id, palette]) => [id, { ...palette, ...onShow(palette) }])),
     backdrop: () => '#2a0f3d',
     paintOver: false,

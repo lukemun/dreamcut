@@ -1572,6 +1572,8 @@ window.DreamcutMotion.register("clay", ({ grain, rng }) => {
     motion: "rise", change: "fade",
     kit: { line: 4, fill: "solid", panel: "fill" },
     clay: BASE,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#802f23", light: "#8f3929" },
     palettes: {
       // Light: a pale morning set. Dark: the set at night under a clay moon with fireflies. Mono: unpainted grey modelling clay.
       light: { bg: PALETTES.light.skyBot, panel: PALETTES.light.slab, ink: PALETTES.light.ink, muted: "#5d6474", accent: "#ef5f45", onAccent: "#ffffff", rule: "rgba(45,51,65,0.3)", track: "rgba(45,51,65,0.1)", clay: PALETTES.light },

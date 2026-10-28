@@ -1,8 +1,8 @@
 # Explainer looks
 
-Shared by the five explainer templates ([Explainer Sequence](explainer-sequence.md),
+Shared by the explainer templates ([Explainer Sequence](explainer-sequence.md),
 [Animated Chart](animated-chart.md), [Plan Comparison](plan-comparison.md),
-[Walkthrough Steps](walkthrough-steps.md), [Kinetic Type](kinetic-type.md)). Each
+[Walkthrough Steps](walkthrough-steps.md)). Each
 template is one composition whose `index.html` loads `looks.js`. **Do not send `looks.js`
 to `motion_graphic_prepare`:** DreamCut supplies it for each graphic when it checks,
 previews and renders: the shared runtime, the drawing kit and only the look the `look`
@@ -13,8 +13,11 @@ Each look lives in its own pair of files under [`../looks/`](../looks/) (`<id>.j
 `<id>.json` with its title, family and three examples); [`looks.json`](../looks/looks.json)
 lists their order and the templates they work with, `runtime.js` holds the shared helpers
 and `kit.js` the scene drawing kit. `pnpm check:looks` (also run by `pnpm check:effects`) checks
-that every look builds into its own bundle. Looks also appear in Properties → Templates
-under Looks.
+that every look builds into its own bundle. Parsing does not prove a look runs: before shipping a
+new or changed look, run `pnpm check:looks --render --palettes --look <id>`, which draws Explainer
+Sequence's title scene in headless Chrome and fails when the page throws, its timeline never builds or its words read
+below 3:1 against the look's backdrop (the contrast HyperFrames' check refuses at render time).
+Looks also appear in Properties → Templates under Looks.
 
 | Look | Character | Arrival | Scene change |
 | --- | --- | --- | --- |
@@ -80,6 +83,11 @@ The controls file also declares:
   registering the timeline, so a look's texture pass runs across its whole length.
 - Read type and panel styling through the variables `setup` sets: `--display-style` and
   `--display-case` on display text, `--panel-filter` and `--panel-edge` on panels.
+- Type set straight on the backdrop (Explainer Sequence's title and kicker) reads `--display-ink` and `--display-accent`.
+  A look whose `ink` and `accent` are meant for its panels names the colours that read on its backdrop,
+  per palette: `displayInk: { original, light, dark, mono }` and `displayAccent: {...}`. A palette it
+  leaves out uses its `ink` and `accent`; a creator's Own accent is always used as chosen.
+  `pnpm check:looks --render --palettes` measures every word against what is drawn behind it.
 - A new look draws its texture from time alone (`paint(ctx, W, H, t, accent)`), seeds any
   randomness with `rng(seed)` and never reads a clock. A `filter` change needs a matching
   start value, or it tweens from `none` and flashes.

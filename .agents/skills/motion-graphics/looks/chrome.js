@@ -1228,6 +1228,8 @@ window.DreamcutMotion.register("chrome", ({ grain, rng }) => {
     kit: { line: 3, fill: "solid", panel: "glass" },
     skyTop: [44, 96, 232],
     base: "radial-gradient(70% 55% at 86% 96%, rgba(255,64,190,0.42), rgba(255,64,190,0) 70%), radial-gradient(60% 60% at 8% 6%, rgba(40,200,255,0.3), rgba(40,200,255,0) 70%), radial-gradient(50% 40% at 50% 58%, rgba(120,90,255,0.2), rgba(120,90,255,0) 70%), linear-gradient(180deg, #050a2c 0%, #101057 52%, #2a0e66 100%)",
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#a8136b" },
     palettes: {
       light: { bg: "#e9f0ff", ink: "#0b1450", muted: "rgba(11,20,80,0.74)", accent: "#e0198f", onAccent: "#ffffff", rule: "rgba(11,20,80,0.3)", track: "rgba(11,20,80,0.1)", panel: "rgba(255,255,255,0.5)", panelEdge: "rgba(255,255,255,0.9)",
         base: "radial-gradient(70% 55% at 86% 96%, rgba(255,120,210,0.5), rgba(255,120,210,0) 70%), radial-gradient(60% 60% at 8% 6%, rgba(120,220,255,0.55), rgba(120,220,255,0) 70%), radial-gradient(50% 40% at 50% 58%, rgba(170,150,255,0.35), rgba(170,150,255,0) 70%), linear-gradient(180deg, #f4f8ff 0%, #dfe6ff 52%, #f0dcff 100%)" },

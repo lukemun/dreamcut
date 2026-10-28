@@ -1069,6 +1069,9 @@ window.DreamcutMotion.register("sticky-notes", ({ rng, hexA }) => {
   };
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { dark: "#ffffff" },
+    displayAccent: { original: "#6d1b16", dark: "#ec8c82" },
     id: "sticky-notes",
     ...TOKENS,
     bg: "#c79a63", panel: "#fbf6e6", ink: "#262a35", muted: "#5a5f6e", accent: "#d9362b", onAccent: "#ffffff",

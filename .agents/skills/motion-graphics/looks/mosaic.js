@@ -1240,6 +1240,9 @@ window.DreamcutMotion.register("mosaic", ({ rng }) => {
 
   // ---- the look --------------------------------------------------------------------------------------
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#2a1a0c", light: "#2a1a0c", mono: "#111111" },
+    displayAccent: { original: "#4c2512", mono: "#303030" },
     bg: "#8a6418", panel: "#1f4090", ink: "#fbf1d4", muted: "rgba(251,241,212,0.78)", accent: "#ff7a3d", onAccent: "#2a1a0c",
     rule: "rgba(251,241,212,0.45)", track: "rgba(251,241,212,0.16)",
     display: "'Palatino Linotype', Palatino, 'Book Antiqua', 'Iowan Old Style', Georgia, serif", displayWeight: 700, displayCase: "none", displayTracking: "-0.01em",

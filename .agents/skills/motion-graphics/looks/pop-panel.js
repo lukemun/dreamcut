@@ -1326,6 +1326,8 @@ window.DreamcutMotion.register("pop-panel", ({ rng }) => {
   const text = (ink) => () => "none";
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { dark: "#fffaf0" },
     bg: "#efe4c8", panel: "#fffaf0", ink: "#141317", muted: "#5a5348", accent: "#e8402f", onAccent: "#fffaf0",
     rule: "#141317", track: "rgba(20,19,23,0.12)",
     display: LET, displayWeight: 800, displayCase: "uppercase", displayTracking: "0.01em", displayStyle: "italic",

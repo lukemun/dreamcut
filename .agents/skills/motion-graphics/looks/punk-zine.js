@@ -1131,6 +1131,9 @@ window.DreamcutMotion.register("punk-zine", ({ rng }) => {
   function g_clip(ctx, pg, fn) { ctx.save(); ctx.beginPath(); ctx.rect(pg.x, pg.y, pg.w, pg.h); ctx.clip(); fn(); ctx.restore(); }
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#f1eee3", mono: "#f1eee3" },
+    displayAccent: { light: "#992c0a" },
     bg: "#14120e", panel: "#f1eee3", ink: "#14120e", muted: "#6f6a5c", accent: "#ff5a1f", onAccent: "#14120e",
     rule: "rgba(20,18,14,0.7)", track: "rgba(20,18,14,0.12)",
     board: "#14120e", page: "#f1eee3", news: "#d8d3c2", white: "#fbf9f2", tape: "#e5d7a0",

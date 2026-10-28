@@ -1079,6 +1079,9 @@ window.DreamcutMotion.register("patchwork", ({ rng, hexA }) => {
   };
   const dim = (list, k) => list.map((c) => shade(c, k));
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { dark: "#ffffff" },
+    displayAccent: { original: "#ae3c44" },
     bg: "#efe3cf", panel: "#fbf1dc", ink: "#3a2e4d", muted: "#7a6a86", accent: "#e8505b", onAccent: "#ffffff",
     rule: "rgba(58,46,77,0.5)", track: "rgba(58,46,77,0.12)",
     display: FONT, displayWeight: 700, displayTracking: "0.01em", body: FONT, bodyWeight: 700, figures: FONT, radius: 24,

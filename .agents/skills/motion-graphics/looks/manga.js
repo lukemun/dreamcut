@@ -1122,6 +1122,8 @@ window.DreamcutMotion.register("manga", ({ rng, hexA }) => {
     body: LET, bodyWeight: 700, figures: FIG, radius: 0, motion: "wipe", change: "slash",
     kit: { line: 4, fill: "solid", panel: "outline" },
     tone: TONE, keepArt: true, overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { mono: "#696966" },
     palettes: {
       light: { bg: "#fbfaf6", panel: "#ffffff", ink: "#101218", muted: "#555a66", accent: "#2a62e0", onAccent: "#ffffff", rule: "rgba(16,18,24,0.9)", track: "rgba(16,18,24,0.1)", backdrop: () => "#fbfaf6", textShadow: halo,
         tone: { paper: "251,250,246", paperHex: "#fbfaf6", panel: "255,255,255", ink: "16,18,24" } },

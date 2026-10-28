@@ -900,6 +900,9 @@ window.DreamcutMotion.register("deco", ({ rng }) => {
   let grainTile = null;
   const halo = () => "none";
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { light: "#0a0c0d" },
+    displayAccent: { light: "#815a0c" },
     bg: "#0a0c0d", panel: "rgba(10,13,13,0.9)", ink: "#f6ebc6", muted: "#cfb878", accent: "#e8b94e", onAccent: "#0a0c0d",
     rule: "rgba(232,188,92,0.8)", track: "rgba(232,188,92,0.12)",
     display: FACE, displayWeight: 500, displayCase: "uppercase", displayTracking: "0.09em",

@@ -1291,6 +1291,9 @@ window.DreamcutMotion.register("psychedelic", ({ hexA, rng }) => {
   const base = scheme(ORIGINAL, "#2a0f3d", "#fff1d0");
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { mono: "#fff0d8" },
+    displayAccent: { original: "#400b25", light: "#732b4e", dark: "#400b35", mono: "#fae8f1" },
     bg: "#ff2e93", panel: "#fff1d0", ink: "#2a0f3d", muted: "#5b2a7a", accent: "#ff2e93", onAccent: "#2a0f3d",
     rule: "rgba(42,15,61,0.9)", track: "rgba(42,15,61,0.12)",
     display: "'Cooper Black', 'Cooper Std', 'Bookman Old Style', 'ITC Bookman', Georgia, serif", displayWeight: 900, displayCase: "none", displayTracking: "-0.005em",

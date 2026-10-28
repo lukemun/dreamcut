@@ -46,10 +46,17 @@
     const base = LOOKS[c.look] || LOOKS.paper;
     const look = { ...base, ...((base.palettes && base.palettes[c.palette]) || {}), texture: Math.max(0, Math.min(100, c.texture ?? 100)) / 100 };
     const accent = c.own_accent ? c.accent : look.accent;
+    // Type set straight on the backdrop (a title over the look's own world). A look whose ink is meant for its panels names
+    // the colour that reads on its backdrop, per palette: displayInk: { original, light, dark, mono }.
+    const paletteKey = c.palette && base.palettes && base.palettes[c.palette] ? c.palette : "original";
+    const displayInk = (base.displayInk && base.displayInk[paletteKey]) || look.ink;
+    // The accent on the backdrop keeps the look's hue, lightened or darkened where it would not read; a colour
+    // the creator chose (Own accent) is used as chosen.
+    const displayAccent = (!c.own_accent && base.displayAccent && base.displayAccent[paletteKey]) || accent;
     const W = Number(root.dataset.width) || 1920;
     const H = Number(root.dataset.height) || 1080;
     const vars = {
-      "--bg": look.bg, "--panel": look.panel, "--ink": look.ink, "--muted": look.muted, "--accent": accent,
+      "--bg": look.bg, "--panel": look.panel, "--ink": look.ink, "--display-ink": displayInk, "--display-accent": displayAccent, "--muted": look.muted, "--accent": accent,
       "--on-accent": look.onAccent, "--rule": look.rule, "--track": look.track, "--display": look.display,
       "--display-weight": look.displayWeight, "--display-tracking": look.displayTracking, "--body": look.body,
       "--body-weight": look.bodyWeight, "--figures": look.figures, "--radius": look.radius + "px",
@@ -73,7 +80,10 @@
       canvas.width = W;
       canvas.height = H;
       canvas.style.cssText = `position:absolute;inset:0;pointer-events:none;opacity:${look.texture};` + (look.paintOver ? "z-index:5;" : "");
-      if (look.paintOver) root.appendChild(canvas);
+      // A texture drawn over the type (grain, scan lines) covers it on purpose. HyperFrames' layout pass reads
+      // the flag from the text's ancestors and would otherwise refuse the render as hidden text; its contrast
+      // pass still reads the drawn pixels.
+      if (look.paintOver) { root.setAttribute("data-layout-allow-occlusion", ""); root.appendChild(canvas); }
       else backdrop.after(canvas);
       paint = { canvas, ctx: canvas.getContext("2d") };
       look.paint(paint.ctx, W, H, 0, accent, look);

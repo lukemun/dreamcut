@@ -1539,6 +1539,9 @@ window.DreamcutMotion.register("papercraft", ({ rng, hexA }) => {
   };
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#ffffff", dark: "#ffffff", mono: "#ffffff" },
+    displayAccent: { light: "#8f4024", mono: "#f4f5f5" },
     bg: TONE.mat, panel: TONE.card, ink: TONE.inkHex, muted: TONE.mutedHex, accent: "#ef6a3c", onAccent: "#ffffff",
     rule: "rgba(37,48,59,0.4)", track: "rgba(37,48,59,0.12)",
     display: DISPLAY, displayWeight: 700, displayTracking: "-0.005em",

@@ -1068,6 +1068,8 @@ window.DreamcutMotion.register("soft-clay", ({ rng, hexA }) => {
     body: FONT, bodyWeight: 800, figures: FONT, radius: 40, motion: "pop", change: "lift",
     kit: { line: 3, fill: "solid", panel: "fill" },
     panelEdge: "rgba(255,255,255,0.7)",
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#a6483f", light: "#b34b4b" },
     palettes: {
       // Mint daylight, twilight playroom, and sand clay.
       light: look({ bg: "#f1faf6", wall0: "#f4fbf8", wall1: "#e3f3ec", floor0: "#d8efe4", floor1: "#c4e6d6", skirt: "#f4fbf6", glow: [200, 255, 232], accent: "#ff6b6b", ink: "#2f3f4a", muted: "#5d7480", inkOn: "#2f3f4a", face: "#2c3a44", screen: "#3f5f6e",

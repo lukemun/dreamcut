@@ -1544,6 +1544,9 @@ _ ..... ..... ..... ..... ..... ..... #####
     world: W, ...extra,
   });
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#fff8ea", dark: "#fff8ea", mono: "#f7ecd0" },
+    displayAccent: { original: "#f5c2bb", light: "#38140f", mono: "#ede1dd" },
     ...look(MORNING, { accent: "#e2503c" }),
     display: "'Silkscreen', 'VT323', 'Courier New', monospace", displayWeight: 700, displayCase: "uppercase", displayTracking: "0.04em",
     body: "'Silkscreen', 'VT323', 'Courier New', monospace", bodyWeight: 700, figures: "'Courier New', monospace",

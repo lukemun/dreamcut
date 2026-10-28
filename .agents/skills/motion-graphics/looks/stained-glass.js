@@ -1837,6 +1837,8 @@ window.DreamcutMotion.register("stained-glass", ({ grain, rng }) => {
       skin: ["#f3cba2", "#d9a074", "#a8704a", "#f0bf98"], hair: ["#4a2a14", "#8c3b1c", "#1d1512", "#c88a2c"],
       dim: "#8a8aa2", beam: 0.7, ray: "#ffe7b0",
     },
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#50160c", mono: "#150f04" },
     palettes: {
       // Daylight: clear and pale-tinted quarries with jewels; dark painted words on pale glass.
       light: { bg: "#ece4cf", ink: "#24180c", muted: "#5c4a33", accent: "#c8361f", onAccent: "#fff6e0", rule: "rgba(36,24,12,0.35)", track: "rgba(36,24,12,0.1)",

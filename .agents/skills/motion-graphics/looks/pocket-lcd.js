@@ -1126,6 +1126,8 @@ window.DreamcutMotion.register("pocket-lcd", ({ rng }) => {
     body: "'Courier New', Menlo, monospace", bodyWeight: 700, figures: "'Courier New', Menlo, monospace", radius: 0,
     motion: "type", change: "fade", kit: { line: 4, fill: "solid", panel: "outline" },
     tone: TONE, keepArt: true, overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#a23829", light: "#ae3c2c", mono: "#ae3c2c" },
     palettes: {
       // Daylight: pale stock and a lighter plastic body. Backlit: bright cells on a dark screen. Grey: a plain monochrome panel.
       light: { bg: "#e5edc7", ink: "#2a4a35", muted: "#5f8c58", rule: "#5f8c58", tone: mk({ c: ["#e5edc7", "#adc67f", "#628d5a", "#2a4a35"], bezel: "#c8c4d4", bezelHi: "#e8e5f0", bezelLo: "#a09bb2", grid: "rgba(42,74,53,0.18)", glass: "rgba(255,255,255,0.7)" }) },

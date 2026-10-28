@@ -1426,6 +1426,8 @@ window.DreamcutMotion.register("isometric", ({ rng }) => {
     panelEdge: "transparent",
     keepArt: true,
     overlap: false,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#b34b40", light: "#b34e44" },
     palettes: {
       // Light: an airy morning in mint and sky. Dark: the islands at night, windows lit. Mono: grey clay with one dark accent.
       light: { ...tokens(PAL.light), accent: "#ff6f61" },

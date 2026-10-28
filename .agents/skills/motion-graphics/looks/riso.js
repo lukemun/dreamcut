@@ -1090,6 +1090,8 @@ window.DreamcutMotion.register("riso", ({ rng, hexA }) => {
     inks: INKS,
     keepArt: true,
     overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#bf2e6b", light: "#007a74" },
     palettes: {
       // Bright: teal and sunflower on white stock. Night: fluorescent inks on black stock. Mono: one black drum.
       light: { bg: "#fbfaf5", panel: "rgba(255,190,30,0.3)", ink: "#3a2a86", muted: "#6b5fa6", accent: "#00a39a", onAccent: "#ffffff", rule: "rgba(58,42,134,0.7)", track: "rgba(58,42,134,0.12)", panelEdge: "rgba(58,42,134,0.7)",

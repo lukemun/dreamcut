@@ -1315,6 +1315,9 @@ window.DreamcutMotion.register("napkin", ({ rng, hexA }) => {
   const halo = (rgb) => () => `0 0 3px rgba(${rgb},0.4), 0 0 12px rgba(${rgb},0.14)`;
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#fffcf3", mono: "#eeeeea" },
+    displayAccent: { original: "#f3b5aa", light: "#4c170f", mono: "#dedede" },
     bg: "#f6f1e4", panel: "rgba(29,34,54,0.05)", ink: "#1d2236", muted: "#5a5f78", accent: "#e0452b", onAccent: "#fffcf3",
     rule: "rgba(29,34,54,0.75)", track: "rgba(29,34,54,0.1)",
     display: HAND, displayWeight: 400, displayCase: "none", displayTracking: "0.005em",

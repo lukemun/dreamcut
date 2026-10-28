@@ -1367,6 +1367,8 @@ window.DreamcutMotion.register("flat-science", ({ grain, rng }) => {
     cols: ["#ff7a6b", "#3fd2cf", "#ffd25e", "#a98bff", "#5fe3a1", "#ff8cc6"],
     shade: "#1b0f4a", rim: "#9ff3ff", face: "#1d1440", pill: "#ffffff", pillInk: "#1d1650",
     rock: ["#5a3fa8", "#8f78e6"], device: ["#ece9ff", "#b3a8f2"], screen: "#1c1645", starA: 1,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#994324" },
     palettes: {
       // Daytime pastel sky, deep night, and silver on graphite.
       light: { bg: "#ece6ff", ink: "#1d1650", muted: "rgba(29,22,80,0.72)", accent: "#ff6f3c", onAccent: "#ffffff", rule: "rgba(29,22,80,0.3)", track: "rgba(29,22,80,0.1)",

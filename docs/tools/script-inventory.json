@@ -132,6 +132,22 @@
       "timeline_write_marker": false
     },
     {
+      "path": "scripts/qa-fresh-clone.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Owner QA lane (pnpm qa): clones pushed main into a throwaway folder, bootstraps it and runs pnpm editor on its own port, data and profile folders, as a new user gets it. Never edits a project.",
+      "sha256": "ac46f398ff8a2e531e01fce776b8b756ba3b928be4f6c47e18d02344ec9b72e4",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-looks-render.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Repository check (pnpm check:looks --render): draws every look in Explainer Sequence's title scene in headless Chrome and fails when the page throws, its timeline never builds or its words read below 3:1. Agents never run it while editing.",
+      "sha256": "3037007f79e9e5204f4b6ed7fde4b6d222f20e70781d6d1132f06778a7296ab3",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/build-paper-contour-assets.py",
       "disposition": "defer",
       "capability": null,

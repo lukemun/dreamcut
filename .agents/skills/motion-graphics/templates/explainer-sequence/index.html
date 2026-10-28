@@ -9,8 +9,8 @@
       html, body { margin: 0; background: transparent; overflow: hidden; }
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: var(--body); }
       .scene { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; }
-      .kicker { font-family: var(--body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-shadow: var(--separation); }
-      .display { font-family: var(--display); font-style: var(--display-style, normal); text-transform: var(--display-case, none); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.04; text-shadow: var(--separation); }
+      .kicker { font-family: var(--body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--display-accent, var(--accent)); text-shadow: var(--separation); }
+      .display { color: var(--display-ink, var(--ink)); font-family: var(--display); font-style: var(--display-style, normal); text-transform: var(--display-case, none); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.04; text-shadow: var(--separation); }
       .body { font-family: var(--body); font-weight: var(--body-weight); line-height: 1.25; color: var(--muted); text-shadow: var(--separation); }
       .mark { background-image: linear-gradient(var(--accent-soft), var(--accent-soft)); background-repeat: no-repeat; background-position: 0 88%; color: var(--accent); }
       .figure { font-family: var(--figures); font-weight: var(--display-weight); color: var(--accent); line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; text-shadow: var(--separation); white-space: nowrap; }

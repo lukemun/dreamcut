@@ -61,4 +61,17 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(1);
   }
   console.log(`${count} looks build into their own bundles.`);
+  // --render also draws each look in headless Chrome (scripts/check-looks-render.mjs).
+  if (process.argv.includes("--render")) {
+    const { checkLooksRender } = await import("./check-looks-render.mjs");
+    const value = (flag) => { const i = process.argv.indexOf(flag); return i >= 0 ? process.argv[i + 1] : undefined; };
+    const only = value("--look")?.split(",");
+    const root = value("--root") ?? process.cwd();
+    const { failures, drawn } = await checkLooksRender({ bundle: (id) => buildLooks(root, [id]), root, palettes: process.argv.includes("--palettes"), only });
+    if (failures.length) {
+      console.error(failures.join("\n"));
+      process.exit(1);
+    }
+    console.log(`${drawn} look draws render their title with readable type.`);
+  }
 }

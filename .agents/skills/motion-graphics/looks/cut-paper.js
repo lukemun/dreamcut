@@ -1109,6 +1109,8 @@ window.DreamcutMotion.register("cut-paper", ({ rng, hexA }) => {
     tone: TONE,
     keepArt: true,
     textShadow: () => "0 0 0 #fdf8ec, 2px 2px 0 #fdf8ec, -2px -2px 0 #fdf8ec, 2px -2px 0 #fdf8ec, -2px 2px 0 #fdf8ec, 4px 7px 10px rgba(24,34,48,0.35)",
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#431912", light: "#702a1e", dark: "#f1b2a7" },
     palettes: {
       light: { bg: "#cdeaf0", tone: LIGHT, backdrop: () => "#cdeaf0" },
       dark: { bg: "#1f3d5e", ink: "#f3ede0", muted: "#a9bccc", panel: "#24506a", tone: DARK, backdrop: () => "#1f3d5e" },

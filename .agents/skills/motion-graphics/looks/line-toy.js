@@ -1150,6 +1150,9 @@ window.DreamcutMotion.register("line-toy", ({ rng, hexA }) => {
     powder: [186, 190, 196], groove: "#22252c", mid: "rgba(48,53,62,0.62)", lip: "rgba(255,255,255,0.62)", halo: "rgba(206,210,216,0.92)",
   };
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { dark: "#ffffff" },
+    displayAccent: { original: "#fef6f4" },
     bg: "#0e7c79", panel: "rgba(255,255,255,0.18)", ink: "#1d2027", muted: "#4a515b", accent: "#e8481f", onAccent: "#ffffff",
     rule: "rgba(34,37,44,0.7)", track: "rgba(34,37,44,0.12)",
     display: SANS, displayWeight: 800, displayTracking: "0.005em", body: SANS, bodyWeight: 600,

@@ -825,6 +825,8 @@ window.DreamcutMotion.register("silkscreen", ({ rng, hexA }) => {
     inks: INKS,
     keepArt: true,
     overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { dark: "#b9b6d8" },
     palettes: {
       // Bright: process colours on white stock. Night: screen-blended inks on black stock. Mono: greys on cream.
       light: { bg: "#fbf8ef", ink: "#14213d", accent: "#e8175d", inks: { paper: "#fbf8ef", c: "#00a8d4", m: "#e8175d", y: "#ffcb05", o: "#ff6b1a", v: "#6a3fd1", k: "#14213d", cream: "#fffdf6", onCream: "#14213d", blend: "multiply" }, backdrop: () => "#fbf8ef" },

@@ -1168,6 +1168,8 @@ window.DreamcutMotion.register("gouache", ({ rng, hexA }) => {
     motion: "wipe", change: "fade",
     kit: { line: 3, fill: "solid", panel: "fill" },
     keepArt: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#9c4329" },
     palettes: { light: palette(AIRY), dark: palette(DARK), mono: palette(MONO) },
     textShadow: () => "none",
     backdrop: (accent, texture, look) => look.bg,

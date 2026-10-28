@@ -1254,6 +1254,9 @@ window.DreamcutMotion.register("outrun", ({ hexA, rng }) => {
   }
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { light: "#14062e" },
+    displayAccent: { light: "#662c47" },
     bg: "#14062e", panel: "rgba(24,8,52,0.9)", ink: "#fff4fb", muted: "#d9a8e6", accent: "#ff3ea5", onAccent: "#14062e",
     rule: "rgba(255,62,165,0.85)", track: "rgba(255,244,251,0.1)",
     display: "Futura, 'Avenir Next', 'Trebuchet MS', sans-serif", displayWeight: 800, displayCase: "uppercase", displayTracking: "0.02em",

@@ -1468,6 +1468,8 @@ window.DreamcutMotion.register("voxel", ({ grain, rng }) => {
     kit: { line: 3, fill: "solid", panel: "fill" },
     world: WORLD,
     textShadow: extrude("#9fd8dc", "#7dbfc7"),
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#a63b3e", light: "#a64f11" },
     palettes: {
       // Noon: brighter sky and grass. Night: indigo sky, lit windows and lanterns. Mono: unpainted clay cubes.
       light: { bg: "#e2f4ff", panel: "#ffffff", ink: "#16213a", muted: "#45526b", accent: "#ff7a1a", onAccent: "#ffffff", textShadow: extrude("#bfe3ff", "#9fcff5"),

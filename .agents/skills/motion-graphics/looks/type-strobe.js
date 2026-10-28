@@ -806,6 +806,8 @@ window.DreamcutMotion.register("type-strobe", ({ hexA, rng }) => {
     body: FONT, bodyWeight: 700, figures: FONT, radius: 0,
     motion: "wipe", change: "grid", kit: { line: 4, fill: "solid", panel: "fill" },
     keepArt: true, overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#b32916" },
     palettes: {
       light: { bg: "#f1ede2", panel: "#f1ede2", ink: "#121212", muted: "#6d6a62", accent: "#ff3b1f", onAccent: "#fff6e8", rule: "#121212", track: "rgba(18,18,18,0.1)", backdrop: () => "#f1ede2" },
       dark: { bg: "#0c0b10", panel: "#0c0b10", ink: "#f4f0e6", muted: "#9a96a6", accent: "#ff2fa0", onAccent: "#0c0b10", rule: "#f4f0e6", track: "rgba(244,240,230,0.14)", backdrop: () => "#0c0b10" },

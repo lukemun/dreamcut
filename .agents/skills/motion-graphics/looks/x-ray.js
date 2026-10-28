@@ -1183,6 +1183,9 @@ window.DreamcutMotion.register("x-ray", ({ rng }) => {
   const halo = (c) => () => `0 0 18px ${c}, 0 2px 3px rgba(0,0,0,0.7)`;
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#07121f", light: "#07121f", mono: "#111111" },
+    displayAccent: { original: "#736121", light: "#8c6811", mono: "#555555" },
     bg: "#cfe0f2", panel: "rgba(3,4,6,0.85)", ink: "#eef4fb", muted: "#9db8d6", accent: "#ffd84a", onAccent: "#07121f",
     rule: "rgba(190,220,255,0.5)", track: "rgba(190,220,255,0.12)",
     display: COND, displayWeight: 700, displayCase: "uppercase", displayTracking: "0.045em",

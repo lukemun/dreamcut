@@ -1030,6 +1030,9 @@ window.DreamcutMotion.register("beige-desktop", ({ rng }) => {
   };
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#ffffff", mono: "#ffffff" },
+    displayAccent: { light: "#411509", mono: "#888888" },
     bg: LOOK_ORIG.bg, panel: LOOK_ORIG.panel, ink: LOOK_ORIG.ink, muted: LOOK_ORIG.muted, accent: LOOK_ORIG.accent, onAccent: LOOK_ORIG.onAccent, rule: LOOK_ORIG.rule, track: LOOK_ORIG.track, pal: LOOK_ORIG.pal,
     display: "'Courier New', Courier, monospace", displayWeight: 700, displayCase: "uppercase", displayTracking: "0.02em",
     body: "'Courier New', Courier, monospace", bodyWeight: 700, figures: "'Courier New', Courier, monospace", radius: 0, motion: "type", change: "fade", kit: { line: 3, fill: "solid", panel: "fill" },

@@ -973,6 +973,9 @@ window.DreamcutMotion.register("origami", ({ rng, hexA }) => {
   };
 
   return {
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { dark: "#ffffff" },
+    displayAccent: { original: "#a83e2d" },
     bg: "#efe6da", panel: "#fbf7f0", ink: "#2a2420", muted: "#6d625a", accent: "#e0533c", onAccent: "#ffffff",
     rule: "rgba(42,36,32,0.35)", track: "rgba(42,36,32,0.1)",
     display: DISPLAY, displayWeight: 700, displayCase: "none", displayTracking: "-0.01em",

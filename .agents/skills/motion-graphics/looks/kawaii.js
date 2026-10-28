@@ -1707,6 +1707,8 @@ window.DreamcutMotion.register("kawaii", ({ grain, rng }) => {
     fills: { pink: "#ffb1cf", mint: "#a8ebd0", lav: "#cfbcff", butter: "#ffe394", sky: "#acdcff", peach: "#ffc9ab", white: "#fffafd", cream: "#fff3e4" },
     skin: ["#ffe2d0", "#f7c9a8", "#dba27d", "#a8714f"],
     hairs: ["#7a4f3e", "#b79cf0", "#ff9fc6", "#6c4a80", "#f2b867", "#7fcfb4"],
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { original: "#a64871", light: "#b3556d" },
     palettes: {
       // Light: a whiter, cream-and-mint morning. Dark: a pastel night meadow. Mono: soft greys and charcoal line.
       light: { bg: "#fffaf3", ink: "#4b3a5e", muted: "rgba(75,58,94,0.72)", accent: "#ff7a9c", line: "#4b3a5e", panelEdge: "#4b3a5e", rule: "rgba(75,58,94,0.3)", track: "rgba(75,58,94,0.1)",

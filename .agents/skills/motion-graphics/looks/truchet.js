@@ -1146,6 +1146,9 @@ window.DreamcutMotion.register("truchet", ({ rng }) => {
     display, displayWeight: 800, displayCase: "none", displayTracking: "-0.01em",
     body: "'Avenir Next', 'Helvetica Neue', Arial, sans-serif", bodyWeight: 700,
     figures: display, radius: 20, motion: "wipe", change: "grid", kit: { line: 4, fill: "solid", panel: "fill" },
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayInk: { original: "#f7f0dc", mono: "#f4f4f6" },
+    displayAccent: { light: "#994925" },
     palettes: {
       light: { bg: "#efe4c8", disc: "#e3d3ab", band: "#233a6e", alt: "#d9533f", pale: "#fbf4df", panel: "#fffaec", ink: "#1a2750", muted: "rgba(26,39,80,0.7)", edge: "#1a2750", accent: "#ff7a3d", onAccent: "#1a2750" },
       dark: { bg: "#0a0714", disc: "#170f2e", band: "#6a46f2", alt: "#17c3c9", pale: "#e6dcff", panel: "#1c1332", ink: "#f4eeff", muted: "rgba(244,238,255,0.74)", edge: "#f4eeff", accent: "#ff5fa8", onAccent: "#1a0b20" },

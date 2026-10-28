@@ -40,7 +40,6 @@ Effects your agent rebuilds with your own footage.
 <tr>
 <td><img src="docs/assets/readme/cross-negative.gif" width="260" alt="Cross into Negative"><br><b>Cross into Negative</b></td>
 <td><img src="docs/assets/readme/mask-glitch-glow.gif" width="260" alt="Mask Glitch Glow"><br><b>Mask Glitch · Glow</b></td>
-<td><img src="docs/assets/readme/motion-kinetic.gif" width="260" alt="Kinetic Type"><br><b>Kinetic Type</b></td>
 </tr>
 </table>
 

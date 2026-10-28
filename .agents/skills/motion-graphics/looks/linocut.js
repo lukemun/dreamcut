@@ -1231,6 +1231,8 @@ window.DreamcutMotion.register("linocut", ({ rng, hexA }) => {
     paper: "#ebdfc5", roll: "#2e2722",
     keepArt: true,
     overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { dark: "#ba6858" },
     palettes: {
       // Positive: black cuts on cream stock. Midnight: a deeper block, oxblood reduction. Mono: one black block, a grey reduction.
       light: { bg: "#ece2cc", panel: "#ece2cc", ink: "#1e1a17", muted: "#5f5548", accent: "#c4422a", onAccent: "#f6efe0", rule: "rgba(30,26,23,0.7)", track: "rgba(30,26,23,0.1)", panelEdge: "rgba(30,26,23,0.6)", paper: "#f6f0e2", roll: "#d8ccb3" },

@@ -81,7 +81,6 @@ export const MULTI_OBJECT_TEMPLATE_GAPS: Readonly<Record<string, string>> = {
   "animated-chart": "bars, values and labels are drawn together",
   "plan-comparison": "plan cards, prices and ticks are drawn together",
   "walkthrough-steps": "numbers, step text and screenshots are drawn together",
-  "kinetic-type": "the phrase can build over its own backdrop",
   "word-search-trace": "the letter grid and outlines are drawn together",
 };
 

@@ -11,7 +11,7 @@ import { buildLookBundle, lookIdFromValues, sharedLooksTemplates } from "./look-
 // drawing kit and the graphic's one look. Each template's `look` control picks that look and its
 // `shape` control picks the canvas.
 const ROOT = path.join(process.cwd(), ".agents/skills/motion-graphics/templates");
-const TEMPLATES = ["explainer-sequence", "animated-chart", "plan-comparison", "walkthrough-steps", "kinetic-type", "illustrated-explainer"];
+const TEMPLATES = ["explainer-sequence", "animated-chart", "plan-comparison", "walkthrough-steps", "illustrated-explainer"];
 const LOOKS_DIR = path.join(process.cwd(), ".agents/skills/motion-graphics/looks");
 const looksOrder = JSON.parse(fs.readFileSync(path.join(LOOKS_DIR, "looks.json"), "utf8")) as { works_with: string[]; order: string[] };
 const looksManifest = { works_with: looksOrder.works_with, looks: looksOrder.order.map((id) => JSON.parse(fs.readFileSync(path.join(LOOKS_DIR, `${id}.json`), "utf8")) as { id: string; examples: { template: string; controls: Record<string, unknown> }[] }) };

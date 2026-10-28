@@ -681,6 +681,8 @@ window.DreamcutMotion.register("op-art", ({ rng }) => {
     body: FONT_B, bodyWeight: 600, figures: FONT_D, radius: 0, motion: "wipe", change: "grid",
     kit: { line: 5, fill: "solid", panel: "fill" },
     keepArt: true, overlap: true,
+    // Headlines set straight on this look's backdrop, where its ink and accent (meant for panels) do not read.
+    displayAccent: { light: "#bf4417" },
     palettes: {
       // Ultramarine on warm white with an orange hit; inverted bone-on-black with cyan; plain greys.
       light: { cellA: "#10186b", cellB: "#fbfaf2", slab: "#fbfaf2", slabInk: "#10186b", bg: "#fbfaf2", panel: "#fbfaf2", ink: "#10186b", muted: "#4a4f86", accent: "#ff5a1f", onAccent: "#10186b", rule: "#10186b" },
