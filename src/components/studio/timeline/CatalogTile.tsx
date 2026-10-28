@@ -4,6 +4,7 @@ import { PlusIcon } from "lucide-react";
 import styles from "./CatalogTile.module.css";
 import { setShelfDragPayload } from "./shelf-drag";
 import type { ElementCreatePayload } from "./asset-shelf-payloads";
+import type { ThumbnailSize } from "./ThumbnailSizeControl";
 
 /**
  * One choosable item in an editor panel. Clicking selects it for the agent (never edits) and
@@ -41,6 +42,8 @@ export function CatalogTile({ label, detail, preview, selected, onSelect, addLab
 }
 
 /** Grid owner for CatalogTile collections; columns follow the panel width. */
-export function CatalogTileGrid({ children, label }: { children: ReactNode; label: string }) {
-  return <div className={styles.grid} role="group" aria-label={label}>{children}</div>;
+/** Without `size`, tiles fill the panel at their usual width; with it, the row shows the count the gallery's
+ * thumbnail size control names (three, two or one). */
+export function CatalogTileGrid({ children, label, size }: { children: ReactNode; label: string; size?: ThumbnailSize }) {
+  return <div className={styles.grid} role="group" aria-label={label} data-size={size}>{children}</div>;
 }

@@ -43,12 +43,10 @@ import {
   ImageIcon,
   LayoutGridIcon,
   ClapperboardIcon,
-  Grid3X3Icon,
   Music4Icon,
   PauseIcon,
   PlayIcon,
   SearchIcon,
-  SquareIcon,
   ChevronDownIcon,
   CheckIcon,
   PlusIcon,
@@ -64,6 +62,7 @@ import { useCloudAccount } from "./CloudAccountSettings";
 import { useMembership } from "./MembershipPrompt";
 import { Button } from "@/components/ui/button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { ThumbnailSizeControl, useThumbnailSize } from "./ThumbnailSizeControl";
 // Generate only: Library images and video frames are markable (no-op elsewhere).
 import { MarkableMedia } from "../generation/MarkableMedia";
 import { DrawerCloseButton } from "./DrawerCloseButton";
@@ -409,11 +408,7 @@ export function AssetShelf({
   const [visualPane, setVisualPane] = useState<"browse" | "generate" | "results" | "catalog" | "text">(standaloneGeneration ? "generate" : "browse");
   const onGenerationPaneChange = useCallback((pane: "create" | "history") => setVisualPane(pane === "history" ? "results" : "generate"), []);
   const [generationMounted, setGenerationMounted] = useState(standaloneGeneration);
-  const [thumbnailSize, setThumbnailSize] = useState("medium");
-  useEffect(() => {
-    if (!standaloneGeneration) return;
-    try { const saved = localStorage.getItem("dreamcut:generate-thumbnail-size"); if (saved && ["small", "medium", "large"].includes(saved)) setThumbnailSize(saved); } catch { /* Session-only preference. */ }
-  }, [standaloneGeneration]);
+  const [thumbnailSize, setThumbnailSize] = useThumbnailSize("dreamcut:generate-thumbnail-size", standaloneGeneration);
   const gallerySizing = standaloneGeneration ? { targetHeight: thumbnailSize === "small" ? 72 : thumbnailSize === "large" ? 220 : 140, minCardWidth: thumbnailSize === "small" ? 64 : thumbnailSize === "large" ? 180 : 110, gap: 8 } : {};
 
   const [generationLaunch, setGenerationLaunch] = useState<GenerationLaunch>();
@@ -2373,22 +2368,7 @@ export function AssetShelf({
           </Button>
         )}
         {standaloneGeneration && (activeTab === "stills" || activeTab === "videos") && (
-          <SegmentedControl size="sm" role="group" aria-label="Thumbnail size">
-            {([
-              { value: "small", label: "Small thumbnails", Icon: Grid3X3Icon },
-              { value: "medium", label: "Medium thumbnails", Icon: LayoutGridIcon },
-              { value: "large", label: "Large thumbnails", Icon: SquareIcon },
-            ] as const).map(({ value, label, Icon }) => (
-              <button type="button" key={value} aria-label={label} title={label}
-                aria-pressed={thumbnailSize === value} style={{ paddingInline: 6 }}
-                onClick={() => {
-                  setThumbnailSize(value);
-                  try { localStorage.setItem("dreamcut:generate-thumbnail-size", value); } catch { /* Session-only preference. */ }
-                }}>
-                <Icon size={16} aria-hidden="true" />
-              </button>
-            ))}
-          </SegmentedControl>
+          <ThumbnailSizeControl value={thumbnailSize} onChange={setThumbnailSize} />
         )}
       </div>
       )}

@@ -1,19 +1,26 @@
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 8px; padding: 0 0 12px; }
+.grid { --tile-min: 132px; --tile-picture: 84px; display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--tile-min), 1fr)); gap: 8px; padding: 0 0 12px; }
+/* A gallery's thumbnail size control fixes the count its icon shows: three, two or one tile per row. */
+.grid[data-size="small"] { --tile-picture: 84px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid[data-size="medium"] { --tile-picture: 150px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid[data-size="large"] { --tile-picture: 300px; grid-template-columns: minmax(0, 1fr); }
+/* Small tiles are too narrow to share the name's line, so the action drops below the name. */
+.grid[data-size="small"] .tile { grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--tile-picture) auto auto; }
+.grid[data-size="small"] .add { grid-column: 1; grid-row: 3; justify-self: start; margin: 0 6px 6px; }
 /* Open space over lines: the media and its name sit on the panel; hover and selection add a quiet surface.
    Two columns, two rows: the picture spans the top row; the name takes the first column of the
    bottom row and the action (Add / Apply / Details) the second, so the action shares the name's
    line and never covers the picture. */
-.tile { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 84px auto; min-width: 0; overflow: hidden; border-radius: var(--edge-control); background: transparent; color: var(--ink); transition: background 120ms ease; }
+.tile { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: var(--tile-picture) auto; min-width: 0; overflow: hidden; border-radius: var(--edge-control); background: transparent; color: var(--ink); transition: background 120ms ease; }
 .tile:hover { background: var(--chrome-raised); }
 /* Selected takes over the whole tile: a filled surface (preview well included) inside a strong ring, no badge. */
 .tile[data-selected="true"] { background: var(--chrome-selected-bg); box-shadow: inset 0 0 0 2px var(--ink); }
-.tile[data-selected="true"] .preview { margin: 4px 4px 0; height: 80px; background: transparent; }
+.tile[data-selected="true"] .preview { margin: 4px 4px 0; height: calc(var(--tile-picture) - 4px); background: transparent; }
 .tile[draggable="true"] { cursor: grab; }
 /* The select button covers the whole tile and lays its picture and caption on the tile's own grid. */
 .select { display: grid; grid-column: 1 / -1; grid-row: 1 / -1; grid-template-columns: subgrid; grid-template-rows: subgrid; width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
 .select:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: -2px; }
 .select:disabled { cursor: default; opacity: .55; }
-.preview { position: relative; grid-column: 1 / -1; grid-row: 1; display: grid; place-items: center; height: 84px; overflow: hidden; padding: 8px; border-radius: var(--edge-control); background: var(--viewing-surround); }
+.preview { position: relative; grid-column: 1 / -1; grid-row: 1; display: grid; place-items: center; height: var(--tile-picture); overflow: hidden; padding: 8px; border-radius: var(--edge-control); background: var(--viewing-surround); }
 .caption { grid-column: 1; grid-row: 2; display: grid; align-content: start; gap: 1px; min-width: 0; padding: 6px 6px 7px; }
 /* A long name wraps to a second line beside the action rather than being cut off. */
 .label { display: -webkit-box; overflow: hidden; font-size: var(--ui-text-small); line-height: 18px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
