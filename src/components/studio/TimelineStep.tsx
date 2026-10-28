@@ -1432,6 +1432,14 @@ export function TimelineStep({
   // Icons only by default (names on hover); drag the rail wider to show names. New key: the old default showed names.
   const toolRail = usePanelSize("dreamcut:tool-rail-width-v2", 52, 52, 108);
   const [localReviewOpen, setLocalReviewOpen] = useState(false);
+  // A project just started from Home opens on Proposals, where its brief waits under Up next.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("review") !== "open") return;
+    setLocalReviewOpen(true);
+    url.searchParams.delete("review");
+    window.history.replaceState(window.history.state, "", url);
+  }, []);
   const reviewDrawerOpen = dock ? dock.tab === "proposals" : localReviewOpen;
   // Library and Proposals slide out from the same side (away from the preview), so one closes the other.
   // The Library (with Generate, Music and Sounds) lives only in this drawer (restored 2026-10-13, as before

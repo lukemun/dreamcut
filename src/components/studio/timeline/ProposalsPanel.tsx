@@ -1106,7 +1106,12 @@ export function ProposalsPanel({
         {pendingRequests.map(request => (
           <div key={request.id} data-wave-step="request" className="flex min-h-9 flex-wrap items-center gap-2.5 px-3 py-1 text-sm text-[var(--ink-secondary)]">
             <span className="shrink-0 text-[var(--ink-muted)]">Up next</span>
-            <span className="min-w-0 flex-1 truncate" title={request.direction}>{request.direction}</span>
+            {/* A brief from Home reads in full, with the media it brought, until its first cut arrives. */}
+            {request.media ? <span className="min-w-0 flex-1 basis-full whitespace-pre-wrap text-[var(--ink)]">{request.direction}</span>
+              : <span className="min-w-0 flex-1 truncate" title={request.direction}>{request.direction}</span>}
+            {request.media && request.media.length > 0 && <ul className="chat-selection-pills chat-upload-pills basis-full" aria-label="Media in the Library">
+              {request.media.map((name, index) => <li key={`${name}:${index}`} className="chat-selection-pill" title={name}><span className="chat-selection-pill-label">{name}</span></li>)}
+            </ul>}
             <ProposalAgentAsk kind="draft" targetId={request.id} label={request.direction} recorded={request.agent_request} client={client} onAskAgent={onAskAgent} />
             {onRespond && <Button size="icon-sm" variant="ghost" className="shrink-0 text-[var(--ink-secondary)] hover:text-[var(--ink)]"
               aria-label={`Respond in chat: ${request.direction}`} title="Respond in chat"

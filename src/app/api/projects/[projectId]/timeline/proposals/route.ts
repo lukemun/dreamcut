@@ -36,6 +36,7 @@ import { waveBaseTimeline, waveStates, waveWaitingMessage } from "@/lib/agent/pr
 import { memoryEvents } from "@/lib/local-store/editing-memory";
 import { feedbackCoverage, pendingFeedbackRequests } from "@/lib/timeline/editing-feedback";
 import { listAgentRequests } from "@/lib/local-store/proposal-agent-requests";
+import { waitingFirstBuild } from "@/lib/local-store/home-start";
 
 type ProposalInboxDetail = Pick<ReturnType<typeof proposalReviewDetail>, "status" | "stale" | "stale_reason" | "review" | "tuning">;
 
@@ -143,10 +144,13 @@ function proposalsBody(projectId: string, status: "pending" | "approved" | "reje
   }
   // Recorded requests not drafted yet ride the same poll, so the panel never hides them.
   // They are informational: an unreadable memory ledger must not take the review inbox down.
-  let pending_requests: (ReturnType<typeof pendingFeedbackRequests>[number] & { agent_request: ReturnType<typeof agentRequests.get> | null })[] = [];
+  let pending_requests: (ReturnType<typeof pendingFeedbackRequests>[number] & { agent_request: ReturnType<typeof agentRequests.get> | null; media?: string[] })[] = [];
   try {
+    // A brief from Home waiting for its first cut shows the media it came with.
+    const firstBuild = waitingFirstBuild(projectId);
     pending_requests = pendingFeedbackRequests(feedbackCoverage(memoryEvents(projectId), listedRecords))
-      .map(request => ({ ...request, agent_request: agentRequests.get(request.id) ?? null }));
+      .map(request => ({ ...request, agent_request: agentRequests.get(request.id) ?? null,
+        ...(firstBuild?.feedback_id === request.id ? { media: firstBuild.media } : {}) }));
   } catch (error) {
     console.warn("Proposals inbox: recorded requests unavailable", error);
   }

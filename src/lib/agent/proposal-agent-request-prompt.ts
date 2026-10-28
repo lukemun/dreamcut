@@ -50,10 +50,11 @@ export function draftPrompt(projectId: string, target: DraftTarget) {
  * Draft for a project started from Home: its timeline is still empty and its assembly grant is live,
  * so the answer is the first cut itself, handed off for review, rather than a proposal card.
  */
-export function firstBuildPrompt(projectId: string, target: DraftTarget) {
+export function firstBuildPrompt(projectId: string, target: DraftTarget & { media: string[] }) {
   return [
     `Build the first cut of project ${projectId}. The creator started it from DreamCut's home page with this brief and their media in its Library, and pressed Draft.`,
     `Brief (${target.feedback_id}): "${target.direction}"`,
+    target.media.length ? `Library: ${target.media.map(name => `"${name}"`).join(", ")}` : "Library: empty so far; ask the creator for their media if the brief needs it.",
     "",
     "Follow skill:editorial-assembly. Read the brief with assembly_get and the Library with timeline_get, place the media with the workspace tools, check the result, then call assembly_handoff before showing it.",
     `Record the work against ${target.feedback_id} (editing_feedback_disposition addressed, once handed off). Later changes go through proposals.`,

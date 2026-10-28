@@ -159,3 +159,10 @@ refresh; reconnect and real transcription remain separate acceptance checks.
 - **Decision:** The `/memory/feedback` GET (used only by this tool) returns `feedbackCheck`: `unaccounted_feedback_ids`, the unaccounted directions in full, and the accounted ones one line each with proposal ids and states, a count of history changes and any disposition, newest first. Memory, the Proposals queue and export evidence keep the full `feedbackCoverage`.
 - **Verification:** `src/lib/local-store/editing-feedback.test.ts`; on a copy of the session's project the result drops from 93,300 to 24,830 characters.
 - **Limits:** It still grows with the project's history; a per-session filter would be a new input.
+
+## 2026-10-28 — A brief started from Home reaches the agent
+
+- **Observation:** Home's Start project kept the creator's message only in the browser tab and dropped it into the in-app chat composer, which the browser editor never shows. Creators working in Claude Code or Codex landed on an empty editor; their direction and media reached no agent.
+- **Decision:** Start project (`POST /api/projects/start`) creates an assembly workspace whose objective is the creator's words and records them as `user_words` feedback, so the brief shows under Up next with its Library media. Draft on that row asks for the first cut (`firstBuildPrompt`) while the grant is live and the timeline empty. `editor_context_get` returns `first_build {project_id, brief, feedback_id, media, guidance}` for that project, so "go" in Claude Code or Codex is enough.
+- **Verification:** `src/lib/local-store/home-start.test.ts`; on a disposable editor, three dropped files and a brief created a 16:9 project, imported all three, opened on Proposals with the brief and files under Up next, and Draft returned the first-build request.
+- **Limits:** The brief is capped at 2,000 characters (the feedback ledger's verbatim limit). The desktop app's own chat still sits beside the Storyboard only, so its agent gets the brief as a ready-to-send draft there, not on landing.

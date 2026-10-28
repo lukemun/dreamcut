@@ -164,7 +164,8 @@ export type ProposalListResponse = {
 
 export type ProposalInboxDetail = Pick<ProposalDetailResponse, "status" | "stale" | "stale_reason" | "review" | "tuning">;
 /** A recorded request the agent has not drafted, linked or set aside yet. Informational only. */
-export type PendingRequest = { id: string; direction: string; time: string; agent_request?: ProposalAgentRequest | null };
+/** `media`: for a brief started from Home, what it brought into the Library. */
+export type PendingRequest = { id: string; direction: string; time: string; agent_request?: ProposalAgentRequest | null; media?: string[] };
 export type ProposalInboxResponse = ProposalListResponse & {
   details: Record<string, ProposalInboxDetail | { error: string }>;
   pending_requests?: PendingRequest[];

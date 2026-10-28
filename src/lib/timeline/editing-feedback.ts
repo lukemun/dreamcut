@@ -10,8 +10,11 @@ export const feedbackTargetsSchema = z.object({
     .strict().refine(range => range.end >= range.start, "Range end must follow start").optional(),
 }).strict();
 
+/** Longest direction the ledger keeps verbatim; Home's brief box uses the same limit. */
+export const FEEDBACK_DIRECTION_MAX = 2000;
+
 export const feedbackContentSchema = z.object({
-  direction: z.string().trim().min(1).max(2000),
+  direction: z.string().trim().min(1).max(FEEDBACK_DIRECTION_MAX),
   reason: z.string().trim().min(1).max(2000).optional(),
   provenance: z.enum(["user_words", "agent_paraphrase", "inferred_reasoning"]),
   targets: feedbackTargetsSchema.optional(),

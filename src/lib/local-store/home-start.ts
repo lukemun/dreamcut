@@ -1,17 +1,18 @@
 import { z } from "zod";
 
 import { TIMELINE_ASPECT_RATIO_VALUES } from "@/lib/aspect-ratios";
+import { FEEDBACK_DIRECTION_MAX } from "@/lib/timeline/editing-feedback";
 import { createAssemblyWorkspace, readAssemblyBrief } from "./assembly-workspaces";
 import { recordEditingFeedback } from "./editing-feedback";
+import { memoryEvents } from "./editing-memory";
+import { readProjectSourceManifest } from "./media-ingest";
 import { projectExists, projectIdForTitle } from "./paths";
 import { isAgentWorkspaceProject, readTimeline } from "./store";
 
-/** The creator's own words are the brief, recorded verbatim, so they share the feedback ledger's limit. */
-export const HOME_BRIEF_MAX = 2000;
-
 export const homeStartSchema = z.object({
   title: z.string().trim().min(1).max(200),
-  brief: z.string().trim().min(1).max(HOME_BRIEF_MAX),
+  // The creator's own words are the brief, recorded verbatim, so they share the feedback ledger's limit.
+  brief: z.string().trim().min(1).max(FEEDBACK_DIRECTION_MAX),
   aspect_ratio: z.enum(TIMELINE_ASPECT_RATIO_VALUES),
 }).strict();
 
@@ -28,15 +29,22 @@ export function startProjectFromHome(raw: unknown) {
     project_id: projectId, title, objective: brief, script_text: null, visual_directions: [], sources: [],
     source_project_id: null, delivery_target: "web", output_aspect_ratio: aspect_ratio,
   }, "human");
-  const feedback = recordEditingFeedback({ project_id: projectId, session_id: "home-start", turn_id: projectId,
+  const feedback = recordEditingFeedback({ project_id: projectId, session_id: HOME_START_SESSION, turn_id: projectId,
     direction: brief, provenance: "user_words" }, "human");
   return { id: projectId, feedback_id: feedback.event_id };
 }
 
-/** A project whose brief is still waiting for its first cut: the grant is live and nothing is laid out. */
+const HOME_START_SESSION = "home-start";
+
+/**
+ * A project whose brief is still waiting for its first cut: the grant is live and nothing is laid out.
+ * `media` names what is in its Library; `feedback_id` is the brief's Up next request when Home recorded it.
+ */
 export function waitingFirstBuild(projectId: string) {
   if (!projectExists(projectId) || !isAgentWorkspaceProject(projectId)) return null;
   const brief = readAssemblyBrief(projectId);
   if (!brief || readTimeline(projectId).elements.some(element => !element.removed_at)) return null;
-  return { project_id: projectId, brief: brief.objective, guidance: "The creator started this project with this brief and is waiting for its first cut. Follow skill:editorial-assembly (assembly_get, then the Library), lay it out with the workspace tools and call assembly_handoff." };
+  const feedback_id = memoryEvents(projectId).find(event => event.type === "editorial.feedback" && event.data?.session_id === HOME_START_SESSION)?.id ?? null;
+  const media = readProjectSourceManifest(projectId).assets.map(asset => asset.original_filename);
+  return { project_id: projectId, brief: brief.objective, feedback_id, media, guidance: "The creator started this project with this brief and is waiting for its first cut. Follow skill:editorial-assembly (assembly_get, then the Library), lay it out with the workspace tools and call assembly_handoff." };
 }

@@ -51,7 +51,9 @@ export async function POST(request: Request, { params }: Params) {
         .find(candidate => candidate.id === target_id && !candidate.accounted_for);
       if (!direction) throw conflict("This request already has a proposal or was set aside.");
       // A project started from Home with nothing laid out yet asks for its first cut, not a card.
-      prompt = (waitingFirstBuild(projectId) ? firstBuildPrompt : draftPrompt)(projectId, { feedback_id: target_id, direction: direction.direction });
+      const firstBuild = waitingFirstBuild(projectId);
+      prompt = firstBuild ? firstBuildPrompt(projectId, { feedback_id: target_id, direction: direction.direction, media: firstBuild.media })
+        : draftPrompt(projectId, { feedback_id: target_id, direction: direction.direction });
     }
     const saved = writeAgentRequest(projectId, { kind, target_id, requested_at: new Date().toISOString(), prompt });
     return NextResponse.json({ request: saved });

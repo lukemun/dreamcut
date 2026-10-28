@@ -27,7 +27,7 @@ test("Start project from Home leaves the creator's brief waiting for its first c
     assert.equal(recorded?.actor, "human");
     assert.equal(recorded?.data?.provenance, "user_words");
     assert.deepEqual(pendingFeedbackRequests(feedbackCoverage(memoryEvents(id), [])).map(request => request.id), [feedback_id]);
-    assert.equal(waitingFirstBuild(id)?.brief, brief);
+    assert.deepEqual({ ...waitingFirstBuild(id), guidance: undefined }, { project_id: id, brief, feedback_id, media: [], guidance: undefined });
     assert.equal(waitingFirstBuild("absent"), null);
     assert.throws(() => startProjectFromHome({ title: "Too long", brief: "x".repeat(2001), aspect_ratio: "9:16" }));
   } finally {

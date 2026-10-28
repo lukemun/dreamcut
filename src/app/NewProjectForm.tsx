@@ -1,26 +1,22 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TIMELINE_ASPECT_RATIOS, type TimelineAspectRatioValue } from "@/lib/aspect-ratios";
-import { uploadAssetRequest } from "@/lib/media/upload-library-media";
 
 const FORMATS = TIMELINE_ASPECT_RATIOS.map(({ value, shape }) => ({ ratio: value, label: shape }));
 
-/** `open="storyboard"` lands in the new project's Storyboard instead of the Editor; `defaultTitle` names the project each time the form opens. */
-export function NewProjectForm({ trigger, draft, files = [], defaultTitle, open: destination = "editor" }: { trigger?: React.ReactElement; draft?: string; files?: File[]; defaultTitle?: string; open?: "editor" | "storyboard" } = {}) {
+/** `open="storyboard"` lands in the new project's Storyboard instead of the Editor. */
+export function NewProjectForm({ trigger, open: destination = "editor" }: { trigger?: React.ReactElement; open?: "editor" | "storyboard" } = {}) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
   const [aspectRatio, setAspectRatio] = useState<TimelineAspectRatioValue>("9:16");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [createdId, setCreatedId] = useState<string>();
-  const uploaded = useRef(new Set<File>());
-  const [progress, setProgress] = useState("");
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,30 +24,16 @@ export function NewProjectForm({ trigger, draft, files = [], defaultTitle, open:
     setBusy(true);
     setError(null);
     try {
-      let projectId = createdId;
-      if (!projectId) {
-        const response = await fetch("/api/projects", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title: id.trim(), aspect_ratio: aspectRatio }),
-        });
-        const body = (await response.json()) as { error?: string; id?: string };
-        if (!response.ok || !body.id) {
-          throw new Error(body.error ?? "Failed to create project");
-        }
-        projectId = body.id;
-        setCreatedId(projectId);
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: id.trim(), aspect_ratio: aspectRatio }),
+      });
+      const body = (await response.json()) as { error?: string; id?: string };
+      if (!response.ok || !body.id) {
+        throw new Error(body.error ?? "Failed to create project");
       }
-      if (draft?.trim()) sessionStorage.setItem(`dreamcut:chat-draft:${projectId}`, draft.trim());
-      for (const [index, file] of files.entries()) {
-        if (uploaded.current.has(file)) continue;
-        setProgress(`Importing ${index + 1} of ${files.length}: ${file.name}`);
-        const assetType = file.type.startsWith("image/") ? "still" : file.type.startsWith("audio/") ? "music" : "video_clip";
-        const response = await fetch(`/api/projects/${projectId}/uploaded-assets`, { method: "POST", ...uploadAssetRequest(file, assetType) });
-        const result = await response.json();
-        if (!response.ok) throw new Error(`${file.name}: ${result.error ?? "Import failed"}`);
-        uploaded.current.add(file);
-      }
+      const projectId = body.id;
       router.push(destination === "storyboard" ? `/p/${projectId}/storyboard` : `/p/${projectId}`);
       router.refresh();
     } catch (err) {
@@ -61,7 +43,7 @@ export function NewProjectForm({ trigger, draft, files = [], defaultTitle, open:
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={value => { if (!busy) { setOpen(value); setError(null); if (value && !createdId && defaultTitle) setId(defaultTitle); } }}>
+    <Dialog.Root open={open} onOpenChange={value => { if (!busy) { setOpen(value); setError(null); } }}>
       <Dialog.Trigger render={trigger ?? <Button size="lg" className="projects-create-trigger" />}>{trigger ? undefined : "Create project"}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-(--layer-dialog-backdrop) bg-black/60 backdrop-blur-sm" />
@@ -71,9 +53,9 @@ export function NewProjectForm({ trigger, draft, files = [], defaultTitle, open:
             <form onSubmit={submit} className="mt-6 flex flex-col gap-5">
               <div className="flex flex-col gap-2 text-sm font-medium">
                 <label htmlFor="new-project-name">Project name</label>
-                <Input id="new-project-name" value={id} onChange={event => setId(event.target.value)} placeholder="My first video" maxLength={200} disabled={busy || Boolean(createdId)} required />
+                <Input id="new-project-name" value={id} onChange={event => setId(event.target.value)} placeholder="My first video" maxLength={200} disabled={busy} required />
               </div>
-              <fieldset className="projects-format-fieldset" disabled={busy || Boolean(createdId)}>
+              <fieldset className="projects-format-fieldset" disabled={busy}>
                 <legend>Video shape</legend>
                 <div className="projects-formats mt-3">
                   {FORMATS.map(({ ratio, label }) => (
@@ -85,13 +67,10 @@ export function NewProjectForm({ trigger, draft, files = [], defaultTitle, open:
                   ))}
                 </div>
               </fieldset>
-              {files.length > 0 && <p className="text-xs text-[var(--ink-secondary)]">{files.length} media {files.length === 1 ? "file" : "files"} attached</p>}
-              {busy && progress && <p role="status" className="text-xs">{progress}</p>}
               {error ? <p role="alert" className="text-sm text-[var(--destructive)]">{error}</p> : null}
               <div className="flex justify-end gap-2">
                 <Dialog.Close render={<Button variant="outline" disabled={busy} />}>Cancel</Dialog.Close>
-                {createdId && !busy && <Button variant="outline" onClick={() => router.push(`/p/${createdId}`)}>Open project</Button>}
-                <Button type="submit" disabled={busy || !id.trim()}>{busy ? "Preparing…" : createdId ? "Retry imports" : "Create project"}</Button>
+                <Button type="submit" disabled={busy || !id.trim()}>{busy ? "Creating…" : "Create project"}</Button>
               </div>
             </form>
           </Dialog.Popup>

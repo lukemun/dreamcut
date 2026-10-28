@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Captions, Clapperboard, LayoutGrid, Mic, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { APPROVED_UPLOAD_ACCEPT } from "@/lib/media/upload-library-media";
+import { TIMELINE_ASPECT_RATIOS, type TimelineAspectRatioValue } from "@/lib/aspect-ratios";
+import { APPROVED_UPLOAD_ACCEPT, deriveUploadAssetType, uploadLibraryMedia } from "@/lib/media/upload-library-media";
+import { FEEDBACK_DIRECTION_MAX } from "@/lib/timeline/editing-feedback";
 import type { AgentSelection, ChatSelection } from "@/components/desktop/ProjectReviewDock";
-import { NewProjectForm } from "./NewProjectForm";
 
 const DRAFT_KEY = "dreamcut:home-chat-draft";
 const SELECTION_KEY = "dreamcut:home-chat-selection";
@@ -18,17 +20,25 @@ const STARTERS = [
 ];
 
 /**
- * Home's opening chat. A message (and any media dropped on it) starts a project, which opens
- * with the message waiting in its chat and the media in its Library. Templates picked on Home
- * join the message as pills, through the same selection the editor's template catalog uses.
+ * Home's opening chat. Start project creates the project in one step: the message becomes its
+ * brief for the first cut (shown under Up next, and read by the agent in Claude Code, Codex or the
+ * app's own chat) and the media goes into its Library. Templates picked on Home join the message as
+ * pills, through the same selection the editor's template catalog uses.
  */
 export function HomeChat({ selection, onTryTemplate }: { selection: AgentSelection; onTryTemplate: () => void }) {
+  const router = useRouter();
   const [draft, setDraft] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [over, setOver] = useState(false);
   const input = useRef<HTMLTextAreaElement>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const send = useRef<HTMLButtonElement>(null);
+  // Starting: the project once created (a retry reuses it), files already imported, and what is happening now.
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const started = useRef<string | null>(null);
+  const imported = useRef(new Set<File>());
   // The unsent message survives leaving Home and coming back in this tab.
   useEffect(() => { try { const saved = sessionStorage.getItem(DRAFT_KEY); if (saved) setDraft(saved); } catch { /* Storage can be blocked. */ } }, []);
   useEffect(() => { try { if (draft) sessionStorage.setItem(DRAFT_KEY, draft); else sessionStorage.removeItem(DRAFT_KEY); } catch { /* Storage can be blocked. */ } }, [draft]);
@@ -38,7 +48,12 @@ export function HomeChat({ selection, onTryTemplate }: { selection: AgentSelecti
     node.style.height = "auto";
     node.style.height = `${node.scrollHeight}px`;
   }, [draft]);
-  const addFiles = (list: FileList | null) => { if (list?.length) setFiles(previous => [...previous, ...Array.from(list)]); };
+  const addFiles = (list: FileList | null) => {
+    if (!list?.length) return;
+    const all = Array.from(list), usable = all.filter(file => deriveUploadAssetType(file));
+    setError(usable.length < all.length ? "Only images, videos and audio can be added." : null);
+    setFiles(previous => [...previous, ...usable]);
+  };
   const start = (text: string) => { setDraft(text); input.current?.focus(); };
   // A newly picked template brings the chat back into view, ready for the rest of the message.
   const section = useRef<HTMLElement>(null);
@@ -51,8 +66,38 @@ export function HomeChat({ selection, onTryTemplate }: { selection: AgentSelecti
     input.current?.focus({ preventScroll: true });
   }, [selection.selections.length]);
   const picks = selection.selections;
-  const ready = Boolean(draft.trim()) || picks.length > 0;
+  const ready = (Boolean(draft.trim()) || picks.length > 0) && !busy;
   const message = [...picks.map(item => `Use the "${item.label}" ${item.kind.toLowerCase()}.`), draft.trim()].filter(Boolean).join("\n");
+  const startProject = async () => {
+    if (!ready) return;
+    if (message.length > FEEDBACK_DIRECTION_MAX) { setError("Shorten the message to 2,000 characters."); return; }
+    setBusy(true); setError(null);
+    try {
+      let projectId = started.current;
+      if (!projectId) {
+        setProgress("Creating project…");
+        const response = await fetch("/api/projects/start", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: projectTitle(draft) || picks[0]?.label || "New project", brief: message, aspect_ratio: await shapeOf(files) }) });
+        const body = await response.json() as { id?: string; error?: string };
+        if (!response.ok || !body.id) throw new Error(body.error ?? "Could not start the project");
+        projectId = started.current = body.id;
+        // The app's own chat (desktop app) opens with the brief ready to send.
+        try { sessionStorage.setItem(`dreamcut:chat-draft:${projectId}`, message); } catch { /* Storage can be blocked. */ }
+      }
+      for (const [index, file] of files.entries()) {
+        if (imported.current.has(file)) continue;
+        setProgress(`Importing ${index + 1} of ${files.length}…`);
+        await uploadLibraryMedia(projectId, file).catch(cause => { throw new Error(`${file.name}: ${cause instanceof Error ? cause.message : "Import failed"}`); });
+        imported.current.add(file);
+      }
+      setDraft(""); selection.clearSelections();
+      router.push(`/p/${encodeURIComponent(projectId)}?review=open`);
+      router.refresh();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not start the project");
+      setBusy(false); setProgress("");
+    }
+  };
   return <section ref={section} className="home-chat" aria-labelledby="home-chat-title">
     <h1 id="home-chat-title">What would you like to make?</h1>
     <div className="desktop-chat-composer home-chat-composer" data-over={over || undefined}
@@ -70,21 +115,25 @@ export function HomeChat({ selection, onTryTemplate }: { selection: AgentSelecti
         {files.map((file, index) => <li key={`${file.name}:${file.size}:${index}`} className="chat-selection-pill" title={file.name}>
           <span className="chat-selection-pill-kind">{file.type.startsWith("image/") ? "Image" : file.type.startsWith("audio/") ? "Audio" : "Video"}</span>
           <span className="chat-selection-pill-label">{file.name}</span>
-          <button type="button" aria-label={`Remove ${file.name}`} onClick={() => setFiles(previous => previous.filter((_, at) => at !== index))}><X size={12} aria-hidden="true" /></button>
+          {!imported.current.has(file) && !busy && <button type="button" aria-label={`Remove ${file.name}`} onClick={() => setFiles(previous => previous.filter((_, at) => at !== index))}><X size={12} aria-hidden="true" /></button>}
         </li>)}
       </ul>}
       <label className="sr-only" htmlFor="home-chat-message">Message</label>
-      <textarea ref={input} id="home-chat-message" rows={3} maxLength={16000} value={draft} placeholder="Describe your video, or drop your clips here…"
+      <textarea ref={input} id="home-chat-message" rows={3} maxLength={FEEDBACK_DIRECTION_MAX} value={draft} disabled={busy} placeholder="Describe your video, or drop your clips here…"
         onChange={event => setDraft(event.target.value)}
         onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); if (ready) send.current?.click(); } }} />
       <div className="desktop-chat-actions">
         <input ref={fileInput} type="file" multiple hidden accept={APPROVED_UPLOAD_ACCEPT} onChange={event => { addFiles(event.target.files); event.target.value = ""; }} />
-        <Button type="button" variant="ghost" size="sm" onClick={() => fileInput.current?.click()}><Upload size={14} aria-hidden="true" />Add media</Button>
+        <Button type="button" variant="ghost" size="sm" disabled={busy} onClick={() => fileInput.current?.click()}><Upload size={14} aria-hidden="true" />Add media</Button>
         <div className="flex-1" />
-        <NewProjectForm draft={message} files={files} defaultTitle={projectTitle(draft) || picks[0]?.label}
-          trigger={<Button ref={send} type="button" size="sm" title="Start project · Enter" disabled={!ready}>Start project<ArrowRight size={14} aria-hidden="true" /></Button>} />
+        {progress && <span role="status" className="text-xs text-[var(--ink-secondary)]">{progress}</span>}
+        {error && started.current && !busy && <Button type="button" variant="ghost" size="sm" onClick={() => router.push(`/p/${encodeURIComponent(started.current!)}?review=open`)}>Open project</Button>}
+        <Button ref={send} type="button" size="sm" title="Start project · Enter" disabled={!ready} onClick={() => void startProject()}>
+          {error && started.current ? "Retry" : "Start project"}<ArrowRight size={14} aria-hidden="true" />
+        </Button>
       </div>
     </div>
+    {error && <p role="alert" className="text-sm text-[var(--destructive)]">{error}</p>}
     <ul className="home-chat-starters" aria-label="Ideas">
       {STARTERS.map(({ label, icon: Icon, text }) => <li key={label}>
         <Button type="button" variant="outline" size="sm" onClick={() => start(text)}><Icon size={14} aria-hidden="true" />{label}</Button>
@@ -94,9 +143,46 @@ export function HomeChat({ selection, onTryTemplate }: { selection: AgentSelecti
   </section>;
 }
 
-/** A starting name from the message's first words; the creator can change it before creating. */
+/** The video shape of the first clip or image (vertical when there is none or it cannot be read quickly). */
+async function shapeOf(files: File[]): Promise<TimelineAspectRatioValue> {
+  const file = files.find(item => item.type.startsWith("video/")) ?? files.find(item => item.type.startsWith("image/"));
+  if (!file) return "9:16";
+  const url = URL.createObjectURL(file);
+  try {
+    // Browser metadata can hang on codecs it cannot play; give up after a moment.
+    const size = await Promise.race([
+      new Promise<{ width: number; height: number } | null>(resolve => {
+        if (file.type.startsWith("video/")) {
+          const video = document.createElement("video");
+          video.preload = "metadata";
+          video.onloadedmetadata = () => resolve({ width: video.videoWidth, height: video.videoHeight });
+          video.onerror = () => resolve(null);
+          video.src = url;
+        } else {
+          const image = new Image();
+          image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });
+          image.onerror = () => resolve(null);
+          image.src = url;
+        }
+      }),
+      new Promise<null>(resolve => setTimeout(() => resolve(null), 2000)),
+    ]);
+    if (!size?.width || !size.height) return "9:16";
+    const ratio = size.width / size.height;
+    return TIMELINE_ASPECT_RATIOS.reduce((best, option) => {
+      const [w, h] = option.value.split(":").map(Number);
+      return Math.abs(Math.log(w! / h! / ratio)) < Math.abs(Math.log(best.w / best.h / ratio)) ? { value: option.value, w: w!, h: h! } : best;
+    }, { value: "9:16" as TimelineAspectRatioValue, w: 9, h: 16 }).value;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+/** A starting name from the message's first words; the creator can rename the project later. */
 function projectTitle(message: string) {
-  const words = message.replace(/[:.!?][\s\S]*$/, "").trim().split(/\s+/).slice(0, 6).join(" ");
+  const sentence = message.replace(/[:.!?\n][\s\S]*$/, "").trim().replace(/\s+/g, " ");
+  // The whole first sentence when it is short, otherwise its words up to about 48 characters.
+  const words = sentence.length <= 48 ? sentence : sentence.slice(0, 49).replace(/\s+\S*$/, "");
   return words ? words[0]!.toUpperCase() + words.slice(1) : "";
 }
 
