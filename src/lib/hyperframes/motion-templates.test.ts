@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { canvasSizeForValues, parseCompositionManifest, resolveManifestValues, validateCompositionSources } from "./composition-manifest";
 import { resolveTiming } from "./composition-timing";
-import { buildLookBundle, lookIdFromValues, sharedLooksTemplates } from "./look-bundle";
+import { buildLookBundle, lookIdFromValues, sharedLooksTemplates, usesSharedLooks } from "./look-bundle";
 
 // The explainer Templates load looks.js, which DreamCut supplies per graphic: the runtime, the
 // drawing kit and the graphic's one look. Each template's `look` control picks that look and its
@@ -80,3 +80,9 @@ for (const id of TEMPLATES) {
     assert.ok(manifest.controls.length <= 64);
   });
 }
+
+test("a retired template's graphics already in projects still load looks", () => {
+  assert.equal(sharedLooksTemplates().includes("kinetic-type"), false, "Kinetic Type is no longer offered with looks");
+  assert.equal(usesSharedLooks({ template: "kinetic-type" }), true, "an existing Kinetic Type graphic keeps its look");
+  assert.equal(usesSharedLooks({ template: "no-such-template" }), false);
+});

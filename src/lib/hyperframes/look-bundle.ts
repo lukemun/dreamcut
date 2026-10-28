@@ -28,8 +28,13 @@ export function sharedLooksTemplates(root = process.cwd()): string[] {
   }
 }
 
+/** Templates no longer offered whose graphics already in projects still load looks, so they keep rendering. */
+const RETIRED_LOOK_TEMPLATES = ["kinetic-type"];
+
 export function usesSharedLooks(manifest: { template?: string; looks?: boolean } | null | undefined, root = process.cwd()): boolean {
-  return manifest?.looks === true || Boolean(manifest?.template && sharedLooksTemplates(root).includes(manifest.template));
+  if (manifest?.looks === true) return true;
+  const template = manifest?.template;
+  return Boolean(template && (sharedLooksTemplates(root).includes(template) || RETIRED_LOOK_TEMPLATES.includes(template)));
 }
 
 /** True when a controls file's text declares a template that works with looks. */
