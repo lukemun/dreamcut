@@ -61,7 +61,7 @@ claude plugin install dreamcut@dreamcut
 
 Codex: `codex plugin marketplace add lukemun/dreamcut-plugins`, then `codex plugin add dreamcut@dreamcut`.
 
-Then install DreamCut itself:
+Then install DreamCut itself. The plugin runs the copy at `~/DreamCut` (`$HOME\DreamCut` on Windows):
 
 ```bash
 git clone https://github.com/lukemun/dreamcut.git ~/DreamCut
@@ -70,6 +70,10 @@ corepack enable
 pnpm install
 pnpm bootstrap
 ```
+
+Connected DreamCut with `claude mcp add` before? Remove that with `claude mcp remove dreamcut -s user`
+(Codex: `codex mcp remove dreamcut`) so its tools don't appear twice. To connect a copy kept somewhere else
+instead of using the plugin: `claude mcp add dreamcut -s user -- node <copy>/bin/dreamcut.mjs mcp`.
 
 Start a new chat and say **"Open DreamCut."** The editor starts on your machine and opens in your agent's
 browser; the first start compiles it, which takes a minute or two. The first time, your agent asks where

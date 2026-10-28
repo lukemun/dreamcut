@@ -51,10 +51,10 @@ A hosted MCP cannot touch local files (*Findings §1*), and everything DreamCut 
 server adds a dependency without capability. The website shows install instructions, and the agent does
 the rest:
 
-- **Install from GitHub (2026-10-27), connected through the plugin (2026-10-28).** The README's steps:
-  install the DreamCut plugin (`claude plugin marketplace add lukemun/dreamcut-plugins`, then
-  `claude plugin install dreamcut@dreamcut`; Codex: `codex plugin …`), then `git clone`, `pnpm install`,
-  `pnpm bootstrap`. The plugin ([lukemun/dreamcut-plugins](https://github.com/lukemun/dreamcut-plugins))
+- **Install from GitHub (2026-10-27).** The README's steps: install the DreamCut plugin
+  (`claude plugin marketplace add lukemun/dreamcut-plugins`, then `claude plugin install dreamcut@dreamcut`;
+  Codex: `codex plugin marketplace add lukemun/dreamcut-plugins`, then `codex plugin add dreamcut@dreamcut`),
+  then `git clone`, `pnpm install`, `pnpm bootstrap`. Agents connect through the plugin since 2026-10-28. The plugin ([lukemun/dreamcut-plugins](https://github.com/lukemun/dreamcut-plugins))
   holds no editor code: its launcher starts `~/DreamCut`'s own MCP server, and until the clone is installed
   it offers only `dreamcut_setup_status`. The one line a person needs is "Follow the instructions at
   dreamcut.io/install": the agent reads the page (or `/install.md`) and runs the steps.
@@ -66,8 +66,8 @@ the rest:
   [Distribution](#distribution-decided-2026-10-11)).
 
 The website's install page (dreamcut.io/install, in the DreamCut Cloud `site/` app) gives that one line
-to paste into Claude Code or Codex, the steps the agent follows (also as Markdown at `/install.md`, from
-`site/src/lib/install-instructions.ts`), which it runs under its own permission rules, and the same
+to paste into Claude Code or Codex, the steps the agent follows (also as Markdown at
+https://dreamcut.io/install.md), which it runs under its own permission rules, and the same
 steps to run by hand. It does not yet state what DreamCut shares (see Edit data below).
 
 ### 3. One local process serves the editor and the tools
