@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { refreshCloudSentry } from "@/lib/observability/cloud-sentry-client";
 import { MembershipOffer, useMembership } from "./MembershipPrompt";
 
 export type CloudAccountView = {
@@ -39,6 +40,9 @@ export function useCloudAccount() {
   }, []);
   const stopPolling = () => { if (poll.current !== null) { window.clearInterval(poll.current); poll.current = null; } };
   useEffect(() => { void load(); return stopPolling; }, [load]);
+  // Error reporting follows the account: on while signed in, off once signed out.
+  const signedIn = account?.signed_in;
+  useEffect(() => { if (signedIn !== undefined) void refreshCloudSentry(); }, [signedIn]);
   // While the browser sign-in is open, watch for the callback to complete.
   useEffect(() => {
     if (!account?.pending || account.signed_in) { stopPolling(); return; }

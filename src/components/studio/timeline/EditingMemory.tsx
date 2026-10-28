@@ -11,6 +11,7 @@ import { KeyboardShortcutSettings } from "./KeyboardShortcutSettings";
 import { StyleDocumentEditor } from "./StyleDocumentEditor";
 import { CloudAccountBadge, CloudAccountSettings } from "./CloudAccountSettings";
 import { CloudStyleSuggestions } from "./CloudStyleSuggestions";
+import { refreshCloudSentry } from "@/lib/observability/cloud-sentry-client";
 import { StyleMembershipPrompt } from "./MembershipPrompt";
 import { ProjectHistory } from "./ProjectHistory";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -174,13 +175,14 @@ export function EditingMemoryPage({ projectId, projectTitle, history = false, da
             <h3 className="font-medium">Help us improve</h3>
             <p className="text-muted-foreground">
               While you’re signed in, editing history, suggested edits, feedback and how your agent uses DreamCut’s
-              tools are uploaded to your DreamCut account to improve the product, even if you never export. Signed
-              out, nothing is uploaded. Sharing is on by default; turn it off below to stop future uploads.
+              tools are uploaded to your DreamCut account to improve the product, even if you never export, and
+              errors are reported with a short replay of the editor screen (your videos, images and audio are hidden). Signed out,
+              nothing is uploaded or reported. Sharing is on by default; turn it off below to stop both.
             </p>
           </div>
           <label className="flex items-center justify-between gap-4 text-sm">Share edits to improve DreamCut
             <Checkbox disabled={busy} checked={userView.profile.cloud_sharing !== false}
-              onCheckedChange={checked => void change({ action: "settings", cloud_sharing: checked })} /></label>
+              onCheckedChange={checked => void change({ action: "settings", cloud_sharing: checked }).then(saved => { if (saved) void refreshCloudSentry(); })} /></label>
         </section>
       </div>}
       {userView && tab === "Skills" && <div className="memory-page-column">

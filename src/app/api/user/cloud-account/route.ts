@@ -3,6 +3,7 @@ import { isLocalEditorRequest, localEditorOrigin } from "@/lib/local-request";
 import { beginCloudSignIn, cancelCloudSignIn, cloudAccountStatus, signOutOfCloud } from "@/lib/local-store/cloud-account";
 import { listStyleConflicts, readStyleSyncState, requestStyleSync, startStyleSyncLoop } from "@/lib/local-store/cloud-style-sync";
 import { syncMembersSfxCatalog } from "@/lib/local-store/sfx-catalog-cloud";
+import { refreshServerCloudSentry } from "@/lib/observability/cloud-sentry-server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const response = (data: unknown, status = 200) => Response.json(data, { status, headers: { "Cache-Control": "private, no-store" } });
@@ -36,6 +37,7 @@ export async function POST(request: Request) {
     if (parsed.data.action === "sign_out") {
       signOutOfCloud();
       await syncMembersSfxCatalog({ signed_in: false, member: null });
+      await refreshServerCloudSentry().catch(error => console.error("[cloud-telemetry] not stopped", error));
     }
     if (parsed.data.action === "sync") await requestStyleSync();
     return response(status());

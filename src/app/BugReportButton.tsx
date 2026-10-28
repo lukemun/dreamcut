@@ -7,6 +7,7 @@ import { BugIcon, CheckCircle2Icon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SettingField } from "@/components/ui/setting-field";
+import { SENTRY_CHANGED_EVENT } from "@/lib/observability/cloud-sentry-client";
 
 /** Report a bug: a short description, always sent to Sentry with the replay of the last minute
  * (masked per REPLAY_PRIVACY). Shown only where Sentry is enabled, since that is where the replay is
@@ -15,7 +16,13 @@ import { SettingField } from "@/components/ui/setting-field";
 export function BugReportButton({ projectId }: { projectId?: string } = {}) {
   const [available, setAvailable] = useState(false);
   const [open, setOpen] = useState(false);
-  useEffect(() => { setAvailable(!!Sentry.getClient()); }, []);
+  useEffect(() => {
+    // Sentry can start after sign-in or stop on sign-out while the page is open.
+    const update = () => setAvailable(!!Sentry.getClient());
+    update();
+    window.addEventListener(SENTRY_CHANGED_EVENT, update);
+    return () => window.removeEventListener(SENTRY_CHANGED_EVENT, update);
+  }, []);
   if (!available) return null;
   return <>
     <Button variant="ghost" size="icon-sm" aria-label="Report a bug" title="Report a bug" onClick={() => setOpen(true)}><BugIcon aria-hidden="true" /></Button>

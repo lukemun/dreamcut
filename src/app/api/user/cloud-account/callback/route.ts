@@ -1,6 +1,7 @@
 import { completeCloudSignIn } from "@/lib/local-store/cloud-account";
 import { requestStyleSync, startStyleSyncLoop } from "@/lib/local-store/cloud-style-sync";
 import { claimInstall } from "@/lib/local-store/export-sharing";
+import { refreshServerCloudSentry } from "@/lib/observability/cloud-sentry-server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ export async function GET(request: Request) {
     void claimInstall().catch(error => console.error("[cloud-account] install claim failed", error));
     startStyleSyncLoop();
     void requestStyleSync();
+    void refreshServerCloudSentry().catch(error => console.error("[cloud-telemetry] not started", error));
     return page(`DreamCut is signed in as ${session.email}. You can close this tab.`);
   } catch (error) {
     return page(error instanceof Error ? error.message : "Sign-in did not complete. Try again.", 400);

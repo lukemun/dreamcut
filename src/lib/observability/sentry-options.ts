@@ -10,6 +10,11 @@ export function defaultTraceSampleRate(nodeEnv = process.env.NODE_ENV) {
   return nodeEnv === "development" ? 1 : 0.1;
 }
 
+/** Whether this build sets its own browser Sentry (`.env.local`); otherwise the page follows the account. */
+export function publicSentryConfigured() {
+  return process.env.NEXT_PUBLIC_SENTRY_ENABLED === "1" && Boolean(process.env.NEXT_PUBLIC_SENTRY_DSN);
+}
+
 export function sentryOptions(dsn: string | undefined, enabled: string | undefined, environment: string | undefined, traceRate?: string): BrowserOptions {
   const fallbackRate = defaultTraceSampleRate();
   const parsedRate = traceRate?.trim() ? Number(traceRate) : fallbackRate;
@@ -69,7 +74,8 @@ export function desktopServiceSentryOptions(dsn: string | undefined, enabled: st
         platform: "node", level: event.level === "fatal" ? "fatal" : "error",
         release: event.release, environment: event.environment,
         message: "DreamCut desktop service error",
-        tags: { component: "desktop-service" },
+        // The random install id (cloud-telemetry.ts) is the only tag kept: it matches a report to its account.
+        tags: { component: "desktop-service", ...(typeof event.tags?.install_id === "string" && /^[0-9a-f-]{36}$/.test(event.tags.install_id) ? { install_id: event.tags.install_id } : {}) },
         exception: event.exception?.values?.length ? {
           values: event.exception.values.slice(0, 3).map(value => ({
             type: "DesktopServiceError", value: "Desktop service operation failed",
