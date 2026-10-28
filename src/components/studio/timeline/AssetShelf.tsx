@@ -347,6 +347,11 @@ function sectionForTab(tab: TabKey): ShelfSectionKey {
 
 // ── Component ────────────────────────────────────────────────────────────────
 
+// Names of Library pictures seen by any open Library view, so whichever view fills the Selected tray
+// labels every pick by name, even one only the other view has loaded.
+const libraryImageNames = new Map<string, string>();
+const libraryImageKinds = new Map<string, VisualAsset["type"]>();
+
 export function AssetShelf({
   referencePicker,
   mediaPicker,
@@ -495,8 +500,8 @@ export function AssetShelf({
   // Library image selections also appear as chat pills; removing a pill deselects the image.
   const replaceSelectionGroup = useAgentSelection()?.replaceSelectionGroup;
   const drawerSide = useContext(DrawerSideContext);
-  const imageNamesRef = useRef(new Map<string, string>());
-  const imageKindsRef = useRef(new Map<string, VisualAsset["type"]>());
+  const imageNamesRef = useRef(libraryImageNames);
+  const imageKindsRef = useRef(libraryImageKinds);
   for (const asset of assets?.visuals ?? []) { imageNamesRef.current.set(libraryIdentity(asset), asset.name); imageKindsRef.current.set(libraryIdentity(asset), asset.type); }
   const toggleLibrarySource = librarySelection.toggle;
   // Whichever open view shows the Library (the docked panel or either drawer) keeps the Selected tray

@@ -25,11 +25,13 @@ const QA_ROOT = path.join(os.tmpdir(), 'dreamcut-qa');
 const USAGE = 'Usage: pnpm qa [--ref <branch>] [--fresh-tools] [--no-open] [--clean]';
 
 const args = process.argv.slice(2);
-const option = name => { const at = args.indexOf(name); return at >= 0 ? args[at + 1] : undefined; };
 const known = new Set(['--ref', '--fresh-tools', '--no-open', '--clean', '--help']);
 const unknown = args.filter((arg, i) => arg.startsWith('-') ? !known.has(arg) : args[i - 1] !== '--ref');
 if (args.includes('--help')) { console.log(USAGE); process.exit(0); }
 if (unknown.length) { console.error(`Unknown option ${unknown[0]}.\n${USAGE}`); process.exit(2); }
+const refAt = args.indexOf('--ref');
+const refValue = refAt >= 0 ? args[refAt + 1] : undefined;
+if (refAt >= 0 && (!refValue || refValue.startsWith('-'))) { console.error(`--ref needs a branch or tag name.\n${USAGE}`); process.exit(2); }
 
 if (args.includes('--clean')) {
   fs.rmSync(QA_ROOT, { recursive: true, force: true });
@@ -37,19 +39,23 @@ if (args.includes('--clean')) {
   process.exit(0);
 }
 
-const ref = option('--ref') ?? 'main';
+const ref = refValue ?? 'main';
 const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
 const dir = path.join(QA_ROOT, stamp);
 const app = path.join(dir, 'DreamCut');
 
-// A new user's shell has none of the overrides this checkout's tooling sets (projects, profile, editor URL).
-const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^(DREAMCUT|TIMELINE|OPENEDIT|OPENSEQUENCE)_/.test(key)));
-Object.assign(env, { DREAMCUT_APP_DATA_DIR: path.join(dir, 'app-data'), DREAMCUT_EXPORTS_DIR: path.join(dir, 'exports') });
-if (args.includes('--fresh-tools')) Object.assign(env, { DREAMCUT_TOOLS_DIR: path.join(dir, 'tools'), HF_HOME: path.join(dir, 'huggingface') });
+// A new user's shell has none of the overrides this checkout's tooling sets (projects, profile, editor URL);
+// the QA copy gets only its own folders.
+const overrides = { DREAMCUT_APP_DATA_DIR: path.join(dir, 'app-data'), DREAMCUT_EXPORTS_DIR: path.join(dir, 'exports'),
+  ...(args.includes('--fresh-tools') ? { DREAMCUT_TOOLS_DIR: path.join(dir, 'tools'), HF_HOME: path.join(dir, 'huggingface') } : {}) };
+const env = { ...Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^(DREAMCUT|TIMELINE|OPENEDIT|OPENSEQUENCE)_/.test(key))), ...overrides };
+// Windows starts pnpm (a .cmd) through the shell, which splits unquoted paths at spaces.
+const windows = process.platform === 'win32';
+const shellArg = arg => windows && /[\s"]/.test(arg) ? `"${arg.replace(/"/g, '\\"')}"` : arg;
 
 function step(title, command, commandArgs, cwd = app) {
   console.log(`\n[qa] ${title}: ${command} ${commandArgs.join(' ')}`);
-  const result = spawnSync(command, commandArgs, { cwd, env, stdio: 'inherit', shell: process.platform === 'win32' });
+  const result = spawnSync(command, commandArgs.map(shellArg), { cwd, env, stdio: 'inherit', shell: windows });
   if (result.status !== 0) {
     console.error(`\n[qa] Stopped: "${title}" failed. A new user would stop here too. The clone is in ${app}.`);
     process.exit(result.status ?? 1);
@@ -64,14 +70,16 @@ step('Install', 'pnpm', ['install']);
 step('Bootstrap', 'pnpm', ['bootstrap']);
 
 const cli = path.join(app, 'bin', 'dreamcut.mjs');
-const envPrefix = Object.entries(env).filter(([key]) => /^(DREAMCUT_APP_DATA_DIR|DREAMCUT_EXPORTS_DIR|DREAMCUT_TOOLS_DIR|HF_HOME)$/.test(key))
-  .map(([key, value]) => `${key}=${JSON.stringify(value)}`).join(' ');
+// claude mcp add -e sets the variables itself, so the same command works in zsh and PowerShell.
+const envFlags = Object.entries(overrides).map(([key, value]) => `-e "${key}=${value}"`).join(' ');
 console.log(`\n[qa] Folder: ${dir}`);
-console.log(`[qa] Connect an agent to this copy:\n  claude mcp add dreamcut-qa -- env ${envPrefix} node ${JSON.stringify(cli)} mcp`);
+console.log(`[qa] Connect an agent to this copy:\n  claude mcp add dreamcut-qa ${envFlags} -- node "${cli}" mcp`);
 console.log('[qa] Starting DreamCut the way a new user does (the first start compiles it, a minute or two)…\n');
 
 const editor = spawn(process.execPath, [cli, 'open', ...(args.includes('--no-open') ? ['--no-open'] : [])], { cwd: app, env, stdio: 'inherit' });
-for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => editor.kill(signal));
+// Ctrl+C already reaches the editor (same terminal); a second SIGINT could cut its shutdown short.
+process.on('SIGINT', () => {});
+process.on('SIGTERM', () => editor.kill('SIGTERM'));
 editor.on('exit', code => {
   console.log(`\n[qa] DreamCut stopped. The QA folder stays in ${dir} until \`pnpm qa --clean\`.`);
   process.exit(code ?? 0);

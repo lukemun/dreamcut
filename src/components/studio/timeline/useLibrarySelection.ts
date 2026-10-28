@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 // The editor mounts several Library views (the drawer, the docked panel); each change is announced so every
 // view, and the Selected tray they feed, shows the same selection.
 const CHANGED_EVENT = "dreamcut:library-selection-changed";
+/** How many selections each project has announced; a load that started before a newer one never overwrites it. */
+const announcements = new Map<string, number>();
 
 export function useLibrarySelection(projectId: string, open: boolean) {
   const [sources, setSources] = useState<string[]>([]);
@@ -16,6 +18,7 @@ export function useLibrarySelection(projectId: string, open: boolean) {
     return () => window.removeEventListener(CHANGED_EVENT, onChanged);
   }, [projectId]);
   const announce = useCallback((next: string[]) => {
+    announcements.set(projectId, (announcements.get(projectId) ?? 0) + 1);
     setSources(next);
     window.dispatchEvent(new CustomEvent(CHANGED_EVENT, { detail: { projectId, sources: next } }));
   }, [projectId]);
@@ -36,9 +39,17 @@ export function useLibrarySelection(projectId: string, open: boolean) {
     const sessionKey = `dreamcut:library-selection-started:${projectId}`;
     let started = true;
     try { started = sessionStorage.getItem(sessionKey) === "1"; sessionStorage.setItem(sessionKey, "1"); } catch { /* Keep the saved selection. */ }
+    const seen = announcements.get(projectId) ?? 0;
     void request().then(async body => {
-      const sources: string[] = !started && body.sources.length ? (await request({ action: "set", sources: [] })).sources : body.sources;
-      if (!canceled) { announce(sources); setError(null); }
+      if (!started && body.sources.length) {
+        const cleared: string[] = (await request({ action: "set", sources: [] })).sources;
+        if (!canceled) { announce(cleared); setError(null); }
+        return;
+      }
+      // Another view may have loaded or changed the selection meanwhile; its newer list stands.
+      if (canceled) return;
+      if ((announcements.get(projectId) ?? 0) === seen) announce(body.sources);
+      setError(null);
     }).catch(err => { if (!canceled) setError(err.message); });
     return () => { canceled = true; };
   }, [open, request, projectId, announce]);
