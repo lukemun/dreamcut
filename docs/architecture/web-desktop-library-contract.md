@@ -140,7 +140,10 @@ already the default. External references remain allowed but are flagged as not p
 
 - **Installed from GitHub (decided 2026-10-27).** DreamCut installs from its public GitHub repository:
   `git clone`, `pnpm install`, `pnpm bootstrap`; agents connect with `node bin/dreamcut.mjs mcp`.
-- **Updating:** `git pull && pnpm install` in the checkout, then a new agent chat. Projects live in the
+- **Updating:** `editor_open` reports commits the install lacks (`dreamcut_update`), and with the creator's OK
+  `dreamcut_update` or `node bin/dreamcut.mjs update` fast-forwards, reinstalls changed dependencies and
+  restarts the editor in place ([install-updates.mjs](../../mcp/install-updates.mjs)); then a new agent chat.
+  Dirty, diverged, off-branch, forked and development copies are never touched. Projects live in the
   Library folder the creator chose, outside the repository, so updates never touch them.
 - **Node.js** 22 or 24 (LTS) and Git are prerequisites; Google Chrome for exports. The creator's agent
   installs what is missing (WinGet `Git.Git OpenJS.NodeJS.LTS Google.Chrome` on Windows).

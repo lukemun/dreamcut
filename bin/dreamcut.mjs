@@ -5,6 +5,7 @@
  *   dreamcut            start (or reuse) the editor and open it in your browser
  *   dreamcut mcp        the DreamCut MCP server for Claude Code / Codex (starts the editor on first use)
  *   dreamcut status     show whether an editor is running
+ *   dreamcut update     update a DreamCut installed with git clone to GitHub's latest version
  *   dreamcut setup           install everything the features use now (about 4 GB; runs in the background by itself)
  *   dreamcut setup-matting   install subject tracing for cutout templates (about 1 GB)
  *   dreamcut setup-voice     install voice enhancement for "Enhance voice" (about 400 MB)
@@ -20,12 +21,15 @@ import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { EDITOR_ROOT, agentHost, ensureEditor, isPackagedRuntime, runningEditor, runtimeEnvDefaults, signInUrl } from '../mcp/editor-runtime.mjs';
+import { applyUpdate, checkForUpdates, describeUpdate } from '../mcp/install-updates.mjs';
+import { UPDATE_PATH } from '../mcp/runtime-updates.mjs';
 import { startFeatureSetup } from '../scripts/setup-features.mjs';
 
 const USAGE = `Usage:
   dreamcut [--no-open]    start (or reuse) the editor and open it in your browser
   dreamcut mcp            the DreamCut MCP server for Claude Code / Codex
   dreamcut status         show whether an editor is running
+  dreamcut update         update this copy to GitHub's latest version (git installs only; never discards changes)
   dreamcut setup          install everything the features use now (about 4 GB; runs in the background by itself)
   dreamcut setup-matting  install subject tracing for cutout templates (about 1 GB)
   dreamcut setup-voice    install voice enhancement for "Enhance voice" (about 400 MB)
@@ -72,6 +76,24 @@ if (command === 'mcp') {
   const script = command === 'setup' ? 'setup-features' : command;
   const child = spawn(process.execPath, [path.join(EDITOR_ROOT, 'scripts', `${script}.mjs`), ...rest], { stdio: 'inherit', env: process.env });
   child.on('exit', code => process.exit(code ?? 1));
+} else if (command === 'update') {
+  console.error('Checking GitHub for DreamCut updates…');
+  const result = await applyUpdate({ root: EDITOR_ROOT });
+  if (!result.updated) {
+    const said = { up_to_date: 'DreamCut is up to date.', updates_off: `This copy does not update itself (${result.reason}).` }[result.status];
+    console.log(said ?? result.reason);
+    process.exit(result.status === 'up_to_date' || result.status === 'updates_off' ? 0 : 1);
+  }
+  console.log(`DreamCut is updated (${result.behind} change${result.behind === 1 ? '' : 's'}${result.dependencies_installed ? ', dependencies reinstalled' : ''}):`);
+  for (const change of result.changes.slice(0, 10)) console.log(`  - ${change}`);
+  // A running editor restarts in place from the new code; open pages stay signed in.
+  const running = await runningEditor();
+  if (running) {
+    const restart = await fetch(`${running.origin}${UPDATE_PATH}`, { method: 'POST', headers: { Cookie: `dreamcut_desktop_session=${running.token}` }, signal: AbortSignal.timeout(5000) }).catch(() => null);
+    console.log(restart?.status === 202 ? 'The running editor is restarting with the new version.'
+      : 'The running editor keeps the previous version until it restarts (its Update button, or stop and start DreamCut).');
+  } else console.log('A running `pnpm editor` switches to the new version by itself within a few minutes.');
+  console.log('Start a new chat so your agent uses the updated DreamCut tools.');
 } else if (command === 'status') {
   const running = await runningEditor();
   console.log(running ? `DreamCut is running at ${running.origin} (pid ${running.pid}).` : 'DreamCut is not running.');
@@ -82,7 +104,11 @@ if (command === 'mcp') {
     process.exit(2);
   }
   console.error('Starting DreamCut…');
+  // Checked beside the start, never before it: offline costs nothing, and the notice comes with the link.
+  const updates = checkForUpdates({ root: EDITOR_ROOT }).catch(() => null);
   const editor = await ensureEditor({ root: EDITOR_ROOT });
+  const notice = describeUpdate(await Promise.race([updates, new Promise(resolve => setTimeout(resolve, 3000, null))]));
+  if (notice) console.log(`${notice}\n`);
   const { url } = await signInUrl(editor, '/');
   const host = agentHost();
   if (host) console.log(`DreamCut is ready. Open this single-use link in ${host}'s built-in browser (it was not opened in your system browser):\n${url}`);

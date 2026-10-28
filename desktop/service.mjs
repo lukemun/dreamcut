@@ -7,12 +7,16 @@ import { drainHttpServer } from './service-shutdown.mjs';
 import { createWorkerCrashGuard } from './worker-crash-guard.mjs';
 import { createWorkerOwner, WORKER_OWNER } from './owned-workers.mjs';
 import { pendingUpdate, runtimeVersion, UPDATE_PATH } from './runtime-updates.mjs';
+import { installRevision } from './install-updates.mjs';
 
 const root = process.env.DREAMCUT_SERVICE_ROOT;
 const token = process.env.DREAMCUT_SERVICE_TOKEN;
 if (!root || !token) throw new Error('Desktop service configuration is missing.');
 process.chdir(root);
-const version = runtimeVersion(root);
+// A git install (mcp/install-updates.mjs) names its commit too, so code pulled while it runs is a newer version.
+const startedRevision = installRevision(root);
+const checkoutVersion = revision => `${runtimeVersion(root)}+${revision.slice(0, 7)}`;
+const version = startedRevision ? checkoutVersion(startedRevision) : runtimeVersion(root);
 let crashGuard;
 const workers = createWorkerOwner({
   onStarted: pid => { crashGuard.started(pid); send({ type: 'worker-started', pid }); },
@@ -65,13 +69,19 @@ server.on('upgrade', (request, socket, head) => {
   Promise.resolve(upgrade(request, socket, head)).catch(() => socket.destroy());
 });
 const send = message => process.parentPort?.postMessage(message) ?? process.send?.(message);
+/** Code pulled into this git install since the service started: restart from the same folder to run it. */
+function pulledUpdate() {
+  if (!startedRevision) return null;
+  const now = installRevision(root);
+  return now && now !== startedRevision ? { version: checkoutVersion(now), root } : null;
+}
 /**
- * A newer version installed by the launcher (mcp/runtime-updates.mjs). Applying it asks the owner to
- * restart this service from that version, on this port with this session, once no export or analysis
- * worker is running. Only a forked service (the local web app) can restart; the desktop shell cannot.
+ * A newer version installed by the launcher (mcp/runtime-updates.mjs), or pulled into a git install. Applying
+ * it asks the owner to restart this service from that version, on this port with this session, once no export
+ * or analysis worker is running. Only a forked service (the local web app) can restart; the desktop shell cannot.
  */
 function update(request, response) {
-  const pending = process.send ? pendingUpdate(root) : null;
+  const pending = process.send ? pendingUpdate(root) ?? pulledUpdate() : null;
   if (request.method === 'GET') { json(response, { version, available: pending?.version ?? null }); return; }
   if (request.method !== 'POST') { json(response, { error: 'method' }, 405); return; }
   if (!pending) { json(response, { error: 'no_update' }, 409); return; }

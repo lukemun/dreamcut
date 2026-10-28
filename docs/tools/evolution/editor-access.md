@@ -114,3 +114,34 @@ used. No project, timeline or file changes.
 - **Verification:** `mcp/editor-connection.test.mjs` (reused editor closes → request retried on a new one;
   owned editor stops → forgotten; owned or reused editor restarting → same editor retried, none started; dropped-after-send → one attempt, then reconnect; HTTP 500 and failed
   start). Not run live against an exiting `dreamcut` owner.
+
+## 2026-10-28 — updates for GitHub installs
+
+- **Observation:** creators now install by cloning the public repository (2026-10-27) and had no update
+  path besides remembering `git pull && pnpm install`; the launcher's runtime updates no longer apply.
+- **Existing owners:** `editor_open` is the first call of a DreamCut session; the editor service already
+  restarts in place on the same port and session when an update is applied (`/__dreamcut/update`, the
+  editor's Update button); `pnpm editor` rebuilds by itself when code changes.
+- **Decision:** `mcp/install-updates.mjs` checks (fetch of the default branch, 15 s bound, commit subjects)
+  and fast-forwards (`merge --ff-only` to the checked commit, `pnpm install --frozen-lockfile` when the
+  lockfile changed, moving back if that fails). It refuses, changing nothing, a copy with tracked changes,
+  local commits or another branch, a fork, and a non-git install; a development checkout (`core.hooksPath`
+  in its own config, `git config dreamcut.updates off`, `DREAMCUT_UPDATES=off`, CI) is never fetched. The MCP
+  server starts the check at `initialize` and `editor_open` returns `dreamcut_update` when there is something
+  to tell the creator; the new `dreamcut_update` tool (check / apply) applies only after the creator agreed,
+  then asks the editor to restart. The service names a git install's commit in its version, so code pulled
+  while it runs is offered as an update (and its Update button restarts it). `dreamcut` prints the notice
+  beside its link, `dreamcut update` applies it, `pnpm editor` logs it. In-editor agent access: excluded
+  with the capability. The agent's own MCP server keeps its code until a new chat.
+- **Verification:** `mcp/install-updates.test.mjs` (local bare upstream behind the public URL via
+  `url.insteadOf`: behind → changes listed, fast-forwarded, reinstall only on lockfile change, failed
+  reinstall moved back; dirty, local commit and other branch refused with files and HEAD unchanged;
+  hooks, config, env and CI opt-outs make no fetch; offline, fork and non-git reported).
+  Live run on a disposable clone of the public repository (origin the public URL, fetches redirected to a
+  local copy carrying this change plus two newer commits, one touching the lockfile): `dreamcut` printed
+  the two commit subjects beside its link; over the clone's `dreamcut mcp`, `editor_open` returned
+  `dreamcut_update` and `apply` fast-forwarded, ran the real `pnpm install` and restarted the editor on the
+  same port (new process, version `+<new commit>`, Library API answering). `dreamcut update` then refused a
+  tracked edit, a local commit, another branch and `core.hooksPath`, each with HEAD and files unchanged.
+- **Limits:** not run inside the Claude or Codex apps (the tool flow was driven over stdio); `pnpm editor`
+  on a git install relies on its existing rebuild-on-change and was not rerun; Windows is unverified.

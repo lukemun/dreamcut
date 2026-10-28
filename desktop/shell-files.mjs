@@ -7,7 +7,7 @@ import path from 'node:path';
 // which the desktop shims re-export.
 // The app, its preload, and the two scripts it launches as separate processes.
 export const SHELL_ENTRIES = ['main.mjs', 'preload.cjs', 'service.mjs', 'worker-crash-watchdog.mjs'];
-export const FROM_MCP = new Set(['worker-crash-guard.mjs', 'worker-crash-watchdog.mjs', 'runtime-updates.mjs']);
+export const FROM_MCP = new Set(['worker-crash-guard.mjs', 'worker-crash-watchdog.mjs', 'runtime-updates.mjs', 'install-updates.mjs']);
 const RELATIVE_IMPORT = /(?:\bfrom\s*|\bimport\s*\(\s*|\brequire\s*\(\s*|^\s*import\s+)['"]\.\/([\w.-]+\.(?:mjs|cjs|js))['"]/gm;
 
 export async function shellFiles(desktopDir, entries = SHELL_ENTRIES) {

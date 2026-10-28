@@ -9,6 +9,7 @@ import path from "node:path";
 import { fingerprintReviewBuild } from "@/lib/instruments/review-build-cache";
 import { projectsRoot } from "@/lib/local-store/paths";
 
+import { checkForUpdates, describeUpdate } from "../mcp/install-updates.mjs";
 import { buildSlot, freePort, rendersRunningUnder, serveStaticFromOtherSlot, serverIsRunning, slotFingerprint, slotForCurrentCode, startServer, waitForServer } from "./stable-editor";
 
 /**
@@ -202,6 +203,11 @@ async function main() {
   proxyV6.listen(PUBLIC_PORT, "::1");
   watch();
   log(`Editor: http://127.0.0.1:${PUBLIC_PORT} (rebuilds itself when editor code changes)`);
+  // A git install that is behind GitHub says so; a development checkout is never checked (mcp/install-updates.mjs).
+  void checkForUpdates({ root }).then((result: unknown) => {
+    const notice = describeUpdate(result);
+    if (notice) log(notice.replace(/\n/g, "\n[editor] "));
+  }, () => {});
   const stop = () => {
     stopping = true;
     for (const backend of running) backend.child.kill("SIGTERM");

@@ -6,7 +6,7 @@ const roots = new Set(['node_modules', 'src', 'public', '.next-desktop', 'script
 // (fonts, catalogs, schemas, Python helpers) and these plain helpers the runtime starts by path remain.
 const CODE = /\.(?:[cm]?[jt]sx?)$/;
 const RUNTIME_HELPERS = new Set(['scripts/run-sam2-cutout.mjs', 'scripts/setup-matting.mjs', 'scripts/setup-voice.mjs', 'scripts/setup-features.mjs', 'scripts/feature-tools.mjs', 'scripts/setup-speech.mjs', 'scripts/doctor.mjs', 'scripts/matting/environment.mjs',
-  'mcp/editor-runtime.mjs', 'mcp/projects-root.mjs', 'mcp/runtime-updates.mjs', 'mcp/worker-crash-watchdog.mjs']);
+  'mcp/editor-runtime.mjs', 'mcp/projects-root.mjs', 'mcp/runtime-updates.mjs', 'mcp/install-updates.mjs', 'mcp/worker-crash-watchdog.mjs']);
 const COMPILED_MCP = /^mcp\/(?:server|harness-mcp|harness-session|harness-adapters|tool-schema-portability|shared-[\w-]+)\.mjs$/;
 /** Whether a packaged file is DreamCut source the package must not carry. */
 export function shipsSource(relative) {

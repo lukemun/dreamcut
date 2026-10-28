@@ -79,8 +79,11 @@ Captions, "Enhance voice" and cutout templates use extra programs and models (FF
 Forced Aligner, DeepFilterNet, SAM; about 4 GB, once). Install them with
 `node bin/dreamcut.mjs setup`, and check what's ready with `node bin/dreamcut.mjs doctor`.
 
-**Update** with `git pull && pnpm install` in `~/DreamCut`, then start a new chat. Your projects live in
-the Library folder you chose, outside the repository, so updates never touch them. You and your agent can
+**Updates:** when your agent opens DreamCut it checks GitHub, tells you when there is a newer version and
+updates with your OK. You can also run `node bin/dreamcut.mjs update` in `~/DreamCut`, then start a new chat.
+It only fast-forwards: a copy with your own changes or commits is left alone (update that one with git
+yourself). Your projects live in the Library folder you chose, outside the repository, so updates never
+touch them. You and your agent can
 read and change the code in your copy.
 
 **On Windows** (experimental), install the prerequisites with

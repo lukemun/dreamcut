@@ -16,6 +16,11 @@ repository (dreamcut-cloud) and site changes are reported, not deployed.
 - From the public GitHub repository (owner, 2026-10-27): `git clone`, `pnpm install`, `pnpm bootstrap`;
   agents connect with `node bin/dreamcut.mjs mcp`. The npm launcher (removed from this repository) and its runtime download stay published at 0.3.0 but
   are not referenced: never point anyone at `npx dreamcut`.
+- Updates ([mcp/install-updates.mjs](../../../mcp/install-updates.mjs)): `editor_open` and `dreamcut` report
+  commits the install lacks; `dreamcut_update` or `node bin/dreamcut.mjs update` fast-forwards, runs
+  `pnpm install` when the lockfile changed and restarts the editor. Test it on a disposable clone whose
+  `origin` is the public URL, redirected with `git config url.<local bare repo>.insteadOf <public URL>`,
+  never on the maintainer's checkout (it is marked `dreamcut.updates off`).
 - `pnpm setup:voice`, `pnpm setup:speech` and `pnpm setup:matting` install each feature's programs and
   models; `node bin/dreamcut.mjs setup` ([scripts/setup-features.mjs](../../../scripts/setup-features.mjs))
   installs them all: conda-forge tools through a pinned micromamba (whisper.cpp, uv, Python with NumPy, a

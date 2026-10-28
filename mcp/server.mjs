@@ -71,7 +71,9 @@ const autoProposalWork = createAutoProposalWork({ sessionId: MCP_SESSION_ID,
   post: (projectId, body) => http("POST", `/api/projects/${encodeURIComponent(projectId)}/timeline/proposals/work`, body) });
 import { desktopServiceAuth } from './desktop-service-auth.mjs';
 import { libraryRequired, projectsRootFor } from './projects-root.mjs';
-import { autostartEditorConnection, signInUrl } from './editor-runtime.mjs';
+import { autostartEditorConnection, runningEditor, signInUrl } from './editor-runtime.mjs';
+import { applyUpdate, checkForUpdates } from './install-updates.mjs';
+import { UPDATE_PATH } from './runtime-updates.mjs';
 const BASE_URL = (process.env.TIMELINE_EDITOR_BASE_URL ?? "http://127.0.0.1:3123").replace(/\/$/, "");
 /**
  * The editor this server talks to. An explicit TIMELINE_EDITOR_BASE_URL (development, desktop host) wins.
@@ -100,6 +102,8 @@ const EDITOR_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
  * creator. An installed DreamCut (`dreamcut mcp`) starts its own editor on a port chosen per launch behind a
  * sign-in link, so its instructions name editor_open and returned links, never a fixed address.
  */
+const UPDATE_INSTRUCTIONS = `When editor_open returns dreamcut_update, DreamCut has updates on GitHub: tell the creator in one line and ask before updating; `
+  + `only after they agree, call dreamcut_update with action apply. Never pull, reset or stash DreamCut's code yourself.`;
 const AUTOSTART_PRESENCE_INSTRUCTIONS =
   `Keep the DreamCut editor open in front of the creator whenever you work on a project. DreamCut starts its own editor: `
   + `call editor_open (with project_id once the project is known) and open the single-use sign-in url it returns in your built-in browser `
@@ -107,7 +111,7 @@ const AUTOSTART_PRESENCE_INSTRUCTIONS =
   + `The editor's address changes each launch, so never guess a port: use the urls DreamCut returns. Tool results with review_url also return `
   + `sign_in_url, a single-use link to the same page for a browser that is not signed in yet. Before ending a turn that refers to a project, call `
   + `editor_context_get with its project_id; if project_shown.showing is false, call editor_open for it and open or share the link. `
-  + `Opening or viewing the editor never approves, generates or applies anything.`;
+  + `Opening or viewing the editor never approves, generates or applies anything. ${UPDATE_INSTRUCTIONS}`;
 const SKILL_INSTRUCTIONS = ` DreamCut's skills are in capability_catalog (search, or get skill:<name>): read skill:dreamcut-proposals before `
   + `changing an existing timeline and skill:editorial-assembly before building a new edit; a template names its own skill. `
   + `The creator's My Style comes with every timeline_get (editing_context.preferences): apply each matching preference before you choose a look, caption style, pace or treatment, and name the one you followed in the card's assumptions. Only the creator's current request overrides it. `
@@ -122,7 +126,43 @@ const EDITOR_PRESENCE_INSTRUCTIONS = autostartEditor ? AUTOSTART_PRESENCE_INSTRU
   + `when the project changes or a tool returns review_url (proposals, Generate drafts and results): open that URL so the creator sees what is ready. `
   + `Before ending a turn that refers to a project, call editor_context_get with its project_id; if project_shown.showing is false, open the project (or the review_url you are pointing at) in your built-in browser. `
   + `End every such reply with a link to it: [<project title>](${BASE_URL}/p/<project_id>). `
-  + `Opening or viewing the editor never approves, generates or applies anything.` + SKILL_INSTRUCTIONS;
+  + `Opening or viewing the editor never approves, generates or applies anything. ${UPDATE_INSTRUCTIONS}` + SKILL_INSTRUCTIONS;
+/**
+ * Whether this git install is behind the public repository (mcp/install-updates.mjs). Checked once when an agent
+ * connects and again after half an hour; a development checkout answers at once without touching the network.
+ */
+const UPDATE_CHECK_MS = 30 * 60_000;
+let updateCheck = null;
+const installUpdateCheck = ({ fresh = false } = {}) => {
+  if (fresh || !updateCheck || Date.now() - updateCheck.at > UPDATE_CHECK_MS) {
+    updateCheck = { at: Date.now(), result: checkForUpdates({ root: EDITOR_ROOT }).catch(error => ({ status: "offline", reason: error.message })) };
+  }
+  return updateCheck.result;
+};
+/** What editor_open tells the agent about updates, or null when there is nothing to tell the creator. */
+function updateNotice(result) {
+  if (result?.status === "update_available") {
+    return { status: result.status, behind: result.behind, changes: result.changes, more_changes: result.more_changes,
+      next_step: `Before other work, tell the creator in one line that DreamCut has ${result.behind} update${result.behind === 1 ? "" : "s"} (name one or two changes) and ask whether to update now. `
+        + "If they agree, call dreamcut_update with action apply; if they say no, carry on without it." };
+  }
+  if (result?.status === "blocked") return { status: result.status, reason: result.reason, next_step: "Tell the creator this in one line. Do not change their copy of DreamCut yourself." };
+  return null;
+}
+/** After an update: restart the editor in place from the new code, or say how it picks it up. */
+async function restartEditorAfterUpdate() {
+  const runtime = fixedEditor ? (await fixedEditor).runtime : await runningEditor().catch(() => null);
+  if (!runtime) {
+    return fixedEditor ? `The editor at ${BASE_URL} (pnpm editor) builds the new version by itself and switches to it within a few minutes.`
+      : "No DreamCut editor is running; the next editor_open starts the new version.";
+  }
+  const response = await fetch(`${runtime.origin}${UPDATE_PATH}`, { method: "POST", headers: desktopServiceAuth(runtime.origin, runtime.token), signal: AbortSignal.timeout(5000) }).catch(() => null);
+  if (response?.status === 202) return "The editor is restarting on the same address to run the new version; open pages carry on signed in.";
+  const error = await response?.json().then(value => value?.error, () => undefined);
+  if (error === "busy") return "The editor keeps running the previous version until its export or analysis finishes; then its Update button restarts it.";
+  return "The editor could not restart by itself; its Update button restarts it, or stop DreamCut and open it again.";
+}
+
 /**
  * Absolute review links on the editor actually running: a development server's fixed address, or an installed
  * editor's per-launch origin plus a single-use sign-in link to the same page.
@@ -265,7 +305,29 @@ const TOOLS = {
         const link = await signInUrl(runtime, next);
         return { url: link.url, expires_in_seconds: link.expires_in_seconds, single_use: true,
           opened: false, next_step: "Nothing was opened. Open url in your browser, or give it to the creator to open." };
+      }).then(async result => {
+        // Never hold the link back for a slow network: an unfinished check is reported by the next call.
+        const notice = updateNotice(await Promise.race([installUpdateCheck(), new Promise(resolve => setTimeout(resolve, 4000, null))]));
+        return notice ? { ...result, dreamcut_update: notice } : result;
       });
+    },
+  },
+  dreamcut_update: {
+    description: "Check for and apply DreamCut updates when DreamCut was installed from its GitHub repository. action check (default) fetches GitHub and reports status: update_available (behind = commits, changes = their subjects), up_to_date, blocked (local changes, local commits or another branch: reason says which; nothing is changed), offline, or updates_off / not_a_git_install / not_public_repository (this copy never updates: a development checkout, a packaged install or a fork). editor_open reports an available update as dreamcut_update. action apply updates only after the creator agreed: it fast-forwards to GitHub's version, reinstalls dependencies when they changed (moving back if that fails) and restarts the editor in place. It never merges, stashes or discards anything. Your own DreamCut tools stay the old version until a new chat starts.",
+    inputSchema: { type: "object", additionalProperties: false, properties: {
+      action: { type: "string", enum: ["check", "apply"], default: "check", description: "check: report only. apply: update now, after the creator agreed." },
+    } },
+    handler: async ({ action = "check" }) => {
+      if (action !== "check" && action !== "apply") throw new Error("action must be check or apply.");
+      if (action === "check") {
+        const result = await installUpdateCheck({ fresh: true });
+        return { ...result, ...(updateNotice(result) ? { next_step: updateNotice(result).next_step } : {}) };
+      }
+      const result = await applyUpdate({ root: EDITOR_ROOT });
+      updateCheck = null;
+      if (!result.updated) return { ...result, next_step: "Tell the creator in one line why DreamCut did not update. Do not change their copy yourself." };
+      return { ...result, editor: await restartEditorAfterUpdate(),
+        next_step: "Tell the creator DreamCut is updated and name the main changes. Ask them to start a new chat when convenient so your DreamCut tools are the new version too; call editor_open again for a fresh link if the page does not come back." };
     },
   },
   library_status: {
@@ -1993,6 +2055,8 @@ async function handleMessage(message) {
   try {
     if (method === "initialize") {
       connectedClient = typeof params?.clientInfo?.name === "string" ? params.clientInfo.name.slice(0, 80) : null;
+      // Start the update check now, so editor_open, usually the first call, has its answer.
+      if (!localMediaOnly) void installUpdateCheck();
       send({
         jsonrpc: "2.0",
         id,

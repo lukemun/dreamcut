@@ -1221,17 +1221,19 @@
       "status": "existing",
       "conformance": "partial_runtime_verification",
       "tools": [
-        "editor_open"
+        "editor_open",
+        "dreamcut_update"
       ],
       "owners": [
         "mcp/editor-runtime.mjs",
         "desktop/service.mjs",
         "desktop/service-policy.mjs",
-        "bin/dreamcut.mjs"
+        "bin/dreamcut.mjs",
+        "mcp/install-updates.mjs"
       ],
-      "outcome": "Open the local DreamCut editor for the creator from their coding agent",
-      "authority": "Starts the local editor bound to 127.0.0.1 and returns a single-use, short-lived browser sign-in link; no project, timeline or file changes.",
-      "acceptance": "The editor starts or is reused; the link signs a browser in once and expires; requests without the session, with a foreign Host or Origin, or cross-site are refused.",
+      "outcome": "Open the local DreamCut editor for the creator from their coding agent, and keep a GitHub install up to date",
+      "authority": "Starts the local editor bound to 127.0.0.1 and returns a single-use, short-lived browser sign-in link; no project, timeline or file changes. dreamcut_update apply fast-forwards a clean GitHub install to the public repository's default branch only after the creator agreed, reinstalls dependencies when the lockfile changed and restarts the editor in place; it never merges, stashes or discards local work and refuses development checkouts, forks and packaged installs.",
+      "acceptance": "The editor starts or is reused; the link signs a browser in once and expires; requests without the session, with a foreign Host or Origin, or cross-site are refused. A clean install behind GitHub reports the commits and fast-forwards; a dirty, diverged or off-branch copy, a development checkout and a fork are refused unchanged.",
       "evolution": "docs/tools/evolution/editor-access.md",
       "editor_agent": {
         "access": "excluded",
@@ -1251,7 +1253,11 @@
         "show me the storyboard",
         "go to project",
         "open in dreamcut",
-        "view project"
+        "view project",
+        "update dreamcut",
+        "check for updates",
+        "is dreamcut up to date",
+        "new version"
       ]
     },
     {

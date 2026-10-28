@@ -6,7 +6,8 @@ description: Check DreamCut before the owner's work is pushed to the public GitH
 # Update the public repository
 
 DreamCut ships by updating its public GitHub repository: creators install with `git clone`, `pnpm install` and
-`pnpm bootstrap`, and update with `git pull && pnpm install` (README, Install). There is no build to publish;
+`pnpm bootstrap`, and are offered each push as an update when their agent opens DreamCut (`dreamcut_update`,
+`node bin/dreamcut.mjs update`: fast-forward only, then `pnpm install` when the lockfile changed). There is no build to publish;
 the npm launcher and runtime feed stay at 0.3.0 and are not updated (owner, 2026-10-27). The outcome is
 evidence that what is about to be pushed breaks nothing for a creator, carries no secret or private material,
 and has been reviewed, pushed only when the owner says to.

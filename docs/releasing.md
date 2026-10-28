@@ -1,11 +1,16 @@
 # Releasing DreamCut
 
 DreamCut ships from this repository. Creators install with `git clone`, `pnpm install` and `pnpm bootstrap`,
-and update with `git pull && pnpm install` (see the README's Install section). Releasing is pushing `main`
+and get updates when their agent opens DreamCut: `editor_open` reports commits they lack and `dreamcut_update`
+fast-forwards with their OK, or they run `node bin/dreamcut.mjs update` ([mcp/install-updates.mjs](../mcp/install-updates.mjs);
+see the README's Install section). Every push to `main` therefore reaches creators at their next session. Releasing is pushing `main`
 to GitHub after the checks below; there is no build or download to publish.
 
 The npm `dreamcut` launcher and its runtime download feed are no longer updated (2026-10-27): they stay at
 0.3.0 and are not referenced; their packaging was removed from this repository.
+
+This checkout never updates itself: `git config dreamcut.updates off` and its contributor hooks
+(`core.hooksPath`) both mark it as a development checkout. Set the first in any other clone you develop in.
 
 ## Before pushing
 
