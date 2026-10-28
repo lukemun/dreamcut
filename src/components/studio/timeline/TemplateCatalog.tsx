@@ -207,7 +207,7 @@ function TemplateDetail({ effect, variants, onSelect, onBack, pick, onWatchExamp
 
 /** One grid of tiles (variant families under their heading); templates without an example come last. */
 function TemplateSection({ effects, preview, pick, onOpen, openOnClick, looks = false, unified = false, size }: {
-  effects: GuideEffect[]; preview: boolean; pick: TemplatePick; onOpen: (effect: GuideEffect) => void; openOnClick: boolean; size: ThumbnailSize;
+  effects: GuideEffect[]; preview: boolean; pick: TemplatePick; onOpen: (effect: GuideEffect) => void; openOnClick: boolean; size?: ThumbnailSize;
   /** Look families count looks, not variants. */
   looks?: boolean; unified?: boolean;
 }) {
@@ -306,7 +306,10 @@ export function TemplateCatalog({ effects, layout, active = true, loading = fals
     if (!active) root.current?.querySelectorAll('video').forEach(video => { video.pause(); video.currentTime = 0; });
   }, [active]);
   // Looks sit beside templates as their own kind; the short showcase shows templates only.
-  const [tileSize, setTileSize] = useThumbnailSize('dreamcut:templates-thumbnail-size');
+  // Each surface remembers its own size (a narrow panel and the full page want different counts); the
+  // showcase without the switch keeps the fill-the-width grid.
+  const [chosenSize, setTileSize] = useThumbnailSize(`dreamcut:templates-thumbnail-size:${layout}`);
+  const tileSize = browse ? chosenSize : undefined;
   const hasLooks = browse && effects.some(isLook);
   const shownKind: Kind = hasLooks ? kind : 'templates';
   const ofKind = effects.filter(effect => !browse ? true : discovery ? matchesCatalog(effect, {type:typeFilter, family:'All', query:''}) : isLook(effect) === (shownKind === 'looks'));
@@ -330,7 +333,7 @@ export function TemplateCatalog({ effects, layout, active = true, loading = fals
           {CATALOG_CATEGORIES.map(category => <button type="button" key={category.value} aria-pressed={typeFilter === category.value} onClick={() => setTypeFilter(category.value)}>{category.label}</button>)}
         </SegmentedControl>
         {sourcePills && <span className="catalog-source-filter">{sourcePills}</span>}
-        <ThumbnailSizeControl value={tileSize} onChange={setTileSize} />
+        <ThumbnailSizeControl value={chosenSize} onChange={setTileSize} />
         <span role="status" className="catalog-count">{visible.length} {visible.length === 1 ? 'result' : 'results'}</span>
         {query && <Button variant="ghost" size="sm" onClick={() => setQuery('')}>Clear search</Button>}
       </div>
@@ -343,7 +346,7 @@ export function TemplateCatalog({ effects, layout, active = true, loading = fals
       <div className="template-toolbar-row">
         <div className="template-search"><Search size={16} aria-hidden="true" />
           <Input type="search" aria-label={shownKind === 'looks' ? 'Search looks' : 'Search effects'} placeholder={shownKind === 'looks' ? 'Search looks…' : 'Search effects…'} value={query} onChange={event => setQuery(event.target.value)} /></div>
-        <ThumbnailSizeControl value={tileSize} onChange={setTileSize} />
+        <ThumbnailSizeControl value={chosenSize} onChange={setTileSize} />
         {sourcePills}
         {toolbarAction && <span className="template-toolbar-action">{toolbarAction}</span>}
         {kindAction && !hasLooks && <span className="template-toolbar-action">{kindAction}</span>}
