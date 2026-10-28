@@ -7,8 +7,8 @@ import path from 'node:path';
  * <appData>/DreamCut/runtimes/app/<version>-<platform>, sharing a base layer (node_modules) under
  * runtimes/base/, and records the newest complete install in runtimes/latest-installed.json. A running
  * editor offers that version; applying it restarts the editor service from the new app layer on the same
- * address with the same session. The launcher's copies of these names must stay identical
- * (packaging/launcher/bin/dreamcut.mjs; checked by desktop/runtime-updates.test.mjs).
+ * address with the same session. The npm launcher published at 0.3.0 (retired 2026-10-27,
+ * no longer in this repository) uses the same names; keep them unchanged for its existing installs.
  */
 export const UPDATE_PATH = '/__dreamcut/update';
 export const INSTALLED_MARKER = '.dreamcut-installed';

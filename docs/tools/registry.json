@@ -425,7 +425,8 @@
         "src/lib/local-store/open-space.ts",
         "src/lib/media-analysis/open-space.ts",
         "src/lib/agent/framing-compile.ts",
-        "src/lib/timeline/framing-geometry.ts"
+        "src/lib/timeline/framing-geometry.ts",
+        "src/lib/media-analysis/cursor-track.ts"
       ],
       "outcome": "Inspect spatial evidence and prepare rhythm annotations",
       "authority": "Assessment/annotation preparation; preserve evidence limits.",

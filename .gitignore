@@ -130,7 +130,7 @@ __pycache__/
 # Generated desktop staging, dependency manifests and local application bundles
 /.desktop-build/
 
-# Packaged runtime archives and the npm launcher tarball (packaging/)
+# Build output (packaging/build-ffmpeg.mjs, desktop packaging)
 /dist/
 
 # Local branch-handoff notes between agent sessions.

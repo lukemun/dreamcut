@@ -2,7 +2,7 @@ import { currentFrameRate, setEditorFrameRate } from "../src/lib/timeline/frame-
 import { projectFrameRate } from "../src/lib/timeline/frame-quantization";
 /** Read-only moving workshop preview. Never writes timelines or approves proposals.
  * pnpm exec tsx scripts/render-preview.ts <project> --out <mp4>
- *   [--proposal-file <json> ...] [--base <origin>] [--scale 0.5]
+ *   [--proposal-file <proposal or proposals/<id>.json> ...] [--base <origin>] [--scale 0.5]
  *   [--start-seconds <seconds>] [--end-seconds <seconds>]
  * Draft inspection artifact only; delivery uses pnpm render's tracked lifecycle.
  */
@@ -11,7 +11,8 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import { renderBrowserVideo } from "@/lib/render/browser-renderer";
 import { activeElements, activeTransitions, readMetadata, readTimeline } from "@/lib/local-store/store";
-import { editorAgentProposalSchema, previewEditorAgentProposal, previewEditorAgentProposalBatch, timelineRevision } from "@/lib/agent/timeline-editor-agent-apply";
+import { previewEditorAgentProposal, previewEditorAgentProposalBatch, timelineRevision } from "@/lib/agent/timeline-editor-agent-apply";
+import { parseProposalFile } from "@/lib/agent/proposal-file";
 import { absolutizeMediaUrls } from "@/lib/render/pipeline";
 import { buildCompositionElements, getCompositionDimensions } from "@/lib/render/composition-adapters";
 import { buildTimelineTransitionLayout } from "@/lib/timeline/transitions";
@@ -28,7 +29,7 @@ async function main() {
   if (!Number.isFinite(scale) || scale <= 0 || scale > 1) throw new Error("Scale must be in (0,1]");
   const revision = timelineRevision(project);
   const proposals = args.flatMap((arg, i) => arg === "--proposal-file"
-    ? [editorAgentProposalSchema.parse(JSON.parse(fs.readFileSync(args[i + 1], "utf8")))] : []);
+    ? [parseProposalFile(JSON.parse(fs.readFileSync(args[i + 1], "utf8")))] : []);
   const options = proposals.map(proposal => {
     if (proposal.project_id !== project) throw new Error("Proposal belongs to another project");
     const preview = previewEditorAgentProposal(proposal);

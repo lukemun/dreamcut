@@ -7,6 +7,7 @@ import { projectTimelinePath } from "./paths";
 import { readProjectListMetadata } from "./project-list-metadata";
 import { readWorkspaceTabs } from "./workspace-tabs";
 import { listTemplateDrafts, resolveTemplateDraftMedia } from "./template-drafts";
+import { waitingFirstBuild } from "./home-start";
 
 /** The project the creator is looking at in the editor, kept in the profile so coding
  * agents can resolve "my footage" without the creator naming the project.
@@ -126,6 +127,8 @@ export function readEditorContext(now = new Date(), projectId?: string) {
     fresh_minutes: OPEN_PROJECT_FRESH_MS / 60000,
     // Videos the creator dropped on the home page and asked an agent to recreate as their template.
     template_drafts: requestedTemplateDrafts(),
+    // A project started from Home whose brief waits for its first cut ("go", "start on it").
+    first_build: (() => { const id = projectId ?? last?.project_id; return id ? waitingFirstBuild(id) : null; })(),
     ...(projectId ? { project_shown: projectShown(Object.values(stored.windows), projectId, at) } : {}),
     guidance: status === "current"
       ? "Use open_project when the request does not name a project."

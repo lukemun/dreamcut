@@ -35,9 +35,8 @@ test('the background setup starts only when something is missing, not while one 
   }
 });
 
-test("an installed runtime's own FFmpeg comes first on PATH, and the feed lists its source", async () => {
+test("an installed runtime's own FFmpeg comes first on PATH", async () => {
   const { runtimeEnvDefaults } = await import('../mcp/editor-runtime.mjs');
-  const { feedArchives } = await import('../packaging/upload-runtime.mjs');
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'runtime-media-'));
   try {
     fs.writeFileSync(path.join(root, 'desktop-next-config.json'), '{}');
@@ -50,8 +49,4 @@ test("an installed runtime's own FFmpeg comes first on PATH, and the feed lists 
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
   }
-  const archive = name => ({ file: `${name}.tar.gz`, bytes: 1, sha256: 'a'.repeat(64) });
-  const files = platforms => feedArchives({ platforms }).map(entry => entry.file).sort();
-  assert.deepEqual(files({ 'darwin-arm64': { app: archive('app'), base: archive('base'), media_source: archive('media') } }), ['app.tar.gz', 'base.tar.gz', 'media.tar.gz']);
-  assert.deepEqual(files({ 'win32-x64': { app: archive('app'), base: archive('base') } }), ['app.tar.gz', 'base.tar.gz'], 'optional');
 });

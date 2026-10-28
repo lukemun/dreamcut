@@ -81,8 +81,10 @@ put both hue dials in `review_controls` so the creator can steer the colours.
 1. Stage the grade on the clip operation's `props`, one card per shot or per group of shots
    that must match. Put the controls the creator will steer next in `review_controls`: a
    wheel, curve or slice counts as one dial ([proposal-dial-selection](../proposal-dial-selection/SKILL.md)).
-2. Check the result with `proposal_preview` frames on the brightest and darkest moments and
-   on any face. A still cannot show flicker across keyframes.
+2. Check the result on the brightest and darkest moments and on any face:
+   `pnpm frame-state <id> --proposal-file proposals/<file>.json --option <option id> --at <times>`
+   renders the card as it would apply, one run per option. `proposal_preview` returns the derived
+   timeline, not pictures. A still cannot show flicker across keyframes.
 3. For a match, report `distance_before` and `distance_after` from `color_look_cards` (under about 2
    reads as matched) and its limits; shots of different scenes stay different scenes. In the editor the
    creator does the same with Color → Match a clip or Copy a clip's look, then clicks the reference clip.

@@ -82,7 +82,8 @@ export function reviewPlacementRelations(projectId: string, base: TimelineFile, 
 }
 
 export function relationOverlapMessage(found: readonly RelationOverlapReview[]) {
-  return found.map(item => `Option ${item.option_id}: ${item.element_id} placed ${item.side} its anchor still covers ${Math.round(item.share * 100)}% of it, because the frame edge leaves no room on that side. Choose another side, a smaller gap or size, or move the anchor.`).join(" ");
+  return found.map(item => `Option ${item.option_id}: ${item.element_id} placed ${item.side} its anchor still covers ${Math.round(item.share * 100)}% of it, because the frame edge leaves no room on that side. Choose another side, a smaller gap or size, or move the anchor.`).join(" ")
+    + " To size it from measurements instead of guessing, call open_space_find with the text over its time on screen: it returns the open regions and how much room the text needs in the real font.";
 }
 
 const usesRelation = (operation: EditorAgentOperation) => !!((operation.create_text ?? operation.create_shape ?? operation.props) as Record<string, unknown> | undefined)?.place;

@@ -74,3 +74,14 @@ The creator now selects a template card instead of copying a request (creator di
 copying is an anti-pattern; select it, then talk). The route reads the selected Template
 item (`template:<…>` id) from the editor selection and `get`s its brief; title search stays
 for templates named only in words.
+
+## 2026-10-27 — Measure a long preparation and say so
+
+In a tutorial-editing session a 21-minute 4K HLG phone clip spent over 55 minutes in preview preparation. The
+agent told the creator "a few more minutes" at 00:33 without measuring, polled the job by reading
+`preprocess/` JSON in shell loops (one loop stopped early on a read error), and only offered a
+smaller copy after the creator asked twice ("status?", "Where is the phone video?") and then
+proposed it ("We should never be using the full 4K copy"). The slow path itself was fixed in the
+product the same day (fast HDR preview proxy, full-quality copy deferred to export). This entry
+adds the agent side: wait through `media_readiness`, measure and report a real estimate, offer
+what can proceed, and keep analysis off full-resolution 4K decodes. Not yet run by a fresh agent.

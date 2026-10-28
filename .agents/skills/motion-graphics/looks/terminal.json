@@ -17,7 +17,7 @@
         "process_hold": 3.8,
         "compare_hold": 0,
         "closing_hold": 2.4,
-        "kicker": "$ npx dreamcut",
+        "kicker": "$ pnpm editor",
         "title": "Runs on your machine",
         "process_title": "Three commands to a cut",
         "step_1": "Install",

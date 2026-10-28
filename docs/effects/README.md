@@ -43,6 +43,7 @@ Browse every shared effect and reference study below. Each link opens its demo, 
 | [Moving Grid Matte](recipes.md#fx-moving-grid-matte) | Moving subject footage; Background | Properties → Templates | Implemented template · built with your agent |
 | [Paper cutout](recipes.md#fx-paper-cutout) | A shot with the subject | Properties → Templates | Implemented template · built with your agent |
 | [Word Search Trace](recipes.md#fx-word-search-trace) | Two to four short shots; One word per shot | Properties → Templates | Implemented template · built with your agent |
+| [3D Sketch Scene](recipes.md#fx-motion-sketch-3d) | What the scene shows | Properties → Templates | Implemented template · built with your agent |
 | [Clone Flash](recipes.md#fx-clone-flash) | A still shot of a person | Properties → Templates | Implemented template · built with your agent |
 | [Silhouette Window](recipes.md#fx-silhouette-window) | A shot of a person; Several short fill clips | Properties → Templates | Implemented template · built with your agent |
 | [Cross into Negative](recipes.md#fx-cross-negative) | Two shots | Properties → Templates | Implemented template · built with your agent |

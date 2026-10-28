@@ -69,3 +69,17 @@ Verification: unit tests; CanvasKit property proofs show each treatment drawing,
 reset clean; Standard matches for split tone and vignette, differs for grain pattern and glow
 edges (recorded in gpu-catalog-coverage.md). A film-look card on a disposable project validated
 and previewed. Not yet measured against creator sessions or a model eval.
+
+## 2026-10-27 — Check a grade with frames that exist
+
+Problem: in a tutorial-editing session the agent posted two grade cards on the presenter (three looks, then three warmth
+amounts) without seeing a graded face. Step 2 said to check "`proposal_preview` frames", but
+`proposal_preview` returns the derived timeline, not pictures, so the agent gave up the check
+both times. (Copying the creator's brightness change to all 48 shots was hand-built as one card;
+`color_look_cards` mode `same` returns one card per clip, which would have been 47 cards. That gap
+is recorded as later work in project status.)
+
+Change: step 2 now renders the card with `pnpm frame-state <id> --proposal-file … --option …`.
+
+Verification: `frame-state` accepts `--proposal-file` and `--option` (its usage line). Not yet
+run by a fresh agent.

@@ -559,3 +559,40 @@ A prepared path naming another hash still fails (`timeline-editor-agent-apply.te
   still shows up as the gap between spans. A `proposal_create` that fails before the HTTP call is
   still recorded as `failed`.
 
+
+## 2026-10-27 — Crops may move to a corner bubble
+
+- **Observation:** Moving a speaker from a left column crop (`mask_inset` right 0.79) to a 320 px corner bubble was refused: "mask_inset change exceeds the per-edge delta cap of 0.5". Any bubble smaller than half the frame needs an edge past 0.5, so the cap blocked the corner bubble `mask_corner_radius` documents. The static check also refused opening a crop back up, unlike the keyframe check.
+- **Decision:** The per-edge change cap is gone from both the static and keyframe checks; each edge stays bounded 0–0.95 by the schema and the card preview shows the result. A minimum-visible-window rule was tried first and dropped: on a corner bubble (left edge 0.81) it made the card's own Crop right dial fail near the end of its slider.
+- **Verification:** `timeline-editor-agent-apply.test.ts` (column to corner bubble accepted, keyframe crops moved freely); typecheck; the tutorial's corner-circle card staged on the dev editor.
+- **Limits:** Nothing now stops a proposal from closing a crop entirely; the creator sees that in the preview before approving.
+
+## 2026-10-27 — Refusals name the fix
+
+- **Observation:** In one session three `proposal_create` refusals each needed a source search or a guess: "video duration is derived from its source window" (what to send instead), "Lane \"audio_1\" is not visible/editable for element type \"sound_effect\"" (the agent grepped `src/lib/timeline` for the `sound_effect_N` family) and "Overlapping authored visuals require separate registered visual lanes" (which key to use). About 50 s across the motion graphic and the bobblehead cards.
+- **Decision:** The duration refusal says to omit `duration_seconds` and send the source window; a lane refusal names the family and an example key for the element type (`src/lib/timeline/lanes.ts`); the overlap refusal names the busy lane and asks for a free `visual_N` key, added to `set_lane_order` when the card sets order.
+- **Verification:** `lanes.test.ts` and `timeline-editor-agent-apply.test.ts` assert each message.
+
+## 2026-10-27 — a keyframe at a clip's very end is accepted
+
+- **Observation:** Zoom cards on the DreamCut tutorial were refused, or their Hold and Ramp out dials failed at the end of their sliders, with "Transition keyframes must fit within the clip duration". Clip lengths carry float noise (24.19999999999999 for 24.2), so a key placed at the end, or a dial's end rounded to the millisecond, landed a hair past it.
+- **Decision:** Fixed. The clip-end checks for transition keyframes on existing clips and on create_visual allow a microsecond of slack.
+- **Verification:** `src/lib/agent/proposal-advanced-controls.test.ts` (the zoom timing dial ends on the clip end of a 24.19999 s clip); typecheck.
+- **Limits:** Cards staged on an editor build without the fix still report those dial failures until it serves the new code.
+
+## 2026-10-27 — Three refusals say how to fix the card
+
+- **Observation:** In a tutorial-editing session three `proposal_create`
+  refusals cost retries or code reading. A trim patch missing `trim_end` was told "Use
+  element_trim", a direct-write tool that refuses outside an agent workspace. A source-range cut
+  0.00002 s inside the frame it must keep was told only to "leave at least one complete frame",
+  and the agent read `timeline-editor-agent-apply.ts` to find the bound. Side titles placed by
+  relation ran off the frame on eight attempts (02:06–02:18) while the agent guessed sizes;
+  `open_space_find`, which measures the text, was never called.
+- **Change:** In a proposal, the trim refusal says to add the missing fields to that element's
+  patch (`assertSemanticTrimOperations(…, { inProposal: true })`; `elements_batch` keeps "Use
+  element_trim"). The source-range refusal names the element and the source window it accepts.
+  The relation-overlap refusal ends with one pointer to `open_space_find` for measured room. The
+  dreamcut-proposals skill gives "Place from `open_space_find` first" its own lead in step 5.
+- **Verification:** `mcp/source-window.test.mjs`, the source-range case in
+  `timeline-editor-agent-apply.test.ts` and `proposal-placement.test.ts` check each message.

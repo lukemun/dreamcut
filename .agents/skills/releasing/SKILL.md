@@ -1,41 +1,48 @@
 ---
 name: releasing
-description: Get a DreamCut version ready to ship and, when the owner says to release, ship it. Routes to the install check, the Windows check, the release build (dry run) and publishing, in that order. Use when the owner asks to release, prepare or check a release, or to make sure a new version will install and work for a new user. A single packaging or launcher change that only needs its own verification goes to install-check or windows-compatibility directly.
+description: Check DreamCut before the owner's work is pushed to the public GitHub repository, which is how creators get new versions (they install and update from it with git). Runs the repository checks, a code review with the public-content review, and the private-file and secret scan, then routes install and Windows changes to install-check and windows-compatibility. Use when the owner asks to release, ship, push or update the public repo, or to make sure the next push breaks nothing for a new user. A single setup or platform change that only needs its own verification goes to install-check or windows-compatibility directly.
 ---
 
-# Release DreamCut
+# Update the public repository
 
-The outcome is a version that a new creator can install from dreamcut.io and use on macOS and Windows,
-published only when the owner asks. This skill orders the parts and holds the gates between them; each
-part's procedure lives in its own skill and the command list in [docs/releasing.md](../../../docs/releasing.md).
+DreamCut ships by updating its public GitHub repository: creators install with `git clone`, `pnpm install` and
+`pnpm bootstrap`, and update with `git pull && pnpm install` (README, Install). There is no build to publish;
+the npm launcher and runtime feed stay at 0.3.0 and are not updated (owner, 2026-10-27). The outcome is
+evidence that what is about to be pushed breaks nothing for a creator, carries no secret or private material,
+and has been reviewed, pushed only when the owner says to.
 
 ## Authority
 
-- Releasing is the owner's decision. "Get it ready", "check the release" or "will this install?" authorize
-  steps 1 to 3 only. Publish (step 4) only on the owner's explicit words to release this version, in this
-  conversation. Never bump `package.json`'s version, edit `packaging/release-hold.json` or push to release
-  without that.
-- A version listed in `packaging/release-hold.json` is held; report it and stop before publishing.
-- Steps 1 to 3 change nothing outside this checkout, disposable folders and the Windows VM.
+- Pushing is the owner's decision. "Check it", "get it ready" or "will this break anything?" authorize the
+  checks only. Commit and push `main` to `origin/main` only on the owner's words in this conversation.
+- Check only what will be pushed: committed work on `main` ahead of `origin/main`. When the working tree
+  has changes, report them; committing someone else's work is the owner's call, and other sessions may be
+  mid-change in this checkout.
+- Never change the `package.json` version or push to make a check pass.
 
-## Order
+## Checks
 
-1. **New-user install path**: [install-check](../install-check/SKILL.md). The dreamcut.io instructions,
-   a fresh install, the background feature setup and `npx dreamcut doctor` agree, and every feature's
-   program and model is installed by them.
-2. **Windows**: [windows-compatibility](../windows-compatibility/SKILL.md). Builds the `win32-x64`
-   download in the VM and uses the editor through to an export.
-3. **Release build**: [release-build](../release-build/SKILL.md). `pnpm release --dry-run` on the Mac,
-   read against the checklist.
-4. **Publish**: [release-publish](../release-publish/SKILL.md), only with the owner's go-ahead. Then the
-   Windows download is attached from the VM (`pnpm release --add-platform`).
+Run them on the commits to push (`git log origin/main..main`); run long ones in the background.
 
-Steps 1 and 2 can run while the other is in progress (1 is on the Mac, 2 in the VM). Step 3 needs the
-version and changelog the owner chose; step 4 needs 1 to 3 passing at the same commit. A fix made during
-any step reruns the earlier steps it can affect: packaging, launcher or server changes rerun 1 to 3.
+1. **Nothing broke:** `pnpm check:pr` (tool registry, catalog privacy, typecheck, effects and `pnpm test`).
+   `pnpm typecheck` does not cover `scripts/*.ts`: parse each one the push changes with
+   `npx esbuild --log-level=error <file> > /dev/null`. Add the checks the changed areas name in AGENTS.md
+   (for example `pnpm check:editor-ui` for editor UI).
+2. **Code review:** review `origin/main..main` with [code-review](../code-review/SKILL.md), including the
+   [public-content review](../../../docs/standards/pr-review.md#public-content-review): no internal or
+   private material, creator media, private terms or local paths in code, docs, skills or assets.
+3. **Secrets and private files:** `node scripts/check-private-files.mjs --base $(git rev-parse origin/main)`
+   scans every outgoing commit, deleted files included, with Gitleaks and the private-path rules. The
+   pre-push hook runs the same scan and a native review again; it does not replace steps 2 and 3.
+4. **New-user install**, when the push changes setup, dependencies, model paths, `bin/`, `mcp/` start-up or
+   a message that tells the creator to install something: [install-check](../install-check/SKILL.md).
+5. **Windows**, when the push changes process spawning, file paths, native dependencies, media preparation,
+   export or MCP start-up: [windows-compatibility](../windows-compatibility/SKILL.md).
+
+A fix made during any step reruns the steps it can affect. Fix causes, never by loosening a check.
 
 ## Report
 
-For each step: passed, failed (each failing check by name, with its detail) or not run (why). Then what a
-creator on each platform gets that was not exercised (for example the x64 Windows hardware gap, or a
-feature the checks do not reach), and the single next decision for the owner (ship, fix first, or hold).
+For each step: passed, failed (each failing check or finding by name, with its detail) or not run (why).
+Then what a creator gets that the checks did not reach, and the single next decision for the owner (push,
+fix first, or hold).

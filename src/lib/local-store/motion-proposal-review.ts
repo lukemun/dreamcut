@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { readJsonFile } from "./atomic-json";
-import { MANIFEST_FILE_NAME, parseCompositionManifest } from "@/lib/hyperframes/composition-manifest";
+import { MANIFEST_FILE_NAME, parseCompositionManifest, resolveManifestValues, type CompositionManifest, type ManifestValues } from "@/lib/hyperframes/composition-manifest";
 import { pieceControls } from "@/lib/hyperframes/piece-types";
 import type { ProposalMotionItem } from "@/lib/agent/proposal-review";
 
@@ -122,8 +122,12 @@ export function recordMotionProposalReview(
  * Add each proposed composition's controls and the values of the exact render it uses,
  * so the review card can offer them. Items whose render or manifest cannot be read keep
  * no controls; the clip remains reviewable as an ordinary box.
+ *
+ * `carryToCurrentSource` is for clips already on the timeline: when the composition's source
+ * changed after this render, the controls still show, carrying the render's values that the
+ * current controls accept, and the next change renders from the current source.
  */
-export function withMotionControls(projectId: string, items: ProposalMotionItem[] | undefined): ProposalMotionItem[] | undefined {
+export function withMotionControls(projectId: string, items: ProposalMotionItem[] | undefined, { carryToCurrentSource = false } = {}): ProposalMotionItem[] | undefined {
   if (!items?.length) return items;
   return items.map((item) => {
     if (item.kind !== "composition") return item;
@@ -132,13 +136,17 @@ export function withMotionControls(projectId: string, items: ProposalMotionItem[
       const render = listCandidateRenders(projectId, item.id).find((receipt) => receipt.output.project_relative_path === output);
       if (!render?.parameters) return item;
       const directory = path.join(projectDir(projectId), "hyperframes", item.id);
-      if (!fs.existsSync(directory) || fingerprintHyperframesSource(directory) !== render.source.fingerprint_sha256) return item;
+      if (!fs.existsSync(directory)) return item;
+      const fingerprint = fingerprintHyperframesSource(directory);
+      const current = fingerprint === render.source.fingerprint_sha256;
+      if (!current && !carryToCurrentSource) return item;
       const manifest = parseCompositionManifest(JSON.parse(fs.readFileSync(path.join(directory, MANIFEST_FILE_NAME), "utf8")));
       if (manifest.controls.length === 0) return item;
+      const values = current ? render.parameters.values : carriedValues(manifest, render.parameters.values);
       const prefix = `/api/projects/${projectId}/media/`;
-      // Every render of this exact source, so a reloaded review shows the values of the chosen render.
+      // Every render of the current source, so a reloaded review shows the values of the chosen render.
       const renders = listCandidateRenders(projectId, item.id)
-        .filter((receipt) => receipt.source.fingerprint_sha256 === render.source.fingerprint_sha256 && receipt.parameters)
+        .filter((receipt) => receipt.source.fingerprint_sha256 === fingerprint && receipt.parameters)
         .slice(0, 50)
         .map((receipt) => ({
           source_url: prefix + receipt.output.project_relative_path.replace(/^media\//, "").split("/").map(encodeURIComponent).join("/"),
@@ -151,13 +159,24 @@ export function withMotionControls(projectId: string, items: ProposalMotionItem[
         ...item,
         ...(replaced ? { replaced_values: replaced } : {}),
         // A split piece's Look lists only the looks that draw that piece.
-        controls: pieceControls(manifest, render.parameters.values),
-        values: render.parameters.values,
-        source_fingerprint_sha256: render.source.fingerprint_sha256,
+        controls: pieceControls(manifest, values),
+        values,
+        source_fingerprint_sha256: fingerprint,
         renders,
       };
     } catch {
       return item;
     }
   });
+}
+
+/** An older render's values that the current controls still accept; the rest take their defaults. */
+function carriedValues(manifest: CompositionManifest, previous: ManifestValues): ManifestValues {
+  let accepted: Record<string, unknown> = {};
+  for (const control of manifest.controls) {
+    if (!(control.id in previous)) continue;
+    const next = { ...accepted, [control.id]: previous[control.id] };
+    try { resolveManifestValues(manifest, next); accepted = next; } catch { /* keep the default */ }
+  }
+  return resolveManifestValues(manifest, accepted);
 }

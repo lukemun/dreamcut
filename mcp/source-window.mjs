@@ -119,15 +119,19 @@ export function buildSourceTrimPatch(element, edge, sourceSeconds) {
  * source-window change must arrive as one complete semantic trim. This blocks
  * an accidental slip (moving source under fixed timeline boundaries).
  */
-export function assertSemanticTrimOperations(operations) {
+export function assertSemanticTrimOperations(operations, { inProposal = false } = {}) {
   for (const operation of operations ?? []) {
     const patch = operation?.patch;
     if (!patch || (!Object.hasOwn(patch, "trim_start") && !Object.hasOwn(patch, "trim_end"))) continue;
     const required = ["timeline_start", "duration", "trim_start", "trim_end"];
     const missing = required.filter((field) => !Object.hasOwn(patch, field));
     if (missing.length) {
+      // element_trim writes the timeline directly, so a proposal can only fix the patch itself.
+      const remedy = inProposal
+        ? `Add ${missing.join(", ")} to the patch for ${operation.element_id ?? "that element"}, repeating the current value where it does not change.`
+        : "Use element_trim.";
       throw new Error(
-        `Implicit slip/source truncation is not supported. A trim patch must include ${required.join(", ")}; missing ${missing.join(", ")}. Use element_trim.`,
+        `Implicit slip/source truncation is not supported. A trim patch must include ${required.join(", ")}; missing ${missing.join(", ")}. ${remedy}`,
       );
     }
   }

@@ -319,8 +319,8 @@ export function TemplateCatalog({ effects, layout, active = true, loading = fals
   const hasOwn = browse && effects.some(effect => originOf(effect) === 'user');
   const shownSource = hasOwn ? source : 'all';
   const visible = matching.filter(effect => shownSource === 'all' || originOf(effect) === shownSource);
-  // The creator's own templates come first; the pills name the split, so the sections carry no headings.
-  const sections = (['user', 'catalog'] as const).map(value => ({ value, effects: visible.filter(effect => originOf(effect) === value) })).filter(section => section.effects.length);
+  // The shipped catalog comes first, then the creator's own; the pills name the split, so the sections carry no headings.
+  const sections = (['catalog', 'user'] as const).map(value => ({ value, effects: visible.filter(effect => originOf(effect) === value) })).filter(section => section.effects.length);
   const sourcePills = hasOwn && <FilterButtons inline label="Source" value={shownSource} values={['user', 'catalog']} labels={SOURCE_LABELS} onChange={setSource} />;
   return <div ref={root} className="recipe-catalog" data-layout={layout} data-discovery={discovery || undefined}>
     {discovery && <div className="catalog-heading"><PageHeader id="templates-title" title="Templates" /></div>}

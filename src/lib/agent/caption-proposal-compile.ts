@@ -20,7 +20,9 @@ import {effectivePreferences} from "../local-store/editing-memory";
 
 /** A replace_captions operation holds at most this many cues; longer talks become several, applied in order. */
 export const CAPTION_CUES_PER_OPERATION=250;
-const schema=z.object({job_id:z.string().uuid(),source_element_id:z.string().uuid(),expected_revision:z.string(),
+/** replace_captions scopes at most this many speech clips per operation. */
+const CAPTION_SOURCES_PER_OPERATION=32;
+const schema=z.object({job_id:z.string().uuid(),source_element_id:z.string().uuid().optional(),source_element_ids:z.array(z.string().uuid()).min(1).max(500).optional(),expected_revision:z.string(),
  style:z.object({look:z.string().optional(),font_preset:z.string().optional(),font_size_px:z.number(),style_variant:z.string().optional(),position_preset:z.string(),max_width:z.number()}).strict().optional(),
  font_sizing:z.enum(["fixed","fit"]).optional(),
  include_cues:z.boolean().optional(),
@@ -29,7 +31,8 @@ const schema=z.object({job_id:z.string().uuid(),source_element_id:z.string().uui
  timing_mode:z.enum(["phrase","active_word","single_word"]).optional(),
  single_word_flip_seconds:z.number().min(0).max(0.3).optional(),
  hide_punctuation:z.boolean().optional(),
- offset_y:z.number().min(-0.45).max(0.45).optional()}).strict();
+ offset_y:z.number().min(-0.45).max(0.45).optional()}).strict()
+ .refine(input=>Boolean(input.source_element_id)!==Boolean(input.source_element_ids),{message:"Give source_element_id or source_element_ids, not both"});
 
 /** Without a style, captions use the product's default caption look; My Style should normally choose one. */
 const PRODUCT_DEFAULT_STYLE={font_preset:DEFAULT_CAPTION_PROPS.fontPreset,style_variant:DEFAULT_CAPTION_PROPS.styleVariant,
@@ -74,40 +77,53 @@ export async function compileCaptionProposal(projectId:string,raw:unknown){
   .filter(preference=>preference.category==="Captions").map(preference=>({text:preference.text,scope:preference.scope}));
  const job=await getPreparationJob(projectId,input.job_id);
  if(job.state!=="completed"||job.input.kind!=="speech"||job.input.mode!=="align"||typeof job.result?.alignment_path!=="string")throw toolError("ALIGNMENT_REQUIRED","Use a completed MFA alignment job based on reviewed text.",{action:"inspect_alignment_job",tool:"asset_preparation_status",arguments:{project_id:projectId,job_id:input.job_id}});
- const timeline=readTimeline(projectId),source=timeline.elements.find(e=>e.id===input.source_element_id&&!e.removed_at);
- if(!source||!["video_clip","vo_segment","vo_full"].includes(source.type))throw new Error("Choose an active speech source element");
- const url=source.props?.archival_source_url??source.source_url,prefix=`/api/projects/${projectId}/media/`;
- if(typeof url!=="string"||!url.startsWith(prefix)||decodeURIComponent(url.slice(prefix.length))!==job.source)throw new Error("Alignment belongs to a different speech source");
+ // A speaker cut into many clips (dead space removed) shares one aligned recording; every clip from it captions together.
+ const timeline=readTimeline(projectId),prefix=`/api/projects/${projectId}/media/`;
+ const sources=[...new Set(input.source_element_ids??[input.source_element_id!])].map(id=>{
+  const source=timeline.elements.find(e=>e.id===id&&!e.removed_at);
+  if(!source||!["video_clip","vo_segment","vo_full"].includes(source.type))throw new Error(`Choose an active speech source element: ${id}`);
+  const url=source.props?.archival_source_url??source.source_url;
+  if(typeof url!=="string"||!url.startsWith(prefix)||decodeURIComponent(url.slice(prefix.length))!==job.source)throw new Error(`Alignment belongs to a different speech source: ${id}`);
+  if(typeof source.props?.source_duration_seconds!=="number")throw new Error(`Speech source needs its source duration: ${id}`);
+  return source;
+ }).sort((a,b)=>a.timeline_start-b.timeline_start);
  const file=path.join(projectDir(projectId),job.result.alignment_path),hash=await sha256(file);
  const words=validateAlignment(JSON.parse(fs.readFileSync(file,"utf8")));
  if(words.some(w=>!Number.isFinite(w.start)||!Number.isFinite(w.end)))throw new Error("Alignment has nonfinite times");
- const sourceDuration=source.props?.source_duration_seconds;if(typeof sourceDuration!=="number")throw new Error("Speech source needs its source duration");
  const reviewed=typeof job.input.reviewed_text==="string"?job.input.reviewed_text:undefined;
  const units=input.written_text?writtenCaptionUnits(words,input.written_text,reviewed)
   :words.map(word=>({word:word.word,start:word.start,end:word.end,spoken:[word]}));
- const selected=units.filter(u=>u.start>=source.trim_start&&u.end<=sourceDuration-(source.trim_end??0));
- if(!selected.length)throw new Error("No aligned words inside the retained source window");
  // Shipped defaults: one word at a time at a fixed size. Several words per caption read as phrases.
  const timingMode=input.timing_mode??(input.word_limit&&input.word_limit>1?"phrase":"single_word");
  const wordLimit=input.word_limit??(timingMode==="single_word"?1:4);
- const groups=wordLimit===1?selected.map(unit=>[unit])
-  :groupAlignedWordsByNaturalBoundaries(selected,{maxWords:wordLimit,preferredWords:Math.min(3,wordLimit),minWords:Math.min(3,wordLimit)}).map(group=>group.words as WrittenCaptionUnit[]);
- const at=(seconds:number)=>source.timeline_start+sourceTimeToTimelineTime(source,seconds);
- const cues=groups.map(group=>{
-  const start=group[0]!.start,end=group[group.length-1]!.end;
-  return {element_id:randomUUID(),...cueText(group),caption_alignment_path:file,timeline_start:at(start),duration:at(end)-at(start),
-   timing_source:{element_id:source.id,alignment_sha256:hash,source_start_seconds:start,source_end_seconds:end,playback_rate:source.playback_rate}};
- });
+ const cues=sources.flatMap(source=>{
+  const sourceDuration=source.props!.source_duration_seconds as number;
+  const selected=units.filter(u=>u.start>=source.trim_start&&u.end<=sourceDuration-(source.trim_end??0));
+  // Groups stay inside one clip: a caption never spans a cut.
+  const groups=wordLimit===1?selected.map(unit=>[unit])
+   :groupAlignedWordsByNaturalBoundaries(selected,{maxWords:wordLimit,preferredWords:Math.min(3,wordLimit),minWords:Math.min(3,wordLimit)}).map(group=>group.words as WrittenCaptionUnit[]);
+  const at=(seconds:number)=>source.timeline_start+sourceTimeToTimelineTime(source,seconds);
+  return groups.map(group=>{
+   const start=group[0]!.start,end=group[group.length-1]!.end;
+   return {element_id:randomUUID(),...cueText(group),caption_alignment_path:file,timeline_start:at(start),duration:at(end)-at(start),
+    timing_source:{element_id:source.id,alignment_sha256:hash,source_start_seconds:start,source_end_seconds:end,playback_rate:source.playback_rate}};
+  });
+ }).sort((a,b)=>a.timeline_start-b.timeline_start);
+ if(!cues.length)throw new Error("No aligned words inside the retained source window");
  const single=timingMode==="single_word";
- const shared={...style,source_element_ids:[source.id],lane_key:"captions_0",grouping:"pause_first_v1",word_limit:wordLimit,offsetX:0,offsetY:input.offset_y??0,
+ const shared={...style,lane_key:"captions_0",grouping:"pause_first_v1",word_limit:wordLimit,offsetX:0,offsetY:input.offset_y??0,
   timing_mode:timingMode,font_sizing:input.font_sizing??"fixed",...(single?{singleWordFlipSeconds:input.single_word_flip_seconds??0}:{}),
   hide_punctuation:input.hide_punctuation??SPEECH_CAPTIONS_HIDE_PUNCTUATION};
- const operations=[];
- for(let index=0;index<cues.length;index+=CAPTION_CUES_PER_OPERATION){
-  const chunk=cues.slice(index,index+CAPTION_CUES_PER_OPERATION);
-  operations.push(editorAgentOperationSchema.parse({element_id:randomUUID(),rationale:"Compile reviewed force-aligned speech into source-bound caption groups.",
-   replace_captions:{...shared,cues:chunk,...(index?{from_timeline_seconds:chunk[0]!.timeline_start}:{})}}));
+ const operations:Array<ReturnType<typeof editorAgentOperationSchema.parse>>=[];
+ // Each operation replaces only its own clips' captions, so chunks stay within the cue and clip limits.
+ const chunks:Array<typeof cues>=[];
+ for(const cue of cues){
+  const chunk=chunks.at(-1),ids=new Set(chunk?.map(item=>item.timing_source.element_id));
+  if(!chunk||chunk.length>=CAPTION_CUES_PER_OPERATION||(!ids.has(cue.timing_source.element_id)&&ids.size>=CAPTION_SOURCES_PER_OPERATION))chunks.push([cue]);
+  else chunk.push(cue);
  }
+ chunks.forEach((chunk,index)=>operations.push(editorAgentOperationSchema.parse({element_id:randomUUID(),rationale:"Compile reviewed force-aligned speech into source-bound caption groups.",
+  replace_captions:{...shared,source_element_ids:[...new Set(chunk.map(cue=>cue.timing_source.element_id))],cues:chunk,...(index?{from_timeline_seconds:chunk[0]!.timeline_start}:{})}})));
  if(timelineRevision(projectId)!==revision)throw new Error("Timeline changed during compilation; refresh and retry");
  // Every chunk is one caption track: each dial on the first operation moves them all.
  const linked=operations.slice(1).map((_,index)=>index+1);

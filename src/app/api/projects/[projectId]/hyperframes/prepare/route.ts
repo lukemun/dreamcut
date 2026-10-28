@@ -6,7 +6,7 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { isTrustedLocalCodeRequest } from "@/lib/local-request";
 
-import { parseCompositionSourceSpec } from "@/lib/local-store/hyperframes-candidates";
+import { missingEntryProblem, parseCompositionSourceSpec } from "@/lib/local-store/hyperframes-candidates";
 import { enqueueMediaPreparation, readPreparation } from "@/lib/local-store/media-preparation";
 import { agentAuditArgs, appendMotionAuditEvent, type MotionAuditActor } from "@/lib/local-store/motion-audit";
 import { readMotionJob, startMotionJob, type MotionJob } from "@/lib/local-store/motion-jobs";
@@ -114,6 +114,8 @@ export async function POST(request: Request, { params }: Params) {
     const elementId = typeof body.element_id === "string" ? body.element_id.slice(0, 200) : null;
     if (body.files !== undefined || body.assets !== undefined) {
       const spec = parseCompositionSourceSpec({ files: body.files, assets: body.assets });
+      const missing = missingEntryProblem(projectId, compositionId, spec);
+      if (missing) return NextResponse.json({ error: missing }, { status: 400 });
       specFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "dreamcut-hf-spec-")), "spec.json");
       fs.writeFileSync(specFile, JSON.stringify(spec));
       args.push("--spec", `@${specFile}`);

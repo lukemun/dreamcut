@@ -33,6 +33,11 @@ export const creatorGuides: Record<string, CreatorGuide> = {
     generation: 'Shots can be filmed or generated; the letter grid and outlines are made in DreamCut, so never generate them into the footage.',
     steps: ['Hide each word in a letter grid sized to the canvas.', 'Start each outline just after its cut and let it draw around the word.', 'Expose the words, directions, trace timing, letter size and color as controls.'],
   },
+  'FX-MOTION-SKETCH-3D': {
+    inputs: [input('What the scene shows', 'Describe it in words: the objects, roughly where they stand and how big they are, and where the camera should go (fly through, circle or rise) and land. Logos and letters are drawn as extruded outlines.')],
+    generation: 'Nothing is generated; the scene is drawn from code in DreamCut. Turn Paper fill off to lay it over your own footage.',
+    steps: ['Build the scene from simple 3D shapes and generators (city, forest, ground grid).', 'Draw it in as ink, then move the camera through it.', 'Expose camera, timing, density, height, wobble, ink, paper and paper fill as controls.'],
+  },
   'FX-CLONE-FLASH': {
     inputs: [input('A still shot of a person', 'Keep the camera still and leave room beside the person. Film a few extra seconds so later moments can supply the copies. A plain, even background hides cutout edges best.')],
     generation: 'A still shot can be generated; keep the background stable. The copies and flashes are made in DreamCut.',

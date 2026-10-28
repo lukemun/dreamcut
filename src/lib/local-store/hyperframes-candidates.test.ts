@@ -44,6 +44,7 @@ test("a composition that is not a looks template keeps its own looks.js", () => 
     writeCompositionSource(projectId, "sting", {
       files: [
         { path: "dreamcut.controls.json", text: controls() },
+        { path: "index.html", text: "<script src=\"looks.js\"></script>" },
         { path: "looks.js", text: "// its own code" },
       ],
     });

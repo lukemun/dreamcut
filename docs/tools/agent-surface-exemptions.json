@@ -12,11 +12,9 @@
     "pr-review": "Pull request review in the repository.",
     "recreate-effect": "Builds new effect capabilities in source code.",
     "tutorial-screen-recording": "Captures the screen with a shell command and drives the built-in browser; the in-editor agent has neither.",
-    "windows-compatibility": "Validates packaged releases in a disposable Windows VM; repository release engineering, not a working-timeline editing operation.",
-    "releasing": "Orders the release checks and publishing for the owner; repository development only.",
-    "install-check": "Checks setup, packaging and the launcher in disposable folders; repository development only.",
-    "release-build": "Builds and verifies release downloads from this checkout; repository development only.",
-    "release-publish": "Publishes a release on the owner's word; repository development only."
+    "windows-compatibility": "Validates the source install in a disposable Windows VM; repository development, not a working-timeline editing operation.",
+    "releasing": "Checks a push to the public repository for the owner; repository development only.",
+    "install-check": "Checks the source install and feature setup in disposable folders; repository development only."
   },
   "gaps": [
     {
@@ -84,6 +82,18 @@
       "line_contains": "pnpm check:effects",
       "missing": "Shared effect catalog validation as a tool",
       "reason": "Shared cards are repository files, which the in-editor agent does not change."
+    },
+    {
+      "skill": "color-grading",
+      "line_contains": "pnpm frame-state <id> --proposal-file",
+      "missing": "run_instrument frame-state with --proposal-file and --option (it refuses proposal files today)",
+      "reason": "Checking a graded face on a pending card needs the card rendered as it would apply; timeline_evidence can show such a report but nothing on the MCP surface makes one. Recorded from the 2026-10-27 dreamcut-tutorial retro."
+    },
+    {
+      "skill": "product-walkthrough",
+      "line_contains": "pnpm frame-state <id> --proposal-file",
+      "missing": "run_instrument frame-state with --proposal-file and --option (it refuses proposal files today)",
+      "reason": "Checking a zoom card's mid-ease framing before posting needs the card rendered as it would apply; timeline_evidence can show such a report but nothing on the MCP surface makes one. Recorded from the 2026-10-27 dreamcut-tutorial retro."
     }
   ]
 }

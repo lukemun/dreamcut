@@ -41,10 +41,23 @@ export function isLaneCompatibleWithElementType(type: string, laneKey: string) {
   return false;
 }
 
+/** The lane keys an element type takes, as a caller would write them. */
+const LANE_FAMILY_FOR_TYPE: Record<string, string> = {
+  video_clip: `visual_N lane (for example "${visualLaneKey(1)}")`,
+  still: `visual_N lane (for example "${visualLaneKey(1)}")`,
+  shape: `visual_N lane (for example "${visualLaneKey(1)}")`,
+  vo_segment: `"${AUDIO_LANE_NARRATOR}" or audio_character_<id> lane`,
+  vo_full: `"${AUDIO_LANE_NARRATOR}" or audio_character_<id> lane`,
+  music: `music_N lane (for example "${MUSIC_LANE_KEY}")`,
+  sound_effect: `sound_effect_N lane (for example "${SOUND_EFFECT_LANE_KEY}")`,
+  caption_text: `captions_N lane (for example "${CAPTIONS_LANE_KEY}")`,
+};
+
 export function assertLaneCompatibleWithElementType(type: string, laneKey: string) {
   if (isLaneCompatibleWithElementType(type, laneKey)) return;
+  const family = LANE_FAMILY_FOR_TYPE[type];
   throw Object.assign(
-    new Error(`Lane "${laneKey}" is not visible/editable for element type "${type}"`),
+    new Error(`Lane "${laneKey}" is not visible/editable for element type "${type}"${family ? `; use a ${family}` : ""}`),
     { status: 400 },
   );
 }

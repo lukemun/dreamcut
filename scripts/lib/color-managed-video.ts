@@ -4,10 +4,10 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { probeHasAlphaChannel } from "../../src/lib/media-analysis/alpha-channel";
-import { COLOR_MANAGED_ALPHA_VIDEO_RECIPE, COLOR_MANAGED_VIDEO_RECIPE, HDR_CODE_ALPHA_VIDEO_RECIPE, HDR_CODE_VIDEO_RECIPE, LEGACY_COLOR_MANAGED_ALPHA_VIDEO_RECIPES, sourceNeedsSdrRenderAuthority } from "../../src/lib/media-analysis/color-profile";
+import { COLOR_MANAGED_ALPHA_VIDEO_RECIPE, COLOR_MANAGED_VIDEO_RECIPE, HDR_CODE_ALPHA_VIDEO_RECIPE, HDR_CODE_PREVIEW_RECIPE, HDR_CODE_VIDEO_RECIPE, LEGACY_COLOR_MANAGED_ALPHA_VIDEO_RECIPES, sourceNeedsSdrRenderAuthority } from "../../src/lib/media-analysis/color-profile";
 import os from "node:os";
 
-export { COLOR_MANAGED_VIDEO_RECIPE, HDR_CODE_ALPHA_VIDEO_RECIPE, HDR_CODE_VIDEO_RECIPE, sourceNeedsSdrRenderAuthority } from "../../src/lib/media-analysis/color-profile";
+export { COLOR_MANAGED_VIDEO_RECIPE, HDR_CODE_ALPHA_VIDEO_RECIPE, HDR_CODE_PREVIEW_RECIPE, HDR_CODE_VIDEO_RECIPE, sourceNeedsSdrRenderAuthority } from "../../src/lib/media-analysis/color-profile";
 
 export type VideoProbe = {
   duration_seconds: number;
@@ -300,7 +300,97 @@ function createPreviewProxy(inputPath: string, outputPath: string, width: number
   );
 }
 
-function ssimSample(authorityPath: string, proxyPath: string, second: number, width: number, height: number, fps: number, alpha=false, alphaOnly=false): number {
+let videoToolboxAvailable: boolean | undefined;
+/** macOS hardware H.264 encoding through FFmpeg; elsewhere, or without it, the proxy uses libx264. */
+function hasVideoToolbox() {
+  if (process.platform !== "darwin" || process.env.DREAMCUT_HDR_PREVIEW_ENCODER === "libx264") return false;
+  try { videoToolboxAvailable ??= execFileSync("ffmpeg", ["-hide_banner", "-encoders"], { encoding: "utf8" }).includes("h264_videotoolbox"); }
+  catch { videoToolboxAvailable = false; }
+  return videoToolboxAvailable;
+}
+
+/** The matrix-only HDR → BT.709 code-value conversion, scaled, as used by both proxy and its parity reference. */
+function hdrCodePreviewFilter(probe: VideoProbe, width: number, height: number, fps: number) {
+  const range = probe.color_range === "pc" ? "pc" : "tv";
+  return `fps=${fps},scale=${width}:${height}:in_color_matrix=${swsMatrix(probe.color_space)}:in_range=${range}:out_color_matrix=bt709:out_range=tv:flags=area+accurate_rnd+full_chroma_int,setsar=1,format=yuv420p,setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv`;
+}
+
+export type HdrCodePreviewReceipt = {
+  schema_version: 1;
+  recipe_id: typeof HDR_CODE_PREVIEW_RECIPE;
+  source_encoding: HdrSourceEncoding;
+  source_path: string;
+  source_sha256: string;
+  source_probe: VideoProbe;
+  preview_proxy_path: string;
+  preview_proxy_sha256: string;
+  preview_proxy_probe: VideoProbe;
+  preview_dimensions: { width: number; height: number };
+  encoder: "h264_videotoolbox" | "libx264";
+  /** Proxy against the same conversion of the source, decoded in software at full precision. */
+  parity_samples: Array<{ source_second: number; ssim_all: number }>;
+  minimum_ssim: number;
+  created_at: string;
+};
+
+/**
+ * Opaque HDR preview proxy straight from the source: one decode of the original, the authority's
+ * matrix-only conversion, and a size-limited H.264 encode. Placement and preview use it while the
+ * full-resolution authority waits for an export (createColorManagedVideoPair with reusePreviewProxy).
+ */
+export function createHdrCodePreviewProxy(options: { sourcePath: string; previewProxyPath: string; previewWidth: number; previewHeight: number; fps?: number; minimumSsim?: number; sourceSha256?: string }): HdrCodePreviewReceipt {
+  const fps = options.fps ?? 30;
+  const minimumSsim = options.minimumSsim ?? 0.97;
+  if (path.resolve(options.sourcePath) === path.resolve(options.previewProxyPath)) throw new Error("Preview proxy output must not overwrite the preserved source");
+  const sourceProbe = probeVideo(options.sourcePath);
+  if (!sourceNeedsSdrRenderAuthority(sourceProbe) || probeHasAlphaChannel(sourceProbe)) throw new Error("This recipe requires an opaque HDR/HLG/PQ source");
+  ensureDirectory(options.previewProxyPath);
+  const filter = hdrCodePreviewFilter(sourceProbe, options.previewWidth, options.previewHeight, fps);
+  const tags = ["-g", String(fps), "-keyint_min", String(fps), "-color_range", "tv", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-movflags", "+faststart"];
+  const encode = (encoder: HdrCodePreviewReceipt["encoder"]) => execFileSync("ffmpeg", ["-y", "-v", "error", "-nostdin",
+    // Hardware decode of the 4K HEVC original is most of the speed-up; FFmpeg falls back to software decode.
+    ...(encoder === "h264_videotoolbox" ? ["-hwaccel", "videotoolbox"] : []), "-i", options.sourcePath, "-map", "0:v:0", "-an", "-vf", filter,
+    ...(encoder === "h264_videotoolbox" ? ["-c:v", "h264_videotoolbox", "-profile:v", "high", "-q:v", "70"] : ["-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-sc_threshold", "0"]),
+    ...tags, options.previewProxyPath], { stdio: "pipe" });
+  let encoder: HdrCodePreviewReceipt["encoder"] = hasVideoToolbox() ? "h264_videotoolbox" : "libx264";
+  try { encode(encoder); }
+  catch (error) {
+    // Hardware encoders can be busy or refuse a setting (constant quality needs Apple silicon).
+    if (encoder !== "h264_videotoolbox") throw error;
+    encoder = "libx264";
+    encode(encoder);
+  }
+  const previewProxyProbe = probeVideo(options.previewProxyPath);
+  assertBt709Sdr(previewProxyProbe, "Preview proxy");
+  if (previewProxyProbe.width !== options.previewWidth || previewProxyProbe.height !== options.previewHeight) {
+    throw new Error(`Preview proxy dimensions are ${previewProxyProbe.width}x${previewProxyProbe.height}, expected ${options.previewWidth}x${options.previewHeight}`);
+  }
+  const duration = previewProxyProbe.duration_seconds;
+  const paritySamples = [0.2, 0.5, 0.8].map(fraction => Math.max(0, Math.min(duration - 0.25, duration * fraction))).map(second => ({
+    source_second: Number(second.toFixed(3)),
+    ssim_all: ssimSample(options.sourcePath, options.previewProxyPath, second, options.previewWidth, options.previewHeight, fps, false, false, filter),
+  }));
+  if (paritySamples.some(sample => sample.ssim_all < minimumSsim)) throw new Error(`Preview/source code-value parity failed: ${JSON.stringify(paritySamples)}`);
+  return {
+    schema_version: 1,
+    recipe_id: HDR_CODE_PREVIEW_RECIPE,
+    source_encoding: hdrSourceEncoding(options.sourcePath, sourceProbe),
+    source_path: options.sourcePath,
+    source_sha256: options.sourceSha256 ?? sha256File(options.sourcePath),
+    source_probe: sourceProbe,
+    preview_proxy_path: options.previewProxyPath,
+    preview_proxy_sha256: sha256File(options.previewProxyPath),
+    preview_proxy_probe: previewProxyProbe,
+    preview_dimensions: { width: options.previewWidth, height: options.previewHeight },
+    encoder,
+    parity_samples: paritySamples,
+    minimum_ssim: minimumSsim,
+    created_at: new Date().toISOString(),
+  };
+}
+
+/** `referenceFilter` replaces the plain downscale of the reference, e.g. to convert an HDR source the way the proxy was. */
+function ssimSample(authorityPath: string, proxyPath: string, second: number, width: number, height: number, fps: number, alpha=false, alphaOnly=false, referenceFilter?: string): number {
   const result = spawnSync(
     "ffmpeg",
     [
@@ -319,7 +409,7 @@ function ssimSample(authorityPath: string, proxyPath: string, second: number, wi
       "-t",
       "0.2",
       "-filter_complex",
-      `[0:v]${alphaOnly?"alphaextract,":""}scale=${width}:${height}:flags=area,fps=${fps},format=${alphaOnly?"gray":"yuv420p"}[reference];[1:v]${alphaOnly?"alphaextract,":""}fps=${fps},format=${alphaOnly?"gray":"yuv420p"}[candidate];[reference][candidate]ssim`,
+      `[0:v]${referenceFilter ?? `${alphaOnly?"alphaextract,":""}scale=${width}:${height}:flags=area,fps=${fps},format=${alphaOnly?"gray":"yuv420p"}`}[reference];[1:v]${alphaOnly?"alphaextract,":""}fps=${fps},format=${alphaOnly?"gray":"yuv420p"}[candidate];[reference][candidate]ssim`,
       "-an",
       "-f",
       "null",
@@ -348,6 +438,11 @@ export function createColorManagedVideoPair(options: {
    * cutout reads it from here and its PQ values decode with the same peak as the footage's.
    */
   encodingReferencePath?: string;
+  /**
+   * The preview proxy already exists (createHdrCodePreviewProxy made it from the source): keep it and
+   * verify it against the new authority instead of encoding another one from it.
+   */
+  reusePreviewProxy?: boolean;
 }): ColorManagedVideoReceipt {
   const alphaTolerance = options.alphaTolerance ?? ALPHA_AUTHORITY_TOLERANCE;
   const fps = options.fps ?? 30;
@@ -387,7 +482,8 @@ export function createColorManagedVideoPair(options: {
     if(renderAuthorityProbe.width!==(rotated?sourceProbe.height:sourceProbe.width)||renderAuthorityProbe.height!==(rotated?sourceProbe.width:sourceProbe.height))throw Error('HDR alpha render authority lost source dimensions');
     if(!Number.isSafeInteger(renderAuthorityProbe.frame_count)||!renderAuthorityProbe.frame_count)throw Error('HDR alpha authority frame count is unverified');
   }
-  createPreviewProxy(
+  if (options.reusePreviewProxy && (alpha || !fs.existsSync(options.previewProxyPath))) throw new Error("Only an existing opaque preview proxy can be kept");
+  if (!options.reusePreviewProxy) createPreviewProxy(
     options.renderAuthorityPath,
     options.previewProxyPath,
     options.previewWidth,

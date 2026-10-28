@@ -30,6 +30,8 @@ test('desktop service real SDK delivers only reconstructed errors to a local col
     process.env.DREAMCUT_SERVICE_ROOT = process.cwd();
     process.env.SENTRY_ENABLED = '1'; process.env.SENTRY_DSN = dsn; process.env.SENTRY_ENVIRONMENT = 'test';
     await import('../../sentry.server.config');
+    // Production keeps a fifth of errors (ERROR_SAMPLE_RATE); this check needs the one it sends.
+    const client = Sentry.getClient(); assert.ok(client); client.getOptions().sampleRate = 1;
     const sentinel = 'SYNTHETIC_CREATOR_TEXT_NEVER_TRANSMIT';
     Sentry.withScope(scope => {
       scope.setUser({ id: sentinel }); scope.setTag('arbitrary', sentinel);

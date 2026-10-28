@@ -40,6 +40,6 @@ export async function DELETE(_request: Request, { params }: Params) {
   const job = getJob(jobId);
   if (!job) return NextResponse.json({ error: "Job not found" }, { status: 404 });
   if (job.status !== "processing") return NextResponse.json({ ok: true, status: job.status });
-  if (!stopRender(jobId)) return NextResponse.json({ error: "This export is running somewhere this editor cannot stop" }, { status: 409 });
+  if (!stopRender(jobId)) return NextResponse.json({ error: "This export is no longer running" }, { status: 409 });
   return NextResponse.json({ ok: true, status: "stopping" });
 }

@@ -70,6 +70,8 @@ export type ProposalPreviewSelection = ProposalOptionSelection & {
   preserveFrame?: boolean;
   /** Paused frame for direct visual feedback while tuning an animated control. */
   focusTimeSeconds?: number;
+  /** The card whose Replay played the batch: playback starts at its change, not the earliest ticked one. */
+  focus?: ProposalOptionReview;
 };
 
 type Detail = {
@@ -165,8 +167,8 @@ export function ProposalsPanel({
   onTuneOption: (selection: ProposalOptionSelection & { focusTimeSeconds?: number; batch?: ProposalOptionSelection[] }) => void;
   /** Show picture dials on the paused draft on every drag sample, before the full preview is derived. */
   onInstantPreview?: (proposalId: string, props: InstantPreviewProp[]) => void;
-  /** Preview independent proposals together, at their real timeline positions. */
-  onPlayBatch: (selections: ProposalOptionSelection[]) => void;
+  /** Preview independent proposals together, at their real timeline positions; `focus` starts at that card's change. */
+  onPlayBatch: (selections: ProposalOptionSelection[], focus?: ProposalOptionReview) => void;
   /** The checked edits, so the timeline can show what they would add before any preview. */
   onCheckedChange?: (selections: ProposalOptionSelection[]) => void;
   onExitPreview: () => void;
@@ -577,14 +579,15 @@ export function ProposalsPanel({
     playKeyboardOption(next.proposal_id, option);
   }, [actionableEntries, busy, checkKeyboardOption, details, playKeyboardOption, reviewActive]);
 
-  const playSelection = useCallback((selections: ProposalOptionSelection[]) => {
+  const playSelection = useCallback((selections: ProposalOptionSelection[], focus?: ProposalOptionReview) => {
     if (selections.length === 1) onPlayOptions([selections[0]!]);
-    else if (selections.length > 1) onPlayBatch(selections);
+    else if (selections.length > 1) onPlayBatch(selections, focus);
   }, [onPlayBatch, onPlayOptions]);
-  const playSelected = useCallback(() => {
+  // A card's own Replay (or R on it) plays the ticked set from that card's change.
+  const playSelected = useCallback((focus?: ProposalOptionReview) => {
     if (selectedBatch.length === 0) return;
     followSelection.current = true;
-    playSelection(selectedBatch);
+    playSelection(selectedBatch, focus);
   }, [playSelection, selectedBatch]);
   // Re-preview when the ticks change under a preview that follows them.
   const activeKey = activePreview ? selectionKey(activePreview.batch?.length ? activePreview.batch : [activePreview]) : "";
@@ -658,7 +661,8 @@ export function ProposalsPanel({
       if (replayCard) { event.preventDefault(); playKeyboardOption(replayCard.proposalId, replayCard.option); return; }
       if (selectedBatch.length === 0) return;
       event.preventDefault();
-      playSelected();
+      const keyTargetTicked = keyTarget && selectedBatch.some((selection) => selection.proposalId === keyTarget.proposalId && selection.optionId === keyTarget.optionId);
+      playSelected(keyTargetTicked ? details[keyTarget.proposalId]?.review.find((option) => option.option_id === keyTarget.optionId) : undefined);
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
@@ -726,7 +730,7 @@ export function ProposalsPanel({
               aria-keyshortcuts={replayCard ? undefined : ariaKeyShortcut(shortcuts.reviewPlay)}
               title={`Play selected${replayCard ? "" : keyInTitle(shortcuts.reviewPlay)}`}
               className={`${REVIEW_SECONDARY_ACTION} px-2 aria-busy:disabled:opacity-100`}
-              onClick={playSelected}
+              onClick={() => playSelected()}
             >
               {/* Loading replaces only the icon, so the word stays readable. */}
               <span className="grid w-3.5 items-center justify-items-center [&>*]:col-start-1 [&>*]:row-start-1">
@@ -1001,7 +1005,7 @@ export function ProposalsPanel({
                         variant="ghost"
                         className={`${REVIEW_SECONDARY_ACTION} ${REVIEW_ROW_ACTION} aria-busy:disabled:opacity-100`}
                         onClick={() => {
-                          if (selectedBatch.length > 1 && selectedOptions?.[entry.proposal_id] === option.option_id) { playSelected(); return; }
+                          if (selectedBatch.length > 1 && selectedOptions?.[entry.proposal_id] === option.option_id) { playSelected(option); return; }
                           // Previewing an alternative selects it, so what plays is what A applies (creator direction).
                           setSelectedOptions(current => selectionForPlayedOption(entries ?? [], details, current, entry.proposal_id, option.option_id));
                           playKeyboardOption(entry.proposal_id, option);

@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { safeParseJson } from "@/lib/api-helpers";
-import { draftPrompt, repairPrompt } from "@/lib/agent/proposal-agent-request-prompt";
+import { draftPrompt, firstBuildPrompt, repairPrompt } from "@/lib/agent/proposal-agent-request-prompt";
 import { refreshPendingProposals } from "@/lib/agent/proposal-refresh";
 import { proposalRevisionPresentation } from "@/lib/agent/proposal-revisions";
 import { waveStates, waveWaitingMessage } from "@/lib/agent/proposal-waves";
 import { memoryEvents } from "@/lib/local-store/editing-memory";
 import { AGENT_REQUEST_KINDS, writeAgentRequest } from "@/lib/local-store/proposal-agent-requests";
 import { listProposals } from "@/lib/local-store/proposals";
+import { waitingFirstBuild } from "@/lib/local-store/home-start";
 import { feedbackCoverage } from "@/lib/timeline/editing-feedback";
 
 type Params = { params: Promise<{ projectId: string }> };
@@ -49,7 +50,8 @@ export async function POST(request: Request, { params }: Params) {
       const direction = feedbackCoverage(memoryEvents(projectId), records).directions
         .find(candidate => candidate.id === target_id && !candidate.accounted_for);
       if (!direction) throw conflict("This request already has a proposal or was set aside.");
-      prompt = draftPrompt(projectId, { feedback_id: target_id, direction: direction.direction });
+      // A project started from Home with nothing laid out yet asks for its first cut, not a card.
+      prompt = (waitingFirstBuild(projectId) ? firstBuildPrompt : draftPrompt)(projectId, { feedback_id: target_id, direction: direction.direction });
     }
     const saved = writeAgentRequest(projectId, { kind, target_id, requested_at: new Date().toISOString(), prompt });
     return NextResponse.json({ request: saved });

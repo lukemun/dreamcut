@@ -24,6 +24,7 @@ export type AuditionPlaybackRange = {
 type ProposalReviewLike = {
   preview_range?: { start_seconds: number; end_seconds: number };
   rows: Array<{
+    element_id?: string;
     changes: Array<{ target: string; field: string; after_value?: unknown }>;
   }>;
 };
@@ -168,7 +169,7 @@ export function resolveProposalPlaybackRange(
     if (sameId) {
       consumedBaseIds.add(sameId.id);
       if (sameWindow(sameId, draft)) return [];
-      return [tailTrimFocusWindow(sameId, draft) ?? draft];
+      return [tailTrimFocusWindow(sameId, draft) ?? keyframedChangeWindow(sameId, draft) ?? draft];
     }
     if (draft.type !== "caption_text") return [draft];
     const equivalent = baseActive.find((base) =>
@@ -206,6 +207,23 @@ export function resolveProposalPlaybackRange(
       : naturalStart,
     endSeconds: playbackTailCap == null ? naturalEnd : Math.min(naturalEnd, playbackTailCap),
   };
+}
+
+/**
+ * Playback window for one card inside a composite (ticked-set) draft: the card's own rows pick the
+ * elements, so its Replay starts at its change rather than at the earliest ticked card. Null when the
+ * card names none of the draft's touched elements; the caller then plays the whole set.
+ */
+export function resolveFocusedProposalPlaybackRange(
+  focus: ProposalReviewLike,
+  touchedElementIds: string[],
+  draftElements: TimelineWindow[],
+  baseElements: TimelineWindow[],
+): AuditionPlaybackRange | null {
+  const focusIds = new Set(focus.rows.flatMap((row) => row.element_id ? [row.element_id] : []));
+  const ids = touchedElementIds.filter((id) => focusIds.has(id));
+  if (ids.length === 0 && !focus.preview_range) return null;
+  return resolveProposalPlaybackRange(ids, draftElements, baseElements, focus);
 }
 
 const CAPTION_VISUAL_KEYS = [
@@ -287,4 +305,53 @@ function tailTrimFocusWindow(
     timeline_start: focusStart,
     duration: Math.max(baseEnd, draftEnd) - focusStart,
   };
+}
+
+/** Below this share of a track's range, keyframe values count as still (eased tails, rounding). */
+const KEYFRAME_STILL_SHARE = 0.01;
+
+/**
+ * A prop-only change whose keyframes move part-way through a long clip (a zoom on one moment of a
+ * screen recording) starts where that motion starts: static prop changes beside it show anywhere in
+ * the clip, so the moving part decides where the window begins.
+ */
+function keyframedChangeWindow(
+  base: TimelineWindow,
+  draft: TimelineWindow,
+): TimelineWindow | null {
+  if (!sameWindow({ ...base, props: null }, { ...draft, props: null })) return null;
+  const baseTracks = keyframeTracks(base.props);
+  const draftTracks = keyframeTracks(draft.props);
+  let motionStart = Number.POSITIVE_INFINITY;
+  for (const [field, frames] of Object.entries(draftTracks)) {
+    if (JSON.stringify(frames) === JSON.stringify(baseTracks[field] ?? null)) continue;
+    motionStart = Math.min(motionStart, keyframeMotionStart(frames));
+  }
+  if (!Number.isFinite(motionStart) || motionStart <= 0 || motionStart >= draft.duration) return null;
+  return { ...draft, timeline_start: draft.timeline_start + motionStart, duration: draft.duration - motionStart };
+}
+
+function keyframeTracks(props: Record<string, unknown> | null | undefined): Record<string, Array<{ t: number; v: unknown }>> {
+  const keyframes = props?.keyframes;
+  if (!keyframes || typeof keyframes !== "object") return {};
+  return Object.fromEntries(Object.entries(keyframes as Record<string, unknown>).flatMap(([field, frames]) =>
+    Array.isArray(frames) ? [[field, frames.filter((frame): frame is { t: number; v: unknown } =>
+      Boolean(frame) && typeof frame === "object" && Number.isFinite((frame as { t?: unknown }).t))
+      .sort((left, right) => left.t - right.t)]] : []));
+}
+
+/** Clip-local time of the last keyframe before the track first leaves its opening value (0 when it moves at once). */
+function keyframeMotionStart(frames: Array<{ t: number; v: unknown }>): number {
+  if (frames.length < 2) return 0;
+  const first = frames[0]!;
+  const numbers = frames.every((frame) => typeof frame.v === "number");
+  const values = numbers ? frames.map((frame) => frame.v as number) : [];
+  const tolerance = numbers ? (Math.max(...values) - Math.min(...values)) * KEYFRAME_STILL_SHARE : 0;
+  for (let index = 1; index < frames.length; index += 1) {
+    const moved = numbers
+      ? Math.abs((frames[index]!.v as number) - (first.v as number)) > tolerance
+      : JSON.stringify(frames[index]!.v) !== JSON.stringify(first.v);
+    if (moved) return Math.max(0, frames[index - 1]!.t);
+  }
+  return Number.POSITIVE_INFINITY;
 }

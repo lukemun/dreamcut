@@ -2121,9 +2121,7 @@ export function ElementMenu({
           </div>
         ) : null}
         {isMotionGraphic && selectedElement ? (
-          <InspectorSection sectionId="motion-graphic" title="Motion graphic">
-            <MotionGraphicProperties element={selectedElement} patchElement={patchElement} />
-          </InspectorSection>
+          <MotionGraphicProperties element={selectedElement} patchElement={patchElement} />
         ) : null}
         <InspectorSection sectionId="animation" title={showAnimPresets ? "Animation" : "Fades"}>
           {selectedElement?.type === "caption_text" && typeof selectedElement.props?.letter_fall_start_seconds === "number" ? (

@@ -65,3 +65,9 @@ later work, and nothing touches My Style or the reviewed project.
   face-clearance noise were fixed with tests. The generation-vs-selection routing, the
   slider-cap message and the Look-on-a-new-scene recipe were written in their homes. Checks
   are listed in the report.
+
+## 2026-10-27 — The creator's waits are in the project, not the transcript
+
+- **Observation:** A session retro (`docs/audits/2026-10-27-bloom-hello-motion-graphic-retro.md`, git-ignored) was asked why "building the look" felt slow. The transcript showed the agent's 7:45 to a card, but not that the owner then waited 20–26 s on each of four look and palette changes. Those renders were only in the project's `audit/motion` log.
+- **Decision:** Updated. The Performance lens says to read the creator's re-render times from `audit/motion` (read only).
+- **Verification:** Applied in that retro; the four render `elapsed_ms` values are in its timeline.

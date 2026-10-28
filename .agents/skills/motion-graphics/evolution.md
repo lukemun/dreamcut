@@ -139,3 +139,30 @@ Route motion graphics requests to timeline-native semantic motion, Hyperframes o
 - **Verification:** Documentation; the API names were checked against `looks/runtime.js`,
   `looks/kit.js` and `src/lib/hyperframes/look-bundle.ts`. Not yet run end to end on a disposable
   project.
+
+## 2026-10-27 — Looks are drawn before they ship
+
+- **Observation:** One session built "Hello, welcome to DreamCut" in Psychedelic Bloom with Kinetic Type. The render failed twice on shipped look bugs: Bloom's bundle lacked the Psychedelic look it builds on (the page threw, HyperFrames said only "Could not determine composition duration"), then its words were dark on its dark light show (contrast 1:1). About 4.5 of the 8 minutes to a card went to finding and fixing them. `pnpm check:looks` only parses each bundle, so both passed it. The session fixed Bloom and the base-look bundling in `2ecda47b`.
+- **Decision:** Updated. `pnpm check:looks --render [--palettes] [--look <id>]` (`scripts/check-looks-render.mjs`) draws each look in Kinetic Type in headless Chrome and fails when the page throws, the timeline never builds or a word reads below 3:1 on the look's backdrop. [explainer-looks.md](templates/explainer-looks.md) asks for it before shipping a look. It is on demand (about 75 s for every look and palette), not part of `check:effects`, because it needs Chrome and 14 looks (18 look/palette pairs) fail it today.
+- **Verification:** The pre-fix Bloom fails it both ways ("the page throws: Cannot read properties of undefined (reading 'inks')" with the old one-look bundle; "reads 1.00:1" with the old ink). Current Bloom passes. HyperFrames' own `check` agrees on truchet, papercraft and x-ray (fail) and paper (pass).
+- **Limits:** One template (Kinetic Type, wide, build arrangement) and only plain words; accent words, panels and the other five templates are not drawn. The 18 failing pairs are listed in the retro and recorded as later work, not fixed.
+
+## 2026-10-27 — A sound on every Kinetic Type word
+
+- **Observation:** In the same session, asked for a pop as each word lands, the agent copied Kinetic Type's controls file to add `third_word` and `fourth_word` cues, searched sounds with `sfx_search` and hand-wrote each `create_audio`, putting them on `audio_1` (refused; sounds take `sound_effect_N`). `sfx_audition_prepare` already returns candidates with a ready `create_audio` on a free sound-effect lane, but the skill did not name it.
+- **Decision:** Updated. [kinetic-type.md](templates/kinetic-type.md) gives the interim route (follow `second_word` with Beat offsets) and says not to copy the controls file; the skill names `sfx_audition_prepare` for cue sounds. One cue per word, derived from the phrase, is recorded as later work in the private project status.
+- **Verification:** Documentation; offsets checked against `timeOf` in `kinetic-type/index.html` (word n lands at `lead_in + (n−1) × beat`). Not yet run on a fresh session.
+
+## 2026-10-27 — 3D Sketch pieces keep every dial
+
+- **Observation:** The creator could not restyle a 3D fly-in built from 3D Sketch Scene pieces: no Paper fill, Wobble or Camera on most pieces. The shared engine ignored `layer`, so the agent had forked `index.html` per project and trimmed each piece's controls file to a few dials. The Templates gallery also had no 3D Sketch card, though this template said it did.
+- **Decision:** Updated. The shared engine draws one `layer` (default `all`) and keeps the rest as depth; the controls file declares the fixed Layer control, so every piece keeps every dial. Only the plan (or the whole scene) is opaque with Paper fill on. Faces now draw before lines, so with Paper fill off the drawing keeps its hidden lines instead of turning see-through. [sketch-3d.md](templates/sketch-3d.md) maps shapes to layers and forbids forking the engine or trimming controls per piece. `FX-MOTION-SKETCH-3D` is now a Templates card.
+- **Verification:** `composition-manifest.test.ts` covers layers and the opaque rule; a headless render of a city with streets and a tower landmark, per layer, with Paper fill on and off: the stacked pieces match the whole scene within 0.01% of pixels, and Paper fill off draws the same ink as on.
+- **Limits:** Projects already built on a forked engine keep it; moving them onto the shared engine is a per-project proposal.
+
+## 2026-10-27 — Extending a 3D engine without losing renders
+
+- **Observation:** One session extended a project's forked fly-in engine with neon lit windows. About 13 minutes went to failures the template did not warn about: a `ShaderMaterial` without the log-depth chunks never drew under `logarithmicDepthBuffer` (about 2 minutes of probes), one material shared by every window vanished when another piece's code turned its `colorWrite` off (about 3 minutes), a page reading its strokes by XHR timed out the object check (about 1 minute), and moving the timeline registration into a shared script failed lint, then the shared script ran before the page's elements existed (about 2 minutes). Pasting the 25 KB engine into four `motion_graphic_prepare` calls took about 80 s of composing each.
+- **Decision:** Updated. [sketch-3d.md](templates/sketch-3d.md) gains "Extending the engine": split large code into a script whose one function the inline script calls, with the timeline registration inline, no fetch or XHR, one material per shape, and the log-depth chunks in custom shaders. `motion_graphic_prepare` now accepts a revision that sends only the changed files (see `docs/tools/evolution/model-authored-motion.md`).
+- **Verification:** Documentation, from the session's own failures and fixes; not yet run on a fresh session.
+- **Limits:** Sending a file still means pasting its full text; reading one from a local path is recorded as later work.

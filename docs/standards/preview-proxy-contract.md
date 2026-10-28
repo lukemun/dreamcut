@@ -15,7 +15,7 @@ Each ready package must identify:
 | Role | Consumer | Authority |
 | --- | --- | --- |
 | Archival original | Recovery and reprocessing | Unchanged imported bytes and source hash |
-| Full-quality picture | Render/export | Original SDR footage; for opaque HDR, a full-resolution code-value authority (`ffmpeg-hdr-code-authority-v1`) whose HLG/PQ values the grade shader decodes |
+| Full-quality picture | Render/export | Original SDR footage; for opaque HDR, a full-resolution code-value authority (`ffmpeg-hdr-code-authority-v1`) whose HLG/PQ values the grade shader decodes, made when an export first needs it (below) |
 | Preview picture | Player, preload, thumbnails, frame holds, framing inspector | Measured, size-limited derivative of the picture authority |
 | Speech audio | Preview speech clock and caption alignment | Timing-identical audio mapped to the same source clock; exactly one audible path |
 | Preparation receipt | Assembly gate and verification | Source/recipe hashes, URLs, dimensions, cadence, duration, frame count, color/alpha validation and source-time mapping |
@@ -35,6 +35,18 @@ and runs below normal CPU priority. A full-quality encode already in flight is n
 interrupted. Source browsing retains its preview on heavy-stage failure and provides
 Retry; workspace polling updates media readiness without replacing editing drafts.
 SDR media, including SDR alpha, retains the existing complete-package preparation path.
+Opaque HDR becomes ready from its preview alone: `ffmpeg-hdr-code-preview-v1` decodes the original once
+(VideoToolbox on macOS, software elsewhere), applies the authority's matrix-only code-value conversion
+at the preview size and encodes H.264 (VideoToolbox, falling back to libx264), with SSIM parity against the
+same conversion of the source decoded in software. The package then names the original as `render`, keeps
+that receipt as `preview_color_management` and marks `render_authority` `deferred`; placement binds the
+original with the receipt's `source_encoding`. A long 4K phone clip is placeable in minutes instead of
+waiting about its own length, and tens of GB, for a full-resolution encode that placement never reads.
+Export asks for the authority (`requested`) and waits; the worker makes it next to the proxy, verifies the
+kept proxy against it, and moves `render` to it. Every renderer then reads the authority for clips placed
+before it existed (`export-render-sources.ts`); later placements bind it directly. A failure is recorded on
+`render_authority`, fails that export with the reason, and is retried by the next export. The worker checks
+estimated authority size plus a 5 GB reserve against free space first.
 8-bit HDR-alpha media, including a cutout cut from HDR footage, uses `ffmpeg-hdr-code-alpha-authority-v2`:
 the same matrix-only code-value conversion as opaque HDR, with the source alpha merged back unchanged
 on the shared 30 fps clock, encoded as VP9 CRF 18 and tagged BT.709, and the same `source_encoding`
@@ -68,7 +80,7 @@ Speech has exactly one preview clock owner. When audio is detached, the audio no
 
 ### Implementation boundary
 
-Managed path imports and browser uploads enqueue a dedicated preparation worker immediately. Its durable per-source records live in `preprocess/media-preparation/`; optional content analysis is not a dependency. The worker builds a complete 30 fps preview at the selected quality (640-pixel opaque and 960-pixel alpha defaults), preserves transparency, extracts preview audio when present, and uses the color-managed full-resolution SDR pair for HDR. It validates decode, duration, dimensions, cadence, frame count, alpha metadata and unchanged source identity before marking the package ready. Outputs use new versioned URLs rather than overwriting media in use.
+Managed path imports and browser uploads enqueue a dedicated preparation worker immediately. Its durable per-source records live in `preprocess/media-preparation/`; optional content analysis is not a dependency. The worker builds a complete 30 fps preview at the selected quality (640-pixel opaque and 960-pixel alpha defaults), preserves transparency, extracts preview audio when present, and uses the color-managed pair for HDR alpha and the deferred code-value authority for opaque HDR (above). It validates decode, duration, dimensions, cadence, frame count, alpha metadata and unchanged source identity before marking the package ready. Outputs use new versioned URLs rather than overwriting media in use.
 
 The Assets shelf shows preparation and retry state. New video placement through the editor API and proposal creation requires a ready package and binds its separate render, preview and audio authorities. Existing files can be explicitly prepared with `POST /api/projects/<id>/media-preparation` (`source` is a project-media-relative path). Existing timeline bindings are not silently rewritten: adoption still requires a reviewed edit. Specialized derivative pipelines must supply their own validated pair or prepare their generated source before adoption; this import worker does not replace their source-sync receipts. The runtime measured-proxy guard remains a second defense.
 

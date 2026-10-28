@@ -19,6 +19,7 @@ import {
   snapBoundaryToRuler,
   snapBoundaryToSecondaryTargets,
   snapBoundaryToTargets,
+  snapPlayheadToElements,
 } from "@/components/studio/timeline/canvas-helpers";
 import type { TimelineBeatBand, TimelineElement } from "@/components/studio/timeline/types";
 
@@ -469,4 +470,31 @@ test("ruler ticks and labels thin out when zoomed far out", () => {
   assert.equal(Math.round(label / tick) * tick, label);
   // Close in, labels keep their usual spacing.
   assert.equal(getRulerLabelStep(120, 0.1, 40), 0.5);
+});
+
+test("the playhead lands on the cut between abutting caption words", () => {
+  // Two caption words that touch at 2.18s, off the 30fps frame grid.
+  const words = [
+    buildElement({ id: "alright", lane_key: "captions_0", timeline_start: 1.772, duration: 0.408 }),
+    buildElement({ id: "welcome", lane_key: "captions_0", timeline_start: 2.18, duration: 0.277 }),
+  ];
+  assert.deepEqual(snapPlayheadToElements(2.2, 130, words), { seconds: 2.18, snapLine: 2.18 });
+  assert.deepEqual(snapPlayheadToElements(2.15, 130, words), { seconds: 2.18, snapLine: 2.18 });
+  // Away from any edge the playhead goes where it was put.
+  assert.deepEqual(snapPlayheadToElements(2.0, 130, words), { seconds: 2.0, snapLine: null });
+});
+
+test("the playhead can land inside a gap narrower than the snap radius", () => {
+  // At 100px/s the radius is 0.08s, so both edges of this 0.1s gap pull from its middle.
+  const clips = [
+    buildElement({ id: "a", timeline_start: 0, duration: 1 }),
+    buildElement({ id: "b", timeline_start: 1.1, duration: 1 }),
+  ];
+  assert.deepEqual(snapPlayheadToElements(1.06, 100, clips), { seconds: 1.05, snapLine: 1.05 });
+  // Near an edge, the edge still wins.
+  assert.deepEqual(snapPlayheadToElements(1.01, 100, clips), { seconds: 1, snapLine: 1 });
+  assert.deepEqual(snapPlayheadToElements(1.09, 100, clips), { seconds: 1.1, snapLine: 1.1 });
+  // A wide gap has no middle target: it is already reachable.
+  const wide = [clips[0]!, buildElement({ id: "c", timeline_start: 2, duration: 1 })];
+  assert.deepEqual(snapPlayheadToElements(1.5, 100, wide), { seconds: 1.5, snapLine: null });
 });

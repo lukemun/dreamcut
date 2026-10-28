@@ -38,8 +38,8 @@ every shape stands on the ground at `at: [x, y, z]` unless lifted.
 | `forest` | generator: `count`, `radius` |
 
 Every shape also takes `turn` (degrees about the vertical), `line` and `fill` (`"ink"`,
-`"paper"` or a colour), `appear` (`rise`, `grow`, `pop`, `none`) and `delay` (0 to 0.6 of the
-build time). `camera: { fov, moves: { name: [{ at, from, to }, …] } }` gives each move as keys
+`"paper"` or a colour), `appear` (`rise`, `grow`, `pop`, `none`), `delay` (0 to 0.6 of the
+build time) and `layer` (see Pieces). `camera: { fov, moves: { name: [{ at, from, to }, …] } }` gives each move as keys
 across the flight (`at` 0 to 1); between keys the camera eases.
 
 ## Controls
@@ -58,17 +58,41 @@ to follow one layer clip.
 
 ## Pieces
 
-A scene can be laid out as separate clips with a fixed text `layer` control: `plan` (ground,
-water and the paper fill), `streets`, `buildings`, and one named layer per landmark. The plan,
-streets and buildings are world layers and may hold many shapes; a landmark layer draws one
-object. Each layer draws its own part and the rest of the scene as depth only, so the stacked
-clips hide each other exactly as the whole scene does. Only the plan keeps the paper fill.
+A scene can be laid out as separate clips, each the same composition with a different value of
+its fixed `layer` control (default `all`, the whole scene): `plan` (the paper fill), `streets`
+(every `ground`), `buildings` (generators and any shape without a `layer`), and one named layer
+per landmark, set with `layer` on that shape. The plan, streets and buildings are world layers
+and may hold many shapes; a landmark layer draws one object. Each layer draws its own part and
+the rest of the scene as depth only, so the stacked clips hide each other exactly as the whole
+scene does. Every piece keeps every control; only the plan draws the paper, and with Paper fill
+off the other pieces' faces stop painting paper too, so the whole stack lays over footage.
+Never fork `index.html` or trim the controls file per piece.
 
 ## Limits
 
 - No text or imported 3D models; use `prism` outlines for logos and letters.
 - Lines are one pixel wide at 1920 × 1080.
 - Round shapes get an ink silhouette; their stripes are drawn as rings.
+
+## Extending the engine
+
+A per-project engine that adds what this one lacks (lit windows, colour sampled from footage)
+follows the same rules, and these keep it renderable:
+
+- **Large engine:** split the drawing code into a script next to `index.html` (`engine.js`,
+  data in `data.js`), loaded with `<script src>`. Make the engine one function, for example
+  `window.drawFlyin(holder)`, and call it from the inline script in `index.html`, which also
+  builds the paused timeline and registers `window.__timelines.main`: the check finds the
+  registration only inline, and runs a loaded script before the page's elements exist. Never
+  `fetch` or XHR a file: the object check opens the page from disk, where those requests fail
+  and the check times out. On a revision, send only the files that changed.
+- **Hiding other pieces:** a piece hides the others by turning their materials' `colorWrite`
+  off, so give each shape its own material. A material shared across pieces (one for every
+  window) disappears from all of them.
+- **Custom shaders:** with `logarithmicDepthBuffer` on, a `ShaderMaterial` must include
+  `logdepthbuf_pars_vertex`, `logdepthbuf_vertex`, `logdepthbuf_pars_fragment` and
+  `logdepthbuf_fragment`, or it fails the depth test against the built-in materials and never
+  draws.
 
 ## Evidence
 

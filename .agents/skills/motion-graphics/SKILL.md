@@ -30,7 +30,9 @@ a `timing` block in `dreamcut.controls.json`: `duration` and named `cues`, each 
 controls (`"4.2 * pace + title_hold"`; numbers, control ids, + - * / ( ) and min/max). The composition's
 code must place the same moments at the same times. Renders record the resolved timing, so changing a
 knob on the proposal card or in Properties moves what is linked to it. Give sounds for those moments as
-separate `create_audio` clips with `follows_visual: { element_id, cue, offset_seconds }`, link their levels
+separate `create_audio` clips with `follows_visual: { element_id, cue, offset_seconds }` (pick them with
+`sfx_audition_prepare` at the cue's time: its candidates carry a ready `create_audio` on a free
+`sound_effect_N` lane), link their levels
 with one dial (`linked_operation_indices`), and set `ripple_after: true` on an inserted clip (an opener)
 so a longer render pushes the rest of the edit. A follow-up proposal unlinks with `clear_props:
 ["follows_visual"]` when the creator wants to change sounds one by one.

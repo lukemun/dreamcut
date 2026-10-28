@@ -1,13 +1,15 @@
 import type { ChildProcess } from "node:child_process";
 import fs from "node:fs";
 import http from "node:http";
+import { createRequire } from "node:module";
 import net from "node:net";
 import os from "node:os";
 import path from "node:path";
 
 import { fingerprintReviewBuild } from "@/lib/instruments/review-build-cache";
+import { projectsRoot } from "@/lib/local-store/paths";
 
-import { buildSlot, freePort, serveStaticFromOtherSlot, serverIsRunning, slotFingerprint, slotForCurrentCode, startServer, waitForServer } from "./stable-editor";
+import { buildSlot, freePort, rendersRunningUnder, serveStaticFromOtherSlot, serverIsRunning, slotFingerprint, slotForCurrentCode, startServer, waitForServer } from "./stable-editor";
 
 /**
  * `pnpm editor`: the editor for everyday project work on http://127.0.0.1:3123.
@@ -15,7 +17,8 @@ import { buildSlot, freePort, serveStaticFromOtherSlot, serverIsRunning, slotFin
  * A small proxy owns 3123 and forwards every request, event stream and upgrade to a stable production
  * server on a private port (scripts/stable-editor.ts). When editor code changes and stays unchanged for a
  * while, a new build is made in a spare slot at low priority and started beside the current server; the
- * proxy switches to it once it answers, and the old server stops after its in-flight requests finish.
+ * proxy switches to it once it answers, and the old server stops after its in-flight requests and any export
+ * it is running finish; the new server reports that export's progress and stops it from the shared job files.
  * Open event streams then reconnect to the new server. A build that fails (a type error mid-edit, say)
  * changes nothing; the next quiet period tries again.
  */
@@ -25,6 +28,8 @@ const PUBLIC_PORT = 3123;
 const QUIET_MS = 30_000;
 /** An old server whose requests never settle is stopped after this long. */
 const DRAIN_LIMIT_MS = 10 * 60_000;
+/** An old server still running an export is stopped after this long, so a stuck render cannot hold it forever. */
+const RENDER_LIMIT_MS = 4 * 60 * 60_000;
 const WATCHED = ["src", "public", "package.json", "pnpm-lock.yaml", "next.config.ts", "tsconfig.json", "postcss.config.mjs"];
 const buildLog = path.join(os.tmpdir(), "dreamcut-editor-build.log");
 
@@ -36,6 +41,19 @@ let stopping = false;
 const running = new Set<Backend>();
 
 const log = (message: string) => console.log(`[editor] ${message}`);
+
+// The servers read projects (and so render jobs) from where .env files say; read them the same way.
+createRequire(require.resolve("next/package.json"))("@next/env").loadEnvConfig(root);
+
+/** Exports running inside a server, from the job files every server shares. */
+function rendersIn(backend: Backend): string[] {
+  if (!backend.child.pid || !running.has(backend)) return [];
+  try {
+    return rendersRunningUnder(path.join(projectsRoot(), ".cache", "render-jobs"), backend.child.pid);
+  } catch {
+    return [];
+  }
+}
 
 async function launch(slot: string): Promise<Backend> {
   const port = await freePort();
@@ -58,16 +76,28 @@ async function launch(slot: string): Promise<Backend> {
   return backend;
 }
 
-/** Let an old server finish what it is answering, then stop it. Event streams are not waited for. */
+/**
+ * Let an old server finish what it is answering and any export it is running, then stop it. Event streams
+ * are not waited for. New requests already go to the new server, so only the export keeps this one busy.
+ */
 async function retire(backend: Backend) {
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const deadline = Date.now() + DRAIN_LIMIT_MS;
   let quietSince = backend.inflight === 0 ? Date.now() : 0;
   while (Date.now() < deadline) {
     if (backend.inflight > 0) quietSince = 0;
     else if (!quietSince) quietSince = Date.now();
     else if (Date.now() - quietSince >= 5_000) break;
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await sleep(500);
   }
+  const renderDeadline = Date.now() + RENDER_LIMIT_MS;
+  let renders = rendersIn(backend);
+  if (renders.length) log(`The previous build (${backend.slot}) keeps running until its export finishes (${renders.join(", ")}).`);
+  while (renders.length && Date.now() < renderDeadline) {
+    await sleep(5_000);
+    renders = rendersIn(backend);
+  }
+  if (renders.length) log(`The previous build's export ran past ${RENDER_LIMIT_MS / 3_600_000} hours; stopping it.`);
   backend.child.kill("SIGTERM");
 }
 

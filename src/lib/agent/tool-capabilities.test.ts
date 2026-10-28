@@ -55,6 +55,15 @@ test("tools preserve timeline, source identity, stale evidence checks and accoun
   assert.throws(()=>expandCompiledOperations(project,{...card,options:[{id:"captions",operations_from:[{compile_id:randomUUID()}],operations:[]}]}),/No stored compile/);
   await assert.rejects(()=>compileCaptionProposal(project,{...input,expected_revision:"old"}),/working cut changed/);
   assert.equal(fs.readFileSync(path.join(dir,"timeline.json"),"utf8"),timelineBefore);
+  // A talk cut into clips (pauses removed) captions every clip from the one alignment; no caption spans a cut.
+  const firstId=randomUUID(),secondId=randomUUID(),clip={type:"video_clip",source_url:`/api/projects/${project}/media/source.mp4`,playback_rate:1,props:{source_duration_seconds:4},removed_at:null};
+  fs.writeFileSync(path.join(dir,"timeline.json"),JSON.stringify({schema_version:1,elements:[{...clip,id:secondId,timeline_start:10,duration:2.45,trim_start:1.55,trim_end:0},{...clip,id:firstId,timeline_start:0,duration:0.55,trim_start:1,trim_end:2.45}],transitions:[]}));
+  const multi=await compileCaptionProposal(project,{job_id:jobId,source_element_ids:[secondId,firstId],expected_revision:timelineRevision(project),include_cues:true});
+  const multiCues=multi.operations![0]!.replace_captions!.cues;
+  assert.deepEqual(multiCues.map(cue=>cue.timing_source.element_id),[firstId,secondId]);
+  assert.equal(multiCues[0]!.timeline_start,0);assert.ok(Math.abs(multiCues[1]!.timeline_start-10.05)<1e-9);
+  assert.deepEqual(multi.operations![0]!.replace_captions!.source_element_ids,[firstId,secondId]);
+  await assert.rejects(()=>compileCaptionProposal(project,{job_id:jobId,source_element_id:firstId,source_element_ids:[secondId],expected_revision:timelineRevision(project)}),/not both/);
   const now=new Date().toISOString(),event={schema_version:1,event:"dreamcut.tool_dispatch",call_id:randomUUID(),session_id:randomUUID(),request_id:"1",tool:"media_readiness",contract_version:1,started_at:now,finished_at:now,duration_ms:3,success:true};
   recordToolEvent(event);recordToolEvent(event);assert.equal(toolUsage().observed_calls,1);
   recordToolEvent({...event,call_id:randomUUID(),event:"openedit.tool_dispatch"});assert.equal(toolUsage().observed_calls,2,"pre-rename tool events still count");

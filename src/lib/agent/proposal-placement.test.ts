@@ -7,7 +7,7 @@ import test from "node:test";
 import type { TimelineElement } from "@/components/studio/timeline/types";
 import { createProject, readTimeline, writeTimeline } from "@/lib/local-store/store";
 import { relationRectAt } from "@/lib/timeline/placement-relation";
-import { placementPolicyIssues, reviewPlacementRelations } from "./proposal-placement";
+import { placementPolicyIssues, relationOverlapMessage, reviewPlacementRelations } from "./proposal-placement";
 import { applyProposalReviewOverrides } from "./proposal-overrides";
 import { reviewProposal } from "./proposal-review";
 import {
@@ -159,4 +159,14 @@ test("a label the frame edge pushes back onto its drawing is reported for refusa
   const found = reviewPlacementRelations(projectId, readTimeline(projectId), proposal.options);
   assert.equal(found.length, 1);
   assert.equal(found[0]!.element_id, LABEL);
+});
+
+test("a relation that runs off the frame points at open_space_find for measured room", () => {
+  const message = relationOverlapMessage([
+    { option_id: "intro", element_id: "left-title", side: "left", share: 1 },
+    { option_id: "intro", element_id: "right-title", side: "right", share: 0.06 },
+  ] as Parameters<typeof relationOverlapMessage>[0]);
+  assert.match(message, /left-title placed left its anchor still covers 100%/);
+  assert.match(message, /right-title placed right its anchor still covers 6%/);
+  assert.equal(message.match(/open_space_find/g)?.length, 1, "the hint appears once, after every item");
 });

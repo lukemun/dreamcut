@@ -53,7 +53,7 @@ Next.js service. Its `.next-desktop-dev` build directory and automatically assig
 port keep it separate from `pnpm dev`. Run `pnpm desktop:check` for service-boundary
 tests. `pnpm install` permits the pinned Electron package to download its runtime.
 
-`pnpm editor:build` builds the production editor (served by the `npx dreamcut` download and the
+`pnpm editor:build` builds the production editor (served by the packaged runtime download and the
 desktop app) in `.desktop-build/source` from an explicit application
 source list and cloned dependencies. It excludes workspace media and private dotenv
 files, clears inherited build configuration except basic system paths/locale, and

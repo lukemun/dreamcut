@@ -22,11 +22,11 @@ const whisperModel = process.env.WHISPER_MODEL ?? path.join(os.homedir(), ".cach
 const vadModel = process.env.WHISPER_VAD_MODEL ?? path.join(os.homedir(), ".cache/whisper-models/ggml-silero-v6.2.0.bin");
 const reviewPath = value("--pronunciations") ?? path.join(path.dirname(out), "pronunciations.json");
 const mfaBin = process.env.MFA_BIN ?? "mfa";
-const MFA_MISSING = "MFA is not installed. Install Montreal Forced Aligner 3.x (`npx dreamcut doctor`, source checkout: `pnpm setup:check`, names the command), then rerun.";
+const MFA_MISSING = "MFA is not installed. Install Montreal Forced Aligner 3.x (`pnpm setup:check` names the command), then rerun.";
 const mfaBeam = process.env.MFA_BEAM;
 const mfaRoot = process.env.MFA_ROOT_DIR ?? path.join(process.env.HOME ?? "", ".local", "share", "mfa-data");
 const dictionaryPath = process.env.MFA_DICTIONARY_PATH ?? path.join(mfaRoot, "pretrained_models", "dictionary", "english_us_mfa.dict");
-if (!existsSync(dictionaryPath)) throw new Error(`MFA dictionary not found: ${dictionaryPath}. Run \`npx dreamcut setup-speech\` (source checkout: \`pnpm setup:speech\`), or set MFA_DICTIONARY_PATH.`);
+if (!existsSync(dictionaryPath)) throw new Error(`MFA dictionary not found: ${dictionaryPath}. Run \`pnpm setup:speech\`, or set MFA_DICTIONARY_PATH.`);
 const oovTokens = findOovTokens(text, dictionaryWords(readFileSync(dictionaryPath, "utf8")));
 type Review = Record<string, { token: string; generated_pronunciation: string; confirmed_pronunciation: string; model_version: string }>;
 let review: Review = {};
@@ -89,7 +89,7 @@ function chunked(pcm: { sampleRate: number; samples: Int16Array }, report: Recor
   const writeChunk = (file: string, start: number, end: number) => writeFileSync(file, pcm16Wav(samples.subarray(Math.round(start * sampleRate), Math.min(samples.length, Math.round(end * sampleRate))), sampleRate));
 
   // ASR only locates which words were spoken in each chunk; it never times a word.
-  if (!existsSync(whisperModel)) throw new Error(`Whisper model missing: ${whisperModel}. Run \`npx dreamcut setup-speech\` (source checkout: \`pnpm setup:speech\`).`);
+  if (!existsSync(whisperModel)) throw new Error(`Whisper model missing: ${whisperModel}. Run \`pnpm setup:speech\`.`);
   const asrDir = path.join(work, "asr");
   mkdirSync(asrDir, { recursive: true });
   const asrCache = new Map<string, string[]>();

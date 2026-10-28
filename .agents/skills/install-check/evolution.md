@@ -37,3 +37,13 @@ the fresh setup and reduced-PATH runs pass; skipped parts are named with the rea
   rebuilt; typecheck, `check:tools` and the setup tests passed. Not run: a full fake-home setup of voice and
   tracing (disk), Windows, and a full `pnpm release --dry-run`. This skill itself is a written procedure from
   that work, not yet executed as written.
+
+## 2026-10-27 — source install is the only documented path
+
+- **Observation:** The owner decided DreamCut installs from the public GitHub repository; the npm launcher
+  stays published at 0.3.0 but is not referenced, since its users hit issues they cannot work around.
+- **Decision:** The procedure checks the source install (`pnpm bootstrap`, `pnpm setup:*`,
+  `node bin/dreamcut.mjs`), and failure messages name those commands instead of `npx dreamcut`.
+- **Verification:** Each replacement command (`pnpm setup:check`, `setup:speech`, `setup:voice`,
+  `setup:matting`, `pnpm bootstrap`, `node bin/dreamcut.mjs setup|doctor|mcp|--help`) ran once on the owner's
+  Mac and exited 0. The skill was not run end to end on a clean computer.

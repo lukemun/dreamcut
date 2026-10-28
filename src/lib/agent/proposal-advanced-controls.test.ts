@@ -5,7 +5,7 @@ import { reviewOption } from "./proposal-review";
 import { applyProposalNumericOverrides } from "./proposal-overrides";
 import { assertProposalControlBudget, proposalSliderCount } from "./proposal-control-budget";
 import { proposalControlInventory } from "./proposal-control-inventory";
-import { proposalTunableField } from "./proposal-controls";
+import { proposalTunableField, zoomTimingRange } from "./proposal-controls";
 import { proposalAdjustmentTiers } from "../../components/studio/timeline/proposal-adjustments";
 import type { TimelineFile } from "../local-store/store";
 
@@ -272,4 +272,14 @@ test("a sound's volume is always a main dial, shown first, even when the draft n
   assert.equal(linked.review_controls.length,1,"a linked volume dial already covers the second sound");
   const patched = withDefaultReviewControls({options:[{id:"quieter",operations:[{element_id:ids[0],patch:{volume:0.4}}],review_controls:[]}]}).options[0] as {review_controls:unknown[]};
   assert.deepEqual(patched.review_controls,[{operation_index:0,target:"patch",field:"volume"}]);
+});
+
+test("zoom timing dials reach a clip end whose length carries float noise", () => {
+ const values = { transition_keyframes: { media_scale: [{ t: 0, v: 0.9, ease: "easeInOut" }, { t: 2.5, v: 1.25, ease: "hold" }, { t: 21.623, v: 1.25, ease: "easeInOut" }, { t: 24.123, v: 0.9 }] } };
+ const clip = 24.19999999999999;
+ const out = zoomTimingRange(values, "media_scale_ramp_out_seconds", clip)!, hold = zoomTimingRange(values, "media_scale_hold_seconds", clip)!;
+ // The dial's end lands on the clip's end (24.2 s), which the clip edit accepts despite the noise in its length.
+ assert.equal(out.max, 2.577);
+ assert.equal(hold.max, 19.2);
+ assert.ok(21.623 + out.max <= clip + 1e-6);
 });

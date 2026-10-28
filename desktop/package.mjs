@@ -129,9 +129,6 @@ if (maps.length) throw new Error(`Source maps would ship: ${maps.slice(0, 5).joi
 const source = await shippedSource(service);
 if (source.length) throw new Error(`DreamCut source would ship (${source.length} files, e.g. ${source.slice(0, 5).join(', ')}).`);
 await fs.writeFile(path.join(output, 'dependency-manifest.json'), JSON.stringify({ build, workerImports, files: copied, platform: process.platform, arch: process.arch }, null, 2));
-// The local web runtime (packaging/build-web-runtime.mjs) reuses the traced service and shell files only:
-// it bundles no media tools or voice, and needs no Electron.
-if (process.argv.includes('--service-only')) { console.log('Desktop service staged for the web runtime.'); process.exit(0); }
 await bundleMediaTools(path.join(stage, 'media-tools'));
 const voiceManifest = JSON.parse(await fs.readFile(path.join(output, 'voice/manifest.json'), 'utf8'));
 if (voiceManifest.platform !== process.platform || voiceManifest.arch !== process.arch) throw Error('Run desktop:voice on this host before packaging.');

@@ -44,7 +44,7 @@ Select button is the same toggle. There is no copy-and-paste request.
 The gallery is one even grid of `CatalogTile`s, the size of Captions → Looks: the whole example
 contained (never cropped) in the tile's picture, the title beneath it; the description belongs to the detail.
 When the creator has templates of their own, All · Yours · Catalog pills (`FilterButtons`, the Library's
-source-filter idiom) separate them from the shipped catalog; All lists theirs first, without section headings.
+source-filter idiom) separate them from the shipped catalog; All lists the catalog first, then theirs, without section headings.
 In the editor panel the top is two rows: the Effects / Looks switch, which opens on Looks, then search with the
 pills (and the drawer action) beside it. Templates without an example come last as
 same-size tiles that say "No preview". Creator-facing labels say Templates (code keeps recipe/effect names),

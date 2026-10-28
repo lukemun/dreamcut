@@ -24,7 +24,8 @@ export function readAssemblyBrief(projectId: string): AssemblyBrief | null {
 
 }
 
-export function createAssemblyWorkspace(raw: AssemblyCreateRequest) {
+/** `actor` is who asked for the build: an agent's assembly_create, or the creator starting a project from Home. */
+export function createAssemblyWorkspace(raw: AssemblyCreateRequest, actor: "agent" | "human" = "agent") {
   const request = assemblyCreateRequestValidated.parse(raw);
   if (projectExists(request.project_id)) throw new Error(`Assembly target already exists: ${request.project_id}`);
   const directory = projectDir(request.project_id);
@@ -43,8 +44,8 @@ export function createAssemblyWorkspace(raw: AssemblyCreateRequest) {
     const seed = request.copy_source_timeline && request.source_project_id
       ? seedWorkspaceFromProject(request.source_project_id, request.project_id) : null;
     writeJsonFileAtomic(assemblyBriefPath(request.project_id), brief);
-    safeMemoryEvent(request.project_id, { type: "assembly.workspace_created", actor: "agent",
-      summary: seed ? `Created an assembly workspace from ${seed.source_project_id}'s cut` : "Created a fresh autonomous assembly workspace",
+    safeMemoryEvent(request.project_id, { type: "assembly.workspace_created", actor,
+      summary: seed ? `Created an assembly workspace from ${seed.source_project_id}'s cut` : actor === "human" ? "Started from Home with a brief for the first build" : "Created a fresh autonomous assembly workspace",
       data: { source_project_id: request.source_project_id, ...(seed ? { seed } : {}) } });
     return seed ? { ...brief, seed } : brief;
   } catch (error) {

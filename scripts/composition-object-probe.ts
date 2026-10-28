@@ -1,14 +1,16 @@
 /**
  * Count the separable objects a HyperFrames composition shows, frame by frame.
  *
- *   tsx scripts/composition-object-probe.ts <composition dir> [--samples]
+ *   tsx scripts/composition-object-probe.ts <composition dir> [--samples | --errors]
  *
  * Loads index.html in headless Chrome with its default values, seeks the "main" GSAP timeline
  * every 0.2 s, lists the visible text and pictures (clipped by overflow and timed by
  * data-start/data-duration), and prints one JSON line: `frame` is null when every sampled frame
  * shows at most one object, or the first frame that shows more; `most` is the frame with the
  * most objects; `opaque_canvas` is true when a canvas is painted edge to edge. A canvas is read
- * on a coarse grid: each separate drawn region counts as its own picture. Read-only.
+ * on a coarse grid: each separate drawn region counts as its own picture. With --errors it only
+ * loads the page and prints `{ timeline, page_errors }`: whether "main" was registered and the
+ * script errors the page threw on the way. Read-only.
  */
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -24,6 +26,8 @@ async function main() {
   const browser = await chromium.launch({ channel: "chrome", headless: true });
   try {
     const page = await browser.newPage();
+    const pageErrors: string[] = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
     // tsx keeps function names with a __name helper that the page does not define.
     await page.addInitScript("window.__name = (fn) => fn;");
     // The HyperFrames renderer creates the timeline registry before any script runs; so does the probe.
@@ -34,6 +38,11 @@ async function main() {
       return { width: Number(root?.getAttribute("data-width")) || 1920, height: Number(root?.getAttribute("data-height")) || 1080 };
     });
     await page.setViewportSize(size);
+    if (process.argv.includes("--errors")) {
+      const timeline = await page.waitForFunction(() => Boolean((window as unknown as { __timelines?: Record<string, unknown> }).__timelines?.main), null, { timeout: 5000 }).then(() => true, () => false);
+      console.log(JSON.stringify({ timeline, page_errors: pageErrors }));
+      return;
+    }
     await page.waitForFunction(() => Boolean((window as unknown as { __timelines?: Record<string, unknown> }).__timelines?.main), null, { timeout: 15000 });
     const duration = await page.evaluate(() => (window as unknown as { __timelines: Record<string, { duration(): number }> }).__timelines.main.duration());
     const samples: { at_seconds: number; leaves: ContentLeaf[] }[] = [];

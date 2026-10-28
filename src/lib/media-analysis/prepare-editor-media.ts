@@ -5,9 +5,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { currentHdrCodeReceipt, discardPreparationGeneration, preparationSourcePath, readPreparation, retireSupersededPreparation, writePreparation, type PreparedMedia } from "../local-store/media-preparation";
+import { awaitsRenderAuthority, currentHdrCodeReceipt, discardPreparationGeneration, preparationSourcePath, readPreparation, retireSupersededPreparation, writePreparation, type PreparedMedia } from "../local-store/media-preparation";
 import { customCutoutByRelativePath } from "../local-store/custom-cutouts";
-import { createColorManagedVideoPair, sourceNeedsSdrRenderAuthority } from "../../../scripts/lib/color-managed-video";
+import { createColorManagedVideoPair, createHdrCodePreviewProxy, sourceNeedsSdrRenderAuthority } from "../../../scripts/lib/color-managed-video";
 
 function hash(file: string) {
   const digest = createHash("sha256"); const fd = fs.openSync(file, "r"); const buffer = Buffer.alloc(1024 * 1024);
@@ -63,20 +63,26 @@ export function prepareEditorMedia(projectId: string, record: PreparedMedia): Pr
       && (record.render === record.source ? !hdr : (record.render_frame_rate ?? 30) === (record.preview_frame_rate ?? 30) && (!hdr || currentHdrCodeReceipt(record))) ? record.render : undefined;
     let render = reusableRender ?? record.source;
     let colorManagement: PreparedMedia["color_management"];
+    let previewColorManagement: PreparedMedia["preview_color_management"];
     // HDR-tagged alpha, including a cutout cut straight from HDR phone footage, still carries HDR
     // pixels; it takes the same code-value conversion and `source_encoding` as its opaque source, so
     // the grade shader decodes the subject exactly as it decodes the footage. SDR alpha keeps its own
     // pixels in a scaled VP9 copy below.
-    if (hdr && !reusableRender) {
+    const rotated = Math.abs(video.side_data_list?.find((s: { rotation?: number }) => s.rotation != null)?.rotation ?? 0) % 180 === 90;
+    const w = rotated ? video.height : video.width; const h = rotated ? video.width : video.height;
+    const scale = Math.min(1, previewMaxEdge / Math.max(w, h), previewShortEdge / Math.min(w, h));
+    const previewWidth = Math.max(2, Math.floor(w * scale / 2) * 2), previewHeight = Math.max(2, Math.floor(h * scale / 2) * 2);
+    if (hdr && !reusableRender && !alpha) {
+      // Placement and preview need only the size-limited proxy. A full-resolution authority of a long 4K
+      // phone clip takes about as long as the clip itself to encode and tens of GB, so it waits for an export.
+      previewColorManagement = createHdrCodePreviewProxy({ fps: proxyFps, sourcePath: source, sourceSha256: sourceHash, previewProxyPath: preparationSourcePath(projectId, preview), previewWidth, previewHeight });
+    } else if (hdr && !reusableRender) {
       render = `${relative}/render.${alpha?"webm":"mov"}`;
-      const rotated = Math.abs(video.side_data_list?.find((s: { rotation?: number }) => s.rotation != null)?.rotation ?? 0) % 180 === 90;
-      const w = rotated ? video.height : video.width; const h = rotated ? video.width : video.height;
-      const scale = Math.min(1, previewMaxEdge / Math.max(w, h), previewShortEdge / Math.min(w, h));
       const browse = record.browse_preview;
       const staged = browse?.color_stage && browse.source_hash === sourceHash && fs.existsSync(preparationSourcePath(projectId, browse.color_stage)) && hash(preparationSourcePath(projectId, browse.color_stage)) === browse.color_stage_hash ? preparationSourcePath(projectId, browse.color_stage) : undefined;
       const cutoutParent = alpha ? customCutoutByRelativePath(projectId).get(record.source)?.source_relative_path : undefined;
       colorManagement = createColorManagedVideoPair({ fps: proxyFps, sourcePath: source, preparedColorStage: staged,
-        ...(cutoutParent ? { encodingReferencePath: preparationSourcePath(projectId, cutoutParent) } : {}), renderAuthorityPath: preparationSourcePath(projectId, render), previewProxyPath: preparationSourcePath(projectId, preview), previewWidth: Math.max(2, Math.floor(w * scale / 2) * 2), previewHeight: Math.max(2, Math.floor(h * scale / 2) * 2) });
+        ...(cutoutParent ? { encodingReferencePath: preparationSourcePath(projectId, cutoutParent) } : {}), renderAuthorityPath: preparationSourcePath(projectId, render), previewProxyPath: preparationSourcePath(projectId, preview), previewWidth, previewHeight });
     } else {
       ffmpeg(["-y", ...(alpha && video.codec_name === "vp9" ? ["-c:v", "libvpx-vp9"] : []), "-i", preparationSourcePath(projectId, render), "-map", "0:v:0", "-vf", `${previewProxyFpsFilter(proxyFps)},${alpha ? `${ALPHA_COLOR_BLEED},` : ""}scale=w='trunc(iw*min(1,min(${previewMaxEdge}/max(iw,ih),${previewShortEdge}/min(iw,ih)))/2)*2':h='trunc(ih*min(1,min(${previewMaxEdge}/max(iw,ih),${previewShortEdge}/min(iw,ih)))/2)*2'`, "-an", ...(alpha ? ["-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-auto-alt-ref", "0", "-b:v", "0", "-crf", "32", "-deadline", "realtime", "-cpu-used", "6"] : ["-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "veryfast", "-crf", previewMaxEdge >= 1920 ? "18" : "26", "-movflags", "+faststart"]), "-g", "30", preparationSourcePath(projectId, preview)]);
     }
@@ -104,10 +110,15 @@ export function prepareEditorMedia(projectId: string, record: PreparedMedia): Pr
     const ready: PreparedMedia = { ...record, preview_frame_rate: requestedFps, ...(render !== record.source ? { render_frame_rate: reusableRender ? (record.render_frame_rate ?? 30) : proxyFps } : {}), prepared_preview_quality: record.preview_quality ?? "prepared", state: "ready", error: undefined, source_hash: sourceHash, preview_hash: hash(preparationSourcePath(projectId, preview)), preview, render, audio, duration, alpha,
       preview_probe: { width: output.width, height: output.height, frame_rate: output.avg_frame_rate, frame_count: frameCount, duration_seconds: Number(result.format.duration) },
       color_management: colorManagement,
-      ...((record.color_management || record.render_color_management) && !colorManagement ? { render_color_management: record.color_management ?? record.render_color_management } : {}),
+      ...((record.color_management || record.render_color_management) && !colorManagement && !previewColorManagement ? { render_color_management: record.color_management ?? record.render_color_management } : {}),
     };
     delete ready.error;
     delete ready.stage;
+    if (previewColorManagement) {
+      ready.preview_color_management = previewColorManagement;
+      ready.render_authority = { state: "deferred" };
+      delete ready.render_color_management; delete ready.render_frame_rate;
+    } else { delete ready.preview_color_management; delete ready.render_authority; }
     // The full-resolution colour stage only fed this package; browsing keeps its small preview.
     if (ready.browse_preview) {
       const { color_stage: _stage, color_stage_hash: _stageHash, ...browse } = ready.browse_preview;
@@ -131,5 +142,53 @@ export function prepareEditorMedia(projectId: string, record: PreparedMedia): Pr
     const current = readPreparation(projectId, record.source);
     if (current && (current.preview_quality ?? "prepared") !== (record.preview_quality ?? "prepared")) return current;
     writePreparation(projectId, failed); return failed;
+  }
+}
+
+/** Bits per output pixel of the x264 CRF 12 code-value authority, measured on 4K HLG phone footage (~110 Mb/s at 30 fps), with margin. */
+const AUTHORITY_BITS_PER_PIXEL = 0.6;
+/** Free space left on the project volume after the authority, per the storage lifecycle contract. */
+const AUTHORITY_FREE_SPACE_RESERVE = 5 * 1024 ** 3;
+
+/**
+ * Make the full-resolution code-value authority an export asked for (`render_authority` "requested"), next to
+ * the package's existing proxy, and move `render` to it. Runs in the preparation worker.
+ */
+export function prepareRenderAuthority(projectId: string, record: PreparedMedia): PreparedMedia {
+  if (record.render_authority?.state !== "requested") return record;
+  if (record.state !== "ready" || !awaitsRenderAuthority(record) || !record.preview) {
+    // Nothing to make (the package changed under the request); clear it so the worker does not ask again.
+    const cleared = { ...record }; delete cleared.render_authority;
+    writePreparation(projectId, cleared);
+    return cleared;
+  }
+  const render = `${path.posix.dirname(record.preview)}/render.mov`;
+  const output = preparationSourcePath(projectId, render);
+  try {
+    const source = preparationSourcePath(projectId, record.source);
+    const fps = record.preview_frame_rate ?? 30;
+    const probeSource = record.preview_color_management!.source_probe;
+    const pixels = (probeSource.width ?? 3840) * (probeSource.height ?? 2160);
+    const estimate = Math.ceil((record.duration ?? probeSource.duration_seconds) * fps * pixels * AUTHORITY_BITS_PER_PIXEL / 8);
+    const volume = fs.statfsSync(path.dirname(output));
+    const available = volume.bavail * volume.bsize;
+    if (available - estimate < AUTHORITY_FREE_SPACE_RESERVE) throw new Error(`Not enough disk space for the full-quality copy: about ${Math.ceil(estimate / 1024 ** 3)} GB needed plus 5 GB free, ${Math.floor(available / 1024 ** 3)} GB available`);
+    const receipt = createColorManagedVideoPair({ fps, sourcePath: source, renderAuthorityPath: output, previewProxyPath: preparationSourcePath(projectId, record.preview), reusePreviewProxy: true,
+      previewWidth: record.preview_probe?.width ?? record.preview_color_management!.preview_dimensions.width, previewHeight: record.preview_probe?.height ?? record.preview_color_management!.preview_dimensions.height });
+    if (receipt.source_sha256 !== record.source_hash) throw new Error("Source changed during full-quality preparation");
+    const current = readPreparation(projectId, record.source);
+    // A newer package (another size, a replaced source) took over while this encoded; it asks again when exported.
+    if (!current || current.preview !== record.preview || current.source_hash !== record.source_hash || !awaitsRenderAuthority(current)) { fs.rmSync(output, { force: true }); return current ?? record; }
+    const ready: PreparedMedia = { ...current, render, render_frame_rate: fps, color_management: receipt };
+    delete ready.render_authority; delete ready.preview_color_management;
+    writePreparation(projectId, ready);
+    return ready;
+  } catch (error) {
+    fs.rmSync(output, { force: true });
+    const current = readPreparation(projectId, record.source);
+    if (!current || !awaitsRenderAuthority(current)) return current ?? record;
+    const failed: PreparedMedia = { ...current, render_authority: { state: "failed", error: error instanceof Error ? error.message : String(error) } };
+    writePreparation(projectId, failed);
+    return failed;
   }
 }

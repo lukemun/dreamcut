@@ -17,6 +17,6 @@ export async function GET(request: Request, { params }: Params) {
   const sourceUrl = new URL(request.url).searchParams.get("source_url") ?? "";
   const subject = motionSubjectFromSourceUrl(sourceUrl);
   if (subject?.kind !== "composition") return NextResponse.json({ error: "Not a motion graphic" }, { status: 400 });
-  const [item] = withMotionControls(projectId, [{ kind: "composition", id: subject.id, operation_index: 0, source_url: sourceUrl }]) ?? [];
+  const [item] = withMotionControls(projectId, [{ kind: "composition", id: subject.id, operation_index: 0, source_url: sourceUrl }], { carryToCurrentSource: true }) ?? [];
   return NextResponse.json(item);
 }

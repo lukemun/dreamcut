@@ -32,6 +32,30 @@ test("I420P10 packs limited-range BT.2020 YCbCr", () => {
   assert.equal(planes.length, w * h * 1.5);
 });
 
+test("I420P10 packing matches extendedToHlg pixel by pixel, including out-of-range and translucent values", () => {
+  const w = 64, h = 32, pixels = new Float32Array(w * h * 4);
+  let seed = 7;
+  const random = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
+  for (let i = 0; i < w * h; i += 1) {
+    const a = i % 9 === 0 ? 0 : i % 5 === 0 ? 0.5 : 1;
+    pixels.set([(random() * 4.4 - 1.2) * a, (random() * 4.4 - 1.2) * a, (random() * 4.4 - 1.2) * a, a], i * 4);
+  }
+  const planes = new Uint16Array(compositeToI420P10(pixels, w, h).buffer);
+  const KR = 0.2627, KB = 0.0593, KG = 1 - KR - KB, cb = new Float64Array(w * h / 4), cr = new Float64Array(w * h / 4);
+  for (let y = 0; y < h; y += 1) for (let x = 0; x < w; x += 1) {
+    const i = (y * w + x) * 4, a = pixels[i + 3]!, s = a > 0 ? 1 / a : 0;
+    const [R, G, B] = extendedToHlg(pixels[i]! * s, pixels[i + 1]! * s, pixels[i + 2]! * s);
+    const Y = KR * R + KG * G + KB * B, c = (y >> 1) * (w >> 1) + (x >> 1);
+    near(planes[y * w + x]!, Math.round(64 + 876 * Math.min(1, Math.max(0, Y))), 0, `luma ${x},${y}`);
+    cb[c]! += (B - Y) / (2 * (1 - KB));
+    cr[c]! += (R - Y) / (2 * (1 - KR));
+  }
+  for (let c = 0; c < cb.length; c += 1) {
+    near(planes[w * h + c]!, Math.round(512 + 896 * Math.min(0.5, Math.max(-0.5, cb[c]! / 4))), 1, `cb ${c}`);
+    near(planes[w * h * 1.25 + c]!, Math.round(512 + 896 * Math.min(0.5, Math.max(-0.5, cr[c]! / 4))), 1, `cr ${c}`);
+  }
+});
+
 test("VP9 profile 2 codec level follows frame size", () => {
   assert.equal(vp9Profile2Codec(1920, 1080, 30), "vp09.02.40.10");
   assert.equal(vp9Profile2Codec(3840, 2160, 30), "vp09.02.50.10");

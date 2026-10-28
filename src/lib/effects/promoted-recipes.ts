@@ -55,6 +55,15 @@ export const promotedRecipes: GuideEffect[] = [
     limitations: ['The overlay is a rendered motion graphic: words, timing and color are tuned on the proposal card before approval, not in the inspector afterwards.', 'Words use the letters A–Z, up to 12 letters each, up to four words.', 'The grid is drawn for a portrait 9:16 canvas.'],
   },
   {
+    id: 'FX-MOTION-SKETCH-3D', origin: 'shared', implementation: 'implemented',
+    title: '3D Sketch Scene', skill: 'motion-graphics',
+    description: 'Any 3D scene you can describe, drawn in ink as it builds, then flown through by the camera: a city, a forest, a product on a plinth, a logo, a map of your street.',
+    inputs: [], needs: ['What the scene shows, in words'],
+    brings: { step: 'Describe the scene', request: 'to draw [WHAT THE SCENE SHOWS]' },
+    prompt: 'Build a 3D Sketch Scene of [WHAT THE SCENE SHOWS], with the camera [FLYING THROUGH / CIRCLING / RISING OVER] it[, landing on WHAT OR WHEN]. Follow the 3D Sketch Scene template in the motion-graphics skill: write a scene.js for my subject from simple shapes (boxes, cylinders, cones, spheres, extruded outlines for logos and letters, ground grids, city and forest generators) and keep the shared engine unchanged. Expose Camera, Camera time, Build time, Density, Height, Wobble and Variation as the main dials, and Detail, Hold, Ink, Paper and Paper fill under Advanced; turn Paper fill off if it should lay over my footage. Propose it for me to review.',
+    limitations: ['Everything is built from simple shapes; imported 3D models and photos are not supported, and words are extruded outlines rather than typed text.', 'It draws as ink lines; Looks do not apply to it yet, so restyle it with Ink, Paper, Paper fill and Wobble.', 'Lines are one pixel wide at 1920 × 1080.'],
+  },
+  {
     id: 'FX-CLONE-FLASH', origin: 'shared', implementation: 'implemented',
     title: 'Clone Flash', skill: 'video-compositing',
     description: 'Copies of your subject from later in the same take appear beside them, each arriving with a white flash.',

@@ -17,7 +17,8 @@ import { readJsonFile, writeJsonFileAtomic } from "@/lib/local-store/atomic-json
 import { activeElements, activeTransitions, readMetadata, readTimeline } from "@/lib/local-store/store";
 import { newId } from "@/lib/local-store/store";
 import { readEnv } from "@/lib/env-name";
-import { sdrExportSources } from "./export-render-sources";
+import { deferredRenderAuthorities, sdrExportSources, sourcesAwaitingRenderAuthority } from "./export-render-sources";
+import { requestRenderAuthorities } from "./media-preparation";
 import { addToExportsFolder } from "./export-library";
 
 // Durable render-job registry standing in for the app's generation_jobs table.
@@ -56,6 +57,17 @@ function renderJobsDir(): string {
 function jobPath(jobId: string): string {
   if (!/^[A-Za-z0-9-]+$/.test(jobId)) throw new Error(`Invalid job id: ${jobId}`);
   return path.join(renderJobsDir(), `${jobId}.json`);
+}
+
+// A stop asked for by another editor process: the stable editor swaps to a fresh process after a rebuild,
+// and an export started before the swap keeps running in the old one, out of reach of the new one's memory.
+function stopRequestPath(jobId: string): string {
+  return jobPath(jobId).replace(/\.json$/, ".stop");
+}
+
+/** Whether some editor process has asked this export to stop. */
+export function renderStopRequested(jobId: string): boolean {
+  return fs.existsSync(stopRequestPath(jobId));
 }
 
 function persistJob(job: LocalRenderJob): void {
@@ -153,7 +165,10 @@ export function startRender(
   const timeline = readTimeline(projectId);
   const metadata = readMetadata(projectId);
   const active = activeElements(timeline);
-  const elements = options.backend === "gpu" ? sdrExportSources(projectId, active) : active;
+  const exportSources = () => { const resolved = deferredRenderAuthorities(projectId, active); return options.backend === "gpu" ? sdrExportSources(projectId, resolved) : resolved; };
+  // Durations do not depend on which file a clip renders from; the sources are resolved again once
+  // any deferred full-quality authorities exist.
+  let elements = exportSources();
   const transitions = activeTransitions(timeline);
   // Callers that predate the mute/hide split send only muted keys; hidden lanes then follow the project.
   const hiddenLaneKeys = options.hiddenLaneKeys ?? metadata.hidden_lane_keys;
@@ -193,6 +208,8 @@ export function startRender(
   persistJob(job);
   const controller = new AbortController();
   stops.set(job.id, { controller, job });
+  const stopWatch = setInterval(() => { if (!controller.signal.aborted && renderStopRequested(job.id)) stopRunning(job.id); }, 500);
+  stopWatch.unref?.();
 
   try {
     if (exportSharingEnabled()) createExportCheckpoint(projectId, job.id, { timeline, metadata, muted_lane_keys: mutedLaneKeys, hidden_lane_keys: hiddenLaneKeys, resolution: options.resolution ?? DEFAULT_EXPORT_RESOLUTION, trigger: "export" });
@@ -206,6 +223,11 @@ export function startRender(
   }
   void (async () => {
     try {
+      const awaiting = sourcesAwaitingRenderAuthority(projectId, active);
+      if (awaiting.length) {
+        await awaitRenderAuthorities(projectId, awaiting, controller.signal, (label) => { if (job.statusLabel !== label) { job.statusLabel = label; job.progress = undefined; persistJob(job); } });
+        elements = exportSources();
+      }
       const result = await traceOperation("render.export", () => renderProjectVideo({
         projectId,
         elements,
@@ -250,7 +272,9 @@ export function startRender(
         console.error("[render] job failed", job.error);
       }
     } finally {
+      clearInterval(stopWatch);
       stops.delete(job.id);
+      fs.rmSync(stopRequestPath(job.id), { force: true });
       persistJob(job);
     }
   })();
@@ -258,18 +282,44 @@ export function startRender(
   return { ok: true, job, alreadyInProgress: false };
 }
 
+/**
+ * Opaque HDR clips are placed from a fast proxy; their full-resolution code-value authority is made by the
+ * preparation worker the first time an export needs it. Wait for it here, before the renderer starts.
+ */
+async function awaitRenderAuthorities(projectId: string, sources: string[], signal: AbortSignal, onLabel: (label: string) => void) {
+  let status = requestRenderAuthorities(projectId, sources, true);
+  while (status.waiting.length || status.failed.length) {
+    if (status.failed.length) throw new Error(`Could not make the full-quality copy of ${status.failed.map(item => path.basename(item.source)).join(", ")}: ${status.failed[0]!.error}`);
+    if (signal.aborted) throw new Error("Export stopped");
+    onLabel(`Preparing full-quality source ${sources.length - status.waiting.length + 1} of ${sources.length}`);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    status = requestRenderAuthorities(projectId, status.waiting);
+  }
+}
+
 // Route handlers are bundled separately, each with its own copy of this module, so the exports
 // running in this server are kept where the stop route can reach them.
 const stopsKey = Symbol.for("dreamcut.render-job-stops");
 const stops = ((globalThis as typeof globalThis & { [stopsKey]?: Map<string, { controller: AbortController; job: LocalRenderJob }> })[stopsKey] ??= new Map());
 
-/** Stop a running export started by this server; false when it is not running here. */
-export function stopRender(jobId: string): boolean {
+function stopRunning(jobId: string): boolean {
   const running = stops.get(jobId);
   if (!running) return false;
   running.job.statusLabel = "Stopping";
   persistJob(running.job);
   running.controller.abort();
+  return true;
+}
+
+/**
+ * Stop a running export. One started by this process stops at once; one still running in another live
+ * editor process gets a stop request it picks up within a second. False when no such export is running.
+ */
+export function stopRender(jobId: string): boolean {
+  if (stopRunning(jobId)) return true;
+  const job = getJob(jobId);
+  if (!job || job.status !== "processing" || !job.pid || job.pid === process.pid || !processAlive(job.pid)) return false;
+  fs.writeFileSync(stopRequestPath(jobId), new Date().toISOString());
   return true;
 }
 

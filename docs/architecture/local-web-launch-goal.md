@@ -1,6 +1,7 @@
 # Goal: DreamCut runs from inside Claude Code and Codex on macOS and Windows
 
-Status: active goal, set 2026-10-11. Replaces the macOS-first desktop launch. Windows support is built from
+Status: superseded 2026-10-27 (DreamCut installs from its public GitHub repository; the npm launcher and its
+packaging were removed). Set 2026-10-11. Replaces the macOS-first desktop launch. Windows support is built from
 research now and verified on real hardware later (decided 2026-10-11): no VM or cloud testing in this goal. Design:
 [local web app, agent plugin and library contract](web-desktop-library-contract.md).
 
@@ -98,7 +99,7 @@ acceleration without CUDA. DirectML itself is in sustained engineering.
 - Never build Python paths as `venv/bin/python`; it is `Scripts\python.exe` on Windows.
 
 **Node itself:** the Claude Code native installer and the Codex app do not require Node. So either
-`npx dreamcut` needs Node installed (WinGet `OpenJS.NodeJS.LTS`, set up by the agent), or DreamCut ships
+running DreamCut needs Node installed (WinGet `OpenJS.NodeJS.LTS`, set up by the agent), or DreamCut ships
 as a self-contained executable. This is decided in milestone 2.
 
 ## Out of scope for this goal

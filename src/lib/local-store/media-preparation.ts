@@ -10,7 +10,7 @@ import { projectDir, projectMediaDir } from "./paths";
 import { readJsonFile, writeJsonFileAtomic } from "./atomic-json";
 import { forgetPreviewHydrationMemo, previewHydrationMemo, validatePreviewProxy } from "./preview-proxy-validation";
 import { findMediaReferences } from "./media-references";
-import type { ColorManagedVideoReceipt, HdrSourceEncoding } from "../../../scripts/lib/color-managed-video";
+import type { ColorManagedVideoReceipt, HdrCodePreviewReceipt, HdrSourceEncoding } from "../../../scripts/lib/color-managed-video";
 import { CURRENT_HDR_CODE_RECIPES } from "../media-analysis/color-profile";
 import { getCachedLufs } from "./audio-loudness";
 import type { HdrFrameDecode } from "./media-thumbnails";
@@ -53,6 +53,13 @@ export type PreparedMedia = {
   /** Frame rate a derived render authority (HDR to SDR) was resampled to. Absent means 30. */
   render_frame_rate?: number;
   color_management?: ColorManagedVideoReceipt;
+  /**
+   * Opaque HDR whose full-resolution authority is not made yet: the preview came straight from the source
+   * (this receipt), `render` names the original, and placement binds it with this `source_encoding`.
+   * Export asks for the authority (`render_authority` "requested"); the worker makes it and moves `render` to it.
+   */
+  preview_color_management?: HdrCodePreviewReceipt;
+  render_authority?: { state: "deferred" | "requested" | "failed"; error?: string; requested_at?: string };
   /** Optional analysis; unavailable loudness does not prevent using unchanged audio. */
   loudness?: { state: "ready" | "unavailable"; integrated_lufs?: number };
 };
@@ -97,12 +104,17 @@ export function writePreparation(projectId: string, record: PreparedMedia) {
  * prepared again around an existing authority keeps that authority's receipt as
  * `render_color_management`; it still describes the render, so binding and decoding read it too.
  */
-export function preparedSourceEncoding(record: Pick<PreparedMedia, "render" | "color_management" | "render_color_management"> | null | undefined): HdrSourceEncoding | null {
+export function preparedSourceEncoding(record: Pick<PreparedMedia, "render" | "color_management" | "render_color_management" | "source" | "render_authority" | "preview_color_management"> | null | undefined): HdrSourceEncoding | null {
+  if (awaitsRenderAuthority(record)) return record!.preview_color_management!.source_encoding;
   const receipt = record?.color_management ?? record?.render_color_management;
   if (!receipt?.source_encoding || !record?.render) return null;
   // Receipts name absolute paths; a project copied elsewhere still ends with the same relative path.
   if (receipt.render_authority_path && !receipt.render_authority_path.split(path.sep).join("/").endsWith(`/${record.render}`)) return null;
   return receipt.source_encoding;
+}
+/** Opaque HDR placed and previewed from its fast proxy; its full-resolution authority is made at export. */
+export function awaitsRenderAuthority(record: Pick<PreparedMedia, "render" | "source" | "render_authority" | "preview_color_management"> | null | undefined): boolean {
+  return !!record?.render_authority && !!record.preview_color_management?.source_encoding && record.render === record.source;
 }
 /** A ready HDR package made by a superseded recipe (tone-mapped to SDR at preparation, or an earlier
  * code-value build), so its picture cannot match current code-value footage of the same source. */
@@ -192,6 +204,25 @@ export function retireSupersededPreparation(projectId: string, ready: PreparedMe
   return result;
 }
 
+/**
+ * Ask the worker for the full-resolution authorities of these sources and return the ones still waiting.
+ * An export asks once with `retryFailed` (so an earlier failure is tried again), then polls until none wait.
+ */
+export function requestRenderAuthorities(projectId: string, sources: Iterable<string>, retryFailed = false): { waiting: string[]; failed: { source: string; error: string }[] } {
+  const waiting: string[] = [], failed: { source: string; error: string }[] = [];
+  let started = false;
+  for (const source of new Set(sources)) {
+    const record = readPreparationFromDisk(projectId, source);
+    if (!record || record.state !== "ready" || !awaitsRenderAuthority(record)) continue;
+    if (record.render_authority!.state === "failed" && !retryFailed) { failed.push({ source, error: record.render_authority!.error ?? "Full-quality preparation failed" }); continue; }
+    if (record.render_authority!.state !== "requested") {
+      writePreparation(projectId, { ...record, render_authority: { state: "requested", requested_at: new Date().toISOString() } });
+    }
+    waiting.push(source);
+    if (!started) { startPreparationWorker(projectId); started = true; }
+  }
+  return { waiting, failed };
+}
 export function startPreparationWorker(projectId: string) {
   if (process.env.MEDIA_PREPARATION_AUTOSTART === "0") return;
   // Once per project per hydrated read: the lock check and start are idempotent.

@@ -65,7 +65,7 @@ async function script(name: string, args: string[]) {
   } catch (cause) {
     const result = cause as { stderr?: string; message?: string };
     const detail = result.stderr?.match(/Error: ([^\n]+)/)?.[1];
-    error(detail ?? `Local caption processing failed. \`npx dreamcut doctor\` (source checkout: \`pnpm setup:check\`) shows which of FFmpeg, whisper-cli, MFA and their models are missing. ${result.message ?? ""}`);
+    error(detail ?? `Local caption processing failed. \`pnpm setup:check\` shows which of FFmpeg, whisper-cli, MFA and their models are missing. ${result.message ?? ""}`);
   }
 }
 

@@ -19,3 +19,15 @@ silently, nothing is published without the owner's explicit words, and the repor
 - **Verification:** Written walkthrough only: a "get 0.2.2 ready" request reads releasing, runs 1 to 3 and
   stops; "release it" adds release-publish; "will this install for a new user?" routes to install-check
   alone. The skill checks passed; no release was built or published.
+
+## 2026-10-27 — releasing is updating the public repository
+
+- **Observation:** The owner decided DreamCut installs from its public GitHub repository and retired the npm
+  launcher and runtime feed at 0.3.0: "release is going to be kind of retired because we're not doing the
+  NPM anymore. Release should just be we're updating the repo and we should just check everything we didn't
+  break anything and do a code review and make sure no secrets are in there."
+- **Decision:** This skill now checks a push to the public repository: `pnpm check:pr`, a code review with the
+  public-content review, and the private-file and secret scan, routing install and Windows changes to
+  install-check and windows-compatibility. `pnpm release`, its gate and `release-hold.json` were removed;
+  release-build and release-publish were retired.
+- **Verification:** The scan command and `pnpm check:pr` were run on the owner's Mac; no push was made.

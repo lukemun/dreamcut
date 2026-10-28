@@ -59,15 +59,21 @@ export function safeCompositionRelativePath(value: string, extensions: RegExp): 
   return normalized;
 }
 
+/**
+ * Validate a composition spec. A revision may send only the files that changed (or only assets);
+ * whether index.html must be among them depends on the composition existing, which
+ * `missingEntryProblem` checks against the project.
+ */
 export function parseCompositionSourceSpec(raw: unknown): CompositionSourceSpec {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw new Error("Composition spec must be an object");
   const spec = raw as Record<string, unknown>;
-  if (!Array.isArray(spec.files) || spec.files.length === 0 || spec.files.length > MAX_SOURCE_FILES) {
-    throw new Error(`files must list 1–${MAX_SOURCE_FILES} source files`);
+  const listed = spec.files === undefined ? [] : spec.files;
+  if (!Array.isArray(listed) || listed.length > MAX_SOURCE_FILES) {
+    throw new Error(`files must list at most ${MAX_SOURCE_FILES} source files`);
   }
   let bytes = 0;
   const seen = new Set<string>();
-  const files = spec.files.map((file) => {
+  const files = listed.map((file) => {
     const entry = file as Record<string, unknown>;
     if (typeof entry?.path !== "string" || typeof entry.text !== "string") throw new Error("Each file needs path and text");
     const relative = safeCompositionRelativePath(entry.path, ALLOWED_SOURCE_EXTENSION);
@@ -77,9 +83,9 @@ export function parseCompositionSourceSpec(raw: unknown): CompositionSourceSpec 
     return { path: relative, text: entry.text };
   });
   if (bytes > MAX_SOURCE_BYTES) throw new Error("Composition source files exceed 2 MB");
-  if (!seen.has("index.html")) throw new Error("files must include index.html");
   const assets = spec.assets === undefined ? [] : spec.assets;
   if (!Array.isArray(assets) || assets.length > MAX_SOURCE_FILES) throw new Error("assets must be a list");
+  if (files.length === 0 && assets.length === 0) throw new Error("files or assets must list at least one entry; omit both to re-render the existing source");
   return {
     files,
     assets: assets.map((asset) => {
@@ -96,7 +102,16 @@ export function parseCompositionSourceSpec(raw: unknown): CompositionSourceSpec 
  * Write the agent's source files and copy project media into assets/. Files the spec
  * does not mention are left unchanged; the source fingerprint records the result.
  */
+/** The refusal for a spec that would leave the composition without index.html, or null. */
+export function missingEntryProblem(projectId: string, compositionId: string, spec: CompositionSourceSpec): string | null {
+  if (spec.files.some((file) => file.path === "index.html")) return null;
+  if (fs.existsSync(path.join(projectHyperframesCompositionDir(projectId, compositionId), "index.html"))) return null;
+  return `files must include index.html: composition ${compositionId} does not exist yet. A revision may send only the files that changed.`;
+}
+
 export function writeCompositionSource(projectId: string, compositionId: string, spec: CompositionSourceSpec): string {
+  const missing = missingEntryProblem(projectId, compositionId, spec);
+  if (missing) throw new Error(missing);
   const directory = projectHyperframesCompositionDir(projectId, compositionId);
   fs.mkdirSync(directory, { recursive: true });
   for (const [name, content] of Object.entries(DEFAULT_PROJECT_FILES)) {

@@ -200,3 +200,24 @@ needs human preview approval; nothing here edits a timeline or approves a propos
   settle ran. The error text is kept as the job reported it, stack trace included; stripping it is the
   separate probe fix.
 
+
+## 2026-10-27 — A check that cannot find the duration says why
+
+- **Observation:** In one session `motion_graphic_prepare` failed with only "Could not determine composition duration — no layout samples run". HyperFrames' check does not report page errors, even with `--json`. The agent spent about a minute rerunning the check by hand and writing a Playwright probe to find the real error, `Cannot read properties of undefined (reading 'inks')` from the look bundle.
+- **Decision:** When the check fails that way, `hyperframes-overlay` loads the page once with `scripts/composition-object-probe.ts --errors` and appends the script errors it threw, or says the page threw none but never registered `window.__timelines.main` (`src/lib/hyperframes/check-failure.ts`). A failed probe leaves the original message.
+- **Verification:** `src/lib/hyperframes/check-failure.test.ts`; a disposable project whose page reads an unloaded look now fails with "The page threw before its "main" timeline was registered … reading 'LOOKS'".
+- **Limits:** Adds one page load (about 2 s) to that failure only. Errors after the timeline registers are still not reported.
+
+## 2026-10-27 — A revision sends only the files that changed
+
+- **Observation:** In one session the agent revised two fly-in pieces by sending only their changed controls files. Both `motion_graphic_prepare` calls were refused with "files must include index.html", though the tool says index.html is needed on first creation and files not listed are kept. The agent resent the unchanged page (about 40 s). Earlier it had pasted a 25 KB engine into four calls (about 80 s each) before moving the engine into a separate file.
+- **Decision:** `parseCompositionSourceSpec` no longer requires index.html; `missingEntryProblem` refuses a spec only when the composition has no index.html yet, in the prepare route (400) and in `writeCompositionSource`. An assets-only revision is accepted too; an empty spec is refused.
+- **Verification:** `src/lib/local-store/motion-proposal-flow.test.ts` ("a new composition needs index.html; a revision sends only the files that changed") fails on the old code and passes now.
+- **Limits:** A file's full text is still sent in the call; reading it from a local path is recorded as later work in the private project status.
+
+## 2026-10-27 — An object check that times out says why
+
+- **Observation:** In the same session a page that read its strokes with a synchronous XHR failed `motion_graphic_prepare` with only "Object check could not run: page.waitForFunction: Timeout 15000ms exceeded." The agent read the probe's source to learn that it opens the page from disk, where the request fails (about 1 minute).
+- **Decision:** `explainObjectProbeFailure` (`src/lib/hyperframes/check-failure.ts`) adds that the page did not register `main` within 15 s from disk and to load data with `<script src>`; `hyperframes-overlay` uses it for object-check failures.
+- **Verification:** `src/lib/hyperframes/check-failure.test.ts`.
+- **Limits:** It recognises Playwright's timeout text only; other probe failures keep their message.

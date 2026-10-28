@@ -5,7 +5,6 @@
  * DeepFilterNet3 model, about 400 MB in all.
  *
  *   pnpm setup:voice              a source checkout
- *   npx dreamcut setup-voice      an installed DreamCut
  *   node scripts/setup-voice.mjs --check   report only; installs nothing
  *
  * Uses uv when available (it fetches Python 3.11 itself), else Python 3.11. Safe to rerun: a working
@@ -68,10 +67,10 @@ function main() {
     const stale = [current, ...legacy].find(directory => directory !== ready && fs.existsSync(deepFilterIn(directory)));
     if (checkOnly) {
       if (ready && fs.existsSync(voiceModelCheckpoint())) console.log(`Voice enhancement is ready in ${ready}.`);
-      else if (ready) console.log(`Voice enhancement is installed in ${ready}; its model downloads on first use (\`npx dreamcut setup-voice\` fetches it now).`);
+      else if (ready) console.log(`Voice enhancement is installed in ${ready}; its model downloads on first use (\`pnpm setup:voice\` fetches it now).`);
       else console.log(stale
-        ? `Voice enhancement in ${stale} cannot start (its folder was moved or renamed). Run \`npx dreamcut setup-voice\` (source checkout: \`pnpm setup:voice\`) to reinstall it.`
-        : 'Voice enhancement is not installed. Run `npx dreamcut setup-voice` (source checkout: `pnpm setup:voice`) to add it (about 400 MB).');
+        ? `Voice enhancement in ${stale} cannot start (its folder was moved or renamed). Run \`pnpm setup:voice\` to reinstall it.`
+        : 'Voice enhancement is not installed. Run `pnpm setup:voice` to add it (about 400 MB).');
       process.exit(ready ? 0 : 1);
     }
     if (!ready) {

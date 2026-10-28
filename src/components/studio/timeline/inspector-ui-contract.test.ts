@@ -516,8 +516,9 @@ test("proposal choices use number keys to check options and R to play the checke
   assert.ok(proposalsPanel.includes('aria-keyshortcuts={keyboardShortcut ?? undefined}'));
   assert.ok(proposalsPanel.includes('!bindingMatches(event, shortcuts.reviewPlay) || !reviewActive || busy != null'));
   assert.ok(proposalsPanel.includes('if (selectedBatch.length === 0) return;'));
-  assert.ok(proposalsPanel.includes("playSelected();"));
-  assert.ok(proposalsPanel.includes("else if (selections.length > 1) onPlayBatch(selections);"));
+  // R on a ticked card replays the set from that card's change, like the card's own Replay.
+  assert.ok(proposalsPanel.includes("playSelected(keyTargetTicked ? details[keyTarget.proposalId]?.review.find((option) => option.option_id === keyTarget.optionId) : undefined);"));
+  assert.ok(proposalsPanel.includes("else if (selections.length > 1) onPlayBatch(selections, focus);"));
   // A preview of the ticked edits follows the ticks instead of ending when one is unticked.
   assert.ok(proposalsPanel.includes("if (!activePreview) return;"));
   assert.ok(proposalsPanel.includes("if (adding) followSelection.current = true;"));
@@ -588,7 +589,7 @@ test("proposal review slides independently while its temporary preview stays mou
 test("proposal preview status stays in its option and existing Review control", () => {
   assert.ok(!timelineStep.includes("Playing “${proposalPreviewSelection.optionLabel}”"));
   assert.ok(proposalsPanel.includes('<PlayIcon aria-hidden="true"') && !proposalsPanel.includes('RotateCcwIcon'));
-  assert.ok(proposalsPanel.includes('selectedOptions?.[entry.proposal_id] === option.option_id) { playSelected(); return; }'));
+  assert.ok(proposalsPanel.includes('selectedOptions?.[entry.proposal_id] === option.option_id) { playSelected(option); return; }'));
   assert.ok(proposalsPanel.includes('selectionForPlayedOption(entries ?? [], details, current, entry.proposal_id, option.option_id));\n                          playKeyboardOption(entry.proposal_id, option);'));
   assert.ok(proposalsPanel.includes("Back to live"));
   assert.ok(!proposalsPanel.includes('B switches Live / Proposal. R replays the selected side.'));

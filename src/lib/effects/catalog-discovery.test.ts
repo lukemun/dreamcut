@@ -35,4 +35,6 @@ test('visible catalog offers only looks and effects, excluding graphic builders'
  assert.equal(isCatalogEntry({...effect,kind:undefined,skill:'mask-glitch'}),true);
  assert.equal(isCatalogEntry({...effect,kind:undefined,brings:{step:'Your words',request:'make a chart'}}),false);
  assert.equal(isCatalogEntry({...effect,kind:undefined,id:'FX-WORD-SEARCH-TRACE'}),true);
+ // 3D Sketch Scene is a graphic builder the owner listed under Effects; it keeps its own first step.
+ assert.equal(isCatalogEntry({...effect,kind:undefined,origin:'shared',id:'FX-MOTION-SKETCH-3D',brings:{step:'Describe the scene',request:'to draw a city'}}),true);
 });

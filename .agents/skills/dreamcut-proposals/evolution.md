@@ -177,4 +177,21 @@ Skill-purpose and catalog checks passed (2 tests); documentation whitespace chec
 - **Observation:** The Proof-look session retro (`docs/audits/2026-10-27-proof-look-walking-man-retro.md`, git-ignored) found the agent had read this skill, which says to use `proposal_work_record`, and never called it; the session left no phase data.
 - **Decision:** Code, not instruction: `proposal_create` and `motion_graphic_prepare` open and close their own proposal-work spans in the MCP server (`mcp/proposal-work-auto.mjs`, `docs/tools/evolution/proposal-authoring.md`). The skill's "Track proposal work" section now says so and keeps asking for the agent's own preparation, composition and verification marks, which the server cannot see.
 - **Verification:** `mcp/proposal-work-auto.test.mjs`; `mcp/product-signals.test.mjs` for the live dispatch. Instruction change not yet measured on fresh agent runs.
+ 
+## 2026-10-27 — Running one step on 3129 while 3123 is behind
 
+- **Observation:** In one session the agent fixed a look bug, found 3123 behind, failed to start its own 3129 (another session's dev server held the port) and then grepped `mcp/server.mjs` for the route to POST `motion_graphic_prepare`'s body to 3129 by hand, about 30 s of rediscovery. AGENTS.md says to use 3129 for that step but not how, while the MCP tools stay pinned to 3123.
+- **Decision:** Updated. The skill names the sanctioned route: POST the tool handler's route on 3129 with the same body, record it with `capability_gap_report`, and return to the MCP tools. MCP calls following 3129 on their own is recorded as later work in the private project status.
+- **Verification:** Instruction only; not yet measured on a fresh run.
+
+## 2026-10-27 — An approved card is done
+
+- **Observation:** On the DreamCut tutorial the agent kept previewing and frame-rendering an intro-title card after the creator had approved it, and once drafted a full replacement card that collided with the titles that card had already placed. The creator: "if the user accepts something, then we should be done with it."
+- **Decision:** Updated. Step 9: read the card's status with `proposal_list` before previewing, verifying or revising it; an approved card is never re-reviewed, and follow-up changes patch what it created.
+- **Verification:** Instruction only; not yet measured on a fresh run.
+
+## 2026-10-27 — Place from open_space_find first
+
+- **Observation:** On the DreamCut tutorial the agent read step 5 but placed the intro titles by trial: eight `proposal_create` calls refused because the text ran off the frame (02:06–02:18), then code reading in `captions.ts` for the text box size. The instruction to place from `open_space_find` sat mid-paragraph and the tool was never called.
+- **Decision:** Updated. Step 5's placement rule now has its own lead: call `open_space_find` (with the text) before placing any visual, and do not find room by trial cards. The relation-overlap refusal also points at it (see `docs/tools/evolution/proposal-authoring.md`).
+- **Verification:** Instruction and message only; not yet run by a fresh agent.

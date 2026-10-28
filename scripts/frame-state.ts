@@ -24,7 +24,8 @@ import sharp from "sharp";
 import { colorScopeStats } from "@/lib/color/scopes";
 
 import { activeElements, activeTransitions, readMetadata, readTimeline } from "@/lib/local-store/store";
-import { previewEditorAgentProposal, editorAgentProposalSchema } from "@/lib/agent/timeline-editor-agent-apply";
+import { previewEditorAgentProposal } from "@/lib/agent/timeline-editor-agent-apply";
+import { parseProposalFile } from "@/lib/agent/proposal-file";
 import { buildCompositionElements, getCompositionDimensions } from "@/lib/render/composition-adapters";
 import { absolutizeMediaUrls } from "@/lib/render/pipeline";
 import { buildTimelineTransitionLayout } from "@/lib/timeline/transitions";
@@ -67,14 +68,14 @@ async function main() {
   const startedAt = new Date();
   const projectId = process.argv[2];
   if (!projectId || projectId.startsWith("--")) {
-    throw new Error("usage: pnpm frame-state <projectId> [--at 1.5,8,12.5] [--expect-gap captionId:visualId:minPx:maxPx] [--base http://127.0.0.1:3123]");
+    throw new Error("usage: pnpm frame-state <projectId> [--at 1.5,8,12.5] [--proposal-file <proposal or proposals/<id>.json> [--option <id>]] [--expect-gap captionId:visualId:minPx:maxPx] [--base http://127.0.0.1:3123]");
   }
   const base = flag("--base") ?? process.env.TIMELINE_EDITOR_BASE_URL ?? "http://127.0.0.1:3123";
   const gapExpectation = parseGapExpectation(flag("--expect-gap"));
 
   const proposalFile = flag("--proposal-file");
   const proposalSha256 = proposalFile ? await evidenceFileHash(proposalFile) : undefined;
-  const proposal = proposalFile ? editorAgentProposalSchema.parse(JSON.parse(readFileSync(proposalFile, "utf8"))) : null;
+  const proposal = proposalFile ? parseProposalFile(JSON.parse(readFileSync(proposalFile, "utf8"))) : null;
   const evidenceStamp = await timelineEvidenceStamp(projectId, proposal);
   if (proposal && proposal.project_id !== projectId) throw new Error("Proposal project does not match requested project");
   const preview = proposal ? previewEditorAgentProposal(proposal, flag("--option")) : null;

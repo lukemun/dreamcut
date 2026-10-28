@@ -466,7 +466,7 @@ export function voiceEnhancerInstall(
 }
 
 /** The one command that installs or repairs voice enhancement (scripts/setup-voice.mjs) in either kind of install. */
-export const VOICE_SETUP_COMMAND = "Run `npx dreamcut setup-voice` (in a DreamCut source checkout: `pnpm setup:voice`), then try again.";
+export const VOICE_SETUP_COMMAND = "Run `pnpm setup:voice` in your DreamCut folder, then try again.";
 
 export function voiceEnhancerInstallProblem(install: VoiceEnhancerInstall): string | null {
   if (install.status === "ready") return null;

@@ -13,7 +13,9 @@ import { resolveVideoPlaybackSource } from "@/lib/remotion/video-preview-source"
 import { useId, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import { timelineMaxZoom, MIN_ZOOM_LEVEL } from "./adapters";
-import { clamp, resolveLaneHeightAnchoredScrollTop } from "./canvas-helpers";
+import { currentFrameRate } from "@/lib/timeline/frame-rate-scope";
+
+import { clamp, resolveLaneHeightAnchoredScrollTop, snapPlayheadToElements } from "./canvas-helpers";
 import { drawTimelineRuler, drawTimelineScene } from "./draw-timeline-scene";
 import { TimelineContextMenu } from "./TimelineContextMenu";
 import {
@@ -762,15 +764,19 @@ export function CanvasTimeline({
   }, []);
 
   const seekFromClientX = useCallback(
-    (clientX: number) => {
+    (clientX: number, snap: boolean) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const x = clientX - rect.left;
       const seconds = clamp(renderedScrollSec + (x - sidebarWidth) / pxPerSec, 0, totalDuration);
-      onSeek(seconds);
+      const snapped = snap ? snapPlayheadToElements(seconds, pxPerSec, elements) : { seconds, snapLine: null };
+      setSnapGuide(snapped.snapLine == null ? null : { sec: snapped.snapLine, kind: "primary" });
+      // Only a snapped playhead parks between frames, exactly on the edit it snapped to.
+      const fps = currentFrameRate();
+      onSeek(snapped.snapLine == null ? Math.round(snapped.seconds * fps) / fps : snapped.seconds);
     },
-    [onSeek, pxPerSec, renderedScrollSec, totalDuration],
+    [elements, onSeek, pxPerSec, renderedScrollSec, totalDuration],
   );
 
   // A committed zoom (or a toolbar change) becomes the new base for the next wheel gesture.

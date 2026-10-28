@@ -1,4 +1,4 @@
-import { spawn, type ChildProcess } from "node:child_process";
+import { execFileSync, spawn, type ChildProcess } from "node:child_process";
 import fs from "node:fs";
 import type http from "node:http";
 import net from "node:net";
@@ -129,6 +129,49 @@ export function startServer(root: string, slot: string, port: number, mode: stri
   if (server.pid) claimSlot(root, key, slot, server.pid);
   server.once("exit", () => releaseSlot(root, key));
   return server;
+}
+
+/** Every process's parent, or null when the process table cannot be read. */
+function parentPids(): Map<number, number> | null {
+  try {
+    const table = process.platform === "win32"
+      ? execFileSync("powershell.exe", ["-NoProfile", "-Command", "Get-CimInstance Win32_Process | ForEach-Object { \"$($_.ProcessId) $($_.ParentProcessId)\" }"], { encoding: "utf8" })
+      : execFileSync("ps", ["-A", "-o", "pid=,ppid="], { encoding: "utf8" });
+    const parents = new Map<number, number>();
+    for (const line of table.split("\n")) {
+      const [pid, ppid] = line.trim().split(/\s+/).map(Number);
+      if (pid && ppid !== undefined && Number.isFinite(ppid)) parents.set(pid, ppid);
+    }
+    return parents;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Ids of the exports still running inside the server whose wrapper process is `serverPid`. Render jobs run
+ * in the Next process under that wrapper (src/lib/local-store/render-jobs.ts records its pid), so a server
+ * handing over to a new build must outlive them. When the process table is unreadable every live export
+ * counts, which only keeps an old server around longer.
+ */
+export function rendersRunningUnder(jobsDir: string, serverPid: number): string[] {
+  let names: string[];
+  try { names = fs.readdirSync(jobsDir).filter((name) => name.endsWith(".json")); } catch { return []; }
+  const live = names.flatMap((name) => {
+    try {
+      const job = JSON.parse(fs.readFileSync(path.join(jobsDir, name), "utf8")) as { id?: unknown; status?: unknown; pid?: unknown };
+      return job.status === "processing" && typeof job.id === "string" && typeof job.pid === "number" && alive(job.pid) ? [{ id: job.id, pid: job.pid }] : [];
+    } catch {
+      return [];
+    }
+  });
+  if (!live.length) return [];
+  const parents = parentPids();
+  const under = (pid: number) => {
+    for (let at: number | undefined = pid, hops = 0; at && hops < 64; at = parents?.get(at), hops += 1) if (at === serverPid) return true;
+    return false;
+  };
+  return live.filter((job) => !parents || under(job.pid)).map((job) => job.id);
 }
 
 const STATIC_PREFIX = "/_next/static/";

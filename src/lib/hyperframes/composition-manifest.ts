@@ -107,6 +107,8 @@ const WORLD_LAYERS = new Set(["stage", "front"]);
 const TEMPLATE_WORLD_LAYERS: Readonly<Record<string, ReadonlySet<string>>> = {
   "sketch-3d": new Set(["plan", "streets", "buildings"]),
 };
+/** The one layer of a split Template that carries its backdrop; every other piece stays transparent over it. */
+const TEMPLATE_BACKDROP_LAYER: Readonly<Record<string, string>> = { "sketch-3d": "plan" };
 export function isWorldLayer(manifest: CompositionManifest | null, values: ManifestValues | null): boolean {
   const layer = templateLayer(manifest, values);
   if (!layer || !manifest?.template) return false;
@@ -364,7 +366,10 @@ export function canvasSizeForValues(manifest: CompositionManifest, values: Manif
 
 /** True when this value set fills the frame on purpose, so an opaque render is not an alpha failure. */
 export function rendersOpaque(manifest: CompositionManifest | null, values: ManifestValues | null): boolean {
-  return Boolean(manifest?.opaque_control && values?.[manifest.opaque_control] === true);
+  if (!manifest?.opaque_control || values?.[manifest.opaque_control] !== true) return false;
+  const backdropLayer = manifest.template ? TEMPLATE_BACKDROP_LAYER[manifest.template] : undefined;
+  const layer = templateLayer(manifest, values);
+  return !backdropLayer || layer === null || layer === "all" || layer === backdropLayer;
 }
 
 /** Rewrite the composition root's data-width/data-height in the render copy. */

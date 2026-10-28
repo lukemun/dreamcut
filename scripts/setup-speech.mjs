@@ -6,7 +6,6 @@
  * from the system's package managers; this names the command for each one that is missing.
  *
  *   pnpm setup:speech             a source checkout
- *   npx dreamcut setup-speech     an installed DreamCut
  *
  * The paths and environment overrides match scripts/transcribe.ts, scripts/align.ts and preparation-jobs.ts.
  * Safe to rerun: verified models are kept.

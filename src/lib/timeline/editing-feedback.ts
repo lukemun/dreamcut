@@ -63,6 +63,27 @@ export function feedbackCoverage(events: Event[], proposals: Proposal[]) {
   };
 }
 
+/**
+ * The closeout view `editing_feedback_check` returns. Unaccounted directions come in full; the
+ * accounted ones are one line each with what accounts for them (proposal ids and states, a count of
+ * history changes, a disposition), newest first. The full projection grew past 90,000 characters on a
+ * project with 60 directions, more than an agent's tool result holds (retro 2026-10-27, session d74818b1).
+ */
+export function feedbackCheck(coverage: ReturnType<typeof feedbackCoverage>) {
+  const newestFirst = [...coverage.directions].sort((a, b) => b.time.localeCompare(a.time) || a.id.localeCompare(b.id));
+  return {
+    unaccounted_feedback_ids: coverage.unaccounted_feedback_ids,
+    unaccounted: newestFirst.filter(direction => !direction.accounted_for),
+    accounted: newestFirst.filter(direction => direction.accounted_for).map(direction => ({
+      id: direction.id, time: direction.time, direction: requestLine(direction.direction), session_id: direction.session_id,
+      ...(direction.disposition ? { disposition: direction.disposition } : {}),
+      ...(direction.proposals.length ? { proposals: direction.proposals.map(proposal => `${proposal.id} ${proposal.status}`) } : {}),
+      ...(direction.changes.length ? { changes: direction.changes.length } : {}),
+    })),
+    limitation: coverage.limitation,
+  };
+}
+
 /** One line of a recorded direction for a quiet queue row: first line, collapsed spaces, capped. */
 export function requestLine(direction: string, max = 140) {
   // Quoted user words read as the request itself; drop the wrapping quote marks.

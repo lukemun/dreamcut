@@ -30,6 +30,14 @@ export function shouldSyncPlayheadUi({
 }
 
 /**
+ * The playhead may park between frames, on a cut that a snap put it on. The Player
+ * reports whole frames, so keep that exact time while the Player still shows its frame.
+ */
+export function playheadSecForPlayerFrame(currentSec: number, frame: number, fps: number) {
+  return Math.round(currentSec * fps) === frame ? currentSec : frame / fps;
+}
+
+/**
  * A timing edit can replace a waiting media owner before it emits its matching
  * `resume`. If the Player frame advances anyway, that wait is stale and must
  * not leave the editor showing an endless buffering state.
@@ -64,7 +72,7 @@ type UseTimelinePlaybackControllerArgs = {
   playerInstance: PlayerRef | null;
   durationInFrames: number;
   selectedBeat: BeatRange;
-  setPlayheadSec: (seconds: number) => void;
+  setPlayheadSec: React.Dispatch<React.SetStateAction<number>>;
   undo: () => void | Promise<void>;
   redo: () => void | Promise<void>;
   /** A review surface can own R for replaying its selected proposal. */
@@ -122,8 +130,9 @@ export function useTimelinePlaybackController({
       lastPlayheadUiSyncMsRef.current = nowMs;
       // Routine editor telemetry can yield to picture presentation and input.
       // Explicit seeks/stops remain urgent; the Player keeps the exact clock.
-      if (force) setPlayheadSec(frame / currentFrameRate());
-      else startTransition(() => setPlayheadSec(frame / currentFrameRate()));
+      const sync = () => setPlayheadSec((current) => playheadSecForPlayerFrame(current, frame, currentFrameRate()));
+      if (force) sync();
+      else startTransition(sync);
     };
     const finishAuditionPlayback = () => {
       const auditionRange = auditionRangeRef.current;

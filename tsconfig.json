@@ -103,7 +103,9 @@
     ".next-blocks/types/**/*.ts",
     ".next-blocks/dev/types/**/*.ts",
     ".next-retro/types/**/*.ts",
-    ".next-retro/dev/types/**/*.ts"
+    ".next-retro/dev/types/**/*.ts",
+    ".next-sketch/types/**/*.ts",
+    ".next-sketch/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

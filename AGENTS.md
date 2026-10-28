@@ -56,6 +56,7 @@ shared contracts live in `docs/standards/`.
 | Several requested changes at once (the default routine) | [working-through-requests](.agents/skills/working-through-requests/SKILL.md): one to three cards per pass |
 | Interpret several requests, marks or dependent edits | [editorial-intent-planning](.agents/skills/editorial-intent-planning/SKILL.md) before proposing |
 | Build a new edit | [editorial-assembly](.agents/skills/editorial-assembly/SKILL.md) |
+| Edit a supplied screen recording, with or without a presenter take, into a tutorial or walkthrough | [product-walkthrough](.agents/skills/product-walkthrough/SKILL.md), with editorial-assembly for a new build |
 | Storyboard or break up supplied footage into beats | [storyboard-drafting](.agents/skills/storyboard-drafting/SKILL.md) |
 | Recreate a reference video with other people (recast) | [video-recast](.agents/skills/video-recast/SKILL.md) |
 | Correct or restyle a clip's colour | [color-grading](.agents/skills/color-grading/SKILL.md), with dreamcut-proposals |
@@ -71,7 +72,7 @@ shared contracts live in `docs/standards/`.
 | Retro an agent session ("retro this") | [session-retro](.agents/skills/session-retro/SKILL.md) |
 | Write shared instructions | [prompt-authoring](.agents/skills/prompt-authoring/SKILL.md); use [skill-authoring](.agents/skills/skill-authoring/SKILL.md) for skills |
 | Record published research | [research-deliverable](.agents/skills/research-deliverable/SKILL.md) |
-| Prepare, check or ship a release; check a new user's install | [releasing](.agents/skills/releasing/SKILL.md) (publishing only when the owner says to release) |
+| Update the public repository (checks, code review, secret scan); check a new user's install | [releasing](.agents/skills/releasing/SKILL.md) (pushing only when the owner says to) |
 | Deliver an explicitly requested export | [platform-video-delivery](.agents/skills/platform-video-delivery/SKILL.md) |
 
 For editor UI changes, including small styling fixes, read
@@ -375,8 +376,9 @@ the conversation:
 - Never wait on the stable editor's rebuild. When project work needs changed editor code
   and `pnpm editor:status` says 3123 is behind, use `pnpm dev` (3129) for that step until
   3123 catches up (owner, 2026-10-27).
-- Release only on the owner's word: never change the `package.json` version, edit
-  `packaging/release-hold.json` or run `pnpm release` or a publish script otherwise.
+- Update the public repository only on the owner's word, after the [releasing](.agents/skills/releasing/SKILL.md)
+  checks. Never change the `package.json` version otherwise. The npm launcher and runtime feed stay at 0.3.0 and
+  their packaging was removed (owner, 2026-10-27).
 - Feature freeze since 2026-10-24: take bug fixes, UX audits, polish and release work;
   propose a new capability as later work instead of building it, unless the owner asks
   for that change.

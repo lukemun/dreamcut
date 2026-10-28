@@ -108,7 +108,6 @@ import {
   type ColorGradeField,
 } from "@/lib/timeline/color-grade";
 import {
-  readMaskInsetProps,
   readMediaEffectProps,
   readMediaTransformProps,
 } from "@/lib/timeline/media-transform";
@@ -879,7 +878,7 @@ export const editorAgentCreateVisualSchema = z.object({
     ctx.addIssue({ code: "custom", path: ["source_duration_seconds"], message: "video clips require a complete source window" });
   }
   if (create.type === "video_clip" && create.duration_seconds !== undefined) {
-    ctx.addIssue({ code: "custom", path: ["duration_seconds"], message: "video duration is derived from its source window" });
+    ctx.addIssue({ code: "custom", path: ["duration_seconds"], message: "video duration is derived from its source window; omit duration_seconds and set source_start_seconds and source_end_seconds (with source_duration_seconds) instead" });
   }
   if (create.speech_sync && create.playback_rate !== undefined) {
     ctx.addIssue({ code: "custom", path: ["playback_rate"], message: "speech-synchronized visuals derive playback rate from their speech source" });
@@ -1927,7 +1926,8 @@ function validateOperationAgainstElement(
     const captionPan = element.type === "caption_text" && Object.keys(transitionPoints).every(field => field === "media_offset_x");
     if (!VISUAL_TYPES.has(element.type) && !captionPan) throw new Error("Transition keyframes require a visual clip; captions support horizontal motion only");
     const duration = operation.patch?.duration ?? element.duration;
-    if (Object.values(transitionPoints).some(points => points?.some(point => point.t > duration))) throw new Error("Transition keyframes must fit within the clip duration");
+    // A microsecond of slack: clip lengths carry float noise (24.19999999999999 for 24.2), and a key at the end is valid.
+    if (Object.values(transitionPoints).some(points => points?.some(point => point.t > duration + 1e-6))) throw new Error("Transition keyframes must fit within the clip duration");
   }
   const reverse = operation.props?.playback_reverse;
   if (reverse !== undefined) {
@@ -1983,13 +1983,6 @@ function validateOperationAgainstElement(
     }
     if (operationProps?.mask_inset !== undefined) {
       throw new Error("Use the first mask keyframe to set the starting mask");
-    }
-    const current = readMaskInsetProps(element.props);
-    const initial = [current.top, current.right, current.bottom, current.left];
-    // Opening an existing crop back to the complete image is bounded by zero.
-    // Retain the change cap when hiding additional source pixels.
-    if (maskPoints.some((point) => point.v.some((value, edge) => value - initial[edge]! > 0.5))) {
-      throw new Error("mask_inset keyframe increases cropping beyond the per-edge delta cap of 0.5");
     }
   }
   if (propKeys.some((key) => CAPTION_ONLY_PROPS.has(key)) && element.type !== "caption_text") {
@@ -2095,7 +2088,6 @@ function validateOperationAgainstElement(
   }
 
   const currentTransform = readMediaTransformProps(element.props);
-  const currentMask = readMaskInsetProps(element.props);
   const currentEffect = readMediaEffectProps(element.props);
   const currentProps = { ...(element.props ?? {}) } as Record<string, unknown>;
   const propDeltaCaps: Record<string, [unknown, number]> = {
@@ -2116,13 +2108,8 @@ function validateOperationAgainstElement(
     if (isSupportedProposalControl("props", field, value)) continue;
     if (value !== undefined && numericDelta(current, value) > cap) throw new Error(`${field} change exceeds the per-operation delta cap of ${cap}`);
   }
-  const proposedMask = operationProps?.mask_inset;
-  if (Array.isArray(proposedMask)) {
-    const current = [currentMask.top, currentMask.right, currentMask.bottom, currentMask.left];
-    if (proposedMask.some((value: unknown, index: number) => typeof value === "number" && Math.abs(value - current[index]!) > 0.5)) {
-      throw new Error("mask_inset change exceeds the per-edge delta cap of 0.5");
-    }
-  }
+  // Crop edges are bounded per edge by the schema and judged in the card preview. No change cap: a
+  // corner bubble moves edges past half the frame, and any window minimum breaks the edge dials' ends.
 }
 
 type SpeechVisualReceipt = {
@@ -2388,8 +2375,9 @@ function validateOperationAgainstTimeline(operation: EditorAgentOperation, timel
       && operation.create_visual.effect_role !== "active_camouflage_subject_overlay"
     ) {
       throw new Error(
-        "Overlapping authored visuals require separate registered visual lanes; lane_index does not create "
-        + "a compositing lane.",
+        `Overlapping authored visuals require separate registered visual lanes; lane_index does not create `
+        + `a compositing lane. "${operation.create_visual.lane_key}" already has a visual at that time: put this one on a `
+        + `visual_N lane key no visual uses then, and add that key to the set_lane_order operation when the card sets lane order.`,
       );
     }
     const isAuthoredVideoEffect = operation.create_visual.type === "video_clip"
@@ -2498,7 +2486,9 @@ function validateOperationAgainstTimeline(operation: EditorAgentOperation, timel
       cut.source_start_seconds < sourceIn + frameInSource - 1e-6
       || cut.source_end_seconds > sourceOut - frameInSource + 1e-6
     ) {
-      throw new Error("Source-range cut must leave at least one complete frame on both sides");
+      const earliest = Math.ceil((sourceIn + frameInSource) * 1e4) / 1e4;
+      const latest = Math.floor((sourceOut - frameInSource) * 1e4) / 1e4;
+      throw new Error(`Source-range cut must leave at least one complete frame on both sides: on ${element.id} cut between source ${earliest} s and ${latest} s, or target the neighbouring clip`);
     }
     const cutStart = Math.round((element.timeline_start + (cut.source_start_seconds - sourceIn) / rate) * currentFrameRate()) / currentFrameRate();
     const cutEnd = Math.round((element.timeline_start + (cut.source_end_seconds - sourceIn) / rate) * currentFrameRate()) / currentFrameRate();
@@ -3088,7 +3078,7 @@ function createVisualElement(
     }
   }
   if (create.transition_keyframes) {
-    if (Object.values(create.transition_keyframes).some(points => points?.some(point => point.t > duration))) throw new Error("Transition keyframes must fit within the clip duration");
+    if (Object.values(create.transition_keyframes).some(points => points?.some(point => point.t > duration + 1e-6))) throw new Error("Transition keyframes must fit within the clip duration");
     baseProps.keyframes = { ...((baseProps.keyframes ?? {}) as Record<string, unknown>), ...create.transition_keyframes };
   }
   if (create.mask_inset_keyframes) {

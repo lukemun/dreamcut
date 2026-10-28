@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   proposalPlaybackLeadInSeconds,
   resolveAuditionPlaybackRange,
+  resolveFocusedProposalPlaybackRange,
   resolveLaneOrderPlaybackRange,
   resolveProposalPlaybackRange,
 } from "@/lib/timeline/audition-playback";
@@ -271,4 +272,38 @@ test("explicit proposal context previews the full sequence and clamps to its end
   assert.deepEqual(resolveProposalPlaybackRange(["flash"], draft, draft, review), { startSeconds: 6.4, endSeconds: 12.8 });
   assert.equal(proposalPlaybackLeadInSeconds(review), 0);
   assert.deepEqual(resolveProposalPlaybackRange(["flash"], draft, draft, { ...review, preview_range: { start_seconds: 6.4, end_seconds: 90 } }), { startSeconds: 6.4, endSeconds: 12.8 });
+});
+
+// A zoom card on a long screen-recording clip: crop for the whole clip, a zoom that moves 12.69 s in.
+const screen = { id: "screen", type: "video_clip", timeline_start: 17.07, duration: 24.87, removed_at: null, props: {} };
+const zoomed = { ...screen, props: {
+  mask_inset: [0.08, 0.227, 0.08, 0.021],
+  keyframes: { media_offset_x: [
+    { t: 0, v: -0.206 }, { t: 12.69, v: -0.208 }, { t: 12.92, v: -0.22 }, { t: 14, v: -0.7 }, { t: 20, v: -0.2 },
+  ] },
+} };
+
+test("a keyframed change on a long clip plays from where its motion starts, not the clip start", () => {
+  assert.deepEqual(resolveProposalPlaybackRange(["screen"], [zoomed], [screen]), {
+    startSeconds: 17.07 + 12.69, endSeconds: 17.07 + 24.87,
+  });
+  // A track that moves at once still starts at the clip.
+  const atOnce = { ...screen, props: { keyframes: { media_scale: [{ t: 0, v: 1 }, { t: 2.5, v: 1.4 }] } } };
+  assert.equal(resolveProposalPlaybackRange(["screen"], [atOnce], [screen])?.startSeconds, 17.07);
+  // A retimed clip is a timing change: its window is the whole clip.
+  assert.equal(resolveProposalPlaybackRange(["screen"], [{ ...zoomed, duration: 20 }], [screen])?.startSeconds, 17.07);
+});
+
+test("a card replayed within the ticked set starts at its own change, not the earliest ticked card", () => {
+  const early = { id: "early", type: "video_clip", timeline_start: 17.07, duration: 24.87, removed_at: null, props: {} };
+  const late = { id: "late", type: "video_clip", timeline_start: 379.57, duration: 26.43, removed_at: null, props: {} };
+  const draft = [{ ...early, props: { mask_inset: [0.1, 0, 0, 0] } }, { ...late, props: { mask_inset: [0.1, 0, 0, 0] } }];
+  const touched = ["early", "late"];
+  assert.equal(resolveProposalPlaybackRange(touched, draft, [early, late])?.startSeconds, 17.07);
+  const lateCard = { rows: [{ element_id: "late", changes: [{ target: "props", field: "mask_inset" }] }] };
+  assert.deepEqual(resolveFocusedProposalPlaybackRange(lateCard, touched, draft, [early, late]), {
+    startSeconds: 379.57, endSeconds: 379.57 + 26.43,
+  });
+  // A card naming nothing the draft touched leaves the whole set to play.
+  assert.equal(resolveFocusedProposalPlaybackRange({ rows: [{ element_id: "timing:spacing", changes: [] }] }, touched, draft, [early, late]), null);
 });

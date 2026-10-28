@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import { InspectorSection } from "./InspectorSection";
 import { ProposalMotionControls } from "./ProposalMotionControls";
 import { createTimelineClient, type ProposalMotionItem } from "./timeline-client";
 import type { TimelineElement } from "./types";
@@ -28,9 +29,15 @@ export function MotionGraphicProperties({ element, patchElement }: {
       .catch(reason => { if (alive) setError(reason instanceof Error ? reason.message : "Controls unavailable"); });
     return () => { alive = false; };
   }, [client, sourceUrl]);
-  if (error) return <p role="alert" className="m-0 text-sm text-[var(--editor-destructive-ink)]">{error}</p>;
-  if (!item?.controls?.length) return null;
+  // The section shows only when there is something to tune or a reason it cannot be tuned.
+  if (!error && !item?.controls?.length) return null;
   // The server applies the new render's length, cue times and any ripple, and moves linked sounds.
   const swap = (url: string | undefined) => { if (url) void patchElement(element.id, { source_url: url }); };
-  return <ProposalMotionControls key={item.source_url} item={item} title={typeof element.props?.title === "string" ? element.props.title : undefined} elementId={element.id} client={client} disabled={false} renderedUrl={undefined} onRendered={swap} />;
+  return (
+    <InspectorSection sectionId="motion-graphic" title="Motion graphic">
+      {error || !item
+        ? <p role="alert" className="m-0 text-sm text-[var(--editor-destructive-ink)]">{error}</p>
+        : <ProposalMotionControls key={item.source_url} item={item} title={typeof element.props?.title === "string" ? element.props.title : undefined} elementId={element.id} client={client} disabled={false} renderedUrl={undefined} onRendered={swap} />}
+    </InspectorSection>
+  );
 }

@@ -3,7 +3,6 @@
  * Check every program and model the editor and its agent tools use on this computer, and name the command
  * that installs each missing one. Installs nothing.
  *
- *   npx dreamcut doctor     an installed DreamCut
  *   pnpm setup:check        a source checkout (with its Node and Chrome checks)
  *
  * Exits 1 only when FFmpeg or Chrome (export) is missing; the rest are per-feature.
@@ -25,7 +24,7 @@ Object.assign(process.env, runtimeEnvDefaults());
 const env = process.env;
 const installed = isPackagedRuntime();
 // An installed DreamCut installs these itself (`dreamcut setup`); a source checkout uses the system's.
-const SETUP = 'npx dreamcut setup';
+const SETUP = 'node bin/dreamcut.mjs setup';
 const brewOr = (mac, windows, other) => installed ? SETUP : process.platform === 'darwin' ? mac : process.platform === 'win32' ? windows : other;
 
 /** [feature, ok, fix] rows; `required` rows fail the check. */

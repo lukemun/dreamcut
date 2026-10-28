@@ -5,7 +5,6 @@
  * checkpoint, about 1 GB in all. Surface tracking uses the same environment (OpenCV).
  *
  *   pnpm setup:matting                      a source checkout: into .matting
- *   npx dreamcut setup-matting              an installed DreamCut: into its app data
  *   node scripts/setup-matting.mjs --dir D  anywhere else (TIMELINE_MATTING_DIR then points at D)
  *
  * Uses uv when available (it fetches a suitable Python itself), else Python 3.10 or newer. Safe to rerun:

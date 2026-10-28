@@ -10,6 +10,7 @@ import {
   injectRuntimeIntoHtml,
   isWorldLayer,
   parseCompositionManifest,
+  rendersOpaque,
   resolveManifestValues,
   singleObjectProblems,
   templateLayer,
@@ -64,12 +65,19 @@ test("one layer of a split Template is held to one object; its world layers are 
 
 test("a 3D sketch splits into plan, streets and buildings world layers; its other layers stay one object", () => {
   const packaged = JSON.parse(fs.readFileSync(".agents/skills/motion-graphics/templates/sketch-3d/dreamcut.controls.json", "utf8"));
-  const sketch = parseCompositionManifest({ ...packaged, controls: [...packaged.controls, { id: "layer", kind: "text", label: "Layer", default: "plan", fixed: true }] });
+  // Every piece keeps the whole Template's controls; only its Layer differs.
+  const sketch = parseCompositionManifest(packaged);
+  assert.equal(templateLayer(sketch, null), "all");
   for (const layer of ["plan", "streets", "buildings"]) assert.equal(isWorldLayer(sketch, { layer }), true);
   assert.equal(isWorldLayer(sketch, { layer: "landmark" }), false);
   assert.equal(isWorldLayer(sketch, { layer: "stage" }), false);
   // The whole scene drawn in one clip is still one object, not a recorded gap.
   assert.equal(wholeTemplateGap(sketch, { layer: "all" }), undefined);
+  // Paper fill makes only the whole scene or its plan opaque; the pieces stacked over it stay transparent.
+  assert.equal(rendersOpaque(sketch, { backdrop: true, layer: "all" }), true);
+  assert.equal(rendersOpaque(sketch, { backdrop: true, layer: "plan" }), true);
+  assert.equal(rendersOpaque(sketch, { backdrop: true, layer: "buildings" }), false);
+  assert.equal(rendersOpaque(sketch, { backdrop: false, layer: "plan" }), false);
 });
 
 const manifest = parseCompositionManifest({

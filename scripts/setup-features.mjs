@@ -8,7 +8,7 @@
  *   voice     DeepFilterNet for "Enhance voice" (scripts/setup-voice.mjs)
  *   tracing   SAM 2.1 for cutouts and surface tracking (scripts/setup-matting.mjs)
  *
- *   npx dreamcut setup     run it now, in this terminal
+ *   node bin/dreamcut.mjs setup   run it now, in this terminal
  *   (automatic)            an installed DreamCut starts it in the background on `dreamcut mcp` / `dreamcut`
  *                          whenever a step is missing (startFeatureSetup); DREAMCUT_FEATURE_SETUP=0 turns that off
  *
@@ -190,7 +190,7 @@ async function main() {
     }
     save();
   }
-  console.log(failed ? `\n${failed} step(s) failed; DreamCut tries again on a later start (or run \`npx dreamcut setup\`).` : '\nEvery DreamCut feature is set up.');
+  console.log(failed ? `\n${failed} step(s) failed; DreamCut tries again on a later start (or run \`node bin/dreamcut.mjs setup\`).` : '\nEvery DreamCut feature is set up.');
   process.exit(failed ? 1 : 0);
 }
 

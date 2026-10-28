@@ -124,7 +124,7 @@ type UseCanvasTimelineInteractionsArgs = {
   totalDuration: number;
   snapEnabled: boolean;
   isOverPlayhead: (x: number, y: number) => boolean;
-  seekFromClientX: (clientX: number) => void;
+  seekFromClientX: (clientX: number, snap: boolean) => void;
   onSeek: (seconds: number) => void;
   onSelect: (
     elementId: string,
@@ -334,15 +334,19 @@ export function useCanvasTimelineInteractions({
 
   useEffect(() => {
     if (!scrubbing) return;
-    const onMove = (event: PointerEvent) => seekFromClientX(event.clientX);
-    const onUp = () => setScrubbing(false);
+    // Alt scrubs freely, as it drags clips freely.
+    const onMove = (event: PointerEvent) => seekFromClientX(event.clientX, snapEnabledRef.current && !event.altKey);
+    const onUp = () => {
+      setScrubbing(false);
+      setSnapGuide(null);
+    };
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
     };
-  }, [scrubbing, seekFromClientX]);
+  }, [scrubbing, seekFromClientX, setSnapGuide]);
 
   useEffect(() => {
     if (!dragState) return;
@@ -900,7 +904,7 @@ export function useCanvasTimelineInteractions({
       if (target.kind === "playhead_scrub" || target.kind === "ruler_scrub") {
         setScrubbing(true);
         if (target.kind === "ruler_scrub" && selectedBeatId !== null) onSelectBeat(null);
-        seekFromClientX(event.clientX);
+        seekFromClientX(event.clientX, snapEnabledRef.current && !event.altKey);
         return;
       }
 

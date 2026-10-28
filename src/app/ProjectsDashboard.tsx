@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { BookOpen, FolderOpen, UserRound, LayoutGrid, LayoutList, Plus } from "lucide-react";
@@ -8,6 +9,7 @@ import { NewProjectForm } from "./NewProjectForm";
 import { ProjectList, type ProjectSummary } from "./ProjectList";
 import { HomeTemplates } from "./HomeTemplates";
 import { HomeChat, useHomeSelection } from "./HomeChat";
+import { HomeSignInBanner } from "./HomeSignInBanner";
 import { AgentSelectionProvider } from "@/components/desktop/ProjectReviewDock";
 import type { TemplateDraft } from "@/lib/local-store/template-drafts";
 
@@ -17,8 +19,9 @@ export function ProjectsDashboard({ projects, drafts = [], view, projectId, chil
   const [templateOpen, setTemplateOpen] = useState(false);
   // Templates picked here or on Templates land in Home's chat box.
   const selection = useHomeSelection();
+  const createProject = <NewProjectForm trigger={<Button size="sm" variant="ghost"><Plus size={14} aria-hidden="true"/>New project</Button>}/>;
   const newProject = <>
-    <NewProjectForm trigger={<Button size="sm" variant="ghost"><Plus size={14} aria-hidden="true"/>New project</Button>}/>
+    {createProject}
     <NewProjectForm open="storyboard" trigger={<Button size="sm" variant="ghost"><LayoutList size={14} aria-hidden="true"/>Start in Storyboard</Button>}/>
   </>;
   const context = projectId ? `&project=${encodeURIComponent(projectId)}` : "";
@@ -26,6 +29,7 @@ export function ProjectsDashboard({ projects, drafts = [], view, projectId, chil
   const shown = view === "dashboard" ? projects.slice(0, 6) : projects;
   return <AgentSelectionProvider value={selection}><main className="editor-chrome projects-page dashboard-shell">
     <aside className="dashboard-sidebar" aria-label="Dashboard">
+      <Link href={`/?${context.slice(1)}`} className="dashboard-wordmark" aria-label="DreamCut home"><Image src="/icon.png" alt="" width={26} height={26} unoptimized/><span>DreamCut</span></Link>
       <nav className="dashboard-nav" aria-label="Dashboard navigation">
         <Link href={`/?${context.slice(1)}`} aria-current={view === "dashboard" ? "page" : undefined}><LayoutGrid size={16}/>Dashboard</Link>
         <Link href={`/?view=projects${context}`} aria-current={view === "projects" ? "page" : undefined}><FolderOpen size={16}/>Projects</Link>
@@ -38,11 +42,12 @@ export function ProjectsDashboard({ projects, drafts = [], view, projectId, chil
     </aside>
     <div className="dashboard-main">
       {collection ? <>
+        {view === "dashboard" && <HomeSignInBanner />}
         {/* Home opens on chat. An open template hides the projects; its Back returns here. */}
         {view === "dashboard" && <HomeChat selection={selection} onTryTemplate={() => document.getElementById("home-templates-title")?.scrollIntoView({ behavior: "smooth", block: "start" })} />}
         {!(templateOpen && view === "dashboard") && <div className="dashboard-collection">
-          {/* Home keeps one way onward; creating, Storyboard and search live on Projects. */}
-          <ProjectList headerAction={view === "dashboard" ? <Link className="dashboard-view-all" href={`/?view=projects${context}`}>View all</Link> : view === "projects" ? newProject : undefined} recent={view === "dashboard"} projects={shown} showSearch={view !== "dashboard"} grouped={false}/>
+          {/* Home offers New project beside View all; Storyboard and search live on Projects. */}
+          <ProjectList headerAction={view === "dashboard" ? <>{createProject}<Link className="dashboard-view-all" href={`/?view=projects${context}`}>View all</Link></> : view === "projects" ? newProject : undefined} recent={view === "dashboard"} projects={shown} showSearch={view !== "dashboard"} grouped={false}/>
         </div>}
         {view === "dashboard" && <HomeTemplates drafts={drafts} allHref={`/?view=templates${context}`} onDetailChange={setTemplateOpen} />}
 

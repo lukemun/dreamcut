@@ -14,6 +14,13 @@ export const COLOR_MANAGED_VIDEO_RECIPE = "apple-hdr-sdr-authority-v2";
 export const HDR_CODE_VIDEO_RECIPE = "ffmpeg-hdr-code-authority-v1";
 
 /**
+ * The preview proxy of opaque HDR, made straight from the source in one pass (hardware decode and encode
+ * where available) with the same matrix-only conversion as HDR_CODE_VIDEO_RECIPE, so a clip can be placed
+ * and previewed before its full-resolution authority exists. That authority is made when an export needs it.
+ */
+export const HDR_CODE_PREVIEW_RECIPE = "ffmpeg-hdr-code-preview-v1";
+
+/**
  * HDR alpha (a cutout cut from HDR phone footage): the same matrix-only code-value conversion as
  * HDR_CODE_VIDEO_RECIPE in a VP9-alpha WebM (CRF 18, lossless when the alpha would leave its measured
  * tolerance), with the same `source_encoding`, so a cutout and its footage decode identically.

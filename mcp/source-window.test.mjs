@@ -88,6 +88,14 @@ test("raw partial trim patches fail closed as implicit slips", () => {
     }]),
     /Implicit slip\/source truncation is not supported/,
   );
+  assert.throws(
+    () => assertSemanticTrimOperations([{
+      element_id: BASE_MEDIA.id,
+      patch: { timeline_start: 10, duration: 2, trim_start: 1.5 },
+    }], { inProposal: true }),
+    (error) => /Add trim_end to the patch for 00000000-0000-4000-8000-000000000001/.test(error.message)
+      && !/element_trim/.test(error.message),
+  );
   assert.doesNotThrow(() => assertSemanticTrimOperations([{
     element_id: BASE_MEDIA.id,
     patch: {

@@ -1,30 +1,29 @@
 ---
 name: windows-compatibility
-description: Check that DreamCut's npx editor works on Windows, from a Mac, using a Windows VM driven over SSH. It installs, starts and serves an agent, and in Windows Chrome it creates a project, imports, places and plays clips, and exports. Use before a release, or after changing packaging, the launcher, the MCP server's startup/shutdown, native dependencies, child-process spawning, file paths, media preparation or export. Publishing a release is the separate releasing procedure.
+description: Check that DreamCut installed from source works on Windows, from a Mac, using a Windows VM driven over SSH. It installs this checkout as the README tells a Windows user, connects an agent over MCP, and in Windows Chrome it creates a project, imports, places and plays clips, and exports. Use before pushing changes to the MCP server's startup/shutdown, native dependencies, child-process spawning, file paths, setup scripts, media preparation or export to the public repository (from releasing).
 ---
 
 # Check Windows compatibility
 
-The outcome is evidence that a Windows user who runs `claude mcp add dreamcut -- npx -y dreamcut mcp`
-(or the Codex equivalent) gets a working editor. Two checks give it, both against the `win32-x64`
-download built from this checkout (uncommitted changes included):
+The outcome is evidence that a Windows user who follows the README's Install section (`git clone`,
+`pnpm install`, `pnpm bootstrap`, then `claude mcp add dreamcut -s user -- node <checkout>\bin\dreamcut.mjs mcp`
+or the Codex equivalent) gets a working editor. Two checks give it, both on this checkout's working copy
+(uncommitted changes included) copied into the VM:
 
-- **Install check** (`packaging/verify-web-runtime.mjs`, 31 checks) acts as a new user's agent: it
-  installs the packed launcher, downloads the runtime from a local stand-in for GitHub Releases, answers
-  MCP, starts the production editor, signs a browser in, applies an update and shuts down.
+- **Install check** ([scripts/install-and-verify.ps1](scripts/install-and-verify.ps1)) runs
+  `pnpm install --frozen-lockfile` and `pnpm bootstrap`, then [scripts/vm/mcp-check.mjs](scripts/vm/mcp-check.mjs)
+  connects as an agent does: `node bin/dreamcut.mjs mcp` answers `initialize`, lists its tools and exits
+  when the agent disconnects.
 - **Editor check** ([scripts/editor-check.mjs](scripts/editor-check.mjs)) acts as the person: in the
   VM's Chrome it opens the sign-in link, creates a project, imports two generated clips, adds them to the
   timeline, plays the preview, exports, and inspects the MP4 inside the VM.
 
 No Claude Code, Codex or account sign-in is needed inside the VM. This tests the web editor that
-`npx dreamcut` runs, not the Electron desktop preview. It never publishes. It is step 2 of
-[releasing](../releasing/SKILL.md); publishing is [release-publish](../release-publish/SKILL.md)
-(`pnpm release --add-platform` attaches a Windows download to an existing release) and happens only
-when the owner asks.
+`node bin/dreamcut.mjs` runs from a checkout, not the Electron desktop preview or the retired npm launcher.
+It changes nothing outside the VM. It is step 5 of [releasing](../releasing/SKILL.md).
 
-Why the VM is configured as it is (x64 Node on Arm, SSH, scheduled tasks, DevTools forwarding, the
-local download server) is in [references/vm-design.md](references/vm-design.md). Keep those reasons
-when changing the setup.
+Why the VM is configured as it is (x64 Node on Arm, SSH, scheduled tasks, DevTools forwarding) is in
+[references/vm-design.md](references/vm-design.md). Keep those reasons when changing the setup.
 
 ## Inputs
 
@@ -42,15 +41,16 @@ when changing the setup.
 Paths are relative to this skill's folder. Steps 3 and 6 take a while; run them in the background.
 
 1. Confirm the VM answers: `scripts/vm.sh 'node -p process.arch'` must print `x64`. `arm64` means the
-   Arm build of Node is first on PATH; the download would then be built for `win32-arm64`.
+   Arm build of Node is first on PATH; native modules would then install for `win32-arm64`.
 2. Copy the working copy: `scripts/copy-to-vm.sh`. To retry after a small fix, copy just the changed
-   files: `scripts/copy-to-vm.sh mcp/server.mjs packaging/x.mjs`.
-3. Build and run the install check (about 20 minutes under emulation):
-   `scripts/vm.sh 'powershell -NoProfile -ExecutionPolicy Bypass -File C:\dev\dreamcut\.agents\skills\windows-compatibility\scripts\build-and-verify.ps1'`
-   It stops at the first failing step and prints the end of `C:\dev\build.log`.
-4. Start the built editor as a user has it: `scripts/open-editor.sh`. It installs the packed launcher,
-   serves the runtime locally, starts DreamCut and Chrome on the VM's desktop, forwards Chrome's
-   debugging port to the Mac, and prints a single-use sign-in link (minutes on a first install).
+   files: `scripts/copy-to-vm.sh mcp/server.mjs scripts/x.mjs`.
+3. Install and run the install check (several minutes under emulation; longer on a first install):
+   `scripts/vm.sh 'powershell -NoProfile -ExecutionPolicy Bypass -File C:\dev\dreamcut\.agents\skills\windows-compatibility\scripts\install-and-verify.ps1'`
+   It stops at the first failing step and prints the end of `C:\dev\install.log`.
+4. Start the editor as a user's install runs it: `scripts/open-editor.sh`. It starts
+   `node bin\dreamcut.mjs --no-open` from the checkout and Chrome on the VM's desktop, forwards Chrome's
+   debugging port to the Mac, and prints a single-use sign-in link. The first start compiles the editor,
+   which takes many minutes under emulation. Projects go to the checkout's `projects\` folder.
 5. Run the editor check with that link: `node scripts/editor-check.mjs '<link>'` (5 to 15 minutes; the
    export dominates). A link works once; rerun step 4 for a fresh one.
 6. Optionally run platform-sensitive unit tests in the VM, e.g.
@@ -62,35 +62,20 @@ To look at something by hand, reuse the same session: connect Playwright to
 `http://127.0.0.1:9229` (`chromium.connectOverCDP`), call `page.bringToFront()`, then act and take
 screenshots. Clicking the UTM window from the Mac does not reach Windows apps reliably.
 
-## Building on the Mac
-
-The Windows download is built inside the VM because it carries `node_modules` with native modules
-compiled per platform and Node version (`better-sqlite3`; `sharp` through its per-platform package;
-`onnxruntime-node` already ships every platform). A Mac-built `win32-x64` download is the intended
-direction, after which steps 2 and 3 become a copy of `dist/web-runtime` and `dist/npm` into the VM;
-it is not supported yet. It needs the isolated install in [desktop/build.mjs](../../../desktop/build.mjs)
-to fetch Windows packages and a prebuilt Windows `better-sqlite3`, a build-output check for Mac paths,
-and the install check passing in the VM on that download. Until then, build in the VM.
-
 ## Read the result
 
-Success is every build step exiting 0, `31/31 checks passed` from the install check, and
+Success is every install step exiting 0 with `3/3 checks passed` from the MCP check, and
 `N/N checks passed` from the editor check, whose last check confirms the MP4 has picture, sound and
 the timeline's length. Report each failing check by name with its detail. The editor check prints
-failed requests and leaves its project in the VM (`%LOCALAPPDATA%\DreamCut\projects\<id>`) for inspection.
+failed requests and leaves its project in the VM (`C:\dev\dreamcut\projects\<id>`) for inspection.
 
-When the editor fails to start, run the installed runtime directly. Under `%TEMP%\dreamcut-first-run-*\`
-(kept on failure), run
-`node "<app data>\runtimes\app\<version>-win32-x64\bin\dreamcut.mjs" --no-open` with
-`DREAMCUT_APP_DATA_DIR` set to that app data folder, and read its error output. For the editor check,
-`C:\dev\winui\install.log` and `editor.err` hold the launcher's output.
+When the editor fails to start, `C:\dev\winui\editor.log` and `editor.err` hold its output; to see it
+live, run `node bin\dreamcut.mjs --no-open` in `C:\dev\dreamcut` from the VM's own terminal.
 
-Fix causes in shared code (packaging, launcher, server, editor), not by special-casing the checks,
-unless a check itself assumes POSIX behaviour. A failure may not be Windows-specific: the editor check
-was the first to export from the packaged editor at all. [references/windows-pitfalls.md](references/windows-pitfalls.md)
+Fix causes in shared code (setup scripts, server, editor), not by special-casing the checks,
+unless a check itself assumes POSIX behaviour. A failure may not be Windows-specific. [references/windows-pitfalls.md](references/windows-pitfalls.md)
 lists the failures already met and their fixes; check it first. Re-run the Mac side of anything you
-change (the affected tests, `pnpm typecheck`, and `node packaging/verify-web-runtime.mjs` on the Mac
-after a packaging change), then copy the change to the VM and rebuild.
+change (the affected tests and `pnpm typecheck`), then copy the change to the VM and rerun the install check.
 
 ## Limits to report
 

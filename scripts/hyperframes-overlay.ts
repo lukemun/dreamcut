@@ -29,6 +29,7 @@ import type { SeparableObject } from "@/lib/hyperframes/composition-objects";
 import { canvasTrackOriginForFrame, type SourceCanvasTrack } from "@/lib/timeline/source-projection";
 import { LOOKS_FILE, buildLookBundle, lookIdFromValues, usesSharedLooks, writeLookBundle } from "@/lib/hyperframes/look-bundle";
 import { pieceLookProblem } from "@/lib/hyperframes/piece-types";
+import { explainNoTimelineFailure, explainObjectProbeFailure, isNoTimelineFailure } from "@/lib/hyperframes/check-failure";
 import {
   appendMotionAuditEvent,
   readMotionAudit,
@@ -435,6 +436,7 @@ function check(args: Args): { source: string; fingerprint: string; loaded: Loade
       }
     } catch (error) {
       runtimeError = error instanceof Error ? error.message : String(error);
+      if (isNoTimelineFailure(runtimeError)) runtimeError = explainNoTimelineFailure(runtimeError, pageErrors(checkDir));
     } finally {
       if (checkDir !== source) fs.rmSync(path.dirname(checkDir), { recursive: true, force: true });
     }
@@ -467,9 +469,22 @@ function probeObjects(source: string): ObjectProbe {
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
   const probe = workerCommand("scripts/composition-object-probe.ts", [source], root);
   const result = spawnSync(probe.command, probe.args, { cwd: root, encoding: "utf8", timeout: 120000 });
-  if (result.status !== 0) throw new Error(`Object check could not run: ${(result.stderr || result.stdout || String(result.error ?? "")).trim()}`);
+  if (result.status !== 0) throw new Error(`Object check could not run: ${explainObjectProbeFailure((result.stderr || result.stdout || String(result.error ?? "")).trim())}`);
   const parsed = JSON.parse(result.stdout.trim().split("\n").at(-1) ?? "{}") as Partial<ObjectProbe>;
   return { frame: parsed.frame ?? null, most: parsed.most ?? null, opaque_canvas: Boolean(parsed.opaque_canvas) };
+}
+
+/** Load the page once to read what it threw; null when the probe itself cannot run. */
+function pageErrors(source: string): { timeline: boolean; page_errors: string[] } | null {
+  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+  const probe = workerCommand("scripts/composition-object-probe.ts", [source, "--errors"], root);
+  const result = spawnSync(probe.command, probe.args, { cwd: root, encoding: "utf8", timeout: 60000 });
+  if (result.status !== 0) return null;
+  try {
+    return JSON.parse(result.stdout.trim().split("\n").at(-1) ?? "null");
+  } catch {
+    return null;
+  }
 }
 
 /** Copy the source for a parameterized render so injected values never touch the original. */

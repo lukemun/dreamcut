@@ -1,5 +1,6 @@
 "use client";
 import { CaptionTranscript } from "./timeline/CaptionTranscript";
+import { selectExportRenderJob } from "./timeline/export-render-job";
 import { captionTextEditPatch } from "@/lib/timeline/active-word-captions";
 import { RecordedEffectPreview } from './timeline/RecordedEffectPreview';
 import { isProjectFrameRate } from "@/lib/timeline/frame-quantization";
@@ -51,6 +52,7 @@ import {
 import {
   proposalPlaybackLeadInSeconds,
   resolveAuditionPlaybackRange,
+  resolveFocusedProposalPlaybackRange,
   resolveLaneOrderPlaybackRange,
   resolveProposalPlaybackRange,
 } from "@/lib/timeline/audition-playback";
@@ -127,7 +129,7 @@ import {
   type ProposalOptionSelection,
   type ProposalPreviewSelection,
 } from "@/components/studio/timeline/ProposalsPanel";
-import { createTimelineClient } from "@/components/studio/timeline/timeline-client";
+import { createTimelineClient, type ProposalOptionReview } from "@/components/studio/timeline/timeline-client";
 import { buildTimelineCompositionElements } from "@/components/studio/timeline/timeline-selectors";
 import { buildTimelineTransitionLayout } from "@/lib/timeline/transitions";
 import type { InstantPreviewProp } from "@/components/studio/timeline/proposal-preview-props";
@@ -428,10 +430,7 @@ export function TimelineStep({
     },
   });
 
-  const activeRenderJob = useMemo(() => {
-    if (renderJobId && renderJobsById[renderJobId]) return renderJobsById[renderJobId];
-    return Object.values(renderJobsById).find((job) => job.targetType === "render") ?? null;
-  }, [renderJobId, renderJobsById]);
+  const activeRenderJob = useMemo(() => selectExportRenderJob(renderJobsById, renderJobId), [renderJobId, renderJobsById]);
   const trackerShowsRenderInFlight = !!(activeRenderJob && isActiveJobStatus(activeRenderJob.status));
   const visibleRenderStatus: RenderStatus = trackerShowsRenderInFlight ? "rendering" : renderStatus;
   const visibleRenderUrl = visibleRenderStatus === "complete" ? renderUrl : null;
@@ -840,6 +839,8 @@ export function TimelineStep({
     setRenderStatus("rendering");
     setRenderUrl(null);
     setRenderFileName(null);
+    // Drop the previous job so its "Completed" label and full bar don't stand in for this one.
+    setRenderJobId(null);
     startRenderElapsedTimer();
     try {
       if(rendererNeedsConfirmation)throw Error("Choose a renderer in Preview settings to confirm the same renderer for both.");
@@ -1651,7 +1652,7 @@ export function TimelineStep({
   }, [clearProposalPlayTimer]);
 
   /** Batch review: compose independent proposals at their actual shared times. */
-  const playProposalBatch = useCallback((selections: ProposalOptionSelection[]) => {
+  const playProposalBatch = useCallback((selections: ProposalOptionSelection[], focus?: ProposalOptionReview) => {
     if (selections.length === 0) return;
     setProposalPreviewLoading(true);
     clearProposalPlayTimer();
@@ -1661,6 +1662,7 @@ export function TimelineStep({
       optionId: "selected-edits",
       optionLabel: `Selected edits (${selections.length})`,
       batch: selections,
+      ...(focus ? { focus } : {}),
       nonce: Date.now(),
     });
   }, [clearProposalPlayTimer]);
@@ -2250,7 +2252,16 @@ export function TimelineStep({
         // Play the touched window with a short lead-in, like clicking a take.
         // Removed/replaced elements fall back to their BASE-timeline windows,
         // so a deletion-only option still plays its surrounding context.
-        let range = resolveProposalPlaybackRange(
+        // A card's own Replay on the ticked set starts at that card's change.
+        const focus = proposalPreviewSelection.focus;
+        const focusRange = focus ? resolveFocusedProposalPlaybackRange(
+          focus,
+          preview.touched_element_ids,
+          preview.timeline.elements ?? [],
+          liveElementsRef.current,
+        ) : null;
+        const rangeReview = focusRange ? focus! : preview.review;
+        let range = focusRange ?? resolveProposalPlaybackRange(
           preview.touched_element_ids,
           preview.timeline.elements ?? [],
           liveElementsRef.current,
@@ -2275,7 +2286,7 @@ export function TimelineStep({
         if (range) {
           const startSeconds = Math.max(
             0,
-            range.startSeconds - proposalPlaybackLeadInSeconds(preview.review),
+            range.startSeconds - proposalPlaybackLeadInSeconds(rangeReview),
           );
           const endSeconds = Math.max(range.endSeconds, startSeconds + 0.8);
           // Short pop-ins can finish before a newly selected draft's images

@@ -4,7 +4,7 @@ import { sharedFontCssVariables } from "./registry";
 
 // Editor chrome faces are bundled so startup never depends on a Google Fonts
 // response: a malformed css2 answer cached by the Google font loader once failed the
-// root layout and returned 500 for every route. Both files are the OFL-licensed
+// root layout and returned 500 for every route. All three files are the OFL-licensed
 // latin subsets from Google Fonts; licenses sit beside them in ./files.
 const dmSans = localFont({
   src: "./files/dm-sans-latin-variable.woff2",
@@ -19,12 +19,21 @@ const libreCaslonDisplay = localFont({
   fallback: ["Georgia", "serif"],
 });
 
-const BUNDLED_FONT_VARIABLES = new Set(["--font-ui", "--font-display"]);
+// The DreamCut logo's wordmark face, as dreamcut.io sets it.
+const bricolageGrotesque = localFont({
+  src: "./files/bricolage-grotesque-latin-variable.woff2",
+  weight: "200 800",
+  variable: "--font-brand",
+  fallback: ["Arial", "sans-serif"],
+  declarations: [{ prop: "font-stretch", value: "75% 100%" }],
+});
+
+const BUNDLED_FONT_VARIABLES = new Set(["--font-ui", "--font-display", "--font-brand"]);
 
 /** Caption and title faces resolve by family name; the runtime Google Fonts loader supplies them. */
 const runtimeFontVariables = Object.fromEntries(
   Object.entries(sharedFontCssVariables()).filter(([variable]) => !BUNDLED_FONT_VARIABLES.has(variable)),
 );
 
-export const timelineFontVariablesClassName = [dmSans.variable, libreCaslonDisplay.variable].join(" ");
+export const timelineFontVariablesClassName = [dmSans.variable, libreCaslonDisplay.variable, bricolageGrotesque.variable].join(" ");
 export const timelineFontVariablesStyle = runtimeFontVariables as CSSProperties;

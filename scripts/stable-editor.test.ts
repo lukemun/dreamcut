@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 
-import { staticAssetFile } from "./stable-editor";
+import { rendersRunningUnder, staticAssetFile } from "./stable-editor";
 
 function fixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "stable-editor-"));
@@ -40,4 +41,22 @@ test("non-static paths, traversal and missing files are left to the server", () 
   assert.equal(staticAssetFile(root, "/_next/static/chunks/%E0%A4%A", "stable-a"), null);
   assert.equal(staticAssetFile(root, "/_next/static/chunks/missing.js", "stable-a"), null);
   assert.equal(staticAssetFile(root, "/_next/static/chunks", "stable-a"), null);
+});
+
+test("an export keeps the server it runs under, and only that one, from being stopped", () => {
+  const jobsDir = fs.mkdtempSync(path.join(os.tmpdir(), "render-jobs-"));
+  const job = (id: string, status: string, pid: number) => fs.writeFileSync(path.join(jobsDir, `${id}.json`), JSON.stringify({ id, status, pid }));
+  const exited = spawnSync(process.execPath, ["-e", ""]).pid;
+  // This test process stands in for the Next server; its parent for the tsx wrapper the launcher spawned.
+  job("running-here", "processing", process.pid);
+  job("finished-here", "completed", process.pid);
+  job("interrupted", "processing", exited);
+  fs.writeFileSync(path.join(jobsDir, "running-here.stop"), "");
+  fs.writeFileSync(path.join(jobsDir, "torn.json"), "{");
+  assert.deepEqual(rendersRunningUnder(jobsDir, process.ppid), ["running-here"]);
+  assert.deepEqual(rendersRunningUnder(jobsDir, process.pid), ["running-here"]);
+  // A newer server is not this process's ancestor, so the export does not hold it.
+  const unrelated = spawnSync(process.execPath, ["-e", ""]).pid;
+  assert.deepEqual(rendersRunningUnder(jobsDir, unrelated), []);
+  assert.deepEqual(rendersRunningUnder(path.join(jobsDir, "missing"), process.ppid), []);
 });

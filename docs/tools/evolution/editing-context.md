@@ -152,3 +152,10 @@ the old package. The restricted default and human approval boundary are unchange
 The installer test covers upgrade, project preservation, skill selection and
 return to restricted mode. Installation is distinct from a running chat's tool
 refresh; reconnect and real transcription remain separate acceptance checks.
+
+## 2026-10-27 — The closeout check fits in a tool result
+
+- **Observation:** In one session all six `editing_feedback_check` calls returned 77,000 to 90,000 characters (63 directions with every linked proposal summary and history change) and overflowed the agent's tool result, so each closeout needed a second shell call to parse the saved file.
+- **Decision:** The `/memory/feedback` GET (used only by this tool) returns `feedbackCheck`: `unaccounted_feedback_ids`, the unaccounted directions in full, and the accounted ones one line each with proposal ids and states, a count of history changes and any disposition, newest first. Memory, the Proposals queue and export evidence keep the full `feedbackCoverage`.
+- **Verification:** `src/lib/local-store/editing-feedback.test.ts`; on a copy of the session's project the result drops from 93,300 to 24,830 characters.
+- **Limits:** It still grows with the project's history; a per-session filter would be a new input.

@@ -3,6 +3,10 @@
 Plan, 2026-10-24. Platforms: Apple Silicon Macs and Windows (x64; Windows on Arm runs the x64 build).
 Intel Macs are out of scope. Not implemented except where marked done.
 
+**Superseded 2026-10-27:** DreamCut installs from its public GitHub repository; the runtime feed and npm
+launcher stay at 0.3.0 and `pnpm release` was removed ([releasing](releasing.md)), as were the launcher, runtime, Claude extension and
+ChatGPT installer packaging it names. This plan is kept as a record.
+
 Goal: someone who has never opened a terminal can add DreamCut to Claude Desktop or ChatGPT Desktop on
 either platform, with nothing else installed. Commands remain only for Claude Code, Codex and `npx`.
 

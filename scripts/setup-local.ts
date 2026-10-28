@@ -42,9 +42,9 @@ if (process.argv.includes("--rust")) {
 } else {
 console.log(`DreamCut setup (${process.platform})`);
 
-// The same checks an installed DreamCut runs with `npx dreamcut doctor`: FFmpeg and Chrome are required; the
+// The same checks an installed DreamCut runs with `node bin/dreamcut.mjs doctor`: FFmpeg and Chrome are required; the
 // speech tools, voice enhancement and subject tracing are per-feature and named with the command that adds them.
-// --voice first installs or repairs voice enhancement (scripts/setup-voice.mjs, also `npx dreamcut setup-voice`).
+// --voice first installs or repairs voice enhancement (scripts/setup-voice.mjs).
 if (installVoice && spawnSync(process.execPath, [path.join(root, "scripts", "setup-voice.mjs")], { stdio: "inherit" }).status !== 0) process.exit(1);
 if (spawnSync(process.execPath, [path.join(root, "scripts", "doctor.mjs")], { stdio: "inherit" }).status !== 0) {
   fail("install the required tools marked ✗ above, then run this again.");

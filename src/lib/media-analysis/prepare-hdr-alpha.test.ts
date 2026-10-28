@@ -6,11 +6,11 @@ import test from 'node:test';
 import {execFileSync} from 'node:child_process';
 import {createProject} from '../local-store/store';
 import {ingestMediaPath} from '../local-store/media-ingest';
-import {readPreparation,preparationSourcePath,preparedPlacement,preparedCodeValues,enqueueMediaPreparation,writePreparation} from '../local-store/media-preparation';
+import {readPreparation,preparationSourcePath,preparedPlacement,preparedCodeValues,enqueueMediaPreparation,requestRenderAuthorities,writePreparation} from '../local-store/media-preparation';
 import {appendCustomCutout,type CustomCutoutReceipt} from '../local-store/custom-cutouts';
 import {sdrExportSources} from '../local-store/export-render-sources';
 import type {TimelineElement} from '@/components/studio/timeline/types';
-import {prepareEditorMedia} from './prepare-editor-media';
+import {prepareEditorMedia,prepareRenderAuthority} from './prepare-editor-media';
 import {probeVideo,createColorManagedVideoPair,measureAlphaDeviation,alphaDeviationWithinTolerance,ALPHA_AUTHORITY_TOLERANCE} from '../../../scripts/lib/color-managed-video';
 import {COLOR_MANAGED_ALPHA_VIDEO_RECIPE,HDR_CODE_ALPHA_VIDEO_RECIPE,HDR_CODE_VIDEO_RECIPE} from './color-profile';
 import {probeHasAlphaChannel} from './alpha-channel';
@@ -139,9 +139,15 @@ test('an HDR cutout decodes like the footage it was cut from, before and after t
   const cut=ingestMediaPath({projectId:'fixture',sourcePath:cutFile});
   appendCustomCutout('fixture',{cutout_id:'hdr-cutout',output_relative_path:cut.media_path,source_relative_path:footage.media_path} as CustomCutoutReceipt);
 
-  const footageReady=prepareEditorMedia('fixture',readPreparation('fixture',footage.media_path)!);
-  assert.equal(footageReady.state,'ready',footageReady.error);
-  assert.equal(footageReady.color_management?.recipe_id,HDR_CODE_VIDEO_RECIPE);
+  // Footage is placeable from its fast proxy; its authority is made when an export asks for it.
+  const footageFast=prepareEditorMedia('fixture',readPreparation('fixture',footage.media_path)!);
+  assert.equal(footageFast.state,'ready',footageFast.error);
+  assert.equal(footageFast.render_authority?.state,'deferred');
+  const deferredEncoding=preparedPlacement('fixture',`/api/projects/fixture/media/${footage.media_path}`,{}).props.source_color_space;
+  requestRenderAuthorities('fixture',[footage.media_path],true);
+  const footageReady=prepareRenderAuthority('fixture',readPreparation('fixture',footage.media_path)!);
+  assert.equal(footageReady.color_management?.recipe_id,HDR_CODE_VIDEO_RECIPE,footageReady.render_authority?.error);
+  assert.deepEqual(footageReady.color_management?.source_encoding,deferredEncoding,'clips placed before the authority decode like those placed after');
   // A cutout prepared by the superseded recipe (tone-mapped to SDR) is queued again and not reused.
   const cutFirst=prepareEditorMedia('fixture',readPreparation('fixture',cut.media_path)!);
   assert.equal(cutFirst.state,'ready',cutFirst.error);

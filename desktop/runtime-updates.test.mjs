@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { APP_MANIFEST, compareVersions, INSTALLED_MARKER, isInstalledApp, pendingUpdate, runtimesDir, sameInstallation } from './runtime-updates.mjs';
+import { compareVersions, INSTALLED_MARKER, isInstalledApp, pendingUpdate, runtimesDir, sameInstallation } from './runtime-updates.mjs';
 
 test('versions order as semver, prereleases before their release', () => {
   assert.ok(compareVersions('0.1.1', '0.1.0') > 0);
@@ -86,12 +86,4 @@ test('installed versions share one editor; a checkout shares only with itself', 
   assert.equal(sameInstallation(a, b, env), true);
   assert.equal(sameInstallation(a, appData, env), false);
   assert.equal(sameInstallation(appData, appData, env), true);
-});
-
-test('the npm launcher mirrors the install names the editor reads', () => {
-  const launcher = fs.readFileSync(new URL('../packaging/launcher/bin/dreamcut.mjs', import.meta.url), 'utf8');
-  assert.match(launcher, new RegExp(`INSTALLED_MARKER = '${INSTALLED_MARKER.replace('.', '\\.')}'`));
-  assert.match(launcher, new RegExp(`APP_MANIFEST = '${APP_MANIFEST.replace('.', '\\.')}'`));
-  assert.match(launcher, /'latest-installed\.json'/);
-  assert.match(launcher, /path\.join\(runtimes, 'app'\)/);
 });

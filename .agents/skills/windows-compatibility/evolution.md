@@ -1,13 +1,14 @@
 # windows-compatibility — evolution log
 
 ## Purpose
-Show, before a release or after a risky change, that a Windows user's `npx dreamcut` install from Claude
-Code or Codex installs, starts, serves an agent and shuts down, using a Windows VM on the maintainer's Mac
-driven over SSH. Scope: building the `win32-x64` editor download from the working copy, the first-run
-install check, and an editor check that uses the editor in Windows Chrome through to an export. It never
-publishes and does not cover cutouts, transcription, generation or the native file picker; the Graphics
-card renderer is covered only as this VM draws it, in software. Good looks like: every build step exits 0, both checks pass in full, failures are fixed
-in shared code, and the report names what was not covered (x64 emulation on Arm, untested features).
+Show, before a push that could affect Windows, that a Windows user's source install (README, Install) installs,
+connects an agent over MCP, starts and serves the editor, using a Windows VM on the maintainer's Mac driven over
+SSH. Scope: installing the copied working copy, the MCP check, and an editor check that uses the editor in
+Windows Chrome through to an export. It never publishes and does not cover cutouts, transcription, generation or
+the native file picker; the Graphics card renderer is covered only as this VM draws it, in software. Good looks
+like: every install step exits 0, both checks pass in full, failures are fixed in shared code, and the report
+names what was not covered (x64 emulation on Arm, untested features). Until 2026-10-27 it built and checked the
+npm launcher's Windows download instead.
 
 ## 2026-10-22 — first Windows run
 
@@ -80,3 +81,14 @@ in shared code, and the report names what was not covered (x64 emulation on Arm,
   the next Windows run should cover `dreamcut setup` and `dreamcut doctor` in the VM.
 - **Verification:** Not rerun in the VM after these changes.
 
+
+## 2026-10-27 — checks the source install
+
+- **Observation:** The owner moved DreamCut to installs from its public GitHub repository and retired the npm
+  launcher, the runtime download and `pnpm release` ("we're not doing the NPM anymore").
+- **Decision:** The VM installs the copied checkout the way the README tells a Windows user (`pnpm install`,
+  `pnpm bootstrap`), `vm/mcp-check.mjs` connects as an agent through `node bin/dreamcut.mjs mcp`, and the
+  editor check runs against `node bin\dreamcut.mjs --no-open` with projects in the checkout. The runtime
+  build, packed launcher, local download server and first-run check left the procedure.
+- **Verification:** `vm/mcp-check.mjs` passed 3/3 on the Mac; the editor-check and PowerShell scripts parse.
+  The new procedure has not run in the VM yet.

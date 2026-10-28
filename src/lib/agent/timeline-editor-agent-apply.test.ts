@@ -10,6 +10,7 @@ import {
   applyEditorAgentProposal,
   deriveProposalTimeline,
   editorAgentPropsSchema,
+  editorAgentProposalSchema,
   editorAgentCapabilities,
   inspectEditorAgentProject,
   mergeBatchLaneOrderKeys,
@@ -1692,7 +1693,23 @@ test("overlapping authored stills must use separate registered visual lanes", ()
   };
   assert.throws(
     () => validateEditorAgentProposalAgainstProject(raw, 6, "reject-same-visual-lane"),
-    /separate registered visual lanes/,
+    /separate registered visual lanes; lane_index does not create a compositing lane\. "visual_0" already has a visual at that time: put this one on a visual_N lane key no visual uses then/,
+  );
+});
+
+test("a video clip with duration_seconds is told to use its source window instead", () => {
+  assert.throws(
+    () => editorAgentProposalSchema.parse({
+      schema_version: 2, project_id: "p", expected_revision: "a".repeat(64), mode: "workshop", decision: "propose",
+      summary: "Add a graphic.", assumptions: [], unresolved_gaps: [],
+      caps: { max_mutations: 1, requested_mutations: 1, max_renders: 0 },
+      options: [{ id: "o", label: "O", recommended: true, summary: "S", requested_mutations: 1, operations: [{
+        element_id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        create_visual: { type: "video_clip", source_url: "/api/projects/p/media/clip.webm", timeline_start: 0, duration_seconds: 3.6,
+          source_start_seconds: 0, source_end_seconds: 3.6, source_duration_seconds: 3.6, lane_key: "visual_1", lane_index: 1 },
+      }] }],
+    }),
+    /video duration is derived from its source window; omit duration_seconds and set source_start_seconds and source_end_seconds/,
   );
 });
 
@@ -2083,6 +2100,13 @@ test("source-range cut proposals remove marked dead air and ripple every timelin
   assert.equal(scopeReview.changes.find((change) => change.field === "ripple_lane_keys")?.after, "Visual 1, Captions");
   scopedRaw.options[0].operations[0].source_range_cut.ripple_lane_keys = ["captions_0"];
   assert.throws(() => validateEditorAgentProposalAgainstProject(scopedRaw, 6, "marked-pause-cut"), /include the target lane/);
+  const edgeRaw = structuredClone(raw) as any;
+  edgeRaw.options[0].operations[0].source_range_cut.source_start_seconds = 2;
+  assert.throws(
+    () => validateEditorAgentProposalAgainstProject(edgeRaw, 5, "marked-pause-cut"),
+    /on 11111111-1111-4111-8111-111111111111 cut between source 2\.\d+ s and 11\.\d+ s/,
+    "a refused edge cut names the source window it accepts",
+  );
 
   await applyEditorAgentProposal(scoped, 6);
   const applied = readTimeline("marked-pause-cut");
@@ -2707,9 +2731,6 @@ test("mask-window proposals keep the source full-frame before a timed close", as
     caps: { max_mutations: 1, requested_mutations: 1, max_renders: 0 },
   });
   assert.throws(() => validateEditorAgentProposalAgainstProject(make([
-    { t: 0, v: [0, 0, 0, 0] }, { t: 1, v: [0.6, 0, 0, 0] },
-  ]), 1, id), /per-edge delta cap/);
-  assert.throws(() => validateEditorAgentProposalAgainstProject(make([
     { t: 0, v: [0, 0, 0, 0] }, { t: 3, v: [0.34, 0, 0.5, 0] },
   ]), 1, id), /duration/);
   const valid = validateEditorAgentProposalAgainstProject(make(points), 1, id);
@@ -2724,7 +2745,7 @@ test("mask-window proposals keep the source full-frame before a timed close", as
   assert.deepEqual(readKeyframeMap(readTimeline(id).elements[0]!.props), readKeyframeMap(draft.props));
 });
 
-test("a cropped panel can reveal its complete image while retaining the crop-increase cap", () => {
+test("a cropped panel can reveal its complete image or move its crop", () => {
   const id = "panel-full-frame-reveal";
   createProject(id, "web");
   const clip = element();
@@ -2738,7 +2759,21 @@ test("a cropped panel can reveal its complete image while retaining the crop-inc
   const valid=validateEditorAgentProposalAgainstProject(make(points),1,id);
   const draft=previewEditorAgentProposal(valid).timeline.elements[0]!;
   assert.deepEqual(resolveMaskInsetAtTime(draft.props,1),{top:0,right:0,bottom:0,left:0});
-  assert.throws(()=>validateEditorAgentProposalAgainstProject(make([{t:0,v:[0,0,2/3,0]},{t:1,v:[.6,0,0,0]}]),1,id),/per-edge delta cap/);
+  validateEditorAgentProposalAgainstProject(make([{t:0,v:[0,0,2/3,0]},{t:1,v:[.6,0,0,0]}]),1,id);
+});
+
+test("a crop can move from a side column to a corner bubble", () => {
+  const id = "corner-bubble-crop";
+  createProject(id, "web");
+  const clip = element();
+  clip.props = {mask_inset:[0,0.7917,0,0]};
+  writeTimeline(id,{elements:[clip],transitions:[]},"fixture");
+  const make = (inset: number[]) => proposal(id,timelineRevision(id),{
+    operations:[{element_id:clip.id,props:{mask_inset:inset,mask_corner_radius:0.5}}],
+    caps:{max_mutations:2,requested_mutations:2,max_renders:0},
+  });
+  const valid=validateEditorAgentProposalAgainstProject(make([0.6667,0.0208,0.037,0.8125]),2,id);
+  assert.deepEqual(previewEditorAgentProposal(valid).timeline.elements[0]!.props.mask_inset,[0.667,0.021,0.037,0.813]);
 });
 
 test("caption camera pan shares media motion without admitting unsupported caption effects", () => {

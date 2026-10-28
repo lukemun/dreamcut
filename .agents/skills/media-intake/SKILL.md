@@ -85,6 +85,13 @@ Preview preparation is automatically queued for supported imported videos; consu
 its actual ready/failed receipt through `editor-media-preprocessing`. This does NOT
 mean scene descriptions, transcripts, actions, or catalog annotations are complete.
 
+Wait on preparation with `media_readiness` (`action: "status"`), not by reading files under
+`preprocess/`. When a preview is still running a few minutes after import, measure its progress
+(output size against the source, elapsed time) and tell the creator the measured estimate rather
+than "a few more minutes". If it will hold up placement for long, say so and offer what can go
+on meanwhile. Analysis (transcription, silence maps, frame samples) reads the audio track or a
+small copy, never a full-resolution decode of a 4K original.
+
 Inspect the installed analysis capabilities before running them. The current project
 analysis surface is under `/api/projects/<id>/analysis/`: assets, jobs, tracks, and
 annotations are readable; enqueue is separate and respects the project's analysis

@@ -27,6 +27,15 @@ export const recipeVisuals:Record<string,RecipeVisual>={
   inputs:[{file:'/recipe-previews/word-search/inputs/shot-1.jpg',label:'Shot 1',role:'supply'},{file:'/recipe-previews/word-search/inputs/shot-2.jpg',label:'Shot 2',role:'supply'},{file:'/recipe-previews/word-search/inputs/shot-3.jpg',label:'Shot 3',role:'supply'},{file:'/recipe-previews/word-search/inputs/shot-4.jpg',label:'Shot 4',role:'supply'},{words:['RUN','DASH','FLIP','LAND'],label:'One word per shot',role:'supply'},{file:'/recipe-previews/word-search/inputs/letter-grid.jpg',label:'Letter grid and outlines',role:'prepared'}],
   stages:[{file:'/recipe-previews/word-search/grid.jpg',label:'1 · Letter grid'},{file:'/recipe-previews/word-search/first-word.jpg',label:'2 · First word circled'},{file:'/recipe-previews/word-search/all-words.jpg',label:'3 · Every word circled'}],
  },
+ 'FX-MOTION-SKETCH-3D': {
+  video:'/recipe-previews/motion-sketch-3d/result.mp4',poster:'/recipe-previews/motion-sketch-3d/drawing-in.jpg',
+  tile:{x:0.5,y:0.5,at:0.8},
+  summary:'Describe any scene and it is built from simple 3D shapes, drawn in ink as it rises into place, then the camera flies, circles or rises through it.',
+  credit:'Built in DreamCut as an editable code-built 3D motion graphic; no footage, generated imagery or people.',
+  note:'Normal speed; the city draws in for 1.6 seconds, then the camera flies for 4 seconds.',
+  inputs:[{words:['A city at dusk'],label:'What the scene shows',role:'supply'},{file:'/recipe-previews/motion-sketch-3d/inputs/scenes.jpg',label:'Another scene, same engine',role:'prepared'}],
+  stages:[{file:'/recipe-previews/motion-sketch-3d/drawing-in.jpg',label:'1 · Draws in'},{file:'/recipe-previews/motion-sketch-3d/swooping.jpg',label:'2 · Camera flies in'},{file:'/recipe-previews/motion-sketch-3d/street.jpg',label:'3 · Down the street'}],
+ },
  'FX-CLONE-FLASH': {
   video:'/recipe-previews/clone-flash/result.mp4',poster:'/recipe-previews/clone-flash/poster.jpg',
   summary:'Copies of the running bobblehead, cut out from other moments of the same take, appear beside it one at a time; each arrives as a white silhouette and settles into color.',

@@ -21,7 +21,8 @@
     { "id": "hold", "kind": "number", "label": "Hold", "default": 0.4, "min": 0, "max": 3, "step": 0.1, "unit": "s" },
     { "id": "ink", "kind": "color", "label": "Ink", "default": "#1c1b19" },
     { "id": "paper", "kind": "color", "label": "Paper", "default": "#f3efe6" },
-    { "id": "backdrop", "kind": "switch", "label": "Paper fill", "default": true }
+    { "id": "backdrop", "kind": "switch", "label": "Paper fill", "default": true },
+    { "id": "layer", "kind": "text", "label": "Layer", "default": "all", "max_length": 48, "fixed": true }
   ],
   "actors": [{ "id": "scene", "label": "3D scene" }],
   "markers": [],

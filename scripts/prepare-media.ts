@@ -3,7 +3,7 @@ import os from "node:os";
 import { prepareBrowsePreview } from "../src/lib/media-analysis/prepare-browse-preview";
 import path from "node:path";
 import { isAudioPreparationSource, placeable, preparationDir, startPreparationWorker, type PreparedMedia } from "../src/lib/local-store/media-preparation";
-import { prepareEditorMedia } from "../src/lib/media-analysis/prepare-editor-media";
+import { prepareEditorMedia, prepareRenderAuthority } from "../src/lib/media-analysis/prepare-editor-media";
 import { prepareAudioMedia, prepareVideoLoudness } from "../src/lib/media-analysis/prepare-audio-loudness";
 
 try { os.setPriority(0, os.constants.priority.PRIORITY_BELOW_NORMAL); } catch { /* Platform may disallow priority changes. */ }
@@ -23,8 +23,15 @@ async function runQueue() {
   fs.writeFileSync(handle, String(process.pid)); fs.closeSync(handle);
   try {
     for (;;) {
-      const queued = fs.readdirSync(dir).filter(f => f.endsWith(".json")).map(f => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as PreparedMedia).filter(r => r.state === "preparing");
-      if (!queued.length) break;
+      const records = fs.readdirSync(dir).filter(f => f.endsWith(".json")).map(f => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as PreparedMedia);
+      const queued = records.filter(r => r.state === "preparing");
+      if (!queued.length) {
+        // Full-resolution authorities an export is waiting for come after everything placement waits for.
+        const authority = records.find(r => r.state === "ready" && r.render_authority?.state === "requested");
+        if (!authority) break;
+        console.log(JSON.stringify(prepareRenderAuthority(projectId, authority)));
+        continue;
+      }
       const awaitingPreview = queued.find(record => !isAudioPreparationSource(record.source) && !record.browse_preview);
       if (awaitingPreview) {
         const preview = prepareBrowsePreview(projectId, awaitingPreview);
@@ -45,7 +52,7 @@ async function runQueue() {
     }
   } finally {
     fs.unlinkSync(lock);
-    if (fs.readdirSync(dir).filter(f => f.endsWith(".json")).some(f => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")).state === "preparing")) startPreparationWorker(projectId);
+    if (fs.readdirSync(dir).filter(f => f.endsWith(".json")).some(f => { const r = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")); return r.state === "preparing" || r.render_authority?.state === "requested"; })) startPreparationWorker(projectId);
   }
 }
 void runQueue().catch(error => { console.error(error); process.exitCode = 1; });

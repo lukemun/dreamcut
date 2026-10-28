@@ -94,3 +94,9 @@ Tested in `mcp/tool-errors.test.mjs`; not yet replaced by fully typed fields
 ## 2026-10-24 — shared helper cleanup
 
 The shared local script runner now signals an owned process group at most once after successful cleanup. See [the implementation decision and regression evidence](media-intake-generation.md#2026-10-24--idempotent-helper-group-cleanup). Command and editing authority are unchanged.
+
+## 2026-10-27 — Proposal files may be stored proposal records
+
+- **Observation:** In one session `pnpm frame-state <id> --proposal-file projects/<id>/proposals/<proposal>.json` refused the stored record ("Unrecognized keys: proposal_id, created_at, status, proposal, …"), and the usage line did not list `--proposal-file`. The agent extracted `.proposal` with Python and reran.
+- **Decision:** `frame-state` and `render-preview` read either a proposal or a stored record (`src/lib/agent/proposal-file.ts`); the usage lines name both.
+- **Verification:** `src/lib/agent/proposal-file.test.ts`.

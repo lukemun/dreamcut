@@ -8,7 +8,7 @@ const root = fs.mkdtempSync(path.join(os.tmpdir(), "render-jobs-"));
 process.env.TIMELINE_PROJECTS_DIR = root;
 process.env.DREAMCUT_PROFILE_DIR = path.join(root, "profile");
 
-import { exportErrorMessage, exportStageLabel, getJob, listJobs, startRender, stopRender, type LocalRenderJob } from "@/lib/local-store/render-jobs";
+import { exportErrorMessage, exportStageLabel, getJob, listJobs, renderStopRequested, startRender, stopRender, type LocalRenderJob } from "@/lib/local-store/render-jobs";
 import { createProject } from "./store";
 
 const jobsDir = path.join(root, ".cache", "render-jobs");
@@ -113,4 +113,18 @@ test("an export failure reads without terminal colour codes or the browser's cal
   const raw = new Error("page.screenshot: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n");
   assert.equal(exportErrorMessage(raw), "page.screenshot: Timeout 30000ms exceeded.");
   assert.equal(exportErrorMessage(null), "Render failed");
+});
+
+test("Stop reaches an export still running in an earlier editor process", () => {
+  // The stable editor swaps to a new process after a rebuild; the old one keeps the export running.
+  writeJobFile(job({ id: "elsewhere-1", status: "processing", statusLabel: "Rendering", fileName: null, completedAt: null, pid: process.ppid }));
+  assert.equal(renderStopRequested("elsewhere-1"), false);
+  assert.equal(stopRender("elsewhere-1"), true);
+  assert.equal(renderStopRequested("elsewhere-1"), true, "the owning process picks this request up");
+  // Nothing to stop once it is finished, or when its process is gone.
+  writeJobFile(job({ id: "finished-1" }));
+  assert.equal(stopRender("finished-1"), false);
+  writeJobFile(job({ id: "gone-1", status: "processing", statusLabel: "Rendering", fileName: null, completedAt: null, pid: 99999999 }));
+  assert.equal(stopRender("gone-1"), false);
+  assert.equal(renderStopRequested("gone-1"), false);
 });

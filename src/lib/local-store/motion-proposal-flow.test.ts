@@ -9,13 +9,14 @@ import { motionSubjectFromSourceUrl } from "@/lib/hyperframes/motion-media";
 import { sfxCatalogSchema } from "@/lib/sfx-catalog/schema";
 
 import {
+  missingEntryProblem,
   parseCompositionSourceSpec,
   safeCompositionRelativePath,
   writeCompositionSource,
 } from "./hyperframes-candidates";
 import { readMotionAudit, summarizeMotionAudit } from "./motion-audit";
 import { readMotionJob, startMotionJob } from "./motion-jobs";
-import { motionPlacementsInOption, parseMotionRating, recordMotionProposalReview } from "./motion-proposal-review";
+import { motionPlacementsInOption, parseMotionRating, recordMotionProposalReview, withMotionControls } from "./motion-proposal-review";
 import { addSynthSoundToLibrary } from "./sfx-library-intake";
 import type { SynthSoundReceipt } from "./synth-sounds";
 
@@ -46,11 +47,11 @@ test("recognizes model-authored media by path, not by name", () => {
   assert.equal(motionSubjectFromSourceUrl("/api/projects/demo/media/hyperframes/logo-sting/nested/x.webm"), null);
 });
 
-test("composition specs reject unsafe paths and require index.html", () => {
+test("composition specs reject unsafe paths and empty specs", () => {
   assert.throws(() => safeCompositionRelativePath("../escape.html", /\.html$/), /Unsupported/);
   assert.throws(() => safeCompositionRelativePath("node_modules/x.js", /\.js$/), /Unsupported/);
   assert.throws(() => safeCompositionRelativePath(".hidden.js", /\.js$/), /Unsupported/);
-  assert.throws(() => parseCompositionSourceSpec({ files: [{ path: "main.css", text: "" }] }), /index\.html/);
+  assert.throws(() => parseCompositionSourceSpec({ files: [] }), /at least one/);
   assert.throws(() => parseCompositionSourceSpec({ files: [{ path: "index.html", text: "" }], assets: [{ media_path: "sources/a.png", as: "logo.png" }] }), /under assets/);
   assert.throws(() => parseCompositionSourceSpec({ files: [{ path: "index.html", text: "" }, { path: "./index.html", text: "" }] }), /Duplicate/);
 });
@@ -69,6 +70,24 @@ test("writes agent sources and copies only project media into assets", withProje
     files: [{ path: "index.html", text: "" }],
     assets: [{ media_path: "../../../outside.png", as: "assets/x.png" }],
   })), /inside this project's media|not found/);
+}));
+
+test("a new composition needs index.html; a revision sends only the files that changed", withProject((projectId, root) => {
+  const onlyScript = parseCompositionSourceSpec({ files: [{ path: "engine.js", text: "window.v = 1;" }] });
+  assert.match(missingEntryProblem(projectId, "flyin", onlyScript) ?? "", /index\.html/);
+  assert.throws(() => writeCompositionSource(projectId, "flyin", onlyScript), /index\.html/);
+  const directory = writeCompositionSource(projectId, "flyin", parseCompositionSourceSpec({
+    files: [{ path: "index.html", text: "<html><script src=\"engine.js\"></script></html>" }, { path: "engine.js", text: "window.v = 0;" }],
+  }));
+  // Resending only the changed script was refused.
+  assert.equal(missingEntryProblem(projectId, "flyin", onlyScript), null);
+  writeCompositionSource(projectId, "flyin", onlyScript);
+  assert.equal(fs.readFileSync(path.join(directory, "engine.js"), "utf8"), "window.v = 1;");
+  assert.match(fs.readFileSync(path.join(directory, "index.html"), "utf8"), /engine\.js/);
+  fs.writeFileSync(path.join(root, "projects", projectId, "media", "sources", "outlines.svg"), "<svg/>");
+  const onlyAsset = parseCompositionSourceSpec({ assets: [{ media_path: "sources/outlines.svg", as: "assets/outlines.svg" }] });
+  writeCompositionSource(projectId, "flyin", onlyAsset);
+  assert.equal(fs.readFileSync(path.join(directory, "assets", "outlines.svg"), "utf8"), "<svg/>");
 }));
 
 test("ratings are optional whole numbers from 1 to 5", () => {
@@ -95,6 +114,38 @@ test("approval records one rated review per item and a placement per element", w
   assert.ok(review.type === "review" && review.rating === 5 && review.proposal_id === "proposal-1");
   const placement = events[1]!;
   assert.ok(placement.type === "placement" && placement.duration === 4.6 && placement.timeline_start === 2);
+}));
+
+test("a placed render keeps its controls after its source changes; a proposal's does not", withProject((projectId, root) => {
+  const project = path.join(root, "projects", projectId);
+  const directory = path.join(project, "hyperframes", "city");
+  fs.mkdirSync(directory, { recursive: true });
+  fs.writeFileSync(path.join(directory, "index.html"), "<html>old</html>");
+  fs.writeFileSync(path.join(directory, "dreamcut.controls.json"), JSON.stringify({ schema_version: 1, controls: [
+    { id: "ink", kind: "color", label: "Ink", default: "#1c1b19" },
+    { id: "height", kind: "number", label: "Height", default: 100, min: 30, max: 150 },
+    { id: "backdrop", kind: "switch", label: "Paper fill", default: true },
+  ] }));
+  const output = "media/hyperframes/city/city.aa.webm";
+  fs.mkdirSync(path.join(project, "media", "hyperframes", "city"), { recursive: true });
+  fs.writeFileSync(path.join(project, output), "webm");
+  const receipts = path.join(project, "preprocess", "hyperframes", "renders", "city");
+  fs.mkdirSync(receipts, { recursive: true });
+  const sha = "a".repeat(64);
+  fs.writeFileSync(path.join(receipts, "old.json"), JSON.stringify({
+    schema_version: 1, composition_id: "city",
+    source: { project_relative_directory: "hyperframes/city", fingerprint_sha256: "b".repeat(64) },
+    output: { project_relative_path: output, sha256: sha, duration_seconds: 4, width: 1080, height: 1920, fps: 30, codec: "vp9", pixel_format: "yuv420p", alpha_mode: "1", crop_checked: true },
+    render: { hyperframes_version: "0.8.40", rendered_at: "2026-10-25T00:00:00.000Z", quality: "high", format: "webm", approved: true },
+    // An older manifest had a control the current one dropped, and a height the current range refuses.
+    parameters: { manifest_sha256: sha, values_sha256: sha, values: { ink: "#FF0000", height: 400, wobble: 3 }, segment_durations: {} },
+  }));
+  const item = { kind: "composition" as const, id: "city", operation_index: 0, source_url: `/api/projects/${projectId}/media/hyperframes/city/city.aa.webm` };
+  assert.equal(withMotionControls(projectId, [item])![0]!.controls, undefined);
+  const placed = withMotionControls(projectId, [item], { carryToCurrentSource: true })![0]!;
+  assert.deepEqual(placed.controls?.map((control) => control.id), ["ink", "height", "backdrop"]);
+  assert.deepEqual(placed.values, { ink: "#ff0000", height: 100, backdrop: true });
+  assert.notEqual(placed.source_fingerprint_sha256, "b".repeat(64));
 }));
 
 test("render jobs settle durably and refuse a concurrent start", withProject(async (projectId) => {

@@ -3,7 +3,7 @@
 // inspect the MP4 inside the VM. Run open-editor.sh first and pass the link it printed.
 //   node editor-check.mjs '<sign-in link>'
 // Uses the same settings as vm.sh; DREAMCUT_VM_CDP_PORT as in open-editor.sh. Writes one project into the
-// VM's DreamCut projects; nothing on this Mac changes.
+// checkout's projects folder in the VM (C:\dev\dreamcut\projects); nothing on this Mac changes.
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -107,7 +107,7 @@ try {
   check(/complete/i.test(outcome), 'the export finishes', /complete/i.test(outcome) ? '' : (await dialog.innerText().catch(() => outcome)).replace(/\s+/g, ' ').slice(-300));
 
   if (/complete/i.test(outcome)) {
-    const probe = JSON.parse(vm(`$f = Get-ChildItem "$env:LOCALAPPDATA\\DreamCut\\projects\\${projectId}\\renders" -Recurse -Filter *.mp4 | Sort-Object LastWriteTime | Select-Object -Last 1; ffprobe -v error -show_entries format=duration:stream=codec_type,width,height -of json $f.FullName`));
+    const probe = JSON.parse(vm(`$f = Get-ChildItem "C:\\dev\\dreamcut\\projects\\${projectId}\\renders" -Recurse -Filter *.mp4 | Sort-Object LastWriteTime | Select-Object -Last 1; ffprobe -v error -show_entries format=duration:stream=codec_type,width,height -of json $f.FullName`));
     const video = probe.streams.find(s => s.codec_type === 'video'), audio = probe.streams.find(s => s.codec_type === 'audio');
     const duration = Number(probe.format.duration);
     check(Boolean(video && audio) && Math.abs(duration - 4) < 0.25, 'the MP4 has picture, sound and the timeline\'s length',

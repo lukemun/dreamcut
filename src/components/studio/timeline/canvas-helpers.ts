@@ -424,3 +424,42 @@ export function snapBoundaryToRuler(
   }
   return { boundarySec, snapLine: null };
 }
+
+/**
+ * Where a clicked or scrubbed playhead lands. Clip edges pull it in, and so does the
+ * middle of a gap narrow enough that both edges sit inside the snap radius; otherwise
+ * neither edge could be left behind and the gap itself could never be reached.
+ */
+export function snapPlayheadToElements(
+  seconds: number,
+  pxPerSec: number,
+  elements: TimelineElement[],
+): { seconds: number; snapLine: number | null } {
+  const threshold = getSnapThresholdPx("primary") / pxPerSec;
+  const targets: number[] = [];
+  const lanes = new Map<string, TimelineElement[]>();
+  for (const element of elements) {
+    targets.push(element.timeline_start, element.timeline_start + element.duration);
+    const lane = lanes.get(element.lane_key);
+    if (lane) lane.push(element);
+    else lanes.set(element.lane_key, [element]);
+  }
+  for (const lane of lanes.values()) {
+    lane.sort((a, b) => a.timeline_start - b.timeline_start);
+    for (let index = 1; index < lane.length; index += 1) {
+      const gapStart = lane[index - 1]!.timeline_start + lane[index - 1]!.duration;
+      const gapEnd = lane[index]!.timeline_start;
+      if (gapEnd - gapStart > 0.001 && gapEnd - gapStart <= threshold * 2) {
+        targets.push((gapStart + gapEnd) / 2);
+      }
+    }
+  }
+  let best: number | null = null;
+  for (const target of targets) {
+    const distance = Math.abs(seconds - target);
+    if (distance <= threshold && (best == null || distance < Math.abs(seconds - best))) best = target;
+  }
+  if (best == null) return { seconds, snapLine: null };
+  const snapped = Number(best.toFixed(3));
+  return { seconds: snapped, snapLine: snapped };
+}

@@ -16,6 +16,4 @@ Run `pnpm setup:check` first; it reports missing prerequisites.
 | Port 3123 is already in use | Stop the other app, or run `pnpm exec next dev -H 127.0.0.1 -p 3133` |
 | The agent doesn't see DreamCut's tools | Start the agent in the repo folder, approve the `timeline-editor` MCP server, keep `pnpm editor` running |
 | "Voice enhancement is not installed" | `pnpm setup:voice` (optional, about 400 MB) |
-| Installed with `npx`: "DreamCut is still downloading" | The download carries on in the background; ask your agent again in a few minutes, or run `npx dreamcut install` in a terminal to wait for it |
-| Installed with `npx`: "DreamCut has no Library yet" | Tell your agent where to keep your projects (for example `~/Movies/DreamCut Library`) |
 | Videos aren't found by `video_search` | Ask your agent to describe your footage (it looks at the frames itself) |

@@ -37,8 +37,8 @@ test("timing follows picture, caption and audio ownership; detail views do not l
 });
 test("every mounted Properties section uses a registered stable identity", () => {
   // Media and audio sections mount in ElementMenu; a selected shape's sections mount in ShapeProperties;
-  // the camera section is one shared control both use.
-  const sources = ["ElementMenu.tsx", "ShapeProperties.tsx", "CameraFollowControl.tsx"].map((file) =>
+  // the camera section is one shared control both use; a motion graphic mounts its own section when it has controls.
+  const sources = ["ElementMenu.tsx", "ShapeProperties.tsx", "CameraFollowControl.tsx", "MotionGraphicProperties.tsx"].map((file) =>
     ts.createSourceFile(file, fs.readFileSync(new URL(`./${file}`, import.meta.url), "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX));
   const mounted = new Set<string>();
   function visit(node: ts.Node, source: ts.SourceFile) {

@@ -49,6 +49,12 @@ function assertLibraryWritable(root: string) {
   if (checkedLibrary.error) throw checkedLibrary.error;
 }
 
+/** A display name is not a filesystem path: a new project's folder id is its name made safe, plus a short random suffix. */
+export function projectIdForTitle(title: string): string {
+  const slug = title.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 100);
+  return `${slug || "project"}-${crypto.randomUUID().slice(0, 8)}`;
+}
+
 export function isSafeProjectId(projectId: string): boolean {
   return projectId.length > 0
     && projectId.length <= 128

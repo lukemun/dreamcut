@@ -1780,6 +1780,80 @@ Preview the result, check the full transition or animation and report anything u
 - Words use the letters A–Z, up to 12 letters each, up to four words.
 - The grid is drawn for a portrait 9:16 canvas.
 
+<a id="fx-motion-sketch-3d"></a>
+
+## 3D Sketch Scene
+
+**FX-MOTION-SKETCH-3D · Implemented template · built with your agent** · [Owning skill](../../.agents/skills/motion-graphics/SKILL.md)
+
+**Home:** Properties → Templates.
+
+### Demonstration
+
+[<img src="../../public/recipe-previews/motion-sketch-3d/drawing-in.jpg" width="160" alt="3D Sketch Scene demonstration" />](../../public/recipe-previews/motion-sketch-3d/result.mp4)
+
+Describe any scene and it is built from simple 3D shapes, drawn in ink as it rises into place, then the camera flies, circles or rises through it. Normal speed; the city draws in for 1.6 seconds, then the camera flies for 4 seconds.
+
+**You supply**
+
+| What the scene shows |
+| --- |
+| A city at dusk |
+
+**DreamCut prepares**
+
+| Another scene, same engine |
+| --- |
+| <img src="../../public/recipe-previews/motion-sketch-3d/inputs/scenes.jpg" width="100" alt="Another scene, same engine" /> |
+
+| 1 · Draws in | 2 · Camera flies in | 3 · Down the street |
+| --- | --- | --- |
+| <img src="../../public/recipe-previews/motion-sketch-3d/drawing-in.jpg" width="100" alt="1 · Draws in" /> | <img src="../../public/recipe-previews/motion-sketch-3d/swooping.jpg" width="100" alt="2 · Camera flies in" /> | <img src="../../public/recipe-previews/motion-sketch-3d/street.jpg" width="100" alt="3 · Down the street" /> |
+
+Built in DreamCut as an editable code-built 3D motion graphic; no footage, generated imagery or people. Catalog evidence below is separate.
+
+Any 3D scene you can describe, drawn in ink as it builds, then flown through by the camera: a city, a forest, a product on a plinth, a logo, a map of your street.
+
+### What you supply
+
+- **What the scene shows:** Describe it in words: the objects, roughly where they stand and how big they are, and where the camera should go (fly through, circle or rise) and land. Logos and letters are drawn as extruded outlines.
+
+### Supply your own or generate inputs
+
+Nothing is generated; the scene is drawn from code in DreamCut. Turn Paper fill off to lay it over your own footage.
+
+Generation suitability is guidance, not proof of a tested generated-input workflow. Ask the agent to stage any needed assets in Library → Generate, then review the model, prompt and settings before generating.
+
+### How the effect is built
+
+1. Build the scene from simple 3D shapes and generators (city, forest, ground grid).
+2. Draw it in as ink, then move the camera through it.
+3. Expose camera, timing, density, height, wobble, ink, paper and paper fill as controls.
+
+### Ask your agent
+
+Select this template in Templates, then tell your agent which files to use. Your agent works from this request; it prepares a proposal for you to review, never an edit or a generation on its own.
+
+```text
+Use the motion-graphics skill for "3D Sketch Scene" (recipe: FX-MOTION-SKETCH-3D).
+Read the FX-MOTION-SKETCH-3D construction brief in src/lib/effects/promoted-recipes.ts and its owning skill before preparing the edit.
+Build a 3D Sketch Scene of [WHAT THE SCENE SHOWS], with the camera [FLYING THROUGH / CIRCLING / RISING OVER] it[, landing on WHAT OR WHEN]. Follow the 3D Sketch Scene template in the motion-graphics skill: write a scene.js for my subject from simple shapes (boxes, cylinders, cones, spheres, extruded outlines for logos and letters, ground grids, city and forest generators) and keep the shared engine unchanged. Expose Camera, Camera time, Build time, Density, Height, Wobble and Variation as the main dials, and Detail, Hold, Ink, Paper and Paper fill under Advanced; turn Paper fill off if it should lay over my footage. Propose it for me to review.
+My inputs and target: [attach or identify my files, target clips, order and desired timing].
+What the scene shows: Describe it in words: the objects, roughly where they stand and how big they are, and where the camera should go (fly through, circle or rise) and land. Logos and letters are drawn as extruded outlines.
+How it works: Build the scene from simple 3D shapes and generators (city, forest, ground grid). Draw it in as ink, then move the camera through it. Expose camera, timing, density, height, wobble, ink, paper and paper fill as controls.
+Input generation guidance: Nothing is generated; the scene is drawn from code in DreamCut. Turn Paper fill off to lay it over your own footage.
+Read the current timeline, applicable preferences and available media. Ask for missing inputs; do not assume example assets are mine. If generation is needed, prepare a visible draft and wait for my generation authorization.
+Preserve original sources and unrelated edits. Keep meaningful layers and tuning controls editable. For an existing edit, propose changes for my review; do not apply or approve them.
+Known limitations: Everything is built from simple shapes; imported 3D models and photos are not supported, and words are extruded outlines rather than typed text. It draws as ink lines; Looks do not apply to it yet, so restyle it with Ink, Paper, Paper fill and Wobble. Lines are one pixel wide at 1920 × 1080.
+Preview the result, check the full transition or animation and report anything unverified.
+```
+
+### Evidence and limits
+
+- Everything is built from simple shapes; imported 3D models and photos are not supported, and words are extruded outlines rather than typed text.
+- It draws as ink lines; Looks do not apply to it yet, so restyle it with Ink, Paper, Paper fill and Wobble.
+- Lines are one pixel wide at 1920 × 1080.
+
 <a id="fx-clone-flash"></a>
 
 ## Clone Flash

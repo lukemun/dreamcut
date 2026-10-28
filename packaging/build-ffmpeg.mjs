@@ -8,7 +8,8 @@
  *
  * The result is GPL-2.0-or-later. Distributing it requires its licences and its complete corresponding source,
  * so this also writes dreamcut-media-source-<platform>-<id>.tar.gz (every source archive here, this script and
- * the exact configure lines); packaging/build-web-runtime.mjs publishes it beside the runtime archives.
+ * the exact configure lines). The 0.3.0 runtime release published it beside the runtime archives; the runtime
+ * build was removed on 2026-10-27, and this stays as the record of how that FFmpeg was built.
  *
  *   node packaging/build-ffmpeg.mjs     into dist/media-tools/<platform>-<arch>/ (sources cached in .desktop-build/ffmpeg)
  *   ... --reuse-libraries               keep the libraries a previous run built and rebuild FFmpeg only (iterating, not releases)

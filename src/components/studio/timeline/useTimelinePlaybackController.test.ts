@@ -5,6 +5,7 @@ import {
   PLAYHEAD_UI_SYNC_INTERVAL_MS,
   seekPlayerAndPause,
   shouldClearStalePlayerBuffering,
+  playheadSecForPlayerFrame,
   shouldSyncPlayheadUi,
 } from "./useTimelinePlaybackController";
 
@@ -52,4 +53,12 @@ test("a replaced waiting media owner cannot leave buffering stuck while frames a
   assert.equal(shouldClearStalePlayerBuffering(1200, 1200), false);
   assert.equal(shouldClearStalePlayerBuffering(1200, 1201), true);
   assert.equal(shouldClearStalePlayerBuffering(1200, 1199), true);
+});
+
+test("a playhead parked between frames survives the Player reporting its frame", () => {
+  // 2.18s is frame 65.4 at 30fps; the Player shows and reports frame 65.
+  assert.equal(playheadSecForPlayerFrame(2.18, 65, 30), 2.18);
+  // Once the Player moves to another frame, the playhead follows it.
+  assert.equal(playheadSecForPlayerFrame(2.18, 66, 30), 66 / 30);
+  assert.equal(playheadSecForPlayerFrame(1, 30, 30), 1);
 });

@@ -37,3 +37,20 @@ test("a placeholder rejection note is not an undrafted request; a typed reason s
   const pending = pendingFeedbackRequests(feedbackCoverage(memoryEvents("demo"), []));
   assert.deepEqual(pending.map(request => request.direction), ["Too fast, slow the scramble"]);
 });
+
+test("the closeout check lists unaccounted directions in full and the rest one line each", async () => {
+  const { feedbackCheck, feedbackCoverage } = await import("../timeline/editing-feedback");
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "feedback-check-"));
+  process.env.TIMELINE_PROJECTS_DIR = path.join(root, "projects");
+  process.env.DREAMCUT_PROFILE_DIR = path.join(root, "profile");
+  createProject("demo", "web");
+  const base = { project_id: "demo", session_id: "s", provenance: "user_words" as const };
+  const answered = recordEditingFeedback({ ...base, turn_id: "a", direction: `Make it neon.\n${"Every line glows. ".repeat(40)}` });
+  const open = recordEditingFeedback({ ...base, turn_id: "b", direction: "Windows come in later" });
+  const proposal = { proposal_id: "20261028T032215-72694024", status: "approved", proposal: { summary: "x".repeat(400), responds_to_feedback_ids: [answered.event_id] } };
+  const check = feedbackCheck(feedbackCoverage(memoryEvents("demo"), [proposal]));
+  assert.deepEqual(check.unaccounted_feedback_ids, [open.event_id]);
+  assert.deepEqual(check.unaccounted.map(direction => direction.direction), ["Windows come in later"]);
+  assert.deepEqual(check.accounted, [{ id: answered.event_id, time: check.accounted[0].time, direction: "Make it neon.", session_id: "s", proposals: ["20261028T032215-72694024 approved"] }]);
+  assert.ok(!JSON.stringify(check).includes("x".repeat(400)));
+});

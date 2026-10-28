@@ -13,8 +13,10 @@ import {enqueueMediaPreparation,readPreparation} from "../local-store/media-prep
 import {toolError} from "./tool-error";
 import {dictionaryWords,findOovTokens} from "../instruments/oov";
 import { workerCommand, workerImplementationFiles } from "@/lib/worker-command";
+// Long recordings align in pause-cut chunks (scripts/align.ts), so an hour is bounded by worker time, not drift.
+export const SPEECH_MAX_SOURCE_SECONDS=60*60;
 const inputSchema=z.discriminatedUnion("kind",[
- z.object({kind:z.literal("speech"),source:z.string().min(1),mode:z.enum(["transcribe","align"]),reviewed_text:z.string().trim().min(1).max(30000).optional(),retry:z.boolean().optional()}).strict(),
+ z.object({kind:z.literal("speech"),source:z.string().min(1),mode:z.enum(["transcribe","align"]),reviewed_text:z.string().trim().min(1).max(120000).optional(),retry:z.boolean().optional()}).strict(),
  z.object({kind:z.literal("treatment"),parent_cutout_id:z.string().uuid(),mode:z.enum(["outline","scratchpad"]),width:z.number().int().min(1).max(32).default(12),retry:z.boolean().optional()}).strict()
 ]);
 type Input=z.infer<typeof inputSchema>;
@@ -51,7 +53,7 @@ async function dependencies(input:Input){
  const missing=files.filter(file=>!fs.existsSync(file));
  if(missing.length){
   const models=missing.filter(file=>file===whisperModel||file===vadModel);
-  throw toolError("RUNTIME_UNAVAILABLE",models.length?`The local speech model is not installed: ${models.join(", ")}.`:`This DreamCut install is missing ${missing.join(", ")}.`,{action:"report_missing_prerequisite",reason:models.length?"No models are downloaded automatically; `npx dreamcut doctor` (source checkout: `pnpm setup:check`) lists the speech tools and how to install them.":"Reinstall DreamCut with `npx dreamcut install`."});
+  throw toolError("RUNTIME_UNAVAILABLE",models.length?`The local speech model is not installed: ${models.join(", ")}.`:`This DreamCut install is missing ${missing.join(", ")}.`,{action:"report_missing_prerequisite",reason:models.length?"No models are downloaded automatically; `pnpm setup:check` lists the speech tools and how to install them.":"Your DreamCut folder is missing files: run `git status` there and restore them."});
  }
  return await Promise.all(files.map(sha256));
 }
@@ -66,7 +68,7 @@ export async function enqueuePreparation(project:string,raw:unknown){
  if(input.kind==="speech"){
   const facts=await run("ffprobe",["-v","error","-show_entries","format=duration","-of","json",sourceFile]);
   const duration=Number(JSON.parse(facts.stdout).format?.duration);
-  if(!Number.isFinite(duration)||duration<=0||duration>600)throw toolError("SOURCE_WINDOW_TOO_LARGE","Speech preparation accepts a complete source up to 10 minutes.",{action:"select_bounded_source",reason:"Do not bake ordinary editorial trims or change the source clock to bypass this limit."});
+  if(!Number.isFinite(duration)||duration<=0||duration>SPEECH_MAX_SOURCE_SECONDS)throw toolError("SOURCE_WINDOW_TOO_LARGE","Speech preparation accepts a complete source up to 60 minutes.",{action:"select_bounded_source",reason:"Do not bake ordinary editorial trims or change the source clock to bypass this limit."});
  }
  const sourceHash=await sha256(sourceFile);
  const {retry,...identity}=input;

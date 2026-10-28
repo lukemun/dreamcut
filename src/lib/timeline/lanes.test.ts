@@ -20,3 +20,11 @@ test("incompatible lanes fail before a playable but invisible clip is persisted"
     /not visible\/editable/,
   );
 });
+
+test("a wrong lane names the lane family the element type takes", () => {
+  assert.throws(
+    () => assertLaneCompatibleWithElementType("sound_effect", "audio_1"),
+    /Lane "audio_1" is not visible\/editable for element type "sound_effect"; use a sound_effect_N lane \(for example "sound_effect_0"\)/,
+  );
+  assert.throws(() => assertLaneCompatibleWithElementType("still", "music_0"), /use a visual_N lane \(for example "visual_1"\)/);
+});

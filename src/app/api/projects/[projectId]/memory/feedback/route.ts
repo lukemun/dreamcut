@@ -3,17 +3,17 @@ import { assertProject } from "@/lib/local-store/store";
 import { recordEditingFeedback, recordFeedbackDisposition } from "@/lib/local-store/editing-feedback";
 import { memoryEvents } from "@/lib/local-store/editing-memory";
 import { listProposals } from "@/lib/local-store/proposals";
-import { feedbackCoverage } from "@/lib/timeline/editing-feedback";
+import { feedbackCheck, feedbackCoverage } from "@/lib/timeline/editing-feedback";
 import { requestEditAttribution } from "@/lib/local-store/edit-attribution";
 
 type Params = { params: Promise<{ projectId: string }> };
 
-/** Read-only feedback coverage. */
+/** Read-only feedback coverage for `editing_feedback_check`: unaccounted directions in full, the rest one line each. */
 export async function GET(_request: Request, { params }: Params) {
   try {
     const { projectId } = await params;
     assertProject(projectId);
-    return NextResponse.json(feedbackCoverage(memoryEvents(projectId), listProposals(projectId)));
+    return NextResponse.json(feedbackCheck(feedbackCoverage(memoryEvents(projectId), listProposals(projectId))));
   } catch (error) {
     return NextResponse.json({ error: String(error) }, { status: 400 });
   }

@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { TIMELINE_ASPECT_RATIO_VALUES } from "@/lib/aspect-ratios";
 
-import { isSafeProjectId, projectExists } from "@/lib/local-store/paths";
+import { isSafeProjectId, projectExists, projectIdForTitle } from "@/lib/local-store/paths";
 import { createProject, withProjectLock } from "@/lib/local-store/store";
 
 const schema = z.object({
@@ -18,9 +18,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Enter a project name of up to 200 characters and choose a video shape." }, { status: 400 });
   }
   const { title, aspect_ratio } = parsed.data;
-  // A display name is not a filesystem path. Keep explicit IDs compatible with
-  // existing callers, and derive safe IDs for names supplied by the editor.
-  const id = parsed.data.id ?? `${(title!.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 100) || "project")}-${crypto.randomUUID().slice(0, 8)}`;
+  // Keep explicit IDs compatible with existing callers, and derive safe IDs for names supplied by the editor.
+  const id = parsed.data.id ?? projectIdForTitle(title!);
   return withProjectLock(id, () => {
     if (projectExists(id)) {
       return NextResponse.json({ error: "A project with that name already exists. Choose another name." }, { status: 409 });

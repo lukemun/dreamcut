@@ -600,7 +600,7 @@ const TOOLS = {
     handler: ({ project_id, ...body }) => http("POST", `/api/projects/${encodeURIComponent(project_id)}/personal-styles`, body),
   },
   editor_context_get: {
-    description: "Which project the creator has open in the DreamCut editor, for a request that does not name one (\"Use the Word Search Trace template with my footage\"). Returns status, open_project {project_id, title, route editor/storyboard/library/..., updated_at, age_seconds}, selection (what the creator has selected in that project: items [{id, kind, label, agent_text}] across timeline clips, Library media, caption looks, text, sounds, music, layouts and Templates (kind Template, id template:<…>: get its brief from capability_catalog), plus library_sources; act on these when they say \"this\", \"these\", \"this one\" or \"what I selected\"), other_open_windows (other projects shown in recently active editor windows), open_tabs, fresh_minutes (30) and template_drafts [{draft_id, title, what_to_copy, mark {start,end} in source seconds, reference_file, review_url}]: videos the creator dropped on the home page and asked an agent to recreate as their own template; follow skill:recreate-effect (its home-page draft section) for each. status current: use open_project. ambiguous (another window shows a different project), stale (last viewed more than 30 minutes ago) or none: ask which project. A project named in the request always wins. With project_id it also returns project_shown {project_id, showing, last_seen_seconds}: showing is true only while a visible editor window shows that project; use it before ending a turn to decide whether to open the project for the creator. Read-only; it never opens or changes a project.",
+    description: "Which project the creator has open in the DreamCut editor, for a request that does not name one (\"Use the Word Search Trace template with my footage\"). Returns status, open_project {project_id, title, route editor/storyboard/library/..., updated_at, age_seconds}, selection (what the creator has selected in that project: items [{id, kind, label, agent_text}] across timeline clips, Library media, caption looks, text, sounds, music, layouts and Templates (kind Template, id template:<…>: get its brief from capability_catalog), plus library_sources; act on these when they say \"this\", \"these\", \"this one\" or \"what I selected\"), other_open_windows (other projects shown in recently active editor windows), open_tabs, fresh_minutes (30) and template_drafts [{draft_id, title, what_to_copy, mark {start,end} in source seconds, reference_file, review_url}]: videos the creator dropped on the home page and asked an agent to recreate as their own template; follow skill:recreate-effect (its home-page draft section) for each. first_build {project_id, brief, guidance} when that project was started from the home page and its brief still waits for its first cut: when the creator says \"go\" or \"start on it\", build it as guidance says. status current: use open_project. ambiguous (another window shows a different project), stale (last viewed more than 30 minutes ago) or none: ask which project. A project named in the request always wins. With project_id it also returns project_shown {project_id, showing, last_seen_seconds}: showing is true only while a visible editor window shows that project; use it before ending a turn to decide whether to open the project for the creator. Read-only; it never opens or changes a project.",
     inputSchema: { type: "object", additionalProperties: false, properties: {
       project_id: { type: "string", description: "Project you are working on or referring to. Adds project_shown: whether the creator can see it in an editor window right now." },
     } },
@@ -968,10 +968,11 @@ const TOOLS = {
     handler:({project_id,job_id})=>http("POST",`/api/projects/${project_id}/tools/preparation`,{action:"status",job_id}),
   },
   caption_proposal_compile: {
-    description:"Compile a completed reviewed-text MFA job into replace_captions operations scoped to one speech clip: the route for every caption request. Choose the look from the creator's My Style (editing_context.preferences; the result also lists their caption preferences) with one of the editor's caption looks (style.look sets the style and its font); without a style the product's default look is used. Defaults: one word at a time, at a fixed size that never shrinks. Pass written_text (the script as written, e.g. the storyboard Script) so captions read \"0.22\" and \"Nasdaq\" while timed to the spoken \"zero point two two\" and \"nas dock\" the alignment used. word_limit above 1 gives phrase captions. Long talks become several operations of at most 250 captions, applied in order, with review_controls linking them into one set of dials. Preserves source-clock binding, including speed mapping. Requires the current revision. The operations are stored and returned as compile_id: put operations_from: [{compile_id}] on the proposal_create option instead of pasting them (include_cues returns them too). Never applies or approves captions.",
+    description:"Compile a completed reviewed-text MFA job into replace_captions operations scoped to one speech clip, or to every clip cut from that recording (source_element_ids): the route for every caption request. Choose the look from the creator's My Style (editing_context.preferences; the result also lists their caption preferences) with one of the editor's caption looks (style.look sets the style and its font); without a style the product's default look is used. Defaults: one word at a time, at a fixed size that never shrinks. Pass written_text (the script as written, e.g. the storyboard Script) so captions read \"0.22\" and \"Nasdaq\" while timed to the spoken \"zero point two two\" and \"nas dock\" the alignment used. word_limit above 1 gives phrase captions. Long talks become several operations of at most 250 captions, applied in order, with review_controls linking them into one set of dials. Preserves source-clock binding, including speed mapping. Requires the current revision. The operations are stored and returned as compile_id: put operations_from: [{compile_id}] on the proposal_create option instead of pasting them (include_cues returns them too). Never applies or approves captions.",
     inputSchema:{type:"object",additionalProperties:false,properties:{project_id:PROJECT_ID,
       job_id:{type:"string",description:"Completed speech_prepare align job (reviewed text) for the speech clip's source."},
       source_element_id:{type:"string",description:"The speech clip the captions follow."},
+      source_element_ids:{type:"array",minItems:1,maxItems:500,items:{type:"string"},description:"Instead of source_element_id: every speech clip cut from the aligned recording (a talk with its pauses removed). Each clip captions its own words; no caption spans a cut."},
       expected_revision:{type:"string",description:"Current timeline revision from timeline_get."},
       style:{type:"object",additionalProperties:false,description:"How captions look and sit, chosen from the creator's My Style. Omitted: the product's default look.",properties:{
         look:{type:"string",enum:["none","cinematic","bold_outline","highlight_yellow","highlight_red","boxed","yellow_banner","black_card","thought_bubble","neon","yellow_words","inverse"],description:"Caption look from the editor's Captions panel; sets style_variant and its paired font. Preferred over font_preset/style_variant. none is Plain."},
@@ -989,7 +990,7 @@ const TOOLS = {
       single_word_flip_seconds:{type:"number",minimum:0,maximum:0.3,description:"single_word only: seconds each word flips in and out; 0 (default) is a plain cut."},
       hide_punctuation:{type:"boolean",description:"Draw captions without punctuation."},
       offset_y:{type:"number",minimum:-0.45,maximum:0.45,description:"Move every caption down (positive) or up from its position preset, as a share of the frame height; use it only when the creator asks, e.g. to clear their face. Default 0; the card keeps it as a dial."}},
-      required:["project_id","job_id","source_element_id","expected_revision"]},
+      required:["project_id","job_id","expected_revision"]},
     handler:({project_id,...body})=>http("POST",`/api/projects/${project_id}/tools/caption-compile`,body),
   },
   framing_compile: {
@@ -1004,7 +1005,11 @@ const TOOLS = {
         height:{type:"number",minimum:0,maximum:1,description:"Region's height as a share of the source height."},
         ease:{type:"string",enum:["linear","easeIn","easeOut","easeInOut","hold"],description:"How the camera moves into this framing; default easeInOut."}},required:["x","y","width","height"]}},
       fit:{type:"string",enum:["fit","fill"],description:"fit (default) shows the whole region; fill covers the visible part, trimming the region's longer side."},
-      mask_inset:{type:"array",minItems:4,maxItems:4,items:{type:"number",minimum:0,maximum:0.95},description:"Crop [top, right, bottom, left] to frame for, when it differs from the clip's own, e.g. [0,0,0.5,0] for the top half."}},
+      mask_inset:{type:"array",minItems:4,maxItems:4,items:{type:"number",minimum:0,maximum:0.95},description:"Crop [top, right, bottom, left] to frame for, when it differs from the clip's own, e.g. [0,0,0.5,0] for the top half."},
+      follow_cursor:{type:"object",additionalProperties:false,description:"Screen recordings: find the mouse pointer in the clip and let the framing drift after it with a spring, like a demo camera, instead of holding still. The regions still set how far it zooms and when; a whole-frame region stays put. Leave out (or follow 0) for a still framing.",properties:{
+        follow:{type:"number",minimum:0,maximum:1,description:"How far the view leans toward the pointer: 0 stays on the region, 1 centres the pointer. Default 0.6."},
+        smoothing:{type:"number",minimum:0.1,maximum:5,description:"Seconds the camera takes to settle after the pointer moves; longer is calmer. Default 0.8."},
+        dead_zone:{type:"number",minimum:0,maximum:0.9,description:"Share of the view around its centre where pointer moves are ignored, so small moves do not nudge the camera. Default 0.4."}}}},
       required:["project_id","element_id","regions"]},
     handler:({project_id,...body})=>http("POST",`/api/projects/${project_id}/tools/framing-compile`,body),
   },
@@ -1499,7 +1504,7 @@ const TOOLS = {
     handler: ({ project_id, proposal: draft, personal_style }) => {
       const proposal = proposalForProject(project_id, draft);
       for (const option of proposal?.options ?? []) {
-        assertSemanticTrimOperations(option.operations ?? []);
+        assertSemanticTrimOperations(option.operations ?? [], { inProposal: true });
       }
       return http("POST", `/api/projects/${project_id}/timeline/proposals`, personal_style ? { proposal, personal_style } : proposal);
     },
@@ -1527,7 +1532,7 @@ const TOOLS = {
     handler: ({ project_id, proposal: draft }) => {
       const proposal = proposalForProject(project_id, draft);
       for (const option of proposal?.options ?? []) {
-        assertSemanticTrimOperations(option.operations ?? []);
+        assertSemanticTrimOperations(option.operations ?? [], { inProposal: true });
       }
       return http("POST", `/api/projects/${project_id}/timeline/proposals/preflight`, { proposal });
     },
@@ -2027,7 +2032,7 @@ async function handleMessage(message) {
       return;
     }
     if (method === "tools/call") {
-      // The launcher's first-run progress tool (packaging/launcher/lib/mcp-bootstrap.mjs). An agent app that
+      // The retired 0.3.0 npm launcher's first-run progress tool, still served to its installs. An agent app that
       // missed tools/list_changed after setup still lists only it, so it answers here with the way out.
       if (params?.name === "dreamcut_setup_status") {
         send({ jsonrpc: "2.0", id, result: { content: [{ type: "text", text: `DreamCut finished setting up; ${selection.enabled.size} DreamCut tools are live. `

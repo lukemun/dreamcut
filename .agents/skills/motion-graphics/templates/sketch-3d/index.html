@@ -24,10 +24,15 @@
       const dc = window.__dreamcut ?? {
         controls: {
           camera: "fly", density: 100, height: 100, detail: 70, wobble: 20, variation: 7,
-          draw_in: 1.6, flight: 4, hold: 0.4, ink: "#1c1b19", paper: "#f3efe6", backdrop: true,
+          draw_in: 1.6, flight: 4, hold: 0.4, ink: "#1c1b19", paper: "#f3efe6", backdrop: true, layer: "all",
         },
       };
       const c = dc.controls;
+      // Which piece this clip draws: "all", the world layers "plan" (the paper), "streets" and "buildings",
+      // or a landmark named by a shape's `layer`. Every piece builds the whole scene and keeps the rest as
+      // depth only, so stacked pieces hide each other exactly as the whole scene does.
+      const LAYER = c.layer ?? "all";
+      const mine = (layer) => LAYER === "all" || LAYER === layer;
       const sceneSpec = window.SKETCH_SCENE ?? { objects: [], camera: { moves: {} } };
       const W = 1920, H = 1080;
       const total = c.draw_in + c.flight + c.hold;
@@ -44,7 +49,7 @@
       // A 2K/4K export renders at 2x device pixels; drawing at that ratio keeps the lines sharp instead of stretched.
       renderer.setPixelRatio(window.devicePixelRatio || 1);
       renderer.setSize(W, H, false);
-      renderer.setClearColor(new THREE.Color(c.paper), c.backdrop ? 1 : 0);
+      renderer.setClearColor(new THREE.Color(c.paper), c.backdrop && mine("plan") ? 1 : 0);
       holder.append(renderer.domElement);
 
       const scene = new THREE.Scene();
@@ -107,12 +112,16 @@
       const ring = (radius, sides) => Array.from({ length: sides }, (_, i) => [Math.cos(i / sides * Math.PI * 2) * radius, Math.sin(i / sides * Math.PI * 2) * radius]);
 
       const actors = [];
-      const add = (spec, build, order) => {
+      const add = (spec, build, order, layer = "buildings") => {
         const group = new THREE.Group();
         const [x, y, z] = spec.at ?? [0, 0, 0];
         group.position.set(x, y, z);
         group.rotation.y = THREE.MathUtils.degToRad(spec.turn ?? 0);
         build(group);
+        // Faces go first so their depth hides the lines behind them even when Paper fill is off.
+        group.traverse((node) => { if (node.isMesh) node.renderOrder = -1; });
+        // Another piece's shape still hides what is behind it, but draws nothing of its own.
+        if (!mine(spec.layer ?? layer)) group.traverse((node) => { if (node.isLineSegments) node.visible = false; else if (node.material) node.material.colorWrite = false; });
         scene.add(group);
         actors.push({ group, spec, order: spec.delay ?? order, appear: spec.appear ?? sceneSpec.appear ?? "rise" });
       };
@@ -170,7 +179,7 @@
           const size = spec.size ?? 60, step = spec.grid ?? 6, lines = [];
           for (let v = -size / 2; v <= size / 2 + 1e-6; v += step) lines.push(-size / 2, 0, v, size / 2, 0, v, v, 0, -size / 2, v, 0, size / 2);
           group.add(strokes(lines, spec));
-        }, order),
+        }, order, "streets"),
       };
       function ringLines(outline, y, flat = false) {
         const out = [];
@@ -198,7 +207,7 @@
             const centre = 1 - Math.min(1, lot.d / (span * 0.9));
             const tall = (3 + random() * 7 + Math.pow(random(), 2) * 14 * (0.4 + centre)) * (spec.height ?? 1) * c.height / 100;
             shapes.box({ size: [1.4 + random() * 1.2, tall, 1.4 + random() * 1.2], at: [ox + lot.gx * cell + (random() - 0.5) * 0.6, 0, oz + lot.gz * cell + (random() - 0.5) * 0.6],
-              bands: spec.bands ?? 0.42, line: spec.line, fill: spec.fill, appear: spec.appear }, Math.min(1, lot.d / (span * 1.1)) * 0.6);
+              bands: spec.bands ?? 0.42, line: spec.line, fill: spec.fill, appear: spec.appear, layer: spec.layer }, Math.min(1, lot.d / (span * 1.1)) * 0.6);
           }
         },
         forest: (spec) => {
@@ -206,7 +215,7 @@
           const [ox, , oz] = spec.at ?? [0, 0, 0];
           for (let i = 0; i < count; i++) {
             const a = random() * Math.PI * 2, d = Math.sqrt(random()) * radius, h = (2 + random() * 3) * c.height / 100;
-            shapes.cone({ radius: 0.5 + random() * 0.5, height: h, sides: 10, at: [ox + Math.cos(a) * d, 0, oz + Math.sin(a) * d], line: spec.line, fill: spec.fill, appear: spec.appear }, d / radius * 0.6);
+            shapes.cone({ radius: 0.5 + random() * 0.5, height: h, sides: 10, at: [ox + Math.cos(a) * d, 0, oz + Math.sin(a) * d], line: spec.line, fill: spec.fill, appear: spec.appear, layer: spec.layer }, d / radius * 0.6);
           }
         },
       };

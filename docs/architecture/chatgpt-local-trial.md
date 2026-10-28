@@ -50,26 +50,12 @@ For removal, uninstall the plugin in ChatGPT and remove only its marketplace ent
 Keep test projects unless the person explicitly asks to delete them. Re-run setup
 after changing the bundled skill; restart the local chat after runtime changes.
 
-## Explicit full-access upgrade
+## Full access
 
-After the creator requests normal DreamCut capabilities, run
-`node packaging/setup-chatgpt-local-trial.mjs --full-access`. Version 0.3.0 launches
-`dreamcut@0.2.2` through npm using the selected Node installation. The published
-launcher downloads checksum-verified runtimes from Dreamcut.io and checks for
-updates every 15 minutes. Its working directory is the separate app-data folder;
-launching no longer depends on this checkout or GitHub access. Node and npm must
-remain installed. Setup backs up the
-previous package and keeps the same project/profile locations. It removes the
-restricted-process flag and switches the manifest to the shipping `edit-video`
-and `open` skills. The normal MCP dispatcher exposes transcription, media evidence,
-assemblies and proposals; human approval remains unchanged. Content returned by
-those tools can reach the connected model. Cloud ingestion remains off.
+The npm-based `--full-access` upgrade was removed with the npm launcher (2026-10-27). For normal DreamCut
+capabilities, connect the agent to a source install instead (README, Install). Rerunning setup restores the
+restricted configuration without deleting projects.
 
-Refresh the installed plugin with `codex plugin add dreamcut-local-trial@plugins-cli`
-(or the desktop marketplace refresh), then reconnect the chat.
-A running restricted MCP process does not gain tools merely because its package
-changed. Verify discovery after reconnecting. Running setup without the flag
-restores restricted configuration for the next connection without deleting projects.
 `DREAMCUT_PLUGIN_HOME` supports isolated installation tests; ordinary setup uses
 the user's home directory.
 
