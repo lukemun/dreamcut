@@ -92,3 +92,10 @@ npm launcher's Windows download instead.
   build, packed launcher, local download server and first-run check left the procedure.
 - **Verification:** `vm/mcp-check.mjs` passed 3/3 on the Mac; the editor-check and PowerShell scripts parse.
   The new procedure has not run in the VM yet.
+
+## 2026-10-28 — the README connects agents through the plugin
+
+- **Change:** the outcome names the README's current Install section, which installs the DreamCut plugin
+  before cloning; `claude mcp add` stays as the way to connect a checkout elsewhere. The VM checks are
+  unchanged: they still connect through `node bin/dreamcut.mjs mcp`, which is what the plugin starts.
+- **Verification:** wording only; not run in the VM.

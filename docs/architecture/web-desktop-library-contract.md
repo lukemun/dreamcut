@@ -51,10 +51,13 @@ A hosted MCP cannot touch local files (*Findings §1*), and everything DreamCut 
 server adds a dependency without capability. The website shows install instructions, and the agent does
 the rest:
 
-- **Install from GitHub (2026-10-27).** The README's steps: `git clone`, `pnpm install`, `pnpm bootstrap`,
-  then connect the agent with `claude mcp add dreamcut -s user -- node ~/DreamCut/bin/dreamcut.mjs mcp`
-  (Codex: `codex mcp add dreamcut -- node ~/DreamCut/bin/dreamcut.mjs mcp`). The agent can run these
-  itself when asked to "install DreamCut from https://github.com/lukemun/dreamcut".
+- **Install from GitHub (2026-10-27), connected through the plugin (2026-10-28).** The README's steps:
+  install the DreamCut plugin (`claude plugin marketplace add lukemun/dreamcut-plugins`, then
+  `claude plugin install dreamcut@dreamcut`; Codex: `codex plugin …`), then `git clone`, `pnpm install`,
+  `pnpm bootstrap`. The plugin ([lukemun/dreamcut-plugins](https://github.com/lukemun/dreamcut-plugins))
+  holds no editor code: its launcher starts `~/DreamCut`'s own MCP server, and until the clone is installed
+  it offers only `dreamcut_setup_status`. The one line a person needs is "Follow the instructions at
+  dreamcut.io/install": the agent reads the page (or `/install.md`) and runs the steps.
 - **First run inside an agent app.** On first use the MCP server starts the editor from the checkout
   (`mcp/editor-runtime.mjs`); the first start compiles it, which takes a minute or two.
 - **No agent:** `node bin/dreamcut.mjs` starts the editor and opens a sign-in link; `pnpm editor` serves the
@@ -62,9 +65,10 @@ the rest:
 - **Retired 2026-10-27:** the npm package that doubled as the Claude Code and Codex plugin (see
   [Distribution](#distribution-decided-2026-10-11)).
 
-The website's install page (dreamcut.io/install, in the DreamCut Cloud `site/` app) gives each agent its
-own install prompt to paste into a session, which the agent runs step by step under its own permission
-rules, plus the same steps to run by hand. It does not yet state what DreamCut shares (see Edit data below).
+The website's install page (dreamcut.io/install, in the DreamCut Cloud `site/` app) gives that one line
+to paste into Claude Code or Codex, the steps the agent follows (also as Markdown at `/install.md`, from
+`site/src/lib/install-instructions.ts`), which it runs under its own permission rules, and the same
+steps to run by hand. It does not yet state what DreamCut shares (see Edit data below).
 
 ### 3. One local process serves the editor and the tools
 

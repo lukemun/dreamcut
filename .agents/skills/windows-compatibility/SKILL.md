@@ -5,9 +5,9 @@ description: Check that DreamCut installed from source works on Windows, from a 
 
 # Check Windows compatibility
 
-The outcome is evidence that a Windows user who follows the README's Install section (`git clone`,
-`pnpm install`, `pnpm bootstrap`, then `claude mcp add dreamcut -s user -- node <checkout>\bin\dreamcut.mjs mcp`
-or the Codex equivalent) gets a working editor. Two checks give it, both on this checkout's working copy
+The outcome is evidence that a Windows user who follows the README's Install section (the DreamCut
+plugin, then `git clone`, `pnpm install`, `pnpm bootstrap`; or `claude mcp add dreamcut -s user -- node
+<checkout>\bin\dreamcut.mjs mcp` to connect a checkout elsewhere) gets a working editor. Two checks give it, both on this checkout's working copy
 (uncommitted changes included) copied into the VM:
 
 - **Install check** ([scripts/install-and-verify.ps1](scripts/install-and-verify.ps1)) runs

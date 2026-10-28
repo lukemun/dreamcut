@@ -47,9 +47,21 @@ Effects your agent rebuilds with your own footage.
 
 ## Install
 
-You need [Git](https://git-scm.com/), [Node.js](https://nodejs.org/) **22 or 24** (not 23) and
-[Google Chrome](https://www.google.com/chrome/) for exports. Or ask your agent: *"Install DreamCut from
-https://github.com/lukemun/dreamcut"* and it can run these steps for you.
+Open Claude Code or Codex and say: *"Follow the instructions at dreamcut.io/install."* It runs the steps
+below for you, asking first.
+
+To do it yourself, you need [Git](https://git-scm.com/), [Node.js](https://nodejs.org/) **22 or 24** (not 23)
+and [Google Chrome](https://www.google.com/chrome/) for exports. Install the DreamCut plugin, which connects
+your agent to DreamCut. Claude Code:
+
+```bash
+claude plugin marketplace add lukemun/dreamcut-plugins
+claude plugin install dreamcut@dreamcut
+```
+
+Codex: `codex plugin marketplace add lukemun/dreamcut-plugins`, then `codex plugin add dreamcut@dreamcut`.
+
+Then install DreamCut itself:
 
 ```bash
 git clone https://github.com/lukemun/dreamcut.git ~/DreamCut
@@ -57,18 +69,6 @@ cd ~/DreamCut
 corepack enable
 pnpm install
 pnpm bootstrap
-```
-
-Then connect your agent. Claude Code:
-
-```bash
-claude mcp add dreamcut -s user -- node ~/DreamCut/bin/dreamcut.mjs mcp
-```
-
-Codex:
-
-```bash
-codex mcp add dreamcut -- node ~/DreamCut/bin/dreamcut.mjs mcp
 ```
 
 Start a new chat and say **"Open DreamCut."** The editor starts on your machine and opens in your agent's
