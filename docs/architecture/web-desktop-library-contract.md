@@ -1,6 +1,7 @@
 # Local web app, agent plugin and library contract
 
-Status: direction decided 2026-10-11; not implemented. This replaces the macOS-first launch plan: DreamCut
+Status: direction decided 2026-10-11; since 2026-10-27 DreamCut installs from its public GitHub repository
+(the npm launcher and runtime feed below are retired). This replaced the macOS-first launch plan: DreamCut
 ships first as a local web app that the creator runs from inside Claude Code or Codex, on macOS and Windows.
 A desktop app may follow and opens the same Library. Evidence: [hosted web UI, local agent and shared
 library findings](../research/2026-10-11-web-ui-local-agent-shared-library.md) (cited as *Findings §n*).
@@ -51,23 +52,17 @@ A hosted MCP cannot touch local files (*Findings §1*), and everything DreamCut 
 server adds a dependency without capability. The website shows install instructions, and the agent does
 the rest:
 
-- **One plugin for both apps (built 2026-10-11).** The `dreamcut` npm package is also the plugin: it
-  carries `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`, the MCP entries and two skills
-  (`edit-video`, `open`) at its root (`packaging/launcher`). Claude Code starts the MCP server from the
-  installed plugin (`node ${CLAUDE_PLUGIN_ROOT}/bin/dreamcut.mjs mcp`); Codex, which prefers its own
-  manifest and whose expansion of that variable in MCP commands is unconfirmed, starts the same version
-  through `npx -y dreamcut@<version> mcp`. Both apps install from npm through one marketplace file
-  (`.claude-plugin/marketplace.json`, which Codex also reads) in a small public repository built by
-  `packaging/build-marketplace.mjs`. Not referenced since 2026-10-27 and removed with the launcher (see Distribution).
-- **First run inside an agent app.** Agent apps start plugin MCP servers with the session and wait only
-  about 30 s (Claude Code) or 10 s (Codex), but the first download is about 275 MB. With no runtime
-  installed, `dreamcut mcp` answers at once with one tool, `dreamcut_setup_status`, downloads in the
-  background (retrying dropped connections), then starts the real server, replays the agent's
-  `initialize` to it and sends `tools/list_changed` (`packaging/launcher/lib/mcp-bootstrap.mjs`).
-  Verified in Claude Code: the agent reported progress and the full tools appeared mid-session. Codex's
-  handling of `tools/list_changed` is unverified; the launcher's instructions installed the runtime first
-  so the plugin normally started with it present.
-- **No agent:** `pnpm editor` in a source checkout opens the editor alone.
+- **Install from GitHub (2026-10-27).** The README's steps: `git clone`, `pnpm install`, `pnpm bootstrap`,
+  then connect the agent with `claude mcp add dreamcut -s user -- node ~/DreamCut/bin/dreamcut.mjs mcp`
+  (Codex: `codex mcp add dreamcut -- node ~/DreamCut/bin/dreamcut.mjs mcp`). The agent can run these
+  itself when asked to "install DreamCut from https://github.com/lukemun/dreamcut".
+- **First run inside an agent app.** On first use the MCP server starts the editor from the checkout
+  (`mcp/editor-runtime.mjs`); the first start compiles it, which takes a minute or two.
+- **No agent:** `node bin/dreamcut.mjs` starts the editor and opens a sign-in link; `pnpm editor` serves the
+  stable build on 3123 for development.
+- **Retired 2026-10-27:** from 2026-10-11 the `dreamcut` npm package was also the Claude Code and Codex
+  plugin, with a first-run mode that downloaded the runtime in the background. It stays published at 0.3.0
+  and is not referenced; its packaging was removed from this repository.
 
 The website's install page (dreamcut.io/install, the `site/` app; branch `site-install`) offers a
 "paste this into your agent" line pointing at `dreamcut.io/install.md`, which the agent follows step by
@@ -78,8 +73,9 @@ shares and how to turn it off.
 
 The MCP server the agent launches starts the editor server if it isn't running and returns its URL from an
 `editor_open` tool, so the agent can open it in its browser. This is today's split (`mcp/server.mjs`
-calling the editor over HTTP), packaged as one install. The package ships the built editor (production
-build), the MCP server and the media workers.
+calling the editor over HTTP), from one checkout. Started this way from a checkout, the editor runs in
+development mode on a free 127.0.0.1 port behind a per-launch session (`desktop/service.mjs`), so it never
+collides with `pnpm editor` (3123) or `pnpm dev` (3129).
 
 **Localhost hardening** (*Findings §1, §2: MCP Origin rule; Zoom and Transmission precedents*):
 - Bind to 127.0.0.1 only.
@@ -143,77 +139,41 @@ already the default. External references remain allowed but are flagged as not p
 ## Distribution (decided 2026-10-11)
 
 - **Installed from GitHub (decided 2026-10-27).** DreamCut installs from its public GitHub repository:
-  `git clone`, `pnpm install`, `pnpm bootstrap`; agents connect with `node bin/dreamcut.mjs mcp`. The npm
-  launcher and runtime feed described below stay published at 0.3.0 but are not referenced: don't point
-  anyone at `npx dreamcut`. Their packaging code was removed from this repository the same day; the rest of
-  this section records how they worked, and the `packaging/` paths it names no longer exist.
-- **`dreamcut` on npm is a small launcher** (`packaging/launcher`). On first use (`npx dreamcut install`,
-  or any command) it reads the update feed (`latest.json` at the download location; the snapshot packed
-  into the launcher if the feed is unreachable), downloads this computer's runtime, verifies each archive's
-  size and SHA-256 against the feed, and runs it. A tampered or partial download installs nothing.
-- **Two layers per platform** (`packaging/build-web-runtime.mjs`). The *app layer* holds the production
-  editor build, the service process, the MCP server and the `dreamcut` command, and is published with
-  every version. The *base layer* holds the traced dependencies (`node_modules`, about 500 MB of the
-  roughly 850 MB) and is identified by its contents and Node ABI, so it is downloaded again only when
-  dependencies change. Installed as `<app data>/DreamCut/runtimes/app/<version>-<platform>`, linking
-  `runtimes/base/<id>-<platform>/node_modules` (a junction on Windows). No Electron, no bundled FFmpeg and
-  no creator data. Built on each platform from `pnpm editor:build` and
-  `node desktop/package.mjs --service-only`.
-- **Self-updating (decided 2026-10-11).** Shipping editor changes must not wait for creators to reinstall,
-  and the interface stays served from 127.0.0.1 rather than a hosted site (no browser local-network
-  prompt, no version skew between a hosted page and local helpers, works offline). The launcher starts
-  the newest installed version immediately, checks the feed at start and every 15 minutes while running,
-  and installs a newer version in the background. The running editor shows **Update**; applying it
-  restarts the editor service from the new version on the same port with the same session token, so open
-  pages reload signed in and the agent's MCP connection carries on (`mcp/runtime-updates.mjs`). An
-  update waits while an export or analysis worker runs. The launcher keeps the two newest versions plus
-  any in use. New versions need no npm release: publishing is uploading the archives and `latest.json`.
-  The agent's MCP server process keeps the code it started with until the agent restarts it; tool
-  contracts must therefore stay compatible across adjacent versions.
-- **Node.js** is a prerequisite. The creator's agent installs it when missing; WinGet
-  `OpenJS.NodeJS.LTS` on Windows.
-- **Until a Library is chosen**, a packaged runtime keeps projects in `<app data>/DreamCut/projects`, never
-  inside the runtime install that an upgrade replaces. `library_status` offers to move them.
-- **Order for agents (launcher):** install the runtime before adding the MCP server, which keeps the large
-  download out of the MCP connection, where a client could time out.
-- **Download location: Dreamcut.io (2026-10-24).** The source repository is private. Public downloads
-  and `latest.json` live at `https://dreamcut.io/downloads/runtime/`, redirected to the existing public
-  Vercel Blob store. Both the live feed and the launcher's offline snapshot use these public addresses.
-  `packaging/upload-runtime.mjs` verifies archives before publishing the feed and rebases all download
-  addresses, including retained platforms. GitHub Releases remain private release records.
-  An explicit `DREAMCUT_RUNTIME_BASE_URL` still supports mirrors and disposable verification.
-  The launcher can be released independently using `packaging/pack-launcher.mjs --launcher-version
-  <version> --feed <verified-feed.json>`; its manifest retains the actual runtime version.
-  Launchers published before this migration must be replaced with the latest launcher; they cannot
-  discover a new feed after their GitHub endpoint becomes private.
-- **Manual publishing (2026-10-23; retired 2026-10-27).** `pnpm release` was removed with the move to
-  GitHub installs; releasing is now pushing the public repository ([releasing](../releasing.md)). As it
-  worked: merging into main did not publish an update. Prepare a
-  versioned build, verify the supported platforms, then explicitly run
-  `pnpm release` to record the release, publish public downloads and publish the launcher when needed.
-  `--dry-run` previews publishing without changing GitHub. No release-on-merge workflow is enabled.
-  Runtime releases normally need no npm release; changes to the launcher itself (including its
-  check interval) require publishing and adopting a new launcher version. Existing launchers keep
-  their previous interval until upgraded.
+  `git clone`, `pnpm install`, `pnpm bootstrap`; agents connect with `node bin/dreamcut.mjs mcp`.
+- **Updating:** `git pull && pnpm install` in the checkout, then a new agent chat. Projects live in the
+  Library folder the creator chose, outside the repository, so updates never touch them.
+- **Node.js** 22 or 24 (LTS) and Git are prerequisites; Google Chrome for exports. The creator's agent
+  installs what is missing (WinGet `Git.Git OpenJS.NodeJS.LTS Google.Chrome` on Windows).
+- **Until a Library is chosen**, a checkout keeps projects in its own `projects/` folder. `library_status`
+  offers to move them.
+- **Releasing** is pushing the public repository after its checks ([releasing](../releasing.md)).
+- **Retired 2026-10-27: the npm launcher and runtime feed.** From 2026-10-11 the `dreamcut` npm launcher
+  downloaded a prebuilt, self-updating runtime (an app layer per version and a shared dependency layer,
+  checksum-verified against a `latest.json` feed on dreamcut.io), and `pnpm release` published it. Both
+  stay published at 0.3.0 but are not referenced: don't point anyone at `npx dreamcut`. The packaging code
+  was removed from this repository; its history is in git.
 - **Edit data** is collected by the existing export sharing (`src/lib/local-store/export-sharing.ts`):
   only from a signed-in account, through the authenticated `/api/v1/evidence` (signed out, nothing is
   sent; the pseudonymous `ingest-export` path was removed 2026-10-27), on by default, turned off in settings. The install
   instructions page must state it accurately.
-- **Verification:** `packaging/verify-web-runtime.mjs` replays a first run from the packed launcher with
-  fresh app data and a local stand-in for the download location, then publishes a newer version while
-  the editor runs and applies it.
+- **Verification:** `pnpm qa` (`scripts/qa-fresh-clone.mjs`) clones the pushed main into a throwaway
+  folder, runs the README's install steps and starts the editor the way a new user's agent does, with its
+  own app data and exports folders.
 
 ## What changes from today
 
 | Area | Today | Decided direction |
 | --- | --- | --- |
-| Launch | Signed macOS desktop app first | Local web app via Claude Code / Codex plugin, macOS and Windows; desktop later |
+| Launch | Signed macOS desktop app first | Local web app from a GitHub checkout, used through Claude Code or Codex, macOS and Windows; desktop later |
 | Creator content | `Application Support/DreamCut/projects` | Visible, creator-chosen DreamCut Library; one-time migration |
 | Format rules | Inside the Next.js server | `@dreamcut/library`, shared by editor, MCP and desktop |
 | Install | Desktop installer | Public GitHub checkout (`pnpm bootstrap`, 2026-10-27); website gives instructions |
-| Editor server | Dev server on :3123, no auth | Production build on 127.0.0.1, Host/Origin allowlist, per-launch secret |
+| Editor server | Dev server on :3123, no auth | Started by the agent's MCP on a free 127.0.0.1 port, Host/Origin allowlist, per-launch secret |
 
 ## Phases
+
+Phases 2 and 3 were built for the npm launcher and plugin and retired with them on 2026-10-27; the GitHub
+install replaces both.
 
 1. **Library contract.** Write the format spec, JSON Schemas and fixture corpus. Extract
    `@dreamcut/library` and route today's server through it, with no behaviour change. Add the Library
@@ -230,6 +190,5 @@ already the default. External references remain allowed but are flagged as not p
 
 - Media worker distribution on Windows: Python, Whisper, MFA and SAM2 ship as what? This is the
   largest unknown in phase 4.
-- Port: fixed (3123) or chosen per launch with discovery through the MCP.
-- Plugin marketplace repository: the website and install instructions assume `lukemun/dreamcut-plugins`;
-  creating it (public) and pushing `dist/marketplace/` there is an owner step.
+- Port (settled): the agent-started editor takes a free port each launch and the MCP reports it; `pnpm
+  editor` keeps 3123 for development.
