@@ -1,7 +1,6 @@
 # Local web app, agent plugin and library contract
 
-Status: direction decided 2026-10-11; since 2026-10-27 DreamCut installs from its public GitHub repository
-(the npm launcher and runtime feed below are retired). This replaced the macOS-first launch plan: DreamCut
+Status: direction decided 2026-10-11; since 2026-10-27 DreamCut installs from its public GitHub repository. This replaced the macOS-first launch plan: DreamCut
 ships first as a local web app that the creator runs from inside Claude Code or Codex, on macOS and Windows.
 A desktop app may follow and opens the same Library. Evidence: [hosted web UI, local agent and shared
 library findings](../research/2026-10-11-web-ui-local-agent-shared-library.md) (cited as *Findings §n*).
@@ -60,14 +59,12 @@ the rest:
   (`mcp/editor-runtime.mjs`); the first start compiles it, which takes a minute or two.
 - **No agent:** `node bin/dreamcut.mjs` starts the editor and opens a sign-in link; `pnpm editor` serves the
   stable build on 3123 for development.
-- **Retired 2026-10-27:** from 2026-10-11 the `dreamcut` npm package was also the Claude Code and Codex
-  plugin, with a first-run mode that downloaded the runtime in the background. It stays published at 0.3.0
-  and is not referenced; its packaging was removed from this repository.
+- **Retired 2026-10-27:** the npm package that doubled as the Claude Code and Codex plugin (see
+  [Distribution](#distribution-decided-2026-10-11)).
 
-The website's install page (dreamcut.io/install, the `site/` app; branch `site-install`) offers a
-"paste this into your agent" line pointing at `dreamcut.io/install.md`, which the agent follows step by
-step, showing each command for approval under its own permission rules. It also states what DreamCut
-shares and how to turn it off.
+The website's install page (dreamcut.io/install, in the DreamCut Cloud `site/` app) gives each agent its
+own install prompt to paste into a session, which the agent runs step by step under its own permission
+rules, plus the same steps to run by hand. It does not yet state what DreamCut shares (see Edit data below).
 
 ### 3. One local process serves the editor and the tools
 
@@ -138,8 +135,8 @@ already the default. External references remain allowed but are flagged as not p
 
 ## Distribution (decided 2026-10-11)
 
-- **Installed from GitHub (decided 2026-10-27).** DreamCut installs from its public GitHub repository:
-  `git clone`, `pnpm install`, `pnpm bootstrap`; agents connect with `node bin/dreamcut.mjs mcp`.
+- **Installed from GitHub (decided 2026-10-27)**, with the steps under
+  [Install from GitHub](#2-no-hosted-mcp-install-from-instructions-on-the-website).
 - **Updating:** `editor_open` reports commits the install lacks (`dreamcut_update`), and with the creator's OK
   `dreamcut_update` or `node bin/dreamcut.mjs update` fast-forwards, reinstalls changed dependencies and
   restarts the editor in place ([install-updates.mjs](../../mcp/install-updates.mjs)); then a new agent chat.
