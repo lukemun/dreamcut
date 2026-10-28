@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "dreamcut": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/dreamcut.mjs", "mcp"]
-    }
-  }
-}

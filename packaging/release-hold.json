@@ -1,6 +1,0 @@
-{
-  "held": [
-    "0.2.1"
-  ],
-  "note": "Versions `pnpm release` must not publish. Remove a version when it may ship."
-}

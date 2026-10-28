@@ -61,6 +61,7 @@ Explainer set: each template is one composition with five switchable [explainer 
 - [Animated Chart](templates/animated-chart.md): bars or a line that build up, with counting values and a highlight.
 - [Plan Comparison](templates/plan-comparison.md): two or three plans, prices, feature ticks and a badged favourite.
 - [Walkthrough Steps](templates/walkthrough-steps.md): numbered steps, each with a screenshot.
+- [Kinetic Type](templates/kinetic-type.md): a phrase landing word by word on a beat.
 
 ## Revisions
 

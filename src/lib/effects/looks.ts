@@ -10,7 +10,7 @@ type LookEntry = { id: string; title: string; family: string; description: strin
 
 const TEMPLATE_TITLES: Record<string, string> = {
   "explainer-sequence": "Explainer Sequence", "animated-chart": "Animated Chart", "plan-comparison": "Plan Comparison",
-  "walkthrough-steps": "Walkthrough Steps", "illustrated-explainer": "Illustrated Explainer",
+  "walkthrough-steps": "Walkthrough Steps", "kinetic-type": "Kinetic Type", "illustrated-explainer": "Illustrated Explainer",
 };
 
 export const lookCardId = (id: string) => `LOOK-${id.toUpperCase()}`;

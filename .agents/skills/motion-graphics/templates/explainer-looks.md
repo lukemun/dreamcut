@@ -2,7 +2,7 @@
 
 Shared by the explainer templates ([Explainer Sequence](explainer-sequence.md),
 [Animated Chart](animated-chart.md), [Plan Comparison](plan-comparison.md),
-[Walkthrough Steps](walkthrough-steps.md)). Each
+[Walkthrough Steps](walkthrough-steps.md), [Kinetic Type](kinetic-type.md)). Each
 template is one composition whose `index.html` loads `looks.js`. **Do not send `looks.js`
 to `motion_graphic_prepare`:** DreamCut supplies it for each graphic when it checks,
 previews and renders: the shared runtime, the drawing kit and only the look the `look`
@@ -83,7 +83,7 @@ The controls file also declares:
   registering the timeline, so a look's texture pass runs across its whole length.
 - Read type and panel styling through the variables `setup` sets: `--display-style` and
   `--display-case` on display text, `--panel-filter` and `--panel-edge` on panels.
-- Type set straight on the backdrop (Explainer Sequence's title and kicker) reads `--display-ink` and `--display-accent`.
+- Type set straight on the backdrop (Explainer Sequence's title and kicker, Kinetic Type's words) reads `--display-ink` and `--display-accent`.
   A look whose `ink` and `accent` are meant for its panels names the colours that read on its backdrop,
   per palette: `displayInk: { original, light, dark, mono }` and `displayAccent: {...}`. A palette it
   leaves out uses its `ink` and `accent`; a creator's Own accent is always used as chosen.

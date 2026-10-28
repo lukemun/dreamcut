@@ -1117,10 +1117,10 @@ window.DreamcutMotion.register("marbling", ({ rng }) => {
     backdrop: (accent, texture, look) => (look && look.ground) || "#e2d3b1",
     css: (accent, look) => `.kicker { letter-spacing: 0.2em; color: ${accent}; text-shadow: none; font-weight: 700; }
       .display { text-shadow: none; }
-      /* Headlines land on the marbled sheet itself, which runs from light to dark: each sits on a paper label
+      /* Headlines and Kinetic Type's words land on the marbled sheet itself, which runs from light to dark: each sits on a paper label
          so it reads whatever swirl is behind it. */
-      .scene > .display, .scene > .kicker { width: fit-content !important; background: ${look.paper}; color: ${look.ink}; padding: 0 0.18em; border-radius: 0.1em; box-shadow: 0 0.04em 0.1em rgba(0,0,0,0.25); }
-      .scene > .kicker { color: ${accent}; }`,
+      #phrase .word, .scene > .display, .scene > .kicker { width: fit-content !important; background: ${look.paper}; color: ${look.ink}; padding: 0 0.18em; border-radius: 0.1em; box-shadow: 0 0.04em 0.1em rgba(0,0,0,0.25); }
+      #phrase .word.accent, .scene > .kicker { color: ${accent}; }`,
     paint: paintStandalone,
     keepArt: true,
     overlap: true,
