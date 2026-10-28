@@ -107,7 +107,8 @@ export async function checkForUpdates({ root, env = process.env, repository = PU
 async function pnpmInstall(root, env) {
   const args = ['install', '--frozen-lockfile'];
   const direct = await run('pnpm', args, { cwd: root, env, timeoutMs: INSTALL_TIMEOUT_MS });
-  if (direct.ok || direct.code !== 'ENOENT') return direct;
+  // Under a shell (Windows) a missing pnpm is an ordinary failure, not ENOENT, so any failure there tries corepack.
+  if (direct.ok || (direct.code !== 'ENOENT' && process.platform !== 'win32')) return direct;
   return run('corepack', ['pnpm', ...args], { cwd: root, env, timeoutMs: INSTALL_TIMEOUT_MS });
 }
 

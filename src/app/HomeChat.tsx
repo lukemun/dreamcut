@@ -119,7 +119,7 @@ export function HomeChat({ selection, onTryTemplate }: { selection: AgentSelecti
         </li>)}
       </ul>}
       <label className="sr-only" htmlFor="home-chat-message">Message</label>
-      <textarea ref={input} id="home-chat-message" rows={3} maxLength={FEEDBACK_DIRECTION_MAX} value={draft} disabled={busy} placeholder="Describe your video, or drop your clips here…"
+      <textarea ref={input} id="home-chat-message" rows={3} maxLength={FEEDBACK_DIRECTION_MAX} value={draft} disabled={busy || Boolean(started.current)} placeholder="Describe your video, or drop your clips here…"
         onChange={event => setDraft(event.target.value)}
         onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); if (ready) send.current?.click(); } }} />
       <div className="desktop-chat-actions">

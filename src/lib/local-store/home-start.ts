@@ -44,7 +44,9 @@ export function waitingFirstBuild(projectId: string) {
   if (!projectExists(projectId) || !isAgentWorkspaceProject(projectId)) return null;
   const brief = readAssemblyBrief(projectId);
   if (!brief || readTimeline(projectId).elements.some(element => !element.removed_at)) return null;
-  const feedback_id = memoryEvents(projectId).find(event => event.type === "editorial.feedback" && event.data?.session_id === HOME_START_SESSION)?.id ?? null;
-  const media = readProjectSourceManifest(projectId).assets.map(asset => asset.original_filename);
+  // Extras only: an unreadable ledger or media list must not hide the brief (or fail editor_context_get).
+  let feedback_id: string | null = null, media: string[] = [];
+  try { feedback_id = memoryEvents(projectId).find(event => event.type === "editorial.feedback" && event.data?.session_id === HOME_START_SESSION)?.id ?? null; } catch { /* Reported by the memory tools. */ }
+  try { media = readProjectSourceManifest(projectId).assets.map(asset => asset.original_filename); } catch { /* Reported by the Library. */ }
   return { project_id: projectId, brief: brief.objective, feedback_id, media, guidance: "The creator started this project with this brief and is waiting for its first cut. Follow skill:editorial-assembly (assembly_get, then the Library), lay it out with the workspace tools and call assembly_handoff." };
 }

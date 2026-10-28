@@ -1436,7 +1436,7 @@ export function TimelineStep({
   useEffect(() => {
     const url = new URL(window.location.href);
     if (url.searchParams.get("review") !== "open") return;
-    setLocalReviewOpen(true);
+    if (dock) dock.setTab("proposals"); else setLocalReviewOpen(true);
     url.searchParams.delete("review");
     window.history.replaceState(window.history.state, "", url);
   }, []);
