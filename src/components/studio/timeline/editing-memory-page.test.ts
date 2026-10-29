@@ -80,7 +80,8 @@ test("the user area owns the skill directory and supports incremental demo proje
   assert.match(dashboard, /href=\{`\/\?view=guide\$\{context\}`\}[^>]*>[\s\S]{0,40}Guide<\/Link>/);
   assert.match(guideRoute, /redirect\(`\/\?view=guide&project=/);
   assert.match(guidePageContent, /<GuideCatalog/);
-  assert.match(homePage, /view === "guide" && project && <GuidePageContent/);
+  // Guide opens without any project: its tour makes a practice project.
+  assert.match(homePage, /view === "guide" && <GuidePageContent/);
   assert.match(projectShell, /section === "library" \|\| section === "guide" \|\| section === "user"/);
   assert.match(projectShell, /activeView=\{activeView\}/);
   assert.match(skillCatalog, /skill.catalog.demo &&/);
@@ -89,11 +90,10 @@ test("the user area owns the skill directory and supports incremental demo proje
   assert.doesNotMatch(guideCatalog, /<GuideEffects/);
   assert.match(dashboard, /view=templates/);
   assert.match(guideCatalog, /<GuideOverview/);
-  assert.match(guideOverview, /Turn an effect into a reusable skill/);
-  assert.match(guideOverview, /celfstudies-food-reference-silent\.mp4/);
-  assert.match(guideOverview, /pop-small-birds\.mp4/);
-  assert.match(guideOverview, /partial recreation/);
-  assert.match(guideOverview, /Read how to contribute an effect/);
+  assert.match(guideOverview, /GUIDE_TOUR_CHAPTERS\.map/);
+  assert.match(guideOverview, /CONTRIBUTING_URL/);
+  // Third-party media without a licence never ships in the Guide.
+  assert.doesNotMatch(guideOverview, /celfstudies|instagram\.com/);
   // The skills directory is labels and data only; no instructional prose.
   assert.match(userSkills, /No personal skills yet/);
   assert.match(userSkills, /Skill instructions/);

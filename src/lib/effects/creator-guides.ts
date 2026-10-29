@@ -18,6 +18,11 @@ export const creatorGuides: Record<string, CreatorGuide> = {
     generation: 'Use the reference to plan a fully clothed fictional performer in a fixed scene. Generate clean ordinary motion that starts on the empty scene; build the hops, blur and sounds in DreamCut, not into the generated footage.',
     steps: ['Cut you out at each stop and measure when you settle and when you take your next step.', 'Streak a cut-out of you from each stop to the next over a few frames with blur pointed the way you travel, landing standing on the live footage; never speed the footage up.', 'Play your line live, streak you out of frame when you finish, and put a whoosh on every hop. Hold, hop length and blur become dials in time order.'],
   },
+  'FX-FLASH-EFFECT': {
+    inputs: [input('One locked-off take of your walk to the camera', 'Use a tripod. Start recording on the empty scene for a couple of seconds, then walk from the back of the scene to the camera through several places, and say your line at the camera.'), input('Marks where you flash', 'Optional: mark each pose you want in Storyboard or on the clip. Without marks, six to eight poses are spread along your walk.')],
+    generation: 'Use the reference to plan a fully clothed fictional performer walking toward a fixed camera. Generate clean ordinary motion that starts on the empty scene; build the flashes, glow and clicks in DreamCut, not into the generated footage.',
+    steps: ['Cut you out at each pose, keeping poses off the frame edge.', 'Show each pose for a few frames over the empty scene, white for its first frame with a glow, with a shutter click on every flash.', 'Play your line live from the last pose. Time per pose, white flash, glow and click volume become dials.'],
+  },
   'FX-MASK-GLITCH-GLOW': {
     inputs: [input('Ordered pose or performance takes', 'Film several distinct poses with the camera locked, preserving the whole body and hands.'), input('Matching empty background', 'Keep the camera and lighting fixed while recording the scene without the performer.')],
     generation: 'Generate a fictional fully clothed performer with clear separated poses and a stable background. Use the reference for staging; create the flashes, glow and reveal timing as editable DreamCut controls.',

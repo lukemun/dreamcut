@@ -363,31 +363,15 @@ shape by default, and flipping it never changes the output. Keep private media,
 local receipts and generated build output out of commits. See [development workflow](docs/development-workflow.md)
 and [contributing](CONTRIBUTING.md) for repository operations.
 
-## Owner working agreements
+## Working rules
 
-This private repository has one developer, the owner. Unless the owner says otherwise in
-the conversation:
-
-- Leave code changes uncommitted until asked; still run the checks for each change.
-- Work in the main checkout on `main`. Create no worktrees or branches unless asked; when
-  asked to commit finished work, commit to `main` and push `origin/main` (no PR needed).
-- Verify locally. Do not iterate by pushing and watching CI, and ask before changing CI
-  workflows or timeouts.
-- Never wait on the stable editor's rebuild. When project work needs changed editor code
-  and `pnpm editor:status` says 3123 is behind, use `pnpm dev` (3129) for that step until
-  3123 catches up (owner, 2026-10-27).
-- Update the public repository only on the owner's word, after the [releasing](.agents/skills/releasing/SKILL.md)
-  checks. Never change the `package.json` version otherwise. The npm launcher and runtime feed stay at 0.3.0 and
-  their packaging was removed (owner, 2026-10-27).
-- Feature freeze since 2026-10-24: take bug fixes, UX audits, polish and release work;
-  propose a new capability as later work instead of building it, unless the owner asks
-  for that change.
 - Small eval suites are regression checks, not tuning targets; grow them from real
   episodes before tuning against them.
-
-Current decisions and work in flight are in the owner's private project status, kept in the DreamCut Cloud
-repository: read `../dreamcut-cloud/docs/editor-project-status.md` when that checkout sits beside this one
-(the public [pointer](docs/project-status.md) says so). Record new decisions there, never in this repository.
+- If `AGENTS.local.md` sits beside this file, read it at the start of every task and follow
+  it: it holds this checkout's own working agreements and is never committed (Claude Code
+  loads it as `CLAUDE.local.md`). Instructions for one checkout's maintainer belong there,
+  not in this file or a skill, which every DreamCut user's agent reads; `pnpm check:owner-text`
+  enforces that.
 
 ## Where lessons go
 
@@ -400,8 +384,8 @@ read. Before saving a lesson, check whether its home already says it.
 | The creator's taste or how they like to work with agents | My Style (`STYLE.md`), only with the creator's say-so |
 | How to do a kind of work, including a correction to how agents did it | The owning skill and its `evolution.md` |
 | A rule every task must follow | `AGENTS.md` or a [standard](docs/standards/README.md) |
-| How the owner wants this repository worked | Owner working agreements above |
-| A product decision, initiative or deferred to-do | Private project status (`../dreamcut-cloud/docs/editor-project-status.md`), with its date |
+| How this checkout's maintainer wants it worked | `AGENTS.local.md`, never committed |
+| A product decision, initiative or deferred to-do | The [project status](docs/project-status.md), with its date |
 | One project's direction | That project's editing feedback and memory |
 
 Agent-private memory may hold only pointers to these homes and facts about the agent's

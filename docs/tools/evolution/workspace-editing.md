@@ -84,3 +84,18 @@ schema, so unknown keys there are caught only by the route.
   `export-resolution.test.ts` and `useTimelineViewport.test.ts` cover 1:1;
   `pnpm verify:export-resolution` now exports the size pattern on every supported canvas
   on both renderers. No live MCP session trial was run.
+
+## 2026-10-28 — Batch removal in `elements_batch`
+
+- **Observation:** Building a vertical short as a copy of a finished tutorial
+  (`assembly_create` with `copy_source_timeline`, which the tool recommends for format
+  variants) left 1,642 elements to cut. `elements_batch` advertised `removed_at` and
+  `removed_reason` in its patch, but the route's strict patch schema refused them, and
+  `element_delete` takes one element per call. The agent abandoned the 4.8 GB copy and
+  rebuilt from scratch ([retro](../../audits/2026-10-28-one-click-effects-retro.md), git-ignored).
+- **Decision:** A batch operation may be `{ element_id, remove: true }`: the same restorable
+  soft delete as `element_delete` (locked clips refused, transitions soft-deleted, linked
+  captions follow), with no patch or props on the same operation, up to 500 per call in one
+  history snapshot. The patch description no longer names `removed_at`. Authority is unchanged.
+- **Verification:** `src/lib/local-store/elements-batch-remove.test.ts` (fails without the
+  route change). No live MCP session trial was run.

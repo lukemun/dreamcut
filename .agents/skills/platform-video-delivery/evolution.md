@@ -65,3 +65,17 @@ Prepare and quality-check a video for a delivery format, then close out with a r
 - **Observation:** The creator called the copied export prompt legacy and asked for a conventional export dialog.
 - **Decision:** The Export dialog now starts the tracked render itself and no longer produces a chat request. This skill's workflow applies to export requests made in chat, with lane sets defaulting to the project's saved state. Authorization and opt-outs are unchanged.
 - **Verification:** Dialog opened in the running editor at desktop and phone widths; no project export was run for this change.
+
+## 2026-10-28 — Updated: Standard is the default for YouTube and social; HDR only for mostly-HDR footage
+
+- **Observation:** A screen-recording tutorial with one iPhone HLG clip, exported as HDR (10-bit HLG) and
+  published to YouTube, looked dim and grey on an HDR Mac; the Standard export of the same cut looked right.
+  The Export dialog labelled HDR "brighter on YouTube and phones" and the pipeline called HDR "for HDR
+  platforms such as YouTube".
+- **Decision:** HDR keeps BT.2408 placement (SDR white at HLG 75%). Measured on a synthetic HLG wedge:
+  macOS Core Image shows HLG 75% at UI white only with ≥3× EDR headroom (0.89 at 2×, 0.50 with none);
+  Chrome 152's SDR tone-map also gives 0.50 linear. A brighter SDR placement is not a standard choice and
+  would glare on capable screens. Standard is the default for YouTube and social; the dialog and the render
+  API warn when HDR is picked for a timeline that is not mostly HDR camera footage (`src/lib/render/dynamic-range.ts`).
+- **Verification:** `dynamic-range.test.ts`, `hdr-encode.test.ts`; wedge measurements in the HDR export
+  section of `docs/architecture/playback-rendering.md`. No project was exported.

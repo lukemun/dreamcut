@@ -5,7 +5,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { missingFields, unknownFields, trimValidatorPatterns } from './argument-errors.mjs';
 
-const STRUCTURAL = ['create_transition', 'create_audio', 'create_visual', 'create_text', 'create_shape', 'remove_visual', 'remove_text', 'set_lane_order', 'set_output_format',
+const STRUCTURAL = ['create_transition', 'create_audio', 'create_visual', 'create_text', 'create_shape', 'remove_visual', 'remove_text', 'remove_audio', 'set_lane_order', 'set_output_format',
   'opening_sequence_edit', 'source_range_cut', 'source_range_restore', 'speed_change', 'set_preview_audio_source', 'use_video_stabilization', 'use_recast', 'use_voice_enhancement',
   'reattach_original_audio', 'sync_speech_visual', 'replace_captions'];
 

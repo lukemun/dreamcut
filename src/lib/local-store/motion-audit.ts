@@ -58,6 +58,8 @@ export type MotionAuditEventBody =
   | {
     type: "validation";
     source_fingerprint_sha256: string;
+    /** A looks template's check also covers the look code DreamCut supplied for it. */
+    look_sha256?: string;
     ok: boolean;
     errors: string[];
     warnings: string[];
@@ -224,6 +226,7 @@ export function validateMotionAuditEvent(value: unknown): asserts value is Motio
     }
     case "validation": {
       if (!isSha(event.source_fingerprint_sha256) || typeof event.ok !== "boolean"
+        || (event.look_sha256 !== undefined && !isSha(event.look_sha256))
         || !Array.isArray(event.errors) || !Array.isArray(event.warnings)) {
         throw new Error("Invalid validation event");
       }

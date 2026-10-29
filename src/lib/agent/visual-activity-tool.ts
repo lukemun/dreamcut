@@ -15,6 +15,7 @@ import {
   compositionIdOf,
   cutActivity,
   elementTitle,
+  holdsAround,
   isVisualElement,
   keyframeActivity,
   normalize,
@@ -222,6 +223,14 @@ export async function visualActivityPrepare(projectId: string, body: Record<stri
     sources,
     synth_embed: synthEmbed(window, named),
   };
+  if (body.holds !== undefined) {
+    const spec = body.holds as { at_seconds?: unknown; curve?: unknown };
+    if (!spec || typeof spec !== "object" || !Array.isArray(spec.at_seconds) || !spec.at_seconds.length || spec.at_seconds.length > 24
+      || !spec.at_seconds.every((at) => typeof at === "number" && at >= start && at <= end)) invalid("holds.at_seconds must list 1–24 moments inside the window");
+    const curveName = spec.curve ?? (named.frames ? "frames" : "total");
+    if (typeof curveName !== "string" || !named[curveName]) invalid(`holds.curve must be one of: ${Object.keys(named).join(", ")}`);
+    response.holds = { curve: curveName, moments: holdsAround(named[curveName]!, window, spec.at_seconds as number[]) };
+  }
   if (body.include_values === true) {
     response.values = Object.fromEntries(Object.entries(named).map(([name, values]) => [name, Array.from(values, (value) => Number(value.toFixed(3)))]));
   }

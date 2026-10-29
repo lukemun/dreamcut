@@ -14,6 +14,7 @@ import "./editor-workspace.css";
 import { EditorAppearanceProvider } from "./EditorAppearance";
 import { EDITOR_TEXT_SIZE_BOOT_SCRIPT } from "./editor-text-size";
 import { Toaster } from "@/components/ui/sonner";
+import { GuideTour } from "@/components/guide/GuideTour";
 import { timelineFontVariablesClassName, timelineFontVariablesStyle } from "@/lib/fonts/next-fonts";
 import { DEFAULT_EDITOR_LOOK } from "./editor-look";
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense><WorkspaceTabs projects={listProjectIds().filter(id => fs.existsSync(projectTimelinePath(id))).map(id => ({ id, title: readProjectListMetadata(id).title, cover: projectCover(id) }))}/><OpenProjectReporter/></Suspense>
           {children}
           </WorkspaceChromeProvider>
+          <GuideTour />
           <Toaster />
         </EditorAppearanceProvider>
       </body>

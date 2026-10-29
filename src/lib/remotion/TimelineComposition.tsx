@@ -147,6 +147,7 @@ import {
 } from "@/lib/remotion/video-playback-policy";
 import { resolveStillPlaybackSource, resolveVideoPlaybackSource, stillPreviewPremountSeconds } from "@/lib/remotion/video-preview-source";
 import { resolvePreviewAudioSource, reversedPreviewAudioDuration } from "@/lib/remotion/video-preview-audio";
+import { readPitchSemitones } from "@/lib/timeline/audio-pitch";
 import { catalogAudioPreviewUrl } from "./catalog-audio-preview";
 import { resolveAudioAutomationSampleFrame } from "@/lib/remotion/audio-automation";
 import {
@@ -242,6 +243,8 @@ function getMediaTrimWindow(element: CompositionElement) {
  */
 function needsWebAudioAmplification(element: { volume?: number | null; props?: Record<string, unknown> | null }) {
   if (Number(element.volume) > 1) return true;
+  // Pitch shift runs on a Web Audio node (frame-runtime/pitch-shift-worklet.ts).
+  if (readPitchSemitones(element.props)) return true;
   const envelope = element.props?.volume_envelope;
   return Array.isArray(envelope)
     && envelope.some((point) => Number((point as { volume?: unknown })?.volume) > 1);
@@ -347,6 +350,7 @@ type TimelineVideoProps = {
   playbackRate: number;
   pauseWhenBuffering: boolean;
   volume: number | ((frame: number) => number);
+  pitchSemitones?: number;
   useWebAudioApi: boolean;
   crossOrigin?: "anonymous";
   transparent?: boolean;
@@ -1705,6 +1709,7 @@ function TimelineAudioTrack({
         pauseWhenBuffering={shouldPauseTimelineForAudioBuffering(element.type)}
         volume={audioVolume(element, durationInFrames, liveGain)}
         playbackRate={element.playback_rate}
+        pitchSemitones={readPitchSemitones(element.props)}
         crossOrigin={usesWebAudio ? "anonymous" : undefined}
         useWebAudioApi={usesWebAudio}
         title={`timeline-audio:${element.id}:${usesWebAudio ? "web-audio" : "native-media"}`}
@@ -1780,6 +1785,7 @@ function PreviewNarrationSegment({
       )}
       playbackRate={playbackRate}
       {...mapped}
+      pitchSemitones={readPitchSemitones(element.props)}
       crossOrigin={usesWebAudio ? "anonymous" : undefined}
       useWebAudioApi={usesWebAudio}
       title={`preview-narration:${element.id}:${usesWebAudio ? "web-audio" : "native-media"}`}
@@ -1999,6 +2005,7 @@ export function TimelineComposition({
                                       : {})}
                                     pauseWhenBuffering={pauseTimelineForVideoBuffering || playbackSegments.length > 1}
                                     volume={previewAudioSource ? () => 0 : (frame) => mediaAudioVolume(frame + leadingHoldFrames)}
+                                    pitchSemitones={previewAudioSource ? 0 : readPitchSemitones(mediaElement.props)}
                                     crossOrigin={embeddedVideoUsesWebAudio ? "anonymous" : undefined}
                                     useWebAudioApi={embeddedVideoUsesWebAudio}
                                     {...(hasAlphaChannel(mediaElement) ? { transparent: true } : {})}

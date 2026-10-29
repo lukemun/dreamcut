@@ -3228,6 +3228,31 @@
         "equals": 1.63
       },
       "eval_context": "Project demo has sources/tutorial.mp4, a 40 second speed-effect tutorial whose stems are already separated. The narrator talks until 1.5 s; sound effects run from 1.5 s to 5.4 s: a takeoff whoosh at 1.63 s and a low thump at 2.54 s, both in the drums stem."
+    },
+    {
+      "id": "voice-pitch-deeper",
+      "feature": "Make a clip's voice deeper or higher without changing its timing",
+      "requests": [
+        "Make my voice sound deeper",
+        "Lower the pitch of the narration a little",
+        "Can you make the voiceover sound less high-pitched?"
+      ],
+      "capability": "proposal-authoring",
+      "tool": "proposal_create",
+      "field": "proposal.options[].operations[].props.pitch_semitones",
+      "example": {
+        "operation": {
+          "element_id": "11111111-1111-4111-8111-111111111111",
+          "props": {
+            "pitch_semitones": -3
+          }
+        }
+      },
+      "expect": {
+        "path": "proposal.options[].operations[].props.pitch_semitones",
+        "equals": -3
+      },
+      "eval_context": "The selected clip is a 20 second vo_segment (the creator's narration) with id 11111111-1111-4111-8111-111111111111 on lane audio_0. Its pitch is unchanged."
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "lane_order_keys": [
+    "visual_3",
+    "visual_2",
+    "visual_1",
+    "visual_0"
+  ],
+  "lane_defaults": {},
+  "muted_lane_keys": [],
+  "hidden_lane_keys": [],
+  "output_aspect_ratio": "16:9",
+  "delivery_target": "web",
+  "caption_safe_area_mode": "paid_ad",
+  "title": "Practice project"
+}

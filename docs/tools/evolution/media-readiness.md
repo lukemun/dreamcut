@@ -192,3 +192,26 @@ on either source URL changing. This extends existing preview validation rather t
 adding an editing tool or granting timeline mutation. Tests cover measured VP9 alpha,
 remote/missing evidence rejection, stable-URL replacement revision and source-safe
 runtime merges. Standalone GPU pixel and playback proofs consume this same owner.
+
+## Voice cleanup preparation for proposals (2026-10-28)
+
+Owners before: `ensureVoiceEnhancedMedia` (DeepFilterNet3 cleanup, cached per source and
+recipe) was reachable only through the editor's Enhance voice action, which writes the
+timeline directly, and `use_voice_enhancement` could adopt a prepared result on a card,
+but no agent tool produced that payload. A creator asking to remove background noise from
+narration split across many clips had no reviewable route.
+
+`voice_enhancement_prepare` takes 1–40 working-timeline clips, processes each distinct
+source once through the same owner and returns per-clip `use_voice_enhancement` payloads,
+before/after loudness and noise-floor measurements and a `suggested_volume` toward the
+-16 LUFS narrator target. It never writes the timeline; approval of the card adopts it.
+Acceptance case: a 9-minute narrated screen recording cut into eleven clips gets one
+cleanup pass and one card with a linked volume dial.
+
+## Even out before levelling; peak-safe clip volume (2026-10-29)
+
+Levelling a cleaned recording with one constant gain left its quiet sections quiet, and the
+per-clip volume that made up the difference (1.7-3x) pushed peaks past 0 dBFS: an audible
+crackle. `voice_enhancement_prepare` now takes `even_out` (gentle `speechnorm` expansion
+before loudness levelling, lossless intermediate), and `suggested_volume` never exceeds the
+gain that keeps the output's true peak under -0.5 dBFS.

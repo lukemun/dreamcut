@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { currentFrameRate } from "../timeline/frame-rate-scope";
 import { BlockSettingError, blockSettingDisplay, settingDefault, type BlockContext, type BlockDefinition, type BlockOperation, type BlockSetting, type BlockSettingValue, type BlockSettings, type ResolvedBlockSettings } from "./proposal-block-kit";
+import { flashSequenceBlock } from "./proposal-blocks-flash";
 import { hopSequenceBlock, keyframedMoveBlock, liveHoldBlock } from "./proposal-blocks-hops";
 
 /**
@@ -18,7 +19,7 @@ import { hopSequenceBlock, keyframedMoveBlock, liveHoldBlock } from "./proposal-
 
 export const OPERATIONS_BLOCK_KIND = "operations";
 
-const BLOCK_DEFINITIONS: readonly BlockDefinition<unknown>[] = [liveHoldBlock, keyframedMoveBlock, hopSequenceBlock] as unknown as BlockDefinition<unknown>[];
+const BLOCK_DEFINITIONS: readonly BlockDefinition<unknown>[] = [liveHoldBlock, keyframedMoveBlock, hopSequenceBlock, flashSequenceBlock] as unknown as BlockDefinition<unknown>[];
 
 export function blockDefinition(kind: string, version: number): BlockDefinition<unknown> | undefined {
   return BLOCK_DEFINITIONS.find(definition => definition.kind === kind && definition.version === version);
@@ -31,7 +32,7 @@ export function listBlockDefinitions() {
 const settingValueSchema = z.union([z.number().finite(), z.string().max(64)]);
 export const blockInstanceSchema = z.object({
   block_id: z.string().regex(/^[a-z0-9][a-z0-9_-]{0,63}$/, "Block ids are lowercase slugs").describe("Names this block on the card and in overrides; element ids derive from it, so use a different id for each pending card."),
-  kind: z.string().min(1).max(64).describe("A registered block kind: live_hold, keyframed_move, hop_sequence (or operations, whose inputs.operations are plain operations)."),
+  kind: z.string().min(1).max(64).describe("A registered block kind: live_hold, keyframed_move, hop_sequence, flash_sequence (or operations, whose inputs.operations are plain operations)."),
   version: z.number().int().min(1).describe("The block version this card was drafted with."),
   inputs: z.record(z.string(), z.unknown()).describe("Measured inputs the block compiles from (sources, cut-out receipts, subject boxes, settle and takeoff frames). Never detectors: compiling runs no model."),
   settings: z.record(z.string(), z.union([settingValueSchema, z.array(settingValueSchema).max(64)])).default({})
@@ -198,6 +199,7 @@ export function validateBlockRanges(instance: BlockInstance) {
   const resolved = resolveBlockSettings(instance, definition, inputs);
   compileBlock(instance, resolved);
   for (const item of resolved) {
+    if (item.setting.hidden?.(inputs)) continue;
     const candidates: BlockSettingValue[] = item.setting.kind === "number" ? [item.range.min, item.range.max] : item.setting.choices.map(choice => choice.value);
     for (const value of candidates) {
       if (value === item.value) continue;
@@ -239,7 +241,8 @@ export type BlockReviewChange = {
 };
 
 export function blockReviewChanges(instance: BlockInstance, blockIndex: number): BlockReviewChange[] {
-  return resolveBlockSettings(instance).map(item => {
+  const definition = requireDefinition(instance), inputs = parseInputs(instance, definition);
+  return resolveBlockSettings(instance, definition, inputs).filter(item => !item.setting.hidden?.(inputs)).map(item => {
     const base = { field: item.field, label: item.label, before: "—", target: "block" as const, operation_index: blockIndex, block_id: instance.block_id, after_value: item.value, control_tier: item.tier,
       ...(item.section ? { section: item.section } : {}) };
     if (item.setting.kind === "choice") {

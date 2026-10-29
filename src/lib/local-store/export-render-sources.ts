@@ -63,3 +63,24 @@ export function deferredRenderAuthorities(projectId: string, elements: readonly 
     return { ...element, source_url: prefix + prepared.render.split("/").map(encodeURIComponent).join("/") };
   });
 }
+
+/**
+ * What a frame check draws for each clip, matching the editor. A clip bound to an HDR original draws its
+ * authority once it exists (deferredRenderAuthorities); until then the original would reach the renderer
+ * already tone-mapped by the browser and be decoded as HLG/PQ a second time (oversaturated, too red), so
+ * it draws the preview proxy the editor shows, which holds the same code values. Returns the clips and
+ * the sources drawn from their proxy, for the report. The saved timeline is not changed.
+ */
+export function frameCheckRenderSources(projectId: string, elements: readonly TimelineElement[], read = (source: string) => readPreparation(projectId, source)) {
+  const prefix = `/api/projects/${projectId}/media/`;
+  const fromProxy: string[] = [];
+  const clips = deferredRenderAuthorities(projectId, elements, read).map((element) => {
+    const source = packageSource(projectId, element);
+    if (!source || !element.props?.source_color_space) return element;
+    const prepared = read(source);
+    if (!awaitsRenderAuthority(prepared) || !prepared?.preview) return element;
+    fromProxy.push(source);
+    return { ...element, source_url: prefix + prepared.preview.split("/").map(encodeURIComponent).join("/") };
+  });
+  return { clips, fromProxy: [...new Set(fromProxy)] };
+}

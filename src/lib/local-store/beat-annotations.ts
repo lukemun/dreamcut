@@ -15,7 +15,7 @@ async function hashFile(source: string) {
 }
 async function identity(source: string, directory: string) {
   const source_sha256 = await hashFile(source);
-  const recipe = `rhythm-map-v2-${await hashFile(script)}`;
+  const recipe = `rhythm-map-v3-${await hashFile(script)}`;
   return { source_sha256, recipe, file: path.join(directory, `${source_sha256}-${createHash("sha256").update(recipe).digest("hex").slice(0, 16)}.json`) };
 }
 async function readSaved(id: Awaited<ReturnType<typeof identity>>) {
@@ -31,12 +31,19 @@ async function readSaved(id: Awaited<ReturnType<typeof identity>>) {
 export async function readBeatAnnotation(source: string, directory: string) {
   return readSaved(await identity(source, directory));
 }
-/** Explicit preparation only. Source bytes and timeline are never written. */
-export async function prepareBeatAnnotation(source: string, directory: string): Promise<BeatAnnotation> {
+/**
+ * Explicit preparation only. Source bytes and timeline are never written.
+ * One rhythm map per source: a new `expected_bpm` re-analyzes and replaces it, and
+ * a request without one reuses whatever was saved, hinted or not.
+ */
+export async function prepareBeatAnnotation(source: string, directory: string, options: { expected_bpm?: number } = {}): Promise<BeatAnnotation> {
+  const expected = options.expected_bpm ?? null;
+  if (expected !== null && !(expected >= 40 && expected <= 240)) throw new Error("expected_bpm must be between 40 and 240.");
   const id = await identity(source, directory);
   const saved = await readSaved(id);
-  if (saved) return saved;
-  const pending = jobs.get(id.file);
+  if (saved && (expected === null || (saved.schema_version === 3 && saved.tempo_hint_bpm === expected))) return saved;
+  const jobKey = `${id.file}:${expected ?? ""}`;
+  const pending = jobs.get(jobKey);
   if (pending) return pending;
   const job = (async () => {
     // This executable belongs to the host, not the JavaScript bundle. Virtualenv
@@ -51,11 +58,12 @@ export async function prepareBeatAnnotation(source: string, directory: string): 
       const wav = path.join(temp, "audio.wav");
       await run("ffmpeg", ["-v", "error", "-nostdin", "-i", source, "-map", "0:a:0", "-vn", "-ac", "1", "-ar", "22050", wav], { timeout: 180000 });
       const out = path.join(temp, "beats.json");
-      await run(python, [script, wav, "--out", out], { timeout: 600000 });
+      await run(python, [script, wav, "--out", out, ...(expected === null ? [] : ["--bpm", String(expected)])], { timeout: 600000 });
       const detected = JSON.parse(await fs.readFile(out, "utf8"));
-      const annotation = beatAnnotationSchema.parse({ schema_version: 2, source_sha256: id.source_sha256,
+      const annotation = beatAnnotationSchema.parse({ schema_version: 3, source_sha256: id.source_sha256,
         recipe: id.recipe, analyzed_at: new Date().toISOString(), source_duration_seconds: detected.source_duration_seconds,
-        tempo_bpm: detected.tempo_bpm, tempo_confirmed: false, beats_seconds: detected.beats_seconds, hits: detected.hits, downbeats: "unknown" });
+        tempo_bpm: detected.tempo_bpm, tempo_confirmed: false, beats_seconds: detected.beats_seconds, hits: detected.hits,
+        downbeats: detected.downbeats, drops: detected.drops, tempo_hint_bpm: expected, beat_source: detected.beat_source, grid_strength: detected.grid_strength });
       if (await hashFile(source) !== id.source_sha256) throw new Error("Source changed during analysis; retry with the current recording.");
       await fs.mkdir(directory, { recursive: true });
       const staging = `${id.file}.${path.basename(temp)}.tmp`;
@@ -64,6 +72,6 @@ export async function prepareBeatAnnotation(source: string, directory: string): 
       return annotation;
     } finally { await fs.rm(temp, { recursive: true, force: true }); }
   })();
-  jobs.set(id.file, job);
-  try { return await job; } finally { jobs.delete(id.file); }
+  jobs.set(jobKey, job);
+  try { return await job; } finally { jobs.delete(jobKey); }
 }

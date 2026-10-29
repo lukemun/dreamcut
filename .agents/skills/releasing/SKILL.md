@@ -8,7 +8,7 @@ description: Check DreamCut before the owner's work is pushed to the public GitH
 DreamCut ships by updating its public GitHub repository: creators install with `git clone`, `pnpm install` and
 `pnpm bootstrap`, and are offered each push as an update when their agent opens DreamCut (`dreamcut_update`,
 `node bin/dreamcut.mjs update`: fast-forward only, then `pnpm install` when the lockfile changed). There is no build to publish;
-the npm launcher and runtime feed stay at 0.3.0 and are not updated (owner, 2026-10-27). The outcome is
+the npm launcher and runtime feed stay at 0.3.0 and are not updated. The outcome is
 evidence that what is about to be pushed breaks nothing for a creator, carries no secret or private material,
 and has been reviewed, pushed only when the owner says to.
 
@@ -25,7 +25,7 @@ and has been reviewed, pushed only when the owner says to.
 
 Run them on the commits to push (`git log origin/main..main`); run long ones in the background.
 
-1. **Nothing broke:** `pnpm check:pr` (tool registry, catalog privacy, typecheck, effects and `pnpm test`).
+1. **Nothing broke:** `pnpm check:pr` (tool registry, catalog privacy, owner-only instructions, typecheck, effects and `pnpm test`).
    `pnpm typecheck` does not cover `scripts/*.ts`: parse each one the push changes with
    `npx esbuild --log-level=error <file> > /dev/null`. Add the checks the changed areas name in AGENTS.md
    (for example `pnpm check:editor-ui` for editor UI).

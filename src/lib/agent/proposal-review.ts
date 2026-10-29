@@ -31,7 +31,7 @@ export type ProposalFieldChange = {
   label: string;
   before: string;
   after: string;
-  target: "create_transition" | "create_audio" | "create_visual" | "create_text" | "create_shape" | "remove_visual" | "remove_text" | "set_lane_order" | "set_output_format" | "opening_sequence_edit" | "source_range_cut" | "source_range_restore" | "speed_change" | "set_preview_audio_source" | "use_video_stabilization" | "use_recast" | "use_voice_enhancement" | "reattach_original_audio" | "sync_speech_visual" | "replace_captions" | "patch" | "props" | "clear_patch" | "clear_props" | "timing_control" | "block";
+  target: "create_transition" | "create_audio" | "create_visual" | "create_text" | "create_shape" | "remove_visual" | "remove_text" | "remove_audio" | "set_lane_order" | "set_output_format" | "opening_sequence_edit" | "source_range_cut" | "source_range_restore" | "speed_change" | "set_preview_audio_source" | "use_video_stabilization" | "use_recast" | "use_voice_enhancement" | "reattach_original_audio" | "sync_speech_visual" | "replace_captions" | "patch" | "props" | "clear_patch" | "clear_props" | "timing_control" | "block";
   /** For `target: "block"`, the block's index in `option.blocks`. */
   operation_index: number;
   after_value?: unknown;
@@ -189,6 +189,7 @@ const PATCH_FIELD_LABELS: Record<string, string> = {
   caption_track: "Speech captions",
   remove_visual: "Removal",
   remove_text: "Removal",
+  remove_audio: "Removal",
   lane_order_keys: "Lane order",
   aspect_ratio: "Output aspect ratio",
   delivery_target: "Delivery target",
@@ -301,6 +302,7 @@ const PROP_FIELD_LABELS: Record<string, string> = {
   playback_ramp_bar_reopen_duration_seconds: "Reopening time",
   playback_ramp_source_duration_seconds: "Source duration",
   playback_speed_steps: "Speed ramp",
+  pitch_semitones: "Pitch",
   media_scale_keyframes: "Zoom keyframes (clip time)",
   media_offset_y_keyframes: "Vertical motion (clip time)",
   ...Object.fromEntries(EFFECT_CONTROLS.map((control) => [control.prop, control.label])),
@@ -327,6 +329,7 @@ const ACTION_GROUPS: Array<{ action: string; fields: ReadonlySet<string> }> = [
   { action: "Remove source range and ripple", fields: new Set(["source_start_seconds", "source_end_seconds", "removed_segment_id"]) },
   { action: "Move lane", fields: new Set(["lane_key", "lane_index"]) },
   { action: "Rebalance audio", fields: new Set(["volume", "fade_in", "fade_out"]) },
+  { action: "Change voice pitch", fields: new Set(["pitch_semitones"]) },
   { action: "Regrade", fields: new Set(["grade_exposure_ev", "grade_contrast", "grade_highlights", "grade_shadows", "grade_whites", "grade_blacks",  "grade_saturation", "grade_temperature", "grade_tint", "grade_hue_degrees"]) },
   { action: "Reframe", fields: new Set(["media_scale", "media_offset_x", "media_offset_y", "mask_inset", "mask_feather", "mask_corner_radius", "media_opacity"]) },
   { action: "Restyle caption", fields: new Set(["positionPreset", "offsetX", "offsetY", "absX", "absY", "maxWidth", "textAlign", "fontPreset", "fontSizePx", "textColor", "styleVariant", "benchmarkRotationDeg", "benchmarkStackLayout", "timingMode", "activeWordColor", "inverseMaskMotion", "inverseMaskDriftXPercent", "inverseMaskDriftYPercent", "inverseMaskSweepIntensity", "inverseMaskSweepCycles", "mediaFillUrls", "mediaFillChangeTimesSeconds", "mediaFillSecondsPerImage", "mediaFillCrossfadeSeconds", "mediaFillFirstTransition", "mediaFillTransition", "mediaFillSlideDirection", "mediaFillTransitionBlur", "mediaFillScale", "mediaFillPanPercent", "cameraRevealFontWeight", "cameraRevealTypographySizing", "cameraRevealMediaFit", "cameraRevealHoldSeconds", "cameraRevealStartSeconds", "cameraRevealDurationSeconds", "cameraRevealStartDistance", "cameraRevealEndDistance", "cameraRevealTargetX", "cameraRevealTargetY", "cameraRevealFov", "cameraRevealEasing", "cameraRevealShutterAngle", "cameraRevealBlurSamples", "cameraRevealExtrusionDepth", "cameraRevealBevelWidth", "cameraRevealEdgeLight", "cameraRevealEdgeColor", "cameraRevealWallMirror", "cameraRevealOrbitX", "cameraRevealOrbitY", "cameraRevealResolveMode", "cameraRevealResolveStartSeconds", "cameraRevealResolveDurationSeconds", "cameraRevealResolveBackgroundColor", "cameraRevealResolveTextColor"]) },
@@ -463,6 +466,7 @@ export function formatFieldValue(field: string, value: unknown): string {
   if (typeof value === "number") {
     if (SECONDS_FIELDS.has(field)) return `${value.toFixed(2)}s`;
     if (field === "playback_rate") return `${value.toFixed(2)}×`;
+    if (field === "pitch_semitones") return value === 0 ? "as recorded" : `${value > 0 ? "+" : ""}${Number(value.toFixed(1))} st`;
     if (field === "rotationDeg" || field === "media_rotation" || field === "shape_arc_start" || field === "shape_arc_end") return `${Number(value.toFixed(1))}°`;
     if (field === "shape_width" || field === "shape_height" || field === "shape_corner_radius" || field === "shape_draw"
       || field === "shape_taper" || field === "shape_wobble" || field === "shape_star_depth" || field === "shape_arrow_head" || field === "shape_arrow_shaft") return `${Number((value * 100).toFixed(1))}%`;
@@ -545,6 +549,9 @@ function changedFields(operation: EditorAgentOperation): Array<{ field: string; 
     ...(operation.remove_text
       ? [{ field: "remove_text", after: operation.remove_text.reason, target: "remove_text" as const }]
       : []),
+    ...(operation.remove_audio
+      ? [{ field: "remove_audio", after: operation.remove_audio.reason, target: "remove_audio" as const }]
+      : []),
     ...(operation.create_transition
       ? Object.entries(operation.create_transition).flatMap(([field, after]) => field === "params" && after ? Object.entries(after).map(([key, value]) => ({field: `params.${key}`, after: value, target: "create_transition" as const})) : [{ field, after, target: "create_transition" as const }])
       : []),
@@ -623,6 +630,7 @@ export function reviewOperation(timeline: TimelineFile, operation: EditorAgentOp
   const createShape = operation.create_shape;
   const removeVisual = operation.remove_visual;
   const removeText = operation.remove_text;
+  const removeAudio = operation.remove_audio;
   const setLaneOrder = operation.set_lane_order;
   const setOutputFormat = operation.set_output_format;
   const openingSequenceEdit = operation.opening_sequence_edit;
@@ -678,6 +686,8 @@ export function reviewOperation(timeline: TimelineFile, operation: EditorAgentOp
           ? "Remove visual layer"
         : removeText
           ? "Remove graphic text"
+        : removeAudio
+          ? "Remove audio clip"
         : setLaneOrder
           ? setLaneOrder.muted_lane_keys ? "Set lane visibility and mute state" : "Register visual lanes"
         : setOutputFormat
@@ -877,7 +887,8 @@ export function reviewOption(timeline: TimelineFile, option: EditorAgentOption):
       }
     }
     // Structured values (crop edges, a keyframed zoom) are tuned through derived dials.
-    const derivedOperation = row.element_id.startsWith("timing:") || row.element_id.startsWith("block:") ? undefined : option.operations[operationIndex];
+    // A clip compiled from a block is tuned only through the block's settings, so it offers none.
+    const derivedOperation = compiledFromBlock || row.element_id.startsWith("timing:") || row.element_id.startsWith("block:") ? undefined : option.operations[operationIndex];
     const existing = rowElement;
     for (const target of ["props", "create_visual", "create_text", "create_shape"] as const) {
       const values = derivedOperation?.[target] as Record<string, unknown> | undefined;
@@ -900,7 +911,7 @@ export function reviewOption(timeline: TimelineFile, option: EditorAgentOption):
           ...(timingRange ? { control_range: timingRange } : {}) });
       }
     }
-    const transition = row.element_id.startsWith("timing:") || row.element_id.startsWith("block:") ? undefined : option.operations[operationIndex]?.create_transition;
+    const transition = derivedOperation?.create_transition;
     if (transition) for (const control of availableTransitionFields(transition)) {
       if (changes.some(change => change.field === control.field)) continue;
       const value = availableTransitionFieldValue(transition, control.field);

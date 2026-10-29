@@ -596,3 +596,33 @@ A prepared path naming another hash still fails (`timeline-editor-agent-apply.te
   dreamcut-proposals skill gives "Place from `open_space_find` first" its own lead in step 5.
 - **Verification:** `mcp/source-window.test.mjs`, the source-range case in
   `timeline-editor-agent-apply.test.ts` and `proposal-placement.test.ts` check each message.
+
+## 2026-10-28 — Block templates hide fixed dials; hop sequences carry their sounds
+
+- **Observation:** On the creator's Speed hops card the sounds were missing (a separate card) and the dials read as jargon ("Variant", "Travel", "Empty beat"); the template's variant had to be passed by hand.
+- **Decision:** A block setting may declare `hidden(inputs)`: a choice a template fixes stays resolvable and settable but is left off the card and out of the range sweep. `hop_sequence` gains `template: "speed_hops"` (Mark to mark, hides style, distance, empty-scene and direction) and `sounds` (landing whooshes compiled as `create_audio` with `follows_visual` on each streak in, peak on the landing frame, lane appended to `lane_order_keys`), plus a Sound volume dial (0 = off). Labels are plain; "Every hop" is "All hops"; Mark-to-mark defaults are 6-frame halves and 30% see-through.
+- **Verification:** `proposal-blocks.test.ts` (template hides its dials, one whoosh per hop at its landing peak, close-up whoosh on the last hop, Sound volume 0 drops only the audio).
+
+## 2026-10-28 — hop_sequence: closing exit, pose stops, entrance_exit template
+
+- **Observation:** Templates audit: Speed hops promised an exit the block never built; Speed Entrance & Exit had no compiled route and its demo uses still poses.
+- **Decision:** `closing_exit` (style side/past_camera, optional cut-out, `sounds.exit`, a Leaves dial in its own section), pose stops (`keyframed_move` takes `still_url` and a resting `base` placement the move composes with), `template` is optional with `speed_hops` and `entrance_exit`, and one stop is allowed with an entrance or exit. Generic `template` values stay the preset pattern on a generic block.
+- **Verification:** proposal-blocks.test.ts, effect-eval.test.ts and the parameter contract; a pose card staged on a disposable copy with an empty dial sweep.
+
+## 2026-10-28 — Voice pitch
+
+- **Observation:** A creator asked for their narration to sound deeper. No field could change a voice's pitch, so the request was logged as a capability gap.
+- **Decision:** `props.pitch_semitones` (−12…+12, 0 = as recorded) on `video_clip`, `vo_segment` and `vo_full`; other clip types are refused by name. It changes pitch only: timing stays with `playback_rate`, speed steps and speed changes. It is a registered card dial (Pitch, 0.5 st steps) and an Audio row in Properties. Preview runs the clip's sound through a two-head delay-line shifter in an AudioWorklet (`frame-runtime/pitch-shift-worklet.ts`, about 20 ms latency, added only once a clip leaves 0); export applies `asetrate`/`aresample`/`atempo` to the same ratio in the FFmpeg mix (`timeline/audio-pitch.ts`), and a pitch change splits an audio run. Feature case `voice-pitch-deeper`.
+- **Verification:** `audio-pitch.test.ts`, the pitch case in `audio-manifest.test.ts` and `timeline-editor-agent-apply.test.ts`, the parameter contract, `check:tools` and `check:editor-ui`. On a disposable copy of a narrated tutorial at −3 st (target ratio 0.841, measured with one YIN estimator): the preview shifter gave 0.838 on the voiceover. A 2–12 s draft export gave 0.855 on the voiceover and 0.851 on screen-recording narration playing at 1.35×. Clip lengths matched the source and the envelopes lined up within 10 ms. In the live editor the mixer built the pitch node for both clips and their sound passed through it during playback. Not verified: the inspector row by hand (clip clicks did not select in the browser pane), listening by ear, a model run of the feature case, and the Standard (non-GPU) preview path.
+
+## 2026-10-28 — Voice pitch preview: no more echo
+
+- **Observation:** At −1.5 st the creator heard a slight echo and an unnatural tone in preview. The first preview shifter crossfaded two read heads about 20 ms apart, so two copies of the voice summed. That is a comb filter. Export uses a different method, so the two did not sound alike.
+- **Decision:** The preview shifter is now pitch-synchronous WSOLA with resampled grains (`frame-runtime/pitch-shift-core.ts`, shared by the AudioWorklet and tests). Each 21 ms grain starts within ±8 ms of the constant-delay position, where its waveform best matches the previous grain, so overlaps add in phase. Delay is about 28–36 ms and constant, inside the preview's 120 ms drift tolerance. Export keeps `asetrate` + `atempo`, which is also a waveform-aligned overlap-add stretcher, so both use one family of algorithm. A phase vocoder was rejected: it needs longer frames and smears speech phase. FFmpeg `rubberband` (with formant preservation) is in Homebrew's build but not in every FFmpeg DreamCut may find, and preview could only match it with a new WASM dependency. It was not adopted.
+- **Verification:** `pitch-shift-core.test.ts` passes an echo check that also fails the old shifter on purpose. On a sine sweep the old shifter dips to 8% level at comb notches; the new one, and export, stay at 93% or above. The test also checks the pitch ratio (within 1% at −12…+4 st), a constant delay with no drift over 10 s, and an exact pass-through at 0. On the creator's narration in a disposable copy, the old shifter's echo shows as autocorrelation 0.12 at its head spacing (−1.5 st); the new preview and export read about 0. Live preview on 3129 measured pitch ratio 0.915 at −1.5 st (target 0.917) and 0.839 at −3 st (target 0.841), echo score about 0, with no processor errors. CPU is about 0.7% of a core for stereo. Not verified: human listening.
+
+## 2026-10-29 — Removing a music or sound-effect clip
+
+- **Observation:** A creator asked for a new song across a whole promo. Music keeps its source (a patch cannot swap a song) and no operation could retire an audio clip, so a card could only add the new song beside the old one or leave the old one silenced.
+- **Decision:** `remove_audio` (`reason`) soft-deletes a `music` or `sound_effect` clip in the same atomic option, mirroring `remove_visual` and `remove_text`. Speech and other clip types are refused by name. The card shows a "Remove audio clip" row, the timeline marks the clip as outgoing while the option is shown, and staleness treats it as a whole-clip write.
+- **Verification:** `timeline-editor-agent-apply.test.ts` (preview, approval and the wrong-type refusal), the regenerated `mcp/proposal-schema.json` and `check:tools`.

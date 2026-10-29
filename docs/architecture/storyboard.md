@@ -2,6 +2,14 @@
 
 Project → Storyboard lets a creator load footage, save source moments/ranges, and arrange selects before proposing a timeline edit. Footage is above the story strip; source preview and shot details open on demand. Library remains the owner of imported media and generation.
 
+## Rows (freeform boards)
+
+A freeform board is Media above one list of rows (`StoryRows`). Each row is a shot: its picture on the left (with any visuals over it) and its script on the right (`shot.script`, typed or dictated through `ShotNote`). Dragging a Media card between rows, or onto the end zone, adds a row (a video row starts as the whole video, a photo row as 3 s); dropping it onto a row's picture adds it as a visual over that row; the card's Row button adds one at the end without dragging. Rows reorder by their handle or the row menu (⋯), which also holds Transcribe, Split here, Trim and details (the Shot details panel) and Remove row.
+
+A video row plays inline with sound. Transcribe (row menu; `POST …/storyboard/transcribe`, `src/lib/local-store/storyboard-transcript.ts`) runs the local whisper transcriber with `--words` on the whole video and returns timed words on its source clock. It is preparation only: results are cached by source hash under `instruments/storyboard-transcripts/` (a few KB each; the extracted audio is deleted), and the page saves the row's words (`shot.words`, those inside its source window) and script as one Undo step. While a transcribed row plays or is scrubbed, its script highlights the word being spoken (`spokenWord`, drawn on a copy of the text behind the field so the script stays editable). Split here (row menu) cuts the row where its playback is paused (`splitRowAt` in `src/lib/storyboard/rows.ts`) into two rows of the same video: a transcribed row cuts in the pause between words nearest the playhead and each part keeps the script spoken in it; an untranscribed row cuts on the frame and keeps its script on the first part. Visuals keep their moment in time. Whisper word timing is approximate: good for planning, not the MFA alignment that speech cuts on the timeline require. Script text is matched to the transcript by word count, so edits that add or remove words shift the highlight and the text split.
+
+Boards following a reference video keep the panels described below (Script, Visuals, Reference, Canvas, Timeline).
+
 `storyboard.json` is separate from `timeline.json`. Its revisioned content includes loaded source handles, marks, ordered shots, and contiguous named groups. Saved actions retain up to 50 Undo/Redo snapshots. Revision conflicts fail without overwriting another window. Undoing an import's workspace selection does not delete the imported source.
 
 Ownership:

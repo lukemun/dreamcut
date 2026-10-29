@@ -1811,6 +1811,61 @@ test("graphic-text removal remains proposal-only and cannot remove a visual", as
   );
 });
 
+test("music removal is proposal-only, swaps a song atomically and cannot remove a visual", async () => {
+  createProject("remove-music", "web");
+  const song = {
+    ...element(),
+    id: "7a7a7a7a-7a7a-47a7-87a7-7a7a7a7a7a7a",
+    type: "music" as const,
+    lane_key: "music_1",
+    lane_index: 0,
+  };
+  const visual = { ...element(), id: "7b7b7b7b-7b7b-47b7-87b7-7b7b7b7b7b7b", type: "still" as const };
+  writeTimeline("remove-music", { elements: [song, visual], transitions: [] }, "fixture");
+  const raw = {
+    schema_version: 2,
+    project_id: "remove-music",
+    expected_revision: timelineRevision("remove-music"),
+    mode: "workshop",
+    decision: "propose",
+    summary: "Swap the song.",
+    assumptions: [],
+    unresolved_gaps: [],
+    caps: { max_mutations: 1, requested_mutations: 1, max_renders: 0 },
+    options: [{
+      id: "retire-song",
+      label: "Retire the old song",
+      recommended: true,
+      summary: "Soft-delete the old song.",
+      requested_mutations: 1,
+      operations: [{ element_id: song.id, remove_audio: { reason: "A new song replaces it." } }],
+    }],
+  };
+
+  const validated = validateEditorAgentProposalAgainstProject(raw, 1, "remove-music");
+  const preview = previewEditorAgentProposal(validated);
+  assert.equal(readTimeline("remove-music").elements[0]?.removed_at, null);
+  assert.ok(preview.timeline.elements[0]?.removed_at);
+  assert.equal(reviewOperation(readTimeline("remove-music"), validated.options[0]!.operations[0]!).action, "Remove audio clip");
+
+  await applyEditorAgentProposal(validated, 1);
+  const removed = readTimeline("remove-music").elements[0];
+  assert.ok(removed?.removed_at);
+  assert.match(removed?.removed_reason ?? "", /^proposal_audio_remove:/);
+
+  assert.throws(
+    () => validateEditorAgentProposalAgainstProject({
+      ...raw,
+      expected_revision: timelineRevision("remove-music"),
+      options: [{
+        ...raw.options[0],
+        operations: [{ element_id: visual.id, remove_audio: { reason: "Wrong element type." } }],
+      }],
+    }, 1, "remove-music"),
+    /Only music and sound-effect clips can use remove_audio/,
+  );
+});
+
 test("lane registration and element movement preview and apply as one atomic proposal", async () => {
   createProject("register-visual-lanes", "web");
   const visual = { ...element(), id: "88888888-8888-4888-8888-888888888888", type: "still" as const };
@@ -2830,6 +2885,28 @@ test("reverse is a proposal-applied clip choice that refuses to combine with spe
   assert.equal(draft.duration, clip.duration);
   assert.equal(readTimeline(id).elements[0]!.props?.playback_reverse, undefined);
   assert.throws(() => validateEditorAgentProposalAgainstProject(make({playback_reverse: true, playback_speed_steps: [{source_t: 1, v: 2}]}, 2), 2, id), /constant speed/);
+});
+
+test("pitch is a proposal-applied voice choice that keeps timing and refuses clips without their own sound", () => {
+  const id = "proposal-pitch";
+  createProject(id, "web");
+  const clip = element();
+  clip.props = {source_duration_seconds: 2};
+  const still = {...element(), id: "88888888-8888-4888-8888-888888888888", type: "still", lane_key: "visual_1"};
+  writeTimeline(id, {elements: [clip, still], transitions: []}, "fixture");
+  const make = (elementId: string, pitch: number) => proposal(id, timelineRevision(id), {
+    operations: [{element_id: elementId, props: {pitch_semitones: pitch}}],
+    caps: {max_mutations: 1, requested_mutations: 1, max_renders: 0},
+  });
+  const valid = validateEditorAgentProposalAgainstProject(make(clip.id, -3), 1, id);
+  const draft = previewEditorAgentProposal(valid).timeline.elements.find(entry => entry.id === clip.id)!;
+  assert.equal(draft.props?.pitch_semitones, -3);
+  assert.deepEqual(defaultReviewControls([{element_id: clip.id, props: {pitch_semitones: -3}}]), [{operation_index: 0, target: "props", field: "pitch_semitones"}]);
+  assert.equal(draft.duration, clip.duration);
+  assert.equal(draft.playback_rate, clip.playback_rate);
+  assert.equal(readTimeline(id).elements[0]!.props?.pitch_semitones, undefined);
+  assert.throws(() => validateEditorAgentProposalAgainstProject(make(still.id, -3), 1, id), /own sound/);
+  assert.throws(() => validateEditorAgentProposalAgainstProject(make(clip.id, -13), 1, id));
 });
 
 test("an invalid review dial is dropped with a warning while the edit still validates", () => {

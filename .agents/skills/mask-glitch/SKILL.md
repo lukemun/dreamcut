@@ -38,6 +38,7 @@ Unmeasured reference mechanics or missing native functionality belong to
 | Variant | Behavior | When to use |
 | --- | --- | --- |
 | Subject flash + glow | Timed white silhouette and optional soft halo, then original-colour subject | After Effects glow reference or requests for glowing pose reveals |
+| Flash effect | Poses of one take replace each other every few frames, each white for one frame with a shutter click, then the take goes live | "The flash effect", the Flash effect template: one `flash_sequence` card ([template](templates/flash-effect.md)) |
 | Masked flash + crisp click | Short region-limited white flash plus one aligned click | Explicit flash/click pairing or masked-flash-and-click requests |
 | Continuous mask, default | White silhouette, original-colour subject, scene switch; no empty mask frames | Mask Glitch, including consecutive or compound requests |
 | Reference pulses | Explicit measured on/off pulses before the switch | Only when matching a supplied reference or when specifically requested |
@@ -180,6 +181,8 @@ Example request:
 ## Packaged templates
 
 [Mask Glitch · Glow](templates/mask-glitch-glow.md): successive poses appear over the empty set as glowing white silhouettes, then show their colour.
+
+[Flash effect](templates/flash-effect.md): poses of one walk flash in every few frames with a shutter click, compiled by the `flash_sequence` block.
 
 ## Effect recipe evidence
 

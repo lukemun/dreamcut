@@ -1,12 +1,16 @@
-# What DreamCut's features need beyond the runtime download
+# What DreamCut's features need
 
-For each: the features that need it, what installs it in an installed DreamCut (and in a source checkout),
-what checks it, and how a missing or broken one fails. "Setup" is `node bin/dreamcut.mjs setup` (in the packaged runtime it runs in the background)
-([scripts/setup-features.mjs](../../../../scripts/setup-features.mjs)); "doctor" is `pnpm setup:check` (`node bin/dreamcut.mjs doctor`).
+For each: the features that need it, what installs it in a git install, what checks it, and how a missing
+or broken one fails. "Setup" is `node bin/dreamcut.mjs setup`
+([scripts/setup-features.mjs](../../../../scripts/setup-features.mjs)), which a git install runs by hand; only
+the retired packaged runtime started it in the background. Its programs reach a git install's editor, MCP
+server and doctor after the system's own on PATH (`runtimeEnvDefaults` in
+[mcp/editor-runtime.mjs](../../../../mcp/editor-runtime.mjs)). "Doctor" is `pnpm setup:check`
+(`node bin/dreamcut.mjs doctor`).
 
 | Dependency | Needed by | Installed by | Checked by | When missing |
 | --- | --- | --- | --- | --- |
-| FFmpeg, ffprobe | Nearly everything: import, preview preparation, audio treatments, stabilization (vid.stab), frame checks (drawtext), export | macOS: shipped in the runtime (`media-tools/`, [build-ffmpeg](../../../../packaging/build-ffmpeg.mjs)), first on PATH. Fallback: setup's conda-forge FFmpeg (no vid.stab). Checkout: the system's | doctor (required) | Raw FFmpeg errors in the job; stabilization names the missing vid.stab |
+| FFmpeg, ffprobe | Nearly everything: import, preview preparation, audio treatments, stabilization (vid.stab), frame checks (drawtext), export | Git install (the supported route): the system's (`brew install ffmpeg`, which has vid.stab), else setup's conda-forge FFmpeg (no vid.stab), after the system's on PATH. The retired packaged runtime shipped its own in `media-tools/` ([build-ffmpeg](../../../../packaging/build-ffmpeg.mjs)) | doctor (required) | Raw FFmpeg errors in the job; stabilization names the missing vid.stab |
 | Google Chrome | Export, frame checks | The creator | doctor (required), `setup:check` | Playwright launch error at export |
 | whisper-cli (whisper.cpp) | Captions, `speech_prepare` transcribe, chunked alignment | Setup (conda-forge). Checkout: `brew install whisper-cpp` | doctor | "whisper-cli is not installed" naming doctor |
 | Whisper models `ggml-small.bin`, `ggml-silero-v6.2.0.bin` (`~/.cache/whisper-models`, or `WHISPER_MODEL`, `WHISPER_VAD_MODEL`) | Same | Setup's speech step ([setup-speech](../../../../scripts/setup-speech.mjs), checksum-pinned). Checkout: `pnpm setup:speech` | doctor | `speech_prepare` names the missing model; scripts name `setup-speech` |
@@ -20,5 +24,5 @@ what checks it, and how a missing or broken one fails. "Setup" is `node bin/drea
 | Demucs environment (`STEMS_PYTHON`, `.venv-stems`) | Instrument separation | Nothing; checkout only | None | Names `scripts/requirements-stems.txt`; unavailable in an installed DreamCut |
 | Rust preview helper | Opt-in Rust playback (`DREAMCUT_NATIVE_PREVIEW=1`) | `pnpm setup:rust`; checkout only | `setup:rust --check` | Raw error when enabled without a build |
 
-Platform notes: the shipped FFmpeg is built on macOS only so far; Windows uses the setup's conda-forge
-FFmpeg (no stabilization). The setup's Windows paths (`Library\bin`, `Scripts`) are untested.
+Platform notes: without a system FFmpeg, Windows and macOS use the setup's conda-forge FFmpeg (no
+stabilization). The setup's Windows paths (`Library\bin`, `Scripts`) are untested.

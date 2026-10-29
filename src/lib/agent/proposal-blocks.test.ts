@@ -165,13 +165,114 @@ test("block settings are the card's dials, within the slider budget, and compile
   // Dials read in time order under headings: what every hop shares, the opening hold, then each hop with the hold that follows it.
   const sections: string[] = [];
   for (const change of changes) if (change.section && !sections.includes(change.section)) sections.push(change.section);
-  assert.deepEqual(sections, ["Every hop", "Opening at Swings", "Swings → Path bend", "Path bend → Lamp post"]);
+  assert.deepEqual(sections, ["All hops", "Opening at Swings", "Swings → Path bend", "Path bend → Lamp post"]);
   const under = (section: string) => changes.filter(change => change.section === section).map(change => change.field);
-  assert.deepEqual(under("Every hop"), ["variant", "travel_percent", "empty_beat_frames", "speed_at_stops", "fade_percent", "ease"]);
+  assert.deepEqual(under("All hops"), ["variant", "travel_percent", "empty_beat_frames", "speed_at_stops", "fade_percent", "ease"]);
   assert.deepEqual(under("Opening at Swings"), ["hold_seconds.0"]);
   assert.deepEqual(under("Swings → Path bend"), ["streak_frames.0", "blur_percent.0", "direction.0", "hold_seconds.1"]);
   assert.deepEqual(under("Path bend → Lamp post"), ["streak_frames.1", "blur_percent.1", "direction.1"]);
-  assert.deepEqual(changes.filter(change => change.section === "Swings → Path bend").map(change => change.label), ["Streak length", "Blur", "Leaves toward", "Hold"]);
+  assert.deepEqual(changes.filter(change => change.section === "Swings → Path bend").map(change => change.label), ["Hop length", "Blur", "Flies toward", "Pause at stop"]);
+});
+
+test("mark to mark offers only the block's dials, never the zoom dials of the clips it compiles", () => {
+  const projectId = "blocks-mark-to-mark-dials";
+  const revision = seed(projectId);
+  const proposal = validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { variant: "mark_to_mark" }), 512, projectId);
+  const option = proposal.options[0]!;
+  assert.ok(option.operations.some(operation => operation.block_ref && JSON.stringify(operation.create_visual ?? {}).includes("media_scale")), "the fixture compiles keyframed zoom clips");
+  const review = reviewOption(readTimeline(projectId), option);
+  assert.ok(review.adjustment_rows.length && review.adjustment_rows.every(row => row.element_id === "block:hops"), "clips compiled from the block offer no dials of their own");
+  assert.ok(review.adjustment_rows.flatMap(row => row.changes).every(change => change.target === "block"));
+});
+
+test("the Speed hops template is one click: straight hops, plain dials and a whoosh locked to every landing", () => {
+  const projectId = "blocks-speed-hops";
+  const revision = seed(projectId);
+  const whoosh = (name: string, duration: number, peak: number) => ({ source_url: `/api/sfx-catalog/media/licensed/tutorial-speed-sfx/${name}.wav`, source_duration_seconds: duration, peak_seconds: peak });
+  const sounds = { landings: [whoosh("04-arrival-whoosh-1", 0.4153, 0.06), whoosh("07-arrival-whoosh-2", 0.4908, 0.025)], last_landing: whoosh("10-arrival-whoosh-3", 0.4269, 0.085) };
+  const proposal = validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, {}, { template: "speed_hops", sounds }), 512, projectId);
+  const option = proposal.options[0]!;
+  const visual = (id: string) => option.operations.find(operation => operation.element_id === id)?.create_visual as { timeline_start: number } | undefined;
+  const audio = option.operations.filter(operation => operation.create_audio);
+  assert.equal(audio.length, 2, "one whoosh per hop");
+  audio.forEach((operation, index) => {
+    const sound = operation.create_audio!, streak = visual(sound.follows_visual!.element_id)!;
+    assert.equal(option.operations.find(candidate => candidate.element_id === sound.follows_visual!.element_id)!.block_ref!.role, "enter", "locked to the streak in");
+    assert.equal(sound.source_url, (index === 1 ? sounds.last_landing : sounds.landings[index])!.source_url, "the last hop takes the close-up whoosh");
+    assert.ok(Math.abs(sound.timeline_start - streak.timeline_start - sound.follows_visual!.offset_seconds) < 1e-6);
+    // Straight hops take 6 frames each half; the loudest moment lands on the landing frame.
+    assert.ok(Math.abs(sound.timeline_start + (index === 1 ? 0.085 : 0.06) - (streak.timeline_start + 6 / 30)) < 1e-3);
+  });
+  const changes = reviewOption(readTimeline(projectId), option).adjustment_rows.flatMap(row => row.changes);
+  const fields = changes.map(change => change.field);
+  for (const hidden of ["variant", "travel_percent", "empty_beat_frames", "direction.0", "direction.1"]) assert.ok(!fields.includes(hidden), `${hidden} is fixed by the template`);
+  const shared = changes.filter(change => change.section === "All hops");
+  assert.deepEqual(shared.map(change => change.label), ["Sound volume", "Slow motion at stops", "See-through while flying", "Speed-up and slow-down"]);
+  assert.equal(proposalControlTier(shared[0]!, option.review_controls), "main");
+  // Sound volume 0 silences the whooshes; the same clips stay, so every dial value changes the same fields.
+  const silent = validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { sound_volume: 0 }, { template: "speed_hops", sounds }), 512, projectId).options[0]!;
+  assert.deepEqual(silent.operations.filter(operation => operation.create_audio).map(operation => operation.create_audio!.volume), [0, 0]);
+  assert.deepEqual(silent.operations.map(operation => operation.element_id), option.operations.map(operation => operation.element_id));
+  // The shortest pause and hop still leave each whoosh ending where the next begins, on one lane.
+  const tight = validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { hold_seconds: [0.1, 0.1], streak_frames: [2, 2] }, { template: "speed_hops", sounds }), 512, projectId).options[0]!;
+  const whooshes = tight.operations.flatMap(operation => operation.create_audio ? [operation.create_audio] : []);
+  assert.ok(whooshes[0]!.timeline_start + whooshes[0]!.source_end_seconds - whooshes[0]!.source_start_seconds <= whooshes[1]!.timeline_start + 1e-6);
+});
+
+test("a closing exit: after the line the subject streaks out past the camera on the line's last frames, with its whoosh", async () => {
+  const projectId = "blocks-closing-exit";
+  const revision = seed(projectId);
+  const exitSound = { source_url: "/api/sfx-catalog/media/licensed/tutorial-speed-sfx/03-takeoff-whoosh.wav", source_duration_seconds: 0.3456, peak_seconds: 0.155 };
+  const inputs = { template: "speed_hops", line_end_seconds: 24, closing_exit: { style: "past_camera", cutout: { source_url: `/api/projects/${projectId}/media/cutouts/stop-3.webm`, source_duration_seconds: 6, source_offset_seconds: 19 } },
+    sounds: { landings: [{ source_url: "/api/sfx-catalog/media/a.wav", source_duration_seconds: 0.4, peak_seconds: 0.06 }], exit: exitSound } };
+  const proposal = validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, {}, inputs), 512, projectId);
+  const option = proposal.options[0]!;
+  const visual = (role: string) => option.operations.find(operation => operation.block_ref?.role === role)!.create_visual as Record<string, any>;
+  const line = visual("line"), exit = visual("closing_exit");
+  // Six frames of exit at 30 fps: the line stops 0.2 s early and the exit carries on from that footage frame.
+  assert.equal(line.source_end_seconds, 23.8);
+  assert.equal(exit.source_start_seconds, 4.8);
+  assert.ok(Math.abs(exit.timeline_start - (line.timeline_start + 23.8 - 20)) < 1e-6, "the exit follows the line without a gap");
+  const scale = exit.transition_keyframes.media_scale, offset = exit.transition_keyframes.media_offset_x;
+  // Lamp post stands right of centre (cx 0.75, h 0.4): its nearest edge, about a quarter of its height left of centre, must land past the right edge.
+  const nearEdge = 0.5 + scale.at(-1).v * (0.75 - 0.25 * 0.4 - 0.5) + offset.at(-1).v / 2;
+  assert.ok(scale.at(-1).v > 1.5 && nearEdge >= 1, "it grows and leaves the frame");
+  const sound = option.operations.find(operation => operation.block_ref?.role === "exit_sound")!.create_audio!;
+  assert.ok(Math.abs(sound.timeline_start + 0.155 - (exit.timeline_start + 1 / 30)) < 1e-3, "the takeoff whoosh peaks one frame after the subject sets off");
+  const changes = reviewOption(readTimeline(projectId), option).adjustment_rows.flatMap(row => row.changes);
+  assert.deepEqual(changes.filter(change => change.section === "Leaving Lamp post").map(change => change.label), ["Leaves", "Hop length", "Blur"]);
+  const { sweepProposalDials } = await import("./proposal-dial-sweep");
+  const sweep = await sweepProposalDials(projectId, readTimeline(projectId), proposal, 60_000);
+  assert.deepEqual(sweep.failures, []);
+  // The exit is a choice on the card: Stays keeps the same clips, holds the subject still and sharp, and silences its whoosh.
+  const stays = validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { exit_style: "stay" }, inputs), 512, projectId).options[0]!;
+  assert.deepEqual(stays.operations.map(operation => operation.element_id), option.operations.map(operation => operation.element_id));
+  const still = stays.operations.find(operation => operation.block_ref?.role === "closing_exit")!.create_visual as Record<string, any>;
+  assert.deepEqual([still.transition_keyframes.media_offset_x.at(-1).v, still.transition_keyframes.media_scale.at(-1).v, still.directional_blur_x, still.transition_keyframes.media_opacity.at(-1).v], [0, 1, 0, 1]);
+  assert.equal(stays.operations.find(operation => operation.block_ref?.role === "exit_sound")!.create_audio!.volume, 0);
+});
+
+test("Speed Entrance & Exit from still poses: in from the side, a pause, out again, with the template's fixed choices hidden", async () => {
+  const projectId = "blocks-still-poses";
+  const revision = seed(projectId);
+  for (const name of ["standing.png", "walking.png", "set.jpg"]) fs.writeFileSync(path.join(projectMediaDir(projectId), "sources", name), "fixture image");
+  const media = `/api/projects/${projectId}/media/sources`;
+  const proposal = validateEditorAgentProposalAgainstProject({ ...hopProposal(projectId, revision), options: [{ ...hopProposal(projectId, revision).options[0]!, blocks: [{ block_id: "hops", kind: "hop_sequence", version: 1, settings: {}, inputs: {
+    template: "entrance_exit", empty_set: { type: "still", source_url: `${media}/set.jpg` }, first_entrance: true, closing_exit: { style: "side" },
+    stops: [{ label: "By the shelf", pose: { source_url: `${media}/standing.png`, moving_source_url: `${media}/walking.png` }, subject: { cx: 0.5, cy: 0.55, h: 0.6 } }],
+    remove_element_ids: [WALK], lane_order_keys: ["visual_1", "visual_0"],
+  } }] }] }, 512, projectId);
+  const option = proposal.options[0]!;
+  const made = option.operations.filter(operation => operation.create_visual).map(operation => [operation.block_ref!.role, (operation.create_visual as Record<string, any>).type, (operation.create_visual as Record<string, any>).source_url.split("/").at(-1)]);
+  assert.deepEqual(made, [["empty_set", "still", "set.jpg"], ["enter", "still", "walking.png"], ["hold", "still", "standing.png"], ["closing_exit", "still", "walking.png"]]);
+  const changes = reviewOption(readTimeline(projectId), option).adjustment_rows.flatMap(row => row.changes);
+  const fields = changes.map(change => change.field);
+  assert.ok(!fields.includes("variant") && !fields.includes("empty_beat_frames"), "the template fixes out-and-in");
+  assert.deepEqual([...new Set(changes.map(change => change.section))], ["All hops", "Into By the shelf", "Leaving By the shelf"]);
+  assert.equal(changes.find(change => change.field === "hold_seconds.0")!.after_value, 1.5);
+  const { sweepProposalDials } = await import("./proposal-dial-sweep");
+  const sweep = await sweepProposalDials(projectId, readTimeline(projectId), proposal, 60_000);
+  assert.deepEqual(sweep.failures, []);
 });
 
 test("preview equals apply at the defaults, at every setting's extremes and after reset", async () => {
@@ -250,15 +351,15 @@ test("refusals name the block, the setting and the value, never an operation ind
   (inputs.stops[0] as { settle_seconds: number; takeoff_seconds: number }).takeoff_seconds = 2;
   (inputs.stops[0] as { cutout: { source_offset_seconds: number } }).cutout.source_offset_seconds = 1;
   assert.throws(() => validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, {}, inputs), 512, projectId),
-    (error: Error) => /Block "hops" setting "Hold" in "Opening at Swings" \(hold_seconds\.0\) at 3s cannot compile/.test(said(error)) && !/operation \d/.test(said(error)));
+    (error: Error) => /Block "hops" setting "Pause at stop" in "Opening at Swings" \(hold_seconds\.0\) at 3s cannot compile/.test(said(error)) && !/operation \d/.test(said(error)));
   // Stops are named by what the creator can see, never by a mark number they may have cleared.
   assert.throws(() => validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, {}, { stops: hopInputs(projectId).stops.map((stop, index) => index === 1 ? { ...stop, label: "Mark 3" } : stop) }), 512, projectId),
     (error: Error) => /name the stop by a place the creator can see, not a mark number/.test(said(error)));
   // An authored value outside the advertised range.
   assert.throws(() => validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { travel_percent: 400 }), 512, projectId),
-    (error: Error) => /Block "hops" setting "Travel" \(travel_percent\) at 400% is outside 0 to 150%/.test(said(error)));
+    (error: Error) => /Block "hops" setting "Distance flown" \(travel_percent\) at 400% is outside 0 to 150%/.test(said(error)));
   assert.throws(() => validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { variant: "sideways" }), 512, projectId),
-    (error: Error) => /setting "Variant" \(variant\) must be one of out_and_in, mark_to_mark/.test(said(error)));
+    (error: Error) => /setting "Style" \(variant\) must be one of out_and_in, mark_to_mark/.test(said(error)));
   assert.throws(() => validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { hold_seconds: 2 }), 512, projectId),
     (error: Error) => /is set per hold: send an array/.test(said(error)));
   assert.throws(() => validateEditorAgentProposalAgainstProject(hopProposal(projectId, revision, { streaks: 3 }), 512, projectId),

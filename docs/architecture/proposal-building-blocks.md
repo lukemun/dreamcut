@@ -8,7 +8,8 @@ the 2026-10-24 feature freeze). What exists:
 - Registry and kit: `src/lib/agent/proposal-blocks.ts` (registry, settings contract, compile,
   range validation, card dials) and `proposal-block-kit.ts` (setting types, frame snapping,
   derived element ids). Blocks: `live_hold@1`, `keyframed_move@1`, `hop_sequence@1` in
-  `proposal-blocks-hops.ts`.
+  `proposal-blocks-hops.ts`; `flash_sequence@1` (2026-10-29, the Flash effect) in
+  `proposal-blocks-flash.ts`.
 - Schema: `option.blocks[] = {block_id, kind, version, inputs, settings}`; the server sets `seed`
   (from `expected_revision`) and `frame_rate`. Raw operations stay in `option.operations`; an
   explicit `operations@1` block is hoisted into it. Compiled operations carry `block_ref` and
@@ -191,6 +192,7 @@ effect:
 | `live_hold` | A window of real footage between two measured frames | Source, settle frame, takeoff frame |
 | `keyframed_move` | An alpha clip moving between two placements over a few frames, with blur and fade | Cut-out receipt, start and end subject boxes (or an off-frame side), source frame |
 | `hop_sequence` | Orders holds and moves across stops and owns their shared settings | Ordered stops, each with a cut-out receipt, subject box, settle and takeoff frames; the empty set; the closing line |
+| `flash_sequence` | Cut-out poses replace each other on one lane, each landing with a white flash and glow and a shutter click, then the take goes live (added 2026-10-29) | Ordered poses, each a cut-out receipt and the footage time of its first frame; the empty set; the closing line; the click |
 
 The agent's whole card becomes roughly:
 

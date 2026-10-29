@@ -43,7 +43,7 @@ export type ProposalFieldChange = {
   label: string;
   before: string;
   after: string;
-  target: "create_audio" | "create_visual" | "create_text" | "create_shape" | "create_transition" | "remove_visual" | "set_lane_order" | "set_output_format" | "opening_sequence_edit" | "source_range_cut" | "speed_change" | "use_video_stabilization" | "use_recast" | "use_voice_enhancement" | "reattach_original_audio" | "sync_speech_visual" | "replace_captions" | "patch" | "props" | "clear_patch" | "clear_props" | "timing_control" | "block";
+  target: "create_audio" | "create_visual" | "create_text" | "create_shape" | "create_transition" | "remove_visual" | "remove_text" | "remove_audio" | "set_lane_order" | "set_output_format" | "opening_sequence_edit" | "source_range_cut" | "speed_change" | "use_video_stabilization" | "use_recast" | "use_voice_enhancement" | "reattach_original_audio" | "sync_speech_visual" | "replace_captions" | "patch" | "props" | "clear_patch" | "clear_props" | "timing_control" | "block";
   operation_index: number;
   after_value?: unknown;
   control_range?: { min: number; max: number };

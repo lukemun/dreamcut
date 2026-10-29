@@ -74,3 +74,11 @@ test("computeReadDelta claims unchanged only when both prior hashes prove it", (
   assert.equal(delta.prevOverlaySha256, "old-overlay");
   assert.equal(delta.stillSha256, "aa");
 });
+
+test("the still renderer counts frames at the project's rate, so a 25 fps frame is drawn from its own moment", async () => {
+  const { frameFor, stillComposition } = await import("./frame-state");
+  const composition = stillComposition({ width: 1920, height: 1080 }, 1.76, 25);
+  // 1.72 s is frame 43 at 25 fps; a renderer counting 30 fps would draw 1.43 s instead.
+  assert.equal(frameFor(1.72, 25) / composition.fps, 1.72);
+  assert.deepEqual(composition, { width: 1920, height: 1080, fps: 25, durationInFrames: 45 });
+});

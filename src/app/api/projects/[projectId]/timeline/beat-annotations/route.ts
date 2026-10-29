@@ -6,7 +6,7 @@ import { readBeatAnnotation, prepareBeatAnnotation } from "@/lib/local-store/bea
 import { readRhythmReview, withRhythmReview } from "@/lib/local-store/library-rhythm";
 import { readInstrumentAnalysis } from "@/lib/local-store/instrument-analysis";
 import { instrumentAnnotation } from "@/lib/timeline/instrument-analysis";
-import { projectBeatAnnotation } from "@/lib/timeline/beat-annotations";
+import { projectBeatAnnotation, projectDownbeats, projectDrops } from "@/lib/timeline/beat-annotations";
 import { WAVEFORM_SUPPORTED_TYPES } from "@/lib/timeline/media";
 
 type Context = { params: Promise<{ projectId: string }> };
@@ -20,14 +20,21 @@ async function handle(request: Request, context: Context, prepare: boolean) {
     const source = resolveWaveformSource(projectId, element.source_url);
     if (!source) return Response.json({ error: "Beat annotation requires a local source" }, { status: 400 });
     const directory = path.join(projectDir(projectId), "analysis", "beats");
-    const detected = await (prepare ? prepareBeatAnnotation : readBeatAnnotation)(source, directory);
+    const body = prepare ? await request.json().catch(() => ({})) as { expected_bpm?: unknown } : {};
+    if (body.expected_bpm !== undefined && (typeof body.expected_bpm !== "number" || !(body.expected_bpm >= 40 && body.expected_bpm <= 240))) {
+      return Response.json({ error: "expected_bpm must be a number from 40 to 240" }, { status: 400 });
+    }
+    const detected = prepare
+      ? await prepareBeatAnnotation(source, directory, { expected_bpm: body.expected_bpm as number | undefined })
+      : await readBeatAnnotation(source, directory);
     const instruments = readInstrumentAnalysis(projectId, source);
     const annotation = instruments.state === "ready" && instruments.result
       ? instrumentAnnotation(detected ?? { schema_version: 2, source_sha256: instruments.result.source_sha256, recipe: `htdemucs-${instruments.key}`, analyzed_at: "", source_duration_seconds: instruments.result.duration, tempo_bpm: 0, tempo_confirmed: false, beats_seconds: [], downbeats: "unknown", hits: [] }, instruments.result, instruments.settings)
       : detected ? withRhythmReview(detected, (await readRhythmReview(directory, detected))?.review.hits ?? null) : null;
     const current = readTimeline(projectId).elements.find(e => e.id === elementId && !e.removed_at);
     if (!current || current.source_url !== element.source_url) return Response.json({ error: "Clip source changed; refresh and retry" }, { status: 409 });
-    return Response.json({ annotation, beats: annotation ? projectBeatAnnotation(current, annotation) : [], element_id: current.id, instrument_marks_active: instruments.state === "ready" && !!instruments.result }, { headers: { "Cache-Control": "no-store" } });
+    return Response.json({ annotation, beats: annotation ? projectBeatAnnotation(current, annotation) : [],
+      downbeats: annotation ? projectDownbeats(current, annotation) : [], drops: annotation ? projectDrops(current, annotation) : [], element_id: current.id, instrument_marks_active: instruments.state === "ready" && !!instruments.result }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     return Response.json({ error: error instanceof Error ? error.message : "Beat annotation failed" }, { status: 422 });
   }

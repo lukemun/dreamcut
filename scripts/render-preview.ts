@@ -15,6 +15,7 @@ import { previewEditorAgentProposal, previewEditorAgentProposalBatch, timelineRe
 import { parseProposalFile } from "@/lib/agent/proposal-file";
 import { absolutizeMediaUrls } from "@/lib/render/pipeline";
 import { buildCompositionElements, getCompositionDimensions } from "@/lib/render/composition-adapters";
+import { frameCheckRenderSources } from "@/lib/local-store/export-render-sources";
 import { buildTimelineTransitionLayout } from "@/lib/timeline/transitions";
 import { COMPOSITION_FPS } from "@/lib/timeline/frame-quantization";
 
@@ -41,8 +42,10 @@ async function main() {
   const metadata = readMetadata(project);
   setEditorFrameRate(projectFrameRate(metadata));
   const layout = buildTimelineTransitionLayout(activeElements(timeline), activeTransitions(timeline));
+  // HDR clips draw what the editor shows, never the browser-tone-mapped original decoded a second time.
+  const drawn = frameCheckRenderSources(project, layout.renderedElements as never);
   const inputProps = {
-    elements: absolutizeMediaUrls(buildCompositionElements(layout.renderedElements,
+    elements: absolutizeMediaUrls(buildCompositionElements(drawn.clips as typeof layout.renderedElements,
       new Set(preview?.mutedLaneKeys ?? metadata.muted_lane_keys), new Set(metadata.hidden_lane_keys)), args.includes("--base") ? flag("--base") : "http://127.0.0.1:3123"),
     laneOrderKeys: preview?.laneOrderKeys ?? metadata.lane_order_keys,
     renderScale: scale,
@@ -65,6 +68,7 @@ async function main() {
   fs.writeFileSync(out + ".json", JSON.stringify({stage:proposals.length ? "unapplied workshop preview" : "saved timeline sample", project, revision,
     timeline_unchanged:timelineRevision(project) === revision, proposal_summaries:proposals.map(p=>p.summary),
     fps:currentFrameRate(), frames:endFrame - startFrame, source_start_frame:startFrame, source_end_frame_exclusive:endFrame, scale,
+    hdr_drawn_from_preview_proxy:drawn.fromProxy,
     sha256:createHash("sha256").update(fs.readFileSync(out)).digest("hex")}, null, 2));
   console.log(`\nPreview: ${out}`);
 }

@@ -5,6 +5,7 @@ import { deselectStoryboardSource, insertStoryboardShot, groupStoryboardShots, m
 import { saveScriptDocument, type ScriptDocument } from "@/lib/storyboard/script";
 import { addCanvasNode, addMomentText, arrangeCanvasTimeline, linkMomentEffect, removeMomentLink, markNote, unlinkMomentEffect, connectCanvasNodes, disconnectCanvasEdges, placeCanvasNodes, reconcileCanvas, removeCanvasNodes, updateCanvasNode, type NewCanvasNode } from "@/lib/storyboard/canvas";
 import { uploadAssetRequest } from "@/lib/media/upload-library-media";
+import { applyTranscript, insertRow, newRow, splitRowAt } from "@/lib/storyboard/rows";
 
 async function jsonResponse(response: Response) {
   const body = await response.json();
@@ -17,6 +18,8 @@ export function useStoryboard(projectId: string) {
   const [catalogReferences, setCatalogReferences] = useState<{ id: string; title: string; sourceHash: string }[]>([]);
   const [busy, setBusy] = useState(false), [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  // Rows whose video is being transcribed; transcription runs outside the save queue so the board stays editable.
+  const [transcribing, setTranscribing] = useState<string[]>([]);
   const current = useRef(snapshot), actionQueue = useRef(Promise.resolve()), pendingActions = useRef(0);
   const base = `/api/projects/${encodeURIComponent(projectId)}`;
   const adopt = useCallback((value: StoryboardSnapshot) => { current.current = value; setSnapshot(value); }, []);
@@ -239,6 +242,26 @@ export function useStoryboard(projectId: string) {
     patchVisual: (shotId: string, id: string, patch: Partial<StoryboardVisual>) => editVisuals(shotId, visuals => visuals.map(v => v.id === id ? { ...v, ...patch } : v)),
     removeVisual: (shotId: string, id: string) => editVisuals(shotId, visuals => visuals.filter(v => v.id !== id)),
     moveVisual: (shotId: string, id: string, delta: -1 | 1) => editVisuals(shotId, visuals => moveShotVisual(visuals, id, delta)),
+    rows: {
+      transcribing,
+      add: (source: string, before?: string) => edit(b => {
+        const asset = assets.find(a => a.source === source);
+        if (!asset) throw new Error("That media is no longer in the project.");
+        return insertRow(b, newRow(asset, crypto.randomUUID()), before);
+      }),
+      split: (id: string, seconds: number) => edit(b => splitRowAt(b, id, seconds, crypto.randomUUID())),
+      transcribe: async (id: string) => {
+        const shot = current.current?.content.shots.find(s => s.id === id);
+        if (!shot) return;
+        setTranscribing(list => [...list, id]); setError("");
+        try {
+          const result = await fetch(`${base}/storyboard/transcribe`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ source: shot.source }) }).then(jsonResponse);
+          // The row may have been trimmed or split while whisper ran: place the words on what it is now.
+          await edit(b => ({ ...b, shots: b.shots.map(s => s.id === id ? applyTranscript(s, result.words) : s) }));
+        } catch (e) { setError(e instanceof Error ? e.message : "Could not transcribe this video"); }
+        finally { setTranscribing(list => list.filter(item => item !== id)); }
+      },
+    },
     removeShot: (id: string) => edit(b => ({ ...b, shots: b.shots.filter(s => s.id !== id) })),
     move: (id: string, before?: string) => edit(b => moveStoryboardShot(b, id, before)),
     group: (ids: string[], name: string) => edit(b => groupStoryboardShots(b, ids, name, crypto.randomUUID())),

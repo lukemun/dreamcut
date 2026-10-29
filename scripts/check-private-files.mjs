@@ -54,6 +54,11 @@ try {
       const privacy = spawnSync(process.execPath, ['--import', 'tsx', 'scripts/check-catalog-privacy.mjs', '--staged'], { stdio: 'inherit' });
       if (privacy.status !== 0) throw new Error('Catalog privacy check failed. Move personal entries to the profile library before committing.');
     }
+    // Instructions every user's agent loads must not carry one checkout's owner-only rules (see check-owner-text.mjs).
+    if (stagedFiles.some(file => /^(?:AGENTS\.md|\.agents\/skills\/[^/]+\/SKILL\.md)$/.test(file))) {
+      const owner = spawnSync(process.execPath, ['scripts/check-owner-text.mjs', '--staged'], { stdio: 'inherit' });
+      if (owner.status !== 0) throw new Error('Owner-text check failed. Move owner-only instructions to AGENTS.local.md before committing.');
+    }
   }
   const localTool = path.join(git('rev-parse', '--git-common-dir').toString().trim(), 'tools', 'gitleaks');
   const executable = process.env.GITLEAKS_EXECUTABLE || (fs.existsSync(localTool) ? localTool : 'gitleaks');

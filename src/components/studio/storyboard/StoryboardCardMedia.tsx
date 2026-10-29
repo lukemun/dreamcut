@@ -7,14 +7,20 @@ import { thumbnailUrl } from "@/lib/media/thumbnail-url";
 import styles from "./storyboard.module.css";
 
 /** Card playback is transient; it never selects, marks, or edits a source. */
-export function StoryboardCardMedia({ asset, start = 0, duration, label, playable: inline = true, onPlay }: {
+export function StoryboardCardMedia({ asset, start = 0, duration, label, playable: inline = true, onPlay, player, onTime }: {
   asset?: StoryboardAsset; start?: number; duration?: number; label?: string; playable?: boolean;
   /** Plays this card somewhere larger (the story preview) instead of inside the card, which then shows a still. */ onPlay?: () => void;
+  /**
+   * A working player (a storyboard row): sound on, controls stay after the first play so a paused
+   * moment can be scrubbed, and the video element is shared so the caller can act at the playhead.
+   */ player?: React.RefObject<HTMLVideoElement | null>;
+  /** Source-clock seconds as it plays or is scrubbed. */ onTime?: (seconds: number) => void;
 }) {
   const playable = inline && !onPlay;
   const host = useRef<HTMLDivElement>(null), video = useRef<HTMLVideoElement>(null), still = useRef<HTMLCanvasElement>(null);
   const [visible, setVisible] = useState(false), [failed, setFailed] = useState(false), [playing, setPlaying] = useState(false);
-  const [retry, setRetry] = useState(0);
+  const [retry, setRetry] = useState(0), [started, setStarted] = useState(false);
+  const working = !!player && playable;
   const name = label || asset?.name || "footage";
   const end = duration == null ? asset?.duration ?? Infinity : start + duration;
   // Stills come from the server's cached frame at the shot start, so cards never download a whole
@@ -29,13 +35,14 @@ export function StoryboardCardMedia({ asset, start = 0, duration, label, playabl
     if (host.current) observer.observe(host.current);
     return () => observer.disconnect();
   }, []);
-  useEffect(() => { setFailed(false); setPlaying(false); }, [asset?.source, retry]);
+  useEffect(() => { setFailed(false); setPlaying(false); setStarted(false); }, [asset?.source, retry]);
   useEffect(() => {
     if (!playing || duration == null) return;
     let frame: number;
     const checkEnd = () => {
       const node = video.current;
       if (!node || node.paused) return;
+      onTimeRef.current?.(node.currentTime);
       if (node.currentTime >= end) {
         node.pause();
         node.currentTime = end;
@@ -44,6 +51,7 @@ export function StoryboardCardMedia({ asset, start = 0, duration, label, playabl
     frame = requestAnimationFrame(checkEnd);
     return () => cancelAnimationFrame(frame);
   }, [playing, duration, end]);
+  const onTimeRef = useRef(onTime); onTimeRef.current = onTime;
   const captureFrame = (node: HTMLVideoElement) => {
     if (playable || node.seeking || node.readyState < 2 || !node.videoWidth) return;
     const canvas = still.current;
@@ -63,18 +71,18 @@ export function StoryboardCardMedia({ asset, start = 0, duration, label, playabl
       : asset.kind === "image" ? <><img key={retry} data-media-preview draggable={false} className={styles.thumb} src={thumbnailUrl(asset.preview || asset.url, 640)} alt={name} loading="lazy" decoding="async" onError={() => setFailed(true)} />{playButton}</>
         : (asset.ready || asset.previewReady) && asset.preview && !playable && stillServed ? <><img key={`${stillUrl}-${retry}`} data-media-preview draggable={false} className={styles.thumb} src={stillUrl} alt={name} loading="lazy" decoding="async" onError={() => setFailed(true)} />{playButton}</>
         : (asset.ready || asset.previewReady) && asset.preview ? <>
-          <video key={`${asset.source}-${retry}`} ref={video} data-media-preview data-storyboard-card-video className={styles.thumb}
-            aria-label={`Inline preview: ${name}`} src={visible ? asset.preview : undefined} poster={visible ? stillUrl : undefined} preload={stillServed ? "metadata" : "auto"} controls={playable && playing} muted playsInline
+          <video key={`${asset.source}-${retry}`} ref={node => { video.current = node; if (player) player.current = node; }} data-media-preview data-storyboard-card-video className={styles.thumb}
+            aria-label={`Inline preview: ${name}`} src={visible ? asset.preview : undefined} poster={visible ? stillUrl : undefined} preload={stillServed ? "metadata" : "auto"} controls={playable && (playing || (working && started))} muted={!working} playsInline
             style={playable ? undefined : { position: "absolute", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
-            onLoadedData={e => captureFrame(e.currentTarget)} onSeeked={e => captureFrame(e.currentTarget)}
+            onLoadedData={e => captureFrame(e.currentTarget)}
             draggable={false} onDragStart={e => e.preventDefault()} onError={() => setFailed(true)}
             onLoadedMetadata={e => { if (!stillServed || !playable) seekStart(e.currentTarget); }}
             onPlay={e => {
               const node = e.currentTarget;
               host.current?.closest('[aria-label="Storyboard workspace"]')?.querySelectorAll<HTMLVideoElement>('[data-storyboard-card-video]').forEach(other => { if (other !== node) other.pause(); });
               if (node.currentTime < start || node.currentTime >= end - .02) seekStart(node);
-              setPlaying(true);
-            }} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
+              setPlaying(true); setStarted(true);
+            }} onSeeked={e => { captureFrame(e.currentTarget); onTime?.(e.currentTarget.currentTime); }} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
             onTimeUpdate={e => {
               const node = e.currentTarget;
               if (duration != null && node.currentTime >= end) {
@@ -84,7 +92,7 @@ export function StoryboardCardMedia({ asset, start = 0, duration, label, playabl
             }} />
           {!playable && <canvas ref={still} className={styles.thumb} role="img" aria-label={name} />}
           {playButton}
-          {playable && !playing && <Button className={styles.cardPlay} size="icon" variant="secondary" title={`Play ${name}`} aria-label={`${playing ? "Pause" : "Play"} preview: ${name}`} onClick={() => {
+          {playable && !playing && !(working && started) && <Button className={styles.cardPlay} size="icon" variant="secondary" title={`Play ${name}`} aria-label={`${playing ? "Pause" : "Play"} preview: ${name}`} onClick={() => {
             const node = video.current; if (!node) return;
             if (node.paused) void node.play().catch(() => setFailed(true)); else node.pause();
           }}><Play aria-hidden="true" size={18} fill="currentColor" /></Button>}

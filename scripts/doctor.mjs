@@ -23,8 +23,9 @@ const quiet = (command, args) => spawnSync(command, args, { stdio: 'ignore' }).s
 Object.assign(process.env, runtimeEnvDefaults());
 const env = process.env;
 const installed = isPackagedRuntime();
-// An installed DreamCut installs these itself (`dreamcut setup`); a source checkout uses the system's.
+// An installed DreamCut installs these itself (`dreamcut setup`); a git install uses the system's, or runs that setup.
 const SETUP = 'node bin/dreamcut.mjs setup';
+const SETUP_ALL = `${SETUP} (installs every feature's programs and models, about 4 GB)`;
 const brewOr = (mac, windows, other) => installed ? SETUP : process.platform === 'darwin' ? mac : process.platform === 'win32' ? windows : other;
 
 /** [feature, ok, fix] rows; `required` rows fail the check. */
@@ -34,7 +35,7 @@ export async function checks() {
 
   const ffmpeg = quiet('ffmpeg', ['-version']) && quiet('ffprobe', ['-version']);
   add('FFmpeg and ffprobe (import, preview, audio, export)', ffmpeg,
-    brewOr('brew install ffmpeg', 'winget install Gyan.FFmpeg', 'install ffmpeg with your package manager'), true);
+    brewOr(`brew install ffmpeg, or without Homebrew: ${SETUP_ALL}`, 'winget install Gyan.FFmpeg', 'install ffmpeg with your package manager'), true);
 
   let chrome = false;
   try {
@@ -78,6 +79,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   for (const name of STEPS) if (state.steps?.[name]?.state === 'failed') console.log(`! Setup step "${name}" failed: ${state.steps[name].error}`);
   for (const row of rows) console.log(`${row.ok ? '✓' : row.required ? '✗' : '–'} ${row.feature}${row.ok ? '' : `\n    ${row.fix}`}`);
   const missing = rows.filter(row => !row.ok);
-  console.log(missing.length ? `\n${missing.length} missing; the features named above need them.` : '\nEverything DreamCut uses is installed.');
+  console.log(missing.length ? `\n${missing.length} missing; the features named above need them.${installed ? '' : `\nOr install them all at once: ${SETUP_ALL}.`}` : '\nEverything DreamCut uses is installed.');
   process.exit(rows.some(row => row.required && !row.ok) ? 1 : 0);
 }

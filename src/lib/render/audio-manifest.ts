@@ -1,6 +1,6 @@
 import type { AudioSample } from "../frame-runtime/session";
 /** A reverse run starts at `sourceStart` and moves backward through the source. */
-export type AudioRun = { id: string; src: string; firstFrame: number; sourceStart: number; rate: number; preservePitch: boolean; reverse?: boolean; gains: number[] };
+export type AudioRun = { id: string; src: string; firstFrame: number; sourceStart: number; rate: number; preservePitch: boolean; reverse?: boolean; pitch?: number; gains: number[] };
 /** Split only where source continuity breaks, never once per gain keyframe. */
 export function audioRuns(frames: AudioSample[][], fps: number): AudioRun[] {
   if (!(fps > 0) || !Number.isFinite(fps)) throw new Error("Invalid audio frame rate");
@@ -13,8 +13,8 @@ export function audioRuns(frames: AudioSample[][], fps: number): AudioRun[] {
       if (!Number.isFinite(sample.rate) || sample.rate <= 0 || !Number.isFinite(sample.time) || sample.time < 0 || !Number.isFinite(sample.volume) || sample.volume < 0) throw new Error(`Invalid audio clock: ${sample.id}`);
       let run = active.get(sample.id);
       const reverse = sample.reverse === true, direction = reverse ? -1 : 1;
-      if (!run || run.src !== sample.src || run.rate !== sample.rate || run.preservePitch !== sample.preservePitch || Boolean(run.reverse) !== reverse || frame !== run.firstFrame + run.gains.length || Math.abs(sample.time - (run.sourceStart + direction * run.gains.length * run.rate / fps)) > .00001) {
-        run = { id: sample.id, src: sample.src, firstFrame: frame, sourceStart: sample.time, rate: sample.rate, preservePitch: sample.preservePitch, ...(reverse ? { reverse: true } : {}), gains: [] };
+      if (!run || run.src !== sample.src || run.rate !== sample.rate || run.preservePitch !== sample.preservePitch || Boolean(run.reverse) !== reverse || (run.pitch ?? 0) !== (sample.pitch ?? 0) || frame !== run.firstFrame + run.gains.length || Math.abs(sample.time - (run.sourceStart + direction * run.gains.length * run.rate / fps)) > .00001) {
+        run = { id: sample.id, src: sample.src, firstFrame: frame, sourceStart: sample.time, rate: sample.rate, preservePitch: sample.preservePitch, ...(reverse ? { reverse: true } : {}), ...(sample.pitch ? { pitch: sample.pitch } : {}), gains: [] };
         runs.push(run); active.set(sample.id, run);
       }
       run.gains.push(sample.volume);

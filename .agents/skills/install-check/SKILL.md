@@ -13,8 +13,11 @@ repository (dreamcut-cloud) and site changes are reported, not deployed.
 
 ## How DreamCut is installed
 
-- From the public GitHub repository (owner, 2026-10-27): `git clone`, `pnpm install`, `pnpm bootstrap`;
-  agents connect with `node bin/dreamcut.mjs mcp`. The npm launcher (removed from this repository) and its runtime download stay published at 0.3.0 but
+- From the public GitHub repository: `git clone`, `corepack pnpm install`, `corepack pnpm bootstrap`;
+  agents connect through the DreamCut plugin (lukemun/dreamcut-plugins), which runs `node ~/DreamCut/bin/dreamcut.mjs mcp`.
+  A fresh Mac has none of the prerequisites: Git comes from `xcode-select --install`, Node from the nodejs.org
+  `.pkg` (or Homebrew's keg-only `node@24`, which needs `brew link --overwrite --force node@24`), and FFmpeg
+  from Homebrew or setup. The npm launcher (removed from this repository) and its runtime download stay published at 0.3.0 but
   are not referenced: never point anyone at `npx dreamcut`.
 - Updates ([mcp/install-updates.mjs](../../../mcp/install-updates.mjs)): `editor_open` and `dreamcut` report
   commits the install lacks; `dreamcut_update` or `node bin/dreamcut.mjs update` fast-forwards, runs
@@ -66,6 +69,12 @@ what installs it, what checks it and how it fails. Keep it current when you add 
    a script was added. Delete the disposable folders afterwards.
 
 ## Traps already met
+
+- Prerequisites the maintainer already has go unstated. The README, dreamcut.io's steps
+  (`site/src/lib/install-instructions.ts`) and the plugin's install-dreamcut skill and `dreamcut_setup_status`
+  text must name the same ones (Git, Node 22 or 24, FFmpeg, Chrome) and the same commands; change them together.
+  `corepack enable` writes into Node's folder, which the nodejs.org installer can leave owned by root, so the steps
+  use `corepack pnpm`.
 
 - A file that exists is not a program that runs: a virtual environment moved or renamed under an earlier
   product name kept its launcher, whose `#!` pointed at a Python that no longer existed. Check by running

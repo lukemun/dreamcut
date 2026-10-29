@@ -105,7 +105,13 @@
     ".next-retro/types/**/*.ts",
     ".next-retro/dev/types/**/*.ts",
     ".next-sketch/types/**/*.ts",
-    ".next-sketch/dev/types/**/*.ts"
+    ".next-sketch/dev/types/**/*.ts",
+    ".next-home-start/types/**/*.ts",
+    ".next-home-start/dev/types/**/*.ts",
+    ".next-guide-fresh/types/**/*.ts",
+    ".next-guide-fresh/dev/types/**/*.ts",
+    ".next-lane-check/types/**/*.ts",
+    ".next-lane-check/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

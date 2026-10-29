@@ -38,6 +38,7 @@ import {
   computeReadDelta,
   frameFor,
   layersAt,
+  stillComposition,
   legalRectFor,
   measureCaptions,
   safeAreaFor,
@@ -49,6 +50,7 @@ import { frameChangeBrief } from "@/lib/instruments/frame-change-brief";
 import { createMeasurementCache } from "@/lib/instruments/measurement-cache";
 import { createWarmStillSession } from "@/lib/render/warm-still-worker";
 import { scopeStillRequest } from "@/lib/instruments/still-scope";
+import { frameCheckRenderSources } from "@/lib/local-store/export-render-sources";
 import { createStillDependencyHasher, stillCacheKey, readStillCache, writeStillCache, verifyStillCacheEnvironment } from "@/lib/instruments/still-cache";
 import { measureRenderedDifferenceBounds } from "@/lib/instruments/rendered-ink";
 import {
@@ -178,8 +180,10 @@ async function main() {
   const variantOverride = flag("--variant");
 
   const layout = buildTimelineTransitionLayout(elements, activeTransitions(timeline));
+  // HDR clips draw what the editor shows, never the browser-tone-mapped original decoded a second time.
+  const drawn = frameCheckRenderSources(projectId, layout.renderedElements as never);
   const compositionElements = absolutizeMediaUrls(
-    buildCompositionElements(layout.renderedElements, new Set(metadata.muted_lane_keys), new Set(metadata.hidden_lane_keys)),
+    buildCompositionElements(drawn.clips as typeof layout.renderedElements, new Set(metadata.muted_lane_keys), new Set(metadata.hidden_lane_keys)),
     base,
   ).map((element) =>
     variantOverride && element.type === "caption_text"
@@ -188,7 +192,7 @@ async function main() {
   );
   const inputProps = { elements: compositionElements, laneOrderKeys: metadata.lane_order_keys };
 
-  const composition = { ...canvas, durationInFrames: Math.max(1, Math.round(layout.effectiveDurationSeconds * 30) + 1) };
+  const composition = stillComposition(canvas, layout.effectiveDurationSeconds);
   const serveUrl = base;
   // --fresh-browser remains an independent-session comparison and recovery path.
   const session = process.argv.includes("--fresh-browser") ? null : process.argv.includes("--warm-renderer")
@@ -359,7 +363,10 @@ async function main() {
     captionSafeAreaMode: metadata.caption_safe_area_mode,
     outputAspectRatio: metadata.output_aspect_ratio,
     overlayLegend: OVERLAY_LEGEND,
-    limitations: captions.some(c => c.props?.surface_track) ? ["Tracked surface text is rendered, but ordinary caption box and ink-difference metrics are not supported for it. Inspect the rendered frames; no continuous clearance claim."] : [],
+    limitations: [
+      ...(captions.some(c => c.props?.surface_track) ? ["Tracked surface text is rendered, but ordinary caption box and ink-difference metrics are not supported for it. Inspect the rendered frames; no continuous clearance claim."] : []),
+      ...(drawn.fromProxy.length ? [`HDR footage drawn from its preview proxy, as the editor shows it, until its full-resolution version is made at export: ${drawn.fromProxy.join(", ")}. Colour matches; fine detail is the proxy's.`] : []),
+    ],
     sampledAt: explicit ? "explicit --at times" : "midpoint of every caption",
     readDelta: {
       previousReportAt,

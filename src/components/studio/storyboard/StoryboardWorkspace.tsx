@@ -35,6 +35,7 @@ import { ScriptSection, type ScriptRangeSelection } from "./ScriptSection";
 import { SelectionTray } from "../timeline/SelectionTray";
 import { ShotNote } from "./ShotNote";
 import { StoryCanvas } from "./StoryCanvas";
+import { MEDIA_DRAG, StoryRows } from "./StoryRows";
 import { ShotVisualsEditor } from "./ShotVisuals";
 import { VideoTrimControls } from "./VideoTrimControls";
 import { SourceVideoPlayer } from "@/lib/frame-runtime/source-video-player";
@@ -76,8 +77,8 @@ export function StoryboardWorkspace({ projectId }: { projectId: string }) {
     ...(board.mode === "reference" && board.reference ? [`Reference: ${name(board.reference.source)}. Beats (reference time · chosen footage):`,
       ...board.reference.beats.map((beat, index) => { const pick = beat.candidates.find(c => c.id === beat.selectedId);
         return `  ${index + 1}. ${beat.label} · ${beat.start.toFixed(2)}–${beat.end.toFixed(2)}s · ${pick ? name(pick.source) : "NO FOOTAGE"}${beat.text ? ` · text "${beat.text}"` : ""}${beat.note ? ` · note: ${beat.note}` : ""}`; })]
-      : [`Shots in order: ${board.shots.map(shot => `${shot.label || name(shot.source)} (${shot.duration.toFixed(1)}s${shot.visuals?.length ? `; over it: ${shot.visuals.map(v => `${v.label} at +${v.at.toFixed(1)}s`).join(", ")}` : ""})`).join(", ") || "none yet"}`]),
-    "When the creator asks you to storyboard, plan or break up their footage, follow the storyboard-drafting skill: storyboard_get, then storyboard_draft (one Undo step; never touches the timeline). Screenshots, mockups or graphics shown while they talk go in a shot's visuals, not separate shots. Build timeline lays the board onto the timeline as a first assembly and stays their action. You may stage a generation draft for a missing shot with asset_generation_prepare. Generate only after the creator explicitly approves that draft in chat (asset_generation_submit); never approve proposals.",
+      : [`Shots in order: ${board.shots.map(shot => `${shot.label || name(shot.source)} (${shot.start.toFixed(1)}–${(shot.start + shot.duration).toFixed(1)}s${shot.script ? `; script: "${shot.script.slice(0, 160)}${shot.script.length > 160 ? "…" : ""}"` : ""}${shot.visuals?.length ? `; over it: ${shot.visuals.map(v => `${v.label} at +${v.at.toFixed(1)}s`).join(", ")}` : ""})`).join(", ") || "none yet"}`]),
+    "When the creator asks you to storyboard, plan or break up their footage, follow the storyboard-drafting skill: storyboard_get, then storyboard_draft (one Undo step; never touches the timeline). The page shows the story as rows: each shot's picture beside its script. Screenshots, mockups or graphics shown while they talk go in a shot's visuals, not separate shots. Build timeline lays the board onto the timeline as a first assembly and stays their action. You may stage a generation draft for a missing shot with asset_generation_prepare. Generate only after the creator explicitly approves that draft in chat (asset_generation_submit); never approve proposals.",
   ].join("\n");
   useEffect(() => {
     if (!setPageContext || !boardContext) return;
@@ -210,10 +211,14 @@ export function StoryboardWorkspace({ projectId }: { projectId: string }) {
   // One card for both places: in Media (everything in the project) it offers Add to Visuals; in Visuals it can be removed.
   const card = (a: StoryboardAsset, place: "media" | "visuals") => {
     const used = storyShots.filter(s => usesSource(s, a.source)).length, linked = linkedSections(a.source), added = inVisuals(a.source);
-    return <article className={styles.mediaCard} data-active={mediaSelection.includes(a.source)} key={a.source}>
+    // Freeform boards: cards drag down into the rows (a photo or video, not audio).
+    const draggable = !referenceView && place === "media" && a.kind !== "audio";
+    return <article className={styles.mediaCard} data-active={mediaSelection.includes(a.source)} key={a.source} draggable={draggable || undefined}
+      onDragStart={draggable ? event => { event.dataTransfer.setData(MEDIA_DRAG, a.source); event.dataTransfer.effectAllowed = "copy"; } : undefined}>
       {/* Clicking the picture or name selects it for chat and for Link (the editor panels' convention). */}
       <div className={styles.mediaOpen} onClick={event => { if (!(event.target as HTMLElement).closest("button, a, input, label, video[controls]")) selectMedia(a.source, event.metaKey || event.ctrlKey || event.shiftKey); }}><StoryboardCardMedia asset={a} />
-        {place === "media" && (added ? <span className={styles.cardPill} data-done="true"><Check aria-hidden="true" />In Visuals</span>
+        {place === "media" && !referenceView && <Button className={styles.cardPill} size="sm" variant="secondary" disabled={busy || a.kind === "audio"} aria-label={`Add ${a.name} as a row`} onClick={() => void api.rows.add(a.source)}><Plus aria-hidden="true" />Row</Button>}
+        {place === "media" && referenceView && (added ? <span className={styles.cardPill} data-done="true"><Check aria-hidden="true" />In Visuals</span>
           : <Button className={styles.cardPill} size="sm" variant="secondary" disabled={busy || a.kind === "audio"} aria-label={`Add ${a.name} to Visuals`} onClick={() => void api.load([a.source])}><Plus aria-hidden="true" />Visuals</Button>)}
       </div>
       <button type="button" className={styles.mediaName} aria-pressed={mediaSelection.includes(a.source)} title={a.name} onClick={event => selectMedia(a.source, event.metaKey || event.ctrlKey || event.shiftKey)}>{a.name}</button>
@@ -239,6 +244,7 @@ export function StoryboardWorkspace({ projectId }: { projectId: string }) {
       if (dock) { dock.askAgent({ id: crypto.randomUUID(), text: assembleRequest, display: "Assemble this storyboard", label: "Assemble" }); return; }
       void navigator.clipboard?.writeText(assembleRequest).then(() => toast("Copied. Paste it to your agent."), () => toast(assembleRequest));
     }}><Clapperboard aria-hidden="true" />Assemble</Button>;
+  const storyActions = <>{assemble}{agentSelection && <SelectionTray placement="below" selections={agentSelection.selections} onRemove={agentSelection.removeSelection} onClear={agentSelection.clearSelections} ghostButtonClassName="text-[var(--ink)]" />}</>;
   // Media: everything brought into the project, above the Storyboard. New files and Library picks land here only.
   const mediaBin = !board ? null : <section className={styles.bin} aria-label="Media" style={{ height: binHeight.value }}
       onKeyDown={e => { if (e.key === "Escape" && libraryOpen) { e.preventDefault(); e.stopPropagation(); setLibraryOpen(false); } }}
@@ -288,8 +294,9 @@ export function StoryboardWorkspace({ projectId }: { projectId: string }) {
       <div className={styles.content}>
 
         {mediaBin}
-        <StoryboardPanels key={projectId} projectId={projectId}
-          actions={<>{assemble}{agentSelection && <SelectionTray placement="below" selections={agentSelection.selections} onRemove={agentSelection.removeSelection} onClear={agentSelection.clearSelections} ghostButtonClassName="text-[var(--ink)]" />}</>}
+        {!referenceView ? <StoryRows projectId={projectId} api={api} lookup={lookup} openDetails={openDetails} actions={storyActions} />
+        : <StoryboardPanels key={projectId} projectId={projectId}
+          actions={storyActions}
           defaultLayout={{ rows: referenceView
           ? [{ height: 640, panels: [{ id: "script", width: .5 }, { id: "visuals", width: .5 }] }, { height: 560, panels: [{ id: "reference", width: 1 }] }]
           : [{ height: 760, panels: [{ id: "canvas", width: 1 }] }] }} panels={[
@@ -300,7 +307,7 @@ export function StoryboardWorkspace({ projectId }: { projectId: string }) {
           { id: "reference", title: "Reference", height: 560, content: <ReferenceStoryboard projectId={projectId} api={api} layout="column" lead={null} history={null} /> },
           ...(independentStory ? [{ id: "story", title: "Story", height: 460, content: <StoryCanvas projectId={projectId} api={api} lookup={lookup} lead={<></>} history={undefined} details={details} openDetails={openDetails} openVisual={openVisual} markMoments={s => chooseSource(s.source, s.start)}
           toolbar={null} /> }] : []),
-        ]} />
+        ]} />}
         <Dialog.Root open={previewOpen && !!selectedAsset} onOpenChange={setPreviewOpen}>
           <Dialog.Portal><Dialog.Backdrop className="fixed inset-0 z-(--layer-dialog-backdrop) bg-black/70" /><Dialog.Viewport className="editor-chrome fixed inset-0 z-(--layer-dialog) grid place-items-center overflow-auto p-4"><Dialog.Popup className={styles.clipDialog}
             // M marks the current moment, as in the editor; audio's source timeline handles its own M.

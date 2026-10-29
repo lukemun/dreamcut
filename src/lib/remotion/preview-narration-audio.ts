@@ -1,3 +1,5 @@
+import { readPitchSemitones } from "@/lib/timeline/audio-pitch";
+
 type PreviewNarrationAudioElement = {
   id?: string | null;
   timeline_start?: number | null;
@@ -22,6 +24,8 @@ export function readPreviewAudioBakedGain(element: PreviewNarrationAudioElement)
 }
 
 export function shouldUseWebAudioForPreviewNarration(element: PreviewNarrationAudioElement) {
+  // Pitch shift runs on a Web Audio node (frame-runtime/pitch-shift-worklet.ts).
+  if (readPitchSemitones(element.props)) return true;
   const bakedGain = readPreviewAudioBakedGain(element);
   if (Number(element.volume) / bakedGain > PREVIEW_NATIVE_CLOCK_GAIN_CEILING) return true;
   const envelope = element.props?.volume_envelope;

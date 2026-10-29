@@ -10,10 +10,11 @@ const SAVE_DELAY_MS = 1000;
  * on blur; Escape restores the saved text. Dictation appears only where the local voice
  * bridge exists (the desktop app) and appends its transcript.
  */
-export function ShotNote({ value, label, placeholder, maxLength, projectId, save, className, voice = true }: {
+export function ShotNote({ value, label, placeholder, maxLength, projectId, save, className, voice = true, highlight }: {
   value: string; label: string; placeholder: string; maxLength: number; projectId: string;
   save: (value: string) => void; className?: string;
   /** false: no dictation button (a plain field). */ voice?: boolean;
+  /** Marks the n-th word of the text (-1: none), e.g. the word being spoken during playback. */ highlight?: number;
 }) {
   const [draft, setDraft] = useState(value);
   const field = useRef<HTMLTextAreaElement>(null), timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -40,10 +41,16 @@ export function ShotNote({ value, label, placeholder, maxLength, projectId, save
     // Debounced saves skip an emptied note so a block does not vanish mid-edit; blur saves it.
     if (text.trim()) timer.current = setTimeout(() => flush(text, false), SAVE_DELAY_MS);
   };
-  return <div className={`${styles.noteField} ${className ?? ""}`} data-no-details>
-    <textarea ref={field} rows={1} aria-label={label} placeholder={placeholder} maxLength={maxLength} value={draft}
+  // The highlight is drawn on a copy of the text laid out exactly like the field, behind it.
+  let word = -1;
+  const mirror = highlight !== undefined && <div className={styles.noteMirror} aria-hidden="true">
+    {draft.split(/(\s+)/).map((part, i) => i % 2 || !part ? part : ++word === highlight ? <mark key={i}>{part}</mark> : part)}{"\n"}
+  </div>;
+  const textarea = <textarea ref={field} rows={1} aria-label={label} placeholder={placeholder} maxLength={maxLength} value={draft}
       onChange={e => change(e.target.value)} onBlur={() => flush()}
-      onKeyDown={e => { if (e.key === "Escape") { e.preventDefault(); clear(); dirty.current = false; setDraft(sent.current); latest.current = sent.current; e.currentTarget.blur(); } }} />
+      onKeyDown={e => { if (e.key === "Escape") { e.preventDefault(); clear(); dirty.current = false; setDraft(sent.current); latest.current = sent.current; e.currentTarget.blur(); } }} />;
+  return <div className={`${styles.noteField} ${className ?? ""}`} data-no-details>
+    {mirror ? <div className={styles.noteText}>{mirror}{textarea}</div> : textarea}
     {voice && <VoiceInput projectId={projectId} disabled={false} label={`Dictate ${label.toLowerCase()}`}
       onText={text => { const spoken = text.trim(); if (spoken) change((latest.current ? `${latest.current.trimEnd()} ${spoken}` : spoken).slice(0, maxLength), true); }} />}
   </div>;

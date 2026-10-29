@@ -31,3 +31,10 @@ silently, nothing is published without the owner's explicit words, and the repor
   install-check and windows-compatibility. `pnpm release`, its gate and `release-hold.json` were removed;
   release-build and release-publish were retired.
 - **Verification:** The scan command and `pnpm check:pr` were run on the owner's Mac; no push was made.
+
+
+## 2026-10-28 — Owner-only instructions stay out of the push
+
+- **Observation:** The published `AGENTS.md` and three skills carried the owner's own agreements, which every creator's agent then followed.
+- **Decision:** `pnpm check:pr` includes `pnpm check:owner-text`, and the pre-commit hook runs it when `AGENTS.md` or a skill is staged. The owner's agreements live in the git-ignored `AGENTS.local.md`.
+- **Verification:** The check flags 15 lines in `origin/main` and passes on the working tree.

@@ -12,6 +12,8 @@ import { ClipTrimRangeControl } from "./ClipTrimRangeControl";
 import { ScrubNumberInput, SliderScrubControl } from "./InspectorNumericControls";
 export { ScrubNumberInput } from "./InspectorNumericControls";
 import { InspectorPropertyControl, KeyframeToggleButton } from "./InspectorPropertyControl";
+import { AudioPitchControl } from "./AudioPitchControl";
+import { PITCH_ELEMENT_TYPES } from "@/lib/timeline/audio-pitch";
 import { handwritingPackStatus } from "@/lib/timeline/handwriting-status";
 import { ClipEffects } from "./ClipEffects";
 import { SubjectGlowControls } from "./SubjectGlowControls";
@@ -2099,6 +2101,10 @@ export function ElementMenu({
                 </div>
               </div>
             </div>
+            {selectedElement && PITCH_ELEMENT_TYPES.has(selectedElement.type) ? (
+              <AudioPitchControl props={selectedElement.props} disabled={disableMediaControls}
+                onPreview={previewSelectedEffectProps} onPatch={patchSelectedElementProps} />
+            ) : null}
           </div>
         </InspectorSection>
 

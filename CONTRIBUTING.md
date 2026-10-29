@@ -8,10 +8,13 @@ license; sign off each commit (`git commit -s`) to certify the
 ## Set up
 
 ```bash
-pnpm install && pnpm bootstrap && pnpm editor
+corepack pnpm install && corepack pnpm bootstrap && corepack pnpm editor
 ```
 
-Node 22 or 24, pnpm, FFmpeg and Chrome. `pnpm setup:check` reports anything missing. The editor runs at
+Node 22 or 24, Git, FFmpeg and Chrome; the [README](README.md#install-it-yourself) says how to install each
+on a new Mac. `corepack pnpm` runs the pinned pnpm without a global install (`corepack enable` once if you
+want a plain `pnpm`). `pnpm setup:check` reports anything missing, and `node bin/dreamcut.mjs setup` installs
+the caption, voice and cutout programs and models (about 4 GB). The editor runs at
 http://127.0.0.1:3123 from a stable build. When changing editor code, run `pnpm dev`, a hot-reloading
 editor at http://127.0.0.1:3129. Point Claude Code or Codex at the repo folder to edit through the agent.
 

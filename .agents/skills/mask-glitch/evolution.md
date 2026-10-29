@@ -74,3 +74,11 @@ a dedicated compound editor preset.
 - **Observation:** A teal-set demo (Pexels 9732065) lost the subject's thin chain necklaces in every SAM 2 prompt; the halo then glowed inside the gaps and the set showed through after it faded.
 - **Decision:** Add `templates/mask-glitch-glow.md` and build the teaching media on a subject without thin detail (Pexels 10210101); record the thin-detail limit on the card.
 - **Verification:** Demo `tpl-glitch-glow-hoodie-demo`, proposal only, not approved; white, colour, next-pose and final frames checked in a GPU preview render. Reuse on a second input set is not yet run.
+
+## 2026-10-29 — Flash effect template and the flash_sequence block
+
+- **Observation:** The creator built the Flash effect (futurist__ reel) in `clone-glitch-tutorial` from hand-written cards: one cut-out per pose with a one-frame `subject_flash`/`subject_glow`, a shutter click per flash, poses on separate lanes. They corrected it toward the reference: poses replace each other rather than stay on screen, eight flashes 4 frames apart, and no pose on the frame edge moving sideways. Then they asked for it as a Templates effect with the words left out and the shutter kept.
+- **Decision:** Add the `flash_sequence` proposal block (poses on one lane, flash and glow keyframes, clicks that follow their poses, the live line after the last pose) and the [Flash effect](templates/flash-effect.md) template page; the creator's card lives in Yours.
+- **Verification:** Block tests and the parameter contract pass. On disposable copy `flash-effect-check-20261029`, frames show each white flash, the colour pose on the next frame and a seamless live join; render-preview audio peaks within 10 ms of each flash. Not heard by ear; no shared effect eval yet.
+- **Shipped (2026-10-29):** on the owner's word the card ships as `FX-FLASH-EFFECT` and the Yours copies (it and the older reference-only "Mask Glitch · subject glow") are removed. The eval caught clicks overlapping when a pose starts at 0 s or poses are closer than the click's lead; each click now starts no earlier than halfway from the previous flash and skips into the file so its peak still lands on the flash.
+

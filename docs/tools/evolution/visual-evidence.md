@@ -100,3 +100,26 @@ The shared local script runner now signals an owned process group at most once a
 - **Observation:** In one session `pnpm frame-state <id> --proposal-file projects/<id>/proposals/<proposal>.json` refused the stored record ("Unrecognized keys: proposal_id, created_at, status, proposal, …"), and the usage line did not list `--proposal-file`. The agent extracted `.proposal` with Python and reran.
 - **Decision:** `frame-state` and `render-preview` read either a proposal or a stored record (`src/lib/agent/proposal-file.ts`); the usage lines name both.
 - **Verification:** `src/lib/agent/proposal-file.test.ts`.
+
+## 2026-10-28 — frame-state draws a 25 fps project's frames from the right moment
+
+- **Observation:** Checking a Speed Entrance & Exit card on a 25 fps project, frames at 1.64–1.72 s showed the standing pose although the report listed only the exit clip there. frame-state numbered frames at the project's rate (`frameFor`) but gave the still renderer no fps, which then counted at 30: frame 43 meant 1.72 s to the report and 1.43 s to the renderer. Every frame of a non-30 fps project was drawn early, and the still cache kept those pixels.
+- **Decision:** `stillComposition` (src/lib/instruments/frame-state.ts) builds the renderer's composition with the project's fps and duration in those frames; scripts/frame-state.ts uses it.
+- **Verification:** `frame-state.test.ts` (1.72 s at 25 fps is frame 43 and the composition counts 25); re-rendered, the frames show the walking pose leaving at 1.64 s and blurred at 1.68 s. Earlier frame-state evidence from 25 fps (or other non-30) projects showed the wrong moments and should be re-rendered before it is trusted.
+
+## 2026-10-28 — frame-state draws HDR footage as the editor shows it
+
+- **Observation:** On an iPhone HLG take, frame-state showed the live footage far redder than its cut-outs (face 170, 75, 68 against 175, 119, 101; a correct HLG→SDR conversion gives a red/green ratio near 1.5, the live frame 2.27). The original walk with no card was just as red. The clip's original `.MOV` is its render source until the full-resolution authority is made at export; the browser tone-maps that file itself and the grade shader then decodes it as HLG a second time. The editor previews from the code-value proxy and export builds the authority first, so only frame evidence was wrong, and it reported a colour jump at every hop that the creator would not see.
+- **Decision:** `frameCheckRenderSources` (src/lib/local-store/export-render-sources.ts) draws a clip's authority once it exists and otherwise its code-value preview proxy; frame-state uses it and names proxy-drawn sources in `limitations`.
+- **Verification:** `export-render-sources.test.ts` (deferred authority draws the proxy, a made authority draws itself, SDR footage untouched, timeline unchanged). Re-rendered, the last live frame and the first cut-out frame match (face 177, 119, 101 against 175, 119, 101). Frame evidence from HDR originals before this change showed oversaturated colour and should be re-rendered before colour is judged.
+
+## 2026-10-28 — render-preview draws HDR footage as the editor shows it too
+
+- **Observation:** The frame-state HDR fix above left `scripts/render-preview.ts` (workshop
+  previews and Templates demos) drawing HDR originals the old way, so an iPhone take would turn
+  over-red there as well ([retro part 2](../../audits/2026-10-28-one-click-effects-retro-part-2.md), git-ignored).
+- **Decision:** render-preview picks sources with `frameCheckRenderSources`, like frame-state,
+  and its receipt lists `hdr_drawn_from_preview_proxy`.
+- **Verification:** `scripts/preview-render-sources.test.mjs` requires both scripts to draw from
+  those sources (fails on HEAD's render-preview); `export-render-sources.test.ts` covers the
+  helper. No preview was rendered: that would render the creator's project.

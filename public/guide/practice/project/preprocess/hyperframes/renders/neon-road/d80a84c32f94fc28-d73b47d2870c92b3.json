@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "composition_id": "neon-road",
+  "source": {
+    "project_relative_directory": "hyperframes/neon-road",
+    "fingerprint_sha256": "d80a84c32f94fc28f4d63975e74af0cc9e800d247ff6c469e829c0bc7a9b69df"
+  },
+  "output": {
+    "project_relative_path": "media/hyperframes/neon-road/neon-road.e74fe551cddc37c6.webm",
+    "sha256": "e74fe551cddc37c61b68682b6bd78f0e1b0b6ee2c629ba9b6d8c3a5b7761b97d",
+    "duration_seconds": 8,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "codec": "vp9",
+    "pixel_format": "yuv420p",
+    "alpha_mode": "1"
+  },
+  "render": {
+    "hyperframes_version": "0.8.40",
+    "rendered_at": "2026-10-29T03:18:47.717Z",
+    "quality": "high",
+    "format": "webm",
+    "approved": false
+  },
+  "parameters": {
+    "manifest_sha256": "122f866e7e51826381ed4ddffe9637a7d0edda0cb17a038ec9f48015184528da",
+    "values_sha256": "d73b47d2870c92b33c265be1d680d5dd635ae102439aa8a183dca36f0001d3ca",
+    "values": {
+      "camera": "fly",
+      "density": 100,
+      "height": 100,
+      "detail": 70,
+      "wobble": 10,
+      "variation": 7,
+      "draw_in": 1.2,
+      "flight": 6.8,
+      "hold": 0,
+      "ink": "#28f0ff",
+      "paper": "#07061a",
+      "backdrop": true,
+      "glow": 70,
+      "layer": "all"
+    },
+    "segment_durations": {},
+    "timing": {
+      "duration": 8,
+      "cues": {
+        "camera_moves": 1.2,
+        "flight_ends": 8
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ import test from "node:test";
 import { runCompositionActivity } from "./activity-media";
 import { alignmentReport, bestLag, matchOnsets, pearson, turnResponse, uncausedFraction } from "./sound-alignment";
 import {
+  holdsAround,
   binCount,
   combineCurves,
   compositionIdOf,
@@ -172,4 +173,24 @@ test("turn response rewards a sound that changes at turns and ignores near-silen
   const quietAtTurn = Float64Array.from(full, (value, index) => (Math.abs(index - 100) <= 3 ? 0.1 : value));
   const flickery = Float64Array.from(bright, (value, index) => (Math.abs(index - 100) <= 3 ? 0.09 : value));
   assert.equal(turnResponse([1], quietAtTurn, flickery, rate).turns[0]!.response, 0);
+});
+
+test("holds: where motion stops around each mark and when it starts again, judged against the motion nearby", () => {
+  const window = { start: 10, end: 30, rate: 100 };
+  const values = new Float64Array(2000);
+  // Walk at full strength, then far away (a fifth as much change), with stills between.
+  const fill = (from: number, to: number, value: number) => { for (let k = Math.round((from - 10) * 100); k < Math.round((to - 10) * 100); k++) values[k] = value; };
+  fill(10, 12, 1); fill(12, 13, 0.02); fill(13, 16, 1);
+  fill(16, 17.5, 0.01); fill(16.8, 16.85, 0.9);           // a 50 ms flicker inside the hold
+  fill(17.5, 20, 0.2); fill(20, 20.6, 0.004);              // small far subject, then a short stop
+  fill(20.6, 22, 0.2); fill(22, 29, 0.003); fill(29, 30, 0.2); // a 7 s hold, longer than the context
+  const [near, flickered, far, long, between] = holdsAround(values, window, [12.5, 16.5, 20.3, 25, 14.2]);
+  assert.deepEqual([near!.settle_seconds, near!.takeoff_seconds, near!.at_rest], [12, 13, true]);
+  assert.deepEqual([flickered!.settle_seconds, flickered!.takeoff_seconds], [16, 17.5]);
+  assert.deepEqual([far!.settle_seconds, far!.takeoff_seconds], [20, 20.6]);
+  assert.deepEqual([long!.settle_seconds, long!.takeoff_seconds], [22, 29]);
+  assert.ok(near!.contrast > 0.9 && far!.contrast > 0.9);
+  // A mark dropped mid-walk: the nearest stop within reach, flagged as not at rest.
+  assert.deepEqual([between!.at_rest, between!.settle_seconds, between!.takeoff_seconds], [false, 12, 13]);
+  assert.deepEqual(holdsAround(values, window, [14.5], { reachSeconds: 1 })[0]!.settle_seconds, null);
 });

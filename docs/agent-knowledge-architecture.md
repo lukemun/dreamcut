@@ -16,6 +16,7 @@ DreamCut separates operational authority, shared policy, task procedures, option
 | My Style | Authoritative local `STYLE.md`; private settings/evidence sidecar | Scoped creator preferences about when and why to choose a treatment | Shared product policy or rules that should apply to every creator |
 | Project direction | Project brief, proposal rationale, and editing memory | Deliberate decisions and exceptions for one edit | Unstated global defaults |
 | Project status | Private: `dreamcut-cloud/docs/editor-project-status.md` ([pointer](project-status.md)) | Dated product decisions, initiatives in flight and deferred to-dos, shared by every agent | Procedures, standards or creator taste |
+| Local working agreements | Git-ignored `AGENTS.local.md` beside `AGENTS.md` (Claude Code: `CLAUDE.local.md`) | How one checkout's maintainer wants the repository worked: commit and branch habits, which editor to use, release gates | Rules for every user, which go in `AGENTS.md` or a standard; `pnpm check:owner-text` refuses owner-only text in `AGENTS.md` and skills |
 | Research and design knowledge | [`docs/research/`](research/README.md), [`docs/wiki/`](wiki/README.md), and named architecture documents | Evidence, interpretation, alternatives, proposed designs, and implementation status | Runtime authority merely because a proposal is persuasive |
 | Enforcement | Schemas, safe-write paths, validation, and tests in source | Invariants that can and should fail closed mechanically | The complete human explanation of why the invariant exists |
 

@@ -4,7 +4,7 @@
 
 <h1 align="center">DreamCut</h1>
 
-<p align="center"><b>The video editor where AI agents propose edits and you approve them.</b></p>
+<p align="center"><b>Vibe editing for video.</b><br>Say what you want. Your agent builds it on a real timeline. You tune it and keep it.</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-FSL--1.1--ALv2-blue" alt="FSL-1.1-ALv2">
@@ -13,19 +13,20 @@
 
 <p align="center"><img src="docs/assets/readme/hero.gif" alt="Asking Claude Code for a headline in three fonts: the proposal arrives in DreamCut, the fonts are previewed, the size and position are tuned, and pressing A applies it to the timeline" width="760" /></p>
 
-Tell Claude Code or Codex what you want. DreamCut builds it on a real timeline, with clips, captions,
-masks, motion graphics and sound, and hands it back as a **proposal**. You preview it, tune it with
-sliders, then apply or reject it. The editor and your projects stay on your machine, and everything
-stays editable by hand.
+**Vibe editing** is editing by describing the result instead of building it by hand. Tell Claude Code or
+Codex what you want: *"cut the long pauses"*, *"put the headline behind me"*, *"give it a warm film
+look"*. DreamCut builds it on a real timeline, with clips, captions, masks, motion graphics and sound,
+and hands it back as a **proposal**. You preview it, tune it with sliders, then apply or reject it. Nothing
+lands without your OK, Undo works after applying, and everything stays editable by hand.
 
-Make a product demo, explain an idea, or give your footage a new treatment. Start with a
-request, preview the proposed edit, adjust it, and apply it when it looks right. Undo
-remains available after applying.
+Make a product demo, explain an idea, or give your footage a new treatment. The editor and your projects
+stay on your machine. [What is vibe editing?](https://dreamcut.io/vibe-editing)
 
 **Start here:** [Install](#install) · [Your first edit](#your-first-edit)
 
-DreamCut runs from this repository on **macOS** (Apple Silicon first; Windows is experimental). Claude Code
-and Codex require their own account and access; their usage is separate from DreamCut.
+DreamCut runs from this repository on **macOS** (Apple Silicon first; Windows is experimental). You drive it
+from Claude Code or Codex, which need a paid plan from Anthropic (Claude Pro or above) or OpenAI (a ChatGPT
+plan that includes Codex); that usage is billed by them, separately from DreamCut.
 
 ## Templates
 
@@ -47,12 +48,26 @@ Effects your agent rebuilds with your own footage.
 
 ## Install
 
-Open Claude Code or Codex and say: *"Follow the instructions at dreamcut.io/install."* It runs the steps
-below for you, asking first.
+Open Claude Code or Codex and say: *"Follow the instructions at dreamcut.io/install."* Your agent checks what
+your Mac is missing, shows you each command and runs it with your OK. On a new Mac, two steps need you:
+a macOS window offering Apple's command line developer tools (click **Install**; they include Git), and the
+Node.js installer, which asks for your Mac password.
 
-To do it yourself, you need [Git](https://git-scm.com/), [Node.js](https://nodejs.org/) **22 or 24** (not 23)
-and [Google Chrome](https://www.google.com/chrome/) for exports. Install the DreamCut plugin, which connects
-your agent to DreamCut. Claude Code:
+### Install it yourself
+
+You need:
+
+- **Git.** On a Mac, run `xcode-select --install` and click **Install**.
+- **[Node.js](https://nodejs.org/) 22 or 24** (not 23). On a Mac, open the `.pkg` installer from
+  [nodejs.org/dist/latest-v24.x](https://nodejs.org/dist/latest-v24.x/).
+- **[Google Chrome](https://www.google.com/chrome/)**, for exports.
+- **FFmpeg.** With [Homebrew](https://brew.sh/), `brew install ffmpeg`. Without it, DreamCut's feature setup
+  below installs one.
+
+With Homebrew you can install all of them at once: `brew install git node@24 ffmpeg`, then
+`brew link --overwrite --force node@24` so the `node` command finds Node 24.
+
+Install the DreamCut plugin, which connects your agent to DreamCut. Claude Code:
 
 ```bash
 claude plugin marketplace add lukemun/dreamcut-plugins
@@ -66,33 +81,35 @@ Then install DreamCut itself. The plugin runs the copy at `~/DreamCut` (`$HOME\D
 ```bash
 git clone https://github.com/lukemun/dreamcut.git ~/DreamCut
 cd ~/DreamCut
-corepack enable
-pnpm install
-pnpm bootstrap
+corepack pnpm install
+corepack pnpm bootstrap
 ```
 
-Connected DreamCut with `claude mcp add` before? Remove that with `claude mcp remove dreamcut -s user`
-(Codex: `codex mcp remove dreamcut`) so its tools don't appear twice. To connect a copy kept somewhere else
-instead of using the plugin: `claude mcp add dreamcut -s user -- node <copy>/bin/dreamcut.mjs mcp`.
+`corepack pnpm` runs the pnpm version DreamCut pins, which comes with Node. `pnpm bootstrap` checks
+everything DreamCut uses and stops if FFmpeg or Chrome is missing.
+
+**Captions, "Enhance voice" and cutout templates** need extra programs and models (Whisper, Montreal Forced
+Aligner, DeepFilterNet, SAM, and an FFmpeg for Macs without one; about 4 GB, once). A git install doesn't
+download them by itself. Install them with `node bin/dreamcut.mjs setup` in `~/DreamCut`, and check what's
+ready with `node bin/dreamcut.mjs doctor`.
 
 Start a new chat and say **"Open DreamCut."** The editor starts on your machine and opens in your agent's
-browser; the first start compiles it, which takes a minute or two. The first time, your agent asks where
-to keep your projects.
+browser. The first start compiles the editor, which can take a few minutes. The first time, your agent asks
+where to keep your projects.
 
-Captions, "Enhance voice" and cutout templates use extra programs and models (FFmpeg, Whisper, Montreal
-Forced Aligner, DeepFilterNet, SAM; about 4 GB, once). Install them with
-`node bin/dreamcut.mjs setup`, and check what's ready with `node bin/dreamcut.mjs doctor`.
+If DreamCut's tools show up twice, you also connected it the older way; remove that connection with
+`claude mcp remove dreamcut -s user` (Codex: `codex mcp remove dreamcut`). To connect a copy kept somewhere
+other than `~/DreamCut` without the plugin: `claude mcp add dreamcut -s user -- node <copy>/bin/dreamcut.mjs mcp`.
 
 **Updates:** when your agent opens DreamCut it checks GitHub, tells you when there is a newer version and
 updates with your OK. You can also run `node bin/dreamcut.mjs update` in `~/DreamCut`, then start a new chat.
 It only fast-forwards: a copy with your own changes or commits is left alone (update that one with git
 yourself). Your projects live in the Library folder you chose, outside the repository, so updates never
-touch them. You and your agent can
-read and change the code in your copy.
+touch them. You and your agent can read and change the code in your copy.
 
 **On Windows** (experimental), install the prerequisites with
-`winget install Git.Git OpenJS.NodeJS.LTS Google.Chrome`, then run the same steps in PowerShell with
-`$HOME\DreamCut` in place of `~/DreamCut`.
+`winget install Git.Git OpenJS.NodeJS.LTS Google.Chrome Gyan.FFmpeg`, then run the same steps in PowerShell
+with `$HOME\DreamCut` in place of `~/DreamCut`.
 
 ## Your first edit
 
@@ -104,12 +121,16 @@ read and change the code in your copy.
 
 ## Your files
 
-DreamCut edits locally. We never collect your footage for product improvement.
+The editor runs on your computer, and your projects and footage stay there. DreamCut never uploads your
+video, audio or images, except files you choose to send: references for cloud generation, or a template
+you share with DreamCut.
 
 ### Help us improve
 
 While you're signed in to DreamCut, editing history, suggested edits, feedback and tool usage are
-uploaded to your account to improve the product, even if you never export. Signed out, nothing is uploaded. Tool usage is daily counts of the DreamCut tools your
+uploaded to your account to improve the product, even if you never export. Signed out, nothing is uploaded, except one
+anonymous install count the DreamCut plugin sends the first time DreamCut's tools start (the agent, the operating system and
+the plugin version; no ID, path or email; skipped with `DO_NOT_TRACK=1` or `DREAMCUT_INSTALL_PING_URL=off`). Tool usage is daily counts of the DreamCut tools your
 agent called and their failures, plus a short note when your agent had to work around a missing tool;
 it carries no tool arguments or file paths. Sharing is on by default; turn it off in
 **User → Settings → Privacy**, or set `DREAMCUT_CLOUD_INGEST_URL=off`.

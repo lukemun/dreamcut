@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "composition_id": "neon-road",
+  "state": "ready",
+  "started_at": "2026-10-29T03:18:18.325Z",
+  "finished_at": "2026-10-29T03:18:47.762Z",
+  "result": {
+    "composition_id": "neon-road",
+    "reused": false,
+    "media_path": "hyperframes/neon-road/neon-road.e74fe551cddc37c6.webm",
+    "source_url": "/api/projects/guide-practice-kit/media/hyperframes/neon-road/neon-road.e74fe551cddc37c6.webm",
+    "duration_seconds": 8,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "has_alpha": true,
+    "source_fingerprint_sha256": "d80a84c32f94fc28f4d63975e74af0cc9e800d247ff6c469e829c0bc7a9b69df",
+    "values": {
+      "camera": "fly",
+      "density": 100,
+      "height": 100,
+      "detail": 70,
+      "wobble": 10,
+      "variation": 7,
+      "draw_in": 1.2,
+      "flight": 6.8,
+      "hold": 0,
+      "ink": "#28f0ff",
+      "paper": "#07061a",
+      "backdrop": true,
+      "glow": 70,
+      "layer": "all"
+    },
+    "controls": [
+      {
+        "id": "camera",
+        "kind": "choice",
+        "label": "Camera",
+        "default": "fly",
+        "options": [
+          {
+            "value": "fly",
+            "label": "Run along"
+          },
+          {
+            "value": "rise",
+            "label": "Rise at the end"
+          }
+        ]
+      },
+      {
+        "id": "density",
+        "kind": "number",
+        "label": "Density",
+        "default": 100,
+        "min": 20,
+        "max": 200,
+        "step": 5,
+        "unit": "%"
+      },
+      {
+        "id": "height",
+        "kind": "number",
+        "label": "Height",
+        "default": 100,
+        "min": 50,
+        "max": 200,
+        "step": 5,
+        "unit": "%"
+      },
+      {
+        "id": "detail",
+        "kind": "number",
+        "label": "Detail",
+        "default": 70,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%"
+      },
+      {
+        "id": "wobble",
+        "kind": "number",
+        "label": "Wobble",
+        "default": 20,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%"
+      },
+      {
+        "id": "variation",
+        "kind": "number",
+        "label": "Variation",
+        "default": 7,
+        "min": 1,
+        "max": 99,
+        "step": 1
+      },
+      {
+        "id": "draw_in",
+        "kind": "number",
+        "label": "Build time",
+        "default": 1.6,
+        "min": 0.5,
+        "max": 4,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "id": "flight",
+        "kind": "number",
+        "label": "Camera time",
+        "default": 4,
+        "min": 1.5,
+        "max": 10,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "id": "hold",
+        "kind": "number",
+        "label": "Hold",
+        "default": 0.4,
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "s"
+      },
+      {
+        "id": "ink",
+        "kind": "color",
+        "label": "Ink",
+        "default": "#1c1b19"
+      },
+      {
+        "id": "paper",
+        "kind": "color",
+        "label": "Paper",
+        "default": "#f3efe6"
+      },
+      {
+        "id": "backdrop",
+        "kind": "switch",
+        "label": "Paper fill",
+        "default": true
+      },
+      {
+        "id": "glow",
+        "kind": "number",
+        "label": "Glow",
+        "default": 0,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%"
+      },
+      {
+        "id": "layer",
+        "kind": "text",
+        "label": "Layer",
+        "default": "all",
+        "max_length": 48,
+        "fixed": true
+      }
+    ],
+    "actors": [
+      {
+        "id": "scene",
+        "label": "Road"
+      }
+    ],
+    "markers": []
+  },
+  "warnings": [
+    "index.html loads a remote resource; renders depend on the network"
+  ],
+  "error": null,
+  "owner_pid": 99938
+}

@@ -1,6 +1,6 @@
 ---
 name: session-retro
-description: Run a retro on a coding-agent session (Claude Code or Codex) in this repository, from its transcript, when asked to "retro this", "retro that session", "why did that take so long" or "what went wrong". Covers the skills followed, MCP tools and refusals, editor bugs the creator hit, missing dials, performance and agent overhead, then makes the ranked fixes the feature freeze allows and records the rest as later work. Not for reviewing a diff (code-review), measuring a slow editor path (performance-review), or learning the creator's taste (My Style is never changed by a retro).
+description: Run a retro on a coding-agent session (Claude Code or Codex) in this repository, from its transcript, when asked to "retro this", "retro that session", "why did that take so long" or "what went wrong". Covers the skills followed, MCP tools and refusals, editor bugs the creator hit, missing dials, performance and agent overhead, then makes the ranked fixes the checkout's working agreements allow and records the rest as later work. Not for reviewing a diff (code-review), measuring a slow editor path (performance-review), or learning the creator's taste (My Style is never changed by a retro).
 ---
 
 # Session retro
@@ -9,9 +9,9 @@ Turn one agent session into evidence, a ranked list of fixes, and those fixes ma
 fixes what it finds: bugs, docs, skills, tool descriptions and messages, and routing, each with
 a test or check, left uncommitted. It never changes My Style or the session's project (its
 timeline, proposals, feedback or history), and never approves, rejects or re-runs the session's
-edits. Under the feature freeze, a new capability is recorded as later work in
-the private project status (`../dreamcut-cloud/docs/editor-project-status.md`, see [the pointer](../../../docs/project-status.md)), not built. The owner can still say
-"report only"; then stop after the report.
+edits. A new capability the checkout's working agreements (`AGENTS.local.md`, when present) do
+not allow is recorded as later work in the [project status](../../../docs/project-status.md), not
+built. The person can still say "report only"; then stop after the report.
 
 "Retro this" is enough to start. AGENTS.md's ban on starting a retrospective is about My
 Style learning from edits, not about reviewing how a session went.
@@ -76,12 +76,12 @@ One table. For each fix give:
 - effort (S, M or L);
 - the time it would have saved in this session.
 
-Rank by saved time and creator impact. Respect the [owner working agreements](../../../AGENTS.md#owner-working-agreements): under the
-feature freeze a new capability is listed as a proposal for the owner, not as planned work.
+Rank by saved time and creator impact. Respect the checkout's working agreements (`AGENTS.local.md`,
+when present): a capability they hold back is listed as a proposal, not as planned work.
 
 ## 5. Make the fixes
 
-Work down the ranked table. For each fix the freeze allows (a bug, a doc or skill, a tool
+Work down the ranked table. For each fix the working agreements allow (a bug, a doc or skill, a tool
 description or message, routing):
 
 - Read the owning skill or standard first, as AGENTS.md routes it (editor UI, tools, effects,

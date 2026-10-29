@@ -1383,7 +1383,7 @@ Select this template in Templates, then tell your agent which files to use. Your
 ```text
 Use the speed-entrance-exit skill for "Speed Entrance & Exit" (recipe: FX-SPEED-ENTRANCE-EXIT).
 Read the FX-SPEED-ENTRANCE-EXIT construction brief in src/lib/effects/promoted-recipes.ts and its owning skill before preparing the edit.
-Build Speed Entrance & Exit from my performance footage and matching empty background. Follow the speed-entrance-exit skill: move a cut-out of me between two keyframed places over a few frames with blur, never by playing the footage faster. If I marked stops, shoot me from each mark to the next and hold live at each one. Preserve the original performance, keep the background and subject editable, give me a hold dial per stop, check the complete motion at normal speed and propose changes to my existing edit.
+Build Speed Entrance & Exit from my performance footage or my still poses, and the matching empty background. Follow the speed-entrance-exit skill: send one hop_sequence card with the template set to entrance_exit, first_entrance and a closing_exit out the side, so I streak into frame, stand, and streak out again (the card lets me keep me in frame instead); never play the footage faster. Each stop is either a window of my footage (its cut-out, with settle and takeoff from visual_activity_prepare holds) or a still pose (the pose I stand in, and a walking pose for the streaks if I have one). If I marked stops, hop from each to the next. Put a whoosh from the Speed hops sounds (sfx_search "speed whoosh") on every landing and on the exit in the same card. Preserve the original performance, check the complete motion at normal speed and propose it for me to review.
 My inputs and target: [attach or identify my files, target clips, order and desired timing].
 Performance footage: Use a locked camera and keep the whole subject visible. Record the gesture before each entrance or exit and leave time on both sides.
 Matching empty background: Record the same scene without the subject, preserving camera position, lighting and framing.
@@ -1403,7 +1403,7 @@ Preview the result, check the full transition or animation and report anything u
 
 <a id="fx-speed-hops-to-camera"></a>
 
-## Speed hops to camera
+## Speed hops
 
 **FX-SPEED-HOPS-TO-CAMERA · Implemented template · built with your agent** · [Owning skill](../../.agents/skills/speed-entrance-exit/SKILL.md)
 
@@ -1411,7 +1411,7 @@ Preview the result, check the full transition or animation and report anything u
 
 ### Demonstration
 
-[<img src="../../public/recipe-previews/speed-hops-to-camera/poster.jpg" width="160" alt="Speed hops to camera demonstration" />](../../public/recipe-previews/speed-hops-to-camera/result.mp4)
+[<img src="../../public/recipe-previews/speed-hops-to-camera/poster.jpg" width="160" alt="Speed hops demonstration" />](../../public/recipe-previews/speed-hops-to-camera/result.mp4)
 
 A streak from stop to stop down the path, landing standing at each one, then a line said in front of the camera and a streak out of frame. Normal speed; each stop holds for 3 frames and each streak takes 2, so the line starts at 2 seconds. Sound off here; the edit puts a whoosh on every hop.
 
@@ -1457,9 +1457,9 @@ Generation suitability is guidance, not proof of a tested generated-input workfl
 Select this template in Templates, then tell your agent which files to use. Your agent works from this request; it prepares a proposal for you to review, never an edit or a generation on its own.
 
 ```text
-Use the speed-entrance-exit skill for "Speed hops to camera" (recipe: FX-SPEED-HOPS-TO-CAMERA).
+Use the speed-entrance-exit skill for "Speed hops" (recipe: FX-SPEED-HOPS-TO-CAMERA).
 Read the FX-SPEED-HOPS-TO-CAMERA construction brief in src/lib/effects/promoted-recipes.ts and its owning skill before preparing the edit.
-Build Speed hops to camera from my locked-off take and my marked stops. Follow the speed-entrance-exit skill (Mark to mark): move a cut-out of me between keyframed places with blur, never by playing the footage faster. Use the first seconds of the take, before I walk in, as the empty scene. Open on me at the first stop, streak mark to mark and land standing at each with a brief live hold, streak into my line in front of the camera, play it live, then streak me out of frame when I finish and end shortly after. Measure takeoff and settle frames, keep the blur light enough that I stay visible, keep cropped edges off screen, and put a whoosh from the speed whoosh sounds in the Library on every hop. Leave out captions, colour grading and music. Give me hold, hop length and blur dials in time order, check every landing at normal speed, and propose it for me to review.
+Build Speed hops from my locked-off take and my marked stops. Follow the speed-entrance-exit skill (Mark to mark): move a cut-out of me between keyframed places with blur, never by playing the footage faster. Use the first seconds of the take, before I walk in, as the empty scene. Open on me at the first stop, streak mark to mark and land standing at each with a brief live hold, and fit it to my take: as many stops as I marked, and if I speak at the last one, play my line live. End with me streaking out of frame (past the camera after a line to camera, otherwise out the side) unless I say to stay; the card lets me switch it. Measure each stop's settle and takeoff with visual_activity_prepare holds at my marks, keep cropped edges off screen, and send one hop_sequence card with the template set to speed_hops, a closing_exit, and the Speed hops sounds (sfx_search "speed whoosh") as its landing and exit sounds, so every hop and the exit have a whoosh in the same card. Leave out captions, colour grading and music, check every landing at normal speed, and propose it for me to review.
 My inputs and target: [attach or identify my files, target clips, order and desired timing].
 One locked-off take: Use a tripod. Start recording on the empty scene (a clean slate with nobody in it) for a couple of seconds, then walk in, stand still for a moment at each stop, finish in front of the camera, say your line and walk out of frame.
 Marks where you stop: Mark each stop, and where you finish talking, in Storyboard or on the clip.
@@ -1477,6 +1477,83 @@ Preview the result, check the full transition or animation and report anything u
 - Needs a fixed camera and a take that starts on the empty scene; moving cameras need tracking first.
 - The hop sounds come from the Library's speed whoosh set (members).
 - Built and tuned on one take (a walk toward the camera with six stops); other footage is untested.
+
+<a id="fx-flash-effect"></a>
+
+## Flash effect
+
+**FX-FLASH-EFFECT · Implemented template · built with your agent** · [Owning skill](../../.agents/skills/mask-glitch/SKILL.md)
+
+**Home:** Properties → Templates.
+
+### Demonstration
+
+[<img src="../../public/recipe-previews/flash-effect/poster.jpg" width="160" alt="Flash effect demonstration" />](../../public/recipe-previews/flash-effect/result.mp4)
+
+Poses flash in one after another down the path toward the camera, each white for a frame, then the take goes live. Normal speed; a new pose every 4 frames, each white for one frame. Sound off here; the edit puts a shutter click on every flash.
+
+**You supply**
+
+| Your take |
+| --- |
+|  |
+
+**DreamCut prepares**
+
+| Cut-out of you |
+| --- |
+| <img src="../../public/recipe-previews/flash-effect/inputs/cutout.png" width="100" alt="Cut-out of you" /> |
+
+| 1 · First pose flashes | 2 · Shows in colour | 3 · Next pose flashes | 4 · Live at the camera |
+| --- | --- | --- | --- |
+| <img src="../../public/recipe-previews/flash-effect/first-flash.jpg" width="100" alt="1 · First pose flashes" /> | <img src="../../public/recipe-previews/flash-effect/in-colour.jpg" width="100" alt="2 · Shows in colour" /> | <img src="../../public/recipe-previews/flash-effect/next-flash.jpg" width="100" alt="3 · Next pose flashes" /> | <img src="../../public/recipe-previews/flash-effect/at-camera.jpg" width="100" alt="4 · Live at the camera" /> |
+
+Subject and footage: the DreamCut owner (owned). Effect after The Flash Effect by futurist__ (Marvin Appiah Korang). Catalog evidence below is separate.
+
+You flash from pose to pose toward the camera: each pose lands as a white silhouette for one frame with a camera shutter click, then the take goes live for your line.
+
+### What you supply
+
+- **One locked-off take of your walk to the camera:** Use a tripod. Start recording on the empty scene for a couple of seconds, then walk from the back of the scene to the camera through several places, and say your line at the camera.
+- **Marks where you flash:** Optional: mark each pose you want in Storyboard or on the clip. Without marks, six to eight poses are spread along your walk.
+
+### Supply your own or generate inputs
+
+Use the reference to plan a fully clothed fictional performer walking toward a fixed camera. Generate clean ordinary motion that starts on the empty scene; build the flashes, glow and clicks in DreamCut, not into the generated footage.
+
+Generation suitability is guidance, not proof of a tested generated-input workflow. Ask the agent to stage any needed assets in Library → Generate, then review the model, prompt and settings before generating.
+
+### How the effect is built
+
+1. Cut you out at each pose, keeping poses off the frame edge.
+2. Show each pose for a few frames over the empty scene, white for its first frame with a glow, with a shutter click on every flash.
+3. Play your line live from the last pose. Time per pose, white flash, glow and click volume become dials.
+
+### Ask your agent
+
+Select this template in Templates, then tell your agent which files to use. Your agent works from this request; it prepares a proposal for you to review, never an edit or a generation on its own.
+
+```text
+Use the mask-glitch skill for "Flash effect" (recipe: FX-FLASH-EFFECT).
+Read the FX-FLASH-EFFECT construction brief in src/lib/effects/promoted-recipes.ts and its owning skill before preparing the edit.
+Build the Flash effect from my locked-off take. Follow the mask-glitch skill's Flash effect template: cut me out at each pose (my marks, or six to eight poses spread along the walk, none on the frame edge or moving sideways), use the start of the take as the empty scene, and send one card with a flash_sequence block so my poses replace each other with a one-frame white flash and glow and a shutter click (the Library's Camera 02 Shutter Click, sfx_search "camera shutter click") on every flash. If I speak at the end, play my line live after the last pose. Leave out titles, captions, colour grading and music. Check each flash frame and the live join, and propose it for me to review; never apply it.
+My inputs and target: [attach or identify my files, target clips, order and desired timing].
+One locked-off take of your walk to the camera: Use a tripod. Start recording on the empty scene for a couple of seconds, then walk from the back of the scene to the camera through several places, and say your line at the camera.
+Marks where you flash: Optional: mark each pose you want in Storyboard or on the clip. Without marks, six to eight poses are spread along your walk.
+How it works: Cut you out at each pose, keeping poses off the frame edge. Show each pose for a few frames over the empty scene, white for its first frame with a glow, with a shutter click on every flash. Play your line live from the last pose. Time per pose, white flash, glow and click volume become dials.
+Input generation guidance: Use the reference to plan a fully clothed fictional performer walking toward a fixed camera. Generate clean ordinary motion that starts on the empty scene; build the flashes, glow and clicks in DreamCut, not into the generated footage.
+Read the current timeline, applicable preferences and available media. Ask for missing inputs; do not assume example assets are mine. If generation is needed, prepare a visible draft and wait for my generation authorization.
+Preserve original sources and unrelated edits. Keep meaningful layers and tuning controls editable. For an existing edit, propose changes for my review; do not apply or approve them.
+Known limitations: Needs a fixed camera and a take that starts on the empty scene; moving cameras need tracking first. A pose the frame crops shows its cropped edge on the white frame; poses are the agent's choice unless you mark them. The shutter click is a members sound in the Library. Built on one take (a walk toward the camera with seven poses); other footage is untested.
+Preview the result, check the full transition or animation and report anything unverified.
+```
+
+### Evidence and limits
+
+- Needs a fixed camera and a take that starts on the empty scene; moving cameras need tracking first.
+- A pose the frame crops shows its cropped edge on the white frame; poses are the agent's choice unless you mark them.
+- The shutter click is a members sound in the Library.
+- Built on one take (a walk toward the camera with seven poses); other footage is untested.
 
 <a id="fx-mask-glitch-glow"></a>
 

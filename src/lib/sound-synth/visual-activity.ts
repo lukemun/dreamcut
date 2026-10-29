@@ -431,3 +431,75 @@ export function summarizeCurve(values: ArrayLike<number>, window: ActivityWindow
     active_intervals: activeIntervals(values, window.rate).map(([from, to]) => [offset(from), offset(to)]),
   };
 }
+
+export type HoldAround = {
+  at_seconds: number;
+  /** Whether the moment itself falls in a still stretch; when not, the nearest still stretch within reach is reported. */
+  at_rest: boolean;
+  /** When motion stops before the moment (the subject has arrived), timeline seconds; null when no still stretch is in reach. */
+  settle_seconds: number | null;
+  /** When motion starts again after it (the subject sets off). */
+  takeoff_seconds: number | null;
+  /** How clearly still the stretch is against the motion around it, 0-1; below about 0.5 read the frames before trusting it. */
+  contrast: number;
+};
+
+/**
+ * Where something comes to rest around each given moment, and when it sets off again. Each moment is read
+ * against the motion in the seconds around it, so a small far subject and a large near one are judged
+ * alike: a stretch is still when the curve stays below the geometric midpoint of its local quiet and busy
+ * levels (motion spans orders of magnitude, so a linear midpoint would call a far walk still). Brief flickers
+ * shorter than mergeSeconds do not end a hold. Built for marks on a locked-off take (stop, then go),
+ * but answers the same question for any curve.
+ */
+export function holdsAround(values: ArrayLike<number>, window: ActivityWindow, moments: readonly number[],
+  options: { reachSeconds?: number; contextSeconds?: number; mergeSeconds?: number; minHoldSeconds?: number } = {}): HoldAround[] {
+  const { reachSeconds = 1.5, contextSeconds = 3, mergeSeconds = 0.1, minHoldSeconds = 0.1 } = options;
+  const n = values.length;
+  const index = (time: number) => Math.min(n - 1, Math.max(0, Math.round((time - window.start) * window.rate)));
+  const time = (bin: number) => Number((window.start + bin / window.rate).toFixed(3));
+  const quantile = (list: number[], q: number) => { const sorted = [...list].sort((a, b) => a - b); return sorted[Math.min(sorted.length - 1, Math.floor(q * sorted.length))] ?? 0; };
+  return moments.map(at => {
+    const centre = index(at);
+    const from = index(at - contextSeconds), to = index(at + contextSeconds);
+    const local = Array.from({ length: to - from + 1 }, (_, k) => values[from + k]!);
+    const floor = quantile(local, 0.1), high = quantile(local, 0.9);
+    const threshold = Math.sqrt(Math.max(floor, high * 1e-3) * high);
+    // Still bins, with flickers shorter than mergeSeconds folded into the hold around them.
+    const still = local.map(value => value <= threshold);
+    const gap = Math.round(mergeSeconds * window.rate);
+    for (let k = 0; k < still.length;) {
+      if (still[k]) { k++; continue; }
+      let end = k; while (end < still.length && !still[end]) end++;
+      if (k > 0 && end < still.length && end - k <= gap) for (let j = k; j < end; j++) still[j] = true;
+      k = end;
+    }
+    const runs: Array<[number, number]> = [];
+    for (let k = 0; k < still.length;) {
+      if (!still[k]) { k++; continue; }
+      let end = k; while (end < still.length && still[end]) end++;
+      if ((end - k) / window.rate >= minHoldSeconds) runs.push([from + k, from + end - 1]);
+      k = end;
+    }
+    const reach = Math.round(reachSeconds * window.rate);
+    const distance = ([a, b]: [number, number]) => centre < a ? a - centre : centre > b ? centre - b : 0;
+    const run = runs.filter(candidate => distance(candidate) <= reach).sort((x, y) => distance(x) - distance(y))[0];
+    if (!run || high <= 0) return { at_seconds: at, at_rest: false, settle_seconds: null, takeoff_seconds: null, contrast: 0 };
+    // A hold longer than the context runs on past it: follow it along the whole curve.
+    const extend = (bin: number, step: 1 | -1) => {
+      for (let next = bin + step; next >= 0 && next < n;) {
+        if (values[next]! <= threshold) { bin = next; next += step; continue; }
+        let flicker = next; while (flicker >= 0 && flicker < n && values[flicker]! > threshold && Math.abs(flicker - next) < gap) flicker += step;
+        if (flicker >= 0 && flicker < n && values[flicker]! <= threshold && Math.abs(flicker - next) <= gap) { next = flicker; continue; }
+        break;
+      }
+      return bin;
+    };
+    if (run[0] === from) run[0] = extend(run[0], -1);
+    if (run[1] === to) run[1] = extend(run[1], 1);
+    const inside = Array.from({ length: run[1] - run[0] + 1 }, (_, k) => values[run[0] + k]!);
+    const mean = inside.reduce((sum, value) => sum + value, 0) / inside.length;
+    return { at_seconds: at, at_rest: distance(run) === 0, settle_seconds: time(run[0]), takeoff_seconds: time(run[1] + 1),
+      contrast: Number(Math.max(0, Math.min(1, (high - mean) / Math.max(high, 1e-9))).toFixed(2)) };
+  });
+}

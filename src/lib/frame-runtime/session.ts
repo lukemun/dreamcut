@@ -1,7 +1,8 @@
 import { PresentedFrames } from "./presented-frames";
 /** Per-player/render ownership. No global resource handles or shared decoder state. */
 /** `reverse`: source time runs backward from `time`, which is the picture's source frame. */
-export type AudioSample = { id: string; src: string; time: number; volume: number; rate: number; preservePitch: boolean; reverse?: boolean };
+/** `pitch` is a semitone shift that leaves timing alone (timeline/audio-pitch.ts); absent is none. */
+export type AudioSample = { id: string; src: string; time: number; volume: number; rate: number; preservePitch: boolean; reverse?: boolean; pitch?: number };
 export type MediaEntry = { element: HTMLMediaElement; kind: "video" | "audio"; target: number; sample: AudioSample | null; pauseWhenBuffering: boolean; active: boolean; firstFrameReady?: boolean; timelineFrame?: number; syncPreview?: () => void };
 export class FrameSession {
   private decodedImages = new WeakMap<HTMLImageElement, string>();

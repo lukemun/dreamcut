@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "project_id": "guide-practice-kit",
+  "updated_at": "2026-10-29T03:17:59.094Z",
+  "assets": [
+    {
+      "asset_id": "7f179869-9e2d-4f15-9459-ce0838af0e12",
+      "original_filename": "bobblehead-run.webm",
+      "source_path": "DreamCut Guide practice kit",
+      "storage_mode": "managed_copy",
+      "media_path": "sources/result-1-cutout-f0269fd9.webm",
+      "source_sha256": "101de744e0ecd29ae9fa6bc017e7fab796b12ab8fedad43470feca47fd3161cb",
+      "bytes": 2155585,
+      "imported_at": "2026-10-29T03:17:59.094Z"
+    }
+  ]
+}

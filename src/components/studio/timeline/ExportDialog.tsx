@@ -8,12 +8,13 @@ import { OptionSelect } from "@/components/ui/select";
 import { TIMELINE_ASPECT_RATIOS } from "@/lib/aspect-ratios";
 import { PROJECT_FRAME_RATES } from "@/lib/timeline/frame-quantization";
 import { EXPORT_RESOLUTIONS, exportOutputSize, exportResolutionLabel, type ExportResolution } from "@/lib/render/export-resolution";
+import { hdrExportWarning, hdrSuitsTimeline } from "@/lib/render/dynamic-range";
 import { coverFromTimeline } from "@/lib/media/project-cover-source";
 import { thumbnailUrl } from "@/lib/media/thumbnail-url";
 import { useCloudAccount } from "./CloudAccountSettings";
 
 type Props = {
-  elements: ReadonlyArray<{ source_url?: string | null; props?: unknown }>;
+  elements: ReadonlyArray<{ type?: string; timeline_start?: number; duration?: number; source_url?: string | null; props?: unknown }>;
   aspectRatio: string;
   onAspectRatioChange: (value: string) => void;
   aspectRatioSaving: boolean;
@@ -25,7 +26,7 @@ type Props = {
   onResolutionChange: (value: ExportResolution) => void;
   /** Highest resolution the selected renderer can export. */
   maxResolution?: ExportResolution;
-  /** SDR (H.264) or HDR (10-bit HLG for YouTube and other HDR platforms). */
+  /** SDR (H.264), the default for YouTube and social, or HDR (10-bit HLG), which suits only mostly-HDR camera footage. */
   dynamicRange: "sdr" | "hdr";
   onDynamicRangeChange: (value: "sdr" | "hdr") => void;
   /** HDR needs the Graphics card renderer and a real graphics card. */
@@ -67,6 +68,9 @@ export function ExportDialog(props: Props) {
   const { onClose } = props;
   const cover = useMemo(() => coverFromTimeline({ elements: props.elements }), [props.elements]);
   const [coverFailed, setCoverFailed] = useState(false);
+  // HDR places SDR pictures at HLG reference white, which many screens show dimmer than the page.
+  const hdrSuits = useMemo(() => hdrSuitsTimeline(props.elements), [props.elements]);
+  const hdrWarning = useMemo(() => props.dynamicRange === "hdr" ? hdrExportWarning(props.elements) : null, [props.dynamicRange, props.elements]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
@@ -144,10 +148,11 @@ export function ExportDialog(props: Props) {
               <Row label="Format">
                 <OptionSelect label="Format" value={props.dynamicRange} disabled={locked}
                   options={[
-                    { value: "sdr", label: "Standard · plays everywhere" },
-                    { value: "hdr", label: props.hdrAvailable ? "HDR · brighter on YouTube and phones" : props.hdrBlockedBy === "device" ? "HDR · needs a graphics card" : "HDR · needs the Graphics card renderer", disabled: !props.hdrAvailable },
+                    { value: "sdr", label: "Standard · best for YouTube and social" },
+                    { value: "hdr", label: props.hdrAvailable ? (hdrSuits ? "HDR · suits this footage" : "HDR · HDR footage only") : props.hdrBlockedBy === "device" ? "HDR · needs a graphics card" : "HDR · needs the Graphics card renderer", disabled: !props.hdrAvailable },
                   ]}
                   onValueChange={(value) => props.onDynamicRangeChange(value === "hdr" ? "hdr" : "sdr")} />
+                {hdrWarning && <p role="status" className="mt-1 text-xs text-[var(--ink-muted)]">{hdrWarning}</p>}
               </Row>
               <Row label="Renderer">{props.renderer}</Row>
               <WatermarkRow locked={locked} />

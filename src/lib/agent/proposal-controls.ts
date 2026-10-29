@@ -3,6 +3,7 @@ import { HANDWRITING_WEIGHT } from "../timeline/handwriting-weight";
 import { TRANSITION_CONTROLS, proposedFieldValue, availableTransitionFieldValue } from "../timeline/transition-controls";
 import { EFFECT_CONTROLS, type EffectProposalNumber } from "../timeline/effect-controls";
 import { FADER_MIN_DB, FADER_MAX_DB, gainToFaderDb, faderDbToGain } from "../timeline/audio-gain";
+import { PITCH_SEMITONES_MAX, PITCH_SEMITONES_MIN } from "../timeline/audio-pitch";
 import { PLACEMENT_ALIGNS, PLACEMENT_GAP, PLACEMENT_SIDES } from "../timeline/placement-vocabulary";
 
 export type ProposalControlReference = {
@@ -365,6 +366,7 @@ export const PROPOSAL_TUNABLE_FIELDS: Record<string, TunableField> = {
   volume: { min: FADER_MIN_DB, max: FADER_MAX_DB, step: 0.1, suffix: "dB", toDisplay: (gain) => gainToFaderDb(gain) ?? FADER_MIN_DB, fromDisplay: faderDbToGain },
   fade_in: { min: 0, max: 2, step: 0.01, suffix: "s" },
   fade_out: { min: 0, max: 2, step: 0.01, suffix: "s" },
+  pitch_semitones: { label: "Pitch", min: PITCH_SEMITONES_MIN, max: PITCH_SEMITONES_MAX, step: 0.5, suffix: "st" },
   handwritingWeight: HANDWRITING_WEIGHT,
   animationInDuration: { label: "Animation in", min: 0, max: 60, step: 0.01, suffix: "s" },
   animationOutDuration: { label: "Animation out", min: 0, max: 60, step: 0.01, suffix: "s" },

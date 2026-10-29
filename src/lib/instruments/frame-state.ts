@@ -385,4 +385,9 @@ export function frameFor(atSeconds: number, fps: number = currentFrameRate()) {
   return Math.round(atSeconds * fps);
 }
 
+/** The still renderer's composition: frames counted at the same rate frameFor numbers them, so a frame is drawn from its own moment. */
+export function stillComposition(canvas: { width: number; height: number }, durationSeconds: number, fps: number = currentFrameRate()) {
+  return { ...canvas, fps, durationInFrames: Math.max(1, Math.round(durationSeconds * fps) + 1) };
+}
+
 export { measureCaptions, safeAreaFor };

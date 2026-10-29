@@ -3,7 +3,10 @@ import path from "node:path";
 
 import { NextResponse } from "next/server";
 
-import { authoredSegmentDurations, injectRuntimeIntoHtml, parseCompositionManifest, resolveManifestValues } from "@/lib/hyperframes/composition-manifest";
+import {
+  applyCanvasSizeToHtml, applyDurationToHtml, authoredSegmentDurations, canvasSizeForValues, injectRuntimeIntoHtml, parseCompositionManifest, resolveManifestValues,
+} from "@/lib/hyperframes/composition-manifest";
+import { resolveTiming } from "@/lib/hyperframes/composition-timing";
 import { buildLookBundle, lookIdFromValues, usesSharedLooks } from "@/lib/hyperframes/look-bundle";
 import { projectExists, projectHyperframesDir } from "@/lib/local-store/paths";
 
@@ -26,11 +29,15 @@ const BRIDGE = `<script>(function(){
     var s=Math.min(innerWidth/w, innerHeight/h); document.documentElement.style.overflow='hidden'; document.body.style.margin='0';
     r.style.position='absolute'; r.style.left='0'; r.style.top='0'; r.style.transformOrigin='0 0';
     r.style.transform='translate('+((innerWidth-w*s)/2)+'px,'+((innerHeight-h*s)/2)+'px) scale('+s+')'; }
-  function seek(t){ var tl=window.__timelines&&(window.__timelines.main||Object.values(window.__timelines)[0]); if(tl&&tl.seek){ tl.seek(Math.max(0,t), false); } }
+  function timeline(){ return window.__timelines&&(window.__timelines.main||Object.values(window.__timelines)[0]); }
+  function seek(t){ var tl=timeline(); if(tl&&tl.seek){ tl.seek(Math.max(0,t), false); } }
   addEventListener('resize', fit);
   addEventListener('message', function(e){ var d=e.data; if(d&&d.type==='dreamcut-live-seek') seek(d.t); });
-  addEventListener('load', function(){ fit(); parent.postMessage({type:'dreamcut-live-ready'}, '*'); });
+  // A page that never built its timeline draws nothing; the editor keeps the rendered clip and says so.
+  addEventListener('load', function(){ fit(); var tl=timeline(); parent.postMessage({type: tl&&tl.seek ? 'dreamcut-live-ready' : 'dreamcut-live-failed'}, '*'); });
 })();</script>`;
+
+const TIMELINES = "<script>window.__timelines=window.__timelines||{};</script>";
 
 /**
  * GET a composition's own file. index.html arrives with the draft values (?values=), the bridge and
@@ -63,9 +70,22 @@ export async function GET(request: Request, { params }: Params) {
   if (relative !== "index.html") return new NextResponse(fs.readFileSync(file), { headers: { ...headers, "Content-Type": type } });
 
   let html = fs.readFileSync(file, "utf8");
-  if (manifest && values) html = injectRuntimeIntoHtml(html, { controls: values, segment_durations: authoredSegmentDurations(manifest) });
-  // The shared look code depends on the chosen look, so it carries the values too.
-  if (manifest && usesSharedLooks(manifest)) html = html.replace(/(src=["'])(?:\.\/)?looks\.js(["'])/g, `$1looks.js${url.search.replace(/"/g, "%22")}$2`);
+  if (manifest && values) {
+    // Drawn as the render copy is: the canvas and length these values choose, then the values.
+    const size = canvasSizeForValues(manifest, values);
+    if (size) html = applyCanvasSizeToHtml(html, size);
+    const length = manifest.timing ? resolveTiming(manifest.timing, values).duration : null;
+    if (length) html = applyDurationToHtml(html, length);
+    html = injectRuntimeIntoHtml(html, { controls: values, segment_durations: authoredSegmentDurations(manifest) });
+  }
+  // The renderer provides the timeline registry compositions write `main` into; here the page does.
+  html = /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (head) => `${head}${TIMELINES}`) : `${TIMELINES}${html}`;
+  // The shared look code depends on the chosen look, so it is written into the page: the editor shows it
+  // as a sandboxed frame, whose own requests back to the editor a browser may refuse.
+  if (manifest && values && usesSharedLooks(manifest)) {
+    const bundle = buildLookBundle(lookIdFromValues(values)).replace(/<\/(script)/gi, "<\\/$1");
+    html = html.replace(/<script\b[^>]*\bsrc=["'](?:\.\/)?looks\.js["'][^>]*>\s*<\/script>/gi, () => `<script>${bundle}</script>`);
+  }
   const base = `${url.protocol}//${request.headers.get("host") ?? url.host}/api/projects/${encodeURIComponent(projectId)}/hyperframes/live/${encodeURIComponent(compositionId)}/`;
   html = /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (head) => `${head}<base href="${base}">`) : `<base href="${base}">${html}`;
   html = /<\/body>/i.test(html) ? html.replace(/<\/body>/i, `${BRIDGE}</body>`) : `${html}${BRIDGE}`;

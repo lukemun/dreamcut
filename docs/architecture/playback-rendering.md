@@ -138,6 +138,31 @@ about 10 Mbps at 1080p and 34 Mbps at 4K, where libx264 CRF 18 gave about 3.5 Mb
 DreamCut does not pre-render in the background while someone edits (that spends battery on
 work an edit may discard); it reuses the previous export's chunks instead.
 
+#### HDR export and SDR placement — decided 2026-10-28
+
+The opt-in HDR export (`dynamic_range: "hdr"`, GPU only) writes 10-bit HLG BT.2020 VP9 and places
+SDR white at BT.2408 reference white, HLG 75% (10-bit limited Y 721, about 203 nits on a 1000-nit
+reference display; `src/lib/color/hdr-encode.ts`). How that white looks depends on the viewer's
+display headroom, measured on a synthetic HLG wedge (HEVC Main10 and VP9 profile 2, identical):
+
+| HLG signal | 0.50 | 0.65 | 0.70 | 0.75 | 0.80 | 0.90 | 1.00 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| macOS Core Image, ≥3× EDR headroom (linear, 1 = UI white) | 0.25 | 0.55 | 0.74 | **1.00** | 1.36 | 2.56 | 4.93 |
+| macOS `CIToneMapHeadroom`, 2× headroom | 0.23 | 0.50 | 0.66 | **0.89** | 1.14 | 1.58 | 2.00 |
+| macOS, no headroom (SDR) | 0.14 | 0.29 | 0.38 | **0.50** | 0.62 | 0.82 | 1.00 |
+| Chrome 152 2D canvas (sRGB code value) | 0.39 | 0.57 | 0.64 | **0.73** | 0.81 | 0.91 | 1.00 |
+
+Safari and Chrome hand HLG video to the macOS compositor on an EDR display, so SDR-origin layers
+match the page only with at least 3× headroom; with less (a bright screen, many external HDR
+monitors, or SDR output) their white drops to half the light and the video looks dim and grey.
+The Standard export always shows its white at UI white. A brighter SDR placement (for example SDR
+white at HLG 0.85–0.90) is not a standard choice: BT.2408 sets graphics white at 75%, and on a
+capable screen that placement would show text and UI at 1.4–2.6× page white. DreamCut keeps
+BT.2408 and instead makes Standard the default for YouTube and social: the Export dialog and the
+render API warn when HDR is picked for a timeline that is not mostly HDR camera footage
+(`src/lib/render/dynamic-range.ts`, at least half the running time). YouTube's own HDR-to-SDR
+conversion for viewers without HDR displays was not measured.
+
 #### Export chunk reuse
 
 GPU exports work in fixed 60-frame chunks, each its own H.264 stream opening with a key

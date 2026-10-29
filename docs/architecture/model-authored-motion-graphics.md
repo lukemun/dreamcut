@@ -119,6 +119,11 @@ behaves as today: a box with no inner controls. Sketch:
 - **Opaque switch** (`"opaque_control": "<switch id>"`): while that switch is on, the
   graphic fills the frame (a full-screen card with its own backdrop), and a render with no
   transparent pixel is accepted.
+- **Motion blur** (`"motion_blur_control": "<number id>"`, a 0–100 control): read by the
+  renderer, not the page. Above 0, `hyperframes-overlay` renders at up to 8× the frame rate
+  (`motionBlurPlan` in `composition-manifest.ts`, at most 240 fps) and averages, per output frame,
+  the sub-frames in that share of the frame interval ending at its time, with alpha premultiplied.
+  The 2× density render does the same. The live draft preview does not.
 - Values reach the composition through one runtime entry point (for example
   `window.__dreamcut = { controls, actors, segment_durations }`) read at load.
 

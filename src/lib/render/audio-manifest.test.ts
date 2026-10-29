@@ -23,3 +23,8 @@ test("a reversed clip's backward source clock stays one run and never joins a fo
   assert.deepEqual(runs.map(r => [r.reverse ?? false, r.gains.length]), [[true, 3], [false, 1]]);
   assert.equal(runs[0].sourceStart, 4);
 });
+test("a pitch change splits a run and travels with it; no pitch stays unmarked", () => {
+  const deeper = (time: number) => ({ ...sample(time), pitch: -3 });
+  const runs = audioRuns([[sample(2)], [deeper(2 + 1 / 30)], [deeper(2 + 2 / 30)]], 30);
+  assert.deepEqual(runs.map(r => [r.pitch, r.gains.length]), [[undefined, 1], [-3, 2]]);
+});

@@ -353,6 +353,9 @@
     "paper_fill_color": [
       "Recolor color (legacy)"
     ],
+    "pitch_semitones": [
+      "Pitch"
+    ],
     "place_gap": [
       "Gap"
     ],

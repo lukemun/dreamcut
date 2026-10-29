@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { LoadingDots } from "@/components/ui/loading-dots";
 import { applyControlResets } from "@/lib/hyperframes/control-resets";
 
 import { InspectorItemHeader } from "./InspectorHierarchy";
@@ -10,10 +9,12 @@ import { ProposalAdvancedGroup } from "./ProposalAdvancedAdjustments";
 import { MotionControlFields } from "./ProposalMotionControls";
 import { motionControlTiers, splitSharedControls } from "./proposal-motion-groups";
 import type { MotionRenderStatus, ProposalMotionControl, ProposalMotionItem, TimelineClient } from "./timeline-client";
+import { UpdatingStatus } from "./UpdatingStatus";
 
 type Values = Record<string, string | number | boolean>;
 
-const POLL_MS = 1_500;
+/** A status read is a small file read; a short interval shows the new render as soon as it lands. */
+const POLL_MS = 500;
 const COLOR_SETTLE_MS = 600;
 
 export type MotionGroupMember = {
@@ -141,7 +142,7 @@ export function ProposalMotionGroup({ members, proposalId, client, disabled, onB
         <>
           <InspectorItemHeader
             title={`All ${count} cards`}
-            actions={first && progress ? <span role="status" className="inline-flex items-center gap-1.5 text-sm text-[var(--ink-muted)]">Updating {progress.done + 1} of {progress.total} <LoadingDots /></span> : null}
+            actions={first && progress ? <UpdatingStatus>Updating {progress.done + 1} of {progress.total}</UpdatingStatus> : null}
           />
           <MotionControlFields controls={shared} allControls={controls} values={values[0] ?? {}} authored={authored[0] ?? {}} name={`all ${count} cards`} fieldPrefix={`${members[0]!.item.id}:all`} busy={busy}
             onChange={setShared} onReset={(control) => setShared(control, authored[0]?.[control.id] ?? control.default, true)}
@@ -161,7 +162,7 @@ export function ProposalMotionGroup({ members, proposalId, client, disabled, onB
 
   return (
     <div className="mt-3 grid min-w-0 gap-1.5" data-proposal-motion-group={members[0]?.item.id}>
-      {progress && !tiers.main.shared.length ? <span role="status" className="inline-flex items-center gap-1.5 text-sm text-[var(--ink-muted)]">Updating {progress.done + 1} of {progress.total} <LoadingDots /></span> : null}
+      {progress && !tiers.main.shared.length ? <UpdatingStatus className="justify-self-start">Updating {progress.done + 1} of {progress.total}</UpdatingStatus> : null}
       {tier(tiers.main, true)}
       <ProposalAdvancedGroup id={`motion-group:${members[0]?.item.id}:${members[0]?.item.operation_index}`} order={1 + (members[0]?.item.operation_index ?? 0)} count={tiers.advanced.shared.length + tiers.advanced.own.length}>
         {tier(tiers.advanced, false)}

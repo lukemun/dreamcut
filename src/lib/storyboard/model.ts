@@ -27,6 +27,9 @@ export const storyboardVisualSchema = z.object({
 /** How a visual sits over its shot; boards saved before placement existed float. */
 export const visualPlacement = (visual: { placement?: "float" | "full" }) => visual.placement ?? "float";
 export type StoryboardVisual = z.infer<typeof storyboardVisualSchema>;
+/** One spoken word on its source's clock (whisper timing: approximate, good for planning splits). */
+export const transcriptWordSchema = z.object({ text: z.string().min(1).max(200), start: seconds, end: seconds }).passthrough();
+export type TranscriptWord = z.infer<typeof transcriptWordSchema>;
 export const storyboardShotSchema = z.object({
   id: z.string().uuid(), source: z.string().min(1), markId: z.string().uuid().optional(),
   start: seconds, duration: z.number().finite().min(1 / 30).max(86400),
@@ -35,6 +38,10 @@ export const storyboardShotSchema = z.object({
   text: z.string().max(1000).default(""), groupId: z.string().uuid().optional(),
   /** Absent on boards saved before visuals existed; read as none. Kept in time order. */
   visuals: z.array(storyboardVisualSchema).max(MAX_SHOT_VISUALS).optional(),
+  /** The row's words: typed, dictated or transcribed. */
+  script: z.string().max(20000).optional(),
+  /** Transcribed words inside this shot's source window, kept so the row can be split between words. */
+  words: z.array(transcriptWordSchema).max(20000).optional(),
 }).passthrough().superRefine((shot, ctx) => shotVisualIssues(shot).forEach(message => ctx.addIssue({ code: "custom", path: ["visuals"], message })));
 
 /** Visuals sit inside their shot, in time order, without overlapping (one overlay lane). */

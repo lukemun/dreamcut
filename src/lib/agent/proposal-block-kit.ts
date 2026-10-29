@@ -29,6 +29,8 @@ type BlockSettingBase<I> = {
   first_main?: boolean;
   /** What the setting is, in plain words, for agents reading the schema. */
   description?: string;
+  /** A setting a given card has no use for (a choice its template fixes) is left off that card; it still resolves to its default. */
+  hidden?: (inputs: I) => boolean;
   __inputs?: I;
 };
 

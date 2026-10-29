@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { liveMotionStore } from "./live-motion-store";
+import { UpdatingStatus } from "./UpdatingStatus";
 
 /** Rebuilding the scene on every drag sample would only queue loads; draw the newest after a pause. */
 const DRAFT_SETTLE_MS = 150;
@@ -21,11 +22,12 @@ export function LiveMotionOverlay({ projectId, playheadSec }: { projectId: strin
   const nextId = useRef(0);
   const offset = useRef(0);
 
-  const time = draft ? playheadSec - draft.window.start + draft.window.sourceStart : 0;
   const inside = draft != null && playheadSec >= draft.window.start && playheadSec < draft.window.start + draft.window.duration;
+  // Off the clip the draft waits at its nearest end, loaded, so a replay shows it from the clip's first frame.
+  const time = draft ? Math.min(Math.max(playheadSec - draft.window.start, 0), draft.window.duration) + draft.window.sourceStart : 0;
   offset.current = time;
 
-  const src = draft && inside
+  const src = draft
     ? `/api/projects/${encodeURIComponent(projectId)}/hyperframes/live/${encodeURIComponent(draft.compositionId)}/index.html?values=${encodeURIComponent(JSON.stringify(draft.values))}`
     : null;
 
@@ -47,9 +49,15 @@ export function LiveMotionOverlay({ projectId, playheadSec }: { projectId: strin
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
-      if ((event.data as { type?: string } | null)?.type !== "dreamcut-live-ready") return;
+      const type = (event.data as { type?: string } | null)?.type;
+      if (type !== "dreamcut-live-ready" && type !== "dreamcut-live-failed") return;
       const id = [...refs.current].find(([, element]) => element.contentWindow === event.source)?.[0];
       if (id === undefined) return;
+      if (type === "dreamcut-live-failed") {
+        // Nothing drew: drop it and any older draft, so the rendered clip shows and is named as such.
+        setFrames((current) => current.filter((frame) => frame.id > id));
+        return;
+      }
       refs.current.get(id)?.contentWindow?.postMessage({ type: "dreamcut-live-seek", t: offset.current }, "*");
       // Show it a frame later, once the seeked picture is drawn, and drop the one it replaces.
       requestAnimationFrame(() => setFrames((current) => current.flatMap((frame) => frame.id === id ? [{ ...frame, ready: true }] : frame.id > id ? [frame] : [])));
@@ -62,18 +70,24 @@ export function LiveMotionOverlay({ projectId, playheadSec }: { projectId: strin
     for (const element of refs.current.values()) element.contentWindow?.postMessage({ type: "dreamcut-live-seek", t: time }, "*");
   }, [time, frames]);
 
-  if (!frames.length) return null;
+  const drawing = inside && frames.some((frame) => frame.ready);
+  const status = draft?.rendering
+    ? <UpdatingStatus className="absolute left-3 top-3 z-[1] bg-[var(--popover)] shadow-sm">{!inside ? "Updating" : drawing ? "Updating · showing a preview" : "Updating · showing the previous version"}</UpdatingStatus>
+    : null;
+  if (!frames.length) return status ? <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>{status}</div> : null;
   return (
-    <div aria-hidden data-live-motion style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+    <div data-live-motion style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+      {status}
       {frames.map((frame) => (
         <iframe
           key={frame.id}
           ref={(element) => { if (element) refs.current.set(frame.id, element); else refs.current.delete(frame.id); }}
           srcDoc={frame.html}
           title="Live preview"
+          aria-hidden
           sandbox="allow-scripts"
           tabIndex={-1}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, background: "transparent", colorScheme: "normal", visibility: frame.ready ? "visible" : "hidden" }}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, background: "transparent", colorScheme: "normal", visibility: frame.ready && inside ? "visible" : "hidden" }}
         />
       ))}
     </div>

@@ -40,7 +40,7 @@ export const NON_RENDERING_ELEMENT_PROPS: ReadonlySet<string> = new Set([
   // Audio-only data (handled by the shared audio mixer)
   "detached_audio_original_volume", "detached_audio_original_volume_envelope",
   "follows_visual", "motion_timing", "ripple_after", "voice_enhancement", "voice_enhancement_original_source_url", "voice_enhancement_original_preview_audio_source_url",
-  "voice_enhancement_original_render_authority_source_url", "speech_sync_binding",
+  "voice_enhancement_original_render_authority_source_url", "speech_sync_binding", "pitch_semitones",
   // Placement relations (placement-relation.ts) resolve into absX/absY or media offsets before drawing
   "place",
   // Caption review, alignment and timing records (applied by speech sync and the caption resolver)

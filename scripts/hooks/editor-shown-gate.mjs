@@ -32,7 +32,11 @@ const blocks = entry => {
 };
 
 // The turn starts at the creator's latest own message (not a tool result or injected skill text).
-const isPrompt = entry => entry.type === "user" && !entry.isMeta && blocks(entry).some(b => b.type === "text");
+// A background task's notification or a subagent's hand-back arrives as a user entry too; its
+// origin says it was not the creator, so it does not start a new turn.
+const isPrompt = entry => entry.type === "user" && !entry.isMeta
+  && (!entry.origin?.kind || entry.origin.kind === "human")
+  && blocks(entry).some(b => b.type === "text");
 
 export function judge(transcript, finalText) {
   const start = transcript.findLastIndex(isPrompt);

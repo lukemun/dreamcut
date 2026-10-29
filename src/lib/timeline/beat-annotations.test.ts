@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { adjacentMusicalBeats, beatAnnotationSchema, projectBeatAnnotation, projectHitAnnotation, type BeatAnnotation } from "./beat-annotations";
+import { adjacentMusicalBeats, beatAnnotationSchema, projectBeatAnnotation, projectDownbeats, projectDrops, projectHitAnnotation, type BeatAnnotation } from "./beat-annotations";
 const annotation: BeatAnnotation = { schema_version: 1, source_sha256: "a".repeat(64), recipe: "test", analyzed_at: "2026-09-20", source_duration_seconds: 10, tempo_bpm: 120, tempo_confirmed: false, beats_seconds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], downbeats: "unknown" };
 const clip = { type: "music", timeline_start: 20, duration: 3, trim_start: 2, trim_end: 2, playback_rate: 2, props: {} };
 test("source annotation follows placement, trims and speed without mutation", () => {
@@ -40,4 +40,16 @@ test("next/previous beat skip every annotation on the currently displayed frame"
   assert.equal(adjacentMusicalBeats(beats, 100 / 30).next?.time, 3.95);
   assert.equal(adjacentMusicalBeats(beats, 100 / 30).previous, undefined);
   assert.equal(adjacentMusicalBeats(beats, 119 / 30).previous?.time, 3.344);
+});
+
+test("downbeats and drops follow the clip clock; older maps have none", () => {
+  const v3 = beatAnnotationSchema.parse({ ...annotation, schema_version: 3, hits: [], tempo_hint_bpm: 120, beat_source: "fixed_tempo_fit", grid_strength: 0.8,
+    downbeats: { meter: 4, seconds: [0, 4, 8], confidence: 0.6 }, drops: [{ time_seconds: 4, bass_rise_db: 12, level_rise_db: 3 }, { time_seconds: 9, bass_rise_db: 10, level_rise_db: 1 }] });
+  // Source 2–8 s plays at 20–23 s; the bar at 0 s is trimmed off and the one at 8 s is past the end.
+  assert.deepEqual(projectDownbeats(clip, v3), [{ source_time: 4, time: 21, bar: 1 }]);
+  assert.deepEqual(projectDrops(clip, v3), [{ source_time: 4, time: 21, time_seconds: 4, bass_rise_db: 12, level_rise_db: 3 }]);
+  assert.deepEqual(projectDownbeats(clip, annotation), []);
+  assert.deepEqual(projectDrops(clip, annotation), []);
+  assert.throws(() => beatAnnotationSchema.parse({ ...v3, downbeats: { meter: 4, seconds: [4, 0], confidence: 0.6 } }));
+  assert.throws(() => beatAnnotationSchema.parse({ ...v3, drops: [{ time_seconds: 12, bass_rise_db: 9, level_rise_db: 0 }] }));
 });

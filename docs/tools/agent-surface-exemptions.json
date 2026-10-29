@@ -94,6 +94,18 @@
       "line_contains": "pnpm frame-state <id> --proposal-file",
       "missing": "run_instrument frame-state with --proposal-file and --option (it refuses proposal files today)",
       "reason": "Checking a zoom card's mid-ease framing before posting needs the card rendered as it would apply; timeline_evidence can show such a report but nothing on the MCP surface makes one. Recorded from the 2026-10-27 dreamcut-tutorial retro."
+    },
+    {
+      "skill": "effect-authoring",
+      "line_contains": "pnpm frame-state <copy> --proposal-file",
+      "missing": "run_instrument frame-state with --proposal-file and --option (it refuses proposal files today)",
+      "reason": "Same gap as color-grading: checking landing frames on a pending card needs the card rendered as it would apply. Recorded from the 2026-10-28 speed hops session retro."
+    },
+    {
+      "skill": "effect-authoring",
+      "line_contains": "pnpm eval:case",
+      "missing": "Running an effect's one-click eval as a tool",
+      "reason": "Eval runs start a separate model session against private fixtures from the repository checkout; that is coding-workflow work, not something the in-editor agent does while editing."
     }
   ]
 }

@@ -1,17 +1,16 @@
 "use client";
 
 import { PageHeader } from "@/components/ui/page-header";
-import { useRouter } from "next/navigation";
 import { GuideOverview } from "./GuideOverview";
 
-export function GuideCatalog({ dashboard = false, projectId }: { dashboard?: boolean; projectId: string; projectTitle: string; }) {
-  const router = useRouter();
+/** Guide, with or without a project open: the tour makes its own practice project. */
+export function GuideCatalog({ dashboard = false, projectId }: { dashboard?: boolean; projectId?: string }) {
+  const project = projectId ? `&project=${encodeURIComponent(projectId)}` : "";
   return <>
     <PageHeader id="guide-title" title="Guide" />
     <div className="memory-body memory-page-body guide-page-body"><div className="guide-catalog-shell">
-      <GuideOverview projectId={projectId}
-        onShowEffects={() => router.push(`/?view=templates&project=${encodeURIComponent(projectId)}`)}
-        onShowSkills={() => router.push(dashboard ? `/?view=user&project=${encodeURIComponent(projectId)}&tab=skills` : `/p/${projectId}/user?tab=skills`)} />
+      <GuideOverview templatesHref={`/?view=templates${project}`}
+        skillsHref={projectId ? dashboard ? `/?view=user${project}&tab=skills` : `/p/${projectId}/user?tab=skills` : undefined} />
     </div></div>
   </>;
 }

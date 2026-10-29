@@ -43,7 +43,8 @@ export type RenderInput = {
   renderScale?: number;
   /** Delivery resolution by short side. Below the canonical canvas the encoder downscales full-size frames. */
   resolution?: ExportResolution;
-  /** "hdr": 10-bit HLG BT.2020 (VP9 in MP4) for HDR platforms such as YouTube; needs the GPU backend. */
+  /** "hdr": 10-bit HLG BT.2020 (VP9 in MP4); needs the GPU backend. Only for mostly-HDR camera footage: SDR
+   * pictures sit at HLG reference white and look dim on many HDR screens (see render/dynamic-range.ts). */
   dynamicRange?: "sdr" | "hdr";
   /** Export pages run side by side (GPU segments, audio and Standard frames). Omit to size it to this computer. */
   concurrency?: number;

@@ -24,11 +24,16 @@ export const agentHost = (env = process.env) => (env.CLAUDECODE ? 'Claude' : env
 /** A packaged runtime ships its production build and config; a checkout runs in development mode. */
 export const isPackagedRuntime = (root = EDITOR_ROOT) => fs.existsSync(path.join(root, 'desktop-next-config.json'));
 /**
- * Settings shared by the editor service and the MCP server, so both resolve projects identically: until a
- * Library is chosen, a packaged runtime keeps projects in app data, never inside itself.
+ * Settings shared by the editor service and the MCP server, so both resolve projects and feature programs
+ * identically: until a Library is chosen, a packaged runtime keeps projects in app data, never inside itself.
  */
 export function runtimeEnvDefaults(root = EDITOR_ROOT, env = process.env) {
-  if (!isPackagedRuntime(root)) return {};
+  if (!isPackagedRuntime(root)) {
+    // A git install runs `dreamcut setup` by hand. Its programs come after the system's own, and Python and MFA are
+    // named only once setup installed them, so a checkout's own python3 and mfa keep working until then.
+    return Object.fromEntries(Object.entries(featureToolEnv(env))
+      .filter(([key, value]) => !['MFA_BIN', 'DREAMCUT_PYTHON'].includes(key) || fs.existsSync(value)));
+  }
   return {
     ...(!env.DREAMCUT_DEFAULT_PROJECTS_DIR ? { DREAMCUT_DEFAULT_PROJECTS_DIR: path.join(appDataRoot(env), 'projects') } : {}),
     // Subject tracing lives in app data too, so it survives runtime updates (`dreamcut setup-matting`).

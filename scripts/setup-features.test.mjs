@@ -35,6 +35,28 @@ test('the background setup starts only when something is missing, not while one 
   }
 });
 
+test('a git install finds what `dreamcut setup` installed, after its own programs', async () => {
+  const { runtimeEnvDefaults } = await import('../mcp/editor-runtime.mjs');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'checkout-'));
+  const tools = fs.mkdtempSync(path.join(os.tmpdir(), 'checkout-tools-'));
+  try {
+    const env = { PATH: '/opt/homebrew/bin:/usr/bin', DREAMCUT_TOOLS_DIR: tools };
+    const paths = featureToolPaths(process.platform, env);
+    const before = runtimeEnvDefaults(root, env);
+    assert.deepEqual(before.PATH.split(path.delimiter).slice(0, 2), ['/opt/homebrew/bin', '/usr/bin'], "the system's programs stay first");
+    assert.ok(before.PATH.includes(paths.pathDirs[0]), "setup's programs follow");
+    assert.equal(before.DREAMCUT_PYTHON, undefined, 'python3 stays the default until setup installed one');
+    assert.equal(before.MFA_BIN, undefined, 'mfa stays the default until setup installed one');
+    fs.mkdirSync(path.dirname(paths.program('python')), { recursive: true });
+    fs.writeFileSync(paths.program('python'), '');
+    assert.equal(runtimeEnvDefaults(root, env).DREAMCUT_PYTHON, paths.program('python'));
+    assert.equal(runtimeEnvDefaults(root, env).DREAMCUT_DEFAULT_PROJECTS_DIR, undefined, 'a checkout keeps its own project folder');
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+    fs.rmSync(tools, { recursive: true, force: true });
+  }
+});
+
 test("an installed runtime's own FFmpeg comes first on PATH", async () => {
   const { runtimeEnvDefaults } = await import('../mcp/editor-runtime.mjs');
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'runtime-media-'));

@@ -1,0 +1,54 @@
+{
+  "rights": "owned",
+  "credit": "Subject and footage: the DreamCut owner, filmed by them and shown by their choice (2026-10-29). Effect after \"The Flash Effect\" by futurist__ (Marvin Appiah Korang).",
+  "footage": [
+    {
+      "role": "One locked-off take: an empty path, then the owner walking toward the camera (the same take as Speed hops); seven poses flash in, then 0.47 s of the live take",
+      "license": "Owned"
+    }
+  ],
+  "fps": 30,
+  "frames": 42,
+  "width": 720,
+  "height": 1280,
+  "teachingNote": "Normal speed; a new pose every 4 frames, each white for one frame, the last at the camera, then the take goes live.",
+  "receipt": {
+    "construction": "flash_sequence card (seven poses, 4 frames apart, defaults) staged unposted on disposable copy flash-effect-check-20261029 of project clone-glitch-tutorial, rendered 8.0-9.4 s with the production browser GPU compositor (scripts/render-preview.ts, scale 0.6667, --proposal-file), then H.264 CRF 28 without audio: the shutter click is a members sound in the DreamCut library, not redistributed here. Poster at 0.8 s; stages at 0, 0.05, 0.4 and 1.2 s. The supplied take is the Speed hops demo take (/recipe-previews/speed-hops-to-camera/inputs/take.mp4). The prepared cut-out is frame 6 of SAM 2 cut-out 66a2daaf (source 38.8-39.4 s)."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/speed-hops-to-camera/inputs/take.mp4",
+      "sha256": "8bf68b6c3f8b78c61150df7b4bbafafd03a4f286cb1b8355a36742dd7116eb9a"
+    },
+    {
+      "file": "/recipe-previews/flash-effect/inputs/cutout.png",
+      "sha256": "7858fe15e875893668744888a0846b7e62f81a42aba801401b2b2f5934a0fd37"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "7207d8dd764d29d1df490397d8babdb7b23f188e6aac8f2955a0c3057ef0308d"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "3b0edec582c3c37b69b0178f5e5c278904431d8b1746adf1ee1db4701f84277b"
+    },
+    {
+      "file": "first-flash.jpg",
+      "sha256": "c6744475c6e48f47820df1d521fe01b2df8b632b2330cf6117b11549b6d7a7a2"
+    },
+    {
+      "file": "in-colour.jpg",
+      "sha256": "ab3590627908b48f950dba8e5474ccb0fcf223ea8bb52aa536f0cfae5257e55a"
+    },
+    {
+      "file": "next-flash.jpg",
+      "sha256": "c47c9c98e07624f3ee0c082ec00289d4625ce68747c8b5ab896fa8dbb88dcf30"
+    },
+    {
+      "file": "at-camera.jpg",
+      "sha256": "2749729cb21bd3eda091269a0ab36641e21e70680261f8b00782bf926ad5c7fe"
+    }
+  ]
+}

@@ -73,6 +73,7 @@ import { PLACE_PROP, PLACEMENT_ALIGNS, PLACEMENT_GAP, PLACEMENT_SIDES, canFollow
 import { syncTransitionsForElements } from "@/lib/local-store/transition-sync";
 import { withPreparedPictureSize } from "@/lib/local-store/prepared-picture-size";
 import { MAX_ABS_GAIN } from "@/lib/timeline/audio-gain";
+import { PITCH_ELEMENT_TYPES, PITCH_SEMITONES_MAX, PITCH_SEMITONES_MIN } from "@/lib/timeline/audio-pitch";
 import { ANIMATION_PRESETS } from "@/lib/timeline/animation-presets";
 import {
   CAPTION_ABS_POSITION_REACH,
@@ -399,6 +400,7 @@ export const editorAgentPropsSchema = z.object({
   benchmarkStackLayout: editorAgentBenchmarkStackLayoutSchema.optional(),
   absX: finite.min(CAPTION_ABS_POSITION_REACH.min).max(CAPTION_ABS_POSITION_REACH.max).optional(),
   absY: finite.min(CAPTION_ABS_POSITION_REACH.min).max(CAPTION_ABS_POSITION_REACH.max).optional(),
+  pitch_semitones: finite.min(PITCH_SEMITONES_MIN).max(PITCH_SEMITONES_MAX).describe("Voice pitch in semitones without changing speed or timing, for a clip's own sound (video clips and voiceover): 0 = as recorded, negative = deeper (-3 is a noticeably lower voice), positive = higher, up to one octave either way.").optional(),
   volume_envelope: z.array(z.object({
     time_seconds: finite.min(0).max(3_600),
     volume: finite.min(0).max(4),
@@ -1055,6 +1057,10 @@ const editorAgentRemoveTextSchema = z.object({
   reason: z.string().trim().min(1).max(500),
 }).strict();
 
+const editorAgentRemoveAudioSchema = z.object({
+  reason: z.string().trim().min(1).max(500).describe("Why the clip goes, shown on the card's removal row."),
+}).strict().describe("Retire a music or sound-effect clip, for example the old song when a card swaps the music; speech is never removed this way.");
+
 const editorAgentSetLaneOrderSchema = z.object({
   lane_order_keys: z.array(
     z.string().min(1).max(128).regex(/^[a-z0-9_:-]+$/),
@@ -1162,6 +1168,7 @@ export const editorAgentOperationSchema = z.object({
   create_shape: editorAgentCreateShapeSchema.describe("Add a rectangle or ellipse on a visual lane: boxes, bars, underlines, rings, circles and shockwaves. Every shape is its own editable element.").optional(),
   remove_visual: editorAgentRemoveVisualSchema.optional(),
   remove_text: editorAgentRemoveTextSchema.optional(),
+  remove_audio: editorAgentRemoveAudioSchema.optional(),
   set_lane_order: editorAgentSetLaneOrderSchema.optional(),
   set_output_format: editorAgentSetOutputFormatSchema.optional(),
   opening_sequence_edit: editorAgentOpeningSequenceEditSchema.optional(),
@@ -1206,6 +1213,7 @@ export const editorAgentOperationSchema = z.object({
     + Number(operation.create_shape != null)
     + Number(operation.remove_visual != null)
     + Number(operation.remove_text != null)
+    + Number(operation.remove_audio != null)
     + Number(operation.set_lane_order != null)
     + Number(operation.set_output_format != null)
     + Number(operation.opening_sequence_edit != null)
@@ -1250,6 +1258,7 @@ export function countOperationMutations(operations: readonly z.infer<typeof edit
     + Object.keys(operation.create_shape ?? {}).length
     + Number(operation.remove_visual != null)
     + Number(operation.remove_text != null)
+    + Number(operation.remove_audio != null)
     + Number(operation.set_lane_order != null)
     + Number(operation.set_lane_order?.muted_lane_keys != null)
     + Object.keys(operation.set_output_format ?? {}).length
@@ -1929,6 +1938,9 @@ function validateOperationAgainstElement(
     // A microsecond of slack: clip lengths carry float noise (24.19999999999999 for 24.2), and a key at the end is valid.
     if (Object.values(transitionPoints).some(points => points?.some(point => point.t > duration + 1e-6))) throw new Error("Transition keyframes must fit within the clip duration");
   }
+  if (operation.props?.pitch_semitones !== undefined && !PITCH_ELEMENT_TYPES.has(element.type)) {
+    throw new Error("Pitch changes a video clip's or voiceover's own sound; this clip has none");
+  }
   const reverse = operation.props?.playback_reverse;
   if (reverse !== undefined) {
     if (element.type !== "video_clip") throw new Error("Reverse requires a video clip");
@@ -2443,6 +2455,15 @@ function validateOperationAgainstTimeline(operation: EditorAgentOperation, timel
     }
     if (element.type !== "caption_text") {
       throw new Error("Only caption text elements can use remove_text");
+    }
+    return;
+  }
+  if (operation.remove_audio) {
+    if (!element || element.removed_at != null) {
+      throw new Error(`Audio element is missing or already removed: ${operation.element_id}`);
+    }
+    if (element.type !== "music" && element.type !== "sound_effect") {
+      throw new Error("Only music and sound-effect clips can use remove_audio");
     }
     return;
   }
@@ -4086,7 +4107,7 @@ function deriveSharingRows(
  */
 const ROW_SCOPED_OPERATION_FIELDS = new Set([
   "type", "element_id", "rationale", "patch", "props", "clear_patch", "clear_props",
-  "create_transition", "create_audio", "create_visual", "create_text", "create_shape", "remove_visual", "remove_text",
+  "create_transition", "create_audio", "create_visual", "create_text", "create_shape", "remove_visual", "remove_text", "remove_audio",
   "set_lane_order", "set_output_format", "set_preview_audio_source", "use_video_stabilization", "use_recast", "use_voice_enhancement",
 ]);
 const CAPTION_FOLLOWED_TYPES = new Set(["vo_segment", "vo_full", "video_clip"]);
@@ -4232,6 +4253,16 @@ function deriveProposalTimelineAtRate(
         const now = new Date().toISOString();
         element.removed_at = now;
         element.removed_reason = `proposal_text_remove:${operation.remove_text.reason}`;
+        element.updated_at = now;
+        touched.push(element.id);
+        continue;
+      }
+      if (operation.remove_audio) {
+        const element = own(findElement(draft, operation.element_id));
+        if (!element) throw new Error(`Timeline element not found: ${operation.element_id}`);
+        const now = new Date().toISOString();
+        element.removed_at = now;
+        element.removed_reason = `proposal_audio_remove:${operation.remove_audio.reason}`;
         element.updated_at = now;
         touched.push(element.id);
         continue;

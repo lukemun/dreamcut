@@ -470,6 +470,14 @@
         {
           "value": "slide",
           "label": "Slide"
+        },
+        {
+          "value": "whip",
+          "label": "Whip"
+        },
+        {
+          "value": "punch",
+          "label": "Slam"
         }
       ]
     },
@@ -496,6 +504,16 @@
       "default": 100,
       "min": 50,
       "max": 150,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "id": "y",
+      "kind": "number",
+      "label": "Height",
+      "default": 50,
+      "min": 0,
+      "max": 100,
       "step": 1,
       "unit": "%"
     },
@@ -545,6 +563,258 @@
       "max": 10,
       "step": 0.1,
       "unit": "s"
+    },
+    {
+      "id": "leave",
+      "kind": "choice",
+      "label": "Leaving",
+      "default": "fade",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "whip",
+          "label": "Whip out"
+        },
+        {
+          "value": "zoom",
+          "label": "Zoom through"
+        },
+        {
+          "value": "collapse",
+          "label": "Collapse"
+        }
+      ]
+    },
+    {
+      "id": "leave_time",
+      "kind": "number",
+      "label": "Leaving time",
+      "default": 0.2,
+      "min": 0.05,
+      "max": 1,
+      "step": 0.01,
+      "unit": "s"
+    },
+    {
+      "id": "whip_from",
+      "kind": "choice",
+      "label": "Whip from",
+      "default": "right",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "below",
+          "label": "Below"
+        },
+        {
+          "value": "above",
+          "label": "Above"
+        },
+        {
+          "value": "turns",
+          "label": "Each side in turn"
+        }
+      ]
+    },
+    {
+      "id": "overshoot",
+      "kind": "number",
+      "label": "Overshoot",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "smear",
+      "kind": "number",
+      "label": "Smear",
+      "default": 0,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "echoes",
+      "kind": "number",
+      "label": "Echoes",
+      "default": 0,
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "copies"
+    },
+    {
+      "id": "echo_gap",
+      "kind": "number",
+      "label": "Echo gap",
+      "default": 0.03,
+      "min": 0.01,
+      "max": 0.15,
+      "step": 0.005,
+      "unit": "s"
+    },
+    {
+      "id": "echo_style",
+      "kind": "choice",
+      "label": "Echo style",
+      "default": "outline",
+      "options": [
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ]
+    },
+    {
+      "id": "stretch",
+      "kind": "number",
+      "label": "Stretch",
+      "default": 100,
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "drift",
+      "kind": "number",
+      "label": "Drift",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "camera",
+      "kind": "choice",
+      "label": "Camera",
+      "default": "push",
+      "options": [
+        {
+          "value": "push",
+          "label": "Push in"
+        },
+        {
+          "value": "pull",
+          "label": "Pull out"
+        },
+        {
+          "value": "beat",
+          "label": "Push each word"
+        },
+        {
+          "value": "pan",
+          "label": "Pan"
+        },
+        {
+          "value": "float",
+          "label": "Float"
+        }
+      ]
+    },
+    {
+      "id": "kick",
+      "kind": "number",
+      "label": "Hit shake",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "hero_words",
+      "kind": "text",
+      "label": "3D words",
+      "default": "",
+      "max_length": 60
+    },
+    {
+      "id": "hero",
+      "kind": "choice",
+      "label": "3D move",
+      "default": "orbit",
+      "options": [
+        {
+          "value": "orbit",
+          "label": "Turn"
+        },
+        {
+          "value": "fly",
+          "label": "Fly through"
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "kind": "number",
+      "label": "Turn",
+      "default": 0,
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "°"
+    },
+    {
+      "id": "depth",
+      "kind": "number",
+      "label": "Depth",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+    {
+      "id": "flip_words",
+      "kind": "text",
+      "label": "Flip words",
+      "default": "",
+      "max_length": 60
+    },
+    {
+      "id": "flip_ground",
+      "kind": "choice",
+      "label": "Flip colour",
+      "default": "accent",
+      "options": [
+        {
+          "value": "accent",
+          "label": "Accent"
+        },
+        {
+          "value": "ink",
+          "label": "Ink"
+        }
+      ]
+    },
+    {
+      "id": "motion_blur",
+      "kind": "number",
+      "label": "Motion blur",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
     },
     {
       "id": "own_accent",
@@ -603,5 +873,6 @@
       }
     }
   },
-  "opaque_control": "backdrop"
+  "opaque_control": "backdrop",
+  "motion_blur_control": "motion_blur"
 }

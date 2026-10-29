@@ -1,6 +1,6 @@
 ---
 name: beat-aligned-cuts
-description: Align visual cuts, sprite poses, or graphic state changes to selected musical hits in DreamCut. Use for drum drops, melody runs, marked rhythm hits, or beat-synced edits; music selection and spoken-word timing use their own skills.
+description: Align visual cuts, sprite poses, or graphic state changes to musical hits, bar starts or drops in DreamCut. Use for drum drops, melody runs, marked rhythm hits, "cut on the bar", "land it on the drop", or beat-synced edits; music selection and spoken-word timing use their own skills.
 ---
 
 # Beat-aligned cuts
@@ -14,6 +14,17 @@ Read [dreamcut-proposals](../dreamcut-proposals/SKILL.md) before timeline work. 
 - Use the user-specified snapshot when named; otherwise use the current applied choices. Preserve its settings, source/recipe identity, snapshot range, and hit positions in the edit evidence. An empty marked list means no chosen hits, not permission to use all detections. An absent list is a legacy filter-based set, not an explicit selection.
 - Resolve keys with the canonical helpers in `src/lib/timeline/instrument-analysis.ts`. Match instrument plus source time, not rounded display labels. The `other` lane is melody/other; do not treat detector labels as proof of a specific instrument. If a key no longer resolves, report it rather than substituting another attack.
 - Sort by source time: marks may have been clicked out of order. Keep simultaneous attacks from different instruments distinct until the edit's grouping rule is established. Do not replace chosen attacks with a regular BPM grid or run fresh analysis unnecessarily.
+
+## Bars and drops when no hits are marked
+
+When the request is about bars or the drop ("cut on every bar", "land the reveal on the drop") and the creator has not marked hits, use the saved rhythm map: `beat_grid_get` returns `downbeats` (bar starts) and `drops` already projected through the clip's clock, beside `annotation.beat_source`, `grid_strength` and `downbeats.confidence`. If it has no downbeats (missing or older map), call `beat_annotation_prepare` once.
+
+- **Stated tempo.** When the creator, a generated track's prompt or the catalog states the tempo, pass it as `expected_bpm`. A constant grid fitted near it replaces the tracked beats only when it fits better (`beat_source: "fixed_tempo_fit"`); `"tracker"` after a hint means the track drifts, so say so rather than forcing the stated tempo. Never invent a hint.
+- **Bars.** Downbeats assume 4/4 from one bar phase for the whole track. Below about 0.3 confidence, or on music with pickups or meter changes, tell the creator which beat you took as "one" and let them correct it before cutting on bars.
+- **Drops.** A drop is a bar start where the bass (or the whole mix) is much louder over the next two bars than the two before; `bass_rise_db` and `level_rise_db` say how much. A build's peak or a breakdown's return can qualify too, so name the one you chose by its time and rise. No drop listed is a valid result, not a reason to pick the loudest beat.
+- **Placing music on a planned drop.** To land a drop on a planned timeline time, trim the music so `trim-in = drop source time - planned offset × playback rate`, and check the projected drop in `beat_grid_get` after the proposal derives it.
+
+Bars and drops come from analysis, not the creator's choice: record which ones you used and why in the cut map, and they never override marked hits.
 
 ## Build a hit-to-state map
 

@@ -58,9 +58,9 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
   const catalog = view === "templates" ? await galleryTemplates() : null;
   const project = projects.find(project => project.id === query.project) ?? projects[0];
   return <ProjectsDashboard projects={projects} drafts={view === "dashboard" ? readDrafts() : []} view={view} projectId={project?.id}>
-    {(view === "guide" || view === "user") && !project ? <div className="dashboard-empty"><h1>{view === "guide" ? "Guide" : "User"}</h1><p>No projects yet.</p></div> : null}
+    {view === "user" && !project ? <div className="dashboard-empty"><h1>User</h1><p>No projects yet.</p></div> : null}
     {catalog && <section className="editor-chrome memory-page" aria-labelledby="templates-title"><div className="memory-body memory-page-body guide-page-body"><div className="guide-catalog-shell"><TemplatesCatalog effects={catalog.effects} warning={catalog.warning} homeHref={project ? `/?project=${encodeURIComponent(project.id)}` : "/"}/></div></div></section>}
     {view === "user" && project && <EditingMemoryPage key={project.id} projectId={project.id} projectTitle={project.title} dashboard />}
-    {view === "guide" && project && <GuidePageContent params={Promise.resolve({ projectId: project.id })} dashboard />}
+    {view === "guide" && <GuidePageContent params={Promise.resolve({ projectId: project?.id })} dashboard />}
   </ProjectsDashboard>;
 }

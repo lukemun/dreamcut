@@ -183,7 +183,7 @@ import {
 import type { FrameTag, FrameTagPoint, FrameTagsResponse } from "@/lib/review/frame-tag-types";
 import type { HistoryEntry } from "@/components/studio/timeline/useTimelineHistory";
 import type { PreviewAspectRatio, TimelineElement } from "@/components/studio/timeline/types";
-import { pendingProposalClips } from "@/components/studio/timeline/pending-proposal-clips";
+import { pendingProposalClipsWanted, pendingProposalView } from "@/components/studio/timeline/pending-proposal-clips";
 import {
   resolveTimelineWorkspaceProfile,
   type TimelineWorkspaceProfileId,
@@ -1686,8 +1686,8 @@ export function TimelineStep({
     setReviewDrawerOpen(false);
   }, [setReviewDrawerOpen]);
 
-  // The Review drawer is a view onto proposal state, not the owner of it; but a preview never outlives it:
-  // closing the drawer ends the preview (see the effect beside pending clips), and Back to live exits it too.
+  // The Review drawer is a view onto proposal state, not the owner of it: closing it leaves a running preview
+  // live (see the effect beside pending clips); the Preview pill's ✕ and Back to live end it.
   useEffect(() => {
     if (!capabilities.proposals || !reviewDrawerOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -2373,25 +2373,26 @@ export function TimelineStep({
     [compositionDimensions, proposalPreviewAspectRatio],
   );
 
-  // Pending clips: while Proposals is open and nothing is previewing, the timeline shows what the checked
-  // edits would add (faint, not selectable) and dims the clips they would replace. Same derivation as
-  // Preview; nothing is written.
+  // Pending clips: whenever nothing is previewing, the timeline shows what the checked edits would add
+  // (faint, not selectable, on any new lane they need) and dims the clips they would replace, whether or not
+  // Proposals is open: closing the drawer must leave a card's lane in view (owner, 2026-10-28). Same
+  // derivation as Preview; nothing is written.
   const [checkedProposals, setCheckedProposalsState] = useState<ProposalOptionSelection[]>([]);
   const setCheckedProposals = useCallback((selections: ProposalOptionSelection[]) => {
     setCheckedProposalsState((current) => JSON.stringify(current) === JSON.stringify(selections) ? current : selections);
   }, []);
-  // A proposal preview is only ever on the timeline with Proposals open (owner decision 2026-10-27): starting
-  // one opens the drawer, and closing the drawer (Escape, its close button, Library, the dock's Chat) ends it.
-  const reviewWasOpenRef = useRef(reviewDrawerOpen);
+  // Starting a proposal preview opens Proposals; closing the drawer (Escape, its button, Library, the dock's Chat)
+  // leaves the preview live on the timeline (owner, 2026-10-29, replacing the 2026-10-27 rule that closing ended
+  // it). The Preview pill's ✕ and Back to live end it; the Proposals button shows proposal mode meanwhile.
+  const previewWasActiveRef = useRef(proposalPreviewSelection != null);
   useEffect(() => {
-    const closed = reviewWasOpenRef.current && !reviewDrawerOpen;
-    reviewWasOpenRef.current = reviewDrawerOpen;
-    if (!capabilities.proposals || !proposalPreviewSelection) return;
-    if (closed) exitProposalPreview();
-    else if (!reviewDrawerOpen) setReviewDrawerOpen(true);
-  }, [capabilities.proposals, exitProposalPreview, proposalPreviewSelection, reviewDrawerOpen, setReviewDrawerOpen]);
+    const started = !previewWasActiveRef.current && proposalPreviewSelection != null;
+    previewWasActiveRef.current = proposalPreviewSelection != null;
+    if (capabilities.proposals && started && !reviewDrawerOpen) setReviewDrawerOpen(true);
+  }, [capabilities.proposals, proposalPreviewSelection, reviewDrawerOpen, setReviewDrawerOpen]);
   const [pendingDraft, setPendingDraft] = useState<{ elements: TimelineElement[]; laneOrderKeys: string[] } | null>(null);
-  const pendingDraftWanted = capabilities.proposals && reviewDrawerOpen && !proposalPreviewSelection && checkedProposals.length > 0;
+  // Fetched during a preview too, so the pending lane is already there the moment the preview ends.
+  const pendingDraftWanted = pendingProposalClipsWanted({ proposals: capabilities.proposals, checkedCount: checkedProposals.length });
   // Fetch keys are strings, so a re-render that only rebuilds arrays never refetches the draft.
   const checkedProposalsKey = JSON.stringify(checkedProposals);
   const liveElementsKey = useMemo(() => elements.map((element) => `${element.id}:${element.updated_at ?? ""}:${element.removed_at ?? ""}`).join("|"), [elements]);
@@ -2423,15 +2424,7 @@ export function TimelineStep({
   }, [checkedProposalsKey, liveElementsKey, pendingDraftWanted]);
   const pendingView = useMemo(() => {
     if (!pendingDraft || !pendingDraftWanted) return null;
-    const { added, addedIds, outgoingIds: outgoing } = pendingProposalClips(elements, pendingDraft.elements);
-    if (added.length === 0 && outgoing.size === 0) return null;
-    const combined = [...elements, ...added];
-    // Lanes follow the draft's order; lanes the timeline already has keep their own settings.
-    const liveLaneByKey = new Map(lanes.map((lane) => [lane.key, lane]));
-    const draftLanes = buildLaneDefs(combined.filter((element) => !element.removed_at), new Map(), laneScale, {}, pendingDraft.laneOrderKeys);
-    const merged = draftLanes.map((lane) => liveLaneByKey.get(lane.key) ?? lane);
-    for (const lane of lanes) if (!merged.some((candidate) => candidate.key === lane.key)) merged.push(lane);
-    return { elements: combined, lanes: merged, pendingIds: addedIds, outgoingIds: outgoing };
+    return pendingProposalView({ live: elements, lanes, draft: pendingDraft, laneScale });
     // Keyed by content, not array identity: the timeline gets the same arrays until something really changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liveElementsKey, lanes, laneScale, pendingDraft, pendingDraftWanted]);
@@ -2681,6 +2674,9 @@ export function TimelineStep({
       proposalsOpen={reviewDrawerOpen}
       mediaOpen={libraryDrawerOpen}
       proposalPreviewActive={proposalPreviewSelection != null}
+      // A live preview or checked cards still on the timeline with the drawer shut: the button says proposal mode is on.
+      proposalModeActive={!reviewDrawerOpen && (proposalPreviewSelection != null || pendingView != null)}
+      proposalsShownCount={checkedProposals.length}
       onReviewProposals={() => setReviewDrawerOpen(open => !open)}
       showProposals={!dock && (capabilities.proposals || takeAuditionCount > 0)}
       showEditorLayoutSwitcher={capabilities.editorLayoutSwitcher}
@@ -2824,7 +2820,7 @@ export function TimelineStep({
           externalSnapGuide={inspectorSnapGuide}
           onPxPerSecChange={setTimelinePxPerSec}
           onViewportHeightChange={setTimelineViewportHeight}
-          previewHighlightIds={proposalPreviewTouchedIds}
+          previewHighlightIds={proposalPreviewTouchedIds ?? (proposalPreviewTimelineElements ? null : pendingView?.changedIds ?? null)}
           onResizeBeatBoundary={(beatId, edge, boundarySec) => {
             void resizeBeatBoundary(beatId, edge, boundarySec);
           }}

@@ -4,7 +4,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { LoadingDots } from "@/components/ui/loading-dots";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { OptionSelect } from "@/components/ui/select";
 import { applyControlResets } from "@/lib/hyperframes/control-resets";
@@ -17,12 +16,14 @@ import { SliderScrubControl } from "./InspectorNumericControls";
 import { InspectorPropertyControl } from "./InspectorPropertyControl";
 import { InspectorColorField } from "./InspectorColorControl";
 import { motionControlTiers } from "./proposal-motion-groups";
+import { UpdatingStatus } from "./UpdatingStatus";
 import type { MotionRenderStatus, ProposalMotionControl, ProposalMotionItem, TimelineClient } from "./timeline-client";
 
 type Values = Record<string, string | number | boolean>;
 type Status = { state: "idle" } | { state: "rendering" } | { state: "failed"; message: string };
 
-const POLL_MS = 1_500;
+/** A status read is a small file read; a short interval shows the new render as soon as it lands. */
+const POLL_MS = 500;
 /** The viewer keeps drawing the draft briefly after a render lands, while the new clip loads. */
 const LIVE_HANDOFF_MS = 800;
 /** A color picker emits continuously while dragging; render once it settles. */
@@ -132,6 +133,7 @@ export function ProposalMotionControls({ item, title, proposalId, elementId, cli
     }
     inFlight.current = true;
     setStatus({ state: "rendering" });
+    liveMotionStore.setRendering(liveKey, true);
     try {
       const result = await client.renderMotionValues(item.id, {
         values: next,
@@ -148,6 +150,7 @@ export function ProposalMotionControls({ item, title, proposalId, elementId, cli
       const pending = queued.current;
       queued.current = null;
       if (pending && alive.current) void render(pending);
+      else liveMotionStore.setRendering(liveKey, false);
     }
   }
 
@@ -156,7 +159,7 @@ export function ProposalMotionControls({ item, title, proposalId, elementId, cli
     const next = applyControlResets(item.controls ?? [], values, { ...values, [control.id]: value });
     setValues(next);
     if (liveWindow && item.kind === "composition") {
-      if (differs(next, committed.current)) liveMotionStore.set({ key: liveKey, compositionId: item.id, values: next, window: liveWindow });
+      if (differs(next, committed.current)) liveMotionStore.set({ key: liveKey, compositionId: item.id, values: next, window: liveWindow, rendering: inFlight.current });
       else liveMotionStore.clear(liveKey);
     }
     if (commit) void render(next);
@@ -182,7 +185,7 @@ export function ProposalMotionControls({ item, title, proposalId, elementId, cli
       <InspectorItemHeader
         title={name}
         actions={status.state === "rendering"
-          ? <span role="status" className="inline-flex items-center gap-1.5 text-sm text-[var(--ink-muted)]">Updating <LoadingDots /></span>
+          ? <UpdatingStatus />
           : renderedUrl ? <span className="text-sm text-[var(--ink-muted)]">Updated</span> : null}
       />
       {tiers.main.length ? fields(tiers.main) : null}

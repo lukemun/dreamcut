@@ -627,7 +627,8 @@
       "tools": [
         "media_readiness",
         "asset_preparation_status",
-        "audio_waveform_prepare"
+        "audio_waveform_prepare",
+        "voice_enhancement_prepare"
       ],
       "owners": [
         "src/lib/local-store/media-preparation.ts",
@@ -640,7 +641,9 @@
         "src/lib/agent/media-readiness.ts",
         "src/lib/agent/preparation-jobs.ts",
         "src/lib/local-store/project-waveforms.ts",
-        "src/lib/local-store/prepare-waveform.ts"
+        "src/lib/local-store/prepare-waveform.ts",
+        "src/lib/agent/voice-enhancement-prepare.ts",
+        "src/lib/local-store/audio-effects.ts"
       ],
       "outcome": "Prepare, poll and retry an existing media asset",
       "authority": "Project-scoped cached preparation; respect optional analysis settings; no import or timeline mutation.",
@@ -654,7 +657,8 @@
         "preview preparation",
         "waveforms",
         "audio waveform",
-        "retry preparation"
+        "retry preparation",
+        "enhance voice on several clips"
       ],
       "editor_agent": {
         "access": "enabled"

@@ -135,3 +135,33 @@ holds without AI. Cut-out preparation and proposal mechanics stay with
   different effects (the shared one is a single entrance and exit), so it was put back.
 - **Verification:** The exit card was applied by the creator on their footage; its frames
   were not inspected by the agent. Fresh-footage reuse of the packaged effect is untested.
+
+## 2026-10-28 — "Speed hops to camera" is now "Speed hops"
+
+- **Observation:** The creator asked for the effect, its sounds, its workflow and this skill to call it simply "speed hops".
+- **Decision:** The template's title, prompt and docs say "Speed hops"; the skill names it as the Mark to mark variant's template and calls the tutorial sound set "the Speed hops sounds". The recipe id `FX-SPEED-HOPS-TO-CAMERA` and the `speed-hops-to-camera` preview paths stay, so saved links and anchors keep working. The sounds' own titles live in the members sound catalog and were not renamed.
+
+## 2026-10-28 — Speed hops in one card, with sound and plain dials
+
+- **Observation:** Applying Speed hops on the creator's take, the card arrived without its whooshes (sound was a later card) and with dials the creator could not read: "Variant… mark to mark, out and in… Travel, 100%. Empty beat. I don't understand these." The card had also defaulted to Out and in until the agent passed the variant by hand. They want a template to build and work in one click.
+- **Decision:** The `hop_sequence` block takes `template: "speed_hops"`, which fixes Mark to mark and leaves the style, distance, empty-scene and direction dials off the card (blocks can now hide a setting a template fixes), and `sounds`, which compiles a landing whoosh per hop locked to its streak in with a Sound volume dial (0 = off). Labels are plain: Hop length, Pause at stop, See-through while flying, Slow motion at stops, Speed-up and slow-down; "Every hop" is "All hops". Mark-to-mark defaults are 6-frame halves and 30% see-through (was 3 and 60%), so small far subjects stay visible. The template's prompt asks for that one card.
+- **Not done:** Measuring settle and takeoff frames and subject boxes is still the agent's work from `visual_activity_prepare`; no preparation tool does it yet.
+- **Verification:** Block tests cover hidden dials, each whoosh peaking on its landing frame, Sound volume 0 (silent, same clips) and the tightest pause and hop (whooshes trimmed so they never overlap). On a disposable copy of the creator's take the card staged with no dial errors, showing Sound volume, then Pause at stop, Hop length and Blur per hop, with three dials under Advanced adjustments. Rendered frames show the subject visible mid-hop and landing on each spot. Not checked by ear yet.
+
+## 2026-10-28 — Settle and takeoff come from visual_activity_prepare holds
+
+- **Observation:** Settle and takeoff seconds were the agent's judgement; the card on the creator's take copied them from an earlier build, and one (the swings settle at 18.6 s) was mid-stride. The owner asked for measurement by reusing an existing tool rather than adding one.
+- **Decision:** `visual_activity_prepare` takes `holds: {at_seconds}` and returns each moment's settle, takeoff, at_rest and contrast from the footage motion around it (local, log-scale threshold so far and near stops read alike). Step 2 uses it and says when to read frames.
+- **Verification:** On the take's four marks (1.9 s for all four), frames confirm the path-bend stop (24.0–25.4 s reported 23.99–25.39) and the swings settle (19.2 s); the swings takeoff reads about 0.3 s late with a swing moving behind (contrast 0.67); the camera stop, where the creator gestures through the line, reports not at rest (contrast 0.53).
+
+## 2026-10-28 — The ending and Speed Entrance & Exit in one card
+
+- **Observation:** The Speed hops card promised "streak me out of frame when I finish", but the block ended on the line, so no card built the exit. Speed Entrance & Exit named only the skill, and its bobblehead demo is two still poses, which the block could not take. The owner: Speed Entrance & Exit "should be able to accept both" (footage and poses).
+- **Decision:** `hop_sequence` gains `closing_exit` (side or past the camera, always fully out of frame, the line's last frames after a line, with `sounds.exit`), `template: "entrance_exit"` (fixes out-and-in, hides Style and Empty scene) and pose stops (`pose` with a standing pose, an optional walking pose and its `place`); one stop is enough with an entrance or exit. Both cards now name this route.
+- **Verification:** Block tests (the exit takes the line's last frames and leaves the frame, its whoosh peaks a frame after takeoff; a pose card compiles to stills with the template's dials hidden; both sweep clean). On a disposable copy of the bobblehead demo the one-click card staged with no dial errors, passes the effect eval, and frames show the walking pose streaking in, the standing pose, and the walking pose streaking out. Rendering those frames exposed a frame-state bug (25 fps projects drawn at 30 fps), fixed. The footage case is packaged but not staged (its cut-out never finished preparing in the demo). Not heard.
+
+## 2026-10-28 — The exit is the card's choice, not the template's
+
+- **Observation:** The owner: a template "shouldn't be an exact thing… their instance could be a bit different. It may not have an exit, or it may have an exit. On the card, yes, we should have an exit."
+- **Decision:** The Leaves dial gains Stays (the exit clip holds the subject still and sharp; its whoosh goes to 0), so a card can always offer the exit and the creator turns it off without the card losing clips. The skill and both cards say to fit the card to the creator's take and to start with an exit whenever one can be built.
+- **Verification:** proposal-blocks.test.ts: Stays keeps the same clips, no movement or blur, exit whoosh at volume 0.

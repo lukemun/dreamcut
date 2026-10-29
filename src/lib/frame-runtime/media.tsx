@@ -8,6 +8,7 @@ import { mediaTime } from "./math";
 import { shouldSeekPreview, previewFollowerRate, previewTargetTime } from "./preview-sync";
 import { originalMediaSampleUs } from "@/lib/timeline/source-sampling";
 import { mediaTransportUrl } from "@/lib/loopback-transport";
+import { PitchShiftRoute } from "./pitch-shift-worklet";
 
 /** Export decodes the original, so a picture is captured where the preview proxy's frame came
  * from (timeline/source-sampling.ts). One microsecond early: the capture seek adds it back. */
@@ -28,8 +29,10 @@ export type MediaProps = {
   onPictureReady?: (ready: boolean) => void;
   /** Source time decreases with timeline time; browsers cannot play media backward. */
   reverse?: boolean;
+  /** Pitch shift in semitones without changing timing (timeline/audio-pitch.ts). Preview needs useWebAudioApi. */
+  pitchSemitones?: number;
 };
-export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, previewProxyFps = null, playbackRate = 1, volume = 1, muted, trimBefore, trimAfter, startFrom, endAt, crossOrigin, title, loop, preservePitch = true, pauseWhenBuffering = false, acceptableTimeShiftInSeconds = 2 / 30, useWebAudioApi, onError, onPictureReady }: MediaProps & { kind: "video" | "audio" }) {
+export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, previewProxyFps = null, playbackRate = 1, volume = 1, muted, trimBefore, trimAfter, startFrom, endAt, crossOrigin, title, loop, preservePitch = true, pauseWhenBuffering = false, acceptableTimeShiftInSeconds = 2 / 30, useWebAudioApi, onError, onPictureReady, pitchSemitones = 0 }: MediaProps & { kind: "video" | "audio" }) {
   const state = useFrameState(), id = useId();
   const ref = useRef<HTMLVideoElement & HTMLAudioElement>(null);
   const lifecycle = useRef(0);
@@ -42,7 +45,7 @@ export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, pr
   };
   const sync = useRef({ lastSeekAt: -Infinity, seekVersion: -1, authoredRate: NaN });
   const [metadataRevision, refreshMetadata] = useReducer(x => x + 1, 0);
-  const amplifier = useRef<{ source: MediaElementAudioSourceNode; gain: GainNode } | null>(null);
+  const amplifier = useRef<{ source: MediaElementAudioSourceNode; gain: GainNode; pitch: PitchShiftRoute } | null>(null);
   const trim = (trimBefore ?? startFrom ?? 0) / state.fps;
   let time = sourceTimeSeconds ?? mediaTime(state.frame, state.fps, trimBefore ?? startFrom ?? 0, playbackRate);
   const sourceEnd = Math.min((trimAfter ?? endAt ?? Infinity) / state.fps, ref.current?.duration || Infinity);
@@ -70,7 +73,7 @@ export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, pr
       pictureReady.current?.(false);
       el.removeEventListener("loadedmetadata", refreshMetadata); el.removeEventListener("seeked", refreshMetadata); el.removeEventListener("error", fail); el.pause(); state.session.media.delete(id);
       const generation = ++lifecycle.current;
-      queueMicrotask(() => { if (generation === lifecycle.current) { amplifier.current?.source.disconnect(); amplifier.current?.gain.disconnect(); amplifier.current = null; } });
+      queueMicrotask(() => { if (generation === lifecycle.current) { amplifier.current?.pitch.dispose(); amplifier.current?.source.disconnect(); amplifier.current?.gain.disconnect(); amplifier.current = null; } });
     };
   }, [id, src, state.session, onError]);
   useLayoutEffect(() => {
@@ -81,7 +84,7 @@ export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, pr
       pauseWhenBuffering: pauseWhenBuffering && !reverse,
       firstFrameReady: firstFrameReady.current,
       timelineFrame: state.absoluteFrame ?? state.frame,
-      sample: !state.frozen && !muted && !outside ? { id: title ?? id, src, time, volume: gain, rate: playbackRate, preservePitch, ...(reverse ? { reverse: true } : {}) } : null,
+      sample: !state.frozen && !muted && !outside ? { id: title ?? id, src, time, volume: gain, rate: playbackRate, preservePitch, ...(reverse ? { reverse: true } : {}), ...(pitchSemitones ? { pitch: pitchSemitones } : {}) } : null,
     });
     if (state.rendering) { el.muted = true; el.pause(); return; }
     const syncPreview = () => {
@@ -103,9 +106,9 @@ export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, pr
     if (useWebAudioApi && !amplifier.current && state.playing && !el.muted && totalGain > 0) {
       const context = state.session.getAudioContext();
       const source = context.createMediaElementSource(el), gainNode = context.createGain();
-      source.connect(gainNode); gainNode.connect(context.destination); amplifier.current = { source, gain: gainNode };
+      gainNode.connect(context.destination); amplifier.current = { source, gain: gainNode, pitch: new PitchShiftRoute(context, source, gainNode) };
     }
-    if (amplifier.current) { amplifier.current.gain.gain.value = totalGain; el.volume = 1; if (state.playing) void state.session.getAudioContext().resume(); }
+    if (amplifier.current) { amplifier.current.pitch.set(pitchSemitones); amplifier.current.gain.gain.value = totalGain; el.volume = 1; if (state.playing) void state.session.getAudioContext().resume(); }
     else el.volume = Math.min(1, totalGain);
     const effectiveRate = playbackRate * state.playbackRate;
 
@@ -146,7 +149,7 @@ export function Media({ kind, reverse = false, src, style, sourceTimeSeconds, pr
     };
     state.session.media.get(id)!.syncPreview = syncPreview;
     syncPreview();
-  }, [metadataRevision, state, id, src, time, gain, playbackRate, muted, trim, sourceEnd, outside, kind, pauseWhenBuffering, useWebAudioApi, preservePitch, acceptableTimeShiftInSeconds, reverse]);
+  }, [metadataRevision, state, id, src, time, gain, playbackRate, muted, trim, sourceEnd, outside, kind, pauseWhenBuffering, useWebAudioApi, preservePitch, acceptableTimeShiftInSeconds, reverse, pitchSemitones]);
   const Tag = kind;
   // Preview loads media over the sibling loopback name so paused downloads never hold the
   // editor's own connections; a cross-origin source must be CORS-read to stay drawable.

@@ -71,3 +71,10 @@ later work, and nothing touches My Style or the reviewed project.
 - **Observation:** A session retro (`docs/audits/2026-10-27-bloom-hello-motion-graphic-retro.md`, git-ignored) was asked why "building the look" felt slow. The transcript showed the agent's 7:45 to a card, but not that the owner then waited 20–26 s on each of four look and palette changes. Those renders were only in the project's `audit/motion` log.
 - **Decision:** Updated. The Performance lens says to read the creator's re-render times from `audit/motion` (read only).
 - **Verification:** Applied in that retro; the four render `elapsed_ms` values are in its timeline.
+
+
+## 2026-10-28 — Working agreements are local, not shipped
+
+- **Observation:** The owner noticed that the editor's `AGENTS.md` and skills ship to every creator who clones DreamCut, yet carried the owner's own agreements (feature freeze, commit habits, private status paths); this skill linked to them.
+- **Decision:** The skill now defers to the checkout's `AGENTS.local.md` (git-ignored) for what a retro may build, and links the public [project status](../../../docs/project-status.md) pointer instead of a private path. `pnpm check:owner-text` refuses owner-only text in `AGENTS.md` and skills.
+- **Verification:** `pnpm check:owner-text` passes; run against the published version it flags this skill's four freeze and private-path lines.

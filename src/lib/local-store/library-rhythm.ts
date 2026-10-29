@@ -61,10 +61,10 @@ export async function readRhythmReview(directory: string, annotation: BeatAnnota
   }
 }
 export function withRhythmReview(annotation: BeatAnnotation, hits: ReviewedHit[] | null): BeatAnnotation {
-  return hits && annotation.schema_version === 2 ? beatAnnotationSchema.parse({ ...annotation, hits }) : annotation;
+  return hits && annotation.schema_version !== 1 ? beatAnnotationSchema.parse({ ...annotation, hits }) : annotation;
 }
 export async function writeRhythmReview(directory: string, annotation: BeatAnnotation, hits: ReviewedHit[], expectedRevision: string | null) {
-  if (annotation.schema_version !== 2) throw new Error("Analyze the track before reviewing its hits.");
+  if (annotation.schema_version === 1) throw new Error("Analyze the track before reviewing its hits.");
   const current = await readRhythmReview(directory, annotation);
   if ((current?.revision ?? null) !== expectedRevision) throw new Error("Rhythm review changed elsewhere. Reload before saving.");
   const validated = reviewSchema.parse({ schema_version: 1, source_sha256: annotation.source_sha256, recipe: annotation.recipe, updated_at: new Date().toISOString(), hits });

@@ -143,3 +143,7 @@ __pycache__/
 # Built-runtime outputs (desktop/build-workers.mjs, desktop/code-identity.mjs); written only into .desktop-build.
 /workers/
 /code-identity.json
+
+# A checkout's own agent instructions (often links to a private repo); never shipped
+/AGENTS.local.md
+/CLAUDE.local.md

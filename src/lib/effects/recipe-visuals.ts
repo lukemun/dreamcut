@@ -69,6 +69,15 @@ export const recipeVisuals:Record<string,RecipeVisual>={
   stages:[{file:'/recipe-previews/speed-entrance-exit/empty.jpg',label:'1 · Empty set'},{file:'/recipe-previews/speed-entrance-exit/streak-in.jpg',label:'2 · Streaks in'},{file:'/recipe-previews/speed-entrance-exit/settled.jpg',label:'3 · Lands and holds'},{file:'/recipe-previews/speed-entrance-exit/streak-out.jpg',label:'4 · Streaks out'}],
   tile:{x:0.5,y:0.5,at:1.3},
  },
+ 'FX-FLASH-EFFECT': {
+  video:'/recipe-previews/flash-effect/result.mp4',poster:'/recipe-previews/flash-effect/poster.jpg',
+  summary:'Poses flash in one after another down the path toward the camera, each white for a frame, then the take goes live.',
+  credit:'Subject and footage: the DreamCut owner (owned). Effect after The Flash Effect by futurist__ (Marvin Appiah Korang).',
+  note:'Normal speed; a new pose every 4 frames, each white for one frame. Sound off here; the edit puts a shutter click on every flash.',
+  inputs:[{video:'/recipe-previews/speed-hops-to-camera/inputs/take.mp4',label:'Your take',role:'supply'},{file:'/recipe-previews/flash-effect/inputs/cutout.png',label:'Cut-out of you',role:'prepared'}],
+  stages:[{file:'/recipe-previews/flash-effect/first-flash.jpg',label:'1 · First pose flashes'},{file:'/recipe-previews/flash-effect/in-colour.jpg',label:'2 · Shows in colour'},{file:'/recipe-previews/flash-effect/next-flash.jpg',label:'3 · Next pose flashes'},{file:'/recipe-previews/flash-effect/at-camera.jpg',label:'4 · Live at the camera'}],
+  tile:{x:0.55,y:0.55,at:0.8},
+ },
  'FX-SPEED-HOPS-TO-CAMERA': {
   video:'/recipe-previews/speed-hops-to-camera/result.mp4',poster:'/recipe-previews/speed-hops-to-camera/poster.jpg',
   summary:'A streak from stop to stop down the path, landing standing at each one, then a line said in front of the camera and a streak out of frame.',

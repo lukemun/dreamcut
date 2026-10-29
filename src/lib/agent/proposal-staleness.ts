@@ -235,7 +235,7 @@ export function evaluateProposalStaleness(
 /** A card's writes: element id → fields. "*" is the whole clip; "@…" ids are timeline-wide state. */
 export type ProposalWrites = Map<string, Set<string>>;
 
-const WHOLE_ELEMENT_KEYS = ["create_audio", "create_text", "create_shape", "create_visual", "create_transition", "remove_text", "remove_visual",
+const WHOLE_ELEMENT_KEYS = ["create_audio", "create_text", "create_shape", "create_visual", "create_transition", "remove_text", "remove_visual", "remove_audio",
   "sync_speech_visual", "reattach_original_audio", "use_video_stabilization", "use_recast", "use_voice_enhancement", "set_preview_audio_source"] as const;
 /** Ops that move everything after them; they cannot share the queue with cards placed by time. */
 const RIPPLE_KEYS = ["source_range_restore", "opening_sequence_edit", "speed_change"] as const;

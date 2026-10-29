@@ -5,6 +5,7 @@ import { startRender } from "@/lib/local-store/render-jobs";
 import { activeElements, assertProject, readTimeline } from "@/lib/local-store/store";
 import { captionTimingFindings } from "@/lib/timeline/caption-timing-validation";
 import { editorRequestOrigin } from "@/lib/render/capture-origin";
+import { hdrExportWarning } from "@/lib/render/dynamic-range";
 
 type Params = { params: Promise<{ projectId: string }> };
 
@@ -22,7 +23,8 @@ export async function POST(request: Request, { params }: Params) {
     const { projectId } = await params;
     assertProject(projectId);
 
-    const invalidCaption = activeElements(readTimeline(projectId))
+    const active = activeElements(readTimeline(projectId));
+    const invalidCaption = active
       .map((element) => ({ element, findings: captionTimingFindings(element) }))
       .find((entry) => entry.findings.length > 0);
     if (invalidCaption) {
@@ -46,10 +48,13 @@ export async function POST(request: Request, { params }: Params) {
       return NextResponse.json(result.body, { status: result.status });
     }
 
+    // HDR still exports when asked; a mostly-SDR timeline gets the same warning the Export dialog shows.
+    const warning = parsed.data.dynamic_range === "hdr" ? hdrExportWarning(active) : null;
     return NextResponse.json({
       job_id: result.job.id,
       status: result.job.status,
       already_in_progress: result.alreadyInProgress,
+      ...(warning ? { warning } : {}),
     });
   } catch (error) {
     const status = (error as Error & { status?: number }).status ?? 500;

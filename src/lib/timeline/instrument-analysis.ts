@@ -121,6 +121,8 @@ export function visibleInstrumentHits(lane: InstrumentResult["lanes"][number], s
 /** Keep simultaneous attacks from different instruments; they are independent targets. */
 export function instrumentAnnotation(base: BeatAnnotation, result: InstrumentResult, settings: InstrumentSettings): BeatAnnotation {
   if (base.source_sha256 !== result.source_sha256) throw new Error("Instrument map does not match the source");
-  const hits = result.lanes.filter(lane => lane.id !== "mix").flatMap(lane => visibleInstrumentHits(lane, settings).filter(hit => hit.time_seconds < base.source_duration_seconds).map(hit => ({ ...hit, confidence: 1, kind: instrumentKinds[lane.id as InstrumentId] })));
-  return { ...base, schema_version: 2, hits: hits.sort((a, b) => a.time_seconds - b.time_seconds || a.kind.localeCompare(b.kind)) };
+  const hits = result.lanes.filter(lane => lane.id !== "mix").flatMap(lane => visibleInstrumentHits(lane, settings).filter(hit => hit.time_seconds < base.source_duration_seconds).map(hit => ({ ...hit, confidence: 1, kind: instrumentKinds[lane.id as InstrumentId] })))
+    .sort((a, b) => a.time_seconds - b.time_seconds || a.kind.localeCompare(b.kind));
+  // Downbeats and drops come from the rhythm map; instrument separation only replaces its hits.
+  return base.schema_version === 3 ? { ...base, hits } : { ...base, schema_version: 2, hits };
 }

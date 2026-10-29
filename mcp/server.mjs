@@ -292,7 +292,7 @@ const FEEDBACK_IDS = { type: "array", maxItems: 100, uniqueItems: true, items: {
 
 const TOOLS = {
   editor_open: {
-    description: "Open the DreamCut editor for the creator. Starts the local editor if it is not running and returns a single-use sign-in link (valid about two minutes) to open in your built-in browser, or for the creator to open in any browser; it never opens a browser itself. Optionally lands on a project or its storyboard. The editor runs only on this computer (127.0.0.1); nothing is uploaded. Call again for a fresh link if one expires.",
+    description: "Open the DreamCut editor for the creator. Starts the local editor if it is not running and returns a single-use sign-in link (valid about two minutes) to open in your built-in browser, or for the creator to open in any browser; it never opens a browser itself. Optionally lands on a project or its storyboard. The editor runs only on this computer (127.0.0.1), and projects and footage stay there. Call again for a fresh link if one expires.",
     inputSchema: { type: "object", additionalProperties: false, properties: {
       project_id: { ...PROJECT_ID, description: "Optional project to open (the folder name under the Library's projects/). Omit for the projects home." },
       page: { type: "string", enum: ["timeline", "storyboard"], default: "timeline", description: "With project_id: timeline (the editor) or storyboard." },
@@ -477,14 +477,16 @@ const TOOLS = {
     },
   },
   beat_grid_get: {
-    description: "Read a saved source rhythm map and its current clip-time projection: steady beats plus estimated drum, synth/tonal, and other hits. Never runs detection. Missing analysis returns null. Tempo and instrument labels are provisional; cuts still require proposals.",
+    description: "Read a saved source rhythm map and its current clip-time projection: steady beats, estimated bar starts (downbeats, assuming 4/4, with a confidence), drops (bar starts where the bass or mix gets much louder) and estimated drum, synth/tonal, and other hits. Never runs detection. Missing analysis returns null; maps saved before downbeats existed return none until prepared again. Tempo, bars, drops and instrument labels are provisional; cuts still require proposals.",
     inputSchema: { type: "object", properties: { project_id: PROJECT_ID, element_id: { type: "string" } }, required: ["project_id", "element_id"] },
     handler: ({ project_id, element_id }) => http("GET", `/api/projects/${encodeURIComponent(project_id)}/timeline/beat-annotations?element_id=${encodeURIComponent(element_id)}`),
   },
   beat_annotation_prepare: {
-    description: "Explicitly analyze a local audio/video source once and save a rhythm map with steady beats plus estimated drum, synth/tonal, and other hits. Reuses unchanged analysis. Does not edit the timeline, place markers as elements, or authorize cuts. Requires local librosa; sources up to 30 minutes.",
-    inputSchema: { type: "object", properties: { project_id: PROJECT_ID, element_id: { type: "string" } }, required: ["project_id", "element_id"] },
-    handler: ({ project_id, element_id }) => http("POST", `/api/projects/${encodeURIComponent(project_id)}/timeline/beat-annotations?element_id=${encodeURIComponent(element_id)}`, {}),
+    description: "Explicitly analyze a local audio/video source once and save a rhythm map with steady beats, estimated bar starts (downbeats), drops, and estimated drum, synth/tonal, and other hits. Reuses unchanged analysis; a new expected_bpm analyzes again and replaces it. Does not edit the timeline, place markers as elements, or authorize cuts. Requires local librosa; sources up to 30 minutes.",
+    inputSchema: { type: "object", properties: { project_id: PROJECT_ID, element_id: { type: "string" },
+      expected_bpm: { type: "number", minimum: 40, maximum: 240, description: "A tempo the creator or the music's maker stated (a generated track's prompt, a catalog entry). A constant grid fitted near it replaces the tracked beats when it fits the track better; drifting tracks keep tracked beats (see beat_source)." },
+    }, required: ["project_id", "element_id"] },
+    handler: ({ project_id, element_id, expected_bpm }) => http("POST", `/api/projects/${encodeURIComponent(project_id)}/timeline/beat-annotations?element_id=${encodeURIComponent(element_id)}`, expected_bpm === undefined ? {} : { expected_bpm }),
   },
   library_present: {
     description: "Show videos selected by the agent in an existing project's Library. Use video_search first, interpret the user's request, then pass imported video handles, source hashes and optional verified source-second matching moments. The open project reveals these results with previews; return library_url if its window is not open. This is a temporary display selection (24-hour expiry), not timeline placement, import, analysis, approval or export. Up to 24 handles; cross-project sources are supported. The creator can choose Browse all videos to dismiss it.",
@@ -678,7 +680,8 @@ const TOOLS = {
       "Atomic multi-element mutation. Edits to an existing working timeline still go through "
       + "proposal_create, including exact user dictates. Each operation patches one element "
       + "(structural fields via "
-      + "`patch`, safe partial props merge via `props`). All operations apply in one history "
+      + "`patch`, safe partial props merge via `props`) or removes it (`remove: true`, restorable like element_delete; "
+      + "use it to cut a copied timeline down, up to 500 per call). All operations apply in one history "
       + "snapshot. Enforces frame quantization, lock rules, and transition re-validation."
       + " Writes must be Browser GPU (CanvasKit) admissible: content it cannot draw yet is rejected (422) naming the element and capability.",
     inputSchema: {
@@ -697,9 +700,10 @@ const TOOLS = {
                 type: "object",
                 description:
                   "Structural fields (timeline_start, duration, trim_start, trim_end, volume, "
-                  + "fade_in, fade_out, playback_rate, lane_key, lane_index, position_locked, "
-                  + "removed_at, removed_reason). Never includes props.",
+                  + "fade_in, fade_out, playback_rate, lane_key, lane_index, position_locked). "
+                  + "Never includes props. To remove the element, send remove: true instead.",
               },
+              remove: { type: "boolean", enum: [true], description: "Remove this element (restorable soft delete; its linked captions and transitions follow). Takes no patch or props." },
               props: {
                 type: "object",
                 description: "Safe partial props merge (set a key to null to remove it).",
@@ -1140,6 +1144,17 @@ const TOOLS = {
       return summary;
     },
   },
+  voice_enhancement_prepare: {
+    description: "Prepare voice cleanup (DeepFilterNet background-noise removal, the editor's Enhance voice) for 1–40 clips on the working timeline and get proposal operations back. Each distinct source recording is processed once and cached, so clips cut from one recording share it; a long recording can take a minute or two. Returns per element_id a use_voice_enhancement payload and a suggested_volume that brings the cleaned voice to the -16 LUFS narrator target, plus loudness and noise-floor measurements before and after. Put each payload on a proposal_create operation for its element with patch.volume = suggested_volume. strength_percent (0–100, default 40) is how much noise is removed; higher can sound processed. Never edits the timeline or approves; the original stays restorable.",
+    inputSchema: { type: "object", additionalProperties: false, properties: {
+      project_id: PROJECT_ID,
+      element_ids: { type: "array", minItems: 1, maxItems: 40, items: { type: "string" }, description: "Audio-bearing clips (video with sound, voice) on the working timeline." },
+      strength_percent: { type: "integer", minimum: 0, maximum: 100, description: "How strongly background noise is removed; default 40." },
+      normalize_loudness: { type: "boolean", description: "Also level the cleaned recording to the -16 LUFS narrator target (one constant gain), so clip volume can even out quiet sections instead of hitting its 4x ceiling." },
+      even_out: { type: "boolean", description: "With normalize_loudness: first even out quiet and loud passages of the recording (gentle speech expansion), so every clip sits near the target at volume 1. Use when one recording has quiet sections; boosting those with clip volume clips their peaks and crackles." },
+    }, required: ["project_id", "element_ids"] },
+    handler: ({ project_id, ...body }) => http("POST", `/api/projects/${encodeURIComponent(project_id)}/tools/voice-enhancement-prepare`, body),
+  },
   motion_graphic_prepare: {
     description: "Create or revise a motion graphic as code and render a transparent candidate for a proposal. Use only for ONE separable object whose motion native elements cannot make (for example letters cycling random glyphs, a particle burst); logos, titles, words and labels are native timeline elements, each on its own lane. A composition that shows more than one object at once (text with a picture, or two text blocks) is refused. Write a HyperFrames composition: files must include index.html (HTML/CSS with one paused GSAP timeline registered on window.__timelines, timed elements with data-start/data-duration, transparent background, deterministic code). Copy project images into the composition with assets [{media_path relative to project media, as: 'assets/<name>'}]. Required: a dreamcut.controls.json file with \"object\": {label, native_gap} naming that one object and why native elements cannot make its motion; it may also declare creator controls (text, color, number, choice, switch), at most one actor (an element tagged data-actor) and stretchable hold markers; read values from window.__dreamcut.controls / .segment_durations with the same defaults. Controls are your choice, never required. Omit files to re-render the existing source, for example with new values. Waits up to 20 s; if state is rendering, poll motion_graphic_status. When state is ready, propose it with create_visual (video_clip, has_alpha true, source_url, source window 0 to duration_seconds). Records an audit trail; never edits the timeline or approves.",
     inputSchema: { type: "object", properties: {
@@ -1248,7 +1263,7 @@ const TOOLS = {
     handler: ({ project_id, model, ...body }) => http("POST", `/api/projects/${encodeURIComponent(project_id)}/sounds/prepare`, { ...body, agent: { name: process.env.DREAMCUT_MCP_CLIENT || "editor-agent", ...(model ? { model } : {}) } }),
   },
   storyboard_get: {
-    description:"Read the project's storyboard for planning: revision, mode, freeform beats with their shots (source, start/end seconds on the original source clock, label, note, on-screen text, transition, and visuals shown over each shot with at/duration on the shot clock) and every usable source with kind, duration and readiness, plus script {text, sections [{id, label, start, end, text, needs_review, visuals}]}: the Script panel's saved text and which visuals are linked to each section; plus canvas {nodes, edges}: the creator's planning canvas, where moment cards (marked points in clips: number M1…, clip, source, start/end seconds, note = what should happen there), effect cards (a template id and title plus a note) and text cards (directions, lines to say) are joined by lines (connected_to). Read the canvas to understand how the creator wants moments, effects and words put together before assembling. Use before storyboard_draft, storyboard_script_write, storyboard_script_link or storyboard_canvas_write. Read-only; no timeline changes.",
+    description:"Read the project's storyboard for planning: revision, mode, freeform beats with their shots (source, start/end seconds on the original source clock, label, note, on-screen text, words (the row's Script column beside its picture on the Storyboard page), transition, and visuals shown over each shot with at/duration on the shot clock) and every usable source with kind, duration and readiness, plus script {text, sections [{id, label, start, end, text, needs_review, visuals}]}: the Script panel's saved text and which visuals are linked to each section; plus canvas {nodes, edges}: the creator's planning canvas, where moment cards (marked points in clips: number M1…, clip, source, start/end seconds, note = what should happen there), effect cards (a template id and title plus a note) and text cards (directions, lines to say) are joined by lines (connected_to). Read the canvas to understand how the creator wants moments, effects and words put together before assembling. Use before storyboard_draft, storyboard_script_write, storyboard_script_link or storyboard_canvas_write. Read-only; no timeline changes.",
     inputSchema:{type:"object",properties:{project_id:PROJECT_ID},required:["project_id"]},
     handler:({project_id})=>http("GET",`/api/projects/${project_id}/storyboard/draft`),
   },
@@ -1267,6 +1282,7 @@ const TOOLS = {
         label:{type:"string",minLength:1,maxLength:240,description:"Short shot name the creator will scan, e.g. 'Hook: why I quit'."},
         note:{type:"string",maxLength:2000,description:"What happens in the shot: what is said (paraphrase or key line) and seen, plus the planned treatment, e.g. 'Glitch animation over the product reveal'."},
         text:{type:"string",maxLength:1000,description:"On-screen text idea for this shot, if any. Leave empty when none."},
+        words:{type:"string",maxLength:20000,description:"The row's Script column, shown beside the shot's picture on the Storyboard page: what is said (this shot's part of the transcript) or what happens. Keep a shot's existing words from storyboard_get when you redraft it."},
         transition_into:{type:"string",maxLength:2000,description:"Planned transition into this shot from the previous one, e.g. 'mask glitch reveal'. Omit for a plain cut."},
         visuals:{type:"array",maxItems:20,description:"Cutaways shown OVER this shot while its picture and sound keep running (screenshot, mockup, B-roll, motion graphic for the point being made). In time order, no overlaps, each inside the shot. Put visuals for spoken points here, never as separate shots, which would cut the speech.",items:{type:"object",properties:{
           source:{type:"string",description:"Project photo or ready video from storyboard_get sources[].source, e.g. sources/dashboard.png."},
@@ -1407,6 +1423,10 @@ const TOOLS = {
         scripts: { type: "array", maxItems: 8, items: { type: "string" }, description: "Composition-folder .js files that define the scene data, run first in order; default scene.js." },
       }, required: ["element_id", "activity_js"] } },
       include_values: { type: "boolean", description: "Also return every curve's values (large). Default false; synth_embed already carries them." },
+      holds: { type: "object", additionalProperties: false, description: "Where something comes to rest around given moments (marks, beats) and when it moves off again: for each moment, settle_seconds (motion stops), takeoff_seconds (motion starts), at_rest and contrast (how clearly still, 0-1; read the frames below about 0.5). Each moment is judged against the motion in the 3 s around it, so a far small subject counts like a near one. Use for a hop_sequence stop's settle_seconds and takeoff_seconds from the creator's marks, or any hold.", properties: {
+        at_seconds: { type: "array", minItems: 1, maxItems: 24, items: { type: "number", minimum: 0 }, description: "Timeline moments inside the window, e.g. the marks' timeline_seconds." },
+        curve: { type: "string", description: "Curve to read; default frames (footage motion) when measured, else total." },
+      }, required: ["at_seconds"] },
       check: { type: "object", additionalProperties: false, description: "Verify sounds against the curve.", properties: {
         curve: { type: "string", description: "Curve to compare with, e.g. draw or composition_shore; default total." },
         sound_element_ids: { type: "array", maxItems: 12, items: { type: "string" }, description: "Sound elements already on the timeline." },
@@ -1508,7 +1528,7 @@ const TOOLS = {
       + "(Play / Play all), tweaks proposed numeric values, and approves or rejects in the "
       + "editor's Proposals tab. Carries options[{id,label,recommended,summary,operations[],blocks[]}] "
       + "with exactly one recommended. PREFER BLOCKS for effects the registry has: option.blocks = [{block_id, kind, version, inputs, settings}] "
-      + "(kinds: hop_sequence for the Speed Entrance & Exit effect, live_hold, keyframed_move). You send measured inputs (sources, cut-out receipts with their "
+      + "(kinds: hop_sequence for the Speed Entrance & Exit effect, flash_sequence for the Flash effect, live_hold, keyframed_move). You send measured inputs (sources, cut-out receipts with their "
       + "source_offset_seconds, subject boxes, settle and takeoff frames) and only the settings that depart from the defaults; the server compiles them to "
       + "frame-snapped, non-overlapping operations after `operations` on every preview, dial move and approval, and the block's settings are the card's dials "
       + "(no review_controls or timing_controls needed). A block is refused by block id and setting name when a setting's range cannot compile. "
@@ -1538,7 +1558,7 @@ const TOOLS = {
       + "an obsolete graphic-text actor without touching the speech-caption rail. "
       + "Generated video-effects are rejected unless they use an allowlisted "
       + "derived-effect role backed by an editable effect graph. Use remove_visual to retire "
-      + "a visual in the same atomic option. Use set_output_format when the proposed edit changes "
+      + "a visual in the same atomic option, and remove_audio to retire a music or sound-effect clip (for example the old song when swapping music). Use set_output_format when the proposed edit changes "
       + "the real delivery canvas or target; preview and approval stay atomic with the clip edit. Default to "
       + "semantic placement: replace_captions accepts position_preset and rejects "
       + "absolute or offset coordinates; the renderer and spatial assessor resolve the named preset. "

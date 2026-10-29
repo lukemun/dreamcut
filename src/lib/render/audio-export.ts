@@ -4,6 +4,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import type { AudioSample } from "../frame-runtime/session";
 import { audioRuns, tempoFilters } from "./audio-manifest";
+import { pitchShiftFilters } from "../timeline/audio-pitch";
 const sampleRate = 48000, channels = 2, bytesPerSample = 4;
 export async function runMediaProcess(command: string, args: string[], signal?: AbortSignal) {
   return new Promise<string>((resolve, reject) => {
@@ -61,7 +62,7 @@ export async function exportAudioMix(frames: AudioSample[][], fps: number, direc
     // A reverse run's first picture frame shows sourceStart; its sound covers that frame and runs back from the frame's end.
     const windowEnd = run.reverse ? run.sourceStart + run.rate / fps : run.sourceStart + span;
     const windowStart = Math.max(0, windowEnd - span);
-    const filters = [...(run.reverse ? ["areverse"] : []), "aresample=48000", ...(run.preservePitch ? tempoFilters(run.rate) : [`asetrate=${sampleRate * run.rate}`, "aresample=48000"]), "apad", `atrim=end_sample=${count}`];
+    const filters = [...(run.reverse ? ["areverse"] : []), "aresample=48000", ...(run.preservePitch ? tempoFilters(run.rate) : [`asetrate=${sampleRate * run.rate}`, "aresample=48000"]), ...pitchShiftFilters(run.pitch ?? 0, sampleRate, tempoFilters), "apad", `atrim=end_sample=${count}`];
     await runMediaProcess("ffmpeg", ["-v", "error", "-y", "-ss", String(windowStart), "-t", String(windowEnd - windowStart), ...mediaInputArgs(run.src), "-map", "0:a:0", "-vn", "-af", filters.join(","), "-ar", String(sampleRate), "-ac", "2", "-f", "f32le", pcm], signal);
     return { first, gains: run.gains, pcm, firstFrame: run.firstFrame };
   })).filter((run): run is NonNullable<typeof run> => run !== null);

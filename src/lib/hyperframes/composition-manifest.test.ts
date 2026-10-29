@@ -9,6 +9,9 @@ import {
   controlKindProblems,
   injectRuntimeIntoHtml,
   isWorldLayer,
+  motionBlurFilter,
+  motionBlurPlan,
+  motionBlurShutter,
   parseCompositionManifest,
   rendersOpaque,
   resolveManifestValues,
@@ -265,6 +268,24 @@ test("an opaque switch marks a full-screen render as expected, not a broken alph
   assert.equal(rendersOpaque(card, resolveManifestValues(card, { backdrop: false })), false);
   assert.equal(rendersOpaque(manifest, resolveManifestValues(manifest, {})), false);
   assert.throws(() => parseCompositionManifest({ schema_version: 1, controls: [], opaque_control: "backdrop" }), /opaque_control/);
+});
+
+test("a motion blur control is read by the renderer, which averages sub-frames ending at each frame", () => {
+  const blur = { id: "motion_blur", kind: "number", label: "Motion blur", default: 0, min: 0, max: 100, step: 5, unit: "%" };
+  const manifest = parseCompositionManifest({ schema_version: 1, controls: [blur], motion_blur_control: "motion_blur" });
+  assert.equal(manifest.motion_blur_control, "motion_blur");
+  assert.equal(motionBlurShutter(manifest, { motion_blur: 0 }), 0);
+  assert.equal(motionBlurShutter(manifest, { motion_blur: 60 }), 0.6);
+  assert.equal(motionBlurShutter(null, { motion_blur: 60 }), 0);
+  // Off renders as before; on, 30 fps captures 8 sub-frames a frame and averages the share the shutter keeps.
+  assert.equal(motionBlurPlan(0, 30), null);
+  assert.deepEqual(motionBlurPlan(0.6, 30), { samples: 8, window: 5, render_fps: 240 });
+  assert.deepEqual(motionBlurPlan(0.05, 60), { samples: 4, window: 2, render_fps: 240 });
+  assert.match(motionBlurFilter({ samples: 8, window: 5 }, 30), /premultiply=inplace=1,tmix=frames=5,unpremultiply=inplace=1,select=not\(mod\(n\\,8\)\)/);
+  // The page never reads it, so validation does not ask it to.
+  assert.deepEqual(validateCompositionSources(manifest, [{ path: "index.html", text: "window.__dreamcut" }]).errors, []);
+  assert.throws(() => parseCompositionManifest({ schema_version: 1, controls: [{ ...blur, min: 10, default: 10 }], motion_blur_control: "motion_blur" }), /motion_blur_control/);
+  assert.throws(() => parseCompositionManifest({ schema_version: 1, controls: [], motion_blur_control: "motion_blur" }), /motion_blur_control/);
 });
 
 test("a declared length is written into the root and the layers that span it", async () => {

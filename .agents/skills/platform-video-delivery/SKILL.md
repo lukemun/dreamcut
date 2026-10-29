@@ -30,6 +30,11 @@ provides the export authorization. A request to edit this skill alone does not.
 3. Start one tracked render with the exact export-only mute and hide sets through
    `POST /api/projects/<project_id>/render` with
    `{ "muted_lane_keys": [...], "hidden_lane_keys": [...] }` (omitted hidden keys use saved metadata).
+   Export Standard (SDR, the default) for YouTube, social and presentations. Send
+   `"dynamic_range": "hdr"` only when the creator asks for HDR and HDR camera footage
+   fills most of the running time. HDR places screen recordings, UI, text and graphics at
+   HLG reference white, which many HDR screens (YouTube on a Mac included) show dim and grey
+   beside the page. If the response carries a `warning`, tell the creator in its words.
    This uses the editor's checkpoint and render-job lifecycle. Reuse an existing
    in-progress job when returned; do not start duplicate exports. `pnpm render
    <project_id>` is an alternative only when the requested mute and hide sets match saved

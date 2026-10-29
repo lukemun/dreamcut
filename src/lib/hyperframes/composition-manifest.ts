@@ -60,6 +60,9 @@ export type CompositionManifest = {
   /** A switch control that, when on, fills the whole frame (a full-screen card with its own
    * backdrop), so a render with no transparent pixels is expected rather than a broken alpha encode. */
   opaque_control?: string;
+  /** A number control (0 = off, 100 = a full-frame shutter) the renderer reads, not the composition: above 0
+   * each output frame is the average of sub-frames rendered across that share of the frame interval. */
+  motion_blur_control?: string;
   /** The one separable object this composition draws, and why a native timeline element cannot make its motion. */
   object?: ManifestObject;
   /** Packaged Template id, when the composition is one of the Templates under the motion-graphics skill. */
@@ -313,6 +316,10 @@ export function parseCompositionManifest(raw: unknown): CompositionManifest {
   if (opaque !== undefined && !controls.some((control) => control.id === opaque && control.kind === "switch")) {
     fail("opaque_control must name a switch control");
   }
+  const blur = manifest.motion_blur_control;
+  if (blur !== undefined && !controls.some((control) => control.id === blur && control.kind === "number" && control.min === 0 && control.max === 100)) {
+    fail("motion_blur_control must name a number control from 0 to 100");
+  }
   const object = parseObject(manifest.object);
   const template = manifest.template;
   if (template !== undefined && (typeof template !== "string" || !/^[a-z0-9-]{1,64}$/.test(template))) fail("template must be a Template id");
@@ -321,6 +328,7 @@ export function parseCompositionManifest(raw: unknown): CompositionManifest {
   return {
     schema_version: 1, controls, actors, markers, ...(timing ? { timing } : {}), ...(canvas ? { canvas } : {}),
     ...(opaque !== undefined ? { opaque_control: opaque as string } : {}),
+    ...(blur !== undefined ? { motion_blur_control: blur as string } : {}),
     ...(object ? { object } : {}), ...(template !== undefined ? { template: template as string } : {}),
     ...(looks ? { looks: true } : {}),
   };
@@ -370,6 +378,33 @@ export function rendersOpaque(manifest: CompositionManifest | null, values: Mani
   const backdropLayer = manifest.template ? TEMPLATE_BACKDROP_LAYER[manifest.template] : undefined;
   const layer = templateLayer(manifest, values);
   return !backdropLayer || layer === null || layer === "all" || layer === backdropLayer;
+}
+
+/** The shutter a value set asks for: 0 (no motion blur) to 1 (sub-frames span the whole frame interval). */
+export function motionBlurShutter(manifest: CompositionManifest | null, values: ManifestValues | null): number {
+  if (!manifest?.motion_blur_control) return 0;
+  const value = Number(values?.[manifest.motion_blur_control] ?? 0);
+  return Number.isFinite(value) ? Math.max(0, Math.min(1, value / 100)) : 0;
+}
+
+/**
+ * Motion blur by sub-frame averaging: render at `samples` times the frame rate, average the `window`
+ * sub-frames ending at each output frame (alpha premultiplied, so transparent edges do not darken),
+ * and keep every `samples`-th result. Frames that do not move come out unchanged.
+ */
+export function motionBlurPlan(shutter: number, fps: number): { samples: number; window: number; render_fps: number } | null {
+  if (!(shutter > 0) || !(fps > 0)) return null;
+  const samples = Math.max(2, Math.min(8, Math.floor(240 / fps)));
+  const window = Math.max(2, Math.round(samples * shutter));
+  return { samples, window, render_fps: fps * samples };
+}
+
+/** The ffmpeg filter that averages a sub-frame render down to its output frames (see motionBlurPlan). */
+export function motionBlurFilter(plan: { samples: number; window: number }, fps: number): string {
+  return [
+    "format=rgba", "premultiply=inplace=1", `tmix=frames=${plan.window}`, "unpremultiply=inplace=1",
+    `select=not(mod(n\\,${plan.samples}))`, `setpts=N/(${fps}*TB)`,
+  ].join(",");
 }
 
 /** Rewrite the composition root's data-width/data-height in the render copy. */
@@ -528,6 +563,8 @@ export function validateCompositionSources(
     errors.push(`Declared controls are never read; the composition must read window.${RUNTIME_GLOBAL}.controls`);
   }
   for (const control of manifest.controls) {
+    // The motion blur control is read by the renderer, which averages sub-frames; the page never sees it.
+    if (control.id === manifest.motion_blur_control) continue;
     const pattern = new RegExp(`["'.\\[]${control.id}\\b`);
     if (!pattern.test(joined)) errors.push(`Declared control "${control.id}" is not read by the composition`);
   }

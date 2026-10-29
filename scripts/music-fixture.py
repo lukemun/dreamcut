@@ -57,6 +57,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", required=True)
     parser.add_argument("--seed", type=int, default=0)
+    # Bar and drop ground truth for scripts/beat-grid.py; off by default so the
+    # music-analyze fixture above is unchanged.
+    parser.add_argument("--downbeat-phase", type=int, choices=range(4), help="add a kick on every 4th beat, starting at this beat")
+    parser.add_argument("--drop", action="store_true", help="quiet, then full level at once on the first downbeat from 32s")
     args = parser.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -65,14 +69,19 @@ def main():
 
     beat_period = 60.0 / BPM
     beats = np.arange(0, DURATION, beat_period)
-    for beat in beats:
-        c = click(amplitude_at(beat), rng)
+    drop_at = 32 + 0.5 * (args.downbeat_phase or 0)
+    level = (lambda s: 0.12 if s < drop_at - 0.01 else 0.95) if args.drop else amplitude_at
+    for n, beat in enumerate(beats):
+        c = click(level(beat), rng)
+        if args.downbeat_phase is not None and n % 4 == args.downbeat_phase:
+            k = np.arange(int(SR * 0.15)) / SR
+            c = np.pad(c, (0, len(k) - len(c))) + 1.6 * level(beat) * np.exp(-k * 25) * np.sin(2 * np.pi * 55 * k)
         i = int(beat * SR)
         end = min(i + len(c), len(y))
         y[i:end] += c[: end - i]
 
     # A sustained pad so sections differ spectrally, not only in level.
-    pad = 0.06 * np.sin(2 * np.pi * 110 * t) * np.array([amplitude_at(x) for x in t])
+    pad = 0.06 * np.sin(2 * np.pi * 110 * t) * np.array([level(x) for x in t])
     y = y + pad
     y = y / np.max(np.abs(y)) * 0.9
 

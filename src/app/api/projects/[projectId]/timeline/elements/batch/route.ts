@@ -6,7 +6,7 @@ import { timelineRevision } from "@/lib/agent/timeline-editor-agent-apply";
 import { timelineElementPatchSchema, zodIssuesToMessage } from "@/lib/timeline/contracts";
 import { applyPreparedElementPatch as applyElementPatch, prepareCutoutEffects } from "@/lib/local-store/cutout-effects";
 import { activeTransitions, captureProjectHistorySnapshot, findElement, readTimeline, withProjectLock, readProjectFrameRate } from "@/lib/local-store/store";
-import { syncTransitionsForElements } from "@/lib/local-store/transition-sync";
+import { softDeleteTransitionsForElements, syncTransitionsForElements } from "@/lib/local-store/transition-sync";
 import { writeWithCaptionFollowers } from "@/lib/local-store/write-caption-followers";
 import {
   assertSpeechBoundVisualTimingPatch,
@@ -20,7 +20,11 @@ const operationSchema = z.object({
   element_id: z.string().uuid(),
   patch: timelineElementPatchSchema.omit({ props: true }).optional(),
   props: z.record(z.string(), z.unknown()).optional(),
-}).strict().refine((value) => value.patch != null || value.props != null, "Empty mutation");
+  // Soft-delete, as element_delete does (restorable); linked captions and transitions follow.
+  remove: z.literal(true).optional(),
+}).strict()
+  .refine((value) => value.patch != null || value.props != null || value.remove != null, "Empty mutation")
+  .refine((value) => value.remove == null || (value.patch == null && value.props == null), "A remove operation takes no patch or props");
 const schema = z.object({
   operations: z.array(operationSchema).min(1).max(500),
   // Optional optimistic-concurrency guard (sha256 of timeline.json at read time).
@@ -51,10 +55,18 @@ export const POST = withEditRequestActor(async function POST(request: Request, {
       }
       if (effectError) throw effectError;
       const touched: string[] = [];
+      const removed: string[] = [];
       const bundledElementIds = new Set(parsed.data.operations.map((operation) => operation.element_id));
       for (const operation of parsed.data.operations) {
         const element = findElement(timeline, operation.element_id);
         if (!element || element.removed_at != null) return NextResponse.json({ error: `Timeline element not found: ${operation.element_id}` }, { status: 404 });
+        if (operation.remove) {
+          if (element.position_locked) return NextResponse.json({ error: `This clip is locked. Unlock it before removing it from the timeline: ${operation.element_id}` }, { status: 400 });
+          element.removed_at = element.updated_at = new Date().toISOString();
+          element.removed_reason = "user";
+          removed.push(element.id);
+          continue;
+        }
         const patch = {
           ...(operation.patch ?? {}),
           ...(operation.props ? { props: { ...((element.props ?? {}) as Record<string, unknown>), ...operation.props } } : {}),
@@ -69,13 +81,14 @@ export const POST = withEditRequestActor(async function POST(request: Request, {
         after: timeline.elements,
         touchedElementIds: bundledElementIds,
       });
+      if (removed.length) softDeleteTransitionsForElements(timeline, removed);
       syncTransitionsForElements(timeline, touched);
       const effectsBefore = parsed.data.operations.some(operation => operation.props?.cutout_effects !== undefined)
         ? captureProjectHistorySnapshot(projectId, "cutout_effects_before") : null;
       const followers = writeWithCaptionFollowers(projectId, beforeElements, timeline, "element_batch");
       return NextResponse.json({ ...followers,
         ...(effectsBefore ? { history: { before: effectsBefore, after: captureProjectHistorySnapshot(projectId, "cutout_effects_after") } } : {}),
-        elements: touched.map((id) => findElement(timeline, id)), transitions: activeTransitions(timeline) });
+        elements: touched.map((id) => findElement(timeline, id)), ...(removed.length ? { removed_element_ids: removed } : {}), transitions: activeTransitions(timeline) });
     });
   } catch (error) {
     const status = (error as Error & { status?: number }).status ?? 500;

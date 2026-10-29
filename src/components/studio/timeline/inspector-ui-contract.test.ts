@@ -1229,7 +1229,7 @@ test("editor toolbar keeps tall-layout controls on one row with named compact bu
   assert.ok(timelineToolbar.includes('flexWrap: "nowrap"'));
   assert.ok(timelineToolbar.includes('overflowX: "auto"'));
   assert.ok(timelineToolbar.includes('aria-label="Open Library"'));
-  assert.ok(timelineToolbar.includes('aria-label={`Open Proposals${pendingProposalCount > 0 ? `, ${pendingProposalCount} to review` : ""}${proposalPreviewActive ? ". Temporary proposal preview active." : ""}`}'));
+  assert.ok(timelineToolbar.includes('aria-label={`Open Proposals${pendingProposalCount > 0 ? `, ${pendingProposalCount} to review` : ""}${proposalPreviewActive ? ". Temporary proposal preview active." : ""}${proposalModeActive && !proposalPreviewActive && proposalsShownCount > 0 ? `. Showing ${proposalsShownCount} checked on the timeline.` : ""}`}'));
   // Library and Proposals name their drawers in the header; the words fold away (kept for screen readers) in narrow windows.
   assert.ok(timelineToolbar.includes('minWidth: compactPanels ? 36 : undefined'));
   assert.ok(timelineToolbar.includes("aria-pressed={mediaOpen}"));

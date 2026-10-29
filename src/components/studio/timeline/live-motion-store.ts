@@ -9,6 +9,8 @@ export type LiveMotionDraft = {
   compositionId: string;
   values: Record<string, string | number | boolean>;
   window: LiveMotionWindow;
+  /** These values are committed and their real render is running; the viewer says so until it lands. */
+  rendering?: boolean;
 };
 
 let draft: LiveMotionDraft | null = null;
@@ -23,6 +25,12 @@ export const liveMotionStore = {
   },
   set(next: LiveMotionDraft) {
     draft = next;
+    emit();
+  },
+  /** Marks this graphic's draft as rendering (or settled); another graphic's draft is left alone. */
+  setRendering(key: string, rendering: boolean) {
+    if (draft?.key !== key || Boolean(draft.rendering) === rendering) return;
+    draft = { ...draft, rendering };
     emit();
   },
   /** Clears this graphic's draft only, so one card settling never hides another's. */

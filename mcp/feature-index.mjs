@@ -32,6 +32,7 @@ export const FEATURE_VOCABULARY = {
   speed_change: ['speed up talking', 'talk faster', 'speed up everything', 'faster pace', 'slow everything down', 'speed up the whole video'],
   remove_visual: ['delete clip', 'remove clip', 'remove shot', 'delete part'],
   remove_text: ['delete text', 'remove title'],
+  remove_audio: ['remove music', 'delete song', 'replace song', 'swap music', 'remove sound effect'],
   create_text: ['add text', 'add title', 'title', 'title card', 'lower third', 'headline', 'name tag', 'on screen text', 'text overlay'],
   create_visual: ['add clip', 'add image', 'insert footage', 'b roll', 'picture in picture', 'pip', 'overlay', 'inset video'],
   create_audio: ['add music', 'add song', 'background music', 'add sound effect', 'sfx', 'voiceover'],

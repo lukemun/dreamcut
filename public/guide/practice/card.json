@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "mode": "workshop",
+  "decision": "propose",
+  "summary": "He runs along a neon road past houses, a forest and a city",
+  "assumptions": [
+    "Built with the 3D Sketch Scene template behind the bobblehead clips already on the timeline."
+  ],
+  "unresolved_gaps": [],
+  "options": [
+    {
+      "id": "neon-road",
+      "label": "Neon road",
+      "recommended": true,
+      "summary": "A glowing neon road draws in behind him, then the scenery streams past as he runs: little houses, a forest, then a city.",
+      "preview_range": {
+        "start_seconds": 0,
+        "end_seconds": 8
+      },
+      "motion_main_controls": [
+        "glow",
+        "ink",
+        "flight",
+        "camera"
+      ],
+      "review_controls": [],
+      "operations": [
+        {
+          "element_id": "5d2a8f0e-3b7c-4e1a-9f6d-2c8b7a1e4f90",
+          "create_visual": {
+            "type": "video_clip",
+            "source_url": "/api/projects/guide-practice-kit/media/hyperframes/neon-road/neon-road.e74fe551cddc37c6.webm",
+            "title": "Neon road",
+            "timeline_start": 0,
+            "source_duration_seconds": 8,
+            "source_start_seconds": 0,
+            "source_end_seconds": 8,
+            "lane_key": "visual_0",
+            "lane_index": 0,
+            "has_alpha": true
+          }
+        }
+      ]
+    }
+  ]
+}

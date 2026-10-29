@@ -156,3 +156,9 @@ and the creator chooses by ear among proposal options. Read-only; no timeline wr
   about 0.7 octave smooth away fine spectral detail, the 64-point envelope rounds off transients,
   and noise replaces the reference's phase structure. Rebuilds stay available for tuning, but the
   isolated units are the ones to place.
+
+## 2026-10-28 — visual_activity_prepare reports holds around given moments
+
+- **Observation:** Speed hops needed each stop's settle and takeoff seconds; agents judged them by eye or copied them from an earlier build. The owner asked to reuse an existing tool rather than add one.
+- **Decision:** `visual_activity_prepare` gains `holds: {at_seconds, curve?}`. For each moment it returns settle_seconds, takeoff_seconds, at_rest and contrast, read from the chosen curve (default `frames`) against the motion in the 3 s around it, with a geometric-midpoint threshold so a far subject reads like a near one; flickers under 0.1 s do not end a hold, and a hold longer than the context is followed along the whole curve. Helper: `holdsAround` in src/lib/sound-synth/visual-activity.ts. It is generic: marks, beats, freeze frames.
+- **Verification:** `visual-activity.test.ts` (near and far stops, a flicker, a 7 s hold, a moment off any stop). On a real take's four marks it matched the frames at two stops, read one takeoff about 0.3 s late with background motion (flagged by contrast 0.67) and reported a talking stop as not at rest.

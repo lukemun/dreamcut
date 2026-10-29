@@ -6,7 +6,7 @@
  *   dreamcut mcp        the DreamCut MCP server for Claude Code / Codex (starts the editor on first use)
  *   dreamcut status     show whether an editor is running
  *   dreamcut update     update a DreamCut installed with git clone to GitHub's latest version
- *   dreamcut setup           install everything the features use now (about 4 GB; runs in the background by itself)
+ *   dreamcut setup           install the programs and models for captions, voice and cutouts, plus a fallback FFmpeg (about 4 GB, once)
  *   dreamcut setup-matting   install subject tracing for cutout templates (about 1 GB)
  *   dreamcut setup-voice     install voice enhancement for "Enhance voice" (about 400 MB)
  *   dreamcut setup-speech    install the caption models (Whisper; MFA's when MFA is installed)
@@ -14,7 +14,7 @@
  *   dreamcut --help     show this usage
  *
  * The editor listens only on 127.0.0.1 and requires a per-launch session; browsers sign in with a
- * single-use link. Projects live in your DreamCut Library; nothing is uploaded. Run from Claude Code or
+ * single-use link. Projects and footage stay in your DreamCut Library on this computer. Run from Claude Code or
  * Codex, it never opens the system browser: the agent opens the link in its own built-in browser.
  */
 import { spawn } from 'node:child_process';
@@ -30,7 +30,7 @@ const USAGE = `Usage:
   dreamcut mcp            the DreamCut MCP server for Claude Code / Codex
   dreamcut status         show whether an editor is running
   dreamcut update         update this copy to GitHub's latest version (git installs only; never discards changes)
-  dreamcut setup          install everything the features use now (about 4 GB; runs in the background by itself)
+  dreamcut setup          install the programs and models for captions, voice and cutouts, plus a fallback FFmpeg (about 4 GB, once)
   dreamcut setup-matting  install subject tracing for cutout templates (about 1 GB)
   dreamcut setup-voice    install voice enhancement for "Enhance voice" (about 400 MB)
   dreamcut setup-speech   install the caption models (Whisper; MFA's when MFA is installed)

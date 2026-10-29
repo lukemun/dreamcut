@@ -47,3 +47,18 @@ the fresh setup and reduced-PATH runs pass; skipped parts are named with the rea
 - **Verification:** Each replacement command (`pnpm setup:check`, `setup:speech`, `setup:voice`,
   `setup:matting`, `pnpm bootstrap`, `node bin/dreamcut.mjs setup|doctor|mcp|--help`) ran once on the owner's
   Mac and exited 0. The skill was not run end to end on a clean computer.
+
+## 2026-10-28 — fresh-Mac prerequisites and setup in a git install
+
+- **Observation:** An audit of the install path for a non-technical creator on a new Mac found FFmpeg missing
+  from the README, dreamcut.io and the plugin's steps although `pnpm bootstrap` stops without it; Homebrew
+  assumed but never named (and Homebrew's `node@24` is keg-only, so `node` stays missing after
+  `brew install`); `corepack enable` failing where Node's folder is root-owned; and `node bin/dreamcut.mjs setup`
+  installing programs a git install never put on PATH, so doctor kept reporting them missing.
+- **Decision:** `runtimeEnvDefaults` gives a git install setup's programs after the system's own (Python and MFA
+  only once setup installed them). The steps name every prerequisite with a no-Homebrew route
+  (`xcode-select --install`, the nodejs.org `.pkg`, FFmpeg through setup), use `corepack pnpm`, and say setup
+  runs by hand in a git install. The README, site and plugin say the same.
+- **Verification:** `node --test scripts/setup-features.test.mjs`; `node scripts/doctor.mjs` with PATH reduced
+  to `/usr/bin:/bin` finds setup's FFmpeg and whisper-cli, and names `brew install ffmpeg` or setup when the tools
+  folder is empty; `corepack pnpm --version` with a fresh `COREPACK_HOME` and no TTY. Not run on a new Mac.

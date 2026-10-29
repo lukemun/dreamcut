@@ -891,6 +891,31 @@ export function measureLoudnessForNormalization(
   return JSON.parse(match[0]) as LoudnormMeasurement;
 }
 
+// Gentle per-cycle speech expansion: lifts quiet passages of one recording towards the loud
+// ones without pumping room tone, so later levelling leaves no section needing a clip boost.
+export const SPEECH_EVEN_OUT_FILTER = "speechnorm=e=4:r=0.0005:l=1";
+
+export function ensureSpeechEvenedMedia(projectId: string, sourcePath: string, hasVideo: boolean) {
+  const extension = hasVideo ? ".mp4" : ".m4a";
+  const recipe = `speech-even-out-v1:${SPEECH_EVEN_OUT_FILTER}`;
+  const { output, exists } = derivedOutput(projectId, sourcePath, recipe, "evened", extension);
+  if (!exists) {
+    renderAtomically(output.absolutePath, (temporary) => execFileSync("ffmpeg", [
+      "-y",
+      "-v", "error",
+      "-i", sourcePath,
+      ...(hasVideo ? ["-map", "0:v:0?", "-c:v", "copy"] : ["-vn"]),
+      "-map", "0:a:0",
+      "-af", SPEECH_EVEN_OUT_FILTER,
+      "-ar", "48000",
+      // Lossless: levelling re-encodes it next.
+      "-c:a", "alac",
+      temporary,
+    ], { stdio: "pipe" }));
+  }
+  return { ...output, recipe };
+}
+
 export function ensureLoudnessNormalizedMedia(
   projectId: string,
   sourcePath: string,

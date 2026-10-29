@@ -38,7 +38,8 @@ Browse every shared effect and reference study below. Each link opens its demo, 
 | [Negative Pop](recipes.md#fx-negative-pop) | Subject and background | Properties → Templates | Reference example |
 | [Scene Portal](recipes.md#fx-scene-portal) | Host footage; Insert and destination | Properties → Templates | Reference example |
 | [Speed Entrance & Exit](recipes.md#fx-speed-entrance-exit) | Performance footage; Matching empty background | Properties → Templates | Implemented template · built with your agent |
-| [Speed hops to camera](recipes.md#fx-speed-hops-to-camera) | One locked-off take; Marks where you stop | Properties → Templates | Implemented template · built with your agent |
+| [Speed hops](recipes.md#fx-speed-hops-to-camera) | One locked-off take; Marks where you stop | Properties → Templates | Implemented template · built with your agent |
+| [Flash effect](recipes.md#fx-flash-effect) | One locked-off take of your walk to the camera; Marks where you flash | Properties → Templates | Implemented template · built with your agent |
 | [Mask Glitch · Glow](recipes.md#fx-mask-glitch-glow) | Ordered pose or performance takes; Matching empty background | Properties → Templates | Implemented template · built with your agent |
 | [Moving Grid Matte](recipes.md#fx-moving-grid-matte) | Moving subject footage; Background | Properties → Templates | Implemented template · built with your agent |
 | [Paper cutout](recipes.md#fx-paper-cutout) | A shot with the subject | Properties → Templates | Implemented template · built with your agent |

@@ -48,11 +48,15 @@ Preview the combined candidate in context, including other active layers and sou
 
 Compute the target, verb, and before/after from validated operations; agent prose supplies rationale, not an alternative account of what the edit does. A cut in speech shows its words: the line as said with the removed words struck through, and the line as it will read; a tightened pause shows the words either side and the time it removes (`speech_edits`, from the speech-bound captions). Present relevant preflight findings within the proposal's changed actors and intervals, including unresolved uncertainty. Whole-project warnings belong to a whole-project audit unless a global change makes them relevant.
 
-A preview is only ever live with the Proposals panel open: starting one (from a card, a key,
-or the next card after a decision) opens the panel, and closing the panel ends the preview
-(creator decision, 2026-10-27, replacing the earlier rule that a preview stayed on after
-close). While it runs, a Preview pill with ✕ at the viewer's bottom-right edge, off the
-picture, also ends it. Agents posting a card open Proposals for the creator. Card decisions are single keys with their hints always visible: A applies, X
+Starting a preview (from a card, a key, or the next card after a decision) opens the Proposals
+panel, and closing the panel leaves the preview live, so the creator can watch it full width
+(creator decision, 2026-10-29, replacing the 2026-10-27 rule that closing the panel ended it).
+A Preview pill with ✕ at the viewer's bottom-right edge, off the picture, and Back to live end
+it. Closing the panel never hides the cards themselves: the checked cards' clips stay on the
+timeline as faint pending clips, on any new lane they add, and clips they change in place keep a
+review tint, with the panel closed and after a reload, so the creator can see where a card sits
+(creator, 2026-10-28 and 2026-10-29). While the panel is closed over a live preview or checked
+cards, the Proposals button carries an accent ring: proposal mode is on. Agents posting a card open Proposals for the creator. Card decisions are single keys with their hints always visible: A applies, X
 rejects, R replays, B plays the original stretch (again to replay the edit), and Shift+A
 applies every selected card. A mistaken decision is undone, so do not add modifiers or hide
 key hints to save space (creator decisions, 2026-10-23 and 2026-10-25).

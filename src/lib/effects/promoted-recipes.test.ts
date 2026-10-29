@@ -18,7 +18,7 @@ test('promotion replaces only the matching private discovery cards',()=>{
  const original=promotedRecipes.filter(r=>r.promotedFrom).map(r=>({...r,id:r.promotedFrom,origin:'user' as const}));
  const unrelated={...original[0],id:'user-unbuilt-reference'};
  const result=withoutPromotedCopies([...original,unrelated,...promotedRecipes]);
- assert.equal(result.length,promotedRecipes.length+1);assert.ok(result.includes(unrelated));assert.equal(original.length,3);
+ assert.equal(result.length,promotedRecipes.length+1);assert.ok(result.includes(unrelated));assert.equal(original.length,4);
 });
 test('a promoted template keeps the creator\'s own reference video when the profile has it',()=>{
  const speed=promotedRecipes.find(r=>r.promotedFrom==='user-speed-entrance-exit')!;

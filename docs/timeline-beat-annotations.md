@@ -18,16 +18,27 @@ The reference clip does not snap against its own grid. Source-relative annotatio
 is durable; reference selection, visibility and snapping are workspace session settings.
 
 Analysis never runs on import, placement, playback, drag, or a read request. **Analyze
-beats** (or MCP `beat_annotation_prepare`) explicitly prepares the annotation once.
-`beat_grid_get` reads saved analysis and returns its current clip-time projection;
+beats** (or MCP `beat_annotation_prepare`) explicitly prepares the annotation once; its optional `expected_bpm` (a tempo the
+creator or the music's maker stated) fits a constant grid near that tempo and keeps it
+only when it fits the track better than the tracked beats.
+`beat_grid_get` reads saved analysis and returns its current clip-time projection of
+beats, bar starts (`downbeats`) and `drops`;
 missing analysis returns `annotation: null`. Both tools accept `project_id` and
 `element_id`. Analysis does not edit timeline.json or authorize cuts. Agent edits
 continue through the existing proposal contract.
 
 Sidecars live in `projects/<id>/analysis/beats/`, keyed by source SHA-256 and detector
-recipe/script fingerprint. Schema 2 records source duration, ordered source-time beats,
+recipe/script fingerprint. Schema 3 (2026-10-28) records source duration, ordered source-time beats,
 high-sensitivity onset hits, provisional HPSS-derived hit categories and confidence,
-provisional tempo, analysis date, and unknown downbeats. Changing source bytes creates
+provisional tempo, analysis date, the tempo hint, whether beats came from the tracker
+or the fixed-tempo fit, a grid strength (how much more pulse sits on the beats than on
+the track's average moment), downbeats and drops. Downbeats assume 4/4: the bar phase
+where the kick lands hardest and the harmony changes most, with a confidence. Drops
+are bar starts where the next two bars are at least 9 dB louder in the bass (below
+150 Hz) or 6 dB louder overall than the two before, at most eight, four bars apart;
+the bar grid is extended over quiet intros the tracker skips. Schema 1 and 2 maps still
+read and have no downbeats or drops until prepared again. One map is kept per source:
+a new hint replaces it, and a request without one reuses it. Changing source bytes creates
 a new identity. Reads validate the sidecar. Trims, moves, splits and speed steps only
 reproject existing positions using the shared media clock; held frames have no beats.
 No timeline schema migration is required. Original media is never modified.
@@ -40,7 +51,8 @@ within a server process share work. Nothing is uploaded.
 
 ## Limits and verification
 
-Downbeat detection, source-separated instrument recognition, manual tempo/bar corrections,
+Meter detection (downbeats always assume 4/4), pickups and bar-length changes, source-separated
+instrument recognition, manual tempo/bar corrections, showing bars and drops on the ruler,
 automatic cuts, beat-cut QC, waveform coloring, library-wide batch annotation, and
 cross-project cache sharing are not implemented. “Synth / tonal” means a harmonic-dominant
 attack, not a proven synthesizer; mixed recordings can be mislabeled. Rhythm preparation

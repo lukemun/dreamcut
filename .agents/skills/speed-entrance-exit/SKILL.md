@@ -1,6 +1,6 @@
 ---
 name: speed-entrance-exit
-description: Build the Speed Entrance & Exit effect, also asked for as "the speed effect", "zoom from mark to mark" or "speed ramp between my stops". On a locked shot, a cut-out of the subject is keyframed between two places over a few frames with directional blur, so the subject shoots out of frame, into frame or from one marked stop to the next while the set stays still. Use for the Speed Entrance & Exit template and for marked stops from Storyboard. Not for playing footage faster (playback speed, speed ramps on a clip) or for whip transitions between two shots.
+description: Build the Speed Entrance & Exit effect and its Speed hops template, also asked for as "speed hops", "the speed effect", "zoom from mark to mark" or "speed ramp between my stops". On a locked shot, a cut-out of the subject is keyframed between two places over a few frames with directional blur, so the subject shoots out of frame, into frame or from one marked stop to the next while the set stays still. Use for the Speed Entrance & Exit and Speed hops templates and for marked stops from Storyboard. Not for playing footage faster (playback speed, speed ramps on a clip) or for whip transitions between two shots.
 ---
 
 # Speed Entrance & Exit
@@ -22,7 +22,7 @@ actually is.
 | Variant | Use when | Each move |
 | --- | --- | --- |
 | **Out and in** (tutorial default) | Separate poses or takes, "streak out of frame and reappear" | The subject shoots off the nearest edge in the direction they move, the empty set shows for a few frames, then they shoot in at the next pose. |
-| **Mark to mark** | The creator marked stops on one take ("land at Mark 2, hold, then zoom to the next mark") | The subject shoots straight from where they stand at Mark N to where they stand at Mark N+1, growing or shrinking to match, and lands on the live footage at Mark N+1. |
+| **Mark to mark** (the Speed hops template) | The creator marked stops on one take ("land at Mark 2, hold, then zoom to the next mark") | The subject shoots straight from where they stand at Mark N to where they stand at Mark N+1, growing or shrinking to match, and lands on the live footage at Mark N+1. |
 
 A first stop that starts from an empty set (Mark 1 is the empty set) gets an
 entrance from off frame in both variants. When the creator's words do not decide
@@ -72,17 +72,52 @@ too short for the longest streak is refused by stop and setting name, so cut eac
 12 frames either side. Steps 3, 6, 7 and 8 describe what the block does and remain the fallback for
 a hand-written card (for example a variant the block does not have).
 
+**Speed hops in one card.** For the Speed hops template, pass `template: "speed_hops"` and
+`sounds` in the inputs and send no settings. The template is always Mark to mark (6-frame halves,
+light see-through), so the card leaves off the style, distance, empty-scene and direction dials and
+shows plain ones: Hop length, Blur and Pause at stop per hop, and Sound volume, with slow motion,
+see-through and easing under All hops. `sounds.landings` takes the arrival whooshes from step 9
+(each `{source_url, source_duration_seconds, peak_seconds}`, from `sfx_search`), used in turn, and
+`sounds.last_landing` the close-up whoosh for the hop into the line. The block places each one so its
+peak lands on the landing frame and locks it to that streak with `follows_visual`; Sound volume 0
+makes them silent. Picture and sound then arrive, and are applied, together.
+
+**The ending.** A template is a starting point: fit the card to the creator's take (how many stops,
+a line or not) rather than to the demo. Pass `closing_exit` whenever there are frames to leave on, so
+the card offers the exit; its Leaves dial switches between out the side, past the camera and Stays
+(the subject holds still, the exit whoosh goes quiet), so the creator decides. Leave it out only when
+the creator asked to stay or no cut-out can cover it. The exit takes the subject all the way out of frame:
+`style: "past_camera"` (grows past the lens) after a line to camera, where cropped edges would show
+on a slide, or `"side"` otherwise. After a line, the exit is the line's last frames, so give
+`closing_exit.cutout` covering the last 12 frames before `line_end_seconds` (prepare it with
+`cutout_prepare`); after a hold it uses the stop's own cut-out from its takeoff. `sounds.exit` takes
+the "Takeoff whoosh", peaking a frame after the subject sets off. The card gets a "Leaving" section
+(Leaves, Hop length, Blur).
+
+**Speed Entrance & Exit in one card.** Pass `template: "entrance_exit"` (always out of frame and
+back in; Style and Empty scene hidden), `first_entrance: true` and `closing_exit`. One stop is
+enough. A stop is either a footage window (`cutout`, `settle_seconds`, `takeoff_seconds`) or a still
+pose: `pose: {source_url, moving_source_url?, place?}` where `source_url` is the standing pose,
+`moving_source_url` a walking pose for the streaks and `place` where the pose stands
+(`media_scale`/offsets as on any picture); measure `subject` there. Pose stops need no `source`
+and hold 1.5 s by default. Footage and pose stops can mix. Put the landing and exit whooshes in
+`sounds`.
+
 1. **Read.** `timeline_get` (revision, My Style, any grade already on the clip, which
    every new clip copies), `storyboard_get` for marks and their source seconds, and
    record the direction with `editing_feedback_record`.
 2. **Find each stop's settle and takeoff frames.** Marks say roughly where a stop is,
-   not when the subject moves. Measure movement around each mark with
-   `visual_activity_prepare` (its `frames` curve gives onsets and active intervals; a
-   locked-off take's motion is mostly the subject). If that curve is too noisy, use the
-   subject's position frame by frame against the empty set. The **settle** frame is
-   where they come to rest. The **takeoff** frame is the first frame of their next step.
-   A stop where they never stand fully in frame has no settle: use a full-body moment
-   and say so on the card.
+   not when the subject moves. Call `visual_activity_prepare` once over the stretch with
+   `holds: {at_seconds: [each mark's timeline_seconds]}`: for each mark it returns
+   `settle_seconds` (they come to rest), `takeoff_seconds` (the first frame of their next
+   step), `at_rest` and `contrast`, judged from the footage's motion around that mark, so a
+   far small subject reads like a near one. Use them as the stop's settle and takeoff. Read
+   the frames (`source_evidence`) before trusting a stop whose contrast is below about 0.6 or
+   that is not `at_rest`: motion behind the subject (a swing, traffic) delays the takeoff a few
+   frames, and a stop where they talk and gesture (the line at the camera) has no clean
+   takeoff, so take only its settle. A stop where they never stand fully in frame has no
+   settle: use a full-body moment and say so on the card. The settle and takeoff are what
+   happened; how much of the stop to show is the Pause dial's job, not the measurement's.
 3. **Plan the timeline** from those frames as a table before writing operations, per
    stop: streak in (cut-out) ending on the frame the live hold starts; the live hold
    (original footage) starting while the subject stands still and ending about 6 frames
@@ -172,8 +207,9 @@ a hand-written card (for example a variant the block does not have).
    - **Comes in from:** a review control on the first entrance's `motion_from_side`
      (it appears on any clip whose sideways move starts off frame).
    Put these first in `review_controls`; everything else stays in Advanced adjustments.
-9. **Sound (its own card, after the picture settles).** First search the sound Library
-   (`sfx_search` "speed whoosh"): the tutorial's sounds, already isolated, are a set whose ids
+9. **Sound (in the hop card through the block's `sounds` input; its own card only for a
+   hand-written build, after the picture settles).** First search the sound Library
+   (`sfx_search` "speed whoosh"): the Speed hops sounds, the tutorial's own sounds already isolated, are a set whose ids
    start `tutorial-speed-sfx-` ("Takeoff whoosh", "Arrival whoosh 1 (landing)", "Arrival
    whoosh 2 (landing)", "Arrival whoosh 3 (close-up)" and others). Reuse them as they are, one
    per hop: an arrival whoosh on each landing, "Arrival whoosh 3 (close-up)" on the hop into a

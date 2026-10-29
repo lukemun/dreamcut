@@ -102,6 +102,7 @@ a layout proposal adjustable.
 | Handwriting or entrance | Drawing/entrance duration; exit duration when relevant |
 | Color or treatment | Applicable color, amount, opacity; blend only when relevant |
 | Audio placement | Level, relevant fades; source timing only when requested |
+| Voice tone (deeper or higher) | Pitch (`props.pitch_semitones`, timing unchanged); Level when relevant |
 | Pace | Playback speed or the supported effect duration |
 
 These are candidates, not a requirement to expose every field. Keep accepted

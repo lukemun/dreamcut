@@ -132,22 +132,6 @@
       "timeline_write_marker": false
     },
     {
-      "path": "scripts/qa-fresh-clone.mjs",
-      "disposition": "development-eval-internal",
-      "capability": null,
-      "reason": "Owner QA lane (pnpm qa): clones pushed main into a throwaway folder, bootstraps it and runs pnpm editor on its own port, data and profile folders, as a new user gets it. Never edits a project.",
-      "sha256": "ac46f398ff8a2e531e01fce776b8b756ba3b928be4f6c47e18d02344ec9b72e4",
-      "timeline_write_marker": false
-    },
-    {
-      "path": "scripts/check-looks-render.mjs",
-      "disposition": "internal-or-deferred",
-      "capability": null,
-      "reason": "Repository check (pnpm check:looks --render): draws every look in Explainer Sequence's title scene in headless Chrome and fails when the page throws, its timeline never builds or its words read below 3:1. Agents never run it while editing.",
-      "sha256": "3037007f79e9e5204f4b6ed7fde4b6d222f20e70781d6d1132f06778a7296ab3",
-      "timeline_write_marker": false
-    },
-    {
       "path": "scripts/build-paper-contour-assets.py",
       "disposition": "defer",
       "capability": null,
@@ -217,6 +201,30 @@
       "capability": null,
       "reason": "Tests for the catalog privacy check; not an agent tool.",
       "sha256": "d4cfafd4018e52e5630547701d4e0b48c684f1d7d0aa8b0728329a0bd5f6d3b7",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-looks-render.mjs",
+      "disposition": "internal-or-deferred",
+      "capability": null,
+      "reason": "Repository check (pnpm check:looks --render): draws every look in Explainer Sequence's title scene in headless Chrome and fails when the page throws, its timeline never builds or its words read below 3:1. Agents never run it while editing.",
+      "sha256": "3037007f79e9e5204f4b6ed7fde4b6d222f20e70781d6d1132f06778a7296ab3",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-owner-text.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Repository check (pnpm check:owner-text, pre-commit, check:pr) that keeps one checkout's owner-only instructions out of the AGENTS.md and skills every user's agent loads; not an agent tool.",
+      "sha256": "cf1c34d004a91da2273653c47e625a77017428711332822e353a1682390393fe",
+      "timeline_write_marker": false
+    },
+    {
+      "path": "scripts/check-owner-text.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Tests for the owner-text check; not an agent tool.",
+      "sha256": "05afca1274153b8691cfa70dfee818c98dd7473f1c211043413e4d3ee3f4af1c",
       "timeline_write_marker": false
     },
     {
@@ -580,11 +588,19 @@
       "timeline_write_marker": false
     },
     {
+      "path": "scripts/hooks/editor-shown-gate.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Tests for the editor-shown Stop hook; not an agent tool.",
+      "sha256": "06034467655fa85e8b8ee2542daf240f4a0f7d6d454ff2b07aa14af99d39507b",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/hooks/editor-shown-gate.mjs",
       "disposition": "internal-or-deferred",
       "capability": null,
       "reason": "Internal Claude Code stop hook that checks transcript evidence of editor visibility; not an editing tool or timeline writer.",
-      "sha256": "47519f9f5f619f4b07a47838ceae6b6615cfb2812081a22f40e637b2408cb9c1",
+      "sha256": "41cdc4b4583f1d5650f6ad0c69694172971ed3fd632e584da980b7ca56413346",
       "timeline_write_marker": false
     },
     {
@@ -1068,6 +1084,14 @@
       "timeline_write_marker": false
     },
     {
+      "path": "scripts/qa-fresh-clone.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Owner QA lane (pnpm qa): clones pushed main into a throwaway folder, bootstraps it and runs pnpm editor on its own port, data and profile folders, as a new user gets it. Never edits a project.",
+      "sha256": "ac46f398ff8a2e531e01fce776b8b756ba3b928be4f6c47e18d02344ec9b72e4",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/qc.ts",
       "disposition": "covered-or-internal-worker",
       "capability": "visual-evidence",
@@ -1108,11 +1132,19 @@
       "timeline_write_marker": true
     },
     {
+      "path": "scripts/preview-render-sources.test.mjs",
+      "disposition": "development-eval-internal",
+      "capability": null,
+      "reason": "Checks that preview scripts draw clips from the sources the editor shows; not an agent tool.",
+      "sha256": "5bb8bdca012f60dbbbf88611aae688fc9edfb119222873914cacde094bb21bb0",
+      "timeline_write_marker": false
+    },
+    {
       "path": "scripts/render-preview.ts",
       "disposition": "internal-or-deferred",
       "capability": null,
       "reason": "Keep CLI/helper internal in this pass; no confirmed operator-interface gap established.",
-      "sha256": "53ae0d2374d8d5cd3d2c98efa176721bd09aa9361e9ffeed562f9542b828ab56",
+      "sha256": "4e892c0248ad192ee0c77a09d96f40aaa01d36b50c713b04baafefebaf490f9a",
       "timeline_write_marker": false
     },
     {

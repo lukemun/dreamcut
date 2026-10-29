@@ -2163,6 +2163,7 @@
                       "properties": {
                         "source_url": {
                           "type": "string",
+                          "format": "starts_with",
                           "pattern": "^\\/api\\/projects\\/.*",
                           "description": "Folder URL of the prepared grayscale mask frames, copied from cutout_status grid_matte_mask."
                         },
@@ -2729,9 +2730,9 @@
                                   "minItems": 2,
                                   "maxItems": 2
                                 },
-                                "description": "The surface's four corners at t, top-left, top-right, bottom-right, bottom-left, as fractions of the source frame.",
                                 "minItems": 4,
-                                "maxItems": 4
+                                "maxItems": 4,
+                                "description": "The surface's four corners at t, top-left, top-right, bottom-right, bottom-left, as fractions of the source frame."
                               },
                               "visible": {
                                 "type": "boolean",
@@ -2788,9 +2789,9 @@
                         "minimum": -1,
                         "maximum": 2
                       },
-                      "description": "The part of the tracked surface this picture covers, [left, top, right, bottom] as fractions of the surface: inset from [0,0,1,1] to leave the screen's own edge showing, or split it to put several pictures side by side.",
                       "minItems": 4,
-                      "maxItems": 4
+                      "maxItems": 4,
+                      "description": "The part of the tracked surface this picture covers, [left, top, right, bottom] as fractions of the surface: inset from [0,0,1,1] to leave the screen's own edge showing, or split it to put several pictures side by side."
                     },
                     "mask_line_rotation": {
                       "type": "number",
@@ -2827,9 +2828,9 @@
                               "minimum": 0,
                               "maximum": 0.95
                             },
-                            "description": "Crop edges [top, right, bottom, left] as fractions of the frame; [0,0,0,0] shows it all.",
                             "minItems": 4,
-                            "maxItems": 4
+                            "maxItems": 4,
+                            "description": "Crop edges [top, right, bottom, left] as fractions of the frame; [0,0,0,0] shows it all."
                           },
                           "ease": {
                             "type": "string",
@@ -3355,9 +3356,9 @@
                                   "minItems": 2,
                                   "maxItems": 2
                                 },
-                                "description": "The surface's four corners at t, top-left, top-right, bottom-right, bottom-left, as fractions of the source frame.",
                                 "minItems": 4,
-                                "maxItems": 4
+                                "maxItems": 4,
+                                "description": "The surface's four corners at t, top-left, top-right, bottom-right, bottom-left, as fractions of the source frame."
                               },
                               "visible": {
                                 "type": "boolean",
@@ -4065,9 +4066,9 @@
                                     "minimum": -4,
                                     "maximum": 4
                                   },
-                                  "description": "Curve handle toward the previous point, as an offset from this point.",
                                   "minItems": 2,
-                                  "maxItems": 2
+                                  "maxItems": 2,
+                                  "description": "Curve handle toward the previous point, as an offset from this point."
                                 },
                                 "out": {
                                   "type": "array",
@@ -4076,9 +4077,9 @@
                                     "minimum": -4,
                                     "maximum": 4
                                   },
-                                  "description": "Curve handle toward the next point, as an offset from this point.",
                                   "minItems": 2,
-                                  "maxItems": 2
+                                  "maxItems": 2,
+                                  "description": "Curve handle toward the next point, as an offset from this point."
                                 }
                               },
                               "required": [
@@ -4587,6 +4588,22 @@
                     "reason"
                   ],
                   "additionalProperties": false
+                },
+                "remove_audio": {
+                  "type": "object",
+                  "properties": {
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "description": "Why the clip goes, shown on the card's removal row."
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "additionalProperties": false,
+                  "description": "Retire a music or sound-effect clip, for example the old song when a card swaps the music; speech is never removed this way."
                 },
                 "set_lane_order": {
                   "type": "object",
@@ -6073,9 +6090,9 @@
                                       "minItems": 2,
                                       "maxItems": 2
                                     },
-                                    "description": "The surface's four corners at t, top-left, top-right, bottom-right, bottom-left, as fractions of the source frame.",
                                     "minItems": 4,
-                                    "maxItems": 4
+                                    "maxItems": 4,
+                                    "description": "The surface's four corners at t, top-left, top-right, bottom-right, bottom-left, as fractions of the source frame."
                                   },
                                   "visible": {
                                     "type": "boolean",
@@ -6136,9 +6153,9 @@
                         "minimum": -1,
                         "maximum": 2
                       },
-                      "description": "The part of the tracked surface a picture covers, [left, top, right, bottom] as fractions of the surface.",
                       "minItems": 4,
-                      "maxItems": 4
+                      "maxItems": 4,
+                      "description": "The part of the tracked surface a picture covers, [left, top, right, bottom] as fractions of the surface."
                     },
                     "subject_effect_state": {
                       "type": "string",
@@ -7491,6 +7508,7 @@
                             },
                             "source_url": {
                               "type": "string",
+                              "format": "starts_with",
                               "pattern": "^\\/api\\/projects\\/.*"
                             },
                             "sha256": {
@@ -7570,6 +7588,7 @@
                           "properties": {
                             "source_url": {
                               "type": "string",
+                              "format": "starts_with",
                               "pattern": "^\\/api\\/projects\\/.*"
                             },
                             "source_start_seconds": {
@@ -7661,6 +7680,7 @@
                           "properties": {
                             "source_url": {
                               "type": "string",
+                              "format": "starts_with",
                               "pattern": "^\\/api\\/projects\\/.*",
                               "description": "Folder URL of the prepared grayscale mask frames, copied from cutout_status grid_matte_mask."
                             },
@@ -7978,6 +7998,12 @@
                       "minimum": -4,
                       "maximum": 5
                     },
+                    "pitch_semitones": {
+                      "type": "number",
+                      "minimum": -12,
+                      "maximum": 12,
+                      "description": "Voice pitch in semitones without changing speed or timing, for a clip's own sound (video clips and voiceover): 0 = as recorded, negative = deeper (-3 is a noticeably lower voice), positive = higher, up to one octave either way."
+                    },
                     "volume_envelope": {
                       "description": "Volume automation within the clip: points {time_seconds, volume} in clip-relative seconds starting at 0 with strictly increasing times; volume is a linear gain (1 = unchanged, 0 = silent, up to 4). Use for fades and ducking inside one clip.",
                       "minItems": 2,
@@ -8094,9 +8120,9 @@
                               "minimum": 0,
                               "maximum": 0.95
                             },
-                            "description": "Crop edges [top, right, bottom, left] as fractions of the frame; [0,0,0,0] shows it all.",
                             "minItems": 4,
-                            "maxItems": 4
+                            "maxItems": 4,
+                            "description": "Crop edges [top, right, bottom, left] as fractions of the frame; [0,0,0,0] shows it all."
                           },
                           "ease": {
                             "type": "string",
@@ -9491,9 +9517,9 @@
                                     "minimum": -4,
                                     "maximum": 4
                                   },
-                                  "description": "Curve handle toward the previous point, as an offset from this point.",
                                   "minItems": 2,
-                                  "maxItems": 2
+                                  "maxItems": 2,
+                                  "description": "Curve handle toward the previous point, as an offset from this point."
                                 },
                                 "out": {
                                   "type": "array",
@@ -9502,9 +9528,9 @@
                                     "minimum": -4,
                                     "maximum": 4
                                   },
-                                  "description": "Curve handle toward the next point, as an offset from this point.",
                                   "minItems": 2,
-                                  "maxItems": 2
+                                  "maxItems": 2,
+                                  "description": "Curve handle toward the next point, as an offset from this point."
                                 }
                               },
                               "required": [
@@ -9847,7 +9873,7 @@
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 64,
-                  "description": "A registered block kind: live_hold, keyframed_move, hop_sequence (or operations, whose inputs.operations are plain operations)."
+                  "description": "A registered block kind: live_hold, keyframed_move, hop_sequence, flash_sequence (or operations, whose inputs.operations are plain operations)."
                 },
                 "version": {
                   "type": "integer",

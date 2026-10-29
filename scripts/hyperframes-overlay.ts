@@ -15,6 +15,9 @@ import {
   injectRuntimeIntoHtml,
   isWorldLayer,
   manifestSha256,
+  motionBlurFilter,
+  motionBlurPlan,
+  motionBlurShutter,
   parseCompositionManifest,
   rendersOpaque,
   resolveManifestValues,
@@ -168,6 +171,35 @@ function runHyperframes(cwd: string, args: string[], capture = false): string {
     throw new Error(`HyperFrames command failed: ${args.join(" ")}${detail}`);
   }
   return capture ? result.stdout.trim() : "";
+}
+
+/** The frame rate a composition renders at: its root's data-fps, else the renderer's 30. */
+function compositionFps(source: string): number {
+  const html = fs.readFileSync(path.join(source, "index.html"), "utf8");
+  const root = /<[a-z][^>]*\bdata-composition-id\s*=[^>]*>/i.exec(html)?.[0] ?? "";
+  const fps = Number(/\bdata-fps\s*=\s*["']([^"']+)["']/i.exec(root)?.[1]);
+  return Number.isFinite(fps) && fps > 0 ? fps : 30;
+}
+
+/**
+ * Render a WebM, with motion blur when the values ask for it: the renderer captures sub-frames at a
+ * multiple of the frame rate and each output frame averages the sub-frames ending at its time
+ * (motionBlurPlan). With no blur it is the plain render.
+ */
+function renderWebm(source: string, renderArgs: string[], output: string, shutter: number) {
+  const fps = compositionFps(source);
+  const plan = motionBlurPlan(shutter, fps);
+  if (!plan) return void runHyperframes(source, ["render", "--format", "webm", ...renderArgs, "--output", output]);
+  const subframes = output.replace(/\.webm$/, ".subframes.webm");
+  try {
+    runHyperframes(source, ["render", "--format", "webm", ...renderArgs, "--fps", String(plan.render_fps), "--output", subframes]);
+    const mixed = spawnSync("ffmpeg", ["-hide_banner", "-v", "error", "-y", "-c:v", "libvpx-vp9", "-i", subframes,
+      "-map", "0:v:0", "-map", "0:a?", "-c:a", "copy", "-vf", motionBlurFilter(plan, fps), "-r", String(fps),
+      "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "16", "-b:v", "0", "-row-mt", "1", "-auto-alt-ref", "0", output], { encoding: "utf8" });
+    if (mixed.status !== 0) throw new Error(`Averaging the motion-blur sub-frames failed: ${mixed.stderr}`);
+  } finally {
+    fs.rmSync(subframes, { force: true });
+  }
 }
 
 function sha256(filePath: string): string {
@@ -368,8 +400,10 @@ function check(args: Args): { source: string; fingerprint: string; loaded: Loade
   }
   const sharedLooks = usesSharedLooks(loaded?.manifest);
   const checkLook = sharedLooks && checkValues ? lookIdFromValues(checkValues) : null;
-  const checkedSources = checkLook
-    ? [...sources.filter((file) => file.path !== LOOKS_FILE), { path: LOOKS_FILE, text: buildLookBundle(checkLook) }]
+  const lookBundle = checkLook ? buildLookBundle(checkLook) : null;
+  const lookSha256 = lookBundle === null ? undefined : sha256Text(lookBundle);
+  const checkedSources = lookBundle !== null
+    ? [...sources.filter((file) => file.path !== LOOKS_FILE), { path: LOOKS_FILE, text: lookBundle }]
     : sources;
   const manifestPath = path.join(source, MANIFEST_FILE_NAME);
   const revision = recordRevisionIfChanged(projectId, subject, args.actor, {
@@ -389,12 +423,14 @@ function check(args: Args): { source: string; fingerprint: string; loaded: Loade
     });
   }
 
-  // The runtime check launches a browser (about 6 s). A value change re-renders unchanged code,
-  // so code that already passed keeps its result; the audit already records that validation.
-  // A looks template is re-checked every time: its look code is supplied by DreamCut and is not
-  // part of the source fingerprint, so an earlier pass may have seen different look code.
-  const passedBefore = !sharedLooks && readMotionAudit(projectId, "composition", compositionId).events
-    .some((event) => event.type === "validation" && event.ok && event.source_fingerprint_sha256 === fingerprint);
+  // The runtime check and object probe launch a browser twice (about 8 s). A value change re-renders
+  // unchanged code, so code that already passed keeps its result; the audit already records that
+  // validation. A looks template's look code is supplied by DreamCut and is not part of the source
+  // fingerprint, so its pass counts only for the same look code: a palette or timing change reuses
+  // it, a new look (or edited look code) is checked again.
+  const passedBefore = (!sharedLooks || lookSha256 !== undefined) && readMotionAudit(projectId, "composition", compositionId).events
+    .some((event) => event.type === "validation" && event.ok && event.source_fingerprint_sha256 === fingerprint
+      && (!sharedLooks || event.look_sha256 === lookSha256));
   const validation = manifestError
     ? { errors: [manifestError], warnings: [] as string[] }
     : validateCompositionSources(loaded?.manifest ?? null, checkedSources);
@@ -445,6 +481,7 @@ function check(args: Args): { source: string; fingerprint: string; loaded: Loade
   appendMotionAuditEvent(projectId, subject, args.actor, {
     type: "validation",
     source_fingerprint_sha256: fingerprint,
+    ...(lookSha256 !== undefined ? { look_sha256: lookSha256 } : {}),
     ok: errors.length === 0,
     errors,
     warnings: validation.warnings,
@@ -616,7 +653,7 @@ function render(args: Args, mode: RenderMode = "approved") {
     `.${compositionId}.${process.pid}.${Date.now()}.pending.webm`,
   );
   try {
-    runHyperframes(finalSource, ["render", "--format", "webm", "--quality", "high", "--output", pendingOutputPath]);
+    renderWebm(finalSource, ["--quality", "high"], pendingOutputPath, motionBlurShutter(loaded?.manifest ?? null, values));
   } finally {
     if (finalSource !== source) fs.rmSync(path.dirname(finalSource), { recursive: true, force: true });
   }
@@ -774,11 +811,14 @@ function density(args: Args) {
   try {
     // Parallel capture holds every frame on disk first (4 bytes a pixel); streaming needs no room but runs one
     // capture worker, many times slower. Stream only when the scratch volume cannot hold the frames with room to spare.
-    const frameBytes = canvas.width * DENSITY_SCALE * canvas.height * DENSITY_SCALE * 4 * Math.ceil(receipt.output.duration_seconds * receipt.output.fps);
+    // Motion blur captures several sub-frames per frame.
+    const shutter = motionBlurShutter(loaded?.manifest ?? null, values);
+    const subframes = motionBlurPlan(shutter, receipt.output.fps)?.samples ?? 1;
+    const frameBytes = canvas.width * DENSITY_SCALE * canvas.height * DENSITY_SCALE * 4 * Math.ceil(receipt.output.duration_seconds * receipt.output.fps) * subframes;
     const scratch = fs.statfsSync(os.tmpdir()), free = scratch.bavail * scratch.bsize;
     const stream = free < frameBytes * 1.25 + 4 * 1024 ** 3;
     if (stream) console.log(`Warning: streaming the ${preset} render (${Math.round(frameBytes / 1024 ** 3)} GB of frames, ${Math.round(free / 1024 ** 3)} GB free); this is slower`);
-    runHyperframes(finalSource, ["render", "--format", "webm", "--quality", "high", "--resolution", preset, ...(stream ? ["--low-memory-mode"] : []), "--output", pending]);
+    renderWebm(finalSource, ["--quality", "high", "--resolution", preset, ...(stream ? ["--low-memory-mode"] : [])], pending, shutter);
   } finally {
     if (finalSource !== source) fs.rmSync(path.dirname(finalSource), { recursive: true, force: true });
   }

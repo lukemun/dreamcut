@@ -7,6 +7,8 @@ import { shouldSeekPreview } from "@/lib/frame-runtime/preview-sync";
 import type { PlayerRef } from "@/lib/frame-runtime/player";
 
 import type { CompositionElement } from "@/lib/render/composition-adapters";
+import { PitchShiftRoute } from "@/lib/frame-runtime/pitch-shift-worklet";
+import { readPitchSemitones } from "@/lib/timeline/audio-pitch";
 import { readPreviewAudioGain } from "@/lib/remotion/preview-audio-gain-store";
 import { reversedPreviewAudioTime } from "@/lib/remotion/video-preview-audio";
 import { resolveSpeedStepSegments, speedStepFrame, timelineTimeToSourceTime } from "@/lib/timeline/speed-steps";
@@ -110,6 +112,7 @@ type AudioChannel = {
   audio: HTMLAudioElement;
   source: MediaElementAudioSourceNode;
   gain: GainNode;
+  pitch: PitchShiftRoute;
   element: PreviewAudioElement;
   lastSeekAt: number;
   pendingSeek: boolean;
@@ -158,11 +161,11 @@ export class TimelinePreviewAudioEngine {
       this.mediaElementSources.set(audio, { context, source });
     }
     const gain = context.createGain();
-    source.connect(gain);
+    const pitch = new PitchShiftRoute(context, source, gain);
     gain.connect(this.masterGain);
     audio.preload = "none";
     audio.crossOrigin = "anonymous";
-    const channel: AudioChannel = { audio, source, gain, element, lastSeekAt: -Infinity, pendingSeek: false, stopRecovery: () => {} };
+    const channel: AudioChannel = { audio, source, gain, pitch, element, lastSeekAt: -Infinity, pendingSeek: false, stopRecovery: () => {} };
     channel.stopRecovery = watchMediaRecovery(audio, () => {
       const warm = this.timelineSeconds >= channel.element.timeline_start - 2
         && this.timelineSeconds < channel.element.timeline_start + channel.element.duration;
@@ -209,6 +212,7 @@ export class TimelinePreviewAudioEngine {
     if (!channel) return;
     channel.stopRecovery();
     channel.audio.pause();
+    channel.pitch.dispose();
     channel.source.disconnect();
     channel.gain.disconnect();
     this.channels.delete(elementId);
@@ -351,6 +355,7 @@ export class TimelinePreviewAudioEngine {
       channel.audio.load();
     }
     channel.gain.gain.value = state.gain;
+    channel.pitch.set(readPitchSemitones(channel.element.props));
     const rate = state.playbackRate * this.transportRate;
     if (channel.audio.playbackRate !== rate) channel.audio.playbackRate = rate;
 

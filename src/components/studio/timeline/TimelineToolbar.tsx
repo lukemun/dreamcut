@@ -338,6 +338,10 @@ type Props = {
   pendingProposalCount?: number;
   proposalsOpen?: boolean;
   proposalPreviewActive?: boolean;
+  /** The drawer is closed while a proposal preview or checked proposals still show on the timeline. */
+  proposalModeActive?: boolean;
+  /** Checked proposals, named in the button's label while proposal mode is on. */
+  proposalsShownCount?: number;
   onReviewProposals: () => void;
   showProposals?: boolean;
   onOpenMedia?: () => void;
@@ -382,6 +386,8 @@ export function TimelineToolbar({
   pendingProposalCount = 0,
   proposalsOpen = false,
   proposalPreviewActive = false,
+  proposalModeActive = false,
+  proposalsShownCount = 0,
   onReviewProposals,
   showProposals = true,
   onOpenMedia,
@@ -494,13 +500,17 @@ export function TimelineToolbar({
           onReviewProposals();
         }}
         aria-pressed={proposalsOpen}
-        aria-label={`Open Proposals${pendingProposalCount > 0 ? `, ${pendingProposalCount} to review` : ""}${proposalPreviewActive ? ". Temporary proposal preview active." : ""}`}
+        aria-label={`Open Proposals${pendingProposalCount > 0 ? `, ${pendingProposalCount} to review` : ""}${proposalPreviewActive ? ". Temporary proposal preview active." : ""}${proposalModeActive && !proposalPreviewActive && proposalsShownCount > 0 ? `. Showing ${proposalsShownCount} checked on the timeline.` : ""}`}
         aria-keyshortcuts={proposalsShortcut === "Off" ? undefined : proposalsShortcut}
         title={proposalPreviewActive
           ? withShortcut("Temporary proposal preview active", proposalsShortcut)
-          : withShortcut(pendingProposalCount > 0 ? `Proposals: ${pendingProposalCount} to review` : "Proposals", proposalsShortcut)}
+          : proposalModeActive && proposalsShownCount > 0
+            ? withShortcut(`Proposals: showing ${proposalsShownCount} checked on the timeline`, proposalsShortcut)
+            : withShortcut(pendingProposalCount > 0 ? `Proposals: ${pendingProposalCount} to review` : "Proposals", proposalsShortcut)}
         // Open adds the selected fill; closed, it is a plain button and the accent count alone says cards are waiting.
+        // Closed while checked cards still show on the timeline, an accent ring says proposal mode is on.
         className="workspace-panel-button"
+        data-proposal-mode={proposalModeActive ? "" : undefined}
         style={panelButtonStyle}
       >
         <ClipboardCheckIcon size={14} strokeWidth={2} aria-hidden="true" />

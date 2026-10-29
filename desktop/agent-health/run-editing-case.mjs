@@ -4,6 +4,9 @@
 //   pnpm dev
 //   pnpm eval:case private/editing-evals/steady-height-v1 --provider codex [--model NAME] [--runs 3]
 //
+// A package's evaluator/grade.mjs exports grade(record, startTimeline, { project_id }); it may be async
+// and may import the editor's TypeScript (the runner loads tsx), e.g. src/lib/agent/effect-eval.ts.
+//
 // Each run prepares a fresh attempt from the frozen package (scripts/prepare-editing-fixture.mjs),
 // serves its project from the running editor under the package's project ID, sends input/task.txt,
 // and grades the newest pending proposal with evaluator/grade.mjs when the package has one.
@@ -23,6 +26,28 @@ const option = name => { const index = process.argv.indexOf(`--${name}`); return
 const origin = option('origin') ?? 'http://127.0.0.1:3123';
 const projectsDir = path.resolve(process.env.TIMELINE_PROJECTS_DIR || path.join(root, 'projects'));
 const MARKER = '.eval-case-attempt';
+const sha256 = async file => createHash('sha256').update(await fs.readFile(file)).digest('hex');
+
+/**
+ * A copied file gets new timestamps, so the editor would treat every prepared clip in the copy as
+ * changed and refuse it ("Video is not ready"). Re-stamp a receipt only for bytes that are unchanged:
+ * same size, and the same hash when the receipt records one.
+ */
+export async function restampPreparationReceipts(project) {
+  const dir = path.join(project, 'preprocess', 'media-preparation');
+  let restamped = 0;
+  for (const name of await fs.readdir(dir).catch(() => [])) {
+    if (!name.endsWith('.json')) continue;
+    const file = path.join(dir, name), record = JSON.parse(await fs.readFile(file, 'utf8'));
+    const source = path.join(project, 'media', record.source ?? '');
+    if (!record.source || !source.startsWith(path.join(project, 'media') + path.sep)) continue;
+    const stat = await fs.stat(source).catch(() => null);
+    if (!stat || stat.size !== record.size || (record.source_hash && await sha256(source) !== record.source_hash)) continue;
+    await fs.writeFile(file, JSON.stringify({ ...record, mtime: stat.mtimeMs, ...(record.ctime !== undefined ? { ctime: stat.ctimeMs } : {}) }, null, 2));
+    restamped += 1;
+  }
+  return restamped;
+}
 
 async function runOnce({ pkg, manifest, config, provider, agent, model, run }) {
   const stamp = `${new Date().toISOString().replace(/[:.]/g, '-')}-${provider}-${run}`;
@@ -36,6 +61,7 @@ async function runOnce({ pkg, manifest, config, provider, agent, model, run }) {
   }
   await fs.cp(path.join(attempt, 'projects', config.project_id), project, { recursive: true });
   await fs.writeFile(path.join(project, MARKER), `${stamp}\n`);
+  await restampPreparationReceipts(project);
   const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'dreamcut-eval-case-'));
   const started = Date.now();
   try {
@@ -54,7 +80,7 @@ async function runOnce({ pkg, manifest, config, provider, agent, model, run }) {
     const graderPath = path.join(pkg, 'evaluator', 'grade.mjs');
     const grader = await fs.stat(graderPath).then(() => true, () => false) ? (await import(pathToFileURL(graderPath).href)).grade : null;
     const start = JSON.parse(await fs.readFile(path.join(attempt, 'projects', config.project_id, 'timeline.json'), 'utf8'));
-    const graded = !latest ? { pass: false, failures: ['no proposal was staged'] } : grader ? grader(latest, start) : { pass: null, failures: [], note: 'no structural grader; human review only' };
+    const graded = !latest ? { pass: false, failures: ['no proposal was staged'] } : grader ? await grader(latest, start, { project_id: config.project_id }) : { pass: null, failures: [], note: 'no structural grader; human review only' };
     await fs.cp(path.join(project, 'proposals'), path.join(attempt, 'result-proposals'), { recursive: true }).catch(() => {});
     return { run, provider, model: model ?? 'default', ended: end.type, seconds: Math.round((Date.now() - started) / 1000),
       tool_calls: calls.length, rejected_calls: calls.filter(call => !call.ok).map(call => ({ tool: call.tool, reason: call.reason })),
@@ -97,4 +123,4 @@ async function main() {
   process.exitCode = results.some(result => result.pass === false) ? 1 : 0;
 }
 
-main().catch(error => { console.error(error.message); process.exitCode = 1; });
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(error => { console.error(error.message); process.exitCode = 1; });

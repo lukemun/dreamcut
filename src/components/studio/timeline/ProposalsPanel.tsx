@@ -407,7 +407,7 @@ export function ProposalsPanel({
   useEffect(() => { onCheckedChange?.(selectedBatch); }, [onCheckedChange, selectedBatch]);
 
   // A preview of the ticked edits follows the ticks: ticking or unticking re-previews the new selection
-  // (closing the drawer keeps it on the timeline), and unticking the last edit goes back to live.
+  // (closing the drawer ends it; the ticked edits stay on the timeline as pending clips), and unticking the last edit goes back to live.
   // A preview of one card on its own ends when the ticks change.
   const followSelection = useRef(false);
   const selectionKey = (selections: readonly ProposalOptionSelection[]) => selections.map((selection) => `${selection.proposalId}:${selection.optionId}`).join("|");

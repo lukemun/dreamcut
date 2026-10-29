@@ -195,3 +195,9 @@ Skill-purpose and catalog checks passed (2 tests); documentation whitespace chec
 - **Observation:** On the DreamCut tutorial the agent read step 5 but placed the intro titles by trial: eight `proposal_create` calls refused because the text ran off the frame (02:06–02:18), then code reading in `captions.ts` for the text box size. The instruction to place from `open_space_find` sat mid-paragraph and the tool was never called.
 - **Decision:** Updated. Step 5's placement rule now has its own lead: call `open_space_find` (with the text) before placing any visual, and do not find room by trial cards. The relation-overlap refusal also points at it (see `docs/tools/evolution/proposal-authoring.md`).
 - **Verification:** Instruction and message only; not yet run by a fresh agent.
+
+## 2026-10-28 — Voice pitch
+
+- **Observation:** The creator asked for their narration to sound deeper; DreamCut had no pitch control, so the request was logged as a capability gap.
+- **Decision:** Updated. The control-intent table names Pitch (`props.pitch_semitones`) for voice-tone requests; the field and its dial are in `docs/tools/evolution/proposal-authoring.md`.
+- **Verification:** Instruction only; the `voice-pitch-deeper` feature case has not been run against a model.

@@ -26,6 +26,7 @@ export const storyboardDraftShotSchema = z.object({
   label: z.string().trim().min(1).max(240).describe("Short shot name, e.g. 'Hook: why I quit'"),
   note: z.string().max(2000).default("").describe("What happens in this shot: what is said and seen, and any planned treatment"),
   text: z.string().max(1000).default("").describe("On-screen text idea for this shot, if any"),
+  words: z.string().max(20000).optional().describe("The row's Script column, shown beside its picture on the Storyboard page: what is said or happens, e.g. this shot's part of the transcript"),
   transition_into: z.string().max(2000).optional().describe("Planned transition into this shot from the previous one, e.g. 'mask glitch reveal'"),
   visuals: z.array(storyboardDraftVisualSchema).max(MAX_SHOT_VISUALS).optional().describe("Cutaways shown over this shot while its picture and sound keep running underneath (screenshots, mockups, B-roll, motion graphics), in time order without overlaps. Use these for visuals during speech; a separate shot would cut the speech"),
 }).strict();
@@ -75,7 +76,7 @@ export function applyStoryboardDraft(content: StoryboardContent, draft: Storyboa
       }).sort((a, b) => a.at - b.at);
       visuals.forEach((v, i) => { if (i && v.at < visuals[i - 1].at + visuals[i - 1].duration - 1e-4) throw new StoryboardDraftError(`${where}: visuals "${visuals[i - 1].label}" and "${v.label}" overlap; one visual shows at a time.`); });
       shots.push({ id: id(), source: shot.source, start, duration, label: shot.label, note: shot.note, text: shot.text,
-        ...(shot.transition_into ? { transitionNote: shot.transition_into } : {}), ...(groupId ? { groupId } : {}), ...(visuals.length ? { visuals } : {}) });
+        ...(shot.words ? { script: shot.words } : {}), ...(shot.transition_into ? { transitionNote: shot.transition_into } : {}), ...(groupId ? { groupId } : {}), ...(visuals.length ? { visuals } : {}) });
     });
   });
   const keep = draft.mode === "append";
@@ -101,7 +102,7 @@ export function storyboardAgentSummary(snapshot: StoryboardSnapshot, assets: Sto
       ready: a.ready, in_storyboard: board.sources.includes(a.source) })),
     beats: storyboardUnits(board).map(unit => ({
       name: unit[0].groupId ? groups.get(unit[0].groupId) ?? null : null,
-      shots: unit.map(s => ({ id: s.id, source: s.source, start: s.start, end: +(s.start + s.duration).toFixed(4), label: s.label, note: s.note, text: s.text, transition_into: s.transitionNote ?? null,
+      shots: unit.map(s => ({ id: s.id, source: s.source, start: s.start, end: +(s.start + s.duration).toFixed(4), label: s.label, note: s.note, text: s.text, words: s.script ?? "", transition_into: s.transitionNote ?? null,
         visuals: (s.visuals ?? []).map(v => ({ id: v.id, source: v.source, at: v.at, duration: v.duration, start: v.start, label: v.label, note: v.note, placement: visualPlacement(v) })) })),
     })),
     reference: board.reference ? { source: board.reference.source, title: board.reference.title, recast_model: board.reference.recastModel ?? null,

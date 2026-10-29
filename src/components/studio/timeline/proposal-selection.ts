@@ -67,7 +67,7 @@ function touchedElements(option: ProposalOptionReview): Set<string> {
 
 function removedElements(option: ProposalOptionReview): Set<string> {
   return new Set(option.rows.flatMap((row) => (
-    row.changes.some((change) => change.target === "remove_visual") ? [row.element_id] : []
+    row.changes.some((change) => change.target === "remove_visual" || change.target === "remove_audio") ? [row.element_id] : []
   )));
 }
 

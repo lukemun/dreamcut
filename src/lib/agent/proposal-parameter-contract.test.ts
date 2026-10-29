@@ -242,7 +242,13 @@ test("every block setting is a registered dial: display metadata, bounded tuning
     keyframed_move: { cutout: { source_url: `${media}/cutouts/a.webm`, source_duration_seconds: 2, source_offset_seconds: 5 }, lane: { lane_key: "visual_1", lane_index: 1 }, timeline_start: 0, source_start_seconds: 5.5, subject_height: 0.5, to: { scale: 1, offset_x: 0.8, offset_y: 0 }, far_end: "end" },
     hop_sequence: { source: { source_url: `${media}/sources/walk.mp4`, source_duration_seconds: 40 }, empty_set: { source_url: `${media}/sources/walk.mp4`, source_duration_seconds: 40 },
       stops: [{ label: "A", cutout: { source_url: `${media}/cutouts/a.webm`, source_duration_seconds: 3, source_offset_seconds: 4 }, subject: { cx: 0.3, cy: 0.5, h: 0.6 }, settle_seconds: 5, takeoff_seconds: 5.5 },
-        { label: "B", cutout: { source_url: `${media}/cutouts/b.webm`, source_duration_seconds: 3, source_offset_seconds: 11 }, subject: { cx: 0.7, cy: 0.5, h: 0.5 }, settle_seconds: 12, takeoff_seconds: 12.5 }] },
+        { label: "B", cutout: { source_url: `${media}/cutouts/b.webm`, source_duration_seconds: 3, source_offset_seconds: 11 }, subject: { cx: 0.7, cy: 0.5, h: 0.5 }, settle_seconds: 12, takeoff_seconds: 12.5 }],
+      // With sounds and a closing exit, so the Sound volume and Leaves dials reach the card too.
+      sounds: { landings: [{ source_url: "/api/sfx-catalog/media/whoosh.wav", source_duration_seconds: 0.4, peak_seconds: 0.05 }] }, closing_exit: { style: "side" } },
+    flash_sequence: { source: { source_url: `${media}/sources/walk.mp4`, source_duration_seconds: 40 }, empty_set: { source_url: `${media}/sources/walk.mp4`, source_duration_seconds: 40 },
+      poses: [{ label: "A", cutout: { source_url: `${media}/cutouts/a.webm`, source_duration_seconds: 0.5, source_offset_seconds: 5 }, at_seconds: 5.1 },
+        { label: "B", cutout: { source_url: `${media}/cutouts/b.webm`, source_duration_seconds: 0.5, source_offset_seconds: 12 }, at_seconds: 12.1 }],
+      line_end_seconds: 14, sound: { source_url: "/api/sfx-catalog/media/click.wav", source_duration_seconds: 0.18, peak_seconds: 0.075 } },
   };
   for (const definition of listBlockDefinitions()) {
     const inputs = fixtures[definition.kind];
