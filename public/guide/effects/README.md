@@ -8,8 +8,6 @@ Bundled examples for Guide; independent of local project folders.
 - Audio: Motivation / Feel Good version 4 by BombinSound, from the local licensed royalty-free catalog, source window 14.45–20.85 seconds. Retain the source catalog's rights/provenance for redistribution review.
 - Rhythm: src/components/studio/timeline/guide-rhythm.json contains source waveform samples and eight detected hits matched to the opening layer entrances within half a 30fps frame. These are a read-only example, not changes to project hit selections.
 
-The 1.4-second `celfstudies-food-reference-silent.mp4` is a silent, video-stream-preserving derivative of `docs/effects/media/FX-08.mp4` for the Guide Overview comparison. The original catalog reference retains its audio and evidence hash. The poster is copied from the same catalog entry. Credit: @celfstudies, https://www.instagram.com/reel/DdN_aljAIY0/ (credited excerpt). The bird video is a partial recreation, not a frame-for-frame match. The original reference reel's exact added SFX were not established by the recorded investigation.
-
 ## Scratchpad silhouette example
 
 Unchanged copies of an original/treated pair made from a CC0 silhouette:

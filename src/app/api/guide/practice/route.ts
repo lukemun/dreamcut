@@ -8,6 +8,7 @@ import { isLocalEditorRequest } from "@/lib/local-request";
 import { projectDir, projectExists } from "@/lib/local-store/paths";
 import { enqueueMediaPreparation, readPreparation } from "@/lib/local-store/media-preparation";
 import { listProposals } from "@/lib/local-store/proposals";
+import { readTimeline } from "@/lib/local-store/store";
 import { GUIDE_PRACTICE_PROJECT } from "@/lib/guide-tour";
 
 export const dynamic = "force-dynamic";
@@ -71,10 +72,15 @@ async function preparePracticeMedia(projectId: string) {
   }
 }
 
-/** The card to review: the neon road the 3D Sketch Scene template built behind the bobblehead. Made only when none is waiting. */
+/**
+ * The card to review: the neon road the 3D Sketch Scene template built behind the bobblehead. Made only when
+ * none is waiting and its clips are not already on the timeline (an approved card, even one since deleted).
+ */
 async function ensurePracticeCard(projectId: string) {
   if (listProposals(projectId, { status: "pending" }).length) return;
   const card = JSON.parse(fs.readFileSync(path.join(KIT, "card.json"), "utf8").replaceAll(KIT_PROJECT_ID, projectId));
+  const cardIds = new Set<string>(card.options.flatMap((option: { operations: { element_id: string }[] }) => option.operations.map(operation => operation.element_id)));
+  if (readTimeline(projectId).elements.some(element => cardIds.has(element.id))) return;
   const proposal = { ...card, project_id: projectId, expected_revision: timelineRevision(projectId) };
   const response = await createProposal(new Request(`http://127.0.0.1/api/projects/${projectId}/timeline/proposals`, {
     method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(proposal),
@@ -82,13 +88,21 @@ async function ensurePracticeCard(projectId: string) {
   if (!response.ok) throw Object.assign(new Error((await response.json()).error ?? "Could not prepare the practice card."), { status: response.status });
 }
 
+/** One start at a time: a second request while the kit is copying or the card is being made waits for the first. */
+let starting: Promise<string> | null = null;
+
+async function startPractice() {
+  const projectId = ensurePracticeProject();
+  await preparePracticeMedia(projectId);
+  await ensurePracticeCard(projectId);
+  return projectId;
+}
+
 /** The Guide's practice material: makes (or reuses) the practice project and a card to review. */
 export async function POST(request: Request) {
   if (!isLocalEditorRequest(request, true)) return NextResponse.json({ error: "The tour needs the local editor." }, { status: 403 });
   try {
-    const projectId = ensurePracticeProject();
-    await preparePracticeMedia(projectId);
-    await ensurePracticeCard(projectId);
-    return NextResponse.json({ project_id: projectId });
+    starting ??= startPractice().finally(() => { starting = null; });
+    return NextResponse.json({ project_id: await starting });
   } catch (error) { return failure(error); }
 }
