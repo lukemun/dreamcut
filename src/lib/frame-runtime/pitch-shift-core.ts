@@ -85,7 +85,8 @@ function createPitchShifter(sampleRate, channels) {
       if (ratio === 1) {
         // Unshifted: pass straight through with no delay. Entering it drops every pending grain tail,
         // so none is summed back in when shifting resumes.
-        if (previous !== null || nextGrain > produced) for (const channel of output) channel.fill(0);
+        // Only samples not yet played, up to the last grain's end, can hold a tail.
+        if (previous !== null || nextGrain > produced) for (const channel of output) for (let k = produced; k < nextGrain + N; k++) channel[k & MASK] = 0;
         for (let c = 0; c < outBlock.length; c++) outBlock[c][i] = input[Math.min(c, channels - 1)][produced & MASK];
         produced++; nextGrain = produced; previous = null;
         continue;
