@@ -118,3 +118,21 @@ test("no shift passes the sound through untouched and without delay", () => {
   const source = vowel(1);
   assert.deepEqual(shift(source, 1), source);
 });
+
+test("dragging the dial through no shift leaves no grain tail to come back as a click", () => {
+  const ratio = pitchRatio(-3), source = vowel(0.2);
+  const run = (shifter: ReturnType<typeof createPitchShifter>, signal: Float32Array, r: number) => {
+    const out = new Float32Array(signal.length);
+    for (let at = 0; at < signal.length; at += 128) {
+      const block = new Float32Array(Math.min(128, signal.length - at));
+      shifter.process([signal.subarray(at, at + 128)], [block], r);
+      out.set(block, at);
+    }
+    return out;
+  };
+  // Shifted, then a moment at no shift, then shifted again; against one that was never shifted before.
+  const dragged = createPitchShifter(SR, 1), steady = createPitchShifter(SR, 1);
+  run(dragged, source, ratio); run(steady, source, 1);
+  run(dragged, new Float32Array(256), 1); run(steady, new Float32Array(256), 1);
+  assert.deepEqual(run(dragged, new Float32Array(4096), ratio), run(steady, new Float32Array(4096), ratio));
+});

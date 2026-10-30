@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { POST as createProposal } from "@/app/api/projects/[projectId]/timeline/proposals/route";
 import { timelineRevision } from "@/lib/agent/timeline-editor-agent-apply";
 import { isLocalEditorRequest } from "@/lib/local-request";
-import { projectDir, projectExists } from "@/lib/local-store/paths";
+import { projectDir, projectExists, projectsRoot } from "@/lib/local-store/paths";
 import { enqueueMediaPreparation, readPreparation } from "@/lib/local-store/media-preparation";
 import { listProposals } from "@/lib/local-store/proposals";
 import { readTimeline } from "@/lib/local-store/store";
@@ -42,15 +42,29 @@ function kitVideos(dir = path.join(KIT, "project", "media"), prefix = ""): strin
     : entry.name.endsWith(".webm") ? [`${prefix}${entry.name}`] : []);
 }
 
+function processRunning(pid: number) {
+  if (!Number.isInteger(pid) || pid <= 0) return false;
+  try { process.kill(pid, 0); return true; } catch (error) { return (error as NodeJS.ErrnoException).code === "EPERM"; }
+}
+
 function ensurePracticeProject() {
   const id = GUIDE_PRACTICE_PROJECT;
   if (!projectExists(id)) {
+    // Built in a hidden folder and renamed into place, so a copy cut short never leaves a half-made project.
+    const root = projectsRoot(), prefix = `.${id}-partial-`;
+    // Another editor sharing this projects folder may be copying now; only a dead process's copy is cleared.
+    for (const entry of fs.readdirSync(root)) {
+      if (entry.startsWith(prefix) && !processRunning(Number(entry.slice(prefix.length).split("-")[0]))) fs.rmSync(path.join(root, entry), { recursive: true, force: true });
+    }
+    const partial = path.join(root, `${prefix}${process.pid}-${Date.now()}`);
     try {
-      copyKit(path.join(KIT, "project"), projectDir(id), id);
-      fs.writeFileSync(path.join(projectDir(id), MARKER), JSON.stringify({ schema_version: 1, created_at: new Date().toISOString() }));
+      copyKit(path.join(KIT, "project"), partial, id);
+      fs.writeFileSync(path.join(partial, MARKER), JSON.stringify({ schema_version: 1, created_at: new Date().toISOString() }));
+      fs.renameSync(partial, projectDir(id));
     } catch (error) {
-      fs.rmSync(projectDir(id), { recursive: true, force: true });
-      throw error;
+      fs.rmSync(partial, { recursive: true, force: true });
+      // The other editor finished first: its project is the same kit.
+      if (!fs.existsSync(path.join(projectDir(id), MARKER))) throw error;
     }
   } else if (!fs.existsSync(path.join(projectDir(id), MARKER))) {
     throw Object.assign(new Error(`A project named "${id}" already exists. Rename it to take the tour.`), { status: 409 });

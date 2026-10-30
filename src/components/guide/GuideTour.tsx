@@ -83,7 +83,7 @@ export function GuideTour() {
       } catch { /* the next read tries again */ }
     };
     void read();
-    const timer = window.setInterval(read, 1000);
+    const timer = window.setInterval(read, 2000);
     return () => { controller.abort(); window.clearInterval(timer); };
   }, [state, finished]);
 
@@ -103,7 +103,10 @@ export function GuideTour() {
       // A control below the fold of its panel is scrolled into view once, so the outline is never on something else.
       if (target && !scrolledTo.has(target)) { scrolledTo.add(target); target.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
       const box = target?.getBoundingClientRect();
-      setRect(box && box.width > 0 ? { top: box.top, left: box.left, width: box.width, height: box.height } : null);
+      const next = box && box.width > 0 ? { top: box.top, left: box.left, width: box.width, height: box.height } : null;
+      // Only a moved or resized target redraws the outline.
+      setRect(current => current && next && current.top === next.top && current.left === next.left
+        && current.width === next.width && current.height === next.height ? current : next);
       setProgress(step.progress?.(context));
       if (step.done?.(context) && advanceTimer === undefined) {
         setDone(true);

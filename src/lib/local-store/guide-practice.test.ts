@@ -20,7 +20,11 @@ const call = (action: string) => POST(new Request("http://127.0.0.1:3129/api/gui
 }));
 
 test("the Guide makes one practice project with a card to review, and reuses it", { timeout: 240_000 }, async () => {
+  // A copy cut short by a killed editor is left hidden, never as a half-made project, and the next start clears it.
+  const leftover = path.join(root, "projects", `.${GUIDE_PRACTICE_PROJECT}-partial-999999999-1`);
+  fs.mkdirSync(leftover, { recursive: true });
   const first = await call("start");
+  assert.ok(!fs.existsSync(leftover));
   assert.equal(first.status, 200, JSON.stringify(await first.clone().json()));
   assert.equal((await first.json()).project_id, GUIDE_PRACTICE_PROJECT);
   const pending = listProposals(GUIDE_PRACTICE_PROJECT, { status: "pending" });

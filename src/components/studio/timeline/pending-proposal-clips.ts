@@ -29,7 +29,7 @@ export function pendingProposalClips(live: readonly TimelineElement[], draft: re
   const changedIds = new Set(live
     .filter((element) => {
       const next = draftById.get(element.id);
-      return !element.removed_at && next && !next.removed_at && clipChanged(element, next);
+      return !element.removed_at && next && next !== element && !next.removed_at && clipChanged(element, next);
     })
     .map((element) => element.id));
   return { added, addedIds: new Set(added.map((element) => element.id)), outgoingIds, changedIds };
@@ -37,7 +37,7 @@ export function pendingProposalClips(live: readonly TimelineElement[], draft: re
 
 /**
  * Whether the timeline shows checked cards' pending clips. Deliberately blind to the Proposals drawer: a
- * card's new lane and clip stay in view after the drawer closes and after a reload (owner, 2026-10-28).
+ * card's new lane and clip stay in view after the drawer closes and after a reload.
  */
 export function pendingProposalClipsWanted({ proposals, checkedCount }: { proposals: boolean; checkedCount: number }) {
   return proposals && checkedCount > 0;

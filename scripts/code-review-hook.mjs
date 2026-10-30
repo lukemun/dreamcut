@@ -16,7 +16,11 @@ if (!["claude", "codex"].includes(reviewer)) {
   console.error(`Unknown DREAMCUT_CODE_REVIEW_TOOL "${reviewer}"; use claude or codex.`);
   process.exit(1);
 }
-const base = readEnv("REVIEW_BASE") ?? "main";
+// Pushing from main itself would diff main against main, so the default base is what the push is going to.
+const upstream = () => {
+  try { return execFileSync("git", ["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim(); } catch { return ""; }
+};
+const base = readEnv("REVIEW_BASE") ?? (upstream() || "main");
 const reviewModel = readEnv("CODE_REVIEW_MODEL") ?? (reviewer === "claude" ? "opus" : "gpt-5.5");
 const scope = phase === "pre-push" ? `the branch's changes against ${base}` : "the staged changes this commit will contain";
 // The hook gathers the diff itself, so the reviewer needs no shell: Read, Grep and Glob only.
