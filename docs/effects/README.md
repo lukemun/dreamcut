@@ -52,7 +52,7 @@ Browse every shared effect and reference study below. Each link opens its demo, 
 | [Layered Paper Cutout](recipes.md#layered-paper-cutout) | Portrait; Music and hits | Properties → Templates | Demonstration · not catalog-verified |
 | [Background removal](recipes.md#talking-head-cutout) | Photo or video | Properties → Templates | Demo not available yet |
 
-Want to add one? Start with the [effect page template](creator-template.md) and [PR contribution guide](../../CONTRIBUTING.md#add-a-template).
+Want to add one? Start with the [effect page template](creator-template.md) and [PR contribution guide](../../CONTRIBUTING.md#contributing-an-effect).
 <!-- END EFFECT INDEX -->
 
 ## User-only recipes

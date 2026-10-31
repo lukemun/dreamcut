@@ -1,6 +1,6 @@
 # Third-party notices
 
-DreamCut is licensed under FSL-1.1-ALv2 (see LICENSE), and it depends on
+DreamCut is licensed under the Apache License 2.0 (see LICENSE), and it depends on
 third-party software and includes a small catalog of attributed media. Those materials retain their own
 licenses and are not relicensed by the DreamCut license.
 

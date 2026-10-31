@@ -3,8 +3,8 @@ import path from 'node:path';
 
 // Every shipped code file ends with the licence notice. It is appended, not prepended, so line and
 // column positions (and any source maps made from the build) stay correct; `/*!` survives minifiers.
-export const LICENSE_NOTICE = '/*! DreamCut. Copyright 2026 Luke Munro. Licensed under the Functional Source License, Version 1.1, '
-  + 'ALv2 Future License (FSL-1.1-ALv2). See LICENSE. */';
+export const LICENSE_NOTICE = '/*! DreamCut. Copyright 2026 Luke Munro. Licensed under the Apache License, Version 2.0. '
+  + 'See LICENSE. */';
 const CODE = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.mts', '.cts']);
 
 /** Appends the notice to code files under `dir`, skipping node_modules and links. Safe to rerun. */

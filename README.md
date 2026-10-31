@@ -4,25 +4,29 @@
 
 <h1 align="center">DreamCut</h1>
 
-<p align="center"><b>Vibe editing for video.</b><br>Say what you want. Your agent builds it on a real timeline. You tune it and keep it.</p>
+<p align="center"><b>Invent the next trend in video.</b><br>The local agentic video editor behind an open catalog of edits.</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/license-FSL--1.1--ALv2-blue" alt="FSL-1.1-ALv2">
+  <img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0">
   <img src="https://img.shields.io/badge/agents-Claude%20Code%20%7C%20Codex-8A63D2" alt="Claude Code and Codex">
 </p>
 
 <p align="center"><img src="docs/assets/readme/hero.gif" alt="Asking Claude Code for a headline in three fonts: the proposal arrives in DreamCut, the fonts are previewed, the size and position are tuned, and pressing A applies it to the timeline" width="760" /></p>
 
-**Vibe editing** is editing by describing the result instead of building it by hand. Tell Claude Code or
-Codex what you want: *"cut the long pauses"*, *"put the headline behind me"*, *"give it a warm film
-look"*. DreamCut builds it on a real timeline, with clips, captions, masks, motion graphics and sound,
-and hands it back as a **proposal**. You preview it, tune it with sliders, then apply or reject it. Nothing
-lands without your OK, Undo works after applying, and everything stays editable by hand.
+**The mission.** We're building an open catalog of edits and effects. A creator invents an edit and shows
+how they made it, and it becomes a skill in the catalog with their name on it. A brand or small business
+picks it and gets it on their own footage in one click. The aim is for the creators whose effects people
+use to be paid for them. Creator payouts aren't live yet; that's where we're headed.
+[Read the mission →](https://dreamcut.io/mission) · [dreamcut.io](https://dreamcut.io)
 
-Make a product demo, explain an idea, or give your footage a new treatment. The editor and your projects
-stay on your machine. [What is vibe editing?](https://dreamcut.io/vibe-editing)
+**This repository is the editor**, the part that does the editing. Tell Claude Code or Codex what you want:
+*"cut the long pauses"*, *"put the headline behind me"*, *"give it a warm film look"*. DreamCut builds it on
+a real timeline, with clips, captions, masks, motion graphics and sound, and hands it back as a
+**proposal**. You preview it, tune it with sliders, then apply or reject it. Nothing lands without your OK,
+Undo works after applying, and everything stays editable by hand. The editor and your projects stay on your
+machine. [What is vibe editing?](https://dreamcut.io/vibe-editing)
 
-**Start here:** [Install](#install) · [Your first edit](#your-first-edit)
+**Start here:** [Install](#install) · [Your first edit](#your-first-edit) · [Contribute an effect or edit](#contribute-an-effect-or-edit)
 
 DreamCut runs from this repository on **macOS** (Apple Silicon first; Windows is experimental). You drive it
 from Claude Code or Codex, which need a paid plan from Anthropic (Claude Pro or above) or OpenAI (a ChatGPT
@@ -119,6 +123,21 @@ with `$HOME\DreamCut` in place of `~/DreamCut`.
    *"Use this on my clips, words FOG, HILL, DUSK, TRAIL"*.
 4. Open **Proposals**, tune the sliders and click **Apply**. Undo works as usual.
 
+## Contribute an effect or edit
+
+A transition, a caption style, a new way to tell a story: if you made it, it belongs in the catalog. Pick
+one route:
+
+1. **Share it from the app.** Ask your agent to *"save this as a template"* and export the project, then
+   open the template under **Templates** and choose **Share with DreamCut** (needs a free DreamCut account).
+2. **Show us how you did it.** Send a video of you making it and the finished edit (add the raw footage if
+   you have it) through the [form on the mission page](https://dreamcut.io/mission#send). No GitHub needed;
+   we turn it into a template with your name on it.
+3. **Build it yourself.** Ask your agent to *"recreate this effect as a DreamCut template"*, then open a pull
+   request with a short demo. [CONTRIBUTING.md](CONTRIBUTING.md#contributing-an-effect) has the details.
+
+Use only media you have the right to share.
+
 ## Your files
 
 The editor runs on your computer, and your projects and footage stay there. DreamCut never uploads your
@@ -144,8 +163,7 @@ reference files you explicitly provide for it.
 
 - [Help and troubleshooting](.github/SUPPORT.md) · [Changelog](CHANGELOG.md) · [Security](.github/SECURITY.md)
 
-Fair source under the [Functional Source License 1.1, ALv2 Future License](LICENSE): use, change and
-share it for anything except a competing commercial product, and each version becomes Apache 2.0 two
-years after its release ([third-party notices](docs/legal/THIRD_PARTY_NOTICES.md),
+Open source under the [Apache License 2.0](LICENSE): use, change and share it for anything, including
+commercial work ([third-party notices](docs/legal/THIRD_PARTY_NOTICES.md),
 [trademark policy](docs/legal/TRADEMARKS.md)). Optional cloud features (generation credits, shared
 templates) use a free DreamCut account at [dreamcut.io](https://dreamcut.io).

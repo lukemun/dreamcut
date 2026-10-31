@@ -51,5 +51,5 @@ In copy, mention them as "everything you'd expect", not as headline features.
   from their account. Reword to something like "Keeps your style".
 - DreamCut installs from the GitHub repository (macOS first; Windows experimental). Say so wherever
   install is promised; don't point at `npx dreamcut`, which is no longer referenced.
-- Call it "fair source" under FSL-1.1-ALv2, never "open source" or Apache-2.0 (each version only becomes
-  Apache-2.0 two years after release).
+- DreamCut is open source under Apache-2.0 (relicensed from FSL-1.1-ALv2 on 2026-10-30). Call it open
+  source; don't describe it as fair source or source-available.

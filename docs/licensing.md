@@ -1,14 +1,14 @@
 # DreamCut licensing guide
 
-DreamCut is fair source under the [Functional Source License, Version 1.1, ALv2 Future License](../LICENSE)
-(FSL-1.1-ALv2). The license text controls.
+DreamCut is open source under the [Apache License, Version 2.0](../LICENSE) (Apache-2.0). The license
+text controls.
 
-In short: you may read, run, change and share DreamCut, and use it for your own video work, personal or
-commercial. You may not use it to offer a competing commercial product or service. Each version becomes
-available under the Apache License 2.0 two years after it is released. DreamCut does not claim ownership
-of videos you create with it.
+In short: you may use, change and share DreamCut for any purpose, personal or commercial, including in your
+own products, as long as you keep the license and [NOTICE](../NOTICE) and mark files you change. The
+license includes a patent grant from contributors. DreamCut does not claim ownership of videos you create
+with it.
 
-DreamCut Cloud (dreamcut.io: accounts, credits, generation, memberships and the catalog media it serves) is a
+DreamCut Cloud (dreamcut.io: accounts, credits, generation and the catalog media it serves) is a
 separate service under the [DreamCut Terms of Service](https://dreamcut.io/terms); it is not part of this
 repository.
 
@@ -22,7 +22,8 @@ Rights already granted for earlier releases are not revoked:
   0.1.2 declared the Functional Source License 1.1 (ALv2 Future License). Versions published after
   that and before 24 October 2026 declared Apache-2.0 and keep it. Versions published from 24 October
   2026 until 27 October 2026 (including npm and runtime 0.3.0) used the DreamCut Software License. Later
-  versions use FSL-1.1-ALv2.
+  commits, until 30 October 2026, were published under FSL-1.1-ALv2, which converts each of them to
+  Apache-2.0 two years after release. From 30 October 2026 the repository is licensed under Apache-2.0.
 
 ## Third-party terms and branding
 
