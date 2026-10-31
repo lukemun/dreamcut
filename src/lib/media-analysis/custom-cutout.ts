@@ -194,8 +194,10 @@ export function buildCustomCutoutEncodeArgs(input: {
     // Decoding already rotated phone footage upright. A multi-input graph would
     // otherwise copy the source display matrix onto these upright pixels, and
     // every player would rotate the cutout a second time.
-    `[0:v]fps=${input.frameRateText},trim=end_frame=${input.frameCount},setpts=N/(${input.frameRateText}*TB),sidedata=mode=delete:type=DISPLAYMATRIX[rgb];`
-      + `[1:v]trim=end_frame=${input.frameCount},setpts=N/(${input.frameRateText}*TB),scale=${input.width}:${input.height}:flags=lanczos,format=gray,boxblur=1[m];`
+    // Both inputs need the same integer frame clock. Dividing by fps * TB
+    // independently rounds fractional phone rates differently and advances alpha.
+    `[0:v]fps=${input.frameRateText},trim=end_frame=${input.frameCount},settb=expr=1/(${input.frameRateText}),setpts=N,sidedata=mode=delete:type=DISPLAYMATRIX[rgb];`
+      + `[1:v]trim=end_frame=${input.frameCount},settb=expr=1/(${input.frameRateText}),setpts=N,scale=${input.width}:${input.height}:flags=lanczos,format=gray,boxblur=1[m];`
       + "[rgb][m]alphamerge,format=yuva420p[out]",
     "-map", "[out]",
     "-frames:v", String(input.frameCount),
@@ -294,7 +296,7 @@ export async function createCustomCutout(input: {
   const outputRelativePath = portableRelative(projectMediaDir(projectId), outputPath);
   const receipt: CustomCutoutReceipt = {
     cutout_id: cutoutId,
-    recipe_id: "sam2-custom-cutout/v6",
+    recipe_id: "sam2-custom-cutout/v7",
     rgb_source_strategy: "direct-source-decode",
     mask_postprocessing: {
       fill_small_enclosed_holes: true,

@@ -37,6 +37,7 @@ Browse every shared effect and reference study below. Each link opens its demo, 
 | [Whip Pan](recipes.md#fx-whip-pan) | Matching camera turns | Properties → transition join | Partial recreation · read limitations |
 | [Negative Pop](recipes.md#fx-negative-pop) | Subject and background | Properties → Templates | Reference example |
 | [Scene Portal](recipes.md#fx-scene-portal) | Host footage; Insert and destination | Properties → Templates | Reference example |
+| [Clone Converge](recipes.md#fx-clone-converge) | Lock the camera; Film the empty set; Choose the stops and line | Properties → Templates | Partial recreation · read limitations |
 | [Speed Entrance & Exit](recipes.md#fx-speed-entrance-exit) | Performance footage; Matching empty background | Properties → Templates | Implemented template · built with your agent |
 | [Speed hops](recipes.md#fx-speed-hops-to-camera) | One locked-off take; Marks where you stop | Properties → Templates | Implemented template · built with your agent |
 | [Flash effect](recipes.md#fx-flash-effect) | One locked-off take of your walk to the camera; Marks where you flash | Properties → Templates | Implemented template · built with your agent |

@@ -30,7 +30,11 @@ what the result looks like, what they must supply, and what DreamCut makes for t
    - `result.mp4` (720×1280, or 1280×720 for a landscape demo; normal speed, no audio) and `poster.jpg`, a result frame
      chosen by looking where the effect is most legible (not the first frame);
    - 3–4 stage stills;
-   - supplied inputs as thumbnails, plus typed inputs (`words`) for text;
+   - a playable untreated source take under Input for footage-based effects, paired
+     with Result; verify source hashes and excerpt offsets, reusing an existing
+     authorized preview of the same take when possible. Supply thumbnails for still
+     inputs and typed inputs (`words`) only for actual text inputs. A checklist or
+     finished-result crop never replaces the source take;
    - the prepared layer, made legible at thumbnail size;
    - `manifest.json` with rights (`owned` or `pexels-license`), credit, a construction
      receipt, and SHA-256 hashes for every source and output.

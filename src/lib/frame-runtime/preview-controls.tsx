@@ -1,6 +1,6 @@
 "use client";
 import {createPortal} from "react-dom";
-import { Play, Pause, SkipBack, SkipForward, Maximize, Minimize, Settings } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Maximize, Minimize, Settings, Volume2, VolumeX } from "lucide-react";
 import {useId, useState, useRef, useLayoutEffect, type ReactNode, type CSSProperties} from "react";
 import type { PlayerRef } from "./player";
 import "./preview-controls.css";
@@ -14,9 +14,16 @@ function formatTime(frames: number, fps: number) {
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
-export function PreviewControls({ compact = false, settingsTarget, viewerToolsTarget, showFullscreen = true, accessory, onPreviousEditPoint, onNextEditPoint, settings, showSeek = true, transportHidden = false, playbackBlocked = false, api, playing, frame, fps, durationInFrames, volume, muted, fullscreen, onToggleFullscreen, playbackRate = 1 }: {
+/** The preview's full-screen toggle; also used on previews without a transport (a still cover). */
+export function PreviewFullscreenButton({ fullscreen, onToggle, className }: { fullscreen: boolean; onToggle: () => void; className?: string }) {
+  return <button className={`preview-play-button preview-outline-button preview-fullscreen${className ? ` ${className}` : ""}`} type="button" aria-label={fullscreen ? "Exit preview fullscreen" : "Expand preview"} title={fullscreen ? "Exit preview fullscreen" : "Expand preview"} onClick={onToggle}>
+    {fullscreen ? <Minimize aria-hidden="true" /> : <Maximize aria-hidden="true" />}
+  </button>;
+}
+
+export function PreviewControls({ compact = false, settingsTarget, viewerToolsTarget, showFullscreen = true, showSound = false, accessory, onPreviousEditPoint, onNextEditPoint, settings, showSeek = true, transportHidden = false, playbackBlocked = false, api, playing, frame, fps, durationInFrames, volume, muted, fullscreen, onToggleFullscreen, playbackRate = 1 }: {
   /** Floating over the picture: just Play, with the scrubber revealed on hover or focus. */ compact?: boolean;
-  settingsTarget?: HTMLElement | null; viewerToolsTarget?: HTMLElement | null; showFullscreen?: boolean; accessory?: ReactNode; onPreviousEditPoint?: () => void; onNextEditPoint?: () => void; showSeek?: boolean; transportHidden?: boolean; settings?: ReactNode; playbackBlocked?: boolean; api: PlayerRef; playing: boolean; frame: number; fps: number; durationInFrames: number;
+  settingsTarget?: HTMLElement | null; viewerToolsTarget?: HTMLElement | null; showFullscreen?: boolean; showSound?: boolean; accessory?: ReactNode; onPreviousEditPoint?: () => void; onNextEditPoint?: () => void; showSeek?: boolean; transportHidden?: boolean; settings?: ReactNode; playbackBlocked?: boolean; api: PlayerRef; playing: boolean; frame: number; fps: number; durationInFrames: number;
   volume: number; muted: boolean; fullscreen: boolean; onToggleFullscreen: () => void;
   /** Preview speed; Replay and playback both run at it. */ playbackRate?: number;
 }) {
@@ -61,10 +68,8 @@ export function PreviewControls({ compact = false, settingsTarget, viewerToolsTa
       <SelectValue>{formatPreviewSpeed(playbackRate)}</SelectValue></SelectTrigger>
     <SelectContent side="top" align="center" className="min-w-24">{PREVIEW_SPEEDS.map(speed => <SelectItem key={speed} value={String(speed)}>{formatPreviewSpeed(speed)}</SelectItem>)}</SelectContent>
   </Select>;
-  const viewerOptions = <>{speedControl}{showFullscreen && <button className="preview-play-button preview-outline-button preview-fullscreen" type="button" aria-label={fullscreen ? "Exit preview fullscreen" : "Expand preview"} title={fullscreen ? "Exit preview fullscreen" : "Expand preview"} onClick={onToggleFullscreen}>
-        {fullscreen ? <Minimize aria-hidden="true" /> : <Maximize aria-hidden="true" />}
-      </button>}{settingsControl}</>;
-  const hasOptions = Boolean(showFullscreen || settingsControl);
+  const viewerOptions = <>{showSound && <button type="button" className="preview-play-button preview-outline-button" aria-label={muted || volume === 0 ? "Unmute preview" : "Mute preview"} title={muted || volume === 0 ? "Unmute preview" : "Mute preview"} onClick={() => { if (muted || volume === 0) { if (volume === 0) api.setVolume(1); api.unmute(); } else api.mute(); }}>{muted || volume === 0 ? <VolumeX aria-hidden="true" /> : <Volume2 aria-hidden="true" />}</button>}{speedControl}{showFullscreen && <PreviewFullscreenButton fullscreen={fullscreen} onToggle={onToggleFullscreen} />}{settingsControl}</>;
+  const hasOptions = Boolean(showSound || showFullscreen || settingsControl);
   const inlineTools = viewerToolsTarget === undefined && accessory ? viewerTools : null;
   const inlineOptions = settingsTarget === undefined && hasOptions ? viewerOptions : null;
   const label = playing ? "Pause preview" : "Play preview";

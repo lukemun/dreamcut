@@ -1,7 +1,8 @@
 "use client";
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState, type ReactNode } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { PreviewControls } from "./preview-controls";
 import type { PlayerRef } from "./player";
+import { useWindowFullscreen } from "./window-fullscreen";
 
 const FPS = 30;
 type Listener = (event: { detail: unknown }) => void;
@@ -14,13 +15,13 @@ type Listener = (event: { detail: unknown }) => void;
 export const SourceVideoPlayer = forwardRef<PlayerRef, { src: string; label: string; onError?: () => void; children?: ReactNode }>(
   function SourceVideoPlayer({ src, label, onError, children }, ref) {
     const video = useRef<HTMLVideoElement>(null), container = useRef<HTMLDivElement>(null);
-    const listeners = useRef(new Map<string, Set<Listener>>());
+    const listeners = useRef(new Map<string, Set<Listener>>()), fullscreenState = useRef(false);
     const [frame, setFrame] = useState(0), [durationInFrames, setDuration] = useState(1);
     const [playing, setPlaying] = useState(false), [volume, setVolume] = useState(1), [muted, setMuted] = useState(true), [fullscreen, setFullscreen] = useState(false);
     const emit = useCallback((name: string, detail?: unknown) => listeners.current.get(name)?.forEach(listener => listener({ detail })), []);
     const api = useMemo<PlayerRef>(() => ({
-      toggleFullscreen() { if (document.fullscreenElement) void document.exitFullscreen(); else void container.current?.requestFullscreen?.(); },
-      isFullscreen: () => document.fullscreenElement === container.current,
+      toggleFullscreen() { setFullscreen(value => !value); },
+      isFullscreen: () => fullscreenState.current,
       seekTo(next) { const node = video.current; if (node) node.currentTime = Math.max(0, Math.min(node.duration || Infinity, next / FPS)); },
       getCurrentFrame: () => Math.round((video.current?.currentTime ?? 0) * FPS),
       isPlaying: () => Boolean(video.current && !video.current.paused),
@@ -45,13 +46,12 @@ export const SourceVideoPlayer = forwardRef<PlayerRef, { src: string; label: str
       raf = requestAnimationFrame(tick);
       return () => cancelAnimationFrame(raf);
     }, [api, emit, playing]);
-    useEffect(() => {
-      const change = () => { const active = document.fullscreenElement === container.current; setFullscreen(active); emit("fullscreenchange", { isFullscreen: active }); };
-      document.addEventListener("fullscreenchange", change);
-      return () => document.removeEventListener("fullscreenchange", change);
-    }, [emit]);
+    // Fills the window like the editor's Player; embedded browsers may never grant native fullscreen.
+    const exitFullscreen = useCallback(() => setFullscreen(false), []);
+    useWindowFullscreen(container, fullscreen, exitFullscreen);
+    useLayoutEffect(() => { fullscreenState.current = fullscreen; emit("fullscreenchange", { isFullscreen: fullscreen }); }, [emit, fullscreen]);
     const sync = () => { const next = api.getCurrentFrame(); setFrame(next); emit("frameupdate", { frame: next }); };
-    return <div ref={container} className="dreamcut-frame-player source-video-player" data-playing={String(playing)}
+    return <div ref={container} className={`dreamcut-frame-player source-video-player${fullscreen ? " preview-window-fullscreen" : ""}`} data-playing={String(playing)}
       style={{ position: "relative", overflow: "hidden", background: "#000" }}>
       <video ref={video} src={src} aria-label={label} playsInline muted preload="metadata" className="block h-auto w-full"
         style={fullscreen ? { height: "100%", objectFit: "contain" } : undefined}
@@ -61,7 +61,7 @@ export const SourceVideoPlayer = forwardRef<PlayerRef, { src: string; label: str
         onVolumeChange={event => { setVolume(event.currentTarget.volume); setMuted(event.currentTarget.muted); }}
         onError={onError} onClick={() => (api.isPlaying() ? api.pause() : api.play())} />
       {children}
-      <PreviewControls api={api} playing={playing} frame={frame} fps={FPS} durationInFrames={durationInFrames}
+      <PreviewControls showSound api={api} playing={playing} frame={frame} fps={FPS} durationInFrames={durationInFrames}
         volume={volume} muted={muted} fullscreen={fullscreen} onToggleFullscreen={() => api.toggleFullscreen()} />
     </div>;
   });

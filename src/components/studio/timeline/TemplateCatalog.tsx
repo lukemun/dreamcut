@@ -22,7 +22,7 @@ import { useChatSelection } from './useChatSelection';
 
 /** Whose templates to show: the creator's own (made or saved) or the shipped catalog; 'all' shows both, theirs first. */
 type Source = 'all' | 'user' | 'catalog';
-const SOURCE_LABELS = { user: 'Yours', catalog: 'Catalog' };
+const SOURCE_LABELS = { catalog: 'Catalog', user: 'Yours' };
 /** Templates build something; looks restyle a template. */
 type Kind = 'templates' | 'looks';
 
@@ -134,6 +134,7 @@ function TemplateDetail({ effect, variants, onSelect, onBack, pick, onWatchExamp
   const media = recipeExampleMedia(effect);
   const needs = templateNeeds(effect);
   const selected = pick.isSelected(effect);
+  const previewMaxHeight = layout === 'page' ? 'min(55vh, 480px)' : 'min(52vh, 420px)';
   // A wide example needs the full width, so its Input goes beneath it; a tall one leaves room beside it.
   const [wide, setWide] = useState<boolean>();
   const readShape = (event: SyntheticEvent) => {
@@ -161,11 +162,11 @@ function TemplateDetail({ effect, variants, onSelect, onBack, pick, onWatchExamp
       <div className="template-media" data-shape={wide === undefined ? undefined : wide ? 'wide' : 'tall'} onLoadedMetadataCapture={readShape} onLoadCapture={readShape}>
         {example ? <section className="template-media-box template-detail-result" aria-labelledby="template-result-title">
           <h3 id="template-result-title" className="template-section-title">{effect.tutorialVideo && !effect.ownResultVideo ? 'Full reference & tutorial' : 'Result'}</h3>
-          <RecipeResult effect={effect} heading={false} maxHeight={layout === 'page' ? 'min(55vh, 480px)' : 'min(52vh, 420px)'}
+          <RecipeResult effect={effect} heading={false} maxHeight={previewMaxHeight}
             onWatch={onWatchExample && media ? () => onWatchExample({ title: effect.title, ...media }) : undefined} />
         </section>
           : <p className="template-detail-lead">{effect.description}</p>}
-        <RecipeIngredients effect={effect} className="template-media-box" />
+        <RecipeIngredients effect={effect} className="template-media-box" maxHeight={previewMaxHeight} />
       </div>
       <div className="template-detail-side">
     {variants.length > 1 && <section className="template-variant-previews" aria-label="Variants">
@@ -225,7 +226,7 @@ function TemplateSection({ effects, preview, pick, onOpen, openOnClick, looks = 
 
 /**
  * The one template browser: Properties → Templates, the Library's Templates tab and Guide → Effects.
- * One grid of catalog tiles, then one detail view. All · Yours · Catalog separates the creator's own templates from the shipped ones.
+ * One grid of catalog tiles, then one detail view. All · Catalog · Yours separates shipped templates from the creator's own.
  * Clicking a card selects it (the shared editor selection the agent reads); Details opens it.
  * `layout="panel"` scrolls inside its drawer; `layout="page"` lets the page scroll.
  * `detailExtras` adds host-specific detail content (saving settings, sharing, build guidance).
@@ -321,7 +322,7 @@ export function TemplateCatalog({ effects, layout, active = true, loading = fals
   const visible = matching.filter(effect => shownSource === 'all' || originOf(effect) === shownSource);
   // The shipped catalog comes first, then the creator's own; the pills name the split, so the sections carry no headings.
   const sections = (['catalog', 'user'] as const).map(value => ({ value, effects: visible.filter(effect => originOf(effect) === value) })).filter(section => section.effects.length);
-  const sourcePills = hasOwn && <FilterButtons inline label="Source" value={shownSource} values={['user', 'catalog']} labels={SOURCE_LABELS} onChange={setSource} />;
+  const sourcePills = hasOwn && <FilterButtons inline label="Source" value={shownSource} values={['catalog', 'user']} labels={SOURCE_LABELS} onChange={setSource} />;
   return <div ref={root} className="recipe-catalog" data-layout={layout} data-discovery={discovery || undefined}>
     {discovery && <div className="catalog-heading"><PageHeader id="templates-title" title="Templates" /></div>}
     {!selected && browse && discovery && <div className="catalog-toolbar">

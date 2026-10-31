@@ -39,29 +39,30 @@ export function RecipeResult({effect,heading=true,maxHeight='65vh',onWatch}:{eff
 
 /** The footage a creator brings, shown only when the template needs a clip to read (a take walked
  * between stops); stills of ordinary shots add nothing beyond How to film, so they stay out. */
-export function RecipeIngredients({effect,suppliedTitle='Input',className}:{effect:GuideEffect;suppliedTitle?:string;className?:string}){
+export function RecipeIngredients({effect,suppliedTitle='Input',className,maxHeight='65vh'}:{effect:GuideEffect;suppliedTitle?:string;className?:string;maxHeight?:string}){
  const visual=recipeVisualFor(effect);
  const clips=[...(effect.suppliedVideos??[]),...(visual?.inputs??[]).flatMap(input=>input.role==='supply'&&input.video?[{video:input.video,label:input.label}]:[])];
  if(!clips.length)return null;
  return <section className={className}><h3 className="template-section-title">{suppliedTitle}</h3>
-  <SupplyGallery clips={clips}/>
+  <SupplyGallery clips={clips} maxHeight={maxHeight}/>
  </section>;
 }
 
-/** The one gallery for the clips a creator brings. A single clip is as tall as the example (the panel's
- * 420px cap) so the footage reads at the result's size; several share even rows at a smaller height.
+/** The one gallery for the clips a creator brings. A single clip shares the example's size cap;
+ * several share even rows at a smaller height.
  * Every template's Input uses it. */
-function SupplyGallery({clips}:{clips:{video:string;label:string}[]}){
+function SupplyGallery({clips,maxHeight}:{clips:{video:string;label:string}[];maxHeight:string}){
  if(!clips.length)return null;
- return <MediaGallery targetHeight={clips.length===1?420:140} minCardWidth={120} gap={12} maxPerRow={3} evenRows={clips.length>1}>
+ if(clips.length===1)return <SuppliedVideo {...clips[0]} maxHeight={maxHeight}/>;
+ return <MediaGallery targetHeight={140} minCardWidth={120} gap={12} maxPerRow={3} evenRows>
   {clips.map(item=><SuppliedVideo key={item.video} {...item}/>)}
  </MediaGallery>;
 }
 
 /** Footage the creator supplied for their own version: the raw take, playable. */
-function SuppliedVideo({video,label}:{video:string;label:string}){
+function SuppliedVideo({video,label,maxHeight}:{video:string;label:string;maxHeight?:string}){
  return <figure className="m-0 min-w-0">
-  <RecordedEffectPreview gallery src={recipeMediaUrl(video)} label={label} controls loop={false} className="block h-auto w-full rounded object-contain"/>
+  <RecordedEffectPreview gallery src={recipeMediaUrl(video)} label={label} controls loop={false} className={maxHeight?"block h-auto w-auto max-w-full rounded object-contain":"block h-auto w-full rounded object-contain"} style={maxHeight?{maxHeight}:undefined}/>
   <figcaption className="mt-1 text-sm font-medium leading-snug">{label}</figcaption>
  </figure>;
 }

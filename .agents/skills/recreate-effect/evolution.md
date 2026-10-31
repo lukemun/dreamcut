@@ -1,5 +1,35 @@
 # recreate-effect — evolution log
 
+## 2026-10-31 — Pair the actual Input with Result
+
+- **Observation:** A shared footage-effect card replaced its source video with a typed checklist; the creator expected the actual input beside the result, as on related Speed and Flash cards.
+- **Decision:** Require a playable untreated take paired with Result, source identity and excerpt provenance, and separate playback checks. Reuse an authorized existing preview of the same take; checklists and finished-result crops cannot stand in for the input.
+- **Verification:** Clone Converge now references the existing Speed/Flash input excerpt (original seconds 15.0–44.5). Both demo originals have the same independently verified SHA-256; the shared preview hash matches its manifest. Effect-media tests verify the playable input and receipt. This correction does not establish a new effect rebuild or full-original coverage.
+
+## 2026-10-31 — Preserve initial direction in fresh trials
+
+- **Observation:** The creator clarified that an independent rebuild should receive marks and initial direction. Isolation from the previous solution must not remove the creative brief.
+- **Decision:** Explicitly supply creator-authored source/spatial marks, intent and locked choices with source and coordinate mapping, while withholding prior output settings and debugging history. Receipts distinguish guided reconstruction from automatic mark discovery.
+- **Verification:** The current Sol trial was supplied stopped source moments and speech boundaries plus the requested sequence. These are input guidance, not a prior solution; exact provenance remains in its private receipt.
+
+## 2026-10-31 — Explicit model selection
+
+- **Observation:** Inherited agent settings did not establish whether a requested model ran a rebuild.
+- **Decision:** Honor explicit creator and checkout-local model requirements; record requested and reported identity, preserve fresh-context boundaries, and report unavailable selection. Keep maintainer-specific model defaults in local instructions.
+- **Verification:** The current harness supports explicit model selection; earlier unidentified trials remain diagnostic evidence.
+
+## 2026-10-31 — Continue repairs through acceptance
+
+- **Observation:** A rebuild exposed source-window and control failures, but the workflow ended at candidate status instead of repairing and rerunning within the authorized task. The creator explicitly requested continued iteration until the skill works.
+- **Decision:** Updated the rebuild procedure to own a repair loop across instructions, implementation and input preparation, followed by a genuinely fresh test. Preserve acceptance criteria and approval boundaries; stop only at a pass, changed scope or a concrete external blocker.
+- **Verification:** Skill purpose/discovery checks and instruction review cover the procedure change. Practical rebuild evidence remains in private trial receipts; this log does not claim a successful effect trial.
+
+## 2026-10-31 — Fresh-session rebuild task
+
+- **Observation:** A creator asked whether packaging actually proves an agent can rebuild an effect without the authoring chat. Existing reuse language and structural grader cases did not require an isolated agent run.
+- **Decision:** Updated the packaging workflow with a fresh-session task, input-only context boundary, raw/prepared distinction, independent checks and a receipt. Candidate status remains explicit until the applicable trial passes.
+- **Verification:** Skill discovery and purpose checks; practical trial results belong in private task receipts, not inferred from this instruction change.
+
 ## 2026-09-27 — Mask Glitch execution owner
 
 - **Observation:** The creator requested a named reusable skill and consecutive

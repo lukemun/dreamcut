@@ -27,7 +27,11 @@ provides the export authorization. A request to edit this skill alone does not.
    judging appearance. Inspect relevant frames using its manifest and review motion
    and audio. Reuse evidence only for unchanged inputs and the same review question.
    Report blockers before starting a render; do not silently repair the timeline.
-3. Start one tracked render with the exact export-only mute and hide sets through
+3. By default, export through the editor's Export dialog in your built-in browser, where the
+   creator watches it: open the project, click Export video, check ratio, resolution, frame
+   rate and format against the request, click Export, and wait for it to finish there. It
+   runs the same tracked render. Use the API below only when no built-in browser is available
+   or the request needs export-only mute or hide sets the dialog doesn't offer. Start one tracked render with the exact export-only mute and hide sets through
    `POST /api/projects/<project_id>/render` with
    `{ "muted_lane_keys": [...], "hidden_lane_keys": [...] }` (omitted hidden keys use saved metadata).
    Export Standard (SDR, the default) for YouTube, social and presentations. Send

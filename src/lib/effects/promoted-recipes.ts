@@ -75,11 +75,11 @@ export const promotedRecipes: GuideEffect[] = [
   {
     id: 'FX-CLONE-FLASH', origin: 'shared', implementation: 'implemented',
     title: 'Clone Flash', skill: 'video-compositing',
-    description: 'Copies of your subject from later in the same take appear beside them, each arriving with a white flash.',
+    description: 'Copies of your subject from later in the same take appear beside them, each arriving with a white flash and camera shutter.',
     inputs: [], needs: ['A still shot of a person'],
     referenceCredit: DEB_REFERENCE,
-    prompt: 'Build Clone Flash on [SHOT]. Follow the Clone Flash template in the video-compositing skill: prepare a moving cutout of the person from later in the same take, place two or three copies beside them on their own lanes, and give each a white silhouette for its first 0.1 s that fades to color by 0.2 s. Expose each clone\'s position and source moment as controls. Propose it for me to review.',
-    limitations: ['The camera must stay still; a moving camera makes the clones slide.', 'Only the person is copied, so whatever they sit or lean on is not.', 'Clone start times are set in the proposal; the card offers position and source moment.'],
+    prompt: 'Build Clone Flash on [SHOT]. Follow the Clone Flash template in the video-compositing skill: prepare a moving cutout of the person from later in the same take, place two or three copies beside them on their own lanes, and give each a white silhouette for its first 0.1 s that fades to color by 0.2 s. Include Camera 02 Shutter Click from the shared Library at every clone entrance, linked to that clone so it follows timing changes, in the same proposal. Expose each clone\'s position, source moment and shutter volume, including mute, as controls. Keep the visual teaching demo silent. Propose it for me to review.',
+    limitations: ['The camera must stay still; a moving camera makes the clones slide.', 'Only the person is copied, so whatever they sit or lean on is not.', 'Clone start times are set in the proposal; the card offers position, source moment and shutter volume.', 'An agent assembles this effect; there is no dedicated compiled preset. The silent demo shows the picture only; applying the effect includes shutters from the members’ sound Library.'],
   },
   {
     id: 'FX-SILHOUETTE-WINDOW', origin: 'shared', implementation: 'implemented',

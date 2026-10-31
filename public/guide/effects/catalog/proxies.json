@@ -111,6 +111,23 @@
         "sha256": "91dd572958740438b1b1e3f174dc661e191af2c30c5a5bb3be6fcde4340545dd",
         "frame": 49
       }
+    },
+    {
+      "catalog_id": "FX-CLONE-CONVERGE",
+      "source_path": "docs/effects/../../public/recipe-previews/clone-converge/result.mp4",
+      "source_sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+      "file": "fx-clone-converge-87996d81e77d-640-v1.mp4",
+      "sha256": "87f285257ae9e1a2443088b81838f65058519c76a9ec1cdc61f73813e115122b",
+      "bytes": 485263,
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 131,
+      "duration_seconds": 4.366667,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.",
+      "rights": "owned"
     }
   ]
 }

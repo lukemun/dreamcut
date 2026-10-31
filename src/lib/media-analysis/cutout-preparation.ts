@@ -131,8 +131,8 @@ export async function enqueueCutout(projectId: string, raw: Record<string, unkno
   }
   const sourceHash=await sha256(cutoutMediaPath(projectId,source));
   if (normalized.parent_cutout_id && getCutout(projectId,normalized.parent_cutout_id).source_sha256!==sourceHash) throw new Error("Parent source changed during enqueue");
-  // v2: v1 cutouts of rotated phone footage carry a stale display matrix (sam2-custom-cutout/v5).
-  const key=createHash("sha256").update(JSON.stringify(["cutout-preparation/v2",sourceHash,normalized,runtime])).digest("hex");
+  // v3 also invalidates encodes whose fractional-rate RGB and mask clocks rounded differently.
+  const key=createHash("sha256").update(JSON.stringify(["cutout-preparation/v3",sourceHash,normalized,runtime])).digest("hex");
   fs.mkdirSync(cutoutJobsDir(projectId),{recursive:true});
   // Cross-process admission lock closes the duplicate-request race after hashing.
   const lock=path.join(cutoutJobsDir(projectId),"admission.lock");
@@ -184,7 +184,7 @@ export async function executeCutoutJob(projectId: string, job: CutoutJob) {
       const output=`cutouts/correction-${id}.webm`;
       await run("ffmpeg",buildCustomCutoutEncodeArgs({sourcePath:cutoutMediaPath(projectId,parent.source_relative_path),masksPattern:path.join(masks,"%05d.png"),outputPath:path.join(projectMediaDir(projectId),output),width:parent.width,height:parent.height,startSeconds:parent.source_interval_seconds[0],durationSeconds:parent.output_duration_seconds,frameRateText:String(parent.frame_rate),frameCount:parent.frame_count}));
       const {preparation: _prep,preview:_preview,scratchpad_treatment:_scratch,...base}=parent;
-      receipt={...base,cutout_id:id,output_relative_path:output,evidence_directory:portableRelative(projectDir(projectId),dir),created_at:new Date().toISOString()};
+      receipt={...base,recipe_id:"sam2-custom-cutout/v7",cutout_id:id,output_relative_path:output,evidence_directory:portableRelative(projectDir(projectId),dir),created_at:new Date().toISOString()};
     } else {
       if (await runtimeFingerprint()!==job.runtime) throw new Error("SAM runtime changed since enqueue");
       const request=job.input.request as ReturnType<typeof normalizeCustomCutoutRequest>;

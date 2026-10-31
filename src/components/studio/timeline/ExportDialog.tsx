@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { CheckCircle2Icon, FilmIcon, FolderOpenIcon, XIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,9 @@ import { EXPORT_RESOLUTIONS, exportOutputSize, exportResolutionLabel, type Expor
 import { hdrExportWarning, hdrSuitsTimeline } from "@/lib/render/dynamic-range";
 import { coverFromTimeline } from "@/lib/media/project-cover-source";
 import { thumbnailUrl } from "@/lib/media/thumbnail-url";
+import { PreviewFullscreenButton } from "@/lib/frame-runtime/preview-controls";
+import { SourceVideoPlayer } from "@/lib/frame-runtime/source-video-player";
+import { useWindowFullscreen } from "@/lib/frame-runtime/window-fullscreen";
 
 type Props = {
   elements: ReadonlyArray<{ type?: string; timeline_start?: number; duration?: number; source_url?: string | null; props?: unknown }>;
@@ -83,6 +86,13 @@ export function ExportDialog(props: Props) {
   // Focus starts on the title, never on Export or Try again: the Enter that opened the dialog
   // must not also start an export. Once finished, "Open in folder" takes focus instead.
   const titleRef = useRef<HTMLHeadingElement>(null);
+  // The cover expands like the editor's preview (its Escape leaves full screen before the dialog's
+  // closes it); the finished video brings the shared player's own toggle.
+  const coverRef = useRef<HTMLDivElement>(null);
+  const [coverFullscreen, setCoverFullscreen] = useState(false);
+  const exitCoverFullscreen = useCallback(() => setCoverFullscreen(false), []);
+  const coverExpanded = coverFullscreen && props.phase !== "done";
+  useWindowFullscreen(coverRef, coverExpanded, exitCoverFullscreen);
   useEffect(() => { if (props.phase !== "done") titleRef.current?.focus({ preventScroll: true }); }, [props.phase]);
 
   const [w, h] = props.aspectRatio.split(":").map(Number);
@@ -108,15 +118,21 @@ export function ExportDialog(props: Props) {
         <div className="grid min-h-0 flex-1 gap-8 overflow-y-auto px-6 py-6 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
           <div className="flex items-start justify-center">
             <div
-              className="flex w-full items-center justify-center overflow-hidden rounded-xl bg-[var(--chrome-deep)] text-[var(--ink-muted)]"
+              ref={coverRef}
+              className={`relative flex w-full items-center justify-center overflow-hidden rounded-xl bg-[var(--chrome-deep)] text-[var(--ink-muted)]${coverExpanded ? " preview-window-fullscreen" : ""}`}
               // The cover never takes more than a third of a phone's height, so the settings stay in view.
               style={{ aspectRatio: w && h ? `${w} / ${h}` : undefined, maxHeight: COVER_MAX_HEIGHT, maxWidth: w && h && w > h ? "100%" : `calc(${COVER_MAX_HEIGHT} * ${(w || 9) / (h || 16)})` }}
             >
               {props.phase === "done" && props.renderUrl
-                ? <video src={props.renderUrl} controls playsInline aria-label="Exported video" className="size-full bg-black object-contain" />
-                : cover && !coverFailed
-                ? <img src={thumbnailUrl(cover.url, 640)} alt="" className="size-full object-cover" onError={() => setCoverFailed(true)} />
-                : <FilmIcon className="size-8" strokeWidth={1.25} aria-hidden="true" />}
+                ? <div className="size-full"><SourceVideoPlayer src={props.renderUrl} label="Exported video" /></div>
+                : <>
+                  {cover && !coverFailed
+                    ? <img src={thumbnailUrl(cover.url, coverExpanded ? 1920 : 640)} alt="" className={`size-full ${coverExpanded ? "object-contain" : "object-cover"}`} onError={() => setCoverFailed(true)} />
+                    : <FilmIcon className="size-8" strokeWidth={1.25} aria-hidden="true" />}
+                  <div className="absolute right-2 bottom-2 rounded-[var(--edge-control-inner)] bg-black/45 text-white">
+                    <PreviewFullscreenButton fullscreen={coverExpanded} onToggle={() => setCoverFullscreen(value => !value)} />
+                  </div>
+                </>}
             </div>
           </div>
 

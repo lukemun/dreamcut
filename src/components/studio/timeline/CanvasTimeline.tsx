@@ -54,7 +54,7 @@ import type { LaneDef, TimelineBeatBand, TimelineElement, TimelineTransitionChip
 import { getVideoHoldSegments } from "@/lib/timeline/media";
 import { AUDIO_LANE_NARRATOR, CAPTIONS_LANE_KEY, MUSIC_LANE_KEY, SOUND_EFFECT_LANE_KEY } from "@/lib/timeline/lanes";
 import { TimelineMarks } from "./TimelineMarks";
-import type { FrameTag } from "@/lib/review/frame-tag-types";
+import { frameTagPoints, type FrameTag } from "@/lib/review/frame-tag-types";
 import { compoundClipPresentationElements } from "@/lib/timeline/compound-clips";
 
 import type { MusicalBeat, MusicalHit } from "@/lib/timeline/beat-annotations";
@@ -1481,7 +1481,7 @@ export function CanvasTimeline({
           {Math.floor(playheadSec / 60)}:{String(Math.floor(playheadSec % 60)).padStart(2,"0")} <span>/ {Math.floor(playbackDuration / 60)}:{String(Math.floor(playbackDuration % 60)).padStart(2,"0")}</span>
         </span>
         <div style={{position:"absolute",left:sidebarWidth,width:Math.max(0,size.width-sidebarWidth),height:RULER_HEIGHT}}>
-          <TimelineMarks marks={reviewMarkers.map(mark => ({id:mark.id,label:mark.label,time:mark.timeline_seconds,note:mark.note}))} start={renderedScrollSec} duration={Math.max(.001,(size.width-sidebarWidth)/pxPerSec)} onSelect={mark => onSeek(mark.time)} />
+          <TimelineMarks marks={reviewMarkers.map(mark => ({id:mark.id,label:mark.label,time:mark.timeline_seconds,note:mark.note,hasPreviewPoint:frameTagPoints(mark).length > 0}))} start={renderedScrollSec} duration={Math.max(.001,(size.width-sidebarWidth)/pxPerSec)} onSelect={mark => onSeek(mark.time)} />
         </div>
         {dropSec != null && <div aria-hidden="true" className="timeline-drop-indicator" style={{left: sidebarWidth + (dropSec - renderedScrollSec) * pxPerSec, height: size.height}} />}
       </div>

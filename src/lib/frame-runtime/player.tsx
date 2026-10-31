@@ -1,11 +1,12 @@
 "use client";
-import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type ComponentType, type CSSProperties } from "react";
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type ComponentType, type CSSProperties } from "react";
 import { FrameContext, FrameSession } from ".";
 import { retryPlaybackPermission } from "./session";
 import { createPortal } from "react-dom";
 import { PreviewControls } from "./preview-controls";
 import { PlaybackTransport } from "./transport-clock";
 import { readPreviewSpeed } from "./preview-speed";
+import { useWindowFullscreen } from "./window-fullscreen";
 
 type Events = { fullscreenchange: { isFullscreen: boolean }; frameupdate: { frame: number }; seeked: { frame: number }; ratechange: { playbackRate: number }; volumechange: { volume: number }; mutechange: { isMuted: boolean }; play: undefined; pause: undefined; ended: undefined; waiting: undefined; resume: undefined };
 type Listener<K extends keyof Events> = (event: { detail: Events[K] }) => void;
@@ -103,47 +104,8 @@ export const Player = forwardRef<PlayerRef, Props>(function Player({ settingsTar
     observer.observe(container.current!);
     return () => observer.disconnect();
   }, [compositionWidth, compositionHeight]);
-  useLayoutEffect(() => {
-    if (!windowFullscreen) return;
-    const player = container.current!;
-    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    // The top layer escapes editor clipping/stacking without native app fullscreen
-    // or moving/remounting the player, its decoders, or its playback session.
-    player.setAttribute("popover", "manual");
-    player.showPopover();
-    const background: Array<{ element: HTMLElement; inert: boolean }> = [];
-    let branch: HTMLElement = player;
-    while (branch.parentElement) {
-      for (const sibling of branch.parentElement.children) {
-        if (sibling !== branch && sibling instanceof HTMLElement) {
-          background.push({ element: sibling, inert: sibling.inert });
-          sibling.inert = true;
-        }
-      }
-      branch = branch.parentElement;
-      if (branch === document.body) break;
-    }
-    player.querySelector<HTMLButtonElement>(".preview-fullscreen")?.focus();
-    const keydown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (player.querySelector(":popover-open")) return;
-        event.preventDefault(); event.stopImmediatePropagation(); setWindowFullscreen(false);
-      } else if (event.key === "Tab") {
-        const controls = [...player.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled)")];
-        const first = controls[0], last = controls.at(-1);
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
-        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
-      }
-    };
-    document.addEventListener("keydown", keydown, true);
-    return () => {
-      document.removeEventListener("keydown", keydown, true);
-      player.hidePopover();
-      player.removeAttribute("popover");
-      background.forEach(({ element, inert }) => { element.inert = inert; });
-      if (previousFocus?.isConnected) previousFocus.focus();
-    };
-  }, [windowFullscreen]);
+  const exitWindowFullscreen = useCallback(() => setWindowFullscreen(false), []);
+  useWindowFullscreen(container, windowFullscreen, exitWindowFullscreen);
   useLayoutEffect(() => {
     fullscreenState.current = windowFullscreen;
     listeners.current.get("fullscreenchange")?.forEach(fn => fn({ detail: { isFullscreen: windowFullscreen } }));

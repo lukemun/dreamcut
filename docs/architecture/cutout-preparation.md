@@ -70,6 +70,14 @@ The [rotoscope skill](../../.agents/skills/rotoscope/SKILL.md) owns mask inspect
 [mask-glitch](../../.agents/skills/mask-glitch/SKILL.md) checks the settled composite early.
 No new editor UI, preferences, human approvals, or video exports are introduced here.
 
+The v7 encoder gives picture and mask frames the same integer frame clock before
+alpha merging. Independent floating-point timestamp division at fractional phone
+rates could advance the mask by one frame, producing background-shaped fringes on
+moving hands despite correct tracking masks. The preparation cache version changes
+with this fix; existing adopted assets remain unchanged. Re-encoding verified masks
+through a correction creates a new source for a proposal. Synthetic SDR and HLG
+clock regressions live in `custom-cutout-clock.test.ts`; Windows remains unverified.
+
 ## Verification and current limits
 
 Synthetic tests cover bounded corrections, parent preservation, invalid clocks and ROIs,

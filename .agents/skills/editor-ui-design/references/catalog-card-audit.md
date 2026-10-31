@@ -41,7 +41,9 @@ Fail the affected surface when any of these occurs:
 - Details overlays preview content, collides with the title, or becomes hard to
   reach by keyboard. Both short and long titles must retain usable space.
   Since 2026-10-26 the tile action sits at the right end of the name row; a long
-  name wraps to a second line rather than being cut off, and the action keeps its word.
+  name wraps to a second line rather than being cut off. Details uses a blue circled information icon
+  beside the name at every tile size, with an accessible label and tooltip;
+  Add and Apply retain their words.
 - A selected card looks heavier than other selected things in the editor (an outer glow
   or thick ring). Use the shared selected fill and a thin ring, as on an open drawer button.
 - In the editor panel, previews sit inset inside the card so a narrow drawer shows a small

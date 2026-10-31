@@ -1325,6 +1325,93 @@ Preview the result, check the full transition or animation and report anything u
 
 [Technical recipe and evidence](catalog.json) · [Skill receipt](../../.agents/skills/video-compositing/references/effect-evidence.json)
 
+<a id="fx-clone-converge"></a>
+
+## Clone Converge
+
+**FX-CLONE-CONVERGE · Partial recreation · read limitations** · [Owning skill](../../.agents/skills/video-compositing/SKILL.md)
+
+**Home:** Properties → Templates.
+
+### Demonstration
+
+[<img src="../../public/recipe-previews/clone-converge/poster.jpg" width="160" alt="Clone Converge demonstration" />](../../public/recipe-previews/clone-converge/result.mp4)
+
+Moving copies flash into place, then rush into the live foreground together before the original line continues. Normal speed, silent teaching preview. The example’s words, stops and grade are not fixed template settings.
+
+**You supply**
+
+| Your take |
+| --- |
+|  |
+
+**DreamCut prepares**
+
+| Moving copies · finished-result illustration |
+| --- |
+| <img src="../../public/recipe-previews/clone-converge/waiting.jpg" width="100" alt="Moving copies · finished-result illustration" /> |
+
+| 1 · Copies flash in | 2 · Copies wait | 3 · Rush to the foreground | 4 · One live foreground |
+| --- | --- | --- | --- |
+| <img src="../../public/recipe-previews/clone-converge/flash.jpg" width="100" alt="1 · Copies flash in" /> | <img src="../../public/recipe-previews/clone-converge/waiting.jpg" width="100" alt="2 · Copies wait" /> | <img src="../../public/recipe-previews/clone-converge/catch-up.jpg" width="100" alt="3 · Rush to the foreground" /> | <img src="../../public/recipe-previews/clone-converge/merged.jpg" width="100" alt="4 · One live foreground" /> |
+
+Finished result and the matching source-take preview explicitly authorized by their creator for this shared Clone Converge card. Catalog evidence below is separate.
+
+[Recreated demo](../../public/recipe-previews/clone-converge/result.mp4) · [Reference](../../public/recipe-previews/clone-converge/result.mp4)
+
+Reference credit: Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.. Rights basis: owned.
+
+Recreation credit: Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.. Rights basis: owned.
+
+Waiting copies remain live at normal speed Every travelling copy ends behind the foreground on one shared frame Original speech continues after a live beat Timing and sound controls remain source-safe across their supported ranges
+
+### What you supply
+
+- **Lock the camera:** Film the person stopping in several places, then approaching the camera and saying the line. Keep each stop live for a few extra moments.
+- **Film the empty set:** Record the same framing and light with nobody in the shot.
+- **Choose the stops and line:** Say which stops and spoken line to keep. Exact marks help; DreamCut can inspect missing marks.
+
+### Supply your own or generate inputs
+
+Supply filmed footage for the live movement and speech. DreamCut prepares moving cutouts; generation is not needed.
+
+Generation suitability is guidance, not proof of a tested generated-input workflow. Ask the agent to stage any needed assets in Library → Generate, then review the model, prompt and settings before generating.
+
+### How the effect is built
+
+1. Measure usable live stop windows and prepare source-matched moving cutouts.
+2. Flash the waiting copies into place over the empty set, then bring in the live foreground.
+3. Rush every background copy behind the foreground on the same frame, with linked shutters, movement sounds and one impact.
+4. Leave a live beat before the original speech; expose timing and sound controls and verify timing extremes.
+
+### Ask your agent
+
+Select this template in Templates, then tell your agent which files to use. Your agent works from this request; it prepares a proposal for you to review, never an edit or a generation on its own.
+
+```text
+Use the video-compositing skill for "Clone Converge" (recipe: FX-CLONE-CONVERGE).
+For a shared catalog recipe, read docs/effects/catalog.json entry FX-CLONE-CONVERGE and its owning skill before preparing the edit.
+Follow the FX-CLONE-CONVERGE recipe and its success criteria, adapting the construction to my supplied assets.
+My inputs and target: [attach or identify my files, target clips, order and desired timing].
+Lock the camera: Film the person stopping in several places, then approaching the camera and saying the line. Keep each stop live for a few extra moments.
+Film the empty set: Record the same framing and light with nobody in the shot.
+Choose the stops and line: Say which stops and spoken line to keep. Exact marks help; DreamCut can inspect missing marks.
+How it works: Measure usable live stop windows and prepare source-matched moving cutouts. Flash the waiting copies into place over the empty set, then bring in the live foreground. Rush every background copy behind the foreground on the same frame, with linked shutters, movement sounds and one impact. Leave a live beat before the original speech; expose timing and sound controls and verify timing extremes.
+Input generation guidance: Supply filmed footage for the live movement and speech. DreamCut prepares moving cutouts; generation is not needed.
+Read the current timeline, applicable preferences and available media. Ask for missing inputs; do not assume example assets are mine. If generation is needed, prepare a visible draft and wait for my generation authorization.
+Preserve original sources and unrelated edits. Keep meaningful layers and tuning controls editable. For an existing edit, propose changes for my review; do not apply or approve them.
+Known limitations: Agent-built native recipe; no dedicated compiled preset or one-click certification. Raw preparation, another performer, listening and continuous-motion sensory acceptance remain unverified. Teaching preview is silent. Its line, positions and grade are examples, not fixed template settings.
+Preview the result, check the full transition or animation and report anything unverified.
+```
+
+### Evidence and limits
+
+- Agent-built native recipe; no dedicated compiled preset or one-click certification.
+- Raw preparation, another performer, listening and continuous-motion sensory acceptance remain unverified.
+- Teaching preview is silent. Its line, positions and grade are examples, not fixed template settings.
+
+[Technical recipe and evidence](catalog.json) · [Skill receipt](../../.agents/skills/video-compositing/references/effect-evidence.json)
+
 <a id="fx-speed-entrance-exit"></a>
 
 ## Speed Entrance & Exit
@@ -1963,7 +2050,7 @@ Copies of the running bobblehead, cut out from other moments of the same take, a
 
 Shot and copies: the bobblehead (owned). Built as an editable DreamCut timeline. Effect reference: @willrvail breakdown of a video by @nvision.media. Catalog evidence below is separate.
 
-Copies of your subject from later in the same take appear beside them, each arriving with a white flash.
+Copies of your subject from later in the same take appear beside them, each arriving with a white flash and camera shutter.
 
 ### What you supply
 
@@ -1979,7 +2066,8 @@ Generation suitability is guidance, not proof of a tested generated-input workfl
 
 1. Cut out the person from later in the same take.
 2. Place two or three copies beside them on their own lanes.
-3. Flash each copy white as it arrives, then let it settle into color; expose each copy's position and source moment.
+3. Flash each copy white as it arrives, with Camera 02 Shutter Click attached to its entrance.
+4. Keep each shutter linked to its copy; expose position, source moment and shutter volume, including mute. The visual demo stays silent.
 
 ### Ask your agent
 
@@ -1988,14 +2076,14 @@ Select this template in Templates, then tell your agent which files to use. Your
 ```text
 Use the video-compositing skill for "Clone Flash" (recipe: FX-CLONE-FLASH).
 Read the FX-CLONE-FLASH construction brief in src/lib/effects/promoted-recipes.ts and its owning skill before preparing the edit.
-Build Clone Flash on [SHOT]. Follow the Clone Flash template in the video-compositing skill: prepare a moving cutout of the person from later in the same take, place two or three copies beside them on their own lanes, and give each a white silhouette for its first 0.1 s that fades to color by 0.2 s. Expose each clone's position and source moment as controls. Propose it for me to review.
+Build Clone Flash on [SHOT]. Follow the Clone Flash template in the video-compositing skill: prepare a moving cutout of the person from later in the same take, place two or three copies beside them on their own lanes, and give each a white silhouette for its first 0.1 s that fades to color by 0.2 s. Include Camera 02 Shutter Click from the shared Library at every clone entrance, linked to that clone so it follows timing changes, in the same proposal. Expose each clone's position, source moment and shutter volume, including mute, as controls. Keep the visual teaching demo silent. Propose it for me to review.
 My inputs and target: [attach or identify my files, target clips, order and desired timing].
 A still shot of a person: Keep the camera still and leave room beside the person. Film a few extra seconds so later moments can supply the copies. A plain, even background hides cutout edges best.
-How it works: Cut out the person from later in the same take. Place two or three copies beside them on their own lanes. Flash each copy white as it arrives, then let it settle into color; expose each copy's position and source moment.
+How it works: Cut out the person from later in the same take. Place two or three copies beside them on their own lanes. Flash each copy white as it arrives, with Camera 02 Shutter Click attached to its entrance. Keep each shutter linked to its copy; expose position, source moment and shutter volume, including mute. The visual demo stays silent.
 Input generation guidance: A still shot can be generated; keep the background stable. The copies and flashes are made in DreamCut.
 Read the current timeline, applicable preferences and available media. Ask for missing inputs; do not assume example assets are mine. If generation is needed, prepare a visible draft and wait for my generation authorization.
 Preserve original sources and unrelated edits. Keep meaningful layers and tuning controls editable. For an existing edit, propose changes for my review; do not apply or approve them.
-Known limitations: The camera must stay still; a moving camera makes the clones slide. Only the person is copied, so whatever they sit or lean on is not. Clone start times are set in the proposal; the card offers position and source moment.
+Known limitations: The camera must stay still; a moving camera makes the clones slide. Only the person is copied, so whatever they sit or lean on is not. Clone start times are set in the proposal; the card offers position, source moment and shutter volume. An agent assembles this effect; there is no dedicated compiled preset. The silent demo shows the picture only; applying the effect includes shutters from the members’ sound Library.
 Preview the result, check the full transition or animation and report anything unverified.
 ```
 
@@ -2003,7 +2091,8 @@ Preview the result, check the full transition or animation and report anything u
 
 - The camera must stay still; a moving camera makes the clones slide.
 - Only the person is copied, so whatever they sit or lean on is not.
-- Clone start times are set in the proposal; the card offers position and source moment.
+- Clone start times are set in the proposal; the card offers position, source moment and shutter volume.
+- An agent assembles this effect; there is no dedicated compiled preset. The silent demo shows the picture only; applying the effect includes shutters from the members’ sound Library.
 
 <a id="fx-silhouette-window"></a>
 

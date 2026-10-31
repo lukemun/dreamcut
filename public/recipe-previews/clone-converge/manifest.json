@@ -1,0 +1,64 @@
+{
+  "rights": "owned",
+  "credit": "Finished result and matching untreated source-take preview explicitly authorized by their creator for the shared Clone Converge card.",
+  "fps": 30,
+  "frames": 131,
+  "width": 720,
+  "height": 1280,
+  "authorization": {
+    "scope": "Finished demonstration, derived teaching stills and the matching source-take preview for the shared Clone Converge Catalog card.",
+    "basis": "The creator explicitly selected Add to shared Catalog and requested their own demonstration in place of a generic character. The creator then required the actual Input alongside Result, matching the Speed and Flash cards.",
+    "publication": "Creator authorized shared Catalog publication and subsequently requested committing and pushing the editor and website."
+  },
+  "receipt": {
+    "project": "clone-flash-same-take",
+    "take": "Same source take as the shared Speed and Flash cards; the existing playable Input excerpt shows original source 15.0–44.5 seconds, not the full original recording.",
+    "construction": "Reused the already approved finished result, preserving 30 fps and normal speed, resized to 720x1280 and stripped audio for the silent teaching preview. No timeline mutation, new generation or project export.",
+    "approved_result_sha256": "7295a962c46614948b175cf43520ec509085169b892a538d25afa23864493d5d",
+    "stage_seconds": {
+      "flash": 0.1,
+      "waiting": 0.5,
+      "catch_up": 0.8,
+      "merged": 1.2
+    },
+    "input_provenance": {
+      "original_source_sha256": "c01ef4af138aee037c9d9b6fce3df4d46c95cfcf9e6814e4a70d66d77cbab882",
+      "source_start_seconds": 15,
+      "source_end_seconds": 44.5,
+      "existing_preview_manifest": "/recipe-previews/speed-hops-to-camera/manifest.json",
+      "identity_verification": "The Clone Converge and Speed demo source manifests identify the same original SHA-256; the original files were independently hashed and matched. Existing input preview hash also matched its shared manifest."
+    }
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/speed-hops-to-camera/inputs/take.mp4",
+      "sha256": "8bf68b6c3f8b78c61150df7b4bbafafd03a4f286cb1b8355a36742dd7116eb9a"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "2f9737d84805c67b7db0a0dc2a474cb54791bdfec7f406cbe292fc0ba7945526"
+    },
+    {
+      "file": "flash.jpg",
+      "sha256": "3898da4dc967e488028523d9cfe19a161d4367289854a6189b38b84ffcfc2e42"
+    },
+    {
+      "file": "waiting.jpg",
+      "sha256": "0bf5f5cddaab163d3476a90b32cb3cbbe6ee01d4b267826a20b676974774ce0a"
+    },
+    {
+      "file": "catch-up.jpg",
+      "sha256": "2f9737d84805c67b7db0a0dc2a474cb54791bdfec7f406cbe292fc0ba7945526"
+    },
+    {
+      "file": "merged.jpg",
+      "sha256": "ad4c713e00140721643847fb235d2860ec9ec41e93603fdb6e5cda8961fd769e"
+    }
+  ]
+}

@@ -224,6 +224,94 @@ Close out with the reference breakdown, support decision, delivered capability a
 controls, required inputs, runnable entry point, checks performed, and remaining
 limits. Distinguish analyzed, prototyped, implemented, and verified status.
 
+## Fresh-session rebuild task
+
+Honor the creator's explicit model choice and checkout-local instructions for rebuild,
+diagnostic repair and independent review agents. Select the requested model explicitly
+when the harness supports it; do not silently substitute. Without a model requirement,
+use an available capable agent. Fresh agents must start without conversation history;
+diagnostic agents may receive failure evidence. Record requested and reported model/run
+identity in the receipt, and report unavailable required models before starting a trial.
+
+Packaging includes an explicit rebuild task, not just reviewing the originating
+edit. Before claiming an effect reusable, start a fresh agent/session without this
+conversation. Give it the published card, owning skill and linked instructions,
+the creator's brief and supplied marks, and an input-only disposable project.
+Initial direction is required context, not solution leakage: preserve marked source
+times/windows, spatial marks with their coordinate system, the creator's labels and
+intent, requested sequence, speech boundaries and locked choices. Transfer marks
+with their source identity and time mapping so a timeline mark is not mistaken for
+a source timestamp or a point on the preview. If no marks were supplied, give the
+available initial brief and let the agent measure the remaining inputs; do not
+withhold existing direction to make the trial harder.
+
+A verbal brief such as "clones wherever I stop walking for a second" is sufficient
+intent; explicit marks are optional. Read matching source-linked intake annotations
+first and resolve remaining candidate intervals through
+[media-intake](../media-intake/SKILL.md). Carry the verbal brief and existing
+annotation references in the build receipt. Supplied timings from an earlier trial
+do not establish automatic discovery from the original footage.
+
+Keep the input manifest separate from solution evidence. Do not give it the
+accepted proposal, finished timeline, output-derived coordinates or this session's
+debugging corrections. Creator-authored marks remain valid inputs even when they
+specify placement or timing; computed output settings from the earlier build do not.
+The card/skill must carry everything reusable.
+
+Prepare the input project explicitly: `assembly_create` with an empty timeline does
+not imply that source media was copied. Import declared files with `media_import`
+and verify readiness. Tools that measure timeline footage need a plain source clip
+placed in the disposable agent workspace before handoff; this input-only setup is
+allowed and must contain no finished effect. Do not impose a proposal-only trial
+restriction that prevents the preparation tools from seeing their inputs. Distinguish
+a cutout media filename from its preparation job/receipt ID in the input manifest.
+
+Record the input boundary before running: **raw footage** exercises preparation
+and construction; **prepared inputs** exercises construction only. A second take
+or changed supported input count/duration/aspect tests transfer; rebuilding the
+same input tests repeatability only. Do not substitute one claim for another.
+
+The fresh agent measures inputs, prepares what is needed and stages one reviewable
+card through the normal tools. It never approves, exports or edits the original.
+An independent reviewer checks the resulting card, GPU frames, normal-speed
+playback, sound-cue timing and useful controls with the owning skill's acceptance
+criteria. Run the existing [effect-one-click grader](../../../docs/evals/effect-one-click.md) when the effect has a compiled
+route; an agent-built recipe cannot pass that compiled-route requirement.
+
+Save a private task receipt: card/skill versions, input hashes, raw/prepared scope,
+changed input dimensions, supplied context, agent/run identity, resulting proposal,
+checks, failed steps and remaining gaps. Include the exact initial brief and mark
+manifest, their provenance and source/time/coordinate mapping, and any missing
+direction. A trial with supplied marks tests guided reconstruction; do not label it
+automatic mark discovery.
+
+### Close the repair loop
+
+For an authorized recreation and packaging task, continue through failed rebuilds
+without asking the creator to restart the task. Diagnose each failure against the
+unchanged acceptance criteria: missing or ambiguous instructions belong in the
+owning skill; broken tools or controls belong in their implementation; inadequate
+inputs require preparation or a stated input constraint. Repair the responsible
+owner, record the change in its evolution log, and rerun the affected checks.
+Do not merely tune the originating example, loosen the checks, remove useful
+controls, or copy its solution into the test to obtain a pass.
+
+Once the repair works, run another fresh session with only the revised published
+instructions and declared inputs. A coached repair is diagnostic evidence, not a
+fresh pass. Repeat repair and independent rebuild until the applicable construction,
+visual, motion, sound and control checks pass, including the declared transfer case.
+Reuse valid unchanged evidence, but retest every behavior affected by the repair.
+The authoring agent owns this loop; a failed trial is work to continue, not a final
+deliverable or a new request for permission.
+
+Stop only when acceptance passes, the creator pauses or changes scope, or a concrete
+blocker requires unavailable inputs, external access, a creative decision or authority
+outside the existing task. On a blocker, record the attempted fixes and exact next
+action, keep unfinished tests explicit and retain candidate/partial status. Do not
+repeat an unchanged failing run. Original-project approval, generation, export and
+publication boundaries remain in force throughout the loop. Schema checks, a written
+walkthrough, or a replay of the original edit are never a fresh-build pass.
+
 ## Effect recipe evidence
 
 [Catalog-linked input/output evidence](references/effect-evidence.json) records reference, recreation, hashes, and limitations. Candidate and partial records do not establish a verified reusable effect.
@@ -243,6 +331,13 @@ draft page's Save to Yours adds it to Templates → Yours as a reference card. N
 ## Package a contributed effect
 
 To publish a working effect as a Properties → Templates card, use [effect-authoring](../effect-authoring/SKILL.md) and its [template packaging](../effect-authoring/references/template-packaging.md) for a shared card.
+For a footage-based effect, package a playable **Input** from the actual untreated
+take alongside **Result**. Verify source identity and excerpt offsets in the media
+receipts; reuse an existing authorized preview of that same take when available.
+An input checklist, a still from the result or another example take does not satisfy
+this pair. If the source is unavailable or not cleared for the card's audience,
+record the missing input demonstration and resolve it before calling packaging complete.
+Open the card and play both Input and Result during acceptance.
 Only constructed effects (a masking hook, clones with flashes, a subject window, a lyric pop)
 become Templates or Library items. Plain editing from the reference (a straight wipe, a
 crossfade, a slow-motion breather, a handheld shot) is not packaged; ask when unsure.

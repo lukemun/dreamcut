@@ -1,5 +1,30 @@
 # video-compositing — evolution log
 
+## 2026-10-31 — Preserve Clone Converge review variants
+
+- **Observation:** During an independent prepared-input rebuild, successive default
+  and timing-corner frame checks shared the instrument's default output folder,
+  replacing evidence while an independent reviewer was reading it.
+- **Decision:** Add a private candidate/control-variant `--out` directory and a
+  proposal/control/report hash manifest to the Clone Converge acceptance procedure.
+  This refines evidence reporting without changing construction or acceptance.
+- **Verification:** The rebuild retained separate default, joint minimum/maximum
+  and crossed catch-up/beat reports. The trial receipt distinguishes the tested
+  recipe hash from this later reporting-only revision. Skill-purpose and catalog
+  checks cover discovery; continuous playback and listening remain separate checks.
+
+## 2026-10-31 — Clone Converge candidate
+
+- **Observation:** A creator combined flash arrivals, natural moving copies, a shared merge into a foreground copy, shutters and a low impact before speech.
+- **Decision:** Added a separate Clone Converge recipe, preserving Clone Flash. Documented source clocks, simultaneous arrival, live pause, centered safe timing ranges and audio timing bindings.
+- **Verification:** Source project proposal/frame inspection informed the recipe. A fresh prepared-input trial staged a changed-count proposal but failed four Source in endpoint checks; clarified dependent source-window bindings. A new fresh acceptance run and raw-input transfer remain unverified; no dedicated compiled-route certification is claimed.
+
+## 2026-10-31 — Diagnostic repair of Clone Converge construction
+
+- **Observation:** The changed-count prepared-input trial exposed four invalid Source in endpoints, missing shutter-follow links, and carrier transforms measured at a different source frame from the moving carrier. The first visual check also omitted the proposal-file flag and therefore sampled the measurement take.
+- **Decision:** Document fixed source-window ownership for both plate and waits, explicit timing main controls, measured shutter offsets, exact carrier endpoint frames and final-frame fading. Name the source-window placement tool and proposal-frame-state invocation so the procedure reaches the intended footage and review state.
+- **Verification:** A diagnostic successor staged without dial failures or unchecked-control warnings. Eight combined timing corners preserved source bounds, simultaneous merge, foreground-to-speech continuity and shutter/impact peaks. Eleven proposal-specific rendered samples were inspected for flashes, arrival, travel and speech handoff; the skill-purpose and catalog tests passed. This coached repair is not a fresh rebuild pass, and real-time playback/listening and raw-input transfer are not established by these checks.
+
 ## 2026-09-27 — Renamed mask-sequence entry point
 
 - **Observation:** Pop-in white flash was expanded into Mask Glitch and consecutive
@@ -90,3 +115,15 @@ Combine layered media into a coherent, legible, revisable picture. Scope: layer 
 - **Observation:** Both shared templates had construction briefs but no template page or public demonstration.
 - **Decision:** Add `templates/speed-entrance-exit.md` and `templates/moving-grid-matte.md` with Pexels teaching media from demo proposal previews; the promoted cards now route to this skill.
 - **Verification:** One input set each (`tpl-speed-entrance-demo`, `tpl-grid-matte-demo`), proposals only, none approved; entrance, settled and exit frames (speed) and cell coverage across the clip (grid) checked in GPU preview renders. Reuse on a second input set is not yet run.
+
+## 2026-10-30 — Clone Flash includes its shutter
+
+- **Observation:** The template brief specified the flash picture but omitted the sound used when applying the effect. The creator requested a shutter attached to the reusable effect, while keeping the visual demonstration silent.
+- **Decision:** Update the existing Clone Flash request and build instructions to include Camera 02 Shutter Click in the same proposal, linked to each clone with `follows_visual`, with volume and mute. Preserve the visual construction and demonstration assets.
+- **Verification:** Resolved the named shared Library asset and checked the supported audio link schema. Template and skill discovery checks cover routing. This remains an agent-built brief, not a dedicated compiled preset; a new-footage audiovisual application was not executed.
+
+## 2026-10-31 — Clone Converge carrier landmarks and pose windows
+
+- **Observation:** A cropped foreground and a raised-arm carrier could share a full-body box target while leaving a second head or shoulder visible at the last travel frame. Advancing an independently selected travel source with the waiting-copy pause also changed the pose being registered.
+- **Decision:** Measure head, shoulders and torso on the actual used source frames; search the prepared cutout for a front-facing, arms-down carrier and fit its blurred silhouette behind the live foreground. Keep an independently selected carrier source in fixed while moving its timeline start. Preserve opaque travel and one shared merge frame; a fade or earlier arrival plateau does not repair registration.
+- **Verification:** A disposable three-copy diagnostic proposal passed native previews at all eight timing corners. GPU reports covered every travel frame at defaults and joint minimum/maximum settings, plus crossed catch-up/beat merge frames; the repaired carriers were contained behind the foreground at the last travel frame. Skill-purpose and catalog tests passed. This is coached diagnostic evidence, not a fresh rebuild, another-performer test, compiled-route certification or a listening pass; independent rebuild remains required.

@@ -1989,6 +1989,74 @@
           ]
         }
       }
+    },
+    {
+      "catalog_id": "FX-CLONE-CONVERGE",
+      "name": "Clone Converge",
+      "recipe_name": "clone-converge",
+      "skill_owner": "video-compositing",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "../../public/recipe-previews/clone-converge/result.mp4",
+          "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+          "kind": "video",
+          "credit": "Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.",
+          "rights": "owned"
+        },
+        "recreation": {
+          "path": "../../public/recipe-previews/clone-converge/result.mp4",
+          "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+          "kind": "video",
+          "credit": "Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.",
+          "rights": "owned"
+        },
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Locked-camera take with live stopped windows",
+          "Matching empty plate",
+          "Selected stops and spoken line or live final hold"
+        ],
+        "preparation": "Follow video-compositing/templates/clone-converge.md: measure source windows, prepare moving alpha cutouts, register waiting and travel poses, bind timing and Library sound peaks in one native proposal.",
+        "success_criteria": [
+          "Waiting copies remain live at normal speed",
+          "Every travelling copy ends behind the foreground on one shared frame",
+          "Original speech continues after a live beat",
+          "Timing and sound controls remain source-safe across their supported ranges"
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/recipe-previews/clone-converge/waiting.jpg",
+              "sha256": "0bf5f5cddaab163d3476a90b32cb3cbbe6ee01d4b267826a20b676974774ce0a",
+              "kind": "image",
+              "credit": "Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.",
+              "rights": "owned"
+            }
+          ],
+          "after": [
+            {
+              "path": "../../public/recipe-previews/clone-converge/result.mp4",
+              "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+              "kind": "video",
+              "credit": "Finished Clone Converge result and matching source-take preview explicitly authorized by their creator for the shared Catalog card.",
+              "rights": "owned"
+            }
+          ],
+          "observations": [
+            "The creator explicitly chose their approved finished demonstration for this shared Catalog card.",
+            "Prepared-input reuse passed independent GPU review at defaults, timing extremes and crossed corners; 186 slider endpoints and 12 timing combinations passed."
+          ],
+          "limitations": [
+            "Agent-built native recipe; no dedicated compiled preset or one-click certification.",
+            "Raw preparation, another performer, listening and continuous-motion sensory acceptance remain unverified.",
+            "Teaching preview is silent. Its line, positions and grade are examples, not fixed template settings."
+          ]
+        }
+      }
     }
   ],
   "catalog_unit": "Complete perceptual sequence; component techniques are nested, not counted as separate effects.",

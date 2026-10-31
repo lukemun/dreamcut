@@ -1,6 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
-import { PlusIcon } from "lucide-react";
+import { Info, PlusIcon } from "lucide-react";
 import styles from "./CatalogTile.module.css";
 import { setShelfDragPayload } from "./shelf-drag";
 import type { ElementCreatePayload } from "./asset-shelf-payloads";
@@ -25,7 +25,7 @@ export function CatalogTile({ label, detail, preview, selected, onSelect, addLab
   disabled?: boolean;
   toggle?: boolean;
 }) {
-  return <article className={styles.tile} data-selected={selected} draggable={!!dragPayload && !disabled}
+  return <article className={styles.tile} data-selected={selected} data-action={onAdd ? actionText : undefined} draggable={!!dragPayload && !disabled}
     onDragStart={dragPayload ? event => setShelfDragPayload(event, dragPayload, label) : undefined}>
     <button type="button" className={styles.select} aria-pressed={toggle ? selected : undefined} disabled={disabled}
       aria-label={toggle ? `${selected ? "Deselect" : "Select"} ${label}` : label} onClick={onSelect}>
@@ -36,7 +36,8 @@ export function CatalogTile({ label, detail, preview, selected, onSelect, addLab
       </span>
     </button>
     {onAdd && <button type="button" className={styles.add} disabled={disabled || adding} aria-label={`${addLabel}: ${label}`} title={addLabel} onClick={onAdd}>
-      {actionText === "Add" && <PlusIcon size={13} aria-hidden="true" />}<span>{actionText}</span>
+      {actionText === "Details" ? <Info size={16} aria-hidden="true" />
+        : <>{actionText === "Add" && <PlusIcon size={13} aria-hidden="true" />}<span>{actionText}</span></>}
     </button>}
   </article>;
 }

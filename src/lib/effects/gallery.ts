@@ -29,7 +29,13 @@ export async function galleryTemplates() {
   catch { warning = 'User-only templates could not be loaded. Shared templates are still available.'; }
   try { personal.push(...listPersonalStyles().map(savedEffectRecipe)); }
   catch { warning = [warning, "Saved template settings could not be loaded."].filter(Boolean).join(" "); }
-  const effects = withoutPromotedCopies([...guideEffects.filter(effect => effect.implementation), ...personal, ...recreatedGuideEffects(), ...guideEffects.filter(effect => !effect.implementation), ...lookGuideEffects(), ...await community])
+  const recreated = recreatedGuideEffects();
+  // Keep the related walk-to-camera effects together even while Converge remains partial.
+  const leading = guideEffects.filter(effect => effect.implementation).flatMap(effect =>
+    effect.id === 'FX-FLASH-EFFECT'
+      ? [effect, ...recreated.filter(recipe => recipe.id === 'FX-CLONE-CONVERGE')]
+      : [effect]);
+  const effects = withoutPromotedCopies([...leading, ...personal, ...recreated.filter(effect => effect.id !== 'FX-CLONE-CONVERGE'), ...guideEffects.filter(effect => !effect.implementation), ...lookGuideEffects(), ...await community])
     .filter(isCatalogEntry)
     .filter(isEditingRecipe)
     .filter(isGalleryRecipe)

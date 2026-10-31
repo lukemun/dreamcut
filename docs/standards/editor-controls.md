@@ -41,7 +41,8 @@ Across editor panels, clicking an item selects it for chat and never edits: `use
 turns it into a removable pill in the composer. The tile's `+` button and dragging onto the
 timeline (`shelf-drag.ts`) are the manual paths. Music and Sounds rows follow the same
 select / `+` / drag split. Template tiles (`TemplateCatalog`) also select on click, with
-the tile's Details action opening the template (`actionText="Details"`; outside a project,
+the tile's blue circled-information Details action at the right of the name opening the template
+(`actionText="Details"`, with an accessible label and tooltip; outside a project,
 `toggle={false}` makes the click open it). Text previews use `CaptionStylePreview`, which applies the
 renderer's own caption CSS and fonts.
 

@@ -43,10 +43,15 @@ export const creatorGuides: Record<string, CreatorGuide> = {
     generation: 'Nothing is generated; the scene is drawn from code in DreamCut. Turn Paper fill off to lay it over your own footage.',
     steps: ['Build the scene from simple 3D shapes and generators (city, forest, ground grid).', 'Draw it in as ink, then move the camera through it.', 'Expose camera, timing, density, height, wobble, ink, paper and paper fill as controls.'],
   },
+  'FX-CLONE-CONVERGE': {
+    inputs: [input('Lock the camera', 'Film the person stopping in several places, then approaching the camera and saying the line. Keep each stop live for a few extra moments.'), input('Film the empty set', 'Record the same framing and light with nobody in the shot.'), input('Choose the stops and line', 'Say which stops and spoken line to keep. Exact marks help; DreamCut can inspect missing marks.')],
+    generation: 'Supply filmed footage for the live movement and speech. DreamCut prepares moving cutouts; generation is not needed.',
+    steps: ['Measure usable live stop windows and prepare source-matched moving cutouts.', 'Flash the waiting copies into place over the empty set, then bring in the live foreground.', 'Rush every background copy behind the foreground on the same frame, with linked shutters, movement sounds and one impact.', 'Leave a live beat before the original speech; expose timing and sound controls and verify timing extremes.'],
+  },
   'FX-CLONE-FLASH': {
     inputs: [input('A still shot of a person', 'Keep the camera still and leave room beside the person. Film a few extra seconds so later moments can supply the copies. A plain, even background hides cutout edges best.')],
     generation: 'A still shot can be generated; keep the background stable. The copies and flashes are made in DreamCut.',
-    steps: ['Cut out the person from later in the same take.', 'Place two or three copies beside them on their own lanes.', 'Flash each copy white as it arrives, then let it settle into color; expose each copy\'s position and source moment.'],
+    steps: ['Cut out the person from later in the same take.', 'Place two or three copies beside them on their own lanes.', 'Flash each copy white as it arrives, with Camera 02 Shutter Click attached to its entrance.', 'Keep each shutter linked to its copy; expose position, source moment and shutter volume, including mute. The visual demo stays silent.'],
   },
   'FX-PAPER-CUTOUT': {
     inputs: [input('A shot with the subject', 'Film the person moving freely with a little space around them, against a background that differs from their clothes and hair. Keep them in view for the whole moment; if several people appear, say who to cut out.')],

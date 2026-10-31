@@ -36,6 +36,15 @@ export const recipeVisuals:Record<string,RecipeVisual>={
   inputs:[{words:['A city at dusk'],label:'What the scene shows',role:'supply'},{file:'/recipe-previews/motion-sketch-3d/inputs/scenes.jpg',label:'Another scene, same engine',role:'prepared'}],
   stages:[{file:'/recipe-previews/motion-sketch-3d/drawing-in.jpg',label:'1 · Draws in'},{file:'/recipe-previews/motion-sketch-3d/swooping.jpg',label:'2 · Camera flies in'},{file:'/recipe-previews/motion-sketch-3d/street.jpg',label:'3 · Down the street'}],
  },
+ 'FX-CLONE-CONVERGE': {
+  video:'/recipe-previews/clone-converge/result.mp4',poster:'/recipe-previews/clone-converge/poster.jpg',
+  tile:{x:0.5,y:0.57,at:0.8},
+  summary:'Moving copies flash into place, then rush into the live foreground together before the original line continues.',
+  credit:'Finished result and the matching source-take preview explicitly authorized by their creator for this shared Clone Converge card.',
+  note:'Normal speed, silent teaching preview. The example’s words, stops and grade are not fixed template settings.',
+  inputs:[{video:'/recipe-previews/speed-hops-to-camera/inputs/take.mp4',label:'Your take',role:'supply'},{file:'/recipe-previews/clone-converge/waiting.jpg',label:'Moving copies · finished-result illustration',role:'prepared'}],
+  stages:[{file:'/recipe-previews/clone-converge/flash.jpg',label:'1 · Copies flash in'},{file:'/recipe-previews/clone-converge/waiting.jpg',label:'2 · Copies wait'},{file:'/recipe-previews/clone-converge/catch-up.jpg',label:'3 · Rush to the foreground'},{file:'/recipe-previews/clone-converge/merged.jpg',label:'4 · One live foreground'}],
+ },
  'FX-CLONE-FLASH': {
   video:'/recipe-previews/clone-flash/result.mp4',poster:'/recipe-previews/clone-flash/poster.jpg',
   summary:'Copies of the running bobblehead, cut out from other moments of the same take, appear beside it one at a time; each arrives as a white silhouette and settles into color.',

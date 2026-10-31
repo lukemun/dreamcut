@@ -15,4 +15,8 @@ because registration succeeded.
 
 Search registered and local project media before fetching or generating anything. Preserve source attribution and technical metadata. Prefer assets that directly clarify the narration and match the intended aspect ratio.
 
+For useful video action windows, reuse source-linked intake observations and follow
+[media annotation](../media-annotation/SKILL.md#useful-action-windows); explicit creator
+timestamps are optional, and descriptive samples do not certify continuous motion.
+
 Registration or analysis may be preparatory; placement, timing, cropping, and replacement on the working timeline always go through a proposal.

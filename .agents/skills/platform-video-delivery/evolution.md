@@ -79,3 +79,12 @@ Prepare and quality-check a video for a delivery format, then close out with a r
   API warn when HDR is picked for a timeline that is not mostly HDR camera footage (`src/lib/render/dynamic-range.ts`).
 - **Verification:** `dynamic-range.test.ts`, `hdr-encode.test.ts`; wedge measurements in the HDR export
   section of `docs/architecture/playback-rendering.md`. No project was exported.
+
+## 2026-10-29 — Export through the dialog by default
+
+- **Trigger:** the owner asked for chat exports to run through the editor's Export dialog ("that should be
+  the default if someone asks") after exports started through the API finished out of sight and were
+  taken for failures.
+- **Change:** step 3 now drives the Export dialog in the built-in browser, where the creator watches it, and
+  keeps the render API for sessions without one or for export-only lane sets.
+- **Verification:** Speed hops how-to exported through the dialog on 2026-10-29 (1080x1920, 80.8 s).

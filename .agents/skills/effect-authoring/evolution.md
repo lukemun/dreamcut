@@ -1,5 +1,11 @@
 # effect-authoring — evolution log
 
+## 2026-10-31 — Pair the actual Input with Result
+
+- **Observation:** A shared footage-effect card replaced its source video with a typed checklist; the creator expected the actual input beside the result, as on related Speed and Flash cards.
+- **Decision:** Require a playable untreated take paired with Result, source identity and excerpt provenance, and separate playback checks. Reuse an authorized existing preview of the same take; checklists and finished-result crops cannot stand in for the input.
+- **Verification:** Clone Converge now references the existing Speed/Flash input excerpt (original seconds 15.0–44.5). Both demo originals have the same independently verified SHA-256; the shared preview hash matches its manifest. Effect-media tests verify the playable input and receipt. This correction does not establish a new effect rebuild or full-original coverage.
+
 ## Purpose
 
 Let a creator turn an effect that works in their edit into an effect they (or, when the owner

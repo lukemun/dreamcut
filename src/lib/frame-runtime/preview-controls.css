@@ -41,9 +41,9 @@
 .preview-seek { order: 1; flex-basis: calc(100% - 14px); height: 14px; }
 .preview-outline-button svg { fill: none; stroke-width: 2; }
 .preview-fullscreen { margin-left: auto; flex-shrink: 0; }
-.dreamcut-frame-player.preview-window-fullscreen { margin: 0 !important; padding: 0 !important; border: 0 !important; position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; max-width: none !important; max-height: none !important; z-index: var(--layer-fullscreen); background: black; border-radius: 0 !important; }
+.preview-window-fullscreen { margin: 0 !important; padding: 0 !important; border: 0 !important; position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; max-width: none !important; max-height: none !important; z-index: var(--layer-fullscreen); background: black; border-radius: 0 !important; }
 
-.dreamcut-frame-player.preview-window-fullscreen::backdrop { background: black; }
+.preview-window-fullscreen::backdrop { background: black; }
 
 .preview-settings-control { margin-left: auto; }
 .preview-settings-control + .preview-fullscreen { margin-left: 0; }

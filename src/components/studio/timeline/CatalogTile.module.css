@@ -3,13 +3,13 @@
 .grid[data-size="small"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid[data-size="medium"] { --tile-picture: 150px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid[data-size="large"] { --tile-picture: 300px; grid-template-columns: minmax(0, 1fr); }
-/* Small tiles are too narrow to share the name's line, so the action drops below the name. The picture
+/* Small tiles keep labelled Add/Apply actions below the name; compact Details shares its line. The picture
    takes a taller well with almost no inset and the caption tightens, so the example, not the text, fills the tile. */
 .grid[data-size="small"] { --tile-picture: 100px; }
-.grid[data-size="small"] .tile { grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--tile-picture) auto auto; }
+.grid[data-size="small"] .tile:not([data-action="Details"]) { grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--tile-picture) auto auto; }
 .grid[data-size="small"] .preview { padding: 2px; }
 .grid[data-size="small"] .caption { padding: 4px 6px 3px; }
-.grid[data-size="small"] .add { grid-column: 1; grid-row: 3; justify-self: start; margin: 0 6px 5px; }
+.grid[data-size="small"] .tile:not([data-action="Details"]) .add { grid-column: 1; grid-row: 3; justify-self: start; margin: 0 6px 5px; }
 /* Open space over lines: the media and its name sit on the panel; hover and selection add a quiet surface.
    Two columns, two rows: the picture spans the top row; the name takes the first column of the
    bottom row and the action (Add / Apply / Details) the second, so the action shares the name's
@@ -36,3 +36,7 @@
 .add:hover { background: var(--chrome-selected-bg); }
 .add:focus-visible { outline: 2px solid var(--chrome-focus-ring); outline-offset: 1px; }
 .add:disabled { cursor: default; opacity: .4; }
+/* Details is a compact blue navigation action beside the name, including the smallest tiles. */
+.tile[data-action="Details"] .add { width: 24px; height: 24px; justify-content: center; margin: 3px 4px 0 0; padding: 0; color: var(--logo-blue, #0081fb); background: transparent; }
+.tile[data-action="Details"] .add:hover { background: var(--chrome-selected-bg); }
+.grid[data-size="small"] .tile[data-action="Details"] .add { margin-top: 1px; }

@@ -22,6 +22,19 @@ test('curated visual recipes include a result, supplied and prepared inputs, ord
  }
  assert.equal(recipeVisualFor({id:'FX-MASK-GLITCH',origin:'user'}),undefined);
 });
+test('Clone Converge pairs its result with the verified untreated take used by Speed and Flash',()=>{
+ const visual = recipeVisuals['FX-CLONE-CONVERGE'];
+ const take = visual.inputs.find(input=>input.role==='supply' && input.video);
+ assert.ok(take?.video, 'a text checklist cannot replace the playable source take');
+ assert.equal(take.video, recipeVisuals['FX-SPEED-HOPS-TO-CAMERA'].inputs.find(input=>input.role==='supply')?.video);
+ assert.equal(take.video, recipeVisuals['FX-FLASH-EFFECT'].inputs.find(input=>input.role==='supply')?.video);
+ assert.notEqual(take.video, visual.video, 'input must be untreated footage, not the finished result');
+ const manifest = JSON.parse(fs.readFileSync('public/recipe-previews/clone-converge/manifest.json','utf8'));
+ const source = manifest.sources.find((source:{file:string})=>source.file===take.video);
+ assert.equal(source.sha256, createHash('sha256').update(fs.readFileSync('public'+take.video)).digest('hex'));
+ assert.equal(manifest.receipt.input_provenance.source_start_seconds,15);
+ assert.equal(manifest.receipt.input_provenance.source_end_seconds,44.5);
+});
 test('Mask Glitch visibly isolates white and colour subject before the background changes',async()=>{
  const root='public/recipe-previews/mask-glitch/';
  const images=await Promise.all(['start','white','colour','destination'].map(async name=>(await sharp(root+name+'.jpg').removeAlpha().raw().toBuffer({resolveWithObject:true}))));

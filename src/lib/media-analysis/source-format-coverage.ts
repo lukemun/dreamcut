@@ -89,6 +89,7 @@ const unverified = (note?: string): CoverageEntry => ({ status: "unverified", ..
 const PREP_TEST = "src/lib/local-store/media-preparation.test.ts";
 const HDR_BROWSE_TEST = "src/lib/media-analysis/prepare-browse-preview.test.ts";
 const HDR_ALPHA_TEST = "src/lib/media-analysis/prepare-hdr-alpha.test.ts";
+const CUTOUT_CLOCK_TEST = "src/lib/media-analysis/custom-cutout-clock.test.ts";
 const GRADE_SHADER_TEST = "src/lib/color/grade-shader.test.ts";
 const HDR_EXPORT_TEST = "src/lib/color/hdr-encode.test.ts";
 /** Opaque HDR preparation is FFmpeg-only (code-value authority), so Windows is unverified rather than unsupported. */
@@ -118,14 +119,14 @@ export const COVERAGE_STAGES: CoverageStage[] = [
   {
     id: "preparation",
     label: "Preparation: render authority and preview proxy",
-    owners: ["src/lib/local-store/media-preparation.ts", "src/lib/media-analysis/prepare-editor-media.ts", "scripts/lib/color-managed-video.ts"],
-    recipes: ["editor-media-v1", "ffmpeg-hdr-code-preview-v1", "ffmpeg-hdr-code-authority-v1", "apple-hdr-sdr-authority-v2", "ffmpeg-hdr-code-alpha-authority-v2", "apple-hdr-sdr-alpha-authority-v2", "thumb-webp-v2"],
+    owners: ["src/lib/local-store/media-preparation.ts", "src/lib/media-analysis/prepare-editor-media.ts", "src/lib/media-analysis/custom-cutout.ts", "scripts/lib/color-managed-video.ts"],
+    recipes: ["editor-media-v1", "ffmpeg-hdr-code-preview-v1", "ffmpeg-hdr-code-authority-v1", "apple-hdr-sdr-authority-v2", "ffmpeg-hdr-code-alpha-authority-v2", "apple-hdr-sdr-alpha-authority-v2", "sam2-custom-cutout/v7", "thumb-webp-v2"],
     formats: {
-      "sdr-h264-709": mac({ status: "supported", evidence: [PREP_TEST] }),
+      "sdr-h264-709": mac({ status: "supported", note: "Cutout RGB and alpha share an integer frame clock, verified at integer and fractional cadences.", evidence: [PREP_TEST, CUTOUT_CLOCK_TEST] }),
       "sdr-hevc-709": mac(unverified()),
       "sdr-601-sd": mac(unverified("Proxy is encoded as Rec.709; 601 conversion is not checked.")),
       "sdr-full-range": mac(unverified("Range conversion to limited range is not checked.")),
-      "hlg-hevc-10bit": hdr({ status: "supported", note: "Opaque clips become placeable from a size-limited code-value proxy made in one pass from the source (VideoToolbox decode and encode on macOS, libx264 otherwise); their full-resolution authority keeps the HLG code values (8-bit H.264, tagged BT.709 so browsers pass them through) and is made by the worker when an export first needs it; thumbnails and browse previews are tone-mapped by the editor's output transform. HDR with transparency (cutouts) takes the same conversion into a VP9-alpha authority with the same source_encoding, so a cutout matches its footage; packages made by the superseded avconvert SDR recipes are prepared again.", evidence: [HDR_BROWSE_TEST, HDR_ALPHA_TEST] }),
+      "hlg-hevc-10bit": hdr({ status: "supported", note: "Opaque clips become placeable from a size-limited code-value proxy made in one pass from the source (VideoToolbox decode and encode on macOS, libx264 otherwise); their full-resolution authority keeps the HLG code values (8-bit H.264, tagged BT.709 so browsers pass them through) and is made by the worker when an export first needs it; thumbnails and browse previews are tone-mapped by the editor's output transform. HDR with transparency (cutouts) takes the same conversion into a VP9-alpha authority with the same source_encoding, so a cutout matches its footage; packages made by the superseded avconvert SDR recipes are prepared again.", evidence: [HDR_BROWSE_TEST, HDR_ALPHA_TEST, CUTOUT_CLOCK_TEST] }),
       "pq-hevc-10bit": hdr(unverified("Same code-value path as HLG, with MaxCLL read from side data; no PQ fixture run end to end yet.")),
       "pq-hdr10plus": hdr(unverified("Same code-value path; HDR10+ dynamic metadata ignored.")),
       "variable-frame-rate": mac(unverified("Authority and proxy are re-timed to constant frame rate.")),

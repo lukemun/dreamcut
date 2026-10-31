@@ -11,7 +11,7 @@ license; sign off each commit (`git commit -s`) to certify the
 corepack pnpm install && corepack pnpm bootstrap && corepack pnpm editor
 ```
 
-Node 22 or 24, Git, FFmpeg and Chrome; the [README](README.md#install-it-yourself) says how to install each
+Node 22 or 24, Git, FFmpeg and Chrome; the [README](README.md#install) says how to install each
 on a new Mac. `corepack pnpm` runs the pinned pnpm without a global install (`corepack enable` once if you
 want a plain `pnpm`). `pnpm setup:check` reports anything missing, and `node bin/dreamcut.mjs setup` installs
 the caption, voice and cutout programs and models (about 4 GB). The editor runs at
@@ -26,9 +26,9 @@ The easiest way to grow DreamCut's catalog. Pick one route:
 
 1. **From the app (no code):** ask your agent to *"save this as a template"*, export the project, then
    **Templates → Yours → Share with DreamCut** (needs a free DreamCut account).
-2. **Send it (no GitHub):** send a video of how you made it plus the finished edit, and the raw footage if
-   you have it, through the [form on the mission page](https://dreamcut.io/mission#send). We turn it into a
-   template with your name on it.
+2. **Send it (no GitHub):** on the [creator program page](https://dreamcut.io/creators), send the raw
+   footage and assets, the final edit, an explanation of how you made it (a video or written), and
+   filming directions for the footage it needs. We turn it into a template with your name on it.
 3. **Build it yourself (code):** ask your agent to *"recreate this effect as a DreamCut template"*. It
    follows the [recreate-effect skill](.agents/skills/recreate-effect/SKILL.md); see
    [packaging a recreated effect](docs/effects/packaging.md). For a motion graphic, copy

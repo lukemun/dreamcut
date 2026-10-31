@@ -32,6 +32,7 @@ Keep entrances, the background handoff, and object flashes in one coordinated re
 
 ## Packaged templates
 
+- [Clone Converge](templates/clone-converge.md): live copies flash into their original positions, rush into one foreground copy together, then leave a beat before speech; agent-built candidate.
 - [Clone Flash](templates/clone-flash.md): cut-out copies of the subject from later in the take arrive beside them with a white flash.
 - [Silhouette Window](templates/silhouette-window.md): short fill clips play only inside the subject's moving silhouette.
 - [Cross into Negative](templates/cross-negative.md): a cross opens onto the next shot as a black-and-white negative and widens to fill the frame.

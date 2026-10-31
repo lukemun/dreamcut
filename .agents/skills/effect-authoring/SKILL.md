@@ -111,6 +111,14 @@ needs owned or licensed footage; a demo with the creator in it stays in Yours.
 A shared demo's `manifest.json` receipt names the project and take it was built from; that is
 where an agent looks first when the creator asks for "the video the effect shows".
 
+For a footage-based effect, Input and Result are a required pair: Input plays the
+actual untreated take used to make Result, including the useful empty-set and
+performance handles. Verify the source hash and excerpt offsets, and reuse an
+existing authorized source preview when it is the same take. A typed checklist,
+result crop, unrelated example or prepared cutout is not the source input. Respect
+the card's audience and record any missing media or authorization before claiming
+packaging complete. In the editor, play Input and Result separately to verify both.
+
 Frame the gallery tile too. Tiles are short and wide (about 155×84) and fill with the example, so a
 tall or square example shows only a slice. Set `tile` (`x`, `y` from 0 to 1, and `at` seconds, or
 `at_seconds` in Yours) on the point and moment where the subject is legible, and look at the tile in

@@ -16,7 +16,7 @@ export type CustomCutoutReceipt = {
     subject: string;
     correction?: { parent_cutout_id: string; other_cutout_id?: string; mode: "reprompt" | "union" | "intersection"; frame_start?: number; frame_end?: number; roi?: [number, number, number, number] };
   };
-  recipe_id: "sam2-custom-cutout/v1" | "sam2-custom-cutout/v2" | "sam2-custom-cutout/v3" | "sam2-custom-cutout/v4" | "sam2-custom-cutout/v5" | "sam2-custom-cutout/v6";
+  recipe_id: "sam2-custom-cutout/v1" | "sam2-custom-cutout/v2" | "sam2-custom-cutout/v3" | "sam2-custom-cutout/v4" | "sam2-custom-cutout/v5" | "sam2-custom-cutout/v6" | "sam2-custom-cutout/v7";
   rgb_source_strategy?: "direct-source-decode";
   scratchpad_treatment?: {
     recipe_id: "scratchpad-alpha-outline/v1";

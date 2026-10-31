@@ -99,6 +99,15 @@ setting. Read the route schema before a call. Do not silently enable disabled an
 or upload private sources to an external service. If blocked, record the reason and
 continue preparing unaffected files.
 
+For imported videos, first inspect existing source context/descriptions through the
+available media context and `video_search` surface. Reuse matching source-hash evidence.
+When descriptions are missing, follow `media_describe` action `plan`, inspect every
+planned sample with `source_evidence`, then action `record`; this writes canonical,
+source-hash-bound observations without enabling another analysis model. For useful
+action windows such as stopped walking, follow
+[media annotation’s action-window procedure](../media-annotation/SKILL.md#useful-action-windows).
+A verbal brief is sufficient; manually supplied timestamps are optional.
+
 Require source-linked descriptive annotations appropriate to the intended use:
 what a visual contains, what happens in useful video intervals, what speech/music/SFX
 contains, and known rights/reuse restrictions. Route interpretation to the specialist;
