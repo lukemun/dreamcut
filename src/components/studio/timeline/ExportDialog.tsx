@@ -11,7 +11,6 @@ import { EXPORT_RESOLUTIONS, exportOutputSize, exportResolutionLabel, type Expor
 import { hdrExportWarning, hdrSuitsTimeline } from "@/lib/render/dynamic-range";
 import { coverFromTimeline } from "@/lib/media/project-cover-source";
 import { thumbnailUrl } from "@/lib/media/thumbnail-url";
-import { useCloudAccount } from "./CloudAccountSettings";
 
 type Props = {
   elements: ReadonlyArray<{ type?: string; timeline_start?: number; duration?: number; source_url?: string | null; props?: unknown }>;
@@ -155,7 +154,6 @@ export function ExportDialog(props: Props) {
                 {hdrWarning && <p role="status" className="mt-1 text-xs text-[var(--ink-muted)]">{hdrWarning}</p>}
               </Row>
               <Row label="Renderer">{props.renderer}</Row>
-              <WatermarkRow locked={locked} />
             </dl>
           </section>
         </div>
@@ -205,21 +203,6 @@ export function ExportDialog(props: Props) {
       </div>
     </div>
   );
-}
-
-/** Exports carry a watermark while this editor isn't signed in. The row shows only then, with the
- * one thing to do about it; signing in from here removes it from the next export. */
-function WatermarkRow({ locked }: { locked: boolean }) {
-  const { account, busy, error, signInUrl, act } = useCloudAccount();
-  if (!account || account.signed_in) return null;
-  return <Row label="Watermark">
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-      {account.pending
-        ? <span className="text-[var(--ink-muted)]">Waiting for sign-in{signInUrl ? <> · <a className="font-medium text-[var(--ink)] underline underline-offset-2" href={signInUrl} target="_blank" rel="noopener noreferrer">Open sign-in page</a></> : null}</span>
-        : <Button type="button" variant="outline" size="sm" disabled={busy || locked} onClick={() => void act("sign_in")}>Sign in to remove</Button>}
-    </div>
-    {error && <p role="alert" className="mt-1 text-xs text-[var(--chrome-focus-ring)]">{error}</p>}
-  </Row>;
 }
 
 function Row({ label, htmlFor, children }: { label: string; htmlFor?: string; children: ReactNode }) {

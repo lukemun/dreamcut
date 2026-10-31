@@ -52,7 +52,7 @@ export async function isolateDevelopmentUpdates(page: import("playwright-core").
 }
 export { desktopRenderSessionCookie };
 /** What an export is doing, for its progress label. */
-export type ExportStage="starting"|"motion-graphics"|"rendering"|"encoding"|"mixing-audio"|"saving"|"watermark";
+export type ExportStage="starting"|"motion-graphics"|"rendering"|"encoding"|"mixing-audio"|"saving";
 export type BrowserVideoOptions = {
   gpu?: boolean;
   baseUrl: string; outputLocation: string; width: number; height: number; fps: number; durationInFrames: number;

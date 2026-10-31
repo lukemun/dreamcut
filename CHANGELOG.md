@@ -3,6 +3,11 @@
 Notable changes to DreamCut. This project follows [Semantic Versioning](https://semver.org/)
 once it reaches 1.0; until then, minor versions may include breaking changes.
 
+## Unreleased
+
+- DreamCut is open source under the Apache License 2.0 (previously FSL-1.1-ALv2). See `docs/licensing.md`.
+- Exports never carry a watermark, signed in or not.
+
 ## 0.3.0 — 2026-10-27
 
 The first editor update since 0.2.0. It includes the 0.2.1 first-run fixes, which were never published.

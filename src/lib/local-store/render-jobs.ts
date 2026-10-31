@@ -339,7 +339,6 @@ export function exportStageLabel(stage: ExportStage, progress: number) {
   if (stage === "rendering") return `Rendering ${Math.floor(progress * 100)}%`;
   if (stage === "encoding") return "Encoding video";
   if (stage === "mixing-audio") return "Mixing audio";
-  if (stage === "watermark") return "Adding watermark";
   return "Saving";
 }
 

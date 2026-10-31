@@ -16,7 +16,6 @@ import { COLOR_GRADE_MODEL, hasColorGradeData, validateColorGradeModel } from "@
 import { hasChromaKeyData, validateChromaKeyModel } from "@/lib/timeline/chroma-key";
 import { assertFinalRenderAuthority } from "@/lib/qc/final-render-authority";
 import { readEnv } from "@/lib/env-name";
-import { addWatermark, exportNeedsWatermark } from "./watermark";
 export type RenderInput = {
   backend?: "standard" | "rust" | "gpu";
   signal?: AbortSignal;
@@ -53,9 +52,6 @@ export type RenderInput = {
   /** Benchmarks and segment renders: inclusive frame window, and pictures without the audio pass. */
   frameRange?: [number, number];
   pictureOnly?: boolean;
-  /** The DreamCut mark in the bottom-right corner. Defaults to on when this computer isn't signed in to
-   * DreamCut; benchmark windows and picture-only segments never carry it. */
-  watermark?: boolean;
 };
 
 export type RenderResult = {
@@ -124,7 +120,6 @@ export async function renderProjectVideo(input: RenderInput): Promise<RenderResu
     backend = "standard",
     frameRange,
     pictureOnly,
-    watermark = !frameRange && !pictureOnly && exportNeedsWatermark(),
   } = input;
 
 
@@ -223,18 +218,12 @@ export async function renderProjectVideo(input: RenderInput): Promise<RenderResu
     ...(backend === "gpu" && renderScale === 1 ? { chunkCacheDir: path.join(projectDir(projectId), "preprocess", "export-chunks") } : {}),
   });
 
-  if (watermark) {
-    input.onProgress?.(1, "watermark");
-    await addWatermark(outputLocation, outputSize, dynamicRange, input.signal);
-  }
-
   console.log("[render] render complete", {
     outputLocation,
     elapsedSeconds: Number(((performance.now() - renderStartedAt) / 1000).toFixed(2)),
     concurrency,
     imageFormat,
     engine: backend === "gpu" ? "dreamcut-canvaskit-chromium-ffmpeg" : backend === "rust" ? "dreamcut-rust-react-chromium-ffmpeg" : "dreamcut-react-chromium-ffmpeg",
-    watermark,
   });
 
   return {

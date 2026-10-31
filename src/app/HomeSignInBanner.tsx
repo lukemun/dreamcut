@@ -10,7 +10,7 @@ export function HomeSignInBanner() {
   return <section className="home-sign-in" aria-label="Sign in to DreamCut">
     <div className="home-sign-in-text">
       <h2>Sign in to DreamCut</h2>
-      <p>Export without the watermark, keep your style on every computer and generate with credits</p>
+      <p>Keep your style on every computer and generate with credits</p>
     </div>
     {account.pending
       ? <p role="status" className="home-sign-in-status">
