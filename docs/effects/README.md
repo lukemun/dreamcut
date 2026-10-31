@@ -119,6 +119,8 @@ The maintainer confirmed public redistribution clearance on 2026-09-29 for the e
 
 On 2026-10-14 the creator confirmed public redistribution of the Layered Paper Cutout Guide example (`public/guide/effects/contour-first-half.mp4`, `contour-first-half.jpg` and `input-contour-current.png`), which shows the creator and is credited "creator-supplied portrait". The same limits apply: clearance to distribute with DreamCut, not an ownership transfer or broader license.
 
+On 2026-10-30 the maintainer confirmed Marvin Appiah Korang's (futurist__) permission to show an excerpt of his speed hops tutorial (instagram.com/reel/DXW0u-zjLE7) in the repository README, as `docs/assets/readme/speed-hops-by-hand.gif` (his opening effect, then his tutorial sped up 6×), credited and linked to the original. The README's `speed-hops-in-dreamcut.gif` and `flash-effect.gif` show the maintainer's own footage. The same limits apply.
+
 ## Format and status
 
 Each `recipe` includes a reference, optional recreation, owning skill, inputs, preparation, success criteria and before/after evidence. Every artifact records a portable path relative to this directory, SHA-256, kind, credit and rights basis. The owning skill links a `references/effect-evidence.json` receipt back to the same catalog entry.

@@ -19,6 +19,18 @@ picks it and gets it on their own footage in one click. The aim is for the creat
 use to be paid for them. Creator payouts aren't live yet; that's where we're headed.
 [Read the mission →](https://dreamcut.io/mission) · [dreamcut.io](https://dreamcut.io)
 
+### From a creator's tutorial to one request
+
+Marvin Appiah Korang ([futurist__](https://www.instagram.com/reel/DXW0u-zjLE7/)) showed how he makes
+speed hops by hand. DreamCut turned his method into a template, so anyone can put it on their own footage.
+
+<table>
+<tr>
+<td width="50%" align="center" valign="top"><img src="docs/assets/readme/speed-hops-by-hand.gif" width="270" alt="Marvin Appiah Korang's speed hops tutorial: the finished effect in a stairwell, then the steps in an editing app: cutting the clip, cutting himself out, setting keyframes and adding motion"><br><b>By hand</b> · <a href="https://www.instagram.com/reel/DXW0u-zjLE7/">Marvin's tutorial</a><br>Film the empty background, cut at every jump, cut yourself out, keyframe each hop, add motion blur. Repeat for every hop.</td>
+<td width="50%" align="center" valign="top"><img src="docs/assets/readme/speed-hops-in-dreamcut.gif" width="270" alt="The same effect in DreamCut: the finished speed hops in a park, then selecting Speed hops, marking the stops, asking Claude to apply it, tuning the proposal card's sliders and applying it to the timeline"><br><b>In DreamCut</b> · one take, a few marks, one request<br><i>"Apply the speed effect to this clip and use all of my marks as the holding points."</i> Tune the card's sliders, then Apply.</td>
+</tr>
+</table>
+
 **This repository is the editor**, the part that does the editing. Tell Claude Code or Codex what you want:
 *"cut the long pauses"*, *"put the headline behind me"*, *"give it a warm film look"*. DreamCut builds it on
 a real timeline, with clips, captions, masks, motion graphics and sound, and hands it back as a
@@ -38,17 +50,16 @@ Effects your agent rebuilds with your own footage.
 
 <table>
 <tr>
-<td><img src="docs/assets/readme/clone-flash.gif" width="260" alt="Clone Flash"><br><b>Clone Flash</b></td>
-<td><img src="docs/assets/readme/moving-grid-matte.gif" width="260" alt="Moving Grid Matte"><br><b>Moving Grid Matte</b></td>
-<td><img src="docs/assets/readme/silhouette-window.gif" width="260" alt="Silhouette Window"><br><b>Silhouette Window</b></td>
+<td rowspan="3" align="center"><img src="docs/assets/readme/flash-effect.gif" width="270" alt="Flash Effect: poses flash in white one after another down a path toward the camera"><br><b>Flash Effect</b> · after futurist__</td>
+<td align="center"><img src="docs/assets/readme/clone-flash.gif" width="270" alt="Clone Flash"><br><b>Clone Flash</b></td>
 </tr>
-<tr>
-<td><img src="docs/assets/readme/cross-negative.gif" width="260" alt="Cross into Negative"><br><b>Cross into Negative</b></td>
-<td><img src="docs/assets/readme/mask-glitch-glow.gif" width="260" alt="Mask Glitch Glow"><br><b>Mask Glitch · Glow</b></td>
+<tr><td align="center"><img src="docs/assets/readme/mask-glitch-glow.gif" width="270" alt="Mask Glitch Glow"><br><b>Mask Glitch · Glow</b></td></tr>
+<tr><td align="center"><img src="docs/assets/readme/silhouette-window.gif" width="270" alt="Silhouette Window"><br><b>Silhouette Window</b></td>
 </tr>
 </table>
 
-**[Browse all templates →](docs/effects/README.md#all-templates)** · Footage from [Pexels](https://www.pexels.com/license/)
+**[Browse all templates →](docs/effects/README.md#all-templates)** · Speed hops and Flash Effect footage: the
+DreamCut maintainer. Other template footage from [Pexels](https://www.pexels.com/license/).
 
 ## Install
 
