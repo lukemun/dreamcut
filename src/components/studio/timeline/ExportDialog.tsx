@@ -124,7 +124,7 @@ export function ExportDialog(props: Props) {
               style={{ aspectRatio: w && h ? `${w} / ${h}` : undefined, maxHeight: COVER_MAX_HEIGHT, maxWidth: w && h && w > h ? "100%" : `calc(${COVER_MAX_HEIGHT} * ${(w || 9) / (h || 16)})` }}
             >
               {props.phase === "done" && props.renderUrl
-                ? <div className="size-full"><SourceVideoPlayer src={props.renderUrl} label="Exported video" /></div>
+                ? <div className="absolute inset-0"><SourceVideoPlayer fill src={props.renderUrl} label="Exported video" /></div>
                 : <>
                   {cover && !coverFailed
                     ? <img src={thumbnailUrl(cover.url, coverExpanded ? 1920 : 640)} alt="" className={`size-full ${coverExpanded ? "object-contain" : "object-cover"}`} onError={() => setCoverFailed(true)} />

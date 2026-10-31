@@ -12,8 +12,8 @@ type Listener = (event: { detail: unknown }) => void;
  * same scrubber, play, volume and fullscreen as the editor's Player, without building a
  * composition. Use Player for timelines and compositions; use this for a plain file.
  */
-export const SourceVideoPlayer = forwardRef<PlayerRef, { src: string; label: string; onError?: () => void; children?: ReactNode }>(
-  function SourceVideoPlayer({ src, label, onError, children }, ref) {
+export const SourceVideoPlayer = forwardRef<PlayerRef, { src: string; label: string; onError?: () => void; fill?: boolean; children?: ReactNode }>(
+  function SourceVideoPlayer({ src, label, onError, fill = false, children }, ref) {
     const video = useRef<HTMLVideoElement>(null), container = useRef<HTMLDivElement>(null);
     const listeners = useRef(new Map<string, Set<Listener>>()), fullscreenState = useRef(false);
     const [frame, setFrame] = useState(0), [durationInFrames, setDuration] = useState(1);
@@ -52,9 +52,9 @@ export const SourceVideoPlayer = forwardRef<PlayerRef, { src: string; label: str
     useLayoutEffect(() => { fullscreenState.current = fullscreen; emit("fullscreenchange", { isFullscreen: fullscreen }); }, [emit, fullscreen]);
     const sync = () => { const next = api.getCurrentFrame(); setFrame(next); emit("frameupdate", { frame: next }); };
     return <div ref={container} className={`dreamcut-frame-player source-video-player${fullscreen ? " preview-window-fullscreen" : ""}`} data-playing={String(playing)}
-      style={{ position: "relative", overflow: "hidden", background: "#000" }}>
+      style={{ position: "relative", overflow: "hidden", background: "#000", ...(fill ? { width: "100%", height: "100%" } : {}) }}>
       <video ref={video} src={src} aria-label={label} playsInline muted preload="metadata" className="block h-auto w-full"
-        style={fullscreen ? { height: "100%", objectFit: "contain" } : undefined}
+        style={fullscreen || fill ? { height: "100%", objectFit: "contain" } : undefined}
         onLoadedMetadata={event => { setDuration(Math.max(1, Math.round(event.currentTarget.duration * FPS))); sync(); }}
         onPlay={() => { setPlaying(true); emit("play"); }} onPause={() => { setPlaying(false); sync(); emit("pause"); }}
         onEnded={() => { setPlaying(false); emit("ended"); }} onSeeked={() => { sync(); emit("seeked", { frame: api.getCurrentFrame() }); }}
