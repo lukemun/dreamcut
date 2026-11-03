@@ -1,0 +1,28 @@
+name: Effect request
+description: An edit or effect you'd like DreamCut to make from your own footage.
+labels: [effect-request]
+body:
+  - type: input
+    id: reference
+    attributes:
+      label: Reference
+      description: A link to a video that shows the effect.
+    validations:
+      required: true
+  - type: textarea
+    id: describe
+    attributes:
+      label: What the effect does
+      description: Describe it in your own words. Where does it start, and what makes it work?
+    validations:
+      required: true
+  - type: textarea
+    id: footage
+    attributes:
+      label: Your footage
+      description: What you'd film or already have (talking head, locked-off shot, screen recording, …).
+  - type: input
+    id: creator
+    attributes:
+      label: Original creator
+      description: Who made the reference, so a template can credit them.

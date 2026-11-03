@@ -1,0 +1,81 @@
+{
+  "id": "blueprint",
+  "title": "Blueprint",
+  "family": "Hand-drawn",
+  "description": "One large drafted cyanotype sheet: original orthographic views, section hatching, dimensions and revision clouds draw on over mottled, sun-faded paper while a drafting camera pans between stations.",
+  "arrival": "stroke",
+  "change": "grid",
+  "texture": "sheet",
+  "examples": [
+    {
+      "name": "Anatomy of a card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.2,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.2,
+        "kicker": "Drawing 01",
+        "title": "Anatomy of a proposal card",
+        "object_title": "What is on the card",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "Every part has a purpose."
+      }
+    },
+    {
+      "name": "Assembly line",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "process_title": "How a change is built",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You sign off",
+        "chart_title": "Parts per template",
+        "bar_1_label": "Text",
+        "bar_2_label": "Timing",
+        "bar_3_label": "Colour",
+        "bar_4_label": "Motion",
+        "bar_1": 6,
+        "bar_2": 5,
+        "bar_3": 3,
+        "bar_4": 4,
+        "highlight": "1"
+      }
+    },
+    {
+      "name": "Review room",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "people_title": "Roles on the project",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Rework before and after",
+        "before_label": "Redos",
+        "before_value": 8,
+        "after_label": "Tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

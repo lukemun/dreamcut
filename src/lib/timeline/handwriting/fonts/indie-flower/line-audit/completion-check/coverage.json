@@ -1,0 +1,78 @@
+{
+  "font_id": "indie_flower",
+  "reveal_mode": "line_mask",
+  "line_guides_sha256": "af3ce53b9c670a48847e45b4b0af2484fbc22eb34f3c136f779df0ea8c456f25",
+  "method": "Chromium production component SVG; same-page alpha-weighted source comparison at 480×640; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "f268599709a0957f5cd3d9dddadd231ff971e4db2ac4f1fffaf344cd28728506",
+    "strokes": "33f572c62e92ad89e7a6b8e044af91ed1446a579a6d82e3b0f496ca0ef3604f2",
+    "widths": "91cee75ef16749441d51b4ad069fe6da137f21040f6e48b8f4118e36b67e41ee",
+    "sweeps": "31d1f588371d6b84fbe125bb6b186b33004eb57e5b94b966e68407254fa3ed72",
+    "metrics": "36580f3b3018a242f6d221a0d8673fca3ad86b41de8565e3ef2e31917ff79092"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.1",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.22372022764590005",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.7237202276459",
+          "x": 1932,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 2412,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2892,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 3372,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 3852,
+          "inkY": 93.171875
+        }
+      ],
+      "character": "=",
+      "codepoint": 61,
+      "page": "page-1.png",
+      "gestures": 2,
+      "coverage_percent": 99.83,
+      "extra_ink_percent": 0.11,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}

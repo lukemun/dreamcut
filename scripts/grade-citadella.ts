@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { parseEditorAgentProposal } from '../src/lib/agent/timeline-editor-agent-apply';
+import { gradeLinkedSpacing } from './lib/grade-linked-spacing';
+const [run, outputName = 'grading-revised.json'] = process.argv.slice(2);
+if (!run || path.basename(outputName) !== outputName) throw new Error('Usage: tsx scripts/grade-citadella.ts <private-run-dir> [new-report.json]');
+const config=JSON.parse(fs.readFileSync(path.join(run,'case.json'),'utf8'));
+process.env.TIMELINE_PROJECTS_DIR=path.resolve(run,'projects');
+process.env.DREAMCUT_PROFILE_DIR=path.resolve(run,'profile');
+const timeline=JSON.parse(fs.readFileSync(path.join(run,'projects',config.project_id,'timeline.json'),'utf8'));
+const proposal=parseEditorAgentProposal(JSON.parse(fs.readFileSync(path.join(run,'proposal-result.json'),'utf8')).proposal);
+const result=gradeLinkedSpacing(timeline,proposal,config);
+fs.writeFileSync(path.join(run,outputName),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify(result,null,2));

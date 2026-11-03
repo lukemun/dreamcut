@@ -1,0 +1,81 @@
+{
+  "id": "ascii",
+  "title": "ASCII",
+  "family": "Retro",
+  "description": "The whole frame is a monospace character grid: plasma, a scrolling floor and glyph rain behind 3D solids shaded through a luminance ramp, a sine ticker and a status frame, with bars of streaming bits, shaded ellipsoid characters and terminal windows that decrunch into each other cell by cell.",
+  "arrival": "type",
+  "change": "scan",
+  "texture": "scanlines",
+  "examples": [
+    {
+      "name": "Spin up the preview",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Boot sequence",
+        "title": "Every edit starts as a card",
+        "object_title": "Inside the preview",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Your original track",
+        "closing": "Press play. Then decide."
+      }
+    },
+    {
+      "name": "Run the pipeline",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed per day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 47,
+        "highlight": "4",
+        "process_title": "From prompt to applied cut",
+        "step_1": "Read the cut",
+        "step_2": "Draft cards",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Crew and rework",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "Who touches the cut",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Rework per episode",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "id": "pixel-16",
+  "title": "16-Bit",
+  "family": "Retro",
+  "description": "An original side-scrolling 16-bit valley drawn on a 320×180 grid: banded dithered sky, parallax mountains with waterfalls, a windmill village, river and fenced road. Headlines type into wood-framed parchment dialog boxes in a bitmap face, a small clapperboard sprite walks and cheers through each scene, and scenes swap with a checker-dither dissolve as the camera dashes down the road.",
+  "arrival": "type",
+  "change": "dither",
+  "examples": [
+    {
+      "name": "Quest log",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.2,
+        "chart_hold": 3.6,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "kicker": "Level 1",
+        "title": "Your cut, one card at a time",
+        "chart_title": "Cards approved per day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 11,
+        "bar_4": 23,
+        "highlight": "4",
+        "object_title": "Review it on your phone",
+        "device": "phone",
+        "callout_1": "Live preview",
+        "callout_2": "The new clip",
+        "callout_3": "Your cut"
+      }
+    },
+    {
+      "name": "Night shift",
+      "template": "illustrated-explainer",
+      "controls": {
+        "palette": "dark",
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.2,
+        "people_title": "Everyone gets a vote",
+        "people_count": 5,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Agent",
+        "process_title": "How a card is made",
+        "step_1": "Read the cut",
+        "step_2": "Draft the edit",
+        "step_3": "You apply it",
+        "closing": "Nothing lands without you."
+      }
+    },
+    {
+      "name": "Power-up",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.2,
+        "chart_hold": 0,
+        "object_hold": 3.6,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "kicker": "Tip",
+        "title": "Turn a dial, not a prompt",
+        "object_title": "Every card has its dials",
+        "device": "laptop",
+        "callout_1": "Watch it play",
+        "callout_2": "Proposed change",
+        "callout_3": "Original track",
+        "compare_title": "Tries to get it right",
+        "before_label": "Re-prompts",
+        "before_value": 7,
+        "after_label": "Dial turns",
+        "after_value": 2
+      }
+    }
+  ]
+}

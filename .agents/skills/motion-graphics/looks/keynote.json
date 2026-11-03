@@ -1,0 +1,84 @@
+{
+  "id": "keynote",
+  "title": "Keynote",
+  "family": "Stage",
+  "description": "A black launch stage with a glossy floor, wall light slats and sweeping beams: a machined jog-dial puck, liquid-light tubes, a live device render, figurines and plinths stand in studio light while specular sweeps cross them and the stage slides between scenes.",
+  "arrival": "focus",
+  "change": "focus",
+  "examples": [
+    {
+      "name": "Meet the agent",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Introducing",
+        "title": "An editor that asks first",
+        "process_title": "Every change, three beats",
+        "step_1": "It reads your cut",
+        "step_2": "It drafts a card",
+        "step_3": "You press Apply",
+        "closing": "Fast, and still yours."
+      }
+    },
+    {
+      "name": "Templates on stage",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Templates opened this week",
+        "bar_1_label": "Titles",
+        "bar_2_label": "Charts",
+        "bar_3_label": "Captions",
+        "bar_4_label": "Explainers",
+        "bar_1": 14,
+        "bar_2": 9,
+        "bar_3": 21,
+        "bar_4": 32,
+        "chart_suffix": "",
+        "highlight": "4",
+        "object_title": "Tune it right on the card",
+        "device": "laptop",
+        "callout_1": "Plays as you tune",
+        "callout_2": "The template's clip",
+        "callout_3": "Your cut, untouched"
+      }
+    },
+    {
+      "name": "Review together",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 2.4,
+        "people_title": "One cut, everyone in the room",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Undo instead of redo",
+        "before_label": "Steps to redo",
+        "before_value": 12,
+        "after_label": "Steps with Undo",
+        "after_value": 1,
+        "compare_suffix": "",
+        "closing": "Experiment freely."
+      }
+    }
+  ]
+}

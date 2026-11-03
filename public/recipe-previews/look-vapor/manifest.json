@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Vapor look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"vapor\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 Your agent drafts",
+      "at": 5.56
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Edits reviewed",
+      "at": 2.96
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 Tune, do not re-prompt",
+      "at": 5.52
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "c681270a49b1926bca39172e58e3ec19c5cb971ee7238e249c58a0738dd843cb"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "85608eedae51d11d1e3ad7c0e99f4ea2b7b342eec56a2ca34cda57fd7d6fae15"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "eee84a315282ea83f1c532a5c032a44c5f856d96a3b60777bb1719373a897aa2"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "85608eedae51d11d1e3ad7c0e99f4ea2b7b342eec56a2ca34cda57fd7d6fae15"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "84714a6cb07f2c793b3c6fdd71af7e8dd0043139bc2f802023f57135845220f7"
+    }
+  ]
+}

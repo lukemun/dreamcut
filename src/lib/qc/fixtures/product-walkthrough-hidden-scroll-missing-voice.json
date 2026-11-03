@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "id": "gatsby-overview-scroll-and-narration-coverage",
+  "status": "regression",
+  "production_behavior": "product-walkthrough assembly preflight v1",
+  "provenance": "Frozen from the 2026-08-14 Great Gatsby character-portrait walkthrough review. The qualified source contained the Projects overview to Characters scroll, but the assembled timeline entered on the Characters row; an approved voiceover paragraph was also omitted from the voice lane.",
+  "privacy": "Synthetic project ids and text; no private user data.",
+  "hidden_expectations": [
+    "Every source-qualified route seam remains present in the assembled timeline.",
+    "A full-desktop seam cannot be replaced by a destination crop.",
+    "The qualified seam receives at least its declared minimum readable timeline duration.",
+    "Every approved narration paragraph is mounted exactly once with matching text."
+  ],
+  "input": {
+    "projectId": "gatsby-character-portrait",
+    "timelineSha256": "timeline-hash",
+    "lockedTimelineSha256": "timeline-hash",
+    "qualificationSha256": "qualification-hash",
+    "lockedQualificationSha256": "qualification-hash",
+    "narrationSha256": "narration-hash",
+    "lockedNarrationSha256": "narration-hash",
+    "narrationVisualContractSha256": "sync-hash",
+    "lockedNarrationVisualContractSha256": "sync-hash",
+    "approvedNarration": "When the read is finished, scroll to the Characters row.\n\nOpen Guided setup to review the brief.",
+    "qualification": {
+      "project_id": "gatsby-character-portrait",
+      "visual_checkpoints": [
+        {
+          "id": "CP05A",
+          "kind": "stop",
+          "source_id": "gatsby-take",
+          "source_start_seconds": 48.8,
+          "source_end_seconds": 49.15,
+          "minimum_timeline_seconds": 0.5,
+          "framing": "full-desktop",
+          "verdict": "PASS"
+        },
+        {
+          "id": "CP05B",
+          "kind": "scroll-waypoint",
+          "source_id": "gatsby-take",
+          "source_start_seconds": 49.15,
+          "source_end_seconds": 49.75,
+          "minimum_timeline_seconds": 0.5,
+          "framing": "full-desktop",
+          "verdict": "PASS"
+        },
+        {
+          "id": "CP05C",
+          "kind": "stop",
+          "source_id": "gatsby-take",
+          "source_start_seconds": 49.75,
+          "source_end_seconds": 50.4,
+          "minimum_timeline_seconds": 0.75,
+          "framing": "full-desktop",
+          "verdict": "PASS"
+        }
+      ],
+      "route_continuity": [
+        {
+          "from_beat_id": "bookworm-complete",
+          "to_beat_id": "characters-guided-setup",
+          "source_id": "gatsby-take",
+          "source_start_seconds": 48.8,
+          "source_end_seconds": 50.4,
+          "minimum_timeline_seconds": 1.5,
+          "framing": "full-desktop",
+          "verdict": "PASS"
+        }
+      ]
+    },
+    "narrationVisualContract": {
+      "schema_version": 1,
+      "project_id": "gatsby-character-portrait",
+      "narration_sha256": "narration-hash",
+      "lines": [
+        {
+          "line_number": 1,
+          "text": "When the read is finished, scroll to the Characters row.",
+          "source_id": "gatsby-take",
+          "prerequisite_source_seconds": 48.8,
+          "max_prerequisite_lead_seconds": 0.25
+        },
+        {
+          "line_number": 2,
+          "text": "Open Guided setup to review the brief.",
+          "source_id": "gatsby-take",
+          "prerequisite_source_seconds": 49.9,
+          "max_prerequisite_lead_seconds": 0.25
+        }
+      ]
+    }
+  },
+  "baseline": {
+    "elements": [
+      {
+        "id": "characters-destination-only",
+        "type": "video_clip",
+        "timeline_start": 0,
+        "duration": 2,
+        "playback_rate": 1,
+        "removed_at": null,
+        "props": {
+          "source_authority_id": "gatsby-take",
+          "source_interval": {
+            "start_seconds": 50.4,
+            "duration_seconds": 2
+          },
+          "objectFit": "contain",
+          "media_scale": 1.18,
+          "media_offset_x": 0,
+          "media_offset_y": 0
+        }
+      },
+      {
+        "id": "voice-line-1",
+        "type": "vo_segment",
+        "timeline_start": 0,
+        "duration": 2,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 1,
+          "transcript": "When the read is finished, scroll to the Characters row."
+        }
+      }
+    ]
+  },
+  "cropped": {
+    "elements": [
+      {
+        "id": "cropped-overview-to-characters-scroll",
+        "type": "video_clip",
+        "timeline_start": 0,
+        "duration": 2.9,
+        "playback_rate": 0.55,
+        "removed_at": null,
+        "props": {
+          "source_authority_id": "gatsby-take",
+          "source_interval": {
+            "start_seconds": 48.8,
+            "duration_seconds": 1.6
+          },
+          "objectFit": "cover",
+          "media_scale": 1.18,
+          "media_offset_x": 0,
+          "media_offset_y": 0
+        }
+      },
+      {
+        "id": "voice-line-1",
+        "type": "vo_segment",
+        "timeline_start": 0,
+        "duration": 2,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 1,
+          "transcript": "When the read is finished, scroll to the Characters row."
+        }
+      },
+      {
+        "id": "voice-line-2",
+        "type": "vo_segment",
+        "timeline_start": 2.1,
+        "duration": 0.8,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 2,
+          "transcript": "Open Guided setup to review the brief."
+        }
+      }
+    ]
+  },
+  "compressed": {
+    "elements": [
+      {
+        "id": "compressed-overview-to-characters-scroll",
+        "type": "video_clip",
+        "timeline_start": 0,
+        "duration": 0.8,
+        "playback_rate": 2,
+        "removed_at": null,
+        "props": {
+          "source_authority_id": "gatsby-take",
+          "source_interval": {
+            "start_seconds": 48.8,
+            "duration_seconds": 1.6
+          },
+          "objectFit": "contain",
+          "media_scale": 1,
+          "media_offset_x": 0,
+          "media_offset_y": 0
+        }
+      },
+      {
+        "id": "voice-line-1",
+        "type": "vo_segment",
+        "timeline_start": 0,
+        "duration": 0.35,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 1,
+          "transcript": "When the read is finished, scroll to the Characters row."
+        }
+      },
+      {
+        "id": "voice-line-2",
+        "type": "vo_segment",
+        "timeline_start": 0.4,
+        "duration": 0.4,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 2,
+          "transcript": "Open Guided setup to review the brief."
+        }
+      }
+    ]
+  },
+  "accepted": {
+    "elements": [
+      {
+        "id": "overview-to-characters-scroll",
+        "type": "video_clip",
+        "timeline_start": 0,
+        "duration": 2.9,
+        "playback_rate": 0.55,
+        "removed_at": null,
+        "props": {
+          "source_authority_id": "gatsby-take",
+          "source_interval": {
+            "start_seconds": 48.8,
+            "duration_seconds": 1.6
+          },
+          "objectFit": "contain",
+          "media_scale": 1,
+          "media_offset_x": 0,
+          "media_offset_y": 0
+        }
+      },
+      {
+        "id": "voice-line-1",
+        "type": "vo_segment",
+        "timeline_start": 0,
+        "duration": 2,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 1,
+          "transcript": "When the read is finished, scroll to the Characters row."
+        }
+      },
+      {
+        "id": "voice-line-2",
+        "type": "vo_segment",
+        "timeline_start": 2.1,
+        "duration": 0.8,
+        "source_url": "/media/narration.mp3",
+        "removed_at": null,
+        "props": {
+          "script_line_number": 2,
+          "transcript": "Open Guided setup to review the brief."
+        }
+      }
+    ]
+  }
+}

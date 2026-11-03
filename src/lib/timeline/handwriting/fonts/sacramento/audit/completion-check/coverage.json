@@ -1,0 +1,71 @@
+{
+  "font_id": "sacramento",
+  "method": "Chromium production component SVG; same-page alpha-weighted source comparison at 480×640; no unmask-at-completion shortcut",
+  "pack_hashes": {
+    "outlines": "0f1e20d3ecd0c4ccbfc416bde428d97bd4542bf22913d7532ac0e4215b71d93b",
+    "strokes": "ca8f8040ecdc990a3c16d28bbca0ea09e86bf0753804b4627232f0503aa2c6fc",
+    "widths": "20916e1567f4cccfbef9ee2a47fbbfb48f06b7c25828149cea7177357698e272",
+    "sweeps": "cffea40473587407de5733b2dd8c0d0fc3fe674ffcadd767f1a18bb4b3b37f45",
+    "metrics": "1d88a17618a67ba10212115983a110a21dda112b3caaa7fc6d2158c8c461fae6"
+  },
+  "characters": [
+    {
+      "section": {
+        "x": 12,
+        "y": 51.171875,
+        "width": 1176,
+        "height": 683
+      },
+      "samples": [
+        {
+          "progress": "0.006882530763905345",
+          "x": 12,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.1",
+          "x": 492,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.25",
+          "x": 972,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.5",
+          "x": 1452,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.75",
+          "x": 1932,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "0.999",
+          "x": 2412,
+          "inkY": 93.171875
+        },
+        {
+          "progress": "1",
+          "x": 2892,
+          "inkY": 93.171875
+        },
+        {
+          "progress": null,
+          "x": 3372,
+          "inkY": 93.171875
+        }
+      ],
+      "character": ".",
+      "codepoint": 46,
+      "page": "page-1.png",
+      "gestures": 1,
+      "coverage_percent": 99.96,
+      "extra_ink_percent": 0.01,
+      "intermediate_review": "pending",
+      "motion_review": "pending"
+    }
+  ]
+}

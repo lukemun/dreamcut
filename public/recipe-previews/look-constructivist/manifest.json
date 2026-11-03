@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Constructivist look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"constructivist\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 Poster of a proposal",
+      "at": 5.56
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Production plan",
+      "at": 2.81
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 The collective",
+      "at": 2.81
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "8549688ce1e5797229f4e8e4daa6ed263acce7f4b4295a6b5cd0667945f31b0c"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "ce9adedb03643369447a19d9ff488fcb937882017af55b6532ebb9f834166d09"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "126538ecc6b1490e2906f487bb06c6bf26982faa09ca70388cf872198fa85f76"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "ce9adedb03643369447a19d9ff488fcb937882017af55b6532ebb9f834166d09"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "ec4ff609babae3d2e0d5a38718291b7750f091b7362b7b2cbb55922192476a0d"
+    }
+  ]
+}

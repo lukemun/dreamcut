@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-MASK-GLITCH",
+      "catalog": "../../../../docs/effects/catalog.json#FX-MASK-GLITCH",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+          "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+          "kind": "video",
+          "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+          "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+          "kind": "video",
+          "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+          "rights": "licensed"
+        },
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing shot",
+          "Incoming shot with an isolatable subject",
+          "Matching original-color and white alpha mattes"
+        ],
+        "preparation": "Continuous variant: align white and original-color alpha mattes to the incoming picture. At 30 fps, cover all five lead-in frames: white for two frames, color for three, then switch scene. No empty frame between masks. Keep each matte native and editable. For consecutive handoffs, invoke mask-glitch with ordered shots and derive one coordinated chain schedule; masks remain separate editable rows.",
+        "success_criteria": [
+          "Every lead-in frame contains the white silhouette or original-color subject mask; no disappearance before the incoming scene.",
+          "White and colour masks share alpha and geometry and match the incoming picture; preserve unchanged sources and editable layers.",
+          "Verify on another incoming subject before promoting the recipe to complete."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/stock-transitions/mask-glitch-practice.jpg",
+              "sha256": "b98e784ad25e47cfc04001786d303b35b49b072b8f99dac9410b02e6cebb6f2f",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/30996082, pexels.com/video/19279353, pexels.com/video/4824399; DreamCut Mask Glitch template teaching media (native cutout clips with keyframed subject_flash).",
+              "rights": "pexels-license"
+            }
+          ],
+          "after": [
+            {
+              "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+              "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+              "kind": "video",
+              "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+              "rights": "licensed"
+            }
+          ],
+          "observations": [
+            "Rebuilt for the Templates card with the bobblehead, landscape 16:9: a bright library hands off to a bookshelf in directional light, then to home bookshelves with small lights, each with a still bobblehead pose in the middle of the frame (alpha PNG, no cut-out needed).",
+            "Each lead-in is 5 frames at 30 fps (2 white, 3 original colour) ending on the cut, the skill's continuous handoff default; checked frame by frame at 55-60 and 115-120.",
+            "Recreation sample is the Mask Glitch template result (1280×720, 30 fps, 180 frames). The practice contact sheet is from the earlier Pexels build (desert walker and skater) and its 9-frame lead-ins.",
+            "Continuous coverage: no empty frame between the masks and the incoming scene."
+          ],
+          "limitations": [
+            "Lead-in is lengthened from the 5-frame default to 9 frames so the steps read at gallery size; continuous coverage intentionally differs from the reference pulse/off cadence.",
+            "No dedicated Mask Glitch preset; matte preparation and native layer composition remain the supported route.",
+            "Exact source-reference fidelity remains incomplete."
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "font_id": "alex_brush",
+  "family": "Alex Brush",
+  "reviewed_at": "2026-09-28",
+  "status": "needs_review",
+  "human_acceptance": null,
+  "project_id": "handwriting-alex-brush-review",
+  "project_url": "http://127.0.0.1:3123/p/handwriting-alex-brush-review",
+  "review_scope": "Agent inspected all 85 glyphs at 10%, 25%, 50%, 75%, completion and source on three production-component contact sheets. Per-gesture midpoint frames saved but not all visually inspected. Continuous all-character playback pending. B/i project frames instrumented and inspected.",
+  "asset_hashes": {
+    "metrics.json": "08a38af7ca9f986ecd01add9f76e27c81278076ba3f90c8bf0e976dfb0866dd5",
+    "sweeps.json": "3158250a183bacf4507a1b615a33f4d893ad5e2b2aa2a111de6b2b7c393ae95b",
+    "widths.json": "562ec38936be766e9d227ed90c8f790cd6b178e3d0d7de13131456715cbf091a",
+    "source.ttf": "3d16022d24def80de6d76843fc61f0ad2ddbe9ba342b43d95486e8b36fdf4599",
+    "fitting.json": "27c3aecbfa1eaa6acd1cb3d46f772c753d613484e5374990abdd91ac74aa0d2c",
+    "authored-guides.json": "ab1ae165cfdeae6419022c9a91b648b29d50387580fc1ee45d6e8381c4cb1651",
+    "manifest.json": "7bc038edccdcca5c23303d2c3a92c3f53579175c0920809ecf5f0d62c4a4d782",
+    "outlines.json": "2c66c076538d1aa47712744334c51ff95ba029b5f5ff730d0f4b9573d76c86f5",
+    "strokes.json": "943ef90f07fcadd06dea9f00610ad12b15bde6faf86b84593d91122c35a27a3c"
+  },
+  "audit_pack_hashes": {
+    "outlines": "a8fcaa23d00209bff89880d698b719e7495214740fe911c66ffe34a70c1b072c",
+    "strokes": "eb9ce09283ee034da632a491c06ffd06c4006a3d3ec3f94168715f8e4277a218",
+    "widths": "b2c50fe28aea726469b12acd369a671d340583bb4b538de6c681a91fa1870723",
+    "sweeps": "86019c3490c8b2d1773caf43f302ce7aed38ecf4ca0ca7f0b51b4dba8562816f",
+    "metrics": "d6a88e401017ff63522495d4c85b233acd82ec065f4eab562f9bce23e6f3d80d"
+  },
+  "findings": "Capital flourishes need refinement; O/& comparisons below 99% need larger-size verification, not an antialiasing assumption. Larger 480\u00d7640 final/source comparisons passed 99% and were visually inspected; motion issues remain.",
+  "priority_characters": [
+    "3",
+    "6",
+    "8",
+    "9",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "Q",
+    "R",
+    "T",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "a",
+    "b",
+    "d",
+    "g",
+    "h",
+    "k",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "y",
+    "&",
+    "@",
+    "#",
+    "%"
+  ],
+  "completion_below_99_percent": [
+    "O",
+    "&"
+  ],
+  "limitations": [
+    "Regular-400 base glyphs only; original advances and pair kerning retained. Contextual alternates, ligatures and other weights remain unprepared.",
+    "Unprepared Unicode appears whole in the selected font; never inherits uppercase guides.",
+    "Sampled stills do not certify smooth speed, direction, lifts or continuous motion.",
+    "Nearest trajectory ownership prevents broad-nib spill into later gestures, but disconnected cells remain at loops/crossings.",
+    "No new font is declared production-ready."
+  ],
+  "audit_hashes": {
+    "audit/page-1.png": "6ae0eee80cc2232eb1278e846f57eab49bb0d7e553305f08aace2843d495d78b",
+    "audit/page-3.png": "e769ccec031f049bb574e592596ba0d47caa03427c740ce557de49fbdd5e0600",
+    "audit/page-2.png": "2a7595dd62f92ee4a63252a08c2a638af90b583cfac5173679d55e59caed5d2c",
+    "audit/page-6.png": "81d49f4971bee19a736b70cb8a6f0c753cea80131b0334ad08601efef80de478",
+    "audit/page-7.png": "6af942b576e4b6d5e90b76c6cb8886def78696bf582871259ee26b9621f7d0a1",
+    "audit/page-5.png": "658cdd41c3e9b2968792b467f6ab24621431ed7226c509a331da35ac5da147bf",
+    "audit/page-4.png": "251bee5a4baebeb60fd32e15e7852ef334e7c8d7553c8876ef93db4b52996f61",
+    "audit/page-9.png": "2b1ca30fb265c3d5c10d8260b76bfcc5995ff09b260474ec0eefc44f7c09e204",
+    "audit/page-8.png": "7522f4ae7297bb9e30edf6e02c87443c7287e18357e73e498857e94684f7dfba",
+    "audit/coverage.json": "5fe281489d3f465604028c8ed4234cdea5759d46ae3f3b6d7281a5389266bc7f",
+    "audit/review-sheet-2.png": "4e3bbef97dbe61fe7d3f04408236f7b2ab20d1e36cc907bd5875b3234a0566fe",
+    "audit/review-sheet-3.png": "98b829ab17d28d47ffddeaad7a5eb5c02a62b7fa5188d8d9e708db0da69f6c01",
+    "audit/review-sheet-1.png": "fe179f3f8e38c812b30ec9a347775dff86c803954d7fdfe0017655aa5f03dcd4",
+    "audit/completion-check/page-1.png": "595ee476fcc2fa46684dfe1952e8b95c58b3e046a12d031871782a50b2163b23",
+    "audit/completion-check/coverage.json": "20e6058f3b2262a05beb31638d74456af7b393cea472663f190fb84fb41352f1",
+    "audit/completion-check/review-sheet-1.png": "395e8701c6c4aa6772cbbb4e319c306c640d399b8a0c8f65f8407a613fd6e9ab"
+  },
+  "renderer_sha256": "6666903d5b3c48b71d9389a230af68b77f1dab45093acdd4ae49684260bb57bb",
+  "larger_completion_check": {
+    "size": "480\u00d7640",
+    "characters": [
+      {
+        "character": "O",
+        "coverage_percent": 99.72,
+        "extra_ink_percent": 0.31
+      },
+      {
+        "character": "&",
+        "coverage_percent": 99.75,
+        "extra_ink_percent": 0.19
+      }
+    ],
+    "result": "above_99_percent; no visible missing contour in inspected final/source samples; motion remains pending"
+  }
+}

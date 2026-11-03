@@ -1,0 +1,1151 @@
+{
+  "font_id": "indie_flower",
+  "method": "Cubic authored pen paths in physical font units; continuous nib and optional smooth exclusive gesture regions. No outline-order motion or raster time bands.",
+  "source_guides_sha256": "92163b6e4a30c458b7cb524cf7ad32cb7e34e5653b01db70b2c5d6c7086a119c",
+  "source_fitted_sha256": "9acfbad154b66102312a9cfbbca42509ff4c1d98871558c086ebd16f43a9459f",
+  "smoothing": "Cubic interpolation of semantic waypoints",
+  "source_outline_sha256": "8ae4998a6a3981c1a88bd56588374fede99d5532b95631cf0779cf44321e18cf",
+  "resolution": 320,
+  "characters": {
+    "A": {
+      "strokes": [
+        {
+          "width_font_units": 159.911,
+          "wide_nib": false,
+          "source_ink_pixels": 15264
+        },
+        {
+          "width_font_units": 126.44,
+          "wide_nib": false,
+          "source_ink_pixels": 3548
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "B": {
+      "strokes": [
+        {
+          "width_font_units": 118.696,
+          "wide_nib": false,
+          "source_ink_pixels": 9674
+        },
+        {
+          "width_font_units": 235.238,
+          "wide_nib": false,
+          "source_ink_pixels": 18188
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "C": {
+      "strokes": [
+        {
+          "width_font_units": 168.769,
+          "wide_nib": false,
+          "source_ink_pixels": 16479
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "D": {
+      "strokes": [
+        {
+          "width_font_units": 97.182,
+          "wide_nib": false,
+          "source_ink_pixels": 5029
+        },
+        {
+          "width_font_units": 134.197,
+          "wide_nib": false,
+          "source_ink_pixels": 16486
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "E": {
+      "strokes": [
+        {
+          "width_font_units": 174.528,
+          "wide_nib": false,
+          "source_ink_pixels": 14212
+        },
+        {
+          "width_font_units": 108.561,
+          "wide_nib": false,
+          "source_ink_pixels": 6007
+        },
+        {
+          "width_font_units": 133.592,
+          "wide_nib": false,
+          "source_ink_pixels": 5303
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "F": {
+      "strokes": [
+        {
+          "width_font_units": 266.976,
+          "wide_nib": false,
+          "source_ink_pixels": 3657
+        },
+        {
+          "width_font_units": 270.118,
+          "wide_nib": false,
+          "source_ink_pixels": 9829
+        },
+        {
+          "width_font_units": 270.379,
+          "wide_nib": false,
+          "source_ink_pixels": 6158
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "G": {
+      "strokes": [
+        {
+          "width_font_units": 329.18,
+          "wide_nib": false,
+          "source_ink_pixels": 19433
+        },
+        {
+          "width_font_units": 328.73,
+          "wide_nib": false,
+          "source_ink_pixels": 6621
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "H": {
+      "strokes": [
+        {
+          "width_font_units": 198.813,
+          "wide_nib": false,
+          "source_ink_pixels": 7076
+        },
+        {
+          "width_font_units": 143.145,
+          "wide_nib": false,
+          "source_ink_pixels": 7180
+        },
+        {
+          "width_font_units": 194.493,
+          "wide_nib": false,
+          "source_ink_pixels": 5225
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "I": {
+      "strokes": [
+        {
+          "width_font_units": 144.773,
+          "wide_nib": false,
+          "source_ink_pixels": 7821
+        },
+        {
+          "width_font_units": 131.798,
+          "wide_nib": false,
+          "source_ink_pixels": 858
+        },
+        {
+          "width_font_units": 142.893,
+          "wide_nib": false,
+          "source_ink_pixels": 1030
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "J": {
+      "strokes": [
+        {
+          "width_font_units": 303.724,
+          "wide_nib": false,
+          "source_ink_pixels": 13212
+        },
+        {
+          "width_font_units": 92.355,
+          "wide_nib": false,
+          "source_ink_pixels": 411
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "K": {
+      "strokes": [
+        {
+          "width_font_units": 139.971,
+          "wide_nib": false,
+          "source_ink_pixels": 6003
+        },
+        {
+          "width_font_units": 184.308,
+          "wide_nib": false,
+          "source_ink_pixels": 13710
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "L": {
+      "strokes": [
+        {
+          "width_font_units": 187.904,
+          "wide_nib": false,
+          "source_ink_pixels": 12200
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "M": {
+      "strokes": [
+        {
+          "width_font_units": 135.291,
+          "wide_nib": false,
+          "source_ink_pixels": 7274
+        },
+        {
+          "width_font_units": 191.347,
+          "wide_nib": false,
+          "source_ink_pixels": 18455
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "N": {
+      "strokes": [
+        {
+          "width_font_units": 273.705,
+          "wide_nib": false,
+          "source_ink_pixels": 30636
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "O": {
+      "strokes": [
+        {
+          "width_font_units": 142.662,
+          "wide_nib": false,
+          "source_ink_pixels": 23953
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "P": {
+      "strokes": [
+        {
+          "width_font_units": 275.005,
+          "wide_nib": false,
+          "source_ink_pixels": 6406
+        },
+        {
+          "width_font_units": 271.236,
+          "wide_nib": false,
+          "source_ink_pixels": 13024
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "Q": {
+      "strokes": [
+        {
+          "width_font_units": 267.652,
+          "wide_nib": false,
+          "source_ink_pixels": 18902
+        },
+        {
+          "width_font_units": 385.843,
+          "wide_nib": true,
+          "source_ink_pixels": 8879
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "R": {
+      "strokes": [
+        {
+          "width_font_units": 336.121,
+          "wide_nib": false,
+          "source_ink_pixels": 10240
+        },
+        {
+          "width_font_units": 326.747,
+          "wide_nib": false,
+          "source_ink_pixels": 13164
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "S": {
+      "strokes": [
+        {
+          "width_font_units": 255.309,
+          "wide_nib": false,
+          "source_ink_pixels": 25654
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "T": {
+      "strokes": [
+        {
+          "width_font_units": 187.426,
+          "wide_nib": false,
+          "source_ink_pixels": 8464
+        },
+        {
+          "width_font_units": 131.025,
+          "wide_nib": false,
+          "source_ink_pixels": 7328
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "U": {
+      "strokes": [
+        {
+          "width_font_units": 273.671,
+          "wide_nib": false,
+          "source_ink_pixels": 24798
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "V": {
+      "strokes": [
+        {
+          "width_font_units": 118.125,
+          "wide_nib": false,
+          "source_ink_pixels": 17077
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "W": {
+      "strokes": [
+        {
+          "width_font_units": 157.628,
+          "wide_nib": false,
+          "source_ink_pixels": 22204
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "X": {
+      "strokes": [
+        {
+          "width_font_units": 181.728,
+          "wide_nib": false,
+          "source_ink_pixels": 10495
+        },
+        {
+          "width_font_units": 185.428,
+          "wide_nib": false,
+          "source_ink_pixels": 10847
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "Y": {
+      "strokes": [
+        {
+          "width_font_units": 147.812,
+          "wide_nib": false,
+          "source_ink_pixels": 4822
+        },
+        {
+          "width_font_units": 281.311,
+          "wide_nib": false,
+          "source_ink_pixels": 7872
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "Z": {
+      "strokes": [
+        {
+          "width_font_units": 356.53,
+          "wide_nib": true,
+          "source_ink_pixels": 21797
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "a": {
+      "strokes": [
+        {
+          "width_font_units": 140.006,
+          "wide_nib": false,
+          "source_ink_pixels": 34043
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "b": {
+      "strokes": [
+        {
+          "width_font_units": 179.834,
+          "wide_nib": false,
+          "source_ink_pixels": 3823
+        },
+        {
+          "width_font_units": 261.202,
+          "wide_nib": false,
+          "source_ink_pixels": 14849
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "c": {
+      "strokes": [
+        {
+          "width_font_units": 224.769,
+          "wide_nib": false,
+          "source_ink_pixels": 27038
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "d": {
+      "strokes": [
+        {
+          "width_font_units": 211.336,
+          "wide_nib": false,
+          "source_ink_pixels": 13494
+        },
+        {
+          "width_font_units": 259.459,
+          "wide_nib": false,
+          "source_ink_pixels": 4508
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "e": {
+      "strokes": [
+        {
+          "width_font_units": 150.028,
+          "wide_nib": false,
+          "source_ink_pixels": 31435
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "f": {
+      "strokes": [
+        {
+          "width_font_units": 305.065,
+          "wide_nib": false,
+          "source_ink_pixels": 12054
+        },
+        {
+          "width_font_units": 302.745,
+          "wide_nib": false,
+          "source_ink_pixels": 1699
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "g": {
+      "strokes": [
+        {
+          "width_font_units": 251.155,
+          "wide_nib": false,
+          "source_ink_pixels": 7471
+        },
+        {
+          "width_font_units": 256.255,
+          "wide_nib": false,
+          "source_ink_pixels": 7150
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "h": {
+      "strokes": [
+        {
+          "width_font_units": 236.374,
+          "wide_nib": false,
+          "source_ink_pixels": 5207
+        },
+        {
+          "width_font_units": 211.968,
+          "wide_nib": false,
+          "source_ink_pixels": 8436
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "i": {
+      "strokes": [
+        {
+          "width_font_units": 100.771,
+          "wide_nib": false,
+          "source_ink_pixels": 1222
+        },
+        {
+          "width_font_units": 109.526,
+          "wide_nib": false,
+          "source_ink_pixels": 5823
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "j": {
+      "strokes": [
+        {
+          "width_font_units": 433.938,
+          "wide_nib": true,
+          "source_ink_pixels": 6174
+        },
+        {
+          "width_font_units": 251.623,
+          "wide_nib": false,
+          "source_ink_pixels": 528
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "k": {
+      "strokes": [
+        {
+          "width_font_units": 177.246,
+          "wide_nib": false,
+          "source_ink_pixels": 5197
+        },
+        {
+          "width_font_units": 213.086,
+          "wide_nib": false,
+          "source_ink_pixels": 12260
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "l": {
+      "strokes": [
+        {
+          "width_font_units": 110.45,
+          "wide_nib": false,
+          "source_ink_pixels": 6890
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "m": {
+      "strokes": [
+        {
+          "width_font_units": 108.468,
+          "wide_nib": false,
+          "source_ink_pixels": 4254
+        },
+        {
+          "width_font_units": 161.362,
+          "wide_nib": false,
+          "source_ink_pixels": 15005
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "n": {
+      "strokes": [
+        {
+          "width_font_units": 152.17,
+          "wide_nib": false,
+          "source_ink_pixels": 9500
+        },
+        {
+          "width_font_units": 122.097,
+          "wide_nib": false,
+          "source_ink_pixels": 17968
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "o": {
+      "strokes": [
+        {
+          "width_font_units": 96.943,
+          "wide_nib": false,
+          "source_ink_pixels": 33170
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "p": {
+      "strokes": [
+        {
+          "width_font_units": 270.786,
+          "wide_nib": false,
+          "source_ink_pixels": 5273
+        },
+        {
+          "width_font_units": 372.114,
+          "wide_nib": true,
+          "source_ink_pixels": 11897
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "q": {
+      "strokes": [
+        {
+          "width_font_units": 187.878,
+          "wide_nib": false,
+          "source_ink_pixels": 7900
+        },
+        {
+          "width_font_units": 143.521,
+          "wide_nib": false,
+          "source_ink_pixels": 5848
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "r": {
+      "strokes": [
+        {
+          "width_font_units": 233.175,
+          "wide_nib": false,
+          "source_ink_pixels": 10285
+        },
+        {
+          "width_font_units": 127.015,
+          "wide_nib": false,
+          "source_ink_pixels": 7929
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "s": {
+      "strokes": [
+        {
+          "width_font_units": 262.735,
+          "wide_nib": false,
+          "source_ink_pixels": 33453
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "t": {
+      "strokes": [
+        {
+          "width_font_units": 121.055,
+          "wide_nib": false,
+          "source_ink_pixels": 8947
+        },
+        {
+          "width_font_units": 122.319,
+          "wide_nib": false,
+          "source_ink_pixels": 3360
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "u": {
+      "strokes": [
+        {
+          "width_font_units": 179.723,
+          "wide_nib": false,
+          "source_ink_pixels": 28275
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "v": {
+      "strokes": [
+        {
+          "width_font_units": 133.084,
+          "wide_nib": false,
+          "source_ink_pixels": 28494
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "w": {
+      "strokes": [
+        {
+          "width_font_units": 199.046,
+          "wide_nib": false,
+          "source_ink_pixels": 20932
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "x": {
+      "strokes": [
+        {
+          "width_font_units": 85.83,
+          "wide_nib": false,
+          "source_ink_pixels": 17098
+        },
+        {
+          "width_font_units": 93.55,
+          "wide_nib": false,
+          "source_ink_pixels": 15067
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "y": {
+      "strokes": [
+        {
+          "width_font_units": 239.353,
+          "wide_nib": false,
+          "source_ink_pixels": 13195
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "z": {
+      "strokes": [
+        {
+          "width_font_units": 176.158,
+          "wide_nib": false,
+          "source_ink_pixels": 18520
+        },
+        {
+          "width_font_units": 175.457,
+          "wide_nib": false,
+          "source_ink_pixels": 6725
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "0": {
+      "strokes": [
+        {
+          "width_font_units": 90.697,
+          "wide_nib": false,
+          "source_ink_pixels": 32066
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "1": {
+      "strokes": [
+        {
+          "width_font_units": 356.582,
+          "wide_nib": true,
+          "source_ink_pixels": 12199
+        },
+        {
+          "width_font_units": 100.684,
+          "wide_nib": false,
+          "source_ink_pixels": 512
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "2": {
+      "strokes": [
+        {
+          "width_font_units": 235.492,
+          "wide_nib": false,
+          "source_ink_pixels": 26254
+        },
+        {
+          "width_font_units": 130.535,
+          "wide_nib": false,
+          "source_ink_pixels": 754
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "3": {
+      "strokes": [
+        {
+          "width_font_units": 157.576,
+          "wide_nib": false,
+          "source_ink_pixels": 21531
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "4": {
+      "strokes": [
+        {
+          "width_font_units": 473.014,
+          "wide_nib": true,
+          "source_ink_pixels": 10142
+        },
+        {
+          "width_font_units": 213.732,
+          "wide_nib": false,
+          "source_ink_pixels": 7239
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "5": {
+      "strokes": [
+        {
+          "width_font_units": 284.811,
+          "wide_nib": false,
+          "source_ink_pixels": 21095
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "6": {
+      "strokes": [
+        {
+          "width_font_units": 217.019,
+          "wide_nib": false,
+          "source_ink_pixels": 24766
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "7": {
+      "strokes": [
+        {
+          "width_font_units": 201.601,
+          "wide_nib": false,
+          "source_ink_pixels": 13186
+        },
+        {
+          "width_font_units": 168.859,
+          "wide_nib": false,
+          "source_ink_pixels": 5802
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "8": {
+      "strokes": [
+        {
+          "width_font_units": 134.321,
+          "wide_nib": false,
+          "source_ink_pixels": 22035
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "9": {
+      "strokes": [
+        {
+          "width_font_units": 218.729,
+          "wide_nib": false,
+          "source_ink_pixels": 12477
+        },
+        {
+          "width_font_units": 256.121,
+          "wide_nib": false,
+          "source_ink_pixels": 4591
+        }
+      ],
+      "motion_review": "pending"
+    },
+    ".": {
+      "strokes": [
+        {
+          "width_font_units": 198.437,
+          "wide_nib": false,
+          "source_ink_pixels": 54434
+        }
+      ],
+      "motion_review": "pending"
+    },
+    ",": {
+      "strokes": [
+        {
+          "width_font_units": 133.216,
+          "wide_nib": false,
+          "source_ink_pixels": 17406
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "!": {
+      "strokes": [
+        {
+          "width_font_units": 111.365,
+          "wide_nib": false,
+          "source_ink_pixels": 5137
+        },
+        {
+          "width_font_units": 156.068,
+          "wide_nib": false,
+          "source_ink_pixels": 1957
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "?": {
+      "strokes": [
+        {
+          "width_font_units": 176.394,
+          "wide_nib": false,
+          "source_ink_pixels": 8348
+        },
+        {
+          "width_font_units": 148.307,
+          "wide_nib": false,
+          "source_ink_pixels": 853
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "-": {
+      "strokes": [
+        {
+          "width_font_units": 84.365,
+          "wide_nib": false,
+          "source_ink_pixels": 11385
+        }
+      ],
+      "motion_review": "pending"
+    },
+    ":": {
+      "strokes": [
+        {
+          "width_font_units": 109.765,
+          "wide_nib": false,
+          "source_ink_pixels": 4797
+        },
+        {
+          "width_font_units": 111.897,
+          "wide_nib": false,
+          "source_ink_pixels": 5443
+        }
+      ],
+      "motion_review": "pending"
+    },
+    ";": {
+      "strokes": [
+        {
+          "width_font_units": 117.856,
+          "wide_nib": false,
+          "source_ink_pixels": 1509
+        },
+        {
+          "width_font_units": 327.414,
+          "wide_nib": false,
+          "source_ink_pixels": 5922
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "'": {
+      "strokes": [
+        {
+          "width_font_units": 78.891,
+          "wide_nib": false,
+          "source_ink_pixels": 20477
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "\"": {
+      "strokes": [
+        {
+          "width_font_units": 163.564,
+          "wide_nib": false,
+          "source_ink_pixels": 14666
+        },
+        {
+          "width_font_units": 163.572,
+          "wide_nib": false,
+          "source_ink_pixels": 16925
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "(": {
+      "strokes": [
+        {
+          "width_font_units": 252.56,
+          "wide_nib": false,
+          "source_ink_pixels": 12866
+        }
+      ],
+      "motion_review": "pending"
+    },
+    ")": {
+      "strokes": [
+        {
+          "width_font_units": 192.814,
+          "wide_nib": false,
+          "source_ink_pixels": 11253
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "[": {
+      "strokes": [
+        {
+          "width_font_units": 323.013,
+          "wide_nib": false,
+          "source_ink_pixels": 14606
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "]": {
+      "strokes": [
+        {
+          "width_font_units": 260.608,
+          "wide_nib": false,
+          "source_ink_pixels": 13418
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "/": {
+      "strokes": [
+        {
+          "width_font_units": 113.055,
+          "wide_nib": false,
+          "source_ink_pixels": 8000
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "\\": {
+      "strokes": [
+        {
+          "width_font_units": 128.53,
+          "wide_nib": false,
+          "source_ink_pixels": 18059
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "+": {
+      "strokes": [
+        {
+          "width_font_units": 148.969,
+          "wide_nib": false,
+          "source_ink_pixels": 11681
+        },
+        {
+          "width_font_units": 117.5,
+          "wide_nib": false,
+          "source_ink_pixels": 11973
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "&": {
+      "strokes": [
+        {
+          "width_font_units": 411.689,
+          "wide_nib": true,
+          "source_ink_pixels": 17197
+        },
+        {
+          "width_font_units": 400.809,
+          "wide_nib": true,
+          "source_ink_pixels": 2730
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "@": {
+      "strokes": [
+        {
+          "width_font_units": 280.204,
+          "wide_nib": false,
+          "source_ink_pixels": 18465
+        },
+        {
+          "width_font_units": 279.777,
+          "wide_nib": false,
+          "source_ink_pixels": 6149
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "#": {
+      "strokes": [
+        {
+          "width_font_units": 349.344,
+          "wide_nib": false,
+          "source_ink_pixels": 1992
+        },
+        {
+          "width_font_units": 351.048,
+          "wide_nib": true,
+          "source_ink_pixels": 3461
+        },
+        {
+          "width_font_units": 346.975,
+          "wide_nib": false,
+          "source_ink_pixels": 8216
+        },
+        {
+          "width_font_units": 235.021,
+          "wide_nib": false,
+          "source_ink_pixels": 7122
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "%": {
+      "strokes": [
+        {
+          "width_font_units": 190.512,
+          "wide_nib": false,
+          "source_ink_pixels": 10512
+        },
+        {
+          "width_font_units": 211.994,
+          "wide_nib": false,
+          "source_ink_pixels": 9096
+        },
+        {
+          "width_font_units": 153.482,
+          "wide_nib": false,
+          "source_ink_pixels": 9534
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "=": {
+      "strokes": [
+        {
+          "width_font_units": 97.995,
+          "wide_nib": false,
+          "source_ink_pixels": 15025
+        },
+        {
+          "width_font_units": 95.616,
+          "wide_nib": false,
+          "source_ink_pixels": 14210
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "_": {
+      "strokes": [
+        {
+          "width_font_units": 127.178,
+          "wide_nib": false,
+          "source_ink_pixels": 9780
+        }
+      ],
+      "motion_review": "pending"
+    },
+    "*": {
+      "strokes": [
+        {
+          "width_font_units": 193.369,
+          "wide_nib": false,
+          "source_ink_pixels": 11139
+        },
+        {
+          "width_font_units": 151.459,
+          "wide_nib": false,
+          "source_ink_pixels": 13577
+        },
+        {
+          "width_font_units": 206.709,
+          "wide_nib": false,
+          "source_ink_pixels": 14321
+        }
+      ],
+      "motion_review": "pending"
+    }
+  }
+}

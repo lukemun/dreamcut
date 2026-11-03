@@ -1,0 +1,28 @@
+{
+  "schema_version": 2,
+  "font_id": "pacifico",
+  "family": "Pacifico",
+  "source": "https://github.com/google/fonts/blob/main/ofl/pacifico/Pacifico-Regular.ttf",
+  "source_sha256": "5b6c0d5334a7bf77dea52b975c5a0c408878c0f7115ed5b6fb151f634b7bf701",
+  "instance_sha256": "f3f98d7b8d7f9254f663f4a36a94fa36c434ad3736ed5593aa5f504745aba63d",
+  "weight": 400,
+  "license": "OFL-1.1",
+  "units_per_em": 1000,
+  "coordinate_space": "Each glyph ink bounds normalized to 0\u2013100, y down",
+  "supported_characters": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?-:;'\"()[]/\\+&@#%=_*",
+  "review_receipt": "review.json",
+  "limitations": [
+    "Pen motion is reconstructed, not recovered from the font designer.",
+    "Contextual alternates and ligatures are not prepared; base glyphs and pair kerning are preserved.",
+    "Unprepared Unicode appears whole using the selected font."
+  ],
+  "nib_units": "physical font units; widths are diagnostic, temporal ownership is the active renderer",
+  "authorship": "OpenEdit-authored semantic waypoints, refined onto medial ink; outline order never used",
+  "stroke_regions": {
+    "method": "Nearest physical trajectory + arc-length ownership; exact font contours remain final mask",
+    "file": "sweeps.json",
+    "resolution": 128,
+    "bands": 64,
+    "generator": "scripts/prepare-handwriting-sweeps.py"
+  }
+}

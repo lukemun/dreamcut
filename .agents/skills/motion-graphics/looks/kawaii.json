@@ -1,0 +1,83 @@
+{
+  "id": "kawaii",
+  "title": "Kawaii",
+  "family": "Illustration",
+  "description": "A pastel sticker meadow in chibi illustration: even plum outlines, one hard cel shadow, dot-and-star skies and turning sunrise rays, with an original cast of rice-cake blobs, a clapperboard buddy, star sprites and chibi people acting out each idea; scenes change through a wave of popping bubbles.",
+  "arrival": "pop",
+  "change": "bubbles",
+  "texture": "sticker",
+  "examples": [
+    {
+      "name": "Hello, cast",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Meet the crew",
+        "title": "Everyone gets a say",
+        "people_title": "Who reviews the cut",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "You",
+        "badge_3": "Client",
+        "closing": "Approve it with a smile."
+      }
+    },
+    {
+      "name": "Jelly chart",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 21,
+        "bar_4": 34,
+        "highlight": "4",
+        "object_title": "A card for every change",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The new clip",
+        "callout_3": "Your original"
+      }
+    },
+    {
+      "name": "Hop to it",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 3.4,
+        "closing_hold": 2.4,
+        "process_title": "From idea to edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You approve",
+        "compare_title": "Tune, don't re-prompt",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial nudges",
+        "after_value": 2,
+        "closing": "Nothing lands without your OK."
+      }
+    }
+  ]
+}

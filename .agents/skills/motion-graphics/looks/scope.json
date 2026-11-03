@@ -1,0 +1,82 @@
+{
+  "id": "scope",
+  "title": "Scope",
+  "family": "Retro",
+  "description": "A vector-display instrument: one phosphor beam writes every word, wireframe and signal on a graticuled tube, with bloom, bright dwell at the turns, a running refresh glint and scene changes where the beam runs back along the outgoing drawing, un-writing it as the next one is written.",
+  "arrival": "glow",
+  "change": "scan",
+  "texture": "phosphor",
+  "examples": [
+    {
+      "name": "Signal to approval",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "DreamCut",
+        "title": "From raw cut to approved edit",
+        "process_title": "Every change runs one chain",
+        "step_1": "Read the cut",
+        "step_2": "Shape a card",
+        "step_3": "You approve",
+        "closing": "Nothing lands without your OK."
+      }
+    },
+    {
+      "name": "On the bench",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed per day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 47,
+        "highlight": "4",
+        "object_title": "What the card shows you",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original audio"
+      }
+    },
+    {
+      "name": "Two channels",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "One cut, every reviewer",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Agent",
+        "badge_3": "Client",
+        "compare_title": "Re-prompts versus dial turns",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 2
+      }
+    }
+  ]
+}

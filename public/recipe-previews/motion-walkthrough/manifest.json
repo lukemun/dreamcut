@@ -1,0 +1,52 @@
+{
+  "rights": "pexels-license",
+  "credit": "Step pictures: stills from Pexels videos 9130084 (https://www.pexels.com/video/a-hiker-looking-at-the-mountains-9130084/), 4208237 (https://www.pexels.com/video/slow-motion-shot-of-waterfalls-4208237/) and 8148429 (https://www.pexels.com/video/a-backpacker-walking-between-flower-meadows-8148429/), Pexels License. The screen, numbers, progress bar, looks and motion are a DreamCut-made editable motion graphic.",
+  "fps": 30,
+  "frames": 264,
+  "width": 720,
+  "height": 1280,
+  "teachingNote": "Three supplied pictures in the Terminal look, 9:16, at normal speed; each step holds 2.4 s.",
+  "receipt": {
+    "construction": "DreamCut project explainer-templates-demo-vertical: the walkthrough-trip HyperFrames motion graphic (render walkthrough-trip.3d8ac2d46dac3206.webm, sha256 3d8ac2d46dac320645af49c9392a34daf8d3faf98c0fbb4c9ca9648f96bc17cf), Terminal look, 9:16, three steps. Step pictures are single frames (1280 px wide JPEG) taken from the Pexels clips at 4 s, 6 s and 3 s and copied into the graphic as assets. Encoded to H.264 720x1280 (CRF 20, no audio). Poster is the frame at 6.4 s; stages are frames at 1.6, 4.0 and 6.4 s. inputs/looks.jpg shows the same graphic in all five looks at 4.0 s, rendered from the template with only the look changed."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/motion-walkthrough/inputs/looks.jpg",
+      "sha256": "2a253c584b931df5662863f91b27f0854aeb94f11e701103f22391f7268c7387"
+    },
+    {
+      "file": "/recipe-previews/motion-walkthrough/inputs/picture-1.jpg",
+      "sha256": "4e54d8360bb5c45b4a56ff9ab270925f2302706dbc0fb711920ea880b05e304f"
+    },
+    {
+      "file": "/recipe-previews/motion-walkthrough/inputs/picture-2.jpg",
+      "sha256": "2418ba16800afafe6cb3bda19234b43a0c4d68e8d890d194812d5c4842534869"
+    },
+    {
+      "file": "/recipe-previews/motion-walkthrough/inputs/picture-3.jpg",
+      "sha256": "c153bf5c4538230a82482be86de63591a8214564b5a743fd0ce0dfa1ec58fd42"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "ba52e15c8a9858f76a32bdf29335bf925a46b49e8f371da7b3d084a0b197808d"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "295a26c794eb052dcfb7f30d9c2017b6acc6919137e2b90b185cd71ea9284245"
+    },
+    {
+      "file": "step-1.jpg",
+      "sha256": "ecaac622811af871091325fc88bfde9eb4ce07dc48702e24e4d1bec838e96457"
+    },
+    {
+      "file": "step-2.jpg",
+      "sha256": "8d97cf87e3875d1aca3e9e46fec8fd9541876a1a42d711b5344d2ce974b2e900"
+    },
+    {
+      "file": "step-3.jpg",
+      "sha256": "295a26c794eb052dcfb7f30d9c2017b6acc6919137e2b90b185cd71ea9284245"
+    }
+  ]
+}

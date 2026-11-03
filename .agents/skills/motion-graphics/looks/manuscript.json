@@ -1,0 +1,82 @@
+{
+  "id": "manuscript",
+  "title": "Manuscript",
+  "family": "Illustration",
+  "description": "A leaf of an illuminated book: warm ruled vellum, a gilded bar border with ivy sprays, painted initials on gold leaf and gouache miniatures (castle towers, robed figures under banderoles, a triptych, a balance), with a dragon, a heron and a moth in the margins and the page turning between scenes.",
+  "arrival": "write",
+  "change": "grid",
+  "texture": "vellum",
+  "examples": [
+    {
+      "name": "The book of changes",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Chapter one",
+        "title": "Every edit begins as a draft",
+        "object_title": "What the card shows you",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your cut, untouched",
+        "closing": "Nothing is applied until you say so."
+      }
+    },
+    {
+      "name": "Tower of approvals",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved each week",
+        "bar_1_label": "Week 1",
+        "bar_2_label": "Week 2",
+        "bar_3_label": "Week 3",
+        "bar_4_label": "Week 4",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 21,
+        "bar_4": 33,
+        "highlight": "4",
+        "process_title": "How a change is made",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The guild of reviewers",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "Everyone signs the same cut",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Client",
+        "compare_title": "Fewer redrafts with dials",
+        "before_label": "Redrafts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 2
+      }
+    }
+  ]
+}

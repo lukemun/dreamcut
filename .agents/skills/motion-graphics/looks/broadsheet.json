@@ -1,0 +1,81 @@
+{
+  "id": "broadsheet",
+  "title": "Broadsheet",
+  "family": "Data",
+  "description": "A newspaper data page on salmon newsprint: serif headlines and italic deks, hairline grids, warm-grey context against one claret series, direct labels, drawn annotation arrows and a side column of key numbers, with a running wire of figures and a source line; the page scrolls up to each new figure.",
+  "arrival": "wipe",
+  "change": "scroll",
+  "examples": [
+    {
+      "name": "The weekly figures",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 4.4,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Edit desk",
+        "title": "Approvals climbed all week",
+        "chart_title": "Proposal cards approved, by day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "closing": "Every card was reviewed by a person."
+      }
+    },
+    {
+      "name": "Fewer re-prompts",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 4.2,
+        "closing_hold": 0,
+        "process_title": "How a change reaches your cut",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve",
+        "compare_title": "Dials replaced most re-prompts",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial changes",
+        "after_value": 2
+      }
+    },
+    {
+      "name": "Anatomy of a review",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4.0,
+        "people_hold": 3.8,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "What the editor shows you",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original audio",
+        "people_title": "Who weighs in on a cut",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client"
+      }
+    }
+  ]
+}

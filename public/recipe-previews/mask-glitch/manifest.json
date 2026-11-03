@@ -1,0 +1,81 @@
+{
+  "rights": "owned",
+  "credit": "Subject: the bobblehead character, owned and shown by the DreamCut owner's choice (three still poses). Scenes from DreamCut's image catalog (Unsplash License): \"Bright library bookshelf\" by CHUTTERSNAP; \"Bookshelf in directional light\" by Evangelos Vamvounakis; \"Home bookshelves with small lights\" by Elijah Crouch.",
+  "footage": [
+    {
+      "role": "Three still poses of the bobblehead with transparent backgrounds: standing, pointing, thumbs up",
+      "license": "Owned"
+    },
+    {
+      "url": "https://unsplash.com/photos/pile-of-books-on-shelf-cY-SXZp6TUY",
+      "role": "Scene: Bright library bookshelf by CHUTTERSNAP",
+      "license": "Unsplash License"
+    },
+    {
+      "url": "https://unsplash.com/photos/a-bookshelf-filled-with-lots-of-books-in-a-dark-room-21GGNSMlk5E",
+      "role": "Scene: Bookshelf in directional light by Evangelos Vamvounakis",
+      "license": "Unsplash License"
+    },
+    {
+      "url": "https://unsplash.com/photos/tall-bookshelves-filled-with-many-books-mzoKghcfI94",
+      "role": "Scene: Home bookshelves with small lights by Elijah Crouch",
+      "license": "Unsplash License"
+    }
+  ],
+  "fps": 30,
+  "frames": 180,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; each lead-in is 5 frames (2 white, 3 colour) ending on the cut, each scene holds 2 s, and every pose is in the middle of the frame.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-mask-glitch-bobblehead-wide-demo (16:9), proposal 20261027T084524-f9da3e7d (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Three library stills cut at 2.0 and 4.0 s; each incoming still pose (alpha PNG, scale 0.7, centred) starts 5 frames before its cut with subject_flash 1 for 2 frames, then its own colours, and stays through its scene. Poster frame 55; stages frames 30, 55, 58 and 60. Replaces a portrait night-city version (tpl-mask-glitch-bobblehead-demo) after the owner asked for every demo in one landscape shape with the flashes centred."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/scene-a-library.jpg",
+      "sha256": "146fbb3e5a3fb1d8a9084d4add1e4570976519ee002d8fbd28e184fad95f71ad"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/scene-b-shelves.jpg",
+      "sha256": "7113ac96da83c7a0391a2b7d8cdd32d8d4fa3612e7598afca15a5f8defef3fed"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/scene-c-lights.jpg",
+      "sha256": "6c2baf3a631081d998add7a99e4caf3501fbe94f4867b0aba108e81bd3d5d00d"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/subject-b-pointing.png",
+      "sha256": "3b2b5f3c0bcee0f6c3217db757f971d75844e8b1b37a7acd556ba3fa4a4b1938"
+    },
+    {
+      "file": "/recipe-previews/mask-glitch/inputs/subject-c-thumbs-up.png",
+      "sha256": "9cbb3bbade6a48ef66a96051767f535b9e91fa60ff137eec8f327fb882b21828"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "5d31c0f44110c8f30147109cbabadce3ebacfe60e47505ba94a975e9c54c49ef"
+    },
+    {
+      "file": "start.jpg",
+      "sha256": "ae5910f28e96179a90f163de4637104c88e9b810e5b73ee43233f72e92800da3"
+    },
+    {
+      "file": "white.jpg",
+      "sha256": "5d31c0f44110c8f30147109cbabadce3ebacfe60e47505ba94a975e9c54c49ef"
+    },
+    {
+      "file": "colour.jpg",
+      "sha256": "6d39730bbc106f209cc86402d44001e79c0795cd97ae850431ea9522f203034b"
+    },
+    {
+      "file": "destination.jpg",
+      "sha256": "140fe134c53d8191928e2e75e35d6585402714f86dd973af5238a88c9810db8d"
+    }
+  ]
+}

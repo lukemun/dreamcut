@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "font_id": "pacifico",
+  "reveal_mode": "line_mask",
+  "status": "shown_A_accepted",
+  "coverage_checklist": {
+    "A": {
+      "prepared": true,
+      "source_coverage_percent": 99.95,
+      "extra_ink_percent": 0.04,
+      "inspected_progress": [
+        "0",
+        "0.05",
+        "0.1",
+        "0.15",
+        "0.2",
+        "0.25",
+        "0.3",
+        "0.35",
+        "0.4",
+        "0.45",
+        "0.4933144245313434",
+        "0.5",
+        "0.55",
+        "0.6",
+        "0.65",
+        "0.7",
+        "0.75",
+        "0.8",
+        "0.85",
+        "0.9",
+        "0.95",
+        "0.999",
+        "1",
+        null
+      ],
+      "project_frames_inspected": [
+        0.7,
+        1.75,
+        3.5,
+        4.2,
+        4.55,
+        4.9,
+        5.25,
+        5.6,
+        6.3,
+        7.5,
+        9,
+        12,
+        16
+      ],
+      "human_playback_acceptance": "Creator selected the shown experiment; scoped to A and the method choice.",
+      "uncertainties": [
+        "Narrow-to-wide nib joins can leave a small notch or abrupt thickening.",
+        "Turnaround overlap and continuous motion require creator playback review."
+      ]
+    }
+  },
+  "other_characters": "Now prepared separately in fonts/pacifico/line-strokes.json. Their motion acceptance is pending; this A acceptance does not certify them.",
+  "project_id": "handwriting-pacifico-line-mask-lab",
+  "feedback_id": "feedback:257fae223873c6364163d99c893cd8eda40c8aa274e9e12ec4a6326f4c5435ae",
+  "guide_file_sha256": "aca6fe7eb10e50eb9928d2762b54e4ccac0e1fa4f46e9ea8964c3f67de96062b",
+  "renderer_sha256": "a95fff4c683e8a73abdde33b3a14c6c17d47bc08826ef3d4bee7cdd6c19a88ea",
+  "evidence_hashes": {
+    "audit/page-1.png": "c8deac8f6549ab84c76121e1389af6faced1bb600ce3d52d58b565b4011ba464",
+    "audit/motion-65.png": "f06a9e2f02debd00d9d3b5649c44a7215250b2c93ba1c2b30b02048ee7231076",
+    "audit/coverage.json": "9efa5a508f3ff47d680d6d4ad90bf9a7a3a6f6428a8bd93f83f6af9ea55b5a52",
+    "audit/review-sheet-1.png": "8c356a96717233fde8af4695479de1002cc9f9636d1dd4a15e7d7bf9650f6ee4"
+  },
+  "validation": "67 focused tests and typecheck passed; 13 instrument project frames and 24 audit stages including source inspected. Inspector interaction and continuous playback are not claimed as verified.",
+  "acceptance_feedback_id": "feedback:8aba235ff3b5085c6b59db4cf690fb4e331fcc989b173e90a5d0b7a2af810863",
+  "historical_renderer_note": "renderer_sha256 identifies the originally reviewed experiment renderer, now generalized. Accepted path geometry and clock are preserved by regression tests."
+}

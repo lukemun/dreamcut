@@ -1,0 +1,28 @@
+{
+  "schema_version": 2,
+  "font_id": "yellowtail",
+  "family": "Yellowtail",
+  "source": "https://github.com/google/fonts/blob/main/apache/yellowtail/Yellowtail-Regular.ttf",
+  "source_sha256": "3e06841b13000975f3cc38aa84e326e601a4378a4c52d50b5e9fee3598c5d236",
+  "instance_sha256": "82cf8df3a2ff4a65341f1c2b8de7814113df7e496f581b563cb04e3d9e9edf91",
+  "weight": 400,
+  "license": "Apache-2.0",
+  "units_per_em": 2048,
+  "coordinate_space": "Each glyph ink bounds normalized to 0\u2013100, y down",
+  "supported_characters": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?-:;'\"()[]/\\+&@#%=_*",
+  "review_receipt": "review.json",
+  "limitations": [
+    "Pen motion is reconstructed, not recovered from the font designer.",
+    "Contextual alternates and ligatures are not prepared; base glyphs and pair kerning are preserved.",
+    "Unprepared Unicode appears whole using the selected font."
+  ],
+  "nib_units": "physical font units; widths are diagnostic, temporal ownership is the active renderer",
+  "authorship": "OpenEdit-authored semantic waypoints, refined onto medial ink; outline order never used",
+  "stroke_regions": {
+    "method": "Nearest physical trajectory + arc-length ownership; exact font contours remain final mask",
+    "file": "sweeps.json",
+    "resolution": 128,
+    "bands": 64,
+    "generator": "scripts/prepare-handwriting-sweeps.py"
+  }
+}

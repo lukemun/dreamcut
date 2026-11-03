@@ -1,0 +1,20 @@
+{
+  "width": 1206,
+  "height": 2622,
+  "sha256": "0bdb2f82cbd21408e33338e558fc168e1fe42a628389eb071494f68951d1666c",
+  "note": "Reference-screen coordinates, not a verified video crop. Ink bounds measured by scripts/measure-reels-reference.py; control envelopes visually reviewed with an 8px clearance. Translucent envelopes are manual reference measurements, not inferred from white ink.",
+  "guideNote": "Merge the lower UI into one band from the template top to the screen bottom, joined to the action rail. These filled gaps are deliberate placement clearance, not measured UI ink.",
+  "guidePolygons": [
+    { "id": "header", "points": [[0,0],[1206,0],[1206,301],[0,301]] },
+    { "id": "lower-interface", "points": [[1048,1147],[1206,1147],[1206,2622],[0,2622],[0,1914],[1048,1914]] }
+  ],
+  "regions": [
+    { "id": "header", "x": 0, "y": 0, "width": 1206, "height": 301 },
+    { "id": "actions", "x": 1048, "y": 1147, "width": 131, "height": 1123 },
+    { "id": "template", "x": 40, "y": 1914, "width": 349, "height": 95 },
+    { "id": "creator", "x": 40, "y": 2032, "width": 843, "height": 146 },
+    { "id": "caption", "x": 45, "y": 2206, "width": 837, "height": 56 },
+    { "id": "progress", "x": 40, "y": 2319, "width": 1126, "height": 22 },
+    { "id": "navigation", "x": 144, "y": 2383, "width": 916, "height": 166 }
+  ]
+}

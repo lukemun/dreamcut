@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "recipes": [{
+    "id": "prepared-reveal-sequence",
+    "version": 1,
+    "name": "Ordered reveals with linked spacing and optional presence controls",
+    "executable": true,
+    "readiness": "structural tests; visual quality requires prepared media and human review",
+    "tools": ["recipe_compile"],
+    "capability_id": "proposal-authoring",
+    "required_inputs": ["base proposal option containing prepared normal-speed video actors", "ordered actor IDs and labels", "start_seconds"],
+    "optional_inputs": ["linked audio IDs and offsets", "shared or independent gaps", "per-actor presence ranges"],
+    "limits": "2–16 actors, 30 fps, at most 15 sliders; no source preparation or automatic proposal persistence",
+    "implementation": "src/lib/agent/proposal-reveal-sequence.ts",
+    "input_schema_tool": "proposal_reveal_sequence"
+  }]
+}

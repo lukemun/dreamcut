@@ -1,0 +1,81 @@
+{
+  "id": "deep-sea",
+  "title": "Deep Sea",
+  "family": "Light",
+  "description": "A bioluminescent abyss drawn entirely in living light: marine snow drifting in parallax, glowing haze, a seafloor garden of sea pens, tube worms and a smoking vent. Data stands up as glowing colonial columns, a lit observation pod, helmeted divers and swirling bait balls, and every change glides along the current while a travelling front ignites the water.",
+  "arrival": "focus",
+  "change": "frost",
+  "texture": "abyss",
+  "examples": [
+    {
+      "name": "The night dive",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Below the surface",
+        "title": "What lives inside a proposal card",
+        "object_title": "Every card shows its work",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed change",
+        "callout_3": "Your untouched cut",
+        "closing": "Nothing lands without your OK."
+      }
+    },
+    {
+      "name": "Signals in the dark",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed each night",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 48,
+        "highlight": "4",
+        "process_title": "How a change reaches your cut",
+        "step_1": "Read the cut",
+        "step_2": "Draft the card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The crew",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "people_title": "Everyone reviews the same cut",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Client",
+        "compare_title": "Tuning beats re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

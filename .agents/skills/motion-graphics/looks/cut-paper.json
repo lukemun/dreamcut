@@ -1,0 +1,82 @@
+{
+  "id": "cut-paper",
+  "title": "Cut Paper",
+  "family": "Craft",
+  "description": "A layered cut-paper harbour diorama: torn sea sheets with white cores rock at their own depths under a scalloped sun and clouds hung on threads, while the camera pans in parallax from a lighthouse point to pilings that rise as bars, a paper laptop with swinging luggage tags, townsfolk popping up behind a pier with signs, islands linked by a sailing boat and stacks of torn strips. Headlines are cut letters that drop in, sway and lift away.",
+  "arrival": "drop",
+  "change": "parallax",
+  "texture": "fibre",
+  "examples": [
+    {
+      "name": "A card on the coast",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "DreamCut proposals",
+        "title": "Every edit arrives as a card",
+        "object_title": "What the card shows you",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your untouched cut",
+        "closing": "You approve. It lands."
+      }
+    },
+    {
+      "name": "Harbour of changes",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 14,
+        "bar_3": 11,
+        "bar_4": 23,
+        "highlight": "4",
+        "process_title": "How a change sails in",
+        "step_1": "Read the cut",
+        "step_2": "Draft the edit",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The review crew",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "One link, the whole crew",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "compare_title": "Tuning beats re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 2
+      }
+    }
+  ]
+}

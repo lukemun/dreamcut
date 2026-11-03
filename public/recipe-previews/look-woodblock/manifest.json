@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Woodblock look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"woodblock\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 The proposal's journey",
+      "at": 5.88
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Market banners",
+      "at": 2.96
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 The review party",
+      "at": 2.81
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "ac4496871bf19b69e74f0d56b2b2f1ad52eb810d40bd03133429fdbbf673a544"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "e74aafa2a039aa73132b0afc0ae61bdcd2f577dbd0055ce7b5a80d1d804bdae0"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "7cfad683f02f1e3574220a7096831ddc999842ec58ef9320a2422faab20820c0"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "e74aafa2a039aa73132b0afc0ae61bdcd2f577dbd0055ce7b5a80d1d804bdae0"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "871d8eb15b1e3285b0005b02c8b953d086fb5a3519e49209225dff5d264f670f"
+    }
+  ]
+}

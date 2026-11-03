@@ -1,0 +1,40 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "frames": 178,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Default plans in the Paper look at normal speed: cards arrive, prices count up, ticks draw row by row.",
+  "receipt": {
+    "construction": "DreamCut project explainer-templates-demo: the plans HyperFrames motion graphic (render plans.8315cec79d2e9cfe.webm, sha256 8315cec79d2e9cfe42bed4d6fe59e4c5097eba0d5989d1eb92ac5f30c4dd753d), default control values. Encoded from that render to H.264 1280x720 (CRF 20, no audio). Poster is the frame at 4.0 s; stages are frames of the same render. inputs/looks.jpg shows the same graphic in all five looks at the poster moment, rendered from the template with only the look changed."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/motion-plans/inputs/looks.jpg",
+      "sha256": "bde20460aa8408fc9bee3e6073e641e72a541d7a8bb7878268f88c58f23e7cd0"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "9190e311128dcaba1d2ded5da2fa033f7ae2dc7a6ce38295c0780fffbd96598d"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "832ee238d00ede2259b8e1ba70acd50e73baee6017b64ad3a1747b5825b5e989"
+    },
+    {
+      "file": "cards.jpg",
+      "sha256": "9c91866f2bbd0180cbfcc4c451b22cece2cd72c821501acb5ae99dfbe6ad329f"
+    },
+    {
+      "file": "ticks.jpg",
+      "sha256": "c81dc162249b9bf4a34b1d0d3fa82c0852cef935507f2826007ed93c16dfc558"
+    },
+    {
+      "file": "highlight.jpg",
+      "sha256": "832ee238d00ede2259b8e1ba70acd50e73baee6017b64ad3a1747b5825b5e989"
+    }
+  ]
+}

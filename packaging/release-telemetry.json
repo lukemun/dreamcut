@@ -1,0 +1,8 @@
+{
+  "about": "Public error-report settings built into every release (desktop/build-environment.mjs). The DSN is Sentry's ingestion address, not a credential; it ships in the browser bundle. Org and project name where release source maps are uploaded (desktop/source-maps.mjs); the upload token comes only from SENTRY_AUTH_TOKEN on the release machine.",
+  "sentry_dsn": "https://1a499c532899c8379a458433fa2f8fb1@o4509053548953600.ingest.us.sentry.io/4512309010497536",
+  "environment": "production",
+  "traces_sample_rate": "0.1",
+  "sentry_org": "systemlink",
+  "sentry_project": "dreamcut"
+}

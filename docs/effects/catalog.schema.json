@@ -1,0 +1,803 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "number",
+      "const": 1
+    },
+    "entries": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "catalog_id": {
+            "type": "string",
+            "pattern": "^FX-[A-Z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recipe_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recipe": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "version": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "reference": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "image",
+                          "audio"
+                        ]
+                      },
+                      "credit": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "rights": {
+                        "type": "string",
+                        "enum": [
+                          "owned",
+                          "licensed",
+                          "synthetic",
+                          "credited-excerpt",
+                          "pexels-license"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "kind",
+                      "credit",
+                      "rights"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "skill": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$"
+                  },
+                  "skill_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "inputs": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "preparation": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "success_criteria": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "const": "candidate"
+                  },
+                  "recreation": {
+                    "type": "null"
+                  },
+                  "evidence": {
+                    "type": "object",
+                    "properties": {
+                      "before": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "image",
+                                "audio"
+                              ]
+                            },
+                            "credit": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "rights": {
+                              "type": "string",
+                              "enum": [
+                                "owned",
+                                "licensed",
+                                "synthetic",
+                                "credited-excerpt",
+                                "pexels-license"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "sha256",
+                            "kind",
+                            "credit",
+                            "rights"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "after": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "image",
+                                "audio"
+                              ]
+                            },
+                            "credit": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "rights": {
+                              "type": "string",
+                              "enum": [
+                                "owned",
+                                "licensed",
+                                "synthetic",
+                                "credited-excerpt",
+                                "pexels-license"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "sha256",
+                            "kind",
+                            "credit",
+                            "rights"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "observations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "limitations": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "before",
+                      "after",
+                      "observations",
+                      "limitations"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "version",
+                  "reference",
+                  "skill",
+                  "skill_path",
+                  "evidence_path",
+                  "inputs",
+                  "preparation",
+                  "success_criteria",
+                  "status",
+                  "recreation",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "version": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "reference": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "image",
+                          "audio"
+                        ]
+                      },
+                      "credit": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "rights": {
+                        "type": "string",
+                        "enum": [
+                          "owned",
+                          "licensed",
+                          "synthetic",
+                          "credited-excerpt",
+                          "pexels-license"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "kind",
+                      "credit",
+                      "rights"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "skill": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$"
+                  },
+                  "skill_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "inputs": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "preparation": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "success_criteria": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "const": "partial"
+                  },
+                  "recreation": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "image",
+                          "audio"
+                        ]
+                      },
+                      "credit": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "rights": {
+                        "type": "string",
+                        "enum": [
+                          "owned",
+                          "licensed",
+                          "synthetic",
+                          "credited-excerpt",
+                          "pexels-license"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "kind",
+                      "credit",
+                      "rights"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "evidence": {
+                    "type": "object",
+                    "properties": {
+                      "before": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "image",
+                                "audio"
+                              ]
+                            },
+                            "credit": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "rights": {
+                              "type": "string",
+                              "enum": [
+                                "owned",
+                                "licensed",
+                                "synthetic",
+                                "credited-excerpt",
+                                "pexels-license"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "sha256",
+                            "kind",
+                            "credit",
+                            "rights"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "after": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "image",
+                                "audio"
+                              ]
+                            },
+                            "credit": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "rights": {
+                              "type": "string",
+                              "enum": [
+                                "owned",
+                                "licensed",
+                                "synthetic",
+                                "credited-excerpt",
+                                "pexels-license"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "sha256",
+                            "kind",
+                            "credit",
+                            "rights"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "observations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "limitations": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "before",
+                      "after",
+                      "observations",
+                      "limitations"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "version",
+                  "reference",
+                  "skill",
+                  "skill_path",
+                  "evidence_path",
+                  "inputs",
+                  "preparation",
+                  "success_criteria",
+                  "status",
+                  "recreation",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "version": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "reference": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "image",
+                          "audio"
+                        ]
+                      },
+                      "credit": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "rights": {
+                        "type": "string",
+                        "enum": [
+                          "owned",
+                          "licensed",
+                          "synthetic",
+                          "credited-excerpt",
+                          "pexels-license"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "kind",
+                      "credit",
+                      "rights"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "skill": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$"
+                  },
+                  "skill_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "inputs": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "preparation": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "success_criteria": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "const": "complete"
+                  },
+                  "recreation": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "video",
+                          "image",
+                          "audio"
+                        ]
+                      },
+                      "credit": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "rights": {
+                        "type": "string",
+                        "enum": [
+                          "owned",
+                          "licensed",
+                          "synthetic",
+                          "credited-excerpt",
+                          "pexels-license"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "kind",
+                      "credit",
+                      "rights"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "evidence": {
+                    "type": "object",
+                    "properties": {
+                      "before": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "image",
+                                "audio"
+                              ]
+                            },
+                            "credit": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "rights": {
+                              "type": "string",
+                              "enum": [
+                                "owned",
+                                "licensed",
+                                "synthetic",
+                                "credited-excerpt",
+                                "pexels-license"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "sha256",
+                            "kind",
+                            "credit",
+                            "rights"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "after": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "kind": {
+                              "type": "string",
+                              "enum": [
+                                "video",
+                                "image",
+                                "audio"
+                              ]
+                            },
+                            "credit": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "rights": {
+                              "type": "string",
+                              "enum": [
+                                "owned",
+                                "licensed",
+                                "synthetic",
+                                "credited-excerpt",
+                                "pexels-license"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "sha256",
+                            "kind",
+                            "credit",
+                            "rights"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "observations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "limitations": {
+                        "maxItems": 0,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "before",
+                      "after",
+                      "observations",
+                      "limitations"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "version",
+                  "reference",
+                  "skill",
+                  "skill_path",
+                  "evidence_path",
+                  "inputs",
+                  "preparation",
+                  "success_criteria",
+                  "status",
+                  "recreation",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "catalog_id",
+          "name",
+          "recipe_name",
+          "recipe"
+        ],
+        "additionalProperties": {}
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "entries"
+  ],
+  "additionalProperties": {}
+}

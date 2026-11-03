@@ -1,0 +1,28 @@
+{
+  "engine": "openedit-react-chromium-ffmpeg",
+  "sourceDecoder": "browser",
+  "compositor": "browser",
+  "width": 360,
+  "height": 640,
+  "compositionWidth": 360,
+  "compositionHeight": 640,
+  "pixelScale": 1,
+  "fps": 30,
+  "durationInFrames": 31,
+  "sourceFrameRange": [
+    0,
+    30
+  ],
+  "audioSources": 0,
+  "audioRuns": 0,
+  "browserVersion": "154.0.8037.93",
+  "concurrency": 2,
+  "imageFormat": "png",
+  "remotionRuntime": false,
+  "timings": {
+    "loadedMs": 4470,
+    "capturedMs": 6417,
+    "encodedMs": 6463,
+    "audioMs": 6463
+  }
+}

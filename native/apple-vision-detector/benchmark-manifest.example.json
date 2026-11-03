@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "acceptance_thresholds": {
+    "maximum_median_coordinate_error": 0.04,
+    "maximum_missed_face_interval_seconds": 1.0,
+    "maximum_identity_switches_per_minute": 1.0,
+    "maximum_detector_realtime_factor": 2.0
+  },
+  "required_fixture_classes": [
+    "talking_head",
+    "multiple_people",
+    "occlusion",
+    "portrait_rotation",
+    "dissolve",
+    "long_source"
+  ],
+  "fixtures": [],
+  "note": "Copy to a local fixture manifest, add licensed media and expected regions, then set APPLE_VISION_FIXTURE_MANIFEST. An empty manifest never promotes the detector."
+}

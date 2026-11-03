@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="700" viewBox="0 0 390 700" role="img" aria-labelledby="title desc">
+  <title id="title">Four-item comparison grid group layout</title>
+  <desc id="desc">Four related actors occupy a coordinated two-by-two comparison grid with shared sizing and labels.</desc>
+  <rect width="390" height="700" rx="32" fill="#090b10"/>
+  <rect x="30" y="56" width="330" height="588" rx="18" fill="#111621" stroke="#526077" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="195" y="31" fill="#f7f9fc" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">COMPARISON GRID</text>
+  <text x="195" y="92" fill="#92a2bd" font-family="Inter,Arial,sans-serif" font-size="12" text-anchor="middle">four actors · one scale family · shared gaps</text>
+  <g stroke="#2f3a4e" stroke-width="1" opacity=".8"><path d="M140 56V644M250 56V644"/><path d="M30 173.6H360M30 291.2H360M30 408.8H360M30 526.4H360"/></g>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <rect x="55" y="150" width="125" height="174" rx="16" fill="#26334a" stroke="#83a8ff" stroke-width="3"/>
+    <circle cx="117.5" cy="207" r="31" fill="#83a8ff"/><path d="M82 286c4-42 67-42 71 0" fill="#83a8ff"/>
+    <text x="117.5" y="309" fill="#dce7ff" font-size="11">LIGHT MAKEUP</text>
+    <rect x="210" y="150" width="125" height="174" rx="16" fill="#3d2637" stroke="#ff8fc5" stroke-width="3"/>
+    <circle cx="272.5" cy="207" r="31" fill="#ff8fc5"/><path d="M237 286c4-42 67-42 71 0" fill="#ff8fc5"/>
+    <text x="272.5" y="309" fill="#ffe1f0" font-size="11">HEAVY MAKEUP</text>
+    <rect x="55" y="354" width="125" height="174" rx="16" fill="#26334a" stroke="#83a8ff" stroke-width="3"/>
+    <circle cx="117.5" cy="411" r="31" fill="#83a8ff"/><path d="M82 490c4-42 67-42 71 0" fill="#83a8ff"/>
+    <text x="117.5" y="513" fill="#dce7ff" font-size="11">LIGHT MAKEUP</text>
+    <rect x="210" y="354" width="125" height="174" rx="16" fill="#3d2637" stroke="#ff8fc5" stroke-width="3"/>
+    <circle cx="272.5" cy="411" r="31" fill="#ff8fc5"/><path d="M237 490c4-42 67-42 71 0" fill="#ff8fc5"/>
+    <text x="272.5" y="513" fill="#ffe1f0" font-size="11">HEAVY MAKEUP</text>
+    <rect x="74" y="564" width="242" height="44" rx="14" fill="#1b2230" stroke="#69e6b3"/>
+    <text x="195" y="591" fill="#69e6b3" font-size="13" font-weight="700">MATCHED COMPARISON</text>
+  </g>
+</svg>

@@ -1,0 +1,81 @@
+{
+  "id": "memphis",
+  "title": "Memphis",
+  "family": "Geometric",
+  "description": "Bold geometric shapes, crisp dark lettering and playful offset shadows on warm paper.",
+  "arrival": "rise",
+  "change": "lift",
+  "texture": "swirl",
+  "examples": [
+    {
+      "name": "Make room for ideas",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.8,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4.2,
+        "compare_hold": 0,
+        "closing_hold": 2.8,
+        "kicker": "A fresh perspective",
+        "title": "Make room for ideas",
+        "process_title": "Three simple steps",
+        "step_1": "Start small",
+        "step_2": "Try it out",
+        "step_3": "Make it yours",
+        "closing": "Keep the good parts."
+      }
+    },
+    {
+      "name": "Small steps, clear progress",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4,
+        "object_hold": 0,
+        "people_hold": 4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "people_title": "Better together",
+        "people_count": 5,
+        "badge_1": "Plan",
+        "badge_2": "Make",
+        "badge_3": "Share",
+        "chart_title": "Small steps add up",
+        "bar_1_label": "Week 1",
+        "bar_2_label": "Week 2",
+        "bar_3_label": "Week 3",
+        "bar_4_label": "Week 4",
+        "bar_1": 3,
+        "bar_2": 6,
+        "bar_3": 9,
+        "bar_4": 14
+      }
+    },
+    {
+      "name": "Keep it simple",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 4,
+        "closing_hold": 0,
+        "object_title": "Keep the essentials",
+        "device": "phone",
+        "callout_1": "Words",
+        "callout_2": "Colour",
+        "callout_3": "Timing",
+        "compare_title": "Less clutter. More clarity.",
+        "before_label": "Before",
+        "before_value": 9,
+        "after_label": "After",
+        "after_value": 2
+      }
+    }
+  ]
+}

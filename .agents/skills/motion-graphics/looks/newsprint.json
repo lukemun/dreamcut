@@ -1,0 +1,81 @@
+{
+  "id": "newsprint",
+  "title": "Newsprint",
+  "family": "Print",
+  "description": "A paste-up desk on a yellowed broadsheet: dense justified columns, ads and halftone photos drift under a slow camera while each scene lands as a taped clipping with a ruled headline slip, and a printing roller sweeps across to change scenes.",
+  "arrival": "wipe",
+  "change": "roller",
+  "texture": "pulp",
+  "examples": [
+    {
+      "name": "Front page: the proposal card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 4,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Late city edition",
+        "title": "Every edit arrives as a card",
+        "object_title": "Read the card before it lands",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed change",
+        "callout_3": "Your current cut",
+        "closing": "You sign off. Nothing else moves."
+      }
+    },
+    {
+      "name": "Circulation and the press run",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards reviewed this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 14,
+        "bar_2": 22,
+        "bar_3": 31,
+        "bar_4": 46,
+        "highlight": "4",
+        "process_title": "From draft to approved",
+        "step_1": "Agent drafts",
+        "step_2": "Dials tuned",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The newsroom and the tally",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.8,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 0,
+        "people_title": "Who reads the proof",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Producer",
+        "badge_3": "Agent",
+        "compare_title": "Rework before and after",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

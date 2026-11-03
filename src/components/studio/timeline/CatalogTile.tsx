@@ -1,0 +1,49 @@
+"use client";
+import type { ReactNode } from "react";
+import { Info, PlusIcon } from "lucide-react";
+import styles from "./CatalogTile.module.css";
+import { setShelfDragPayload } from "./shelf-drag";
+import type { ElementCreatePayload } from "./asset-shelf-payloads";
+import type { ThumbnailSize } from "./ThumbnailSizeControl";
+
+/**
+ * One choosable item in an editor panel. Clicking selects it for the agent (never edits) and
+ * outlines the tile; the action beside the name (Add, Apply or Details) and dragging onto the timeline use it directly.
+ * `toggle={false}`: clicking opens the item rather than selecting it (outside a project, where nothing is selected).
+ */
+export function CatalogTile({ label, detail, preview, selected, onSelect, addLabel, actionText = "Add", onAdd, adding = false, dragPayload, disabled = false, toggle = true }: {
+  label: string;
+  detail?: string;
+  preview: ReactNode;
+  selected: boolean;
+  onSelect: () => void;
+  addLabel: string;
+  actionText?: "Add" | "Apply" | "Details";
+  onAdd?: () => void;
+  adding?: boolean;
+  dragPayload?: ElementCreatePayload | null;
+  disabled?: boolean;
+  toggle?: boolean;
+}) {
+  return <article className={styles.tile} data-selected={selected} data-action={onAdd ? actionText : undefined} draggable={!!dragPayload && !disabled}
+    onDragStart={dragPayload ? event => setShelfDragPayload(event, dragPayload, label) : undefined}>
+    <button type="button" className={styles.select} aria-pressed={toggle ? selected : undefined} disabled={disabled}
+      aria-label={toggle ? `${selected ? "Deselect" : "Select"} ${label}` : label} onClick={onSelect}>
+      <span className={styles.preview} aria-hidden="true">{preview}</span>
+      <span className={styles.caption}>
+        <span className={styles.label}>{label}</span>
+        {detail ? <span className={styles.detail}>{detail}</span> : null}
+      </span>
+    </button>
+    {onAdd && <button type="button" className={styles.add} disabled={disabled || adding} aria-label={`${addLabel}: ${label}`} title={addLabel} onClick={onAdd}>
+      {actionText === "Details" ? <Info size={16} aria-hidden="true" />
+        : <>{actionText === "Add" && <PlusIcon size={13} aria-hidden="true" />}<span>{actionText}</span></>}
+    </button>}
+  </article>;
+}
+
+/** Grid owner for CatalogTile collections. Without `size`, columns follow the panel width; with it, the row
+ * shows the count the gallery's thumbnail size control names (three, two or one). */
+export function CatalogTileGrid({ children, label, size }: { children: ReactNode; label: string; size?: ThumbnailSize }) {
+  return <div className={styles.grid} role="group" aria-label={label} data-size={size}>{children}</div>;
+}

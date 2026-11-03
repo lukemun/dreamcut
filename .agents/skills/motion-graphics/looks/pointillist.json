@@ -1,0 +1,41 @@
+{
+  "id": "pointillist",
+  "title": "Pointillist",
+  "family": "Painterly",
+  "description": "A sun-struck seaside afternoon built from separate dabs of pure colour: striped towers, a laptop on the sand, a stroll with a dog, stepping spheres and a moon and sun, while the day sinks to dusk and gusts of loose dabs carry each scene away.",
+  "arrival": "focus",
+  "change": "frost",
+  "texture": "canvas",
+  "examples": [
+    {
+      "name": "Anatomy of a card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4, "chart_hold": 0, "object_hold": 4.2, "people_hold": 0, "process_hold": 0, "compare_hold": 0, "closing_hold": 2.4,
+        "kicker": "Card anatomy", "title": "What a proposal card holds",
+        "object_title": "Every part has a job", "callout_1": "Live preview", "callout_2": "Proposed change", "callout_3": "Your current cut",
+        "closing": "You approve what lands."
+      }
+    },
+    {
+      "name": "Assembly line",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0, "chart_hold": 3.8, "object_hold": 0, "people_hold": 0, "process_hold": 4.0, "compare_hold": 0, "closing_hold": 0,
+        "chart_title": "Dials per template", "bar_1_label": "Text", "bar_2_label": "Timing", "bar_3_label": "Colour", "bar_4_label": "Motion",
+        "bar_1": 6, "bar_2": 5, "bar_3": 3, "bar_4": 8, "highlight": "4",
+        "process_title": "How a change is built", "step_1": "Read the cut", "step_2": "Draft it", "step_3": "You sign off"
+      }
+    },
+    {
+      "name": "Review room",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0, "chart_hold": 0, "object_hold": 0, "people_hold": 3.8, "process_hold": 0, "compare_hold": 3.8, "closing_hold": 2.2,
+        "people_title": "Roles on the project", "people_count": 4, "badge_1": "Director", "badge_2": "Editor", "badge_3": "Agent",
+        "compare_title": "Rework before and after", "before_label": "Redos", "before_value": 8, "after_label": "Tweaks", "after_value": 2,
+        "closing": "Fewer redos, more cuts."
+      }
+    }
+  ]
+}

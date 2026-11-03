@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="looks.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; overflow: hidden; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: var(--body); }
+      #art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+      .scene { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; }
+      .kicker { font-family: var(--body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-shadow: var(--separation); }
+      .display { font-family: var(--display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.04; font-style: var(--display-style, normal); text-transform: var(--display-case, none); text-shadow: var(--separation); }
+      .statement { justify-content: center; top: 0; bottom: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080">
+      <canvas id="art"></canvas>
+      <div id="title-scene" class="scene statement" data-actor="title"><p class="kicker" id="kicker"></p><h1 class="display" id="title"></h1></div>
+      <div id="chart-scene" class="scene" data-actor="chart"><h2 class="display" id="chart-title"></h2></div>
+      <div id="object-scene" class="scene" data-actor="object"><h2 class="display" id="object-title"></h2></div>
+      <div id="people-scene" class="scene" data-actor="people"><h2 class="display" id="people-title"></h2></div>
+      <div id="process-scene" class="scene" data-actor="process"><h2 class="display" id="process-title"></h2></div>
+      <div id="compare-scene" class="scene" data-actor="compare"><h2 class="display" id="compare-title"></h2></div>
+      <div id="closing-scene" class="scene statement" data-actor="closing"><h1 class="display" id="closing"></h1></div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          look: "paper", palette: "original", texture: 100, shape: "wide", own_accent: false, accent: "#e4572e", backdrop: true,
+          kicker: "How DreamCut works", title: "Your agent drafts. You decide.",
+          chart_title: "Edits reviewed this week", bar_1_label: "Mon", bar_2_label: "Tue", bar_3_label: "Wed", bar_4_label: "Thu",
+          bar_1: 12, bar_2: 19, bar_3: 27, bar_4: 41, chart_suffix: "", highlight: "4",
+          object_title: "Every change lands as a card", device: "laptop", callout_1: "Live preview", callout_2: "The proposed clip", callout_3: "Your original track",
+          people_title: "The whole team can review", people_count: 4, badge_1: "Editor", badge_2: "Producer", badge_3: "Client",
+          process_title: "From idea to applied edit", step_1: "Read the cut", step_2: "Draft the change", step_3: "You approve",
+          compare_title: "Tune instead of re-prompting", before_label: "Re-prompts", before_value: 9, after_label: "Dial changes", after_value: 2, compare_suffix: "",
+          closing: "Nothing lands without your OK.",
+          title_hold: 2.4, chart_hold: 3.4, object_hold: 3.6, people_hold: 3.2, process_hold: 3.6, compare_hold: 3.2, closing_hold: 2.4,
+          entrance: 0.7, change: 0.45, layer: "all",
+        },
+      };
+      const c = dc.controls;
+      const root = document.getElementById("root");
+      const M = window.DreamcutMotion;
+      const K = M.kit;
+      // A split layer (see Layers below) is drawn over the look's world even when its own backdrop is
+      // off: the world is what its frosted, glowing or blended pieces are drawn against.
+      const layer = String(c.layer || "all");
+      const split = layer !== "all";
+      const S = M.setup(split && layer !== "stage" ? { ...c, backdrop: true } : c, root);
+      const { u, tall, W, H } = S;
+      const $ = (id) => document.getElementById(id);
+      const side = (tall ? 90 : 140) * u;
+      const textWidth = W - side * 2;
+
+      // Words.
+      $("kicker").textContent = c.kicker;
+      $("title").textContent = c.title;
+      $("closing").textContent = c.closing;
+      const heads = { chart: c.chart_title, object: c.object_title, people: c.people_title, process: c.process_title, compare: c.compare_title };
+      for (const [id, words] of Object.entries(heads)) $(`${id}-title`).textContent = words;
+      const headTop = (tall ? 170 : 96) * u;
+      for (const scene of document.querySelectorAll(".scene")) {
+        scene.style.padding = `0 ${side}px`;
+        if (!scene.classList.contains("statement")) scene.style.top = headTop + "px";
+      }
+      $("kicker").style.fontSize = 30 * u + "px";
+      $("kicker").style.marginBottom = 24 * u + "px";
+      M.fit($("title"), (tall ? 120 : 132) * u, 52 * u, { width: textWidth, height: H * 0.5 });
+      M.fit($("closing"), (tall ? 112 : 120) * u, 48 * u, { width: textWidth, height: H * 0.5 });
+      for (const id of Object.keys(heads)) M.fit($(`${id}-title`), (tall ? 76 : 72) * u, 40 * u, { width: textWidth, height: (tall ? 260 : 170) * u });
+      $("title").style.width = $("closing").style.width = textWidth + "px";
+
+      // Where each illustration draws: below its headline.
+      const box = tall ? { x: side, y: H * 0.3, w: W - side * 2, h: H * 0.6 } : { x: side, y: H * 0.34, w: W - side * 2, h: H * 0.58 };
+      const art = $("art");
+      // A 2K/4K export renders at 2x device pixels: the canvas holds that many and draws through a matching scale.
+      const PX = window.devicePixelRatio || 1, PW = Math.round(W * PX), PH = Math.round(H * PX);
+      art.width = PW; art.height = PH;
+      const ctx = art.getContext("2d");
+      const data = {
+        chart: { labels: [c.bar_1_label, c.bar_2_label, c.bar_3_label, c.bar_4_label], values: [c.bar_1, c.bar_2, c.bar_3, c.bar_4], suffix: c.chart_suffix, prefix: "", highlight: Number(c.highlight) - 1, span: c.chart_title },
+        object: { kind: c.device, callouts: [c.callout_1, c.callout_2, c.callout_3], span: "" },
+        people: { count: c.people_count, badges: [c.badge_1, c.badge_2, c.badge_3], highlight: 1 },
+        process: { steps: [c.step_1, c.step_2, c.step_3] },
+        compare: { left: c.before_label, leftValue: c.before_value, right: c.after_label, rightValue: c.after_value, suffix: c.compare_suffix, prefix: "" },
+      };
+
+      // Timing: scenes run in order, each for its own length; a length of 0 leaves the scene out.
+      const order = ["title", "chart", "object", "people", "process", "compare", "closing"];
+      const holds = [c.title_hold, c.chart_hold, c.object_hold, c.people_hold, c.process_hold, c.compare_hold, c.closing_hold];
+      const starts = holds.map((_, i) => holds.slice(0, i).reduce((sum, hold) => sum + hold, 0));
+      const length = holds.reduce((sum, hold) => sum + hold, 0);
+      const e = c.entrance;
+      const tl = gsap.timeline({ paused: true });
+      const shown = order.map((id, i) => ({ id, start: starts[i], hold: holds[i] })).filter((scene) => scene.hold > 0);
+
+      // Layers: "all" draws the whole graphic. Any other value draws one timeline element of it, so the
+      // graphic can be laid out as separate clips that play back as the whole: "stage" is the look's
+      // world, "front" what the look draws over every scene, "<scene>" one scene's drawing and
+      // "<scene>-<piece>" one piece of it (a panel, a person, a chip). Words are left to native text.
+      const [layerScene, ...pieceParts] = layer.split("-");
+      const piece = pieceParts.join("-") || null;
+      const target = shown.find((s) => s.id === layerScene) || null;
+      const tail = (s) => (S.look.overlap && s !== shown[shown.length - 1] ? c.change : 0);
+      // A scene's layer covers its own time, plus the change into the next scene while it still shows.
+      const from = target ? target.start : 0;
+      const span = target ? target.hold + tail(target) : length;
+      if (split) {
+        const style = document.createElement("style");
+        style.textContent = "#root .scene { visibility: hidden; }";
+        root.appendChild(style);
+        // Only the stage keeps the look's backdrop; every other layer is drawn over transparent.
+        if (layer !== "stage") {
+          root.firstElementChild.style.background = "none";
+          if (S.paint) S.paint.canvas.style.display = "none";
+        }
+      } else {
+        for (const id of order) tl.set($(`${id}-scene`), { opacity: 0 }, 0);
+        shown.forEach((scene, index) => {
+          const el = $(`${scene.id}-scene`);
+          tl.set(el, { opacity: 1 }, scene.start);
+          const targets = scene.id === "title" ? [$("kicker"), $("title")] : scene.id === "closing" ? $("closing") : $(`${scene.id}-title`);
+          M.enter(tl, targets, scene.start, e, S.look, { stagger: 0.12, u });
+          if (index < shown.length - 1) M.exit(tl, el, scene.start + scene.hold - c.change, c.change, S.look, u);
+        });
+      }
+
+      // Pieces: a look calls S.piece(key) where each separable piece begins (a frosted panel, a chip),
+      // naming it after its type in looks/pieces.json so each piece can choose its own look;
+      // keyless pieces are numbered in drawing order, and a key ending in "#" is numbered within its
+      // own name ("wire#" gives wire-1, wire-2, ...). S.piece returns the piece it interrupted, so a
+      // look can go back to it. Keys belong to a scope: the scene whose drawer is running, or one a
+      // look names with S.pieceScope(id) (a statement card drawn by the stage, the "front" pass).
+      // A split piece is drawn twice over the whole frame: once with only what lies behind it (the
+      // world and every piece that first appears before it this frame), once with the piece added.
+      // Pieces that first appear after it are never drawn, so a frosted pane frosts exactly what is
+      // behind it in the whole graphic, and the layers stacked in that order composite back to it.
+      // A third pass draws the piece alone; only what it covers is kept, so another piece drawn over
+      // it (a card over a connector's end) never leaves a ghost in its layer.
+      const pen = { count: 0, named: {}, scope: "world", current: "1", muted: false, pass: null, targetSeen: false, before: new Set() };
+      // The pieces a scene layer draws, so tools can list the layers it splits into.
+      const seen = (window.__dreamcutPieces = new Set());
+      const isTarget = (q) => (piece ? q === `${layerScene}:${piece}` : q.startsWith(`${layerScene}:`));
+      const refresh = () => {
+        if (split && pen.scope === layerScene) seen.add(pen.current);
+        if (!pen.pass) { pen.muted = false; return; }
+        const q = `${pen.scope}:${pen.current}`;
+        const mine = isTarget(q);
+        if (mine) pen.targetSeen = true;
+        else if (!pen.targetSeen) pen.before.add(q);
+        const behind = !pen.targetSeen || pen.before.has(q);
+        pen.muted = pen.pass === "alone" ? !mine : pen.pass === "behind" ? mine || !behind : !(mine || behind);
+      };
+      S.piece = (key) => {
+        const before = pen.current;
+        if (key === false) return before;
+        const name = key ? String(key) : null;
+        if (name && name.endsWith("#")) {
+          const base = name.slice(0, -1);
+          pen.named[base] = (pen.named[base] || 0) + 1;
+          pen.current = `${base}-${pen.named[base]}`;
+        } else pen.current = name || String(++pen.count);
+        refresh();
+        return before;
+      };
+      const startPieces = (scope) => { pen.scope = scope; pen.count = 0; pen.named = {}; pen.current = "1"; refresh(); };
+      S.pieceScope = startPieces;
+      const startFrame = (pass) => { pen.pass = pass; pen.targetSeen = false; pen.before = new Set(); startPieces("world"); };
+      const DRAW = new Set(["fill", "stroke", "fillRect", "strokeRect", "fillText", "strokeText", "drawImage", "putImageData", "clearRect"]);
+      const muteable = (real) => {
+        const bound = {};
+        return new Proxy(real, {
+          get(obj, prop) {
+            const value = obj[prop];
+            if (typeof value !== "function") return value;
+            if (!bound[prop]) bound[prop] = DRAW.has(prop) ? (...a) => (pen.muted ? undefined : value.apply(obj, a)) : value.bind(obj);
+            return bound[prop];
+          },
+          set(obj, prop, value) { obj[prop] = value; return true; },
+        });
+      };
+
+      // The illustration layer: redrawn from time alone. Each scene's drawing builds over the first
+      // part of its hold, holds, then fades with the scene change.
+      const ALL = { world: true, statement: true, front: true };
+      const clock = { t: 0 };
+      const paintFrame = (ctx, t, part) => {
+        S.part = part;
+        const index = shown.findIndex((s) => t >= s.start && t < s.start + s.hold);
+        const scene = shown[index];
+        const local = scene ? t - scene.start : 0;
+        const wants = (id) => part.scene === undefined || part.scene === id;
+        // A look may draw its own full-frame stage under every scene (a world the scenes live in).
+        if (S.look.stage && (part.world || part.statement || part.front)) S.look.stage(ctx, S, { t, length, scene: scene ? scene.id : null, index, local, hold: scene ? scene.hold : 0, change: c.change, next: shown[index + 1] ? shown[index + 1].id : null });
+        if (part.scenes === false) return;
+        // Looks that opt in (`overlap: true`) keep drawing the outgoing scene through the first `change`
+        // seconds of the next, with `info.exit` running 0→1, so the two can cross instead of swapping.
+        const prev = shown[index - 1];
+        if (S.look.overlap && prev && local < c.change && wants(prev.id)) {
+          const leave = (S.look.scenes && S.look.scenes[prev.id]) || K[prev.id];
+          startPieces(prev.id);
+          if (leave) leave(ctx, S, box, 1, data[prev.id], { t, local: prev.hold + local, hold: prev.hold, change: c.change, exit: K.clamp(local / Math.max(0.01, c.change)) });
+        }
+        const draw = scene && wants(scene.id) && ((S.look.scenes && S.look.scenes[scene.id]) || K[scene.id]);
+        if (!draw) return;
+        const p = K.clamp((local - e * 0.35) / Math.max(0.6, scene.hold * 0.55));
+        const last = scene === shown[shown.length - 1];
+        // Looks that make their own transitions keep their art up through the change.
+        const fade = last || S.look.keepArt ? 1 : 1 - K.clamp((local - (scene.hold - c.change)) / Math.max(0.01, c.change));
+        ctx.save();
+        ctx.globalAlpha = fade;
+        startPieces(scene.id);
+        draw(ctx, S, box, p, data[scene.id], { t, local, hold: scene.hold, change: c.change });
+        ctx.restore();
+      };
+
+      // A split piece is drawn on a work canvas, then separated from what lies behind it: each pixel
+      // keeps the least opacity that still composites back to the same colour over that, so the
+      // layers stacked on the timeline play back as the whole graphic.
+      const work = split && layer !== "stage" ? document.createElement("canvas") : null;
+      if (work) { work.width = PW; work.height = PH; }
+      const workCtx = work ? work.getContext("2d", { willReadFrequently: true }) : null;
+      const pieceCtx = work ? muteable(workCtx) : null;
+      const WORLD = { world: true, statement: false, front: false, scenes: false };
+      const separate = (t) => {
+        const drawPass = (pass) => {
+          workCtx.setTransform(PX, 0, 0, PX, 0, 0);
+          workCtx.clearRect(0, 0, W, H);
+          startFrame(pass);
+          paintFrame(pieceCtx, t, ALL);
+          pen.pass = null; pen.muted = false;
+        };
+        drawPass("alone");
+        const own = workCtx.getImageData(0, 0, PW, PH).data;
+        // Only the piece's own footprint is separated: a frame where it draws nothing skips the other
+        // two passes, and the rest read back and unmix just its bounding box. The passes still draw
+        // the whole frame, because a frosted pane blurs what lies around it.
+        let x0 = PW, y0 = PH, x1 = -1, y1 = -1;
+        for (let y = 0; y < PH; y++) {
+          const row = y * PW * 4;
+          let first = -1, last = -1;
+          for (let x = 0; x < PW; x++) if (own[row + x * 4 + 3] !== 0) { if (first < 0) first = x; last = x; }
+          if (first < 0) continue;
+          if (first < x0) x0 = first;
+          if (last > x1) x1 = last;
+          if (y < y0) y0 = y;
+          y1 = y;
+        }
+        if (x1 < 0) return null;
+        const bw = x1 - x0 + 1, bh = y1 - y0 + 1;
+        drawPass("behind");
+        const base = workCtx.getImageData(x0, y0, bw, bh).data;
+        drawPass("with");
+        const both = workCtx.getImageData(x0, y0, bw, bh);
+        const f = both.data;
+        for (let y = 0; y < bh; y++) {
+          for (let x = 0; x < bw; x++) {
+            const i = (y * bw + x) * 4, o = ((y0 + y) * PW + x0 + x) * 4;
+            if (own[o + 3] === 0) { f[i + 3] = 0; continue; }
+            const ba = base[i + 3];
+            if (ba < 255) {
+              // Nothing opaque behind this pixel: the layer is whatever was drawn.
+              if (f[i] === base[i] && f[i + 1] === base[i + 1] && f[i + 2] === base[i + 2] && f[i + 3] === ba) f[i + 3] = 0;
+              continue;
+            }
+            let a = 0;
+            for (let k = 0; k < 3; k++) {
+              const d = f[i + k] - base[i + k];
+              const need = d > 0 ? d / Math.max(1, 255 - base[i + k]) : d < 0 ? -d / Math.max(1, base[i + k]) : 0;
+              if (need > a) a = need;
+            }
+            if (a < 1 / 255) { f[i + 3] = 0; continue; }
+            if (a > 1) a = 1;
+            for (let k = 0; k < 3; k++) f[i + k] = Math.max(0, Math.min(255, Math.round(base[i + k] + (f[i + k] - base[i + k]) / a)));
+            f[i + 3] = Math.round(a * 255);
+          }
+        }
+        return { image: both, x: x0, y: y0 };
+      };
+      const drawArt = () => {
+        const t = from + clock.t;
+        if (work) {
+          const piece = separate(t);
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, PW, PH);
+          if (piece) ctx.putImageData(piece.image, piece.x, piece.y);
+          return;
+        }
+        ctx.setTransform(PX, 0, 0, PX, 0, 0);
+        ctx.clearRect(0, 0, W, H);
+        startFrame(null);
+        paintFrame(ctx, t, layer === "stage" ? WORLD : ALL);
+      };
+      tl.fromTo(clock, { t: 0 }, { t: span, duration: span, ease: "none", immediateRender: true, onUpdate: drawArt }, 0);
+      tl.set({}, {}, span);
+      M.finish(tl, S, from);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

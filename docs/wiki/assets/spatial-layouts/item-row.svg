@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="700" viewBox="0 0 390 700" role="img" aria-labelledby="title desc">
+  <title id="title">Three-item row group layout</title>
+  <desc id="desc">Three related makeup props sit on one shared baseline with equal spacing and scale.</desc>
+  <rect width="390" height="700" rx="32" fill="#090b10"/>
+  <rect x="30" y="56" width="330" height="588" rx="18" fill="#111621" stroke="#526077" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="195" y="31" fill="#f7f9fc" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">THREE-ITEM ROW</text>
+  <g stroke="#2f3a4e" stroke-width="1" opacity=".8"><path d="M140 56V644M250 56V644"/><path d="M30 173.6H360M30 291.2H360M30 408.8H360M30 526.4H360"/></g>
+  <text x="195" y="216" fill="#92a2bd" font-family="Inter,Arial,sans-serif" font-size="12" text-anchor="middle">one group occupies the center row</text>
+  <path d="M62 422H328" stroke="#69e6b3" stroke-width="2" stroke-dasharray="5 6"/>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <rect x="55" y="305" width="72" height="117" rx="12" fill="#242c3b" stroke="#ff6b96" stroke-width="3"/>
+    <rect x="80" y="329" width="22" height="65" rx="5" fill="#ff6b96"/><path d="M80 329l11-24 11 24" fill="#ff9fba"/>
+    <text x="91" y="452" fill="#e8edf6" font-size="12">lipstick</text>
+    <rect x="159" y="305" width="72" height="117" rx="12" fill="#242c3b" stroke="#f4d06f" stroke-width="3"/>
+    <circle cx="195" cy="360" r="29" fill="#f4d06f"/><circle cx="195" cy="360" r="17" fill="#fff1b8"/>
+    <text x="195" y="452" fill="#e8edf6" font-size="12">compact</text>
+    <rect x="263" y="305" width="72" height="117" rx="12" fill="#242c3b" stroke="#8fc8ff" stroke-width="3"/>
+    <circle cx="299" cy="344" r="17" fill="#e9f5ff"/><circle cx="299" cy="370" r="17" fill="#d4ebff"/><circle cx="299" cy="396" r="17" fill="#b9ddff"/>
+    <text x="299" y="452" fill="#e8edf6" font-size="12">pads</text>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+{
+  "rights": "owned",
+  "credit": "Subject and shot: the bobblehead character running and cartwheeling on a plain studio, owned and shown by the DreamCut owner's choice.",
+  "footage": [
+    {"role": "The bobblehead runs, then cartwheels, on a plain grey studio (8 s)", "license": "Owned"}
+  ],
+  "fps": 24,
+  "frames": 192,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; the white paper outline appears at 1.0 s, follows the bobblehead through the run and turns red at 3.6 s, through the cartwheel.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-paper-cutout-bobblehead-demo, proposal 20261027T080414-05091666 (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). SAM 2 cutout 69c81b09 (source 0-8.04 s, prompted at 6.0 s; masks identical to the Moving Grid Matte demo's cutout 650185fa) placed over the shot on the same source clock with sticker_outline on, width 14, #ffffff from 1.0 s and #e5322d from 3.6 s. Poster frame 70; stages frames 12, 30, 70 and 138."
+  },
+  "sources": [
+    {"file": "/recipe-previews/paper-cutout/inputs/shot.jpg", "sha256": "5a2f64f2bc85ccaaf35758e1a8f988ba469806af605d5acd97cd0d728a9cfdda"},
+    {"file": "/recipe-previews/paper-cutout/inputs/cutout.png", "sha256": "1eb0732e3e256c5e547af92730b5c8edec3fae36bcc1bd5013af2cb09e54d7c2"}
+  ],
+  "outputs": [
+    {"file": "result.mp4", "sha256": "8be2e7867ba8f6a5fd2487426dfd58741304f1aa8c1f1d6501b18e75114c46b1"},
+    {"file": "poster.jpg", "sha256": "10d220973294e2d07cfc6e75e572964a042afe2aea1290df5b9d3f977e381dc3"},
+    {"file": "original.jpg", "sha256": "e768818e1ea93cc9ca41ffa8f4edaea1e0e8d11f55454239c3f5a4f88926163c"},
+    {"file": "white.jpg", "sha256": "91dd349b5953aef8e88efc8a27500ee43ec3d148739986e649224df4c61c2a1f"},
+    {"file": "follows.jpg", "sha256": "10d220973294e2d07cfc6e75e572964a042afe2aea1290df5b9d3f977e381dc3"},
+    {"file": "colour.jpg", "sha256": "f2af2caf37ea9232ee1e83dd8d7cb2f27c9b71743063f47e560df21bd43dd6c7"}
+  ]
+}

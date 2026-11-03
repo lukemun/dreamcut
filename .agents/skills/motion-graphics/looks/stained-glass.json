@@ -1,0 +1,83 @@
+{
+  "id": "stained-glass",
+  "title": "Stained Glass",
+  "family": "Painterly",
+  "description": "The whole frame is one leaded window: diamond quarries with painted fleurons, a jewelled border, a sill of small lights and drifting sun. Every illustration is cut from streaky glass in lead cames; at each change the panes go dark cell by cell, the new came lines draw on and the colour fills in pane by pane while the quarries relight in the next scene's tint.",
+  "arrival": "wipe",
+  "change": "fade",
+  "texture": "glass",
+  "examples": [
+    {
+      "name": "How a card is made",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "The DreamCut way",
+        "title": "Every edit, shown before it lands",
+        "process_title": "From request to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve",
+        "closing": "Nothing lands without your OK."
+      }
+    },
+    {
+      "name": "The review room",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Cards approved this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 9,
+        "bar_2": 14,
+        "bar_3": 22,
+        "bar_4": 31,
+        "highlight": "4",
+        "object_title": "Every change arrives as a card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original track"
+      }
+    },
+    {
+      "name": "Tune, don't redo",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 2.2,
+        "people_title": "One cut, many reviewers",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "compare_title": "Tune instead of re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial turns",
+        "after_value": 2,
+        "closing": "Turn a dial, keep the cut."
+      }
+    }
+  ]
+}

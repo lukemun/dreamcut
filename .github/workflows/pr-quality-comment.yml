@@ -1,0 +1,47 @@
+name: PR quality comment
+on:
+  workflow_run:
+    workflows: [PR quality]
+    types: [completed]
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+jobs:
+  comment:
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Trusted default-branch code only. No checkout, artifacts, PR scripts, or secrets.
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            if (run.repository.full_name !== `${context.repo.owner}/${context.repo.repo}`) return;
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+              ...context.repo, run_id: run.id, filter: 'latest', per_page: 100
+            });
+            const gate = jobs.find(job => job.name === 'PR quality gate');
+            const required = ['Typecheck', 'Regression tests'];
+            const results = required.map(name => ({name, result: gate?.steps?.find(s => s.name === name)?.conclusion ?? 'missing'}));
+            const passed = run.conclusion === 'success' && gate?.conclusion === 'success' && results.every(s => s.result === 'success');
+            const grade = passed ? 'READY FOR CODE REVIEW' : 'NOT READY — checks failed or incomplete';
+            const marker = '<!-- dreamcut-pr-quality -->';
+            // Comments posted before the DreamCut rename carry the OpenEdit marker.
+            const markers = [marker, '<!-- openedit-pr-quality -->'];
+            for (const reference of run.pull_requests ?? []) {
+              const {data: pr} = await github.rest.pulls.get({...context.repo, pull_number: reference.number});
+              if (pr.state !== 'open' || pr.head.sha !== run.head_sha) continue;
+              const body = [marker, `## Quality gate: ${grade}`, '',
+                `Commit: \`${run.head_sha}\``, '',
+                ...results.map(s => `- ${s.name}: **${s.result}**`), '',
+                `[Check logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${run.id})`, '',
+                'This is a deterministic check result, not an AI code-quality score. Human/local review is still required for correctness, safety, simplicity, and UX.',
+                'Use the repository pr-review skill. Fix confirmed findings on the PR branch and rerun checks; no automatic approval or merge.'
+              ].join('\n');
+              const comments = await github.paginate(github.rest.issues.listComments, {...context.repo, issue_number: pr.number, per_page: 100});
+              const existing = comments.find(c => c.user?.login === 'github-actions[bot]' && markers.some(m => c.body?.includes(m)));
+              if (existing) await github.rest.issues.updateComment({...context.repo, comment_id: existing.id, body});
+              else await github.rest.issues.createComment({...context.repo, issue_number: pr.number, body});
+            }

@@ -1,0 +1,10 @@
+# Isolated local instrument separation runtime (Python 3.11).
+# uv venv --python 3.11 .venv-stems
+# uv pip install --python .venv-stems/bin/python -r scripts/requirements-stems.txt
+# The first preparation downloads the official htdemucs weights; audio stays local.
+demucs==4.0.1
+torch==2.5.1
+torchaudio==2.5.1
+numpy==1.26.4
+librosa==0.11.0
+soundfile==0.14.0

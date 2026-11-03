@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "name": "open-edit-apple-vision-public-promotion-v1",
+  "annotation": {
+    "method": "hand-authored",
+    "author": "DreamCut maintainers",
+    "note": "Boxes were drawn by visual inspection in normalized top-left display coordinates. Detector output was not used as ground truth. Generated transforms are annotated from the visible pixels, not copied from detector results."
+  },
+  "sources": [
+    {
+      "id": "nasa_portrait_s64_31845",
+      "file": "sources/portrait.jpg",
+      "url": "https://images-assets.nasa.gov/image/s64-31845/s64-31845~medium.jpg",
+      "sha256": "2e6f22935d79525080ec9d217ccab80d520c0b61d01758415be5456bc23159cd",
+      "provenance_url": "https://images.nasa.gov/details/s64-31845",
+      "rights": "NASA imagery; NASA states its content generally is not subject to copyright in the United States. NASA identifiers are not used to imply endorsement."
+    },
+    {
+      "id": "nasa_group_jsc2008e049010",
+      "file": "sources/group.jpg",
+      "url": "https://images-assets.nasa.gov/image/jsc2008e049010/jsc2008e049010~medium.jpg",
+      "sha256": "b4db8f65abe4b998ed1d72320ffa6a57f97170d5b8d2dd91ffb52dc6b3e9400b",
+      "provenance_url": "https://images.nasa.gov/details/jsc2008e049010",
+      "rights": "NASA imagery; NASA states its content generally is not subject to copyright in the United States. NASA identifiers are not used to imply endorsement."
+    }
+  ],
+  "scenarios": [
+    { "id": "talking-head", "coverage": "talking_head", "note": "Single prominent face and upper/full body in a portrait source." },
+    { "id": "multiple-people", "coverage": "multiple_people", "note": "Six visibly distinct people at two depths." },
+    { "id": "occlusion", "coverage": "occlusion", "note": "Opaque foreground occluder removes the lower-right subject while five people remain visible." },
+    { "id": "portrait-rotation", "coverage": "portrait_rotation", "note": "Portrait source pixels rotated clockwise into a landscape raster." },
+    { "id": "dissolve", "coverage": "dissolve", "note": "Dominant portrait blended over a second source to exercise gradual-transition contamination." },
+    { "id": "longer-source", "coverage": "longer_source", "note": "Eight timestamped frames exercise stable output, PTS echo, batching, and bounded parallel execution." },
+    { "id": "negative", "coverage": "negative", "note": "Featureless neutral image used as a strict false-positive gate." }
+  ],
+  "frames": [
+    {
+      "frame_id": "talking-head-000", "scenario_id": "talking-head", "file": "sources/portrait.jpg", "pts": "0", "time_base_num": 1, "time_base_den": 30,
+      "expected": [
+        { "truth_id": "portrait-face", "track_id": "portrait-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 },
+        { "truth_id": "portrait-person", "track_id": "portrait-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }
+      ]
+    },
+    {
+      "frame_id": "multiple-people-000", "scenario_id": "multiple-people", "file": "sources/group.jpg", "pts": "30", "time_base_num": 1, "time_base_den": 30,
+      "expected": [
+        { "truth_id": "group-face-standing-left", "label": "face", "x": 0.29, "y": 0.42, "width": 0.075, "height": 0.065 },
+        { "truth_id": "group-face-standing-center", "label": "face", "x": 0.505, "y": 0.415, "width": 0.072, "height": 0.06 },
+        { "truth_id": "group-face-standing-right", "label": "face", "x": 0.73, "y": 0.43, "width": 0.07, "height": 0.06 },
+        { "truth_id": "group-face-kneeling-left", "label": "face", "x": 0.29, "y": 0.595, "width": 0.085, "height": 0.07 },
+        { "truth_id": "group-face-kneeling-center", "label": "face", "x": 0.535, "y": 0.61, "width": 0.08, "height": 0.065 },
+        { "truth_id": "group-face-kneeling-right", "label": "face", "x": 0.74, "y": 0.64, "width": 0.08, "height": 0.065 },
+        { "truth_id": "group-person-standing-left", "label": "person", "x": 0.15, "y": 0.38, "width": 0.29, "height": 0.33 },
+        { "truth_id": "group-person-standing-center", "label": "person", "x": 0.43, "y": 0.38, "width": 0.22, "height": 0.34 },
+        { "truth_id": "group-person-standing-right", "label": "person", "x": 0.66, "y": 0.40, "width": 0.23, "height": 0.33 },
+        { "truth_id": "group-person-kneeling-left", "label": "person", "x": 0.14, "y": 0.56, "width": 0.31, "height": 0.44 },
+        { "truth_id": "group-person-kneeling-center", "label": "person", "x": 0.43, "y": 0.56, "width": 0.28, "height": 0.44 },
+        { "truth_id": "group-person-kneeling-right", "label": "person", "x": 0.64, "y": 0.59, "width": 0.30, "height": 0.41 }
+      ]
+    },
+    {
+      "frame_id": "occlusion-000", "scenario_id": "occlusion", "file": "generated/group-occluded.png", "pts": "60", "time_base_num": 1, "time_base_den": 30,
+      "expected": [
+        { "truth_id": "occ-face-standing-left", "label": "face", "x": 0.29, "y": 0.42, "width": 0.075, "height": 0.065 },
+        { "truth_id": "occ-face-standing-center", "label": "face", "x": 0.505, "y": 0.415, "width": 0.072, "height": 0.06 },
+        { "truth_id": "occ-face-standing-right", "label": "face", "x": 0.73, "y": 0.43, "width": 0.07, "height": 0.06 },
+        { "truth_id": "occ-face-kneeling-left", "label": "face", "x": 0.29, "y": 0.595, "width": 0.085, "height": 0.07 },
+        { "truth_id": "occ-face-kneeling-center", "label": "face", "x": 0.535, "y": 0.61, "width": 0.08, "height": 0.065 },
+        { "truth_id": "occ-person-standing-left", "label": "person", "x": 0.15, "y": 0.38, "width": 0.29, "height": 0.33 },
+        { "truth_id": "occ-person-standing-center", "label": "person", "x": 0.43, "y": 0.38, "width": 0.22, "height": 0.34 },
+        { "truth_id": "occ-person-standing-right", "label": "person", "x": 0.66, "y": 0.40, "width": 0.23, "height": 0.33 },
+        { "truth_id": "occ-person-kneeling-left", "label": "person", "x": 0.14, "y": 0.56, "width": 0.31, "height": 0.44 },
+        { "truth_id": "occ-person-kneeling-center", "label": "person", "x": 0.43, "y": 0.56, "width": 0.28, "height": 0.44 }
+      ]
+    },
+    {
+      "frame_id": "portrait-rotation-000", "scenario_id": "portrait-rotation", "file": "generated/portrait-clockwise.png", "pts": "90", "time_base_num": 1, "time_base_den": 30,
+      "expected": [
+        { "truth_id": "rotated-face", "label": "face", "x": 0.61, "y": 0.35, "width": 0.20, "height": 0.23 },
+        { "truth_id": "rotated-person", "label": "person", "x": 0.00, "y": 0.11, "width": 0.89, "height": 0.72 }
+      ]
+    },
+    {
+      "frame_id": "dissolve-000", "scenario_id": "dissolve", "file": "generated/portrait-dissolve.png", "pts": "120", "time_base_num": 1, "time_base_den": 30,
+      "expected": [
+        { "truth_id": "dissolve-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 },
+        { "truth_id": "dissolve-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }
+      ]
+    },
+    { "frame_id": "negative-000", "scenario_id": "negative", "file": "generated/negative-neutral.png", "pts": "150", "time_base_num": 1, "time_base_den": 30, "negative": true, "expected": [] },
+    { "frame_id": "longer-000", "scenario_id": "longer-source", "file": "generated/longer-00.jpg", "pts": "180", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-00", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-00", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-001", "scenario_id": "longer-source", "file": "generated/longer-01.jpg", "pts": "181", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-01", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-01", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-002", "scenario_id": "longer-source", "file": "generated/longer-02.jpg", "pts": "182", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-02", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-02", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-003", "scenario_id": "longer-source", "file": "generated/longer-03.jpg", "pts": "183", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-03", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-03", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-004", "scenario_id": "longer-source", "file": "generated/longer-04.jpg", "pts": "184", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-04", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-04", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-005", "scenario_id": "longer-source", "file": "generated/longer-05.jpg", "pts": "185", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-05", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-05", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-006", "scenario_id": "longer-source", "file": "generated/longer-06.jpg", "pts": "186", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-06", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-06", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] },
+    { "frame_id": "longer-007", "scenario_id": "longer-source", "file": "generated/longer-07.jpg", "pts": "187", "time_base_num": 1, "time_base_den": 30, "expected": [{ "truth_id": "long-face-07", "track_id": "long-face", "label": "face", "x": 0.35, "y": 0.19, "width": 0.23, "height": 0.20 }, { "truth_id": "long-person-07", "track_id": "long-person", "label": "person", "x": 0.11, "y": 0.11, "width": 0.72, "height": 0.89 }] }
+  ]
+}

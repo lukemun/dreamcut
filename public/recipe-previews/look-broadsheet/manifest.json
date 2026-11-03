@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Broadsheet look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"broadsheet\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 The weekly figures",
+      "at": 6.03
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 Fewer re-prompts",
+      "at": 2.96
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 Anatomy of a review",
+      "at": 3.12
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "72a02f4cae68d43f0f20bb6e076cf522d753911769cd98d483886d29e70d9350"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "8cd49ca7bfabff6ee534f72aa78a3f991256667862d012c8d4230db24637c319"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "6362123c10ebdc622581cc321414d78bac7093dde9d9f5f9a626415aa8a73f66"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "8cd49ca7bfabff6ee534f72aa78a3f991256667862d012c8d4230db24637c319"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "15d07c76e5e3c40ddce788dcb38adcd76db56db0314d4c5156b0558c30ce558f"
+    }
+  ]
+}

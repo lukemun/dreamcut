@@ -1,0 +1,81 @@
+{
+  "id": "ridgeline",
+  "title": "Ridgeline",
+  "family": "Data",
+  "description": "Everything is a stack of thin noisy traces filled to hide the rows behind: a drifting range runs under every scene while bars, people, devices and steps rise out of it as raised contour lines, and a crest of light sweeps the frame at each change.",
+  "arrival": "wipe",
+  "change": "scan",
+  "texture": "grain",
+  "examples": [
+    {
+      "name": "Proposal ranges",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Signal 01",
+        "title": "Every edit is a proposal first",
+        "chart_title": "Proposals reviewed this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "closing": "You approve. Then it lands."
+      }
+    },
+    {
+      "name": "Card and pipeline",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "What is on a proposal card",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your current cut",
+        "process_title": "How a change reaches your cut",
+        "step_1": "Read the cut",
+        "step_2": "Draft the change",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Team and tuning",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "Everyone on the cut can review",
+        "people_count": 4,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent",
+        "compare_title": "Tuning beats re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial changes",
+        "after_value": 2
+      }
+    }
+  ]
+}

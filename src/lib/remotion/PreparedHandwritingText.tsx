@@ -1,0 +1,52 @@
+import { useId, useMemo } from 'react';
+import { getHandwritingPack, handwritingFallbackFamily } from '../timeline/handwriting-packs';
+import { layoutPreparedHandwriting } from '../timeline/prepared-handwriting';
+import { markerStrokeProgress } from '../timeline/marker-handwriting';
+import { LineHandwritingMask, lineMaskGuide, type HandwritingRevealMode } from './LineHandwritingMask';
+import { HandwritingImageFill, type HandwritingFill } from './HandwritingImageFill';
+export function PreparedHandwritingText({fontPreset,text,progress,fontSize,maxWidth,singleLine,align,color,imageFill,revealMode}: {
+ fontPreset:string;text:string;progress:number;fontSize:number;maxWidth:number;singleLine:boolean;
+ align:'left'|'center'|'right';color:string;imageFill?:HandwritingFill;revealMode?:HandwritingRevealMode;
+}) {
+ const id=useId().replace(/:/g,'');const mode=revealMode ?? 'line_mask';const pack=getHandwritingPack(fontPreset,mode);
+ // HandwritingText gates this component on the pack's frame-session resource.
+ if(!pack)throw new Error(`Handwriting pack ${fontPreset} (${mode}) is not loaded`);
+ const m=pack.metrics;
+ const layout=useMemo(()=>layoutPreparedHandwriting(pack,text,singleLine?Infinity:maxWidth/fontSize*m.unitsPerEm,align,mode),[mode,pack,text,singleLine,maxWidth,fontSize,m.unitsPerEm,align]);
+ const scale=Math.min(fontSize/m.unitsPerEm,maxWidth/layout.width);
+ const clock=Math.max(0,Math.min(1,progress))*layout.duration;
+ const fill=imageFill&&(imageFill.videoUrl||imageFill.urls.length)?{...imageFill, revealStartFraction: Math.max(0, Math.min(...layout.glyphs.map(g => g.x + (pack.outlines[g.char]?.bounds[0] ?? 0)))) / layout.width}:undefined;
+ const inkColor=fill?'white':color;
+ const ink=layout.glyphs.map((g,index)=>{
+  const glyph=pack.outlines[g.char];
+  if(!glyph||!g.strokes.length)return clock>g.start?<text key={index} x={g.x} y={g.y+m.baseline} fontSize={m.unitsPerEm} fontFamily={handwritingFallbackFamily(fontPreset)} fill={inkColor}>{g.char}</text>:null;
+  const [left,bottom,right,top]=glyph.bounds;const maskId=`${id}-pen-${index}`;
+  return <g key={index} transform={`translate(${g.x} ${g.y})`}>
+   <defs><mask id={maskId} maskUnits="userSpaceOnUse" x={left-m.unitsPerEm*.05} y={m.baseline-top-m.unitsPerEm*.05} width={right-left+m.unitsPerEm*.1} height={top-bottom+m.unitsPerEm*.1}>
+    {mode === 'line_mask' && lineMaskGuide(fontPreset,g.char) ?
+    <g transform={`translate(${left} ${m.baseline-top})`}><>{g.strokes.map((s,i)=><LineHandwritingMask key={i} fontId={fontPreset} character={g.char} strokeIndex={i} maskId={`${maskId}-${i}`} progress={markerStrokeProgress(s,clock)}/>)}</></g> :
+    <g transform={`translate(${left} ${m.baseline-top}) scale(${(right-left)/100} ${(top-bottom)/100})`}>
+     {(() => {
+       const completedPaths: string[] = [], activeBands: {d:string;opacity:number}[] = [];
+       g.strokes.forEach((s,i)=>{
+         const p=markerStrokeProgress(s,clock),bands=pack.sweeps[g.char]?.[i]??[];
+         const completed=Math.floor(p*bands.length),fraction=p*bands.length-completed;
+         completedPaths.push(...bands.slice(0,completed));
+         if(fraction>0&&bands[completed])activeBands.push({d:bands[completed],opacity:fraction});
+       });
+       // One compound path unions finished ownership cells before antialiasing.
+       // Separate band paths would multiply alpha at every internal raster seam.
+       return <>
+         {completedPaths.length?<path d={completedPaths.join('')} fill="white"/>:null}
+         {activeBands.map((band,i)=><path key={i} d={band.d} fill="white" opacity={band.opacity}/>)}
+       </>;
+     })()}
+    </g>}
+   </mask></defs>
+   <g mask={`url(#${maskId})`}><path d={glyph.d} transform={`translate(0 ${m.baseline}) scale(1 -1)`} fill={inkColor}/></g>
+  </g>;
+ });
+ if(fill)return <HandwritingImageFill label={text} fill={fill} width={layout.width} height={layout.height} displayWidth={layout.width*scale} displayHeight={layout.height*scale}>{ink}</HandwritingImageFill>;
+ return <svg role="img" aria-label={text} data-handwriting={fontPreset} data-handwriting-review="needs-review" data-handwriting-reveal={mode} width={layout.width*scale} height={layout.height*scale} viewBox={`0 0 ${layout.width} ${layout.height}`} style={{display:'inline-block',verticalAlign:'middle',overflow:'visible'}}>
+ {ink}</svg>;
+}

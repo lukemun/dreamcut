@@ -1,0 +1,40 @@
+{
+  "id": "botanical",
+  "title": "Botanical",
+  "family": "Illustration",
+  "description": "A naturalist's plate come alive: engraved sepia line-work with form-following hatching over misregistered watercolour tints on foxed paper, a vine that keeps growing round the border, swaying ferns, drifting seed, bees at work, and scene changes made by a leaf-hung vine sweeping across the plate.",
+  "arrival": "stroke",
+  "change": "fade",
+  "texture": "foxed",
+  "examples": [
+    {
+      "name": "Opening the garden",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6, "chart_hold": 3.8, "object_hold": 0, "people_hold": 0, "process_hold": 0, "compare_hold": 0, "closing_hold": 2.4,
+        "kicker": "Field notes", "title": "Every edit starts as a seed",
+        "chart_title": "Proposals reviewed this week", "bar_1_label": "Mon", "bar_2_label": "Tue", "bar_3_label": "Wed", "bar_4_label": "Thu",
+        "bar_1": 8, "bar_2": 15, "bar_3": 22, "bar_4": 36, "highlight": "4",
+        "closing": "You decide what blooms."
+      }
+    },
+    {
+      "name": "Tending a change",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0, "chart_hold": 0, "object_hold": 3.8, "people_hold": 0, "process_hold": 3.8, "compare_hold": 0, "closing_hold": 0,
+        "object_title": "Every change lands as a card", "callout_1": "Live preview", "callout_2": "Proposed change", "callout_3": "Your current cut",
+        "process_title": "From idea to applied edit", "step_1": "Read the cut", "step_2": "Draft it", "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The whole garden",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0, "chart_hold": 0, "object_hold": 0, "people_hold": 3.6, "process_hold": 0, "compare_hold": 3.6, "closing_hold": 0,
+        "people_title": "Roles on the project", "people_count": 4, "badge_1": "Director", "badge_2": "Editor", "badge_3": "Agent",
+        "compare_title": "Rework before and after", "before_label": "Redos", "before_value": 8, "after_label": "Tweaks", "after_value": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "font_id": "pacifico",
+  "family": "Pacifico",
+  "reveal_mode": "line_mask",
+  "default_adoption": "Creator selected method; all-glyph motion acceptance is not implied.",
+  "acceptance_feedback_id": "feedback:8aba235ff3b5085c6b59db4cf690fb4e331fcc989b173e90a5d0b7a2af810863",
+  "status": "default_available_motion_needs_review",
+  "prepared_characters": 85,
+  "completion_verified_characters": 85,
+  "review_scope": "All characters visually sampled at 10/25/50/75/100% plus source. Gesture midpoints saved, not all separately inspected. Changed B rechecked per font; continuous all-character playback remains pending.",
+  "priority_characters": [
+    "B",
+    "F",
+    "P",
+    "K",
+    "R",
+    "b",
+    "f",
+    "h",
+    "k",
+    "q",
+    "t",
+    "x",
+    "&",
+    "@",
+    "#"
+  ],
+  "findings": "B/P/R and thick stem/turn junctions retain nibble gaps or small early fragments. Accepted A remains exact.",
+  "line_guides_sha256": "a19b54c9b0133a0ad5ffcb9c93863a3b271756ffe5989a0b00d32a86106950c0",
+  "asset_hashes": {
+    "line-strokes.json": "9ac1826dfa2aa53b53e89f7ccd126fef01a8e841dc6ee48fd26b70516885587a",
+    "line-preparation.json": "eb981f855e6f76738b9a9f6595a3daae1d67f1c93253953e1da685dfd1eef35b",
+    "line-checklist.json": "0e08a84df30f246cad5a8ae39358a0e83541e954ce877545974ec23ed8a3afcf",
+    "metrics.json": "b8a60ffc054eb87a8deb89891c20b7ac6f22888f5b1b1a95ac60d6dd2e49560a",
+    "source.ttf": "f3f98d7b8d7f9254f663f4a36a94fa36c434ad3736ed5593aa5f504745aba63d",
+    "LICENSE": "a47e5daeda73568969395c656823102678f2eefb0d7d7ecb47aac4cc17e42204",
+    "manifest.json": "5f7fcf36a6b76d4ca6a52e36c967b5b71779801fd705a3a02f68b5d2d0d78e20",
+    "outlines.json": "2a3ed2a9480be03be933420445c151a25880bc7bd6fbb70cb72f2a5e1583e4b5",
+    "authored-guides.json": "9c70c6129a1842b798bb9b26cb22093fd998c05530d62a5077ac33746c9b940d",
+    "strokes.json": "4b60564f66b066e6f579a65ac36097b4ec814dd449cb1b2551a6e61d5eabd520"
+  },
+  "evidence_hashes": {
+    "line-audit/page-1.png": "23c26101203fe0ca4724b3af1e7c97945f6a974bd7b7d0e1e2d7c5d31f4d4a23",
+    "line-audit/page-3.png": "dc8c4a2586a19fc7798a2de4abfc99d76733a1a4653eebd4ea2d36d43b891d46",
+    "line-audit/page-2.png": "522c00d241a222f4d58f62253ad5dc0a4f26b16bb72734c9410175749c1ce701",
+    "line-audit/page-6.png": "656399ae85bfa7e2783b94c7752b150eeb3abc9ebc3309a82adfbed2c7f96ca1",
+    "line-audit/page-7.png": "ab8875e061358d39ccf868df31a79095b78a634bb69b7788fea3af707b04b034",
+    "line-audit/page-5.png": "2c577c673555f2606e86fe57bd7b826c2fdf0ce369c053f0f84b423c65c96f50",
+    "line-audit/page-4.png": "be099455cf0ed18b11337ac5b71d1d7078a3d5e24f524a609b8a3a711caf46f2",
+    "line-audit/page-9.png": "19758421eb9780aa4db62e6e30c3325404b56b8c6c0ac3b20b9a6135e35b1848",
+    "line-audit/page-8.png": "b9c3a190444261aec379d657588de50fc92cc350ead98b90b3e86ad1eda0330a",
+    "line-audit/coverage.json": "c3883614ea659b010f8175ce84fbc20812d561b8cbbf671d3601a9db95365173",
+    "line-audit/review-sheet-2.png": "8740d7a9f66b52859934041c2d0813e32ec591a5c467fecb0b2af8880b60f111",
+    "line-audit/review-sheet-3.png": "e4e721a019bde9101f6e54a07cf198b2dc1dfb903971b4f1a586b451a36e6796",
+    "line-audit/review-sheet-1.png": "f67c71ae09afb0653deda4039195e225cdb452cde46ffac68eff12016776448b"
+  },
+  "project_id": "handwriting-pacifico-review",
+  "project_url": "http://127.0.0.1:3123/p/handwriting-pacifico-review",
+  "overview_project": "handwriting-line-mask-font-review",
+  "human_acceptance": {
+    "A": "shown_A_accepted"
+  },
+  "limitations": [
+    "Base glyphs and pair kerning at regular 400 only. Contextual alternates, ligatures, other weights and extended Unicode remain unprepared.",
+    "Unprepared Unicode appears whole in the selected font; other font families use explicit pen-script fallback.",
+    "Smooth vector edges and complete ink do not prove natural stroke timing or direction. Flagged joins/turns need refinement.",
+    "Every character needs continuous-motion review; scoped A acceptance is separate from all-font method adoption."
+  ]
+}

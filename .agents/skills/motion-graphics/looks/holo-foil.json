@@ -1,0 +1,82 @@
+{
+  "id": "holo-foil",
+  "title": "Holo Foil",
+  "family": "Light",
+  "description": "A pearlescent collector's sheet: original die-cut stickers, tickets and seals in cracked-ice holographic foil whose rainbow slides as the light tilts, with embossed rims, flaring glints, drifting glitter and a prism streak at every change; scenes turn in like cards catching the light.",
+  "arrival": "wipe",
+  "change": "fade",
+  "texture": "foil",
+  "examples": [
+    {
+      "name": "Sticker sheet",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Collector's edition",
+        "title": "Every edit, card by card",
+        "object_title": "What the card shows you",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The change it makes",
+        "callout_3": "Your cut, untouched",
+        "closing": "Shiny, but only when you say so."
+      }
+    },
+    {
+      "name": "Rare pulls",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Templates used this month",
+        "bar_1_label": "Captions",
+        "bar_2_label": "Titles",
+        "bar_3_label": "Charts",
+        "bar_4_label": "Wipes",
+        "bar_1": 34,
+        "bar_2": 21,
+        "bar_3": 48,
+        "bar_4": 15,
+        "highlight": "3",
+        "process_title": "From draft to applied",
+        "step_1": "Agent drafts",
+        "step_2": "You tune it",
+        "step_3": "You apply"
+      }
+    },
+    {
+      "name": "The full set",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "people_title": "Everyone gets a card",
+        "people_count": 4,
+        "badge_1": "Creator",
+        "badge_2": "Agent",
+        "badge_3": "Client",
+        "compare_title": "Rounds to an approved cut",
+        "before_label": "Re-prompting",
+        "before_value": 7,
+        "after_label": "Tuning dials",
+        "after_value": 2
+      }
+    }
+  ]
+}

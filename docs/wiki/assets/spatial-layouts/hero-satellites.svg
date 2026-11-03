@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="700" viewBox="0 0 390 700" role="img" aria-labelledby="title desc">
+  <title id="title">Hero with satellites group layout</title>
+  <desc id="desc">One dominant central actor is surrounded by smaller supporting actors with explicit hierarchy.</desc>
+  <rect width="390" height="700" rx="32" fill="#090b10"/>
+  <rect x="30" y="56" width="330" height="588" rx="18" fill="#111621" stroke="#526077" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="195" y="31" fill="#f7f9fc" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">HERO + SATELLITES</text>
+  <g stroke="#2f3a4e" stroke-width="1" opacity=".8"><path d="M140 56V644M250 56V644"/><path d="M30 173.6H360M30 291.2H360M30 408.8H360M30 526.4H360"/></g>
+  <g stroke="#69e6b3" stroke-width="2" stroke-dasharray="5 6"><path d="M195 350L90 236M195 350L300 236M195 350L90 468M195 350L300 468"/></g>
+  <circle cx="195" cy="350" r="92" fill="#243047" stroke="#83a8ff" stroke-width="4"/>
+  <path d="M164 329h62v84h-62z" fill="#83a8ff"/><path d="M174 329l21-48 21 48" fill="#aac5ff"/>
+  <text x="195" y="438" fill="#e1eaff" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">PRIMARY ACTOR</text>
+  <g fill="#3a2944" stroke="#ff8fc5" stroke-width="3">
+    <circle cx="90" cy="236" r="42"/><circle cx="300" cy="236" r="42"/><circle cx="90" cy="468" r="42"/><circle cx="300" cy="468" r="42"/>
+  </g>
+  <g fill="#ffe1f0" font-family="Inter,Arial,sans-serif" font-size="10" text-anchor="middle">
+    <text x="90" y="240">support 1</text><text x="300" y="240">support 2</text><text x="90" y="472">support 3</text><text x="300" y="472">support 4</text>
+  </g>
+  <text x="195" y="590" fill="#92a2bd" font-family="Inter,Arial,sans-serif" font-size="12" text-anchor="middle">one focal actor; supporting actors inherit size + distance</text>
+</svg>

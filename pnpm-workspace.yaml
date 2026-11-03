@@ -1,0 +1,5 @@
+# Marks this folder as DreamCut's pnpm workspace root.
+packages: []
+onlyBuiltDependencies:
+  - better-sqlite3
+  - electron

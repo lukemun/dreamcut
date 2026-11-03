@@ -1,0 +1,51 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "width": 960,
+  "height": 540,
+  "teachingNote": "The Mosaic look in three examples on the Illustrated Explainer, at normal speed.",
+  "receipt": {
+    "construction": "Each example rendered from .agents/skills/motion-graphics/templates/illustrated-explainer with the built looks.js, look \"mosaic\" and that example's controls in looks.json, by the HyperFrames CLI at 1920x1080, encoded to H.264 1280x720 (CRF 20, no audio) and joined in order. Stills are frames of each example; the poster is the second example's still. inputs: look-inputs/all-looks.jpg tiles the looks' posters. Re-encoded to H.264 960x540 (CRF 30, capped at 1.3 Mbps) to keep previews small."
+  },
+  "stages": [
+    {
+      "file": "example-1.jpg",
+      "label": "1 \u00b7 A card, tile by tile",
+      "at": 5.88
+    },
+    {
+      "file": "example-2.jpg",
+      "label": "2 \u00b7 From brief to approved cut",
+      "at": 3.12
+    },
+    {
+      "file": "example-3.jpg",
+      "label": "3 \u00b7 Review room",
+      "at": 2.96
+    }
+  ],
+  "sources": [],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "d64d096133d16f00ee1127038dd80ef01958709b330b213bbdd6dbc3302920bc"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "0156f00aa9dde8dd2d126b7f1f9d823b85e5310699ee88fdc6b9ea308a7d3bc9"
+    },
+    {
+      "file": "example-1.jpg",
+      "sha256": "fc0210f33428d1fc4c53ebc80bee6d39e3deb724d394ef6d53251eec64fd0211"
+    },
+    {
+      "file": "example-2.jpg",
+      "sha256": "0156f00aa9dde8dd2d126b7f1f9d823b85e5310699ee88fdc6b9ea308a7d3bc9"
+    },
+    {
+      "file": "example-3.jpg",
+      "sha256": "bd92e688474438dc02e15d6f1aeb359cc4ab4e4fe4d3ee45cecc2be7d2192a58"
+    }
+  ]
+}

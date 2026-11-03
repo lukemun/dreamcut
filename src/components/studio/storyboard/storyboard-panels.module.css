@@ -1,0 +1,31 @@
+.toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding:8px 12px; background:var(--chrome-panel); border-radius:var(--edge-surface); }
+.spacer { flex:1; }
+.count { color:var(--ink-secondary); font-variant-numeric:tabular-nums; }
+/* One wrapping row container: panels grow by their width share; each row ends with a full-width edge. */
+.area { display:flex; flex-wrap:wrap; align-items:flex-start; min-width:0; }
+.panel { position:relative; display:flex; flex-direction:column; min-width:0; background:var(--chrome-panel); border:1px solid var(--edge-outline); border-radius:var(--edge-surface); overflow:hidden; }
+.panel[hidden] { display:none; }
+/* Stacked panels that shared a row still need space between them. */
+.area[data-narrow=true] > .panel { margin-bottom:8px; }
+.panelHeader { display:flex; align-items:center; gap:8px; flex-shrink:0; min-height:44px; padding:6px 8px 6px 6px; border-bottom:1px solid var(--edge-outline); }
+.body { flex:1; min-height:0; min-width:0; overflow:auto; padding:12px; }
+.empty { flex:1 1 100%; display:grid; place-items:center; padding:32px; border:1px dashed var(--edge-outline); border-radius:var(--edge-surface); }
+
+/* Edges: a visible grip, and the whole edge lights up when it can be dragged. */
+.area > [role=separator],.panel > [role=separator] { border-radius:var(--edge-control-inner); transition:background .12s; }
+.area > [role=separator]:hover,.area > [role=separator]:focus-visible,.panel > [role=separator]:hover,.panel > [role=separator]:focus-visible { background:var(--glass-control); }
+.area > [role=separator][aria-orientation=vertical]::after { content:""; position:absolute; width:4px; height:44px; border-radius:2px; background:var(--ink-secondary); left:50%; top:50%; transform:translate(-50%,-50%); }
+.panel > [role=separator][aria-orientation=horizontal]::after { content:""; position:absolute; width:44px; height:4px; border-radius:2px; background:var(--ink-secondary); left:50%; top:50%; transform:translate(-50%,-50%); }
+.panel[data-arrived] { box-shadow:0 0 0 2px var(--chrome-focus-ring); transition:box-shadow .6s; }
+
+.panelHeader { cursor:grab; touch-action:none; user-select:none; }
+.panelHeader[data-moving=true] { cursor:grabbing; background:var(--chrome-raised); }
+.moveHandle { cursor:inherit; }
+/* Where a dragged panel lands: a bar on the side it will join. */
+.panel[data-drop]::after { content:""; position:absolute; z-index:2; background:var(--chrome-focus-ring); border-radius:2px; pointer-events:none; }
+.panel[data-drop=left]::after { left:0; top:0; bottom:0; width:4px; }
+.panel[data-drop=right]::after { right:0; top:0; bottom:0; width:4px; }
+.panel[data-drop=top]::after { left:0; right:0; top:0; height:4px; }
+.panel[data-drop=bottom]::after { left:0; right:0; bottom:0; height:4px; }
+
+.headerActions { display:flex; align-items:center; flex-shrink:1; min-width:0; gap:6px; cursor:default; }

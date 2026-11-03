@@ -1,0 +1,36 @@
+{
+  "rights": "owned",
+  "credit": "Subject: the bobblehead character, owned and shown by the DreamCut owner's choice. Background: an empty frame of pexels.com/video/9732065 (Pexels License).",
+  "footage": [
+    {
+      "role": "Moving subject: the bobblehead running, then cartwheeling, on a plain grey studio",
+      "license": "Owned"
+    },
+    {
+      "pexels_video_id": "9732065",
+      "url": "https://www.pexels.com/video/a-model-taking-off-his-leather-jacket-9732065/",
+      "role": "Empty frame used as the separate background",
+      "license": "Pexels License"
+    }
+  ],
+  "fps": 24,
+  "frames": 192,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Normal speed; the cells follow the bobblehead frame by frame as it runs and cartwheels.",
+  "receipt": {
+    "construction": "DreamCut demo project tpl-grid-matte-bobblehead-demo, proposal 20261027T074629-4a939aac (pending, not approved), rendered from the proposal preview with the production browser GPU compositor at 1920x1080 (scripts/render-preview.ts), scaled to 1280x720 H.264 (CRF 23, no audio). Native Moving Grid Matte on the continuous 8-second clip with the greyscale mask from SAM 2 cutout 650185fa (re-prompted at 6.0 s from cutout 0e03bedd); cell size 72, mask coverage 1.6, grid strength 0.35, grid width 1.5, over a separate background still. Mask thumbnail is mask frame 96 (4.0 s). Poster frame 140; stages frames 24, 96 and 150."
+  },
+  "sources": [
+    {"file": "/recipe-previews/moving-grid-matte/inputs/background.jpg", "sha256": "419669e6f281b908af31c39254d079a72450efa55436913dd47afe74f0a49037"},
+    {"file": "/recipe-previews/moving-grid-matte/inputs/greyscale-mask.png", "sha256": "5c2f08664b1d41f95869982d8bf65dd20ca1692bc812880d673a8452176168e9"},
+    {"file": "/recipe-previews/moving-grid-matte/inputs/moving-subject.jpg", "sha256": "125a873d0d0b7ca4e7e7bb85ac8fd4811de3c5095df115f5ed0f97cf2141b4bb"}
+  ],
+  "outputs": [
+    {"file": "result.mp4", "sha256": "74fc0b5b45bf57a180cb08b14769c03031db946cc7268dd7bce791048ffcab3e"},
+    {"file": "poster.jpg", "sha256": "b03fe0d086a55f9d31618eb0053a3610c296915f5d0832d73b91fea667ed5439"},
+    {"file": "cells.jpg", "sha256": "840fac89fe28e4a01fa054bd910b6faf0318287cfff40cf3236f195d1ef9caf5"},
+    {"file": "moving.jpg", "sha256": "9ccad380dd207476e31ad888c5894d4a60e7102b1ffc0350e63c47b60e9c55ec"},
+    {"file": "leg-up.jpg", "sha256": "ea39f10d64c18c13151c579a960e9ba690f49a2dfdc9dad8c97c23c8f8a2173a"}
+  ]
+}

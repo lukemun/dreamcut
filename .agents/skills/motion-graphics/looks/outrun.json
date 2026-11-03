@@ -1,0 +1,82 @@
+{
+  "id": "outrun",
+  "title": "Outrun",
+  "family": "Retro",
+  "description": "A neon night drive: wireframe ridges, a banded sun, a city glittering on the horizon and palms streaming past on a rolling grid; each scene is a neon object standing on the floor, and every change is a burst of speed that carries it past the camera.",
+  "arrival": "glow",
+  "change": "scan",
+  "texture": "night-drive",
+  "examples": [
+    {
+      "name": "Night shift",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Midnight edit",
+        "title": "Ship the cut before sunrise",
+        "chart_title": "Cards approved per hour",
+        "bar_1_label": "10pm",
+        "bar_2_label": "11pm",
+        "bar_3_label": "12am",
+        "bar_4_label": "1am",
+        "bar_1": 6,
+        "bar_2": 11,
+        "bar_3": 17,
+        "bar_4": 24,
+        "highlight": "4",
+        "closing": "Approved. Rolling to export."
+      }
+    },
+    {
+      "name": "Player select",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "Your edit, in neon",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Original track",
+        "people_title": "Choose your crew",
+        "people_count": 3,
+        "badge_1": "Director",
+        "badge_2": "Editor",
+        "badge_3": "Agent"
+      }
+    },
+    {
+      "name": "High score",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "process_title": "Insert coin, press start",
+        "step_1": "Pick a template",
+        "step_2": "Tune the dials",
+        "step_3": "Approve",
+        "compare_title": "Fewer redos per cut",
+        "before_label": "Last month",
+        "before_value": 12,
+        "after_label": "This month",
+        "after_value": 3
+      }
+    }
+  ]
+}

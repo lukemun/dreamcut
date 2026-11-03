@@ -1,0 +1,40 @@
+{
+  "rights": "owned",
+  "credit": "Built in DreamCut as an editable code-built motion graphic; no footage, generated imagery or people.",
+  "fps": 30,
+  "frames": 139,
+  "width": 1280,
+  "height": 720,
+  "teachingNote": "Default phrase in the Paper look at normal speed: one word every 0.32 s.",
+  "receipt": {
+    "construction": "DreamCut project explainer-templates-demo: the kinetic HyperFrames motion graphic (render kinetic.baf5e43ecebc35f3.webm, sha256 baf5e43ecebc35f3c7a3825dd87bef5399ad1dadd1208f4d8c1e09a3e9086535), default control values. Encoded from that render to H.264 1280x720 (CRF 20, no audio). Poster is the frame at 3.5 s; stages are frames of the same render. inputs/looks.jpg shows the same graphic in all five looks at the poster moment, rendered from the template with only the look changed."
+  },
+  "sources": [
+    {
+      "file": "/recipe-previews/motion-kinetic/inputs/looks.jpg",
+      "sha256": "778d26ed79a7c4b094b2dbaead12779a62c8e733f920b4cc0394919a05333b43"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "result.mp4",
+      "sha256": "815b3a1749b4a1fb22cb1d9d3aac4d3dcd16c4ddb769f9b65ebe10380ea1b3fb"
+    },
+    {
+      "file": "poster.jpg",
+      "sha256": "78ac1eab1ad0a3750cb778855db42001584b96acf907c26718dff63f9b8e6339"
+    },
+    {
+      "file": "first-words.jpg",
+      "sha256": "5c5b3cc6e092050b2366122b5efa3ac37ca29ff782a2a4adc46dbe3a424c071f"
+    },
+    {
+      "file": "building.jpg",
+      "sha256": "b3cc805892a93b2ec9e49ca4229ab3458978f6514843cba024f5a123fbaa7d3c"
+    },
+    {
+      "file": "landed.jpg",
+      "sha256": "78ac1eab1ad0a3750cb778855db42001584b96acf907c26718dff63f9b8e6339"
+    }
+  ]
+}

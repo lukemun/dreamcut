@@ -1,0 +1,147 @@
+{
+  "title": "DreamCut effect catalog",
+  "status": "Shared effects shown in the Templates gallery, each with its recreation and evidence.",
+  "schema_version": 1,
+  "entries": [
+    {
+      "catalog_id": "FX-MASK-GLITCH",
+      "name": "Mask Glitch",
+      "recipe_name": "mask-glitch",
+      "category": "effect",
+      "skill_owner": "mask-glitch",
+      "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+          "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+          "kind": "video",
+          "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+          "rights": "licensed"
+        },
+        "recreation": {
+          "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+          "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+          "kind": "video",
+          "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+          "rights": "licensed"
+        },
+        "skill": "mask-glitch",
+        "skill_path": "../../.agents/skills/mask-glitch/SKILL.md",
+        "evidence_path": "../../.agents/skills/mask-glitch/references/effect-evidence.json",
+        "inputs": [
+          "Outgoing shot",
+          "Incoming shot with an isolatable subject",
+          "Matching original-color and white alpha mattes"
+        ],
+        "preparation": "Continuous variant: align white and original-color alpha mattes to the incoming picture. At 30 fps, cover all five lead-in frames: white for two frames, color for three, then switch scene. No empty frame between masks. Keep each matte native and editable. For consecutive handoffs, invoke mask-glitch with ordered shots and derive one coordinated chain schedule; masks remain separate editable rows.",
+        "success_criteria": [
+          "Every lead-in frame contains the white silhouette or original-color subject mask; no disappearance before the incoming scene.",
+          "White and colour masks share alpha and geometry and match the incoming picture; preserve unchanged sources and editable layers.",
+          "Verify on another incoming subject before promoting the recipe to complete."
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "media/stock-transitions/mask-glitch-practice.jpg",
+              "sha256": "b98e784ad25e47cfc04001786d303b35b49b072b8f99dac9410b02e6cebb6f2f",
+              "kind": "image",
+              "credit": "Pexels footage (Pexels License): pexels.com/video/30996082, pexels.com/video/19279353, pexels.com/video/4824399; DreamCut Mask Glitch template teaching media (native cutout clips with keyframed subject_flash).",
+              "rights": "pexels-license"
+            }
+          ],
+          "after": [
+            {
+              "path": "../../public/recipe-previews/mask-glitch/result.mp4",
+              "sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+              "kind": "video",
+              "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+              "rights": "licensed"
+            }
+          ],
+          "observations": [
+            "Rebuilt for the Templates card with the bobblehead, landscape 16:9: a bright library hands off to a bookshelf in directional light, then to home bookshelves with small lights, each with a still bobblehead pose in the middle of the frame (alpha PNG, no cut-out needed).",
+            "Each lead-in is 5 frames at 30 fps (2 white, 3 original colour) ending on the cut, the skill's continuous handoff default; checked frame by frame at 55-60 and 115-120.",
+            "Recreation sample is the Mask Glitch template result (1280×720, 30 fps, 180 frames). The practice contact sheet is from the earlier Pexels build (desert walker and skater) and its 9-frame lead-ins.",
+            "Continuous coverage: no empty frame between the masks and the incoming scene."
+          ],
+          "limitations": [
+            "Lead-in is lengthened from the 5-frame default to 9 frames so the steps read at gallery size; continuous coverage intentionally differs from the reference pulse/off cadence.",
+            "No dedicated Mask Glitch preset; matte preparation and native layer composition remain the supported route.",
+            "Exact source-reference fidelity remains incomplete."
+          ]
+        }
+      },
+      "recipe_revision": 3
+    },
+    {
+      "catalog_id": "FX-CLONE-CONVERGE",
+      "name": "Clone Converge",
+      "recipe_name": "clone-converge",
+      "skill_owner": "video-compositing",
+      "recipe": {
+        "version": 1,
+        "status": "partial",
+        "reference": {
+          "path": "../../public/recipe-previews/clone-converge/result.mp4",
+          "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+          "kind": "video",
+          "credit": "Finished Clone Converge result and matching source-take preview from the DreamCut maintainer's own footage for the shared Catalog card.",
+          "rights": "owned"
+        },
+        "recreation": {
+          "path": "../../public/recipe-previews/clone-converge/result.mp4",
+          "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+          "kind": "video",
+          "credit": "Finished Clone Converge result and matching source-take preview from the DreamCut maintainer's own footage for the shared Catalog card.",
+          "rights": "owned"
+        },
+        "skill": "video-compositing",
+        "skill_path": "../../.agents/skills/video-compositing/SKILL.md",
+        "evidence_path": "../../.agents/skills/video-compositing/references/effect-evidence.json",
+        "inputs": [
+          "Locked-camera take with live stopped windows",
+          "Matching empty plate",
+          "Selected stops and spoken line or live final hold"
+        ],
+        "preparation": "Follow video-compositing/templates/clone-converge.md: measure source windows, prepare moving alpha cutouts, register waiting and travel poses, bind timing and Library sound peaks in one native proposal.",
+        "success_criteria": [
+          "Waiting copies remain live at normal speed",
+          "Every travelling copy ends behind the foreground on one shared frame",
+          "Original speech continues after a live beat",
+          "Timing and sound controls remain source-safe across their supported ranges"
+        ],
+        "evidence": {
+          "before": [
+            {
+              "path": "../../public/recipe-previews/clone-converge/waiting.jpg",
+              "sha256": "0bf5f5cddaab163d3476a90b32cb3cbbe6ee01d4b267826a20b676974774ce0a",
+              "kind": "image",
+              "credit": "Finished Clone Converge result and matching source-take preview from the DreamCut maintainer's own footage for the shared Catalog card.",
+              "rights": "owned"
+            }
+          ],
+          "after": [
+            {
+              "path": "../../public/recipe-previews/clone-converge/result.mp4",
+              "sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+              "kind": "video",
+              "credit": "Finished Clone Converge result and matching source-take preview from the DreamCut maintainer's own footage for the shared Catalog card.",
+              "rights": "owned"
+            }
+          ],
+          "observations": [
+            "The creator explicitly chose their approved finished demonstration for this shared Catalog card.",
+            "Prepared-input reuse passed independent GPU review at defaults, timing extremes and crossed corners; 186 slider endpoints and 12 timing combinations passed."
+          ],
+          "limitations": [
+            "Agent-built native recipe; no dedicated compiled preset or one-click certification.",
+            "Raw preparation, another performer, listening and continuous-motion sensory acceptance remain unverified.",
+            "Teaching preview is silent. Its line, positions and grade are examples, not fixed template settings."
+          ]
+        }
+      }
+    }
+  ]
+}

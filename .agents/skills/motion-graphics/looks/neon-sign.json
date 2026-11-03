@@ -1,0 +1,82 @@
+{
+  "id": "neon-sign",
+  "title": "Neon Sign",
+  "family": "Light",
+  "description": "A rain-wet brick wall at night: every chart, device and character is bent glass tube on a clear acrylic backer, with white-hot cores, grey unlit glass, painted-out jumpers and light spilling into a rippling puddle; scenes whip-pan along the wall as one sign dies and the next strikes on.",
+  "arrival": "glow",
+  "change": "fade",
+  "texture": "wet-brick",
+  "examples": [
+    {
+      "name": "Late-night cut",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 3.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Open late",
+        "title": "Your edit, lit up",
+        "chart_title": "Cards approved tonight",
+        "bar_1_label": "9 pm",
+        "bar_2_label": "10 pm",
+        "bar_3_label": "11 pm",
+        "bar_4_label": "12 am",
+        "bar_1": 6,
+        "bar_2": 11,
+        "bar_3": 17,
+        "bar_4": 28,
+        "highlight": "4",
+        "closing": "Nothing goes live without you."
+      }
+    },
+    {
+      "name": "The card on screen",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "Every change shows up lit",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Your original",
+        "process_title": "Three steps to a cut",
+        "step_1": "Read the cut",
+        "step_2": "Draft a card",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Crew on the wall",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 3.4,
+        "closing_hold": 0,
+        "people_title": "Everyone reviews the cut",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "compare_title": "Fewer redos, more tweaks",
+        "before_label": "Redos",
+        "before_value": 9,
+        "after_label": "Dial tweaks",
+        "after_value": 3
+      }
+    }
+  ]
+}

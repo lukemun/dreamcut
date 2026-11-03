@@ -1,0 +1,6 @@
+.gallery { min-width:0; }
+.item { min-width:0; flex:none; }
+.item > * { width:100%; min-width:0; }
+.item [data-media-preview] { display:block; width:100%; height:auto; aspect-ratio:auto; object-fit:contain; }
+/* Even rows: each preview takes its row's shared height at its own shape, aligned with the card's text. */
+.item[data-even-rows] [data-media-preview] { width:auto; max-width:100%; height:var(--media-row-height); }

@@ -1,0 +1,83 @@
+{
+  "id": "noir",
+  "title": "Noir",
+  "family": "Film",
+  "description": "A 1940s night world in silver monochrome: venetian-blind light rakes across plaster, passing headlights sweep the room, smoke turns in the beams, rain and neon flicker outside, and the data lives in lit sets (a skyline of towers under searchlights, an evidence-tagged desk, a line-up wall with a roving spotlight and flashbulb, lamplit street corners a figure walks between, files under a swinging lamp) that change by snapping the blinds shut and open, ending on a hotel window or a case file stamped approved, under heavy grain, gate weave and scratches.",
+  "arrival": "type",
+  "change": "blinds",
+  "texture": "film",
+  "examples": [
+    {
+      "name": "The case of the late cut",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.4,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Case file 07",
+        "title": "Who changed the cut?",
+        "chart_title": "Edits drafted after midnight",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 9,
+        "bar_2": 14,
+        "bar_3": 22,
+        "bar_4": 37,
+        "highlight": "4",
+        "closing": "Every change leaves a trail."
+      }
+    },
+    {
+      "name": "Exhibit A",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 3.4,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "The evidence on the card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your original track",
+        "people_title": "Everyone gets a look",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client"
+      }
+    },
+    {
+      "name": "Night shift",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 3.4,
+        "closing_hold": 2.2,
+        "process_title": "How a change gets made",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You approve",
+        "compare_title": "Rework, before and after",
+        "before_label": "Redos",
+        "before_value": 9,
+        "after_label": "Tweaks",
+        "after_value": 2,
+        "closing": "Nothing lands without your OK."
+      }
+    }
+  ]
+}

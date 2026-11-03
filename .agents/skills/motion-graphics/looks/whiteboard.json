@@ -1,0 +1,82 @@
+{
+  "id": "whiteboard",
+  "title": "Whiteboard",
+  "family": "Hand-drawn",
+  "description": "A glossy dry-erase board drawn live: one chisel marker hand-letters every word and lays down wobbly, streaky strokes, traces boxes twice and scribble-fills them, while a topic sticky note swaps in the corner; a felt eraser swipes the board clean in wide bands as the next drawing starts, leaving faint ghosts.",
+  "arrival": "write",
+  "change": "erase",
+  "texture": "board",
+  "examples": [
+    {
+      "name": "Review meeting",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 4.2,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 4.6,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 3.8,
+        "kicker": "Monday stand-up",
+        "title": "Who signs off on the cut?",
+        "people_title": "Everyone gets a say",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Director",
+        "badge_3": "Client",
+        "closing": "One card, one decision."
+      }
+    },
+    {
+      "name": "How a card is made",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4.8,
+        "people_hold": 0,
+        "process_hold": 4.6,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "A change, ready to review",
+        "device": "laptop",
+        "callout_1": "Watch it first",
+        "callout_2": "The new clip",
+        "callout_3": "Your audio, untouched",
+        "process_title": "Three steps to an edit",
+        "step_1": "Read the cut",
+        "step_2": "Sketch the change",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Fewer redos",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4.6,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 4.6,
+        "closing_hold": 0,
+        "chart_title": "Cards approved per day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 7,
+        "bar_2": 11,
+        "bar_3": 9,
+        "bar_4": 18,
+        "highlight": "4",
+        "compare_title": "Tweak it, don't redo it",
+        "before_label": "Full redos",
+        "before_value": 12,
+        "after_label": "Dial tweaks",
+        "after_value": 3
+      }
+    }
+  ]
+}

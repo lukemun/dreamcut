@@ -1,0 +1,222 @@
+[
+  {
+    "character": "A",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 32,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 2
+  },
+  {
+    "character": "B",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 34,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "C",
+    "coverage_width_38_percent": 98.002,
+    "recommended_width": 46,
+    "minimum_width_for_99_99_percent": 45,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "D",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 33,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 2
+  },
+  {
+    "character": "E",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 36,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 4
+  },
+  {
+    "character": "F",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 33,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "G",
+    "coverage_width_38_percent": 99.994,
+    "recommended_width": 40,
+    "minimum_width_for_99_99_percent": 38,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "H",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 34,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "I",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 33,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "a",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 32,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 2
+  },
+  {
+    "character": "b",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 34,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "c",
+    "coverage_width_38_percent": 98.0741,
+    "recommended_width": 46,
+    "minimum_width_for_99_99_percent": 45,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "d",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 33,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 2
+  },
+  {
+    "character": "e",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 36,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 4
+  },
+  {
+    "character": "f",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 33,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "g",
+    "coverage_width_38_percent": 99.9993,
+    "recommended_width": 40,
+    "minimum_width_for_99_99_percent": 38,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "h",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 38,
+    "minimum_width_for_99_99_percent": 34,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 3
+  },
+  {
+    "character": "i",
+    "coverage_width_38_percent": 68.7207,
+    "recommended_width": 78,
+    "minimum_width_for_99_99_percent": 76,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "0",
+    "coverage_width_38_percent": 99.6841,
+    "recommended_width": 44,
+    "minimum_width_for_99_99_percent": 42,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "1",
+    "coverage_width_38_percent": 85.0743,
+    "recommended_width": 66,
+    "minimum_width_for_99_99_percent": 64,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "2",
+    "coverage_width_38_percent": 100.0,
+    "recommended_width": 34,
+    "minimum_width_for_99_99_percent": 34,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 99.9927,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  },
+  {
+    "character": "3",
+    "coverage_width_38_percent": 99.6247,
+    "recommended_width": 44,
+    "minimum_width_for_99_99_percent": 42,
+    "coverage_at_recommended_width_percent": 100.0,
+    "coverage_at_99_percent_length": 100.0,
+    "coverage_at_99_9_percent_length": 100.0,
+    "stroke_count": 1
+  }
+]

@@ -1,0 +1,898 @@
+{
+  "schema_version": 1,
+  "template": "illustrated-explainer",
+  "actors": [
+    {
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "chart",
+      "label": "Chart"
+    },
+    {
+      "id": "object",
+      "label": "Object"
+    },
+    {
+      "id": "people",
+      "label": "People"
+    },
+    {
+      "id": "process",
+      "label": "Process"
+    },
+    {
+      "id": "compare",
+      "label": "Comparison"
+    },
+    {
+      "id": "closing",
+      "label": "Closing line"
+    }
+  ],
+  "markers": [],
+  "timing": {
+    "cues": [
+      {
+        "id": "chart_in",
+        "label": "Chart",
+        "at": "title_hold"
+      },
+      {
+        "id": "object_in",
+        "label": "Object",
+        "at": "title_hold + chart_hold"
+      },
+      {
+        "id": "people_in",
+        "label": "People",
+        "at": "title_hold + chart_hold + object_hold"
+      },
+      {
+        "id": "process_in",
+        "label": "Process",
+        "at": "title_hold + chart_hold + object_hold + people_hold"
+      },
+      {
+        "id": "compare_in",
+        "label": "Comparison",
+        "at": "title_hold + chart_hold + object_hold + people_hold + process_hold"
+      },
+      {
+        "id": "closing_in",
+        "label": "Closing line",
+        "at": "title_hold + chart_hold + object_hold + people_hold + process_hold + compare_hold"
+      }
+    ],
+    "duration": "title_hold + chart_hold + object_hold + people_hold + process_hold + compare_hold + closing_hold"
+  },
+  "canvas": {
+    "control": "shape",
+    "sizes": {
+      "wide": {
+        "width": 1920,
+        "height": 1080
+      },
+      "tall": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      }
+    }
+  },
+  "opaque_control": "backdrop",
+  "controls": [
+    {
+      "id": "look",
+      "kind": "choice",
+      "label": "Look",
+      "default": "paper",
+      "options": [
+        {
+          "value": "paper",
+          "label": "Paper"
+        },
+        {
+          "value": "keynote",
+          "label": "Keynote"
+        },
+        {
+          "value": "swiss",
+          "label": "Swiss"
+        },
+        {
+          "value": "terminal",
+          "label": "Terminal"
+        },
+        {
+          "value": "chalk",
+          "label": "Chalk"
+        },
+        {
+          "value": "proof",
+          "label": "Proof"
+        },
+        {
+          "value": "blueprint",
+          "label": "Blueprint"
+        },
+        {
+          "value": "outrun",
+          "label": "Outrun"
+        },
+        {
+          "value": "glass",
+          "label": "Glass"
+        },
+        {
+          "value": "psychedelic",
+          "label": "Psychedelic"
+        },
+        {
+          "value": "psychedelic-bloom",
+          "label": "Psychedelic Bloom"
+        },
+        {
+          "value": "flat-science",
+          "label": "Flat Science"
+        },
+        {
+          "value": "shadow-puppet",
+          "label": "Shadow Puppet"
+        },
+        {
+          "value": "memphis",
+          "label": "Memphis"
+        },
+        {
+          "value": "whiteboard",
+          "label": "Whiteboard"
+        },
+        {
+          "value": "tech-glow",
+          "label": "Tech Glow"
+        },
+        {
+          "value": "papercraft",
+          "label": "Papercraft"
+        },
+        {
+          "value": "noir",
+          "label": "Noir"
+        },
+        {
+          "value": "manuscript",
+          "label": "Manuscript"
+        },
+        {
+          "value": "deep-sea",
+          "label": "Deep Sea"
+        },
+        {
+          "value": "pop-panel",
+          "label": "Pop Panel"
+        },
+        {
+          "value": "isometric",
+          "label": "Isometric"
+        },
+        {
+          "value": "scope",
+          "label": "Scope"
+        },
+        {
+          "value": "riso",
+          "label": "Riso"
+        },
+        {
+          "value": "clay",
+          "label": "Clay"
+        },
+        {
+          "value": "neon-sign",
+          "label": "Neon Sign"
+        },
+        {
+          "value": "woodblock",
+          "label": "Woodblock"
+        },
+        {
+          "value": "cut-paper",
+          "label": "Cut Paper"
+        },
+        {
+          "value": "stained-glass",
+          "label": "Stained Glass"
+        },
+        {
+          "value": "broadsheet",
+          "label": "Broadsheet"
+        },
+        {
+          "value": "kawaii",
+          "label": "Kawaii"
+        },
+        {
+          "value": "linocut",
+          "label": "Linocut"
+        },
+        {
+          "value": "origami",
+          "label": "Origami"
+        },
+        {
+          "value": "pixel-16",
+          "label": "16-Bit"
+        },
+        {
+          "value": "watercolor",
+          "label": "Watercolor"
+        },
+        {
+          "value": "ink-wash",
+          "label": "Ink Wash"
+        },
+        {
+          "value": "holo-foil",
+          "label": "Holo Foil"
+        },
+        {
+          "value": "thermal",
+          "label": "Thermal"
+        },
+        {
+          "value": "beige-desktop",
+          "label": "Beige Desktop"
+        },
+        {
+          "value": "letterpress",
+          "label": "Letterpress"
+        },
+        {
+          "value": "voxel",
+          "label": "Voxel"
+        },
+        {
+          "value": "line-toy",
+          "label": "Line Toy"
+        },
+        {
+          "value": "star-chart",
+          "label": "Star Chart"
+        },
+        {
+          "value": "punk-zine",
+          "label": "Punk Zine"
+        },
+        {
+          "value": "impasto",
+          "label": "Impasto"
+        },
+        {
+          "value": "low-poly",
+          "label": "Low Poly"
+        },
+        {
+          "value": "manga",
+          "label": "Manga"
+        },
+        {
+          "value": "light-painting",
+          "label": "Light Painting"
+        },
+        {
+          "value": "patchwork",
+          "label": "Patchwork"
+        },
+        {
+          "value": "tarot",
+          "label": "Tarot"
+        },
+        {
+          "value": "metro-map",
+          "label": "Metro Map"
+        },
+        {
+          "value": "gouache",
+          "label": "Gouache"
+        },
+        {
+          "value": "napkin",
+          "label": "Napkin"
+        },
+        {
+          "value": "deco",
+          "label": "Deco"
+        },
+        {
+          "value": "x-ray",
+          "label": "X-Ray"
+        },
+        {
+          "value": "vapor",
+          "label": "Vapor"
+        },
+        {
+          "value": "marbling",
+          "label": "Marbling"
+        },
+        {
+          "value": "pictograms",
+          "label": "Pictograms"
+        },
+        {
+          "value": "soft-clay",
+          "label": "Soft 3D"
+        },
+        {
+          "value": "cross-stitch",
+          "label": "Cross-Stitch"
+        },
+        {
+          "value": "constructivist",
+          "label": "Constructivist"
+        },
+        {
+          "value": "pocket-lcd",
+          "label": "Pocket LCD"
+        },
+        {
+          "value": "botanical",
+          "label": "Botanical"
+        },
+        {
+          "value": "type-strobe",
+          "label": "Type Strobe"
+        },
+        {
+          "value": "mosaic",
+          "label": "Mosaic"
+        },
+        {
+          "value": "chrome",
+          "label": "Liquid Chrome"
+        },
+        {
+          "value": "sticky-notes",
+          "label": "Sticky Notes"
+        },
+        {
+          "value": "newsprint",
+          "label": "Newsprint"
+        },
+        {
+          "value": "wireframe",
+          "label": "Wireframe"
+        },
+        {
+          "value": "ballpoint",
+          "label": "Ballpoint"
+        },
+        {
+          "value": "op-art",
+          "label": "Op Art"
+        },
+        {
+          "value": "topo",
+          "label": "Topo"
+        },
+        {
+          "value": "pointillist",
+          "label": "Pointillist"
+        },
+        {
+          "value": "vector-arcade",
+          "label": "Vector Arcade"
+        },
+        {
+          "value": "patent",
+          "label": "Patent"
+        },
+        {
+          "value": "bauhaus",
+          "label": "Bauhaus"
+        },
+        {
+          "value": "bitmap-paint",
+          "label": "Bitmap Paint"
+        },
+        {
+          "value": "string-art",
+          "label": "String Art"
+        },
+        {
+          "value": "ridgeline",
+          "label": "Ridgeline"
+        },
+        {
+          "value": "graphite",
+          "label": "Graphite"
+        },
+        {
+          "value": "teletext",
+          "label": "Teletext"
+        },
+        {
+          "value": "silkscreen",
+          "label": "Silkscreen"
+        },
+        {
+          "value": "guilloche",
+          "label": "Guilloché"
+        },
+        {
+          "value": "ascii",
+          "label": "ASCII"
+        },
+        {
+          "value": "flow-field",
+          "label": "Flow Field"
+        },
+        {
+          "value": "one-bit",
+          "label": "One-Bit"
+        },
+        {
+          "value": "truchet",
+          "label": "Truchet"
+        }
+      ]
+    },
+    {
+      "id": "palette",
+      "kind": "choice",
+      "label": "Palette",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Original"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "mono",
+          "label": "Mono"
+        }
+      ],
+      "resets_with": "look"
+    },
+    {
+      "id": "texture",
+      "kind": "number",
+      "label": "Texture",
+      "default": 100,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "resets_with": "look"
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "label": "Shape",
+      "default": "wide",
+      "options": [
+        {
+          "value": "wide",
+          "label": "16:9"
+        },
+        {
+          "value": "tall",
+          "label": "9:16"
+        },
+        {
+          "value": "square",
+          "label": "1:1"
+        }
+      ],
+      "fixed": true
+    },
+    {
+      "id": "kicker",
+      "kind": "text",
+      "label": "Kicker",
+      "default": "How DreamCut works",
+      "max_length": 40
+    },
+    {
+      "id": "title",
+      "kind": "text",
+      "label": "Title",
+      "default": "Your agent drafts. You decide.",
+      "max_length": 80
+    },
+    {
+      "id": "chart_title",
+      "kind": "text",
+      "label": "Chart title",
+      "default": "Edits reviewed this week",
+      "max_length": 60
+    },
+    {
+      "id": "bar_1_label",
+      "kind": "text",
+      "label": "Bar 1",
+      "default": "Mon",
+      "max_length": 16
+    },
+    {
+      "id": "bar_1",
+      "kind": "number",
+      "label": "Bar 1 value",
+      "default": 12,
+      "min": 0,
+      "max": 100000,
+      "step": 1
+    },
+    {
+      "id": "bar_2_label",
+      "kind": "text",
+      "label": "Bar 2",
+      "default": "Tue",
+      "max_length": 16
+    },
+    {
+      "id": "bar_2",
+      "kind": "number",
+      "label": "Bar 2 value",
+      "default": 19,
+      "min": 0,
+      "max": 100000,
+      "step": 1
+    },
+    {
+      "id": "bar_3_label",
+      "kind": "text",
+      "label": "Bar 3",
+      "default": "Wed",
+      "max_length": 16
+    },
+    {
+      "id": "bar_3",
+      "kind": "number",
+      "label": "Bar 3 value",
+      "default": 27,
+      "min": 0,
+      "max": 100000,
+      "step": 1
+    },
+    {
+      "id": "bar_4_label",
+      "kind": "text",
+      "label": "Bar 4",
+      "default": "Thu",
+      "max_length": 16
+    },
+    {
+      "id": "bar_4",
+      "kind": "number",
+      "label": "Bar 4 value",
+      "default": 41,
+      "min": 0,
+      "max": 100000,
+      "step": 1
+    },
+    {
+      "id": "chart_suffix",
+      "kind": "text",
+      "label": "Unit",
+      "default": "",
+      "max_length": 8
+    },
+    {
+      "id": "highlight",
+      "kind": "choice",
+      "label": "Highlight",
+      "default": "4",
+      "options": [
+        {
+          "value": "1",
+          "label": "Bar 1"
+        },
+        {
+          "value": "2",
+          "label": "Bar 2"
+        },
+        {
+          "value": "3",
+          "label": "Bar 3"
+        },
+        {
+          "value": "4",
+          "label": "Bar 4"
+        }
+      ]
+    },
+    {
+      "id": "object_title",
+      "kind": "text",
+      "label": "Object title",
+      "default": "Every change lands as a card",
+      "max_length": 60
+    },
+    {
+      "id": "device",
+      "kind": "choice",
+      "label": "Device",
+      "default": "laptop",
+      "options": [
+        {
+          "value": "laptop",
+          "label": "Laptop"
+        },
+        {
+          "value": "phone",
+          "label": "Phone"
+        }
+      ]
+    },
+    {
+      "id": "callout_1",
+      "kind": "text",
+      "label": "Callout 1",
+      "default": "Live preview",
+      "max_length": 28
+    },
+    {
+      "id": "callout_2",
+      "kind": "text",
+      "label": "Callout 2",
+      "default": "The proposed clip",
+      "max_length": 28
+    },
+    {
+      "id": "callout_3",
+      "kind": "text",
+      "label": "Callout 3",
+      "default": "Your original track",
+      "max_length": 28
+    },
+    {
+      "id": "people_title",
+      "kind": "text",
+      "label": "People title",
+      "default": "The whole team can review",
+      "max_length": 60
+    },
+    {
+      "id": "people_count",
+      "kind": "number",
+      "label": "People",
+      "default": 4,
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "people"
+    },
+    {
+      "id": "badge_1",
+      "kind": "text",
+      "label": "Badge 1",
+      "default": "Editor",
+      "max_length": 16
+    },
+    {
+      "id": "badge_2",
+      "kind": "text",
+      "label": "Badge 2",
+      "default": "Producer",
+      "max_length": 16
+    },
+    {
+      "id": "badge_3",
+      "kind": "text",
+      "label": "Badge 3",
+      "default": "Client",
+      "max_length": 16
+    },
+    {
+      "id": "process_title",
+      "kind": "text",
+      "label": "Process title",
+      "default": "From idea to applied edit",
+      "max_length": 60
+    },
+    {
+      "id": "step_1",
+      "kind": "text",
+      "label": "Step 1",
+      "default": "Read the cut",
+      "max_length": 22
+    },
+    {
+      "id": "step_2",
+      "kind": "text",
+      "label": "Step 2",
+      "default": "Draft the change",
+      "max_length": 22
+    },
+    {
+      "id": "step_3",
+      "kind": "text",
+      "label": "Step 3",
+      "default": "You approve",
+      "max_length": 22
+    },
+    {
+      "id": "compare_title",
+      "kind": "text",
+      "label": "Comparison title",
+      "default": "Tune instead of re-prompting",
+      "max_length": 60
+    },
+    {
+      "id": "before_label",
+      "kind": "text",
+      "label": "Before",
+      "default": "Re-prompts",
+      "max_length": 20
+    },
+    {
+      "id": "before_value",
+      "kind": "number",
+      "label": "Before value",
+      "default": 9,
+      "min": 0,
+      "max": 100000,
+      "step": 1
+    },
+    {
+      "id": "after_label",
+      "kind": "text",
+      "label": "After",
+      "default": "Dial changes",
+      "max_length": 20
+    },
+    {
+      "id": "after_value",
+      "kind": "number",
+      "label": "After value",
+      "default": 2,
+      "min": 0,
+      "max": 100000,
+      "step": 1
+    },
+    {
+      "id": "compare_suffix",
+      "kind": "text",
+      "label": "Unit",
+      "default": "",
+      "max_length": 8
+    },
+    {
+      "id": "closing",
+      "kind": "text",
+      "label": "Closing line",
+      "default": "Nothing lands without your OK.",
+      "max_length": 80
+    },
+    {
+      "id": "title_hold",
+      "kind": "number",
+      "label": "Title",
+      "default": 2.4,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "chart_hold",
+      "kind": "number",
+      "label": "Chart",
+      "default": 3.4,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "object_hold",
+      "kind": "number",
+      "label": "Object",
+      "default": 3.6,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "people_hold",
+      "kind": "number",
+      "label": "People",
+      "default": 3.2,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "process_hold",
+      "kind": "number",
+      "label": "Process",
+      "default": 3.6,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "compare_hold",
+      "kind": "number",
+      "label": "Comparison",
+      "default": 3.2,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "closing_hold",
+      "kind": "number",
+      "label": "Closing",
+      "default": 2.4,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "id": "entrance",
+      "kind": "number",
+      "label": "Entrance",
+      "default": 0.7,
+      "min": 0.2,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "change",
+      "kind": "number",
+      "label": "Scene change",
+      "default": 0.45,
+      "min": 0.1,
+      "max": 1.2,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "id": "own_accent",
+      "kind": "switch",
+      "label": "Own accent",
+      "default": false
+    },
+    {
+      "id": "accent",
+      "kind": "color",
+      "label": "Accent",
+      "default": "#e4572e"
+    },
+    {
+      "id": "backdrop",
+      "kind": "switch",
+      "label": "Backdrop",
+      "default": true
+    },
+    {
+      "id": "layer",
+      "kind": "text",
+      "label": "Layer",
+      "default": "all",
+      "max_length": 48,
+      "fixed": true
+    }
+  ]
+}

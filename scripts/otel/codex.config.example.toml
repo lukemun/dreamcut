@@ -1,0 +1,10 @@
+# Merge this section into your user Codex config, not a project config.
+# Start the local collector first. Existing Codex processes may need restarting.
+# This file does not change your model, credentials, permissions or analytics preference.
+[otel]
+environment = "dreamcut-local"
+log_user_prompt = false
+exporter = { otlp-http = { endpoint = "http://127.0.0.1:4318/v1/logs", protocol = "json" } }
+# Logs contain completed-response token counts. Do not add metrics to these totals.
+trace_exporter = "none"
+metrics_exporter = "none"

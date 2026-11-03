@@ -1,0 +1,82 @@
+{
+  "id": "voxel",
+  "title": "Voxel",
+  "family": "Dimensional",
+  "description": "A floating voxel diorama: every scene is its own cube island in one sky, built from three-tone isometric cubes with soft occlusion, little cube walkers and waterfalls, while the camera glides from island to island and props rain in and lift off block by block.",
+  "arrival": "rise",
+  "change": "fade",
+  "texture": "grain",
+  "examples": [
+    {
+      "name": "Island welcome",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 3.8,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.4,
+        "kicker": "Cut together",
+        "title": "Build it block by block",
+        "object_title": "Every change is a card",
+        "device": "phone",
+        "callout_1": "Preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Original cut",
+        "closing": "Approve it, then it lands."
+      }
+    },
+    {
+      "name": "Weekly towers",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 3.8,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 3.8,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Edits reviewed by day",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 8,
+        "bar_2": 15,
+        "bar_3": 22,
+        "bar_4": 34,
+        "highlight": "4",
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Crew and rework",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.6,
+        "process_hold": 0,
+        "compare_hold": 3.6,
+        "closing_hold": 0,
+        "people_title": "Who reviews the cut",
+        "people_count": 3,
+        "badge_1": "Editor",
+        "badge_2": "Producer",
+        "badge_3": "Client",
+        "compare_title": "Redos before and after",
+        "before_label": "Redos",
+        "before_value": 8,
+        "after_label": "Tweaks",
+        "after_value": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "silkscreen",
+  "title": "Silkscreen",
+  "family": "Print",
+  "description": "A poster shop pulling a grid-portrait edition: full-bleed flat ink fields with a drifting contact sheet of one original character, every colour its own misregistered plate that overprints, cream label plates on offset shadows, and a squeegee that drags each scene change across the sheet.",
+  "arrival": "wipe",
+  "change": "grid",
+  "texture": "print",
+  "examples": [
+    {
+      "name": "Meet the card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 0,
+        "object_hold": 4.2,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Edition one",
+        "title": "Your agent drafts. You decide.",
+        "object_title": "Every change lands as a card",
+        "callout_1": "Live preview",
+        "callout_2": "Proposed clip",
+        "callout_3": "Your cut",
+        "closing": "Nothing lands without your OK."
+      }
+    },
+    {
+      "name": "Pull the print",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 4.0,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 4.2,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "chart_title": "Edits reviewed this week",
+        "bar_1_label": "Mon",
+        "bar_2_label": "Tue",
+        "bar_3_label": "Wed",
+        "bar_4_label": "Thu",
+        "bar_1": 12,
+        "bar_2": 19,
+        "bar_3": 27,
+        "bar_4": 41,
+        "highlight": "4",
+        "process_title": "From idea to applied edit",
+        "step_1": "Read the cut",
+        "step_2": "Draft it",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "The whole edition",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 4.0,
+        "process_hold": 0,
+        "compare_hold": 4.0,
+        "closing_hold": 0,
+        "people_title": "Everyone can review",
+        "people_count": 4,
+        "badge_1": "Editor",
+        "badge_2": "Producer",
+        "badge_3": "Client",
+        "compare_title": "Tune instead of re-prompting",
+        "before_label": "Re-prompts",
+        "before_value": 9,
+        "after_label": "Dial changes",
+        "after_value": 2
+      }
+    }
+  ]
+}

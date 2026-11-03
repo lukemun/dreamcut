@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "recipe": "H.264 Main / yuv420p / limited Rec.709 / 640px long edge / 30fps / CRF24 / silent / faststart",
+  "entries": [
+    {
+      "catalog_id": "FX-MASK-GLITCH",
+      "source_path": "docs/effects/../../public/recipe-previews/mask-glitch/result.mp4",
+      "source_sha256": "d54e8b5caa3fb204091b5d210d604ebf2d89d3650f0cff835505dd648554962e",
+      "file": "fx-mask-glitch-d54e8b5caa3f-640-v1.mp4",
+      "sha256": "9f677a0f1d54a0114c383cb0f1b33230704abc234fa43a2c9400341aa778367d",
+      "bytes": 210909,
+      "width": 640,
+      "height": 360,
+      "fps": 30,
+      "frames": 180,
+      "duration_seconds": 6,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Bobblehead poses (owned) over library photos from DreamCut's image catalog (Unsplash License); DreamCut Mask Glitch template teaching media (still poses with keyframed subject_flash).",
+      "rights": "licensed",
+      "poster": {
+        "file": "fx-mask-glitch-d54e8b5caa3f-640-v1-poster-f55.jpg",
+        "sha256": "1d6beb77bc8f24a4590d7fa89c0f3ae29b86d21e20a14120f0c2cb7c9028aa5d",
+        "frame": 55
+      }
+    },
+    {
+      "catalog_id": "FX-CLONE-CONVERGE",
+      "source_path": "docs/effects/../../public/recipe-previews/clone-converge/result.mp4",
+      "source_sha256": "87996d81e77df4e8d24c29b57038c330bf1ed105662727389eeb4dd924bdeafb",
+      "file": "fx-clone-converge-87996d81e77d-640-v1.mp4",
+      "sha256": "87f285257ae9e1a2443088b81838f65058519c76a9ec1cdc61f73813e115122b",
+      "bytes": 485263,
+      "width": 360,
+      "height": 640,
+      "fps": 30,
+      "frames": 131,
+      "duration_seconds": 4.366667,
+      "source_time_mapping": "proxy_seconds = sample_seconds",
+      "audio": "silent",
+      "credit": "Finished Clone Converge result and matching source-take preview from the DreamCut maintainer's own footage for the shared Catalog card.",
+      "rights": "owned"
+    }
+  ]
+}

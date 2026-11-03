@@ -1,0 +1,82 @@
+{
+  "id": "swiss",
+  "title": "Swiss",
+  "family": "Print",
+  "description": "An International Typographic Style poster in motion: off-white stock on a visible column grid, black grotesque set flush left and one red; solid slabs, pictograms and big figures wipe on, and scenes change through red-and-black grid shutters.",
+  "arrival": "wipe",
+  "change": "slide",
+  "examples": [
+    {
+      "name": "Your edit, as data",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 2.6,
+        "chart_hold": 4.2,
+        "object_hold": 0,
+        "people_hold": 0,
+        "process_hold": 0,
+        "compare_hold": 0,
+        "closing_hold": 2.6,
+        "kicker": "Plain JSON",
+        "title": "Your edit, as data",
+        "chart_title": "Clips per scene",
+        "bar_1_label": "Intro",
+        "bar_2_label": "Story",
+        "bar_3_label": "Demo",
+        "bar_4_label": "Outro",
+        "bar_1": 3,
+        "bar_2": 9,
+        "bar_3": 6,
+        "bar_4": 2,
+        "highlight": "2",
+        "closing": "Read it. Diff it. Keep it."
+      }
+    },
+    {
+      "name": "Anatomy of a card",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 4.2,
+        "people_hold": 0,
+        "process_hold": 4.4,
+        "compare_hold": 0,
+        "closing_hold": 0,
+        "object_title": "Every change arrives as a card",
+        "device": "laptop",
+        "callout_1": "Live preview",
+        "callout_2": "The proposed clip",
+        "callout_3": "Your current cut",
+        "process_title": "Import, cut, approve",
+        "step_1": "Import footage",
+        "step_2": "Agent drafts",
+        "step_3": "You approve"
+      }
+    },
+    {
+      "name": "Who signs off",
+      "template": "illustrated-explainer",
+      "controls": {
+        "title_hold": 0,
+        "chart_hold": 0,
+        "object_hold": 0,
+        "people_hold": 3.8,
+        "process_hold": 0,
+        "compare_hold": 3.8,
+        "closing_hold": 2.4,
+        "people_title": "Made for small teams",
+        "people_count": 5,
+        "badge_1": "Creator",
+        "badge_2": "Editor",
+        "badge_3": "Producer",
+        "compare_title": "Clicks per change",
+        "before_label": "By hand",
+        "before_value": 24,
+        "after_label": "With a card",
+        "after_value": 3,
+        "closing": "One file. Everyone aligned."
+      }
+    }
+  ]
+}

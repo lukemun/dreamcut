@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="looks.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; background: transparent; overflow: hidden; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: var(--body); }
+      .abs { position: absolute; }
+      .display { font-family: var(--display); font-style: var(--display-style, normal); text-transform: var(--display-case, none); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1.06; text-shadow: var(--separation); }
+      .body { font-family: var(--body); font-weight: var(--body-weight); line-height: 1.3; color: var(--muted); text-shadow: var(--separation); }
+      .kicker { font-family: var(--body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-shadow: var(--separation); }
+      .figure { font-family: var(--figures); font-weight: var(--display-weight); color: var(--accent); line-height: 1; font-variant-numeric: tabular-nums; text-shadow: var(--separation); }
+      #screen { overflow: hidden; background: var(--panel); border-radius: var(--radius); box-shadow: inset 0 0 0 1px var(--panel-edge, transparent), 0 30px 80px rgba(0,0,0,0.22); backdrop-filter: var(--panel-filter, none); }
+      .shot { position: absolute; inset: 0; background: var(--panel); }
+      .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .wire { position: absolute; background: var(--track); border-radius: 6px; }
+      .dot { position: absolute; border-radius: 999px; background: var(--track); }
+      .dot-fill { position: absolute; inset: 0; border-radius: 999px; background: var(--accent); transform-origin: 0 50%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080">
+      <div id="kicker" class="abs kicker" data-actor="heading"></div>
+      <div id="screen" class="abs" data-actor="screen"></div>
+      <div id="text" class="abs" data-actor="steps"></div>
+      <div id="progress" class="abs" data-actor="progress"></div>
+    </div>
+
+    <script>
+      // Values come from DreamCut at render time; defaults match dreamcut.controls.json.
+      const dc = window.__dreamcut ?? {
+        controls: {
+          look: "paper", shape: "wide", own_accent: false, accent: "#e4572e", backdrop: true,
+          heading: "Set up in four steps", step_count: 4,
+          step_1_title: "Create a project", step_1_detail: "Name it and pick where it lives.", image_1: "",
+          step_2_title: "Bring in your files", step_2_detail: "Drop a folder; it copies in the background.", image_2: "",
+          step_3_title: "Invite your team", step_3_detail: "Everyone sees changes as they happen.", image_3: "",
+          step_4_title: "Share a review link", step_4_detail: "Comments land right on the frame.", image_4: "",
+          entrance: 0.7, intro: 0.8, step_hold: 2.8, change: 0.4, hold: 0.8,
+        },
+      };
+      const c = dc.controls;
+      const root = document.getElementById("root");
+      const M = window.DreamcutMotion;
+      const S = M.setup(c, root);
+      const { u, tall, W, H } = S;
+      const $ = (id) => document.getElementById(id);
+      const count = Math.round(c.step_count);
+      const steps = [
+        [c.step_1_title, c.step_1_detail, c.image_1], [c.step_2_title, c.step_2_detail, c.image_2],
+        [c.step_3_title, c.step_3_detail, c.image_3], [c.step_4_title, c.step_4_detail, c.image_4],
+      ].slice(0, count).map(([title, detail, image], index) => ({ title, detail, image: String(image || "").trim(), index }));
+
+      // Layout: wide puts the text left and the screen right; tall stacks the screen above the text.
+      const side = (tall ? 80 : 130) * u;
+      let screenBox, textBox;
+      const kicker = $("kicker");
+      kicker.textContent = c.heading;
+      kicker.style.fontSize = (tall ? 34 : 30) * u + "px";
+      if (tall) {
+        const sw = W - side * 2, sh = sw * 0.68;
+        kicker.style.left = side + "px"; kicker.style.top = 190 * u + "px";
+        screenBox = { left: side, top: 270 * u, width: sw, height: sh };
+        textBox = { left: side, top: screenBox.top + sh + 110 * u, width: sw, height: H - (screenBox.top + sh + 110 * u) - 260 * u };
+      } else {
+        const sw = W * 0.5, sh = sw * 0.625;
+        screenBox = { left: W - side - sw, top: (H - sh) / 2 + 20 * u, width: sw, height: sh };
+        textBox = { left: side, top: screenBox.top + 40 * u, width: screenBox.left - side - 90 * u, height: sh - 40 * u };
+        kicker.style.left = side + "px"; kicker.style.top = screenBox.top - 30 * u + "px";
+      }
+      const box = (el, b) => Object.assign(el.style, { left: b.left + "px", top: b.top + "px", width: b.width + "px", height: b.height + "px" });
+      const screen = $("screen");
+      box(screen, screenBox);
+      box($("text"), textBox);
+
+      // A drawn stand-in screen when a step has no screenshot: a window with a sidebar and rows,
+      // one block marked in the accent colour, in a different place for each step.
+      function placeholder(index) {
+        const shot = document.createElement("div");
+        shot.className = "shot";
+        const sw = screenBox.width, sh = screenBox.height, g = sw / 40;
+        const add = (x, y, w, h, accent) => {
+          const el = document.createElement("div");
+          el.className = "wire";
+          Object.assign(el.style, { left: x + "px", top: y + "px", width: w + "px", height: h + "px" });
+          if (accent) el.style.background = "var(--accent)";
+          shot.append(el);
+          return el;
+        };
+        add(0, 0, sw, g * 2.2);
+        for (let d = 0; d < 3; d++) {
+          const dot = document.createElement("div");
+          dot.className = "dot";
+          Object.assign(dot.style, { left: g * (0.9 + d * 1.1) + "px", top: g * 0.75 + "px", width: g * 0.7 + "px", height: g * 0.7 + "px" });
+          shot.append(dot);
+        }
+        add(g, g * 3.4, sw * 0.2, sh - g * 4.4);
+        for (let r = 0; r < 4; r++) add(sw * 0.2 + g * 2, g * 3.4 + r * (sh - g * 4.4) / 4, sw * 0.8 - g * 3, (sh - g * 4.4) / 4 - g * 0.8);
+        const spots = [[0.2 + 0.05, 0.12, 0.5, 0.16], [0.2 + 0.05, 0.38, 0.72, 0.16], [0.2 + 0.05, 0.62, 0.42, 0.16], [0.2 + 0.05, 0.84, 0.28, 0.1]];
+        const [x, y, w, h] = spots[index % spots.length];
+        const mark = add(sw * x, sh * y, sw * w, sh * h, true);
+        mark.dataset.mark = "1";
+        return shot;
+      }
+
+      const shots = steps.map((step) => {
+        let shot;
+        if (step.image) {
+          shot = document.createElement("div");
+          shot.className = "shot";
+          const img = document.createElement("img");
+          img.src = step.image;
+          img.alt = "";
+          shot.append(img);
+        } else {
+          shot = placeholder(step.index);
+        }
+        screen.append(shot);
+        return shot;
+      });
+
+      const blocks = steps.map((step) => {
+        const block = document.createElement("div");
+        block.className = "abs";
+        Object.assign(block.style, { left: 0, top: 0, width: textBox.width + "px" });
+        const number = document.createElement("div");
+        number.className = "figure";
+        number.textContent = String(step.index + 1).padStart(2, "0");
+        number.style.fontSize = (tall ? 110 : 120) * u + "px";
+        const title = document.createElement("div");
+        title.className = "display";
+        title.textContent = step.title;
+        title.style.width = textBox.width + "px";
+        title.style.marginTop = 24 * u + "px";
+        const detail = document.createElement("div");
+        detail.className = "body";
+        detail.textContent = step.detail;
+        detail.style.width = textBox.width + "px";
+        detail.style.marginTop = 22 * u + "px";
+        block.append(number, title, detail);
+        $("text").append(block);
+        M.fit(title, (tall ? 84 : 74) * u, 34 * u, { width: textBox.width, height: 260 * u });
+        M.fit(detail, (tall ? 40 : 36) * u, 22 * u, { width: textBox.width, height: 180 * u });
+        return { block, parts: [number, title, detail] };
+      });
+
+      // Progress: one short bar per step, filling as each step comes up.
+      const progress = $("progress");
+      const barW = (tall ? 120 : 90) * u, barH = 8 * u, barGap = 14 * u;
+      Object.assign(progress.style, tall
+        ? { left: side + "px", top: H - 200 * u + "px" }
+        : { left: side + "px", top: screenBox.top + screenBox.height - barH + "px" });
+      const fills = steps.map((_, i) => {
+        const bar = document.createElement("div");
+        bar.className = "dot";
+        Object.assign(bar.style, { left: i * (barW + barGap) + "px", top: 0, width: barW + "px", height: barH + "px" });
+        const fill = document.createElement("div");
+        fill.className = "dot-fill";
+        bar.append(fill);
+        progress.append(bar);
+        return fill;
+      });
+
+      // Timing: the heading and screen arrive, then each step holds for the same time.
+      const tl = gsap.timeline({ paused: true });
+      const e = c.entrance;
+      const stepAt = (i) => c.intro + i * c.step_hold;
+      M.enter(tl, kicker, 0, e, S.look, { u });
+      tl.fromTo(screen, { opacity: 0, y: 40 * u, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: e * 1.2, ease: "power3.out", immediateRender: true }, 0.1);
+      tl.fromTo(progress, { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: true }, c.intro * 0.6);
+      steps.forEach((step, i) => {
+        const at = stepAt(i);
+        const { block, parts } = blocks[i];
+        tl.set(block, { opacity: 0 }, 0).set(block, { opacity: 1 }, at);
+        M.enter(tl, parts, at, e, S.look, { stagger: 0.1, u });
+        if (i < steps.length - 1) M.exit(tl, block, stepAt(i + 1) - c.change, c.change, S.look, u);
+        // The new screen slides over the last one; its marked block draws attention once settled.
+        const shot = shots[i];
+        if (i === 0) tl.set(shot, { opacity: 1 }, 0);
+        else tl.fromTo(shot, { opacity: 0, xPercent: 6 }, { opacity: 1, xPercent: 0, duration: c.change + 0.2, ease: "power2.out", immediateRender: true }, at - c.change * 0.5);
+        const mark = shot.querySelector("[data-mark]");
+        if (mark) tl.fromTo(mark, { opacity: 0.25, scaleX: 0.4, transformOrigin: "0 50%" }, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.out", immediateRender: true }, at + e * 0.5);
+        tl.fromTo(fills[i], { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out", immediateRender: true }, at);
+      });
+      tl.set({}, {}, stepAt(steps.length - 1) + c.step_hold + c.hold);
+
+      M.finish(tl, S);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
