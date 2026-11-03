@@ -37,6 +37,10 @@ Cards don't depend on each other, so you can settle them in any order while the 
 - **Captions.** Word-timed captions in ready-made looks, including captions that sit behind you.
 - **Colour.** Grade and correct clips with exposure, white balance, colour wheels, curves and looks.
 - **Transitions.** Fade, slide, wipe, whip, cube, page turn, film burn, camera flash and blackout.
+- **VFX.** Speed ramps and hops, clones, white-flash masks, green-screen keys, glows and motion blur,
+  built from editable layers you can tune.
+- **Keyframes and camera moves.** Animate position, scale, rotation and opacity on any clip; push in,
+  reframe and follow the subject.
 - **Text and motion graphics.** Titles, lower thirds, kinetic type and animated graphics, placed in open
   space or behind you.
 - **Cutouts and compositing.** Remove backgrounds, layer people over new scenes, track text onto moving
@@ -61,6 +65,25 @@ Cards don't depend on each other, so you can settle them in any order while the 
 <td width="33%" align="center" valign="middle"><b><a href="docs/effects/README.md#all-templates">All templates →</a></b></td>
 </tr>
 </table>
+
+## Recreate any effect
+
+Seen an effect you want? Give your agent the tutorial or the video and your own footage:
+
+```text
+Run the recreate-effect workflow on this tutorial: <path or link to the video>
+```
+
+1. **Supply the reference.** A tutorial, a finished video that uses the effect, or a still of the look.
+2. **The agent breaks it down** and builds an editable version on your footage, as a card you preview,
+   tune and accept like any other edit. Tell it what's off and it corrects it.
+3. **It saves the method as a template.** A fresh agent then rebuilds the effect from the saved steps
+   alone and grades the result, so the template works without you in the loop.
+4. **Use it again, or share it.** The template shows up in Templates for your next video. Open a pull
+   request to add it for everyone ([how to contribute an effect](CONTRIBUTING.md#contribute-an-effect-or-editing-workflow)).
+
+The workflow's skill is [template-authoring](.agents/skills/template-authoring/SKILL.md). Use footage you
+have the right to share, and don't commit other people's videos.
 
 ## Install
 

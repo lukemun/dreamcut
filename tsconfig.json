@@ -113,7 +113,9 @@
     ".next-lane-check/types/**/*.ts",
     ".next-lane-check/dev/types/**/*.ts",
     ".next-signed-out/types/**/*.ts",
-    ".next-signed-out/dev/types/**/*.ts"
+    ".next-signed-out/dev/types/**/*.ts",
+    ".next-captions-check/types/**/*.ts",
+    ".next-captions-check/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
